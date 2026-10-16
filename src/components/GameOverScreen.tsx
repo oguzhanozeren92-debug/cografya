@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Trophy, RotateCcw, CheckCircle2, MapPinned } from 'lucide-react';
 import type { LeaderboardEntry, GameMode } from '@/types';
+import { backend } from '@/lib/leaderboard';
 
 interface GameOverScreenProps {
   score: number;
@@ -27,9 +28,10 @@ export function GameOverScreen({
   onViewWeekly,
   onExplore,
 }: GameOverScreenProps) {
-  const [saveState, setSaveState] = useState<'saving' | 'saved' | 'error'>('saving');
+  const [saveState, setSaveState] = useState<'saving' | 'saved' | 'error' | 'offline'>(backend ? 'saving' : 'offline');
   const [saveError, setSaveError] = useState('');
   const save = async () => {
+    if (!backend) { setSaveState('offline'); return; }
     setSaveState('saving');
     try { await onSave(); setSaveState('saved'); }
     catch { setSaveError('Skorun kaydı tamamlanamadı. Haftalık sıralama için Supabase kurulumunu ve bağlantını kontrol et.'); setSaveState('error'); }
@@ -69,6 +71,7 @@ export function GameOverScreen({
           <span className="font-semibold text-blue-300">{playerName}</span>
           {saveState === 'saving' && <p className="mt-1 text-slate-400">Skorun dünya sıralamasına gönderiliyor...</p>}
           {saveState === 'saved' && <p className="mt-1 text-emerald-400"><CheckCircle2 className="mr-1 inline h-4 w-4"/>Skorun kaydedildi!</p>}
+          {saveState === 'offline' && <p className="mt-1 text-slate-300">Turu tamamladın! Çevrim içi sıralama henüz kurulmadığı için bu turun puanı lige gönderilmedi.</p>}
           {saveState === 'error' && <div className="mt-2"><p className="text-rose-400">{saveError}</p><button onClick={() => void save()} className="mt-2 rounded-lg bg-blue-600 px-3 py-2 text-white">Tekrar Dene</button></div>}
         </div>
 
