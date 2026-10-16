@@ -29,7 +29,14 @@
     "@capacitor/ios": "8.5.3",
     "@capacitor-community/admob": "8.2.0",
     "motion": "^12.23.0",
-    "canvas-confetti": "^1.9.3"
+    "canvas-confetti": "^1.9.3",
+    "@react-three/fiber": "8.18.0",
+    "@tsparticles/engine": "4.4.0",
+    "@tsparticles/react": "4.4.0",
+    "@tsparticles/slim": "4.4.0",
+    "lottie-react": "2.4.2",
+    "howler": "2.2.4",
+    "three": "0.170.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
@@ -49,6 +56,8 @@
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.2",
     "@capacitor/cli": "8.5.3",
-    "@types/canvas-confetti": "^1.9.0"
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/howler": "2.2.12",
+    "@types/three": "0.170.0"
   }
 }

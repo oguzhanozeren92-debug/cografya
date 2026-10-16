@@ -465,3 +465,14 @@
   .atlas-home-planet {animation:none;}
   .atlas-home-mode, .atlas-home-topbutton, .atlas-home-profile {transition:none;}
 }
+
+/* Optional third-party FX, scoped to the home hero and victory badges. */
+.atlas-home-particles { position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;opacity:.70; }
+.atlas-home-particles canvas { pointer-events:none !important; }
+.atlas-home-webgl { position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none; }
+.atlas-home-webgl canvas { pointer-events:none !important; }
+.atlas-home-planet-wrap { isolation:isolate; }
+.atlas-home-planet-wrap>.atlas-home-planet { transition:opacity .3s ease; }
+.atlas-victory-badge { filter: drop-shadow(0 0 15px rgba(245,185,77,.24)); }
+.atlas-victory-center { pointer-events:none; }
+@media(prefers-reduced-motion:reduce) { .atlas-home-particles { display:none; } }

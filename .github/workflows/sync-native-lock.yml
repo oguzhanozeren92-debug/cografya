@@ -11,6 +11,12 @@ on:
       - src/lib/rewardedAds.ts
       - src/components/StartScreen.tsx
       - src/components/HomePlanet.tsx
+      - src/components/HomePlanet3D.tsx
+      - src/components/ArenaParticles.tsx
+      - src/components/VictoryBadge.tsx
+      - src/components/GameOverScreen.tsx
+      - src/components/DailyChallengeScreen.tsx
+      - src/lib/gameFx.ts
       - src/App.tsx
       - src/index.css
       - .github/workflows/sync-native-lock.yml

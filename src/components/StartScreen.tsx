@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import {
   ArrowRight, CalendarCheck, Check, ChevronRight, Compass, Crown, Flame,
   Flag, Globe2, Lightbulb, MapPinned, Pencil, Play, Search,
@@ -28,6 +28,8 @@ interface StartScreenProps {
 }
 
 const arenaModes: GameMode[] = ['mixed', 'flags', 'clues'];
+const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
+
 
 export function StartScreen({
   onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly, onDaily,
@@ -94,6 +96,7 @@ export function StartScreen({
 
         <motion.section {...entrance(0)} className="atlas-home-hero relative isolate overflow-hidden">
           <div className="atlas-home-hero-grid" aria-hidden="true" />
+          {!reduceMotion && <Suspense fallback={null}><ArenaParticles /></Suspense>}
           <HomePlanet />
           <div className="atlas-home-hero-content relative z-10">
             <span className="atlas-home-eyebrow"><Sparkles className="h-3.5 w-3.5" /> OYUN ZAMANI</span>

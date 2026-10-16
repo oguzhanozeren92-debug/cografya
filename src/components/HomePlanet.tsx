@@ -1,4 +1,6 @@
-import { useMemo } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+
+const HomePlanet3D = lazy(() => import('@/components/HomePlanet3D'));
 import { geoGraticule10, geoOrthographic, geoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
@@ -19,6 +21,22 @@ const geography = (feature(topology as never, topology.objects.countries as neve
  * The active quiz globe is unchanged and retains its own interactive controls.
  */
 export function HomePlanet() {
+  const [enable3d, setEnable3d] = useState(false);
+  const [ready3d, setReady3d] = useState(false);
+  useEffect(() => {
+    // Keep the SVG fallback for WebGL-less devices, reduced motion and low-end hardware.
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ||
+      (navigator.hardwareConcurrency ?? 4) <= 2) return;
+    try {
+      const probe = document.createElement('canvas');
+      const context = probe.getContext('webgl2') || probe.getContext('webgl');
+      if (context) {
+        const gl = context as WebGLRenderingContext;
+        gl.getExtension('WEBGL_lose_context')?.loseContext();
+        setEnable3d(true);
+      }
+    } catch { /* SVG fallback remains */ }
+  }, []);
   const paths = useMemo(() => {
     const projection = geoOrthographic().scale(111).translate([130, 130]).rotate([-25, -14, 0]);
     const path = geoPath(projection);
@@ -33,7 +51,7 @@ export function HomePlanet() {
       <div className="atlas-home-orbit atlas-home-orbit-one" />
       <div className="atlas-home-orbit atlas-home-orbit-two" />
       <div className="atlas-home-planet-glow" />
-      <svg className="atlas-home-planet" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+      <svg style={{ opacity: ready3d ? 0 : 1 }} className="atlas-home-planet" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="atlas-hero-sea" cx="30%" cy="22%" r="81%">
             <stop stopColor="#42c7ec" />
@@ -64,6 +82,11 @@ export function HomePlanet() {
         </g>
         <circle cx="130" cy="130" r="112" fill="none" stroke="#baf8ff" strokeWidth=".6" opacity=".55" />
       </svg>
+      {enable3d && (
+        <Suspense fallback={null}>
+          <HomePlanet3D onReady={() => setReady3d(true)} />
+        </Suspense>
+      )}
       <span className="atlas-home-satellite atlas-home-satellite-one" />
       <span className="atlas-home-satellite atlas-home-satellite-two" />
     </div>

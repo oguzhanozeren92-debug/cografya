@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+const VictoryBadge = lazy(() => import('@/components/VictoryBadge'));
 import { Trophy, RotateCcw, CheckCircle2, MapPinned } from 'lucide-react';
 import type { LeaderboardEntry, GameMode } from '@/types';
 import { backend } from '@/lib/leaderboard';
@@ -55,9 +56,9 @@ export function GameOverScreen({
     <div className="absolute inset-0 z-20 flex items-center justify-center px-4 py-6 overflow-y-auto">
       <motion.div initial={reduceMotion ? false : { opacity: 0, y: 19, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .34 }} className="w-full max-w-md glass-panel p-6 my-auto">
         <div className="mb-4 text-center">
-          <div className="mb-2 inline-flex h-14 w-14 items-center justify-center rounded-full bg-amber-500/20">
-            <Trophy className="h-7 w-7 text-amber-400" />
-          </div>
+          <Suspense fallback={<Trophy className="mx-auto mb-2 h-12 w-12 text-amber-300" />}>
+            <VictoryBadge size={78} />
+          </Suspense>
           <h2 className="text-2xl font-bold text-white">{mode === 'flags' ? 'Bayrak Arenası Tamamlandı' : mode === 'clues' ? 'İpucu Arenası Tamamlandı' : 'Oyun Bitti'}</h2>
           <p className="mt-1 text-xs font-bold tracking-wider text-amber-300">{mode === 'flags' ? '🚩 BAYRAK LİGİ' : mode === 'clues' ? '💡 İPUCU LİGİ' : '🌍 KARIŞIK LİG'}</p>
         </div>
