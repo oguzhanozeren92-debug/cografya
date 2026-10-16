@@ -9,6 +9,10 @@ on:
       - scripts/configure-admob-native.mjs
       - scripts/validate-admob-release.mjs
       - src/lib/rewardedAds.ts
+      - src/components/StartScreen.tsx
+      - src/components/HomePlanet.tsx
+      - src/App.tsx
+      - src/index.css
       - .github/workflows/sync-native-lock.yml
   workflow_dispatch:
 
