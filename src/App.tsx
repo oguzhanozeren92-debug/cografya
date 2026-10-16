@@ -9,7 +9,7 @@ import { WeeklyLeaderboardScreen } from '@/components/WeeklyLeaderboardScreen';
 import { DailyChallengeScreen } from '@/components/DailyChallengeScreen';
 import { ExploreMapScreen } from '@/components/ExploreMapScreen';
 import { ReviveScreen } from '@/components/ReviveScreen';
-import { isRewardedHeartAvailable, watchRewardedHeartAd } from '@/lib/rewardedAds';
+import { isRewardedHeartAvailable, initializeRewardedAds, openAdPrivacyOptions, watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { syncDiscoveries } from '@/lib/discovery';
 import { useEffect, useRef, useState } from 'react';
 import type { GameMode } from '@/types';
@@ -24,7 +24,20 @@ function App() {
   const [adBusy, setAdBusy] = useState(false);
   const [adError, setAdError] = useState('');
   const adLockRef = useRef(false);
-  const rewardedAvailable = isRewardedHeartAvailable();
+  const [rewardedAvailable, setRewardedAvailable] = useState(isRewardedHeartAvailable);
+  useEffect(() => {
+    let mounted = true;
+    void initializeRewardedAds().then(ready => { if (mounted) setRewardedAvailable(ready); });
+    return () => { mounted = false; };
+  }, []);
+  const showAdPrivacy = async () => {
+    try {
+      await openAdPrivacyOptions();
+      setRewardedAvailable(await initializeRewardedAds());
+    } catch {
+      setAdError('Reklam gizlilik tercihleri açılamadı.');
+    }
+  };
   const watchForHeart = async () => {
     if (adLockRef.current || !rewardedAvailable || game.rewardedHeartsUsed > 0 ||
       (game.phase !== 'question' && game.phase !== 'revive')) return;
@@ -106,7 +119,7 @@ function App() {
       </div>
 
       {showStart && (
-        <StartScreen onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
+        <StartScreen onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
       )}
 
       {game.phase === 'revive' && (

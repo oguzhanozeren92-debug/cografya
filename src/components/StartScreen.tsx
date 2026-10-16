@@ -1,12 +1,14 @@
-import { Globe2, Play, Trophy, Pencil, UserRound, Compass, CalendarCheck, Flame, MapPinned } from 'lucide-react';
+import { Globe2, Play, Trophy, Pencil, UserRound, Compass, CalendarCheck, Flame, MapPinned, ShieldCheck } from 'lucide-react';
 import { DAILY_TOTAL, getDailyDate, getStreakForDay, loadDailyProgress } from '@/lib/dailyChallenge';
 import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
 import type { GameMode, LeaderboardEntry } from '@/types';
 import { useState } from 'react';
+import { Capacitor } from '@capacitor/core';
 
 interface StartScreenProps {
   onStart: (mode: GameMode) => void;
+  onAdPrivacy?: () => void;
   onViewWeekly: (mode: GameMode) => void;
   onDaily: () => void;
   onExplore: () => void;
@@ -16,7 +18,7 @@ interface StartScreenProps {
   leaderboardError: string;
 }
 
-export function StartScreen({ onStart, onViewWeekly, onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
+export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
   const [editing, setEditing] = useState(!playerName);
   const [selectedMode, setSelectedMode] = useState<GameMode>('mixed');
   const [name, setName] = useState(playerName);
@@ -104,6 +106,11 @@ export function StartScreen({ onStart, onViewWeekly, onDaily, onExplore, leaderb
           <span className="relative z-10 flex flex-col gap-1"><span className="text-[10px] font-black uppercase tracking-[.22em] text-amber-300">YENİ • DÜNYA LİGİ</span><span className="text-lg font-black text-white">İki Ayrı Haftalık Lig</span><span className="text-xs text-slate-200">Karışık ve Bayrak podyumları</span></span>
           <Trophy className="relative z-10 h-12 w-12 shrink-0 text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,.5)]" />
         </button>
+        {Capacitor.isNativePlatform() && onAdPrivacy && (
+          <button type="button" onClick={onAdPrivacy} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl py-2 text-xs text-slate-400 hover:text-white">
+            <ShieldCheck className="h-4 w-4" /> Reklam gizlilik tercihleri
+          </button>
+        )}
         {(leaderboard.length > 0 || leaderboardError) && (
           <div className="glass-panel mt-3 p-4">
             <div className="mb-2 flex items-center gap-2 text-amber-400">
