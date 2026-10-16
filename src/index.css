@@ -63,3 +63,51 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+
+/* Weekly World League — illustrated/photo-backed mobile game arena */
+.weekly-fullscreen {
+  background: radial-gradient(ellipse at 50% -20%, #162c59 0%, transparent 57%), #050b1c;
+  scrollbar-gutter: stable;
+}
+.weekly-ambient { position: fixed; width: 270px; height: 270px; pointer-events: none; filter: blur(85px); opacity: .35; border-radius: 50%; }
+.weekly-ambient-left { top: 20%; left: -180px; background: #276fcf; }
+.weekly-ambient-right { top: 58%; right: -170px; background: #6e45bc; }
+.weekly-nav-button { height: 40px; min-width: 40px; padding: 0 10px; display: inline-flex; justify-content: center; align-items: center; color: #e2ecfa; border-radius: 13px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); }
+.weekly-nav-button:active { transform: scale(.96); }
+.weekly-hero { min-height: 270px; background: #0d2044; }
+.weekly-photo { position: absolute; inset: 0; z-index: -2; background-image: linear-gradient(95deg, rgba(6,17,43,.96) 0%, rgba(8,25,60,.87) 49%, rgba(9,25,56,.30) 100%), url('https://images-assets.nasa.gov/image/PIA18033/PIA18033~medium.jpg'); background-size: cover; background-position: center 43%; }
+.weekly-hero-shine { position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at 85% 24%, rgba(86,172,250,.37), transparent 50%), linear-gradient(0deg, rgba(6,12,28,.5), transparent 40%); }
+.weekly-cup-emblem { display: flex; width: 55px; height: 55px; justify-content: center; align-items: center; border: 1px solid rgba(251,220,137,.7); border-radius: 19px; background: linear-gradient(135deg, #b87410 0%, #f7bf4b 48%, #8d570a 100%); box-shadow: 0 12px 30px rgba(255,174,27,.23), inset 0 1px 0 rgba(255,255,255,.35); transform: rotate(-7deg); }
+.weekly-gold-text { background: linear-gradient(115deg, #fff0af, #f6bd58 45%, #ffdf88); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.weekly-hero-pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 10px; color: #e1ecff; background: rgba(0,0,0,.25); border: 1px solid rgba(255,255,255,.16); font-size: 10px; font-weight: 700; backdrop-filter: blur(12px); }
+.weekly-tab { display: flex; justify-content: center; align-items: center; gap: 7px; min-height: 42px; border-radius: 12px; color: #9cabcb; font-size: 12px; font-weight: 800; transition: all .2s; }
+.weekly-tab-selected { background: linear-gradient(145deg, #dfad49, #b97728); box-shadow: 0 4px 18px rgba(243,182,61,.16); color: #121b2f; }
+.weekly-stage { background: radial-gradient(ellipse at 51% 21%, rgba(48,101,163,.5), transparent 65%), linear-gradient(180deg, #111d3c, #07132c); }
+.weekly-stage-grid { position: absolute; inset: 0; opacity: .33; background-image: linear-gradient(rgba(118,177,253,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(118,177,253,.1) 1px, transparent 1px); background-size: 38px 38px; mask-image: linear-gradient(transparent, black); }
+.podium-player { display: flex; flex-direction: column; align-items: stretch; min-width: 0; }
+.podium-avatar { position: relative; display: flex; justify-content: center; align-items: center; margin: 0 auto; height: 60px; width: 60px; border-radius: 50%; font-size: 20px; font-weight: 900; color: #fff; box-shadow: 0 5px 28px rgba(0,0,0,.4), inset 0 0 15px rgba(255,255,255,.13); }
+.podium-avatar-gold { width: 79px; height: 79px; font-size: 24px; background: radial-gradient(circle at 30% 25%, #ffec96, #bb791a 65%, #72450b); border: 3px solid #ffe39a; box-shadow: 0 0 30px rgba(250,192,66,.4); }
+.podium-avatar-silver { background: radial-gradient(circle at 30% 25%, #bde0ed, #637fa2 65%, #334b70); border: 3px solid #c7def7; }
+.podium-avatar-bronze { background: radial-gradient(circle at 30% 25%, #d8a585, #8d533b 65%, #553225); border: 3px solid #d7a481; }
+.podium-medal { position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); min-width: 26px; height: 26px; padding: 0 5px; display: grid; place-items: center; border-radius: 50%; border: 2px solid #162441; color: #17203a; background: #eec260; font-size: 12px; font-weight: 900; }
+.podium-avatar-silver .podium-medal { background: #cad8ed; }
+.podium-avatar-bronze .podium-medal { background: #dcaa86; }
+.podium-stand { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; margin-top: 6px; border: 1px solid rgba(255,255,255,.16); border-bottom: 0; border-radius: 13px 13px 0 0; box-shadow: inset 0 1px 0 rgba(255,255,255,.2); }
+.podium-stand-gold { height: 104px; background: linear-gradient(135deg,#af7e2f,#e6b951 50%,#7e5020); }
+.podium-stand-silver { height: 68px; background: linear-gradient(135deg,#5d789d,#c1ccdb 49%,#536580); }
+.podium-stand-bronze { height: 46px; background: linear-gradient(135deg,#75503f,#bd805a 49%,#744738); }
+.podium-stand-number { font-size: 40px; font-weight: 1000; color: rgba(255,255,255,.92); text-shadow: 0 3px 10px rgba(0,0,0,.3); }
+.weekly-me { background: linear-gradient(120deg, rgba(20,56,94,.98), rgba(12,29,65,.96)); box-shadow: inset 0 1px 0 rgba(255,255,255,.1); }
+.weekly-me-icon { display: flex; justify-content: center; align-items: center; height: 47px; width: 47px; border: 1px solid rgba(122,224,250,.33); background: rgba(18,152,192,.2); border-radius: 15px; }
+.weekly-ranking-row { display: flex; align-items: center; gap: 10px; min-height: 58px; border: 1px solid rgba(255,255,255,.07); border-radius: 13px; background: rgba(255,255,255,.04); padding: 7px 10px; }
+.weekly-ranking-self { background: rgba(25,145,201,.15); border-color: rgba(68,194,246,.45); }
+.weekly-mini-avatar { display: flex; justify-content: center; align-items: center; flex-shrink: 0; width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(145deg,#214f85,#1d335c); color: #d6ecff; font-size: 12px; font-weight: 900; }
+.weekly-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 8px; text-align: center; }
+.weekly-play-button { color: #121625; background: linear-gradient(120deg, #f8cf72, #ffebac 50%, #d99b36); box-shadow: 0 8px 30px rgba(231,164,42,.18); transition: transform .2s, filter .2s; }
+.weekly-play-button:not(:disabled):hover { filter: brightness(1.1); transform: translateY(-2px); }
+.weekly-play-button:not(:disabled):active { transform: scale(.98); }
+.weekly-teaser { position: relative; isolation: isolate; min-height: 115px; background: #0a1a37; }
+.weekly-teaser::before { content:''; position:absolute; inset:0; z-index: -2; background-image: linear-gradient(100deg,rgba(4,13,34,.95),rgba(6,24,62,.66),rgba(13,37,83,.45)),url('https://images-assets.nasa.gov/image/PIA18033/PIA18033~medium.jpg'); background-size: cover; background-position: 57% 48%; }
+.weekly-teaser::after { content:''; position:absolute; inset:0; z-index: -1; background: radial-gradient(circle at 85% 35%,rgba(251,197,76,.16),transparent 45%); }
+@media (max-width: 360px) { .podium-avatar { width: 48px; height:48px; } .podium-avatar-gold {width:64px;height:64px;} .podium-stand-number {font-size:32px;} }
+@media (prefers-reduced-motion: reduce) { .weekly-play-button, .weekly-tab, .weekly-nav-button { transition: none; } }

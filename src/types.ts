@@ -27,3 +27,15 @@ export interface LeaderboardEntry {
   total_questions: number;
   created_at: string;
 }
+
+export interface WeeklyLeaderboardEntry {
+  id: string;
+  player_id: string;
+  player_name: string;
+  week_start: string;
+  score: number;
+  correct_answers: number;
+  total_questions: number;
+  games_played: number;
+  updated_at: string;
+}

@@ -10,6 +10,7 @@ interface GameOverScreenProps {
   onSave: () => Promise<void>;
   playerName: string;
   onRestart: () => void;
+  onViewWeekly: () => void;
 }
 
 export function GameOverScreen({
@@ -20,12 +21,14 @@ export function GameOverScreen({
   onSave,
   playerName,
   onRestart,
+  onViewWeekly,
 }: GameOverScreenProps) {
   const [saveState, setSaveState] = useState<'saving' | 'saved' | 'error'>('saving');
+  const [saveError, setSaveError] = useState('');
   const save = async () => {
     setSaveState('saving');
     try { await onSave(); setSaveState('saved'); }
-    catch { setSaveState('error'); }
+    catch { setSaveError('Skorun kaydı tamamlanamadı. Haftalık sıralama için Supabase kurulumunu ve bağlantını kontrol et.'); setSaveState('error'); }
   };
   const submittedRef = useRef(false);
   useEffect(() => { if (submittedRef.current) return; submittedRef.current = true; void save(); }, []);
@@ -60,8 +63,8 @@ export function GameOverScreen({
         <div className="mb-4 rounded-lg bg-white/5 px-3 py-3 text-center text-sm text-slate-200">
           <span className="font-semibold text-blue-300">{playerName}</span>
           {saveState === 'saving' && <p className="mt-1 text-slate-400">Skorun dünya sıralamasına gönderiliyor...</p>}
-          {saveState === 'saved' && <p className="mt-1 text-emerald-400"><CheckCircle2 className="mr-1 inline h-4 w-4"/>En yüksek skorun kaydedildi!</p>}
-          {saveState === 'error' && <div className="mt-2"><p className="text-rose-400">Skor gönderilemedi. İnternet bağlantını kontrol et.</p><button onClick={() => void save()} className="mt-2 rounded-lg bg-blue-600 px-3 py-2 text-white">Tekrar Dene</button></div>}
+          {saveState === 'saved' && <p className="mt-1 text-emerald-400"><CheckCircle2 className="mr-1 inline h-4 w-4"/>Skorun kaydedildi!</p>}
+          {saveState === 'error' && <div className="mt-2"><p className="text-rose-400">{saveError}</p><button onClick={() => void save()} className="mt-2 rounded-lg bg-blue-600 px-3 py-2 text-white">Tekrar Dene</button></div>}
         </div>
 
         {leaderboard.length > 0 && (
@@ -96,6 +99,7 @@ export function GameOverScreen({
           </div>
         )}
 
+        <button onClick={onViewWeekly} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-500/15 px-5 py-3 font-bold text-amber-200 hover:bg-amber-500/25"><Trophy className="h-5 w-5" /> Haftalık Dünya Sıralaması</button>
         <button
           onClick={onRestart}
           className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-6 py-3 font-semibold text-white transition-all hover:bg-white/20 active:scale-[0.98]"

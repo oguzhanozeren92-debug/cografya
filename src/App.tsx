@@ -5,12 +5,14 @@ import { StartScreen } from '@/components/StartScreen';
 import { HUD } from '@/components/HUD';
 import { QuestionPanel } from '@/components/QuestionPanel';
 import { GameOverScreen } from '@/components/GameOverScreen';
+import { WeeklyLeaderboardScreen } from '@/components/WeeklyLeaderboardScreen';
 import { useState } from 'react';
 import { getSavedName, changePlayerName, getPlayerId, setSavedName } from '@/lib/leaderboard';
 
 function App() {
   const game = useGame();
   const [playerName, setPlayerName] = useState(getSavedName);
+  const [weeklyOpen, setWeeklyOpen] = useState(false);
   const updateName = async (name: string) => {
     await getPlayerId();
     await changePlayerName(name);
@@ -58,7 +60,7 @@ function App() {
       </div>
 
       {showStart && (
-        <StartScreen onStart={game.start} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
+        <StartScreen onStart={game.start} onViewWeekly={() => setWeeklyOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
       )}
 
       {showGameOver && (
@@ -70,7 +72,12 @@ function App() {
           onSave={() => game.saveScore(playerName)}
           playerName={playerName}
           onRestart={game.restart}
+          onViewWeekly={() => setWeeklyOpen(true)}
         />
+      )}
+
+      {weeklyOpen && (
+        <WeeklyLeaderboardScreen playerName={playerName} onClose={() => setWeeklyOpen(false)} onPlay={() => { setWeeklyOpen(false); game.start(); }} />
       )}
     </div>
   );

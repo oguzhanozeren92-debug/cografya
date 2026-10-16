@@ -4,13 +4,14 @@ import { useState } from 'react';
 
 interface StartScreenProps {
   onStart: () => void;
+  onViewWeekly: () => void;
   leaderboard: LeaderboardEntry[];
   playerName: string;
   onNameChange: (name: string) => Promise<void>;
   leaderboardError: string;
 }
 
-export function StartScreen({ onStart, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
+export function StartScreen({ onStart, onViewWeekly, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
   const [editing, setEditing] = useState(!playerName);
   const [name, setName] = useState(playerName);
   const [error, setError] = useState('');
@@ -62,6 +63,10 @@ export function StartScreen({ onStart, leaderboard, playerName, onNameChange, le
           </button>
         </div>
 
+        <button onClick={onViewWeekly} className="weekly-teaser mt-3 flex w-full items-center justify-between overflow-hidden rounded-2xl border border-amber-300/30 px-5 py-5 text-left shadow-xl transition hover:border-amber-300/60 hover:brightness-110">
+          <span className="relative z-10 flex flex-col gap-1"><span className="text-[10px] font-black uppercase tracking-[.22em] text-amber-300">YENİ • DÜNYA LİGİ</span><span className="text-lg font-black text-white">Haftalık Sıralama</span><span className="text-xs text-slate-200">Kupaya giden yolu keşfet</span></span>
+          <Trophy className="relative z-10 h-12 w-12 shrink-0 text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,.5)]" />
+        </button>
         {(leaderboard.length > 0 || leaderboardError) && (
           <div className="glass-panel mt-3 p-4">
             <div className="mb-2 flex items-center gap-2 text-amber-400">

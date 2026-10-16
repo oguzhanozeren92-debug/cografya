@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { GamePhase, QuestionType, RoundResult, LeaderboardEntry } from '@/types';
 import { COUNTRY_DATA, COUNTRIES_BY_DIFFICULTY, VALID_COUNTRY_IDS } from '@/data/countries';
 import { fetchLeaderboard, saveGlobalScore } from '@/lib/leaderboard';
+import { submitWeeklyScore } from '@/lib/weeklyLeaderboard';
 
 const MAX_LIVES = 3;
 const BASE_POINTS = 100;
@@ -191,7 +192,9 @@ export function useGame() {
   }, [refreshLeaderboard]);
 
   const saveScore = useCallback(async (name: string) => {
-    await saveGlobalScore(name, score, roundResults.filter((r) => r.isCorrect).length, roundResults.length);
+    const correct = roundResults.filter((r) => r.isCorrect).length;
+    await saveGlobalScore(name, score, correct, roundResults.length);
+    await submitWeeklyScore(name, score, correct, roundResults.length);
     await refreshLeaderboard();
   }, [score, roundResults, refreshLeaderboard]);
 
