@@ -1,10 +1,10 @@
 import { Globe2, Play, Trophy, Pencil, UserRound } from 'lucide-react';
-import type { LeaderboardEntry } from '@/types';
+import type { GameMode, LeaderboardEntry } from '@/types';
 import { useState } from 'react';
 
 interface StartScreenProps {
-  onStart: () => void;
-  onViewWeekly: () => void;
+  onStart: (mode: GameMode) => void;
+  onViewWeekly: (mode: GameMode) => void;
   leaderboard: LeaderboardEntry[];
   playerName: string;
   onNameChange: (name: string) => Promise<void>;
@@ -13,6 +13,7 @@ interface StartScreenProps {
 
 export function StartScreen({ onStart, onViewWeekly, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
   const [editing, setEditing] = useState(!playerName);
+  const [selectedMode, setSelectedMode] = useState<GameMode>('mixed');
   const [name, setName] = useState(playerName);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -24,8 +25,8 @@ export function StartScreen({ onStart, onViewWeekly, leaderboard, playerName, on
     finally { setBusy(false); }
   };
   return (
-    <div className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-8 px-4">
-      <div className="pointer-events-none flex-1" />
+    <div className="fixed inset-0 z-20 flex flex-col items-center justify-end overflow-y-auto px-4 pb-8 pt-16 sm:pt-20">
+      <div className="pointer-events-none min-h-4 flex-1" />
 
       <div className="w-full max-w-md animate-slide-up">
         <div className="glass-panel p-6 text-center">
@@ -37,8 +38,7 @@ export function StartScreen({ onStart, onViewWeekly, leaderboard, playerName, on
             Dünya Coğrafya Bulmaca
           </h1>
           <p className="mb-5 text-sm text-slate-400 leading-relaxed">
-            Dönen dünya globusu durur ve kırmızı bir ülke belirir.
-            Hangi ülke olduğunu tahmin et! Sonra başkentlerini de öğreneceksin.
+            İki ayrı oyun, iki ayrı lig! Dönen dünyada ülkeleri keşfet veya bayrakları tanı.
           </p>
 
           {editing ? (
@@ -53,18 +53,33 @@ export function StartScreen({ onStart, onViewWeekly, leaderboard, playerName, on
           ) : (
             <button onClick={() => {setName(playerName);setEditing(true);}} className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-3 py-2.5 text-sm text-slate-200"><UserRound className="h-4 w-4" /> {playerName} <Pencil className="h-3.5 w-3.5 opacity-60" /></button>
           )}
+          <div className="mb-4 grid grid-cols-2 gap-2 text-left" aria-label="Oyun modu seçimi">
+            <button type="button" onClick={() => setSelectedMode('mixed')} aria-pressed={selectedMode === 'mixed'} className={'game-mode-card game-mode-mixed ' + (selectedMode === 'mixed' ? 'game-mode-selected' : '')}>
+              <span className="game-mode-art" aria-hidden="true">🌍</span>
+              <span className="game-mode-title">KARIŞIK</span>
+              <span className="game-mode-subtitle">Ülke + Başkent + Bayrak</span>
+              <span className="game-mode-league">🏆 Karışık Ligi</span>
+            </button>
+            <button type="button" onClick={() => setSelectedMode('flags')} aria-pressed={selectedMode === 'flags'} className={'game-mode-card game-mode-flags ' + (selectedMode === 'flags' ? 'game-mode-selected' : '')}>
+              <span className="game-mode-art flex gap-1 text-2xl" aria-hidden="true">🇹🇷 🇯🇵 🇧🇷</span>
+              <span className="game-mode-title">BAYRAKLAR</span>
+              <span className="game-mode-subtitle">Bayrağı gör, ülkeyi bul</span>
+              <span className="game-mode-league">🏆 Bayrak Ligi</span>
+            </button>
+          </div>
+          <p className="mb-3 text-center text-[11px] text-slate-400">5 kolay → 7 orta → ardından zor ülkeler</p>
           <button
             disabled={!playerName || editing}
-            onClick={onStart}
+            onClick={() => onStart(selectedMode)}
             className="group flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:bg-blue-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <Play className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
-            Başla
+            {selectedMode === 'flags' ? 'Bayrak Arenasına Gir' : 'Karışık Oyuna Başla'}
           </button>
         </div>
 
-        <button onClick={onViewWeekly} className="weekly-teaser mt-3 flex w-full items-center justify-between overflow-hidden rounded-2xl border border-amber-300/30 px-5 py-5 text-left shadow-xl transition hover:border-amber-300/60 hover:brightness-110">
-          <span className="relative z-10 flex flex-col gap-1"><span className="text-[10px] font-black uppercase tracking-[.22em] text-amber-300">YENİ • DÜNYA LİGİ</span><span className="text-lg font-black text-white">Haftalık Sıralama</span><span className="text-xs text-slate-200">Kupaya giden yolu keşfet</span></span>
+        <button onClick={() => onViewWeekly(selectedMode)} className="weekly-teaser mt-3 flex w-full items-center justify-between overflow-hidden rounded-2xl border border-amber-300/30 px-5 py-5 text-left shadow-xl transition hover:border-amber-300/60 hover:brightness-110">
+          <span className="relative z-10 flex flex-col gap-1"><span className="text-[10px] font-black uppercase tracking-[.22em] text-amber-300">YENİ • DÜNYA LİGİ</span><span className="text-lg font-black text-white">İki Ayrı Haftalık Lig</span><span className="text-xs text-slate-200">Karışık ve Bayrak podyumları</span></span>
           <Trophy className="relative z-10 h-12 w-12 shrink-0 text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,.5)]" />
         </button>
         {(leaderboard.length > 0 || leaderboardError) && (

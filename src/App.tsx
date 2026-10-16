@@ -7,12 +7,15 @@ import { QuestionPanel } from '@/components/QuestionPanel';
 import { GameOverScreen } from '@/components/GameOverScreen';
 import { WeeklyLeaderboardScreen } from '@/components/WeeklyLeaderboardScreen';
 import { useState } from 'react';
+import type { GameMode } from '@/types';
 import { getSavedName, changePlayerName, getPlayerId, setSavedName } from '@/lib/leaderboard';
 
 function App() {
   const game = useGame();
   const [playerName, setPlayerName] = useState(getSavedName);
   const [weeklyOpen, setWeeklyOpen] = useState(false);
+  const [weeklyMode, setWeeklyMode] = useState<GameMode>('mixed');
+  const openWeekly = (mode: GameMode) => { setWeeklyMode(mode); setWeeklyOpen(true); };
   const updateName = async (name: string) => {
     await getPlayerId();
     await changePlayerName(name);
@@ -20,7 +23,7 @@ function App() {
     setPlayerName(name.trim().slice(0, 20));
     await game.refreshLeaderboard();
   };
-  const showGlobe = game.phase !== 'idle' || true;
+  const showGlobe = game.phase === 'idle' || game.phase === 'gameover' || game.currentQuestionType !== 'flag';
   const showHUD = game.phase !== 'idle' && game.phase !== 'gameover';
   const showQuestion = game.phase === 'question' || game.phase === 'feedback';
   const showStart = game.phase === 'idle';
@@ -48,19 +51,21 @@ function App() {
         )}
 
         {showQuestion && (
-          <QuestionPanel
+          <div className={game.currentQuestionType === 'flag' ? 'flex flex-1 items-center justify-center pt-8' : ''}><QuestionPanel
+            countryId={game.currentCountryId}
+            round={game.round}
             questionType={game.currentQuestionType}
             options={game.currentOptions}
             selectedAnswer={game.selectedAnswer}
             correctAnswer={game.currentAnswer}
             phase={game.phase}
             onAnswer={game.onAnswer}
-          />
+          /></div>
         )}
       </div>
 
       {showStart && (
-        <StartScreen onStart={game.start} onViewWeekly={() => setWeeklyOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
+        <StartScreen onStart={game.start} onViewWeekly={openWeekly} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
       )}
 
       {showGameOver && (
@@ -69,15 +74,16 @@ function App() {
           correctAnswers={game.correctCount}
           totalQuestions={game.roundResults.length}
           leaderboard={game.leaderboard}
+          mode={game.mode}
           onSave={() => game.saveScore(playerName)}
           playerName={playerName}
           onRestart={game.restart}
-          onViewWeekly={() => setWeeklyOpen(true)}
+          onViewWeekly={openWeekly}
         />
       )}
 
       {weeklyOpen && (
-        <WeeklyLeaderboardScreen playerName={playerName} onClose={() => setWeeklyOpen(false)} onPlay={() => { setWeeklyOpen(false); game.start(); }} />
+        <WeeklyLeaderboardScreen initialMode={weeklyMode} playerName={playerName} onClose={() => setWeeklyOpen(false)} onPlay={(mode) => { setWeeklyOpen(false); game.start(mode); }} />
       )}
     </div>
   );

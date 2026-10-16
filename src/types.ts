@@ -1,6 +1,8 @@
 export type Difficulty = 1 | 2 | 3;
 
-export type QuestionType = 'country' | 'capital';
+export type GameMode = 'mixed' | 'flags';
+
+export type QuestionType = 'country' | 'capital' | 'flag';
 
 export type GamePhase = 'idle' | 'spinning' | 'question' | 'feedback' | 'gameover';
 
@@ -33,6 +35,7 @@ export interface WeeklyLeaderboardEntry {
   player_id: string;
   player_name: string;
   week_start: string;
+  mode: GameMode;
   score: number;
   correct_answers: number;
   total_questions: number;

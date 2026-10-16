@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { Trophy, RotateCcw, CheckCircle2 } from 'lucide-react';
-import type { LeaderboardEntry } from '@/types';
+import type { LeaderboardEntry, GameMode } from '@/types';
 
 interface GameOverScreenProps {
   score: number;
   correctAnswers: number;
   totalQuestions: number;
   leaderboard: LeaderboardEntry[];
+  mode: GameMode;
   onSave: () => Promise<void>;
   playerName: string;
   onRestart: () => void;
-  onViewWeekly: () => void;
+  onViewWeekly: (mode: GameMode) => void;
 }
 
 export function GameOverScreen({
@@ -19,6 +20,7 @@ export function GameOverScreen({
   totalQuestions,
   leaderboard,
   onSave,
+  mode,
   playerName,
   onRestart,
   onViewWeekly,
@@ -42,7 +44,8 @@ export function GameOverScreen({
           <div className="mb-2 inline-flex h-14 w-14 items-center justify-center rounded-full bg-amber-500/20">
             <Trophy className="h-7 w-7 text-amber-400" />
           </div>
-          <h2 className="text-2xl font-bold text-white">Oyun Bitti</h2>
+          <h2 className="text-2xl font-bold text-white">{mode === 'flags' ? 'Bayrak Arenası Tamamlandı' : 'Oyun Bitti'}</h2>
+          <p className="mt-1 text-xs font-bold tracking-wider text-amber-300">{mode === 'flags' ? '🚩 BAYRAK LİGİ' : '🌍 KARIŞIK LİG'}</p>
         </div>
 
         <div className="mb-5 grid grid-cols-3 gap-2">
@@ -67,7 +70,7 @@ export function GameOverScreen({
           {saveState === 'error' && <div className="mt-2"><p className="text-rose-400">{saveError}</p><button onClick={() => void save()} className="mt-2 rounded-lg bg-blue-600 px-3 py-2 text-white">Tekrar Dene</button></div>}
         </div>
 
-        {leaderboard.length > 0 && (
+        {mode === 'mixed' && leaderboard.length > 0 && (
           <div className="mb-5">
             <div className="mb-2 flex items-center gap-2 text-amber-400">
               <Trophy className="h-4 w-4" />
@@ -99,13 +102,13 @@ export function GameOverScreen({
           </div>
         )}
 
-        <button onClick={onViewWeekly} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-500/15 px-5 py-3 font-bold text-amber-200 hover:bg-amber-500/25"><Trophy className="h-5 w-5" /> Haftalık Dünya Sıralaması</button>
+        <button onClick={() => onViewWeekly(mode)} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-500/15 px-5 py-3 font-bold text-amber-200 hover:bg-amber-500/25"><Trophy className="h-5 w-5" />{mode === 'flags' ? 'Bayrak Ligi Sıralaması' : 'Karışık Lig Sıralaması'}</button>
         <button
           onClick={onRestart}
           className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-6 py-3 font-semibold text-white transition-all hover:bg-white/20 active:scale-[0.98]"
         >
           <RotateCcw className="h-5 w-5 transition-transform group-hover:rotate-[-180deg] duration-500" />
-          Tekrar Oyna
+          Ana Menüye Dön
         </button>
       </div>
     </div>

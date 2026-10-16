@@ -1,4 +1,4 @@
-import type { WeeklyLeaderboardEntry } from '@/types';
+import type { GameMode, WeeklyLeaderboardEntry } from '@/types';
 import { backend } from '@/lib/leaderboard';
 
 export interface MyWeeklyStanding {
@@ -6,7 +6,7 @@ export interface MyWeeklyStanding {
   rank: number;
 }
 
-/** Weeks open at Monday 00:00 UTC, independently of the viewer's timezone. */
+/** Every Monday at 00:00 UTC starts a new competition. */
 export function getWeekStart(weekOffset = 0): string {
   const now = new Date();
   const monday = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
@@ -29,10 +29,13 @@ export function getTimeToReset(): string {
   return days > 0 ? days + ' gün ' + hours + ' saat' : hours + ' saat ' + Math.floor((ms % 3600000) / 60000) + ' dk';
 }
 
-export async function fetchWeeklyLeaderboard(weekOffset = 0): Promise<WeeklyLeaderboardEntry[]> {
+const columns = 'id, player_id, player_name, mode, score, correct_answers, total_questions, games_played, week_start, updated_at';
+
+export async function fetchWeeklyLeaderboard(mode: GameMode = 'mixed', weekOffset = 0): Promise<WeeklyLeaderboardEntry[]> {
   if (!backend) throw new Error('Supabase bağlantısı henüz yapılandırılmamış.');
   const { data, error } = await backend.from('geo_weekly_leaderboard')
-    .select('id, player_id, player_name, score, correct_answers, total_questions, games_played, week_start, updated_at')
+    .select(columns)
+    .eq('mode', mode)
     .eq('week_start', getWeekStart(weekOffset))
     .order('score', { ascending: false })
     .order('updated_at', { ascending: true })
@@ -41,33 +44,36 @@ export async function fetchWeeklyLeaderboard(weekOffset = 0): Promise<WeeklyLead
   return (data ?? []) as WeeklyLeaderboardEntry[];
 }
 
-export async function fetchMyWeeklyStanding(weekOffset = 0): Promise<MyWeeklyStanding | null> {
+export async function fetchMyWeeklyStanding(mode: GameMode = 'mixed', weekOffset = 0): Promise<MyWeeklyStanding | null> {
   if (!backend) return null;
-  const { data: authData, error: authError } = await backend.auth.getSession();
-  if (authError || !authData.session?.user.id) return null;
+  const { data: sessionData, error: authError } = await backend.auth.getSession();
+  if (authError || !sessionData.session?.user.id) return null;
   const { data, error } = await backend.from('geo_weekly_leaderboard')
-    .select('id, player_id, player_name, score, correct_answers, total_questions, games_played, week_start, updated_at')
+    .select(columns)
+    .eq('mode', mode)
     .eq('week_start', getWeekStart(weekOffset))
-    .eq('player_id', authData.session.user.id)
+    .eq('player_id', sessionData.session.user.id)
     .maybeSingle();
   if (error) throw error;
   if (!data) return null;
   const entry = data as WeeklyLeaderboardEntry;
   const { count, error: countError } = await backend.from('geo_weekly_leaderboard')
     .select('player_id', { count: 'exact', head: true })
+    .eq('mode', mode)
     .eq('week_start', getWeekStart(weekOffset))
     .gt('score', entry.score);
   if (countError) throw countError;
   return { entry, rank: (count ?? 0) + 1 };
 }
 
-export async function submitWeeklyScore(name: string, score: number, correct: number, total: number): Promise<void> {
+export async function submitWeeklyScore(name: string, score: number, correct: number, total: number, mode: GameMode): Promise<void> {
   if (!backend) throw new Error('Supabase bağlantısı henüz yapılandırılmamış.');
   const { error } = await backend.rpc('geo_submit_weekly_score', {
     p_player_name: name.trim().slice(0, 20),
     p_score: score,
     p_correct_answers: correct,
     p_total_questions: total,
+    p_mode: mode,
   });
   if (error) throw error;
 }

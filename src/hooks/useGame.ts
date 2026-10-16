@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { GamePhase, QuestionType, RoundResult, LeaderboardEntry } from '@/types';
+import type { GameMode, GamePhase, QuestionType, RoundResult, LeaderboardEntry } from '@/types';
 import { COUNTRY_DATA, COUNTRIES_BY_DIFFICULTY, VALID_COUNTRY_IDS } from '@/data/countries';
 import { fetchLeaderboard, saveGlobalScore } from '@/lib/leaderboard';
 import { submitWeeklyScore } from '@/lib/weeklyLeaderboard';
@@ -8,71 +8,46 @@ const MAX_LIVES = 3;
 const BASE_POINTS = 100;
 const STREAK_BONUS = 50;
 
-function shuffle<T>(arr: T[]): T[] {
-  const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i--) {
+function shuffle<T>(items: T[]): T[] {
+  const arr = [...items];
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return copy;
+  return arr;
 }
 
-function pickRandom<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function getAvailableDifficulties(round: number): (1 | 2 | 3)[] {
-  if (round <= 5) return [1];
-  if (round <= 12) return [1, 2];
-  return [1, 2, 3];
+/** Guaranteed difficulty progression: first 5 easy, 6–12 medium, 13+ hard. */
+export function getRoundDifficulty(round: number): 1 | 2 | 3 {
+  return round <= 5 ? 1 : round <= 12 ? 2 : 3;
 }
 
 function pickCountryId(round: number, recentIds: string[]): string {
-  const difficulties = getAvailableDifficulties(round);
-  const pool: string[] = [];
-  for (const d of difficulties) {
-    pool.push(...COUNTRIES_BY_DIFFICULTY[d]);
-  }
-  const available = pool.filter((id) => !recentIds.includes(id));
-  return pickRandom(available.length > 0 ? available : pool);
+  const tier = getRoundDifficulty(round);
+  const pool = COUNTRIES_BY_DIFFICULTY[tier];
+  const available = pool.filter(id => !recentIds.includes(id));
+  const selection = available.length > 0 ? available : pool;
+  return selection[Math.floor(Math.random() * selection.length)];
 }
 
-function generateOptions(
-  countryId: string,
-  questionType: QuestionType,
-  round: number,
-): string[] {
-  const meta = COUNTRY_DATA[countryId];
-  const correct = questionType === 'country' ? meta.nameTr : meta.capitalTr;
-
-  const difficulties = getAvailableDifficulties(round);
-  const pool: string[] = [];
-  for (const d of difficulties) {
-    for (const id of COUNTRIES_BY_DIFFICULTY[d]) {
-      if (id === countryId) continue;
-      const m = COUNTRY_DATA[id];
-      const val = questionType === 'country' ? m.nameTr : m.capitalTr;
-      if (val !== correct) pool.push(val);
-    }
+function generateOptions(countryId: string, questionType: QuestionType, round: number): string[] {
+  const label = (id: string) => questionType === 'capital' ? COUNTRY_DATA[id].capitalTr : COUNTRY_DATA[id].nameTr;
+  const answer = label(countryId);
+  const difficulty = getRoundDifficulty(round);
+  // Harder questions also have increasingly unfamiliar distractors.
+  const sameTier = shuffle(COUNTRIES_BY_DIFFICULTY[difficulty].filter(id => id !== countryId));
+  const other = shuffle(VALID_COUNTRY_IDS.filter(id => id !== countryId && COUNTRY_DATA[id].difficulty !== difficulty));
+  const choices = new Set<string>();
+  for (const id of [...sameTier, ...other]) {
+    const candidate = label(id);
+    if (candidate !== answer) choices.add(candidate);
+    if (choices.size === 3) break;
   }
-
-  const wrongAnswers = shuffle(pool).slice(0, 3);
-
-  if (wrongAnswers.length < 3) {
-    const allVals = VALID_COUNTRY_IDS
-      .filter((id) => id !== countryId)
-      .map((id) => questionType === 'country' ? COUNTRY_DATA[id].nameTr : COUNTRY_DATA[id].capitalTr)
-      .filter((v) => v !== correct && !wrongAnswers.includes(v));
-    while (wrongAnswers.length < 3) {
-      const extra = pickRandom(allVals);
-      if (extra && !wrongAnswers.includes(extra)) wrongAnswers.push(extra);
-    }
-  }
-
-  return shuffle([correct, ...wrongAnswers]);
+  return shuffle([answer, ...choices]);
 }
 
 export function useGame() {
+  const [mode, setMode] = useState<GameMode>('mixed');
   const [phase, setPhase] = useState<GamePhase>('idle');
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(MAX_LIVES);
@@ -85,10 +60,9 @@ export function useGame() {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [roundResults, setRoundResults] = useState<RoundResult[]>([]);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-
+  const [leaderboardError, setLeaderboardError] = useState('');
   const recentIdsRef = useRef<string[]>([]);
 
-  const [leaderboardError, setLeaderboardError] = useState('');
   const refreshLeaderboard = useCallback(async () => {
     try {
       const rows = await fetchLeaderboard();
@@ -100,89 +74,78 @@ export function useGame() {
   }, []);
   useEffect(() => { void refreshLeaderboard(); }, [refreshLeaderboard]);
 
-  const start = useCallback(() => {
+  const startRound = useCallback((roundNum: number, gameMode: GameMode) => {
+    const countryId = pickCountryId(roundNum, recentIdsRef.current);
+    recentIdsRef.current = [countryId, ...recentIdsRef.current].slice(0, 8);
+    // The mixed mode gradually introduces capitals and flags without changing its league.
+    const roll = Math.random();
+    const questionType: QuestionType = gameMode === 'flags' ? 'flag'
+      : roundNum >= 4 && roll < 0.35 ? 'capital'
+      : roundNum >= 6 && roll < 0.62 ? 'flag'
+      : 'country';
+    const options = generateOptions(countryId, questionType, roundNum);
+    const meta = COUNTRY_DATA[countryId];
+    const answer = questionType === 'capital' ? meta.capitalTr : meta.nameTr;
+    setCurrentCountryId(countryId);
+    setCurrentQuestionType(questionType);
+    setCurrentOptions(options);
+    setCurrentAnswer(answer);
+    setSelectedAnswer(null);
+    // Flag questions show the banner immediately. Geography questions retain the spinning globe.
+    setPhase(questionType === 'flag' ? 'question' : 'spinning');
+  }, []);
+
+  const start = useCallback((gameMode: GameMode = 'mixed') => {
+    setMode(gameMode);
     setScore(0);
     setLives(MAX_LIVES);
     setStreak(0);
     setRound(1);
     setRoundResults([]);
     recentIdsRef.current = [];
-    startRound(1);
-  }, []);
-
-  const startRound = useCallback((roundNum: number) => {
-    const countryId = pickCountryId(roundNum, recentIdsRef.current);
-    recentIdsRef.current = [countryId, ...recentIdsRef.current].slice(0, 8);
-
-    const questionType: QuestionType = roundNum >= 4 && Math.random() < 0.4 ? 'capital' : 'country';
-    const options = generateOptions(countryId, questionType, roundNum);
-    const meta = COUNTRY_DATA[countryId];
-    const answer = questionType === 'country' ? meta.nameTr : meta.capitalTr;
-
-    setCurrentCountryId(countryId);
-    setCurrentQuestionType(questionType);
-    setCurrentOptions(options);
-    setCurrentAnswer(answer);
-    setSelectedAnswer(null);
-    setPhase('spinning');
-  }, []);
+    startRound(1, gameMode);
+  }, [startRound]);
 
   const onSpinEnd = useCallback(() => {
-    setPhase('question');
+    setPhase(current => current === 'spinning' ? 'question' : current);
   }, []);
 
-  const onAnswer = useCallback(
-    (answer: string) => {
-      if (phase !== 'question') return;
-      setSelectedAnswer(answer);
-      const isCorrect = answer === currentAnswer;
-      const meta = currentCountryId ? COUNTRY_DATA[currentCountryId] : null;
-
-      if (isCorrect) {
-        const difficulty = meta ? meta.difficulty : 1;
-        const points = BASE_POINTS * difficulty + STREAK_BONUS * streak;
-        setScore((s) => s + points);
-        setStreak((s) => s + 1);
-      } else {
-        setLives((l) => l - 1);
-        setStreak(0);
-      }
-
-      if (meta && currentCountryId) {
-        setRoundResults((prev) => [
-          ...prev,
-          {
-            countryId: currentCountryId,
-            countryName: meta.nameTr,
-            questionType: currentQuestionType,
-            correctAnswer: currentAnswer,
-            selectedAnswer: answer,
-            isCorrect,
-          },
-        ]);
-      }
-
-      setPhase('feedback');
-    },
-    [phase, currentAnswer, currentCountryId, currentQuestionType, streak],
-  );
+  const onAnswer = useCallback((answer: string) => {
+    if (phase !== 'question') return;
+    setSelectedAnswer(answer);
+    const isCorrect = answer === currentAnswer;
+    const meta = currentCountryId ? COUNTRY_DATA[currentCountryId] : null;
+    if (isCorrect) {
+      const points = BASE_POINTS * (meta?.difficulty ?? 1) + STREAK_BONUS * streak;
+      setScore(value => value + points);
+      setStreak(value => value + 1);
+    } else {
+      setLives(value => value - 1);
+      setStreak(0);
+    }
+    if (meta && currentCountryId) {
+      setRoundResults(previous => [...previous, {
+        countryId: currentCountryId,
+        countryName: meta.nameTr,
+        questionType: currentQuestionType,
+        correctAnswer: currentAnswer,
+        selectedAnswer: answer,
+        isCorrect,
+      }]);
+    }
+    setPhase('feedback');
+  }, [phase, currentAnswer, currentCountryId, currentQuestionType, streak]);
 
   const onContinue = useCallback(() => {
-    if (lives <= 0) {
-      setPhase('gameover');
-      return;
-    }
+    if (lives <= 0) { setPhase('gameover'); return; }
     const nextRound = round + 1;
     setRound(nextRound);
-    startRound(nextRound);
-  }, [lives, round, startRound]);
+    startRound(nextRound, mode);
+  }, [lives, round, mode, startRound]);
 
-  // Cevap seçildiği an sonuç gösterilir; kısa bir süre sonra otomatik ilerler.
   useEffect(() => {
     if (phase !== 'feedback') return;
-    const timeout = window.setTimeout(() => {
-      onContinue();
-    }, 1250);
+    const timeout = window.setTimeout(onContinue, 1250);
     return () => window.clearTimeout(timeout);
   }, [phase, onContinue]);
 
@@ -192,35 +155,18 @@ export function useGame() {
   }, [refreshLeaderboard]);
 
   const saveScore = useCallback(async (name: string) => {
-    const correct = roundResults.filter((r) => r.isCorrect).length;
-    await saveGlobalScore(name, score, correct, roundResults.length);
-    await submitWeeklyScore(name, score, correct, roundResults.length);
+    const correct = roundResults.filter(result => result.isCorrect).length;
+    // The legacy lifetime table is only for the established mixed game.
+    if (mode === 'mixed') await saveGlobalScore(name, score, correct, roundResults.length);
+    await submitWeeklyScore(name, score, correct, roundResults.length, mode);
     await refreshLeaderboard();
-  }, [score, roundResults, refreshLeaderboard]);
-
-  const correctCount = roundResults.filter((r) => r.isCorrect).length;
+  }, [mode, score, roundResults, refreshLeaderboard]);
 
   return {
-    phase,
-    score,
-    lives,
-    streak,
-    round,
-    currentCountryId,
-    currentQuestionType,
-    currentOptions,
-    currentAnswer,
-    selectedAnswer,
-    roundResults,
-    leaderboard,
-    leaderboardError,
-    refreshLeaderboard,
-    correctCount,
-    start,
-    onSpinEnd,
-    onAnswer,
-    onContinue,
-    restart,
-    saveScore,
+    mode, phase, score, lives, streak, round, currentCountryId, currentQuestionType,
+    currentOptions, currentAnswer, selectedAnswer, roundResults, leaderboard,
+    leaderboardError, refreshLeaderboard,
+    correctCount: roundResults.filter(r => r.isCorrect).length,
+    start, onSpinEnd, onAnswer, onContinue, restart, saveScore,
   };
 }
