@@ -24,7 +24,7 @@ export function ReviveScreen({ mode, score, round, available, busy, error, onWat
         <p className="relative z-10 mb-2 text-[11px] font-extrabold tracking-[.24em] text-amber-300">DEVAM ŞANSI</p>
         <h2 id="revive-title" className="relative z-10 text-3xl font-black tracking-tight">Canların Bitti!</h2>
         <p className="relative z-10 mt-2 text-sm leading-6 text-blue-100/80">
-          {mode === 'flags' ? 'Bayrak Arenası' : 'Karışık Arena'} · {round}. soru
+          {mode === 'flags' ? 'Bayrak Arenası' : mode === 'clues' ? 'İpucu Arenası' : 'Karışık Arena'} · {round}. soru
           <span className="mx-2 text-white/25">|</span>
           <Trophy className="-mt-0.5 mr-1 inline h-3.5 w-3.5 text-amber-300" />{score.toLocaleString('tr-TR')} puan
         </p>

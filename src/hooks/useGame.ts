@@ -4,6 +4,7 @@ import { COUNTRY_DATA, COUNTRIES_BY_DIFFICULTY, VALID_COUNTRY_IDS } from '@/data
 import { fetchLeaderboard, saveGlobalScore } from '@/lib/leaderboard';
 import { submitWeeklyScore } from '@/lib/weeklyLeaderboard';
 import { discoverCountry } from '@/lib/discovery';
+import { CLUE_COUNTRIES_BY_DIFFICULTY } from '@/data/countryClues';
 
 export const MAX_LIVES = 3;
 export const MAX_REWARDED_HEARTS_PER_RUN = 1;
@@ -55,6 +56,7 @@ export function useGame() {
   const [lives, setLives] = useState(MAX_LIVES);
   const [streak, setStreak] = useState(0);
   const [round, setRound] = useState(1);
+  const [revealedClues, setRevealedClues] = useState(1);
   const [currentCountryId, setCurrentCountryId] = useState<string | null>(null);
   const [currentQuestionType, setCurrentQuestionType] = useState<QuestionType>('country');
   const [currentOptions, setCurrentOptions] = useState<string[]>([]);
@@ -80,11 +82,16 @@ export function useGame() {
   useEffect(() => { void refreshLeaderboard(); }, [refreshLeaderboard]);
 
   const startRound = useCallback((roundNum: number, gameMode: GameMode) => {
-    const countryId = pickCountryId(roundNum, recentIdsRef.current);
-    recentIdsRef.current = [countryId, ...recentIdsRef.current].slice(0, 8);
+    const cluePool = gameMode === 'clues' ? CLUE_COUNTRIES_BY_DIFFICULTY[getRoundDifficulty(roundNum)] : null;
+    const candidates = cluePool?.filter(id => !recentIdsRef.current.includes(id));
+    const pool = candidates?.length ? candidates : cluePool;
+    const countryId = pool?.length
+      ? pool[Math.floor(Math.random() * pool.length)]
+      : pickCountryId(roundNum, recentIdsRef.current);
+    recentIdsRef.current = [countryId, ...recentIdsRef.current].slice(0, 12);
     // The mixed mode gradually introduces capitals and flags without changing its league.
     const roll = Math.random();
-    const questionType: QuestionType = gameMode === 'flags' ? 'flag'
+    const questionType: QuestionType = gameMode === 'clues' ? 'clue' : gameMode === 'flags' ? 'flag'
       : roundNum >= 4 && roll < 0.35 ? 'capital'
       : roundNum >= 6 && roll < 0.62 ? 'flag'
       : 'country';
@@ -96,8 +103,9 @@ export function useGame() {
     setCurrentOptions(options);
     setCurrentAnswer(answer);
     setSelectedAnswer(null);
-    // Flag questions show the banner immediately. Geography questions retain the spinning globe.
-    setPhase(questionType === 'flag' ? 'question' : 'spinning');
+    setRevealedClues(1);
+    // Flag and clue challenges do not expose the target country on a globe.
+    setPhase(questionType === 'flag' || questionType === 'clue' ? 'question' : 'spinning');
   }, []);
 
   const start = useCallback((gameMode: GameMode = 'mixed') => {
@@ -118,6 +126,11 @@ export function useGame() {
     setPhase(current => current === 'spinning' ? 'question' : current);
   }, []);
 
+  const revealNextClue = useCallback(() => {
+    if (phase !== 'question' || mode !== 'clues') return;
+    setRevealedClues(value => Math.min(3, value + 1));
+  }, [mode, phase]);
+
   const onAnswer = useCallback((answer: string) => {
     if (phase !== 'question') return;
     setSelectedAnswer(answer);
@@ -126,7 +139,9 @@ export function useGame() {
     if (isCorrect) {
       if (currentCountryId) discoverCountry(currentCountryId);
       const points = BASE_POINTS * (meta?.difficulty ?? 1) + STREAK_BONUS * streak;
-      setScore(value => value + points);
+      // Optional extra hints cost 25% of the earned score each (minimum 50%).
+      const clueFactor = currentQuestionType === 'clue' ? 1 - (revealedClues - 1) * 0.25 : 1;
+      setScore(value => value + Math.round(points * clueFactor));
       setStreak(value => value + 1);
     } else {
       setLives(value => value - 1);
@@ -143,7 +158,7 @@ export function useGame() {
       }]);
     }
     setPhase('feedback');
-  }, [phase, currentAnswer, currentCountryId, currentQuestionType, streak]);
+  }, [phase, currentAnswer, currentCountryId, currentQuestionType, streak, revealedClues]);
 
   const onContinue = useCallback(() => {
     if (lives <= 0) { setPhase(rewardedUsedRef.current ? 'gameover' : 'revive'); return; }
@@ -195,6 +210,7 @@ export function useGame() {
 
   return {
     mode, phase, score, lives, streak, round, currentCountryId, currentQuestionType,
+    revealedClues, revealNextClue,
     rewardedHeartsUsed, gameRunId: gameRunRef.current, grantRewardedHeart, abandonRun,
     currentOptions, currentAnswer, selectedAnswer, roundResults, leaderboard,
     leaderboardError, refreshLeaderboard,

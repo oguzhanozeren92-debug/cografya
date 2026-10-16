@@ -75,7 +75,7 @@ function App() {
       await game.refreshLeaderboard();
     } catch { /* Nickname is saved locally; the cloud league may be unavailable. */ }
   };
-  const showGlobe = game.phase === 'idle' || game.phase === 'gameover' || game.currentQuestionType !== 'flag';
+  const showGlobe = game.phase === 'idle' || game.phase === 'gameover' || (game.currentQuestionType !== 'flag' && game.currentQuestionType !== 'clue');
   const showHUD = game.phase !== 'idle' && game.phase !== 'gameover';
   const showQuestion = game.phase === 'question' || game.phase === 'feedback';
   const showStart = game.phase === 'idle';
@@ -105,9 +105,11 @@ function App() {
         )}
 
         {showQuestion && (
-          <div className={game.currentQuestionType === 'flag' ? 'flex flex-1 items-center justify-center pt-8' : ''}><QuestionPanel
+          <div className={game.currentQuestionType === 'flag' || game.currentQuestionType === 'clue' ? 'flex flex-1 items-center justify-center pt-5 pb-8' : ''}><QuestionPanel
             countryId={game.currentCountryId}
             round={game.round}
+            revealedClues={game.revealedClues}
+            onRevealClue={game.revealNextClue}
             questionType={game.currentQuestionType}
             options={game.currentOptions}
             selectedAnswer={game.selectedAnswer}

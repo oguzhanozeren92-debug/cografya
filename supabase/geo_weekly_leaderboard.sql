@@ -1,4 +1,4 @@
--- COĞRAFYA OYUNU: weekly leagues (mixed + flags), safe to rerun after the first weekly setup.
+-- ATLAS ARENA: weekly leagues (mixed + flags + clues); idempotent upgrade.
 -- Run ONLY on the Geography Supabase project. Anonymous Sign-Ins must be enabled.
 -- Weeks start at Monday 00:00 UTC. Historical weeks are preserved.
 -- Earlier weekly entries remain in the 'mixed' league.
@@ -23,6 +23,10 @@ alter table public.geo_weekly_leaderboard
 alter table public.geo_weekly_leaderboard
   drop constraint if exists geo_weekly_leaderboard_player_id_week_start_key;
 
+-- Extend the mode constraint without deleting or changing existing weekly scores.
+alter table public.geo_weekly_leaderboard
+  drop constraint if exists geo_weekly_mode_valid;
+
 DO $$
 BEGIN
   IF NOT EXISTS (
@@ -30,7 +34,7 @@ BEGIN
       AND conrelid = 'public.geo_weekly_leaderboard'::regclass
   ) THEN
     ALTER TABLE public.geo_weekly_leaderboard
-      ADD CONSTRAINT geo_weekly_mode_valid CHECK (mode in ('mixed', 'flags'));
+      ADD CONSTRAINT geo_weekly_mode_valid CHECK (mode in ('mixed', 'flags', 'clues'));
   END IF;
   IF NOT EXISTS (
     SELECT 1 FROM pg_constraint WHERE conname = 'geo_weekly_mode_unique'
@@ -69,7 +73,7 @@ declare
     - (extract(isodow from now() at time zone 'UTC')::integer - 1));
 begin
   if v_player is null then raise exception 'Authentication required'; end if;
-  if p_mode is null or p_mode not in ('mixed', 'flags')
+  if p_mode is null or p_mode not in ('mixed', 'flags', 'clues')
     or p_player_name is null or char_length(trim(p_player_name)) not between 1 and 20
     or p_score is null or p_score < 0 or p_score > 10000000
     or p_total_questions is null or p_total_questions < 0 or p_total_questions > 100000

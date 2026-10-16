@@ -1,4 +1,4 @@
-import { Globe2, Play, Trophy, Pencil, UserRound, Compass, CalendarCheck, Flame, MapPinned, ShieldCheck } from 'lucide-react';
+import { Globe2, Play, Trophy, Pencil, UserRound, Compass, CalendarCheck, Flame, MapPinned, ShieldCheck, Lightbulb, Search } from 'lucide-react';
 import { DAILY_TOTAL, getDailyDate, getStreakForDay, loadDailyProgress } from '@/lib/dailyChallenge';
 import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
@@ -43,13 +43,13 @@ export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExp
         <div className="glass-panel p-6 text-center">
           <div className="mb-3 flex items-center justify-center gap-2 text-blue-400">
             <Globe2 className="h-6 w-6" />
-            <span className="text-sm font-medium tracking-wider uppercase">Coğrafya Oyunu</span>
+            <span className="text-sm font-medium tracking-wider uppercase">Atlas Arena</span>
           </div>
           <h1 className="mb-2 text-3xl font-bold text-white">
-            Dünya Coğrafya Bulmaca
+            ATLAS ARENA
           </h1>
           <p className="mb-5 text-sm text-slate-400 leading-relaxed">
-            İki ayrı oyun, iki ayrı lig! Dönen dünyada ülkeleri keşfet veya bayrakları tanı.
+            Üç ayrı arena, üç farklı mücadele! Dünyayı keşfet, bayrakları tanı, ipuçlarını çöz.
           </p>
 
           {editing ? (
@@ -77,6 +77,18 @@ export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExp
               <span className="game-mode-subtitle">Bayrağı gör, ülkeyi bul</span>
               <span className="game-mode-league">🏆 Bayrak Ligi</span>
             </button>
+            <button type="button" onClick={() => setSelectedMode('clues')} aria-pressed={selectedMode === 'clues'}
+              className={'game-mode-card game-mode-clues col-span-2 !min-h-[118px] ' + (selectedMode === 'clues' ? 'game-mode-selected' : '')}>
+              <span className="relative z-10 flex items-center gap-3">
+                <span className="clue-mode-icon" aria-hidden="true"><Lightbulb className="h-8 w-8" /></span>
+                <span className="min-w-0">
+                  <span className="game-mode-title block">İPUÇLARINDAN ÜLKEYİ BUL</span>
+                  <span className="game-mode-subtitle block">Bilgileri oku, gizemli ülkeyi tahmin et</span>
+                  <span className="game-mode-league mt-1 inline-flex items-center gap-1"><Search className="h-3.5 w-3.5" /> İpucu Ligi</span>
+                </span>
+              </span>
+              <span className="clue-mode-mark" aria-hidden="true">?</span>
+            </button>
           </div>
           <p className="mb-3 text-center text-[11px] text-slate-400">5 kolay → 7 orta → ardından zor ülkeler</p>
           <button
@@ -85,7 +97,7 @@ export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExp
             className="group flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:bg-blue-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <Play className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
-            {selectedMode === 'flags' ? 'Bayrak Arenasına Gir' : 'Karışık Oyuna Başla'}
+            {selectedMode === 'flags' ? 'Bayrak Arenasına Gir' : selectedMode === 'clues' ? 'İpucu Arenasına Gir' : 'Karışık Oyuna Başla'}
           </button>
         </div>
 
@@ -103,7 +115,7 @@ export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExp
         </div>
 
         <button onClick={() => onViewWeekly(selectedMode)} className="weekly-teaser mt-3 flex w-full items-center justify-between overflow-hidden rounded-2xl border border-amber-300/30 px-5 py-5 text-left shadow-xl transition hover:border-amber-300/60 hover:brightness-110">
-          <span className="relative z-10 flex flex-col gap-1"><span className="text-[10px] font-black uppercase tracking-[.22em] text-amber-300">YENİ • DÜNYA LİGİ</span><span className="text-lg font-black text-white">İki Ayrı Haftalık Lig</span><span className="text-xs text-slate-200">Karışık ve Bayrak podyumları</span></span>
+          <span className="relative z-10 flex flex-col gap-1"><span className="text-[10px] font-black uppercase tracking-[.22em] text-amber-300">YENİ • DÜNYA LİGİ</span><span className="text-lg font-black text-white">Üç Ayrı Haftalık Lig</span><span className="text-xs text-slate-200">Karışık, Bayrak ve İpucu podyumları</span></span>
           <Trophy className="relative z-10 h-12 w-12 shrink-0 text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,.5)]" />
         </button>
         {Capacitor.isNativePlatform() && onAdPrivacy && (

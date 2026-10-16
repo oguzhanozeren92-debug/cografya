@@ -1,8 +1,8 @@
 export type Difficulty = 1 | 2 | 3;
 
-export type GameMode = 'mixed' | 'flags';
+export type GameMode = 'mixed' | 'flags' | 'clues';
 
-export type QuestionType = 'country' | 'capital' | 'flag';
+export type QuestionType = 'country' | 'capital' | 'flag' | 'clue';
 
 export type GamePhase = 'idle' | 'spinning' | 'question' | 'feedback' | 'revive' | 'gameover';
 

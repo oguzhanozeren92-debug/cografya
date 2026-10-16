@@ -174,3 +174,93 @@
   .revive-heart{animation:none;}
   .revive-ad-button{transition:none;}
 }
+
+/* Atlas Arena — mystery country arena */
+.game-mode-clues {
+  text-align: left;
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 91% 20%, rgba(216,180,254,.24), transparent 34%),
+    linear-gradient(130deg, #17294b 0%,#221d47 52%,#110f2c 100%);
+  border: 1px solid rgba(198,174,254,.3);
+  box-shadow: inset 0 1px rgba(255,255,255,.08),0 8px 25px rgba(13,6,45,.26);
+}
+.game-mode-clues::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: radial-gradient(circle at 78% 40%,rgba(255,225,156,.07),transparent 40%);
+}
+.game-mode-clues.game-mode-selected {
+  border-color: #e9c76f;
+  box-shadow: 0 0 0 1px rgba(235,204,120,.5),0 0 27px rgba(185,146,255,.26);
+}
+.clue-mode-icon {
+  flex-shrink: 0; height: 60px; width: 60px; display: flex; align-items: center; justify-content: center;
+  border-radius: 20px; color: #ffe29a;
+  border: 1px solid rgba(255,223,151,.44);
+  background: radial-gradient(circle at 40% 30%,rgba(254,226,152,.26),rgba(166,109,255,.11));
+  box-shadow: 0 0 24px rgba(179,136,255,.15);
+}
+.clue-mode-mark {
+  position: absolute; right: 18px; top: 3px; font-size: 95px; font-weight: 900; line-height: 1;
+  color: rgba(209,191,255,.09); pointer-events: none;
+}
+.clue-question-panel {
+  border-color: rgba(204,178,255,.27);
+  box-shadow: 0 15px 50px rgba(36,17,76,.2), inset 0 1px rgba(255,255,255,.07);
+}
+.clue-stage {
+  isolation: isolate;
+  background: linear-gradient(145deg,rgba(21,35,74,.96),rgba(37,25,74,.95));
+  box-shadow: inset 0 1px rgba(255,255,255,.09);
+}
+.clue-stage-glow {
+  background:
+    radial-gradient(circle at 50% 12%,rgba(176,137,245,.17),transparent 43%),
+    repeating-linear-gradient(90deg,transparent 0,transparent 39px,rgba(255,255,255,.015) 40px);
+}
+.clue-mystery-orb {
+  border:1px solid rgba(234,210,255,.52);
+  background: radial-gradient(circle at 36% 25%,#9574d0,#3f377f 63%,#172b57 100%);
+  box-shadow:0 0 30px rgba(154,108,231,.4),inset 0 0 18px rgba(255,255,255,.08);
+}
+.clue-question-mark {
+  animation: mysteryFloat 3s ease-in-out infinite;
+  text-shadow:0 2px 15px rgba(255,255,255,.4);
+}
+.clue-fact {
+  position:relative; display:flex; align-items:center; gap:10px;
+  padding:11px 12px; min-height:52px; border-radius:13px; border:1px solid rgba(255,255,255,.11);
+}
+.clue-fact-open {
+  color:#eff5ff;
+  background:linear-gradient(100deg,rgba(179,154,250,.19),rgba(255,255,255,.045));
+  border-color:rgba(188,170,255,.25);
+  animation: clueReveal .35s ease-out both;
+}
+.clue-fact-locked {color:#8496b6; background:rgba(5,12,32,.37);}
+.clue-fact-index {font-size:11px; font-weight:900; color:#ffe19e; min-width:22px;}
+.clue-fact-locked .clue-fact-index {color:#7d8ca8;}
+.clue-reveal-button {
+  color:#fff7e9;
+  background:linear-gradient(110deg,rgba(114,73,191,.79),rgba(76,66,147,.79));
+  border:1px solid rgba(217,194,255,.35);
+  transition:transform .2s,filter .2s;
+}
+.clue-reveal-button:hover {filter:brightness(1.15);}
+.clue-reveal-button:active {transform:scale(.98);}
+.weekly-hero-clues .weekly-photo {
+  opacity:.38;
+  filter:hue-rotate(36deg) saturate(1.2);
+}
+.weekly-hero-clues {
+  border-color:rgba(205,175,255,.32);
+  box-shadow:0 20px 80px rgba(74,44,141,.21);
+}
+@keyframes mysteryFloat {0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)}}
+@keyframes clueReveal {from{opacity:.2; transform:translateY(5px)} to{opacity:1; transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce) {
+  .clue-question-mark,.clue-fact-open{animation:none;}
+  .clue-reveal-button{transition:none;}
+}
+
