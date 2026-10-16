@@ -5,6 +5,7 @@ import type { LeaderboardEntry, GameMode } from '@/types';
 import { backend } from '@/lib/leaderboard';
 import { motion, useReducedMotion } from 'motion/react';
 import { celebrateGame, playGameSound } from '@/lib/gameFx';
+import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 
 interface GameOverScreenProps {
   score: number;
@@ -56,9 +57,11 @@ export function GameOverScreen({
     <div className="absolute inset-0 z-20 flex items-center justify-center px-4 py-6 overflow-y-auto">
       <motion.div initial={reduceMotion ? false : { opacity: 0, y: 19, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .34 }} className="w-full max-w-md glass-panel p-6 my-auto">
         <div className="mb-4 text-center">
-          <Suspense fallback={<Trophy className="mx-auto mb-2 h-12 w-12 text-amber-300" />}>
-            <VictoryBadge size={78} />
-          </Suspense>
+          <FxErrorBoundary fallback={<Trophy className="mx-auto mb-2 h-12 w-12 text-amber-300" />}>
+            <Suspense fallback={<Trophy className="mx-auto mb-2 h-12 w-12 text-amber-300" />}>
+              <VictoryBadge size={78} />
+            </Suspense>
+          </FxErrorBoundary>
           <h2 className="text-2xl font-bold text-white">{mode === 'flags' ? 'Bayrak Arenası Tamamlandı' : mode === 'clues' ? 'İpucu Arenası Tamamlandı' : 'Oyun Bitti'}</h2>
           <p className="mt-1 text-xs font-bold tracking-wider text-amber-300">{mode === 'flags' ? '🚩 BAYRAK LİGİ' : mode === 'clues' ? '💡 İPUCU LİGİ' : '🌍 KARIŞIK LİG'}</p>
         </div>

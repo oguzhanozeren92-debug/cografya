@@ -14,6 +14,7 @@ on:
       - src/components/HomePlanet3D.tsx
       - src/components/ArenaParticles.tsx
       - src/components/VictoryBadge.tsx
+      - src/components/FxErrorBoundary.tsx
       - src/components/GameOverScreen.tsx
       - src/components/DailyChallengeScreen.tsx
       - src/lib/gameFx.ts

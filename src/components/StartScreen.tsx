@@ -11,6 +11,7 @@ import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
 import { playGameSound } from '@/lib/gameFx';
 import { HomePlanet } from '@/components/HomePlanet';
+import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 import type { GameMode, LeaderboardEntry } from '@/types';
 
 interface StartScreenProps {
@@ -96,7 +97,7 @@ export function StartScreen({
 
         <motion.section {...entrance(0)} className="atlas-home-hero relative isolate overflow-hidden">
           <div className="atlas-home-hero-grid" aria-hidden="true" />
-          {!reduceMotion && <Suspense fallback={null}><ArenaParticles /></Suspense>}
+          {!reduceMotion && <FxErrorBoundary><Suspense fallback={null}><ArenaParticles /></Suspense></FxErrorBoundary>}
           <HomePlanet />
           <div className="atlas-home-hero-content relative z-10">
             <span className="atlas-home-eyebrow"><Sparkles className="h-3.5 w-3.5" /> OYUN ZAMANI</span>

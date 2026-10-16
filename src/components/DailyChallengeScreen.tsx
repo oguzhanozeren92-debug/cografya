@@ -2,6 +2,7 @@ import { lazy, Suspense, useMemo, useRef, useState } from 'react';
 const VictoryBadge = lazy(() => import('@/components/VictoryBadge'));
 import { motion, useReducedMotion } from 'motion/react';
 import { celebrateGame, playGameSound } from '@/lib/gameFx';
+import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 import { ArrowLeft, Check, Compass, Flame, Flag, Gift, LockKeyhole, Sparkles, Trophy, X } from 'lucide-react';
 import { COUNTRY_DATA } from '@/data/countries';
 import { getCountryFlag } from '@/data/flags';
@@ -75,9 +76,11 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
         </section>
         {complete ? (
           <motion.section initial={reduceMotion ? false : { opacity: 0, y: 25, scale: .94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ type: 'spring', duration: .62, bounce: .25 }} className="daily-finish rounded-3xl border border-amber-400/30 p-7 text-center shadow-2xl">
-            <Suspense fallback={<Trophy className="mx-auto mb-3 h-14 w-14 text-amber-300" />}>
-              <VictoryBadge size={95} />
-            </Suspense>
+            <FxErrorBoundary fallback={<Trophy className="mx-auto mb-3 h-14 w-14 text-amber-300" />}>
+              <Suspense fallback={<Trophy className="mx-auto mb-3 h-14 w-14 text-amber-300" />}>
+                <VictoryBadge size={95} />
+              </Suspense>
+            </FxErrorBoundary>
             <div className="text-xs font-black tracking-[.25em] text-amber-300">GÜNLÜK GÖREV TAMAMLANDI</div>
             <h2 className="mt-2 text-3xl font-black">{correct} / {DAILY_TOTAL}</h2>
             <p className="mt-2 text-sm text-slate-300">{correct === DAILY_TOTAL ? 'Mükemmel! Bütün cevapların doğru.' : 'Görev bitti! Yeni sorular yarın UTC 00.00’da açılacak.'}</p>

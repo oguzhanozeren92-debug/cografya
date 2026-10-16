@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 
+import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 const HomePlanet3D = lazy(() => import('@/components/HomePlanet3D'));
 import { geoGraticule10, geoOrthographic, geoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
@@ -83,9 +84,11 @@ export function HomePlanet() {
         <circle cx="130" cy="130" r="112" fill="none" stroke="#baf8ff" strokeWidth=".6" opacity=".55" />
       </svg>
       {enable3d && (
-        <Suspense fallback={null}>
-          <HomePlanet3D onReady={() => setReady3d(true)} />
-        </Suspense>
+        <FxErrorBoundary>
+          <Suspense fallback={null}>
+            <HomePlanet3D onReady={() => setReady3d(true)} />
+          </Suspense>
+        </FxErrorBoundary>
       )}
       <span className="atlas-home-satellite atlas-home-satellite-one" />
       <span className="atlas-home-satellite atlas-home-satellite-two" />
