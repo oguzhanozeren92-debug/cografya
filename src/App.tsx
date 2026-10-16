@@ -11,6 +11,7 @@ import { ExploreMapScreen } from '@/components/ExploreMapScreen';
 import { ReviveScreen } from '@/components/ReviveScreen';
 import { isRewardedHeartAvailable, initializeRewardedAds, openAdPrivacyOptions, watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { syncDiscoveries } from '@/lib/discovery';
+import { celebrateGame, isSoundEnabled, playGameSound, saveSoundEnabled } from '@/lib/gameFx';
 import { useEffect, useRef, useState } from 'react';
 import type { GameMode } from '@/types';
 import { backend, getSavedName, changePlayerName, getPlayerId, setSavedName } from '@/lib/leaderboard';
@@ -22,6 +23,7 @@ function App() {
   const [dailyOpen, setDailyOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
   const [adBusy, setAdBusy] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(isSoundEnabled);
   const [adError, setAdError] = useState('');
   const adLockRef = useRef(false);
   const [rewardedAvailable, setRewardedAvailable] = useState(isRewardedHeartAvailable);
@@ -61,7 +63,20 @@ function App() {
   };
   useEffect(() => { void syncDiscoveries(); }, []);
   const [weeklyMode, setWeeklyMode] = useState<GameMode>('mixed');
-  const startGame = (mode: GameMode) => { setAdError(''); game.start(mode); };
+  const startGame = (mode: GameMode) => { playGameSound('select'); setAdError(''); game.start(mode); };
+  const toggleSound = () => {
+    const next = !soundEnabled;
+    saveSoundEnabled(next);
+    setSoundEnabled(next);
+    if (next) playGameSound('select');
+  };
+  const handleAnswer = (answer: string) => {
+    if (adBusy) return;
+    const isCorrect = answer === game.currentAnswer;
+    playGameSound(isCorrect ? 'correct' : 'wrong');
+    if (isCorrect && (game.streak + 1) % 5 === 0) void celebrateGame('streak');
+    game.onAnswer(answer);
+  };
   const openWeekly = (mode: GameMode) => { setWeeklyMode(mode); setWeeklyOpen(true); };
   const updateName = async (name: string) => {
     const clean = name.trim().slice(0, 20);
@@ -115,13 +130,13 @@ function App() {
             selectedAnswer={game.selectedAnswer}
             correctAnswer={game.currentAnswer}
             phase={game.phase}
-            onAnswer={answer => { if (!adBusy) game.onAnswer(answer); }}
+            onAnswer={handleAnswer}
           /></div>
         )}
       </div>
 
       {showStart && (
-        <StartScreen onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
+        <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
       )}
 
       {game.phase === 'revive' && (

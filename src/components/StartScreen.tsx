@@ -1,13 +1,17 @@
-import { Globe2, Play, Trophy, Pencil, UserRound, Compass, CalendarCheck, Flame, MapPinned, ShieldCheck, Lightbulb, Search } from 'lucide-react';
+import { Globe2, Play, Trophy, Pencil, UserRound, Compass, CalendarCheck, Flame, MapPinned, ShieldCheck, Lightbulb, Search, Volume2, VolumeX } from 'lucide-react';
 import { DAILY_TOTAL, getDailyDate, getStreakForDay, loadDailyProgress } from '@/lib/dailyChallenge';
 import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
 import type { GameMode, LeaderboardEntry } from '@/types';
 import { useState } from 'react';
 import { Capacitor } from '@capacitor/core';
+import { motion, useReducedMotion } from 'motion/react';
+import { playGameSound } from '@/lib/gameFx';
 
 interface StartScreenProps {
   onStart: (mode: GameMode) => void;
+  soundEnabled: boolean;
+  onToggleSound: () => void;
   onAdPrivacy?: () => void;
   onViewWeekly: (mode: GameMode) => void;
   onDaily: () => void;
@@ -18,7 +22,8 @@ interface StartScreenProps {
   leaderboardError: string;
 }
 
-export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
+export function StartScreen({ onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly, onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
+  const reduceMotion = useReducedMotion();
   const [editing, setEditing] = useState(!playerName);
   const [selectedMode, setSelectedMode] = useState<GameMode>('mixed');
   const [name, setName] = useState(playerName);
@@ -39,7 +44,7 @@ export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExp
     <div className="fixed inset-0 z-20 flex flex-col items-center justify-end overflow-y-auto px-4 pb-8 pt-16 sm:pt-20">
       <div className="pointer-events-none min-h-4 flex-1" />
 
-      <div className="w-full max-w-md animate-slide-up">
+      <motion.div className="w-full max-w-md" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .42, ease: 'easeOut' }}>
         <div className="glass-panel p-6 text-center">
           <div className="mb-3 flex items-center justify-center gap-2 text-blue-400">
             <Globe2 className="h-6 w-6" />
@@ -52,6 +57,9 @@ export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExp
             Üç ayrı arena, üç farklı mücadele! Dünyayı keşfet, bayrakları tanı, ipuçlarını çöz.
           </p>
 
+          <button type="button" onClick={onToggleSound} aria-label={soundEnabled ? 'Oyun sesini kapat' : 'Oyun sesini aç'} aria-pressed={soundEnabled} className="game-sound-toggle mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-[11px] font-bold text-slate-200 active:scale-95">
+            {soundEnabled ? <Volume2 className="h-4 w-4 text-amber-200" /> : <VolumeX className="h-4 w-4 text-slate-400" />} {soundEnabled ? 'Ses açık' : 'Ses kapalı'}
+          </button>
           {editing ? (
             <div className="mb-4 text-left">
               <label className="mb-2 block text-xs text-slate-300">Oyuncu takma adın (şifre yok)</label>
@@ -65,19 +73,19 @@ export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExp
             <button onClick={() => {setName(playerName);setEditing(true);}} className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-3 py-2.5 text-sm text-slate-200"><UserRound className="h-4 w-4" /> {playerName} <Pencil className="h-3.5 w-3.5 opacity-60" /></button>
           )}
           <div className="mb-4 grid grid-cols-2 gap-2 text-left" aria-label="Oyun modu seçimi">
-            <button type="button" onClick={() => setSelectedMode('mixed')} aria-pressed={selectedMode === 'mixed'} className={'game-mode-card game-mode-mixed ' + (selectedMode === 'mixed' ? 'game-mode-selected' : '')}>
+            <motion.button type="button" whileTap={reduceMotion ? undefined : { scale: .96 }} whileHover={reduceMotion ? undefined : { y: -3 }} onClick={() => { setSelectedMode('mixed'); playGameSound('select'); }} aria-pressed={selectedMode === 'mixed'} className={'game-mode-card game-mode-mixed ' + (selectedMode === 'mixed' ? 'game-mode-selected' : '')}>
               <span className="game-mode-art" aria-hidden="true">🌍</span>
               <span className="game-mode-title">KARIŞIK</span>
               <span className="game-mode-subtitle">Ülke + Başkent + Bayrak</span>
               <span className="game-mode-league">🏆 Karışık Ligi</span>
-            </button>
-            <button type="button" onClick={() => setSelectedMode('flags')} aria-pressed={selectedMode === 'flags'} className={'game-mode-card game-mode-flags ' + (selectedMode === 'flags' ? 'game-mode-selected' : '')}>
+            </motion.button>
+            <motion.button type="button" whileTap={reduceMotion ? undefined : { scale: .96 }} whileHover={reduceMotion ? undefined : { y: -3 }} onClick={() => { setSelectedMode('flags'); playGameSound('select'); }} aria-pressed={selectedMode === 'flags'} className={'game-mode-card game-mode-flags ' + (selectedMode === 'flags' ? 'game-mode-selected' : '')}>
               <span className="game-mode-art flex gap-1 text-2xl" aria-hidden="true">🇹🇷 🇯🇵 🇧🇷</span>
               <span className="game-mode-title">BAYRAKLAR</span>
               <span className="game-mode-subtitle">Bayrağı gör, ülkeyi bul</span>
               <span className="game-mode-league">🏆 Bayrak Ligi</span>
-            </button>
-            <button type="button" onClick={() => setSelectedMode('clues')} aria-pressed={selectedMode === 'clues'}
+            </motion.button>
+            <motion.button type="button" whileTap={reduceMotion ? undefined : { scale: .96 }} whileHover={reduceMotion ? undefined : { y: -3 }} onClick={() => { setSelectedMode('clues'); playGameSound('select'); }} aria-pressed={selectedMode === 'clues'}
               className={'game-mode-card game-mode-clues col-span-2 !min-h-[118px] ' + (selectedMode === 'clues' ? 'game-mode-selected' : '')}>
               <span className="relative z-10 flex items-center gap-3">
                 <span className="clue-mode-icon" aria-hidden="true"><Lightbulb className="h-8 w-8" /></span>
@@ -88,17 +96,19 @@ export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExp
                 </span>
               </span>
               <span className="clue-mode-mark" aria-hidden="true">?</span>
-            </button>
+            </motion.button>
           </div>
           <p className="mb-3 text-center text-[11px] text-slate-400">5 kolay → 7 orta → ardından zor ülkeler</p>
-          <button
+          <motion.button
+            whileTap={reduceMotion ? undefined : { scale: .96 }}
+            whileHover={reduceMotion ? undefined : { scale: 1.015 }}
             disabled={!playerName || editing}
             onClick={() => onStart(selectedMode)}
             className="group flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:bg-blue-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <Play className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
             {selectedMode === 'flags' ? 'Bayrak Arenasına Gir' : selectedMode === 'clues' ? 'İpucu Arenasına Gir' : 'Karışık Oyuna Başla'}
-          </button>
+          </motion.button>
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-2">
@@ -145,7 +155,7 @@ export function StartScreen({ onStart, onAdPrivacy, onViewWeekly, onDaily, onExp
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

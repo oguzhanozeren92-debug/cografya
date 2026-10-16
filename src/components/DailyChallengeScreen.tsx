@@ -1,4 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
+import { celebrateGame, playGameSound } from '@/lib/gameFx';
 import { ArrowLeft, Check, Compass, Flame, Flag, Gift, LockKeyhole, Sparkles, Trophy, X } from 'lucide-react';
 import { COUNTRY_DATA } from '@/data/countries';
 import { getCountryFlag } from '@/data/flags';
@@ -11,6 +13,7 @@ import {
 interface Props { onClose: () => void; onExplore: () => void; }
 
 export function DailyChallengeScreen({ onClose, onExplore }: Props) {
+  const reduceMotion = useReducedMotion();
   const day = useMemo(getDailyDate, []);
   const questions = useMemo(() => getDailyQuestions(day), [day]);
   const [progress, setProgress] = useState(() => loadDailyProgress(day));
@@ -30,10 +33,15 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
     busy.current = true;
     setSelected(choice);
     if (choice === question.answer) discoverCountry(question.countryId);
+    playGameSound(choice === question.answer ? 'correct' : 'wrong');
     // Save immediately so an accidental close/refresh cannot repeat an answered question.
     const updated = saveDailyAnswer(day, choice);
     window.setTimeout(() => {
       setProgress(updated);
+      if (updated.answers.length === DAILY_TOTAL) {
+        playGameSound('victory');
+        void celebrateGame('daily');
+      }
       setSelected(null);
       busy.current = false;
     }, 1050);
@@ -65,7 +73,7 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
           <div className="mt-2 flex justify-between text-[11px] text-slate-400"><span>İlk 4 kolay</span><span>Son 2 zor</span></div>
         </section>
         {complete ? (
-          <section className="daily-finish rounded-3xl border border-amber-400/30 p-7 text-center shadow-2xl">
+          <motion.section initial={reduceMotion ? false : { opacity: 0, y: 25, scale: .94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ type: 'spring', duration: .62, bounce: .25 }} className="daily-finish rounded-3xl border border-amber-400/30 p-7 text-center shadow-2xl">
             <Trophy className="mx-auto mb-3 h-14 w-14 text-amber-300" />
             <div className="text-xs font-black tracking-[.25em] text-amber-300">GÜNLÜK GÖREV TAMAMLANDI</div>
             <h2 className="mt-2 text-3xl font-black">{correct} / {DAILY_TOTAL}</h2>
@@ -75,7 +83,7 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
             </div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-xl bg-orange-400/10 px-4 py-2 font-bold text-orange-200"><Flame className="h-5 w-5" /> {streak} günlük seri</div>
             <button onClick={onExplore} className="weekly-play-button flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 font-black"><Compass className="h-5 w-5" /> Keşif Haritamı Aç</button>
-          </section>
+          </motion.section>
         ) : (
           <section className="daily-question relative overflow-hidden rounded-3xl border border-white/15 px-4 pb-5 pt-4 sm:px-6">
             <div className="mb-4 flex items-center justify-between gap-3">
@@ -89,12 +97,12 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
             </div>
             <h2 className="mb-4 text-center text-lg font-black">{question.type === 'capital' ? 'Bu ülkenin başkenti hangisi?' : 'Bu bayrak hangi ülkeye ait?'}</h2>
             <div className="grid gap-2 sm:grid-cols-2">
-              {question.options.map(option => {
+              {question.options.map((option, optionIndex) => {
                 const isCorrect = option === question.answer;
                 const classes = selected === null ? 'border-white/15 bg-white/5 hover:bg-white/15' : isCorrect ? 'border-emerald-400 bg-emerald-400/20' : selected === option ? 'border-rose-400 bg-rose-400/20' : 'border-white/10 bg-white/5 opacity-50';
-                return <button key={option} disabled={selected !== null} onClick={() => answer(option)} className={'flex min-h-[56px] items-center justify-between gap-2 rounded-xl border px-4 py-3 text-left text-sm font-bold transition ' + classes}>
+                return <motion.button key={option} initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, x: selected === option && !isCorrect ? [0,-7,6,-3,0] : 0, scale: selected !== null && isCorrect ? [1, 1.035, 1] : 1 }} transition={{ duration: selected === null ? .24 : .32, delay: selected === null ? optionIndex * .045 : 0 }} whileTap={reduceMotion || selected !== null ? undefined : { scale: .97 }} disabled={selected !== null} onClick={() => answer(option)} className={'flex min-h-[56px] items-center justify-between gap-2 rounded-xl border px-4 py-3 text-left text-sm font-bold transition ' + classes}>
                   <span>{option}</span>{selected !== null && isCorrect && <Check className="h-5 w-5 shrink-0 text-emerald-300" />}{selected === option && !isCorrect && <X className="h-5 w-5 shrink-0 text-rose-300" />}
-                </button>;
+                </motion.button>;
               })}
             </div>
             {selected !== null && <p className={'mt-4 text-center text-sm font-bold ' + (selected === question.answer ? 'text-emerald-300' : 'text-rose-300')}>{selected === question.answer ? 'Doğru! Haritanda yeni bir ülke keşfettin.' : `Doğru cevap: ${question.answer}`}</p>}

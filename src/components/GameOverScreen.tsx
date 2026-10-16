@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Trophy, RotateCcw, CheckCircle2, MapPinned } from 'lucide-react';
 import type { LeaderboardEntry, GameMode } from '@/types';
 import { backend } from '@/lib/leaderboard';
+import { motion, useReducedMotion } from 'motion/react';
+import { celebrateGame, playGameSound } from '@/lib/gameFx';
 
 interface GameOverScreenProps {
   score: number;
@@ -28,6 +30,14 @@ export function GameOverScreen({
   onViewWeekly,
   onExplore,
 }: GameOverScreenProps) {
+  const reduceMotion = useReducedMotion();
+  const celebratedRef = useRef(false);
+  useEffect(() => {
+    if (celebratedRef.current || correctAnswers < 5) return;
+    celebratedRef.current = true;
+    playGameSound('victory');
+    void celebrateGame('victory');
+  }, [correctAnswers]);
   const [saveState, setSaveState] = useState<'saving' | 'saved' | 'error' | 'offline'>(backend ? 'saving' : 'offline');
   const [saveError, setSaveError] = useState('');
   const save = async () => {
@@ -43,7 +53,7 @@ export function GameOverScreen({
 
   return (
     <div className="absolute inset-0 z-20 flex items-center justify-center px-4 py-6 overflow-y-auto">
-      <div className="w-full max-w-md animate-pop-in glass-panel p-6 my-auto">
+      <motion.div initial={reduceMotion ? false : { opacity: 0, y: 19, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .34 }} className="w-full max-w-md glass-panel p-6 my-auto">
         <div className="mb-4 text-center">
           <div className="mb-2 inline-flex h-14 w-14 items-center justify-center rounded-full bg-amber-500/20">
             <Trophy className="h-7 w-7 text-amber-400" />
@@ -116,7 +126,7 @@ export function GameOverScreen({
           <RotateCcw className="h-5 w-5 transition-transform group-hover:rotate-[-180deg] duration-500" />
           Ana Menüye Dön
         </button>
-      </div>
+      </motion.div>
     </div>
   );
 }

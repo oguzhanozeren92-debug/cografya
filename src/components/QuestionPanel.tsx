@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Check, X, MapPin, Building2, Flag, Sparkles, Lightbulb, LockKeyhole, BookOpen, Search } from 'lucide-react';
 import { getCountryFlag } from '@/data/flags';
 import { getCountryClue } from '@/data/countryClues';
+import { motion, useReducedMotion } from 'motion/react';
+import { playGameSound } from '@/lib/gameFx';
 import type { GamePhase, QuestionType } from '@/types';
 
 interface QuestionPanelProps {
@@ -22,6 +24,7 @@ const difficulty = (round: number) => round <= 5 ? 'KOLAY' : round <= 12 ? 'ORTA
 export function QuestionPanel({
   questionType, countryId, round, revealedClues, onRevealClue, options, selectedAnswer, correctAnswer, phase, onAnswer,
 }: QuestionPanelProps) {
+  const reduceMotion = useReducedMotion();
   const [flagLoadFailed, setFlagLoadFailed] = useState(false);
   useEffect(() => { setFlagLoadFailed(false); }, [countryId]);
   const isFeedback = phase === 'feedback';
@@ -33,7 +36,7 @@ export function QuestionPanel({
 
   return (
     <div className={'relative z-10 w-full px-4 pb-5 animate-slide-up ' + (isFlag || isClue ? 'max-w-xl' : '')}>
-      <div className={'glass-panel mx-auto max-w-2xl p-4 sm:p-5 ' + (isFlag ? 'flag-question-panel' : isClue ? 'clue-question-panel' : '')}>
+      <motion.div key={countryId ?? 'none'} initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .28 }} className={'glass-panel mx-auto max-w-2xl p-4 sm:p-5 ' + (isFlag ? 'flag-question-panel' : isClue ? 'clue-question-panel' : '')}>
         <div className="mb-4 flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-2">
             <div className={'flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ' + (isFlag ? 'bg-amber-400/20 text-amber-300' : isClue ? 'bg-violet-400/20 text-violet-200' : isCountry ? 'bg-blue-500/20 text-blue-400' : 'bg-purple-500/20 text-purple-400')}>
@@ -85,7 +88,7 @@ export function QuestionPanel({
               })}
             </div>
             {!isFeedback && revealedClues < 3 && (
-              <button type="button" onClick={onRevealClue} className="clue-reveal-button relative mt-4 flex w-full items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-extrabold">
+              <button type="button" onClick={() => { playGameSound('hint'); onRevealClue(); }} className="clue-reveal-button relative mt-4 flex w-full items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-extrabold">
                 <Lightbulb className="h-4 w-4" /> Sonraki İpucunu Aç <span className="text-[10px] font-semibold text-violet-100/70">(-%25 puan)</span>
               </button>
             )}
@@ -102,26 +105,26 @@ export function QuestionPanel({
         )}
 
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-          {options.map(option => {
+          {options.map((option, index) => {
             const selected = selectedAnswer === option;
             const correct = option === correctAnswer;
             let classes = 'option-btn';
             if (isFeedback) classes += correct ? ' option-btn-correct' : selected ? ' option-btn-wrong' : ' option-btn-disabled';
             return (
-              <button key={option} type="button" onClick={() => !isFeedback && onAnswer(option)} disabled={isFeedback} className={classes}>
+              <motion.button key={option} type="button" initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, x: isFeedback && selected && !correct ? [0, -8, 7, -4, 0] : 0, scale: isFeedback && correct ? [1, 1.035, 1] : 1 }} transition={{ duration: isFeedback ? .32 : .24, delay: isFeedback ? 0 : index * .045 }} whileTap={reduceMotion || isFeedback ? undefined : { scale: .97 }} onClick={() => !isFeedback && onAnswer(option)} disabled={isFeedback} className={classes}>
                 <div className="flex items-center justify-between gap-3">
                   <span className="font-medium">{option}</span>
                   {isFeedback && correct && <Check className="h-5 w-5 shrink-0 text-emerald-400" />}
                   {isFeedback && selected && !correct && <X className="h-5 w-5 shrink-0 text-red-400" />}
                 </div>
-              </button>
+              </motion.button>
             );
           })}
         </div>
         {isFeedback && <div className="mt-4 flex items-center gap-2 font-semibold">
           {selectedAnswer === correctAnswer ? <><Check className="h-5 w-5 text-emerald-400" /><span className="text-emerald-400">Doğru! Harika gidiyorsun.</span></> : <><X className="h-5 w-5 text-red-400" /><span className="text-rose-300">Yanlış! Doğru cevap: {correctAnswer}</span></>}
         </div>}
-      </div>
+      </motion.div>
     </div>
   );
 }

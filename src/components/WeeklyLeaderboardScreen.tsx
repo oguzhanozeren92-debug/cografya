@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import {
   ArrowLeft, ArrowUpRight, Award, CalendarDays, ChevronRight, Crown,
   Globe2, Flag, Lightbulb, Medal, RefreshCw, Rocket, Shield, Sparkles, Star,
@@ -25,10 +26,11 @@ function shortName(name: string): string {
 }
 
 function PodiumPlayer({ entry, place }: { entry: WeeklyLeaderboardEntry | undefined; place: 1 | 2 | 3 }) {
+  const reduceMotion = useReducedMotion();
   const first = place === 1;
   const shade = first ? 'gold' : place === 2 ? 'silver' : 'bronze';
   return (
-    <div className={'podium-player podium-player-' + shade}>
+    <motion.div initial={reduceMotion ? false : { opacity: 0, y: 29, scale: .9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .38, delay: place === 1 ? .13 : place === 2 ? .06 : .19 }} className={'podium-player podium-player-' + shade}>
       <div className="relative flex justify-center">
         {first && <Crown className="absolute -top-8 h-7 w-7 text-amber-300 drop-shadow-[0_0_12px_rgba(252,211,77,.9)]" fill="currentColor" />}
         <div className={'podium-avatar podium-avatar-' + shade}>
@@ -44,7 +46,7 @@ function PodiumPlayer({ entry, place }: { entry: WeeklyLeaderboardEntry | undefi
         <span className="podium-stand-number">{place}</span>
         {first && <Star className="absolute right-3 top-3 h-4 w-4 text-amber-100/60" fill="currentColor" />}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

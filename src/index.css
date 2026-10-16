@@ -264,3 +264,15 @@
   .clue-reveal-button{transition:none;}
 }
 
+
+/* Atlas Arena — phase 1 gameplay polish; GPU-friendly opacity/transform only. */
+.game-sound-toggle { transition: background-color .18s, border-color .18s; }
+.game-sound-toggle:hover { background: rgba(251,191,36,.10); border-color: rgba(251,191,36,.42); }
+.game-mode-card { transform-origin: center; }
+.option-btn-correct { box-shadow: 0 0 20px rgba(52,211,153,.18), inset 0 0 15px rgba(52,211,153,.10); }
+.option-btn-wrong { box-shadow: 0 0 18px rgba(244,63,94,.15); }
+.daily-finish { box-shadow: 0 0 42px rgba(242,191,80,.09); }
+@media (prefers-reduced-motion: reduce) {
+  .game-sound-toggle, .game-mode-card { transition: none !important; }
+  .option-btn-correct, .option-btn-wrong { animation: none !important; }
+}
