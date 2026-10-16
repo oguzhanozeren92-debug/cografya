@@ -1,0 +1,108 @@
+import { useMemo, useRef, useState } from 'react';
+import { ArrowLeft, Check, Compass, Flame, Flag, Gift, LockKeyhole, Sparkles, Trophy, X } from 'lucide-react';
+import { COUNTRY_DATA } from '@/data/countries';
+import { getCountryFlag } from '@/data/flags';
+import { discoverCountry } from '@/lib/discovery';
+import {
+  DAILY_TOTAL, getDailyDate, getDailyQuestions, getStreakForDay,
+  loadDailyProgress, saveDailyAnswer,
+} from '@/lib/dailyChallenge';
+
+interface Props { onClose: () => void; onExplore: () => void; }
+
+export function DailyChallengeScreen({ onClose, onExplore }: Props) {
+  const day = useMemo(getDailyDate, []);
+  const questions = useMemo(() => getDailyQuestions(day), [day]);
+  const [progress, setProgress] = useState(() => loadDailyProgress(day));
+  const [selected, setSelected] = useState<string | null>(null);
+  const [dateExpired, setDateExpired] = useState(false);
+  const busy = useRef(false);
+  const index = progress.answers.length;
+  const complete = index >= DAILY_TOTAL;
+  const question = questions[Math.min(index, DAILY_TOTAL - 1)];
+  const correct = progress.answers.filter((answer, i) => answer === questions[i].answer).length;
+  const streak = getStreakForDay(day);
+  const flag = getCountryFlag(question.countryId);
+
+  const answer = (choice: string) => {
+    if (busy.current || complete || selected !== null) return;
+    if (getDailyDate() !== day) { setDateExpired(true); return; }
+    busy.current = true;
+    setSelected(choice);
+    if (choice === question.answer) discoverCountry(question.countryId);
+    // Save immediately so an accidental close/refresh cannot repeat an answered question.
+    const updated = saveDailyAnswer(day, choice);
+    window.setTimeout(() => {
+      setProgress(updated);
+      setSelected(null);
+      busy.current = false;
+    }, 1050);
+  };
+
+  return (
+    <div className="daily-screen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label="Günlük dünya görevi">
+      <div className="mx-auto max-w-2xl px-4 pb-12 pt-5 sm:px-7">
+        <header className="mb-4 flex items-center justify-between gap-3">
+          <button className="weekly-nav-button gap-2" onClick={onClose}><ArrowLeft className="h-4 w-4" /> Geri</button>
+          <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1.5 text-[11px] font-bold text-amber-200">HER GÜN YENİ GÖREV</span>
+        </header>
+        <section className="daily-hero relative mb-4 overflow-hidden rounded-[26px] border border-cyan-300/25 p-6 shadow-2xl sm:p-8">
+          <div className="relative z-10">
+            <div className="mb-3 flex items-center gap-2 text-xs font-black tracking-[.19em] text-cyan-200"><Sparkles className="h-4 w-4" /> DÜNYA GÖREVİ</div>
+            <h1 className="max-w-[290px] text-3xl font-black leading-tight sm:text-4xl">Bugünün<br /><span className="text-amber-300">10 Sorusu</span></h1>
+            <p className="mt-3 max-w-[295px] text-sm text-slate-200">Herkes aynı ülkeleri çözüyor. Her doğru cevapla keşif haritan büyüyor!</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <span className="daily-chip"><Flame className="h-4 w-4 text-orange-400" /> {streak} gün seri</span>
+              <span className="daily-chip"><Gift className="h-4 w-4 text-amber-300" /> Günlük başarı</span>
+            </div>
+          </div>
+        </section>
+        <section className="mb-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="mb-3 flex items-center justify-between gap-2 text-sm"><strong>{complete ? 'Görev tamamlandı!' : `Soru ${index + 1} / ${DAILY_TOTAL}`}</strong><span className="font-bold text-emerald-300">{correct} doğru</span></div>
+          <div className="grid grid-cols-10 gap-1.5" aria-label="Günlük ilerleme">
+            {questions.map((q, i) => <div key={q.countryId} title={`${i + 1}. soru`} className={'h-2.5 rounded-full ' + (i < progress.answers.length ? progress.answers[i] === q.answer ? 'bg-emerald-400' : 'bg-rose-400' : i === index ? 'bg-amber-300/85' : 'bg-white/15')} />)}
+          </div>
+          <div className="mt-2 flex justify-between text-[11px] text-slate-400"><span>İlk 4 kolay</span><span>Son 2 zor</span></div>
+        </section>
+        {complete ? (
+          <section className="daily-finish rounded-3xl border border-amber-400/30 p-7 text-center shadow-2xl">
+            <Trophy className="mx-auto mb-3 h-14 w-14 text-amber-300" />
+            <div className="text-xs font-black tracking-[.25em] text-amber-300">GÜNLÜK GÖREV TAMAMLANDI</div>
+            <h2 className="mt-2 text-3xl font-black">{correct} / {DAILY_TOTAL}</h2>
+            <p className="mt-2 text-sm text-slate-300">{correct === DAILY_TOTAL ? 'Mükemmel! Bütün cevapların doğru.' : 'Görev bitti! Yeni sorular yarın UTC 00.00’da açılacak.'}</p>
+            <div className="my-5 flex justify-center gap-3 text-3xl" aria-label="Başarı yıldızları">
+              {[0, 1, 2].map(i => <span key={i} className={correct >= [4, 7, 10][i] ? 'text-amber-300' : 'text-slate-600'}>★</span>)}
+            </div>
+            <div className="mb-5 inline-flex items-center gap-2 rounded-xl bg-orange-400/10 px-4 py-2 font-bold text-orange-200"><Flame className="h-5 w-5" /> {streak} günlük seri</div>
+            <button onClick={onExplore} className="weekly-play-button flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 font-black"><Compass className="h-5 w-5" /> Keşif Haritamı Aç</button>
+          </section>
+        ) : (
+          <section className="daily-question relative overflow-hidden rounded-3xl border border-white/15 px-4 pb-5 pt-4 sm:px-6">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <span className="flex items-center gap-2 text-xs font-black tracking-widest text-cyan-200"><Flag className="h-4 w-4" /> {question.type === 'flag' ? 'BAYRAK SORUSU' : 'BAŞKENT SORUSU'}</span>
+              <span className={'rounded-lg px-2 py-1 text-[10px] font-black ' + (question.difficulty === 1 ? 'bg-emerald-400/15 text-emerald-300' : question.difficulty === 2 ? 'bg-amber-400/15 text-amber-300' : 'bg-rose-400/15 text-rose-300')}>{question.difficulty === 1 ? 'KOLAY' : question.difficulty === 2 ? 'ORTA' : 'ZOR'}</span>
+            </div>
+            <div className="daily-flag-frame mb-5 flex min-h-44 flex-col items-center justify-center rounded-2xl p-4 text-center">
+              {flag ? <img src={flag.url} alt="Tahmin edeceğin ülkenin bayrağı" className="max-h-32 w-full max-w-56 object-contain drop-shadow-xl" onError={event => { event.currentTarget.style.display = 'none'; event.currentTarget.nextElementSibling?.classList.remove('hidden'); }} /> : null}
+              <span className={'text-7xl ' + (flag ? 'hidden' : '')} role="img" aria-label="Bayrak">{flag?.emoji ?? '🌍'}</span>
+              {question.type === 'capital' && <p className="mt-3 text-lg font-black text-white">{COUNTRY_DATA[question.countryId].nameTr}</p>}
+            </div>
+            <h2 className="mb-4 text-center text-lg font-black">{question.type === 'capital' ? 'Bu ülkenin başkenti hangisi?' : 'Bu bayrak hangi ülkeye ait?'}</h2>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {question.options.map(option => {
+                const isCorrect = option === question.answer;
+                const classes = selected === null ? 'border-white/15 bg-white/5 hover:bg-white/15' : isCorrect ? 'border-emerald-400 bg-emerald-400/20' : selected === option ? 'border-rose-400 bg-rose-400/20' : 'border-white/10 bg-white/5 opacity-50';
+                return <button key={option} disabled={selected !== null} onClick={() => answer(option)} className={'flex min-h-[56px] items-center justify-between gap-2 rounded-xl border px-4 py-3 text-left text-sm font-bold transition ' + classes}>
+                  <span>{option}</span>{selected !== null && isCorrect && <Check className="h-5 w-5 shrink-0 text-emerald-300" />}{selected === option && !isCorrect && <X className="h-5 w-5 shrink-0 text-rose-300" />}
+                </button>;
+              })}
+            </div>
+            {selected !== null && <p className={'mt-4 text-center text-sm font-bold ' + (selected === question.answer ? 'text-emerald-300' : 'text-rose-300')}>{selected === question.answer ? 'Doğru! Haritanda yeni bir ülke keşfettin.' : `Doğru cevap: ${question.answer}`}</p>}
+            <p className="mt-4 flex items-center justify-center gap-2 text-center text-[11px] text-slate-400"><LockKeyhole className="h-3 w-3" /> Günlük görev her gün sadece bir kez tamamlanır</p>
+          </section>
+        )}
+        {dateExpired && <div className="fixed inset-x-4 bottom-5 z-[60] mx-auto max-w-md rounded-2xl border border-amber-300/40 bg-slate-900 p-4 text-center text-sm font-bold text-amber-200">Yeni gün başladı! Ana menüye dönüp günlük görevi yeniden aç.</div>}
+      </div>
+    </div>
+  );
+}

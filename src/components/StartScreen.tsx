@@ -1,22 +1,31 @@
-import { Globe2, Play, Trophy, Pencil, UserRound } from 'lucide-react';
+import { Globe2, Play, Trophy, Pencil, UserRound, Compass, CalendarCheck, Flame, MapPinned } from 'lucide-react';
+import { DAILY_TOTAL, getDailyDate, getStreakForDay, loadDailyProgress } from '@/lib/dailyChallenge';
+import { getDiscoveredCountries } from '@/lib/discovery';
+import { VALID_COUNTRY_IDS } from '@/data/countries';
 import type { GameMode, LeaderboardEntry } from '@/types';
 import { useState } from 'react';
 
 interface StartScreenProps {
   onStart: (mode: GameMode) => void;
   onViewWeekly: (mode: GameMode) => void;
+  onDaily: () => void;
+  onExplore: () => void;
   leaderboard: LeaderboardEntry[];
   playerName: string;
   onNameChange: (name: string) => Promise<void>;
   leaderboardError: string;
 }
 
-export function StartScreen({ onStart, onViewWeekly, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
+export function StartScreen({ onStart, onViewWeekly, onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
   const [editing, setEditing] = useState(!playerName);
   const [selectedMode, setSelectedMode] = useState<GameMode>('mixed');
   const [name, setName] = useState(playerName);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const today = getDailyDate();
+  const dailyProgress = loadDailyProgress(today);
+  const foundCount = getDiscoveredCountries().length;
+  const streak = getStreakForDay(today);
   const save = async () => {
     if (!name.trim() || busy) return;
     setBusy(true);
@@ -75,6 +84,19 @@ export function StartScreen({ onStart, onViewWeekly, leaderboard, playerName, on
           >
             <Play className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
             {selectedMode === 'flags' ? 'Bayrak Arenasına Gir' : 'Karışık Oyuna Başla'}
+          </button>
+        </div>
+
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <button onClick={onDaily} className="mini-adventure-card mini-adventure-daily" aria-label="Günlük 10 soru görevini aç">
+            <span className="mini-adventure-art"><CalendarCheck className="h-7 w-7 text-amber-200" /><Flame className="h-5 w-5 text-orange-300" /></span>
+            <span className="mini-adventure-heading">GÜNLÜK 10 SORU</span>
+            <span className="mini-adventure-subtitle">{dailyProgress.answers.length === DAILY_TOTAL ? 'Bugün tamamlandı ✓' : `${dailyProgress.answers.length}/10 soru · ${streak} gün seri`}</span>
+          </button>
+          <button onClick={onExplore} className="mini-adventure-card mini-adventure-explore" aria-label="Dünya keşif haritanı aç">
+            <span className="mini-adventure-art"><Compass className="h-7 w-7 text-cyan-200" /><MapPinned className="h-5 w-5 text-cyan-300" /></span>
+            <span className="mini-adventure-heading">KEŞİF HARİTAM</span>
+            <span className="mini-adventure-subtitle">{foundCount}/{VALID_COUNTRY_IDS.length} ülke keşfedildi</span>
           </button>
         </div>
 

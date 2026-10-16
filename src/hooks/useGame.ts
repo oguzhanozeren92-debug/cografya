@@ -3,6 +3,7 @@ import type { GameMode, GamePhase, QuestionType, RoundResult, LeaderboardEntry }
 import { COUNTRY_DATA, COUNTRIES_BY_DIFFICULTY, VALID_COUNTRY_IDS } from '@/data/countries';
 import { fetchLeaderboard, saveGlobalScore } from '@/lib/leaderboard';
 import { submitWeeklyScore } from '@/lib/weeklyLeaderboard';
+import { discoverCountry } from '@/lib/discovery';
 
 const MAX_LIVES = 3;
 const BASE_POINTS = 100;
@@ -116,6 +117,7 @@ export function useGame() {
     const isCorrect = answer === currentAnswer;
     const meta = currentCountryId ? COUNTRY_DATA[currentCountryId] : null;
     if (isCorrect) {
+      if (currentCountryId) discoverCountry(currentCountryId);
       const points = BASE_POINTS * (meta?.difficulty ?? 1) + STREAK_BONUS * streak;
       setScore(value => value + points);
       setStreak(value => value + 1);

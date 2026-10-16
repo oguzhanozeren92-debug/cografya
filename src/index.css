@@ -128,3 +128,25 @@
 .weekly-hero-flags .weekly-photo { background-image:linear-gradient(95deg,rgba(6,17,43,.96),rgba(8,25,60,.81) 50%,rgba(67,41,16,.5)),url('https://images-assets.nasa.gov/image/PIA18033/PIA18033~medium.jpg'); }
 .flag-question-panel { max-height: calc(100dvh - 88px); overflow-y: auto; overscroll-behavior: contain; }
 @media (max-height: 650px) { .flag-stage { padding: 12px; margin-bottom: 10px; } .flag-stage .relative.mx-auto { height: 112px; } .flag-stage p { margin-bottom: 8px; } }
+
+/* Daily quest and world discovery — game art remains consistent with the weekly arena. */
+.daily-screen, .explore-screen { background: radial-gradient(circle at 35% 0%, #1a365d 0%, #091327 36%, #050a19 85%); }
+.daily-hero { isolation: isolate; min-height: 250px; background: #102543; }
+.daily-hero::before { content: ''; position:absolute; inset:0; z-index:-2; background: linear-gradient(95deg,rgba(5,14,35,.97) 0%,rgba(8,25,54,.80) 52%,rgba(12,37,67,.24) 100%),url('https://images-assets.nasa.gov/image/PIA18033/PIA18033~medium.jpg') center / cover; }
+.daily-hero::after { content:''; position:absolute; inset:0; z-index:-1; background: radial-gradient(circle at 78% 30%,rgba(20,196,244,.22),transparent 48%); }
+.daily-chip { display:inline-flex; align-items:center; gap:6px; border:1px solid rgba(255,255,255,.18); background:rgba(7,19,43,.72); padding:7px 10px; border-radius:12px; font-size:11px; font-weight:800; }
+.daily-question { background: linear-gradient(155deg,rgba(16,39,74,.95),rgba(9,19,41,.99)); box-shadow:0 15px 55px rgba(0,0,0,.25); }
+.daily-flag-frame { background: radial-gradient(ellipse at center,rgba(58,112,158,.42),rgba(10,24,49,.90) 70%),repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 18px); }
+.daily-finish { background: radial-gradient(ellipse at 50% 5%,rgba(203,151,56,.24),transparent 57%),linear-gradient(160deg,#182a48,#0b1531); }
+.explore-hero { isolation:isolate; min-height:260px; background:#101e41; }
+.explore-hero::before { content:''; position:absolute; inset:0; z-index:-2; background:linear-gradient(96deg,rgba(5,14,35,.97) 0%,rgba(8,25,54,.88) 48%,rgba(12,37,67,.20) 100%),url('https://images-assets.nasa.gov/image/PIA18033/PIA18033~medium.jpg') center / cover; }
+.explore-hero::after { content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(circle at 85% 30%,rgba(39,227,213,.2),transparent 48%); }
+.explore-map-frame { background:radial-gradient(ellipse at 25% 0,rgba(25,73,119,.55),transparent 65%),linear-gradient(#12213b,#091529); }
+.mini-adventure-card { display:flex; position:relative; isolation:isolate; min-height:114px; flex-direction:column; align-items:flex-start; justify-content:flex-end; overflow:hidden; padding:13px 12px; border:1px solid rgba(255,255,255,.17); border-radius:18px; text-align:left; box-shadow:0 7px 20px rgba(0,0,0,.2); }
+.mini-adventure-card::before { content:''; position:absolute; inset:0; z-index:-2; background:linear-gradient(0deg,rgba(6,15,38,.97),rgba(8,24,54,.2)),url('https://images-assets.nasa.gov/image/PIA18033/PIA18033~medium.jpg') center / cover; }
+.mini-adventure-daily::after { content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(circle at 84% 12%,rgba(255,177,61,.32),transparent 60%); }
+.mini-adventure-explore::after { content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(circle at 84% 12%,rgba(52,212,225,.34),transparent 60%); }
+.mini-adventure-art { display:flex; align-items:center; gap:8px; margin-bottom:auto; padding-bottom:8px; }
+.mini-adventure-heading { color:white; font-size:12px; line-height:1.3; letter-spacing:.065em; font-weight:900; }
+.mini-adventure-subtitle { color:#d2e7fa; font-size:10px; margin-top:3px; }
+.mini-adventure-card:active { transform:scale(.97); }
