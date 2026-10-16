@@ -1,16 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
-import Particles, { initParticlesEngine } from '@tsparticles/react';
+import Particles from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
-import type { ISourceOptions } from '@tsparticles/engine';
+import { tsParticles, type ISourceOptions } from '@tsparticles/engine';
 
 let enginePromise: Promise<void> | null = null;
 
 function ensureParticleEngine(): Promise<void> {
-  if (!enginePromise) {
-    enginePromise = initParticlesEngine(async engine => { await loadSlim(engine); })
-      .catch(error => { enginePromise = null; throw error; });
-  }
-  return enginePromise;
+  if (enginePromise) return enginePromise;
+  const loading = loadSlim(tsParticles).catch((error: unknown) => {
+    enginePromise = null;
+    throw error;
+  });
+  enginePromise = loading;
+  return loading;
 }
 
 /** Low particle count and low fps, only mounted in the home hero. */
