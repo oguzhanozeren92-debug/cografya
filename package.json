@@ -10,10 +10,11 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "native:android": "npm run build && npx cap add android",
-    "native:ios": "npm run build && npx cap add ios",
+    "native:ios": "npm run build && npx cap add ios && npm run native:configure && npx cap sync ios",
     "native:sync": "npm run build && npx cap sync",
     "native:configure": "node scripts/configure-admob-native.mjs",
-    "native:release:check": "node scripts/validate-admob-release.mjs"
+    "native:release:check": "node scripts/validate-admob-release.mjs",
+    "native:ios:sync": "npm run build && npx cap sync ios && npm run native:configure"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

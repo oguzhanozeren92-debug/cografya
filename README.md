@@ -1,4 +1,4 @@
-# Coğrafya Oyunu
+# Atlas Arena — Coğrafya Oyunu
 
 Vite, React ve TypeScript ile geliştirilen dünya ülkeleri tahmin oyunu.
 
@@ -19,3 +19,6 @@ Ortak skor tablosu için `KURULUM-ORTAK-SKOR.md` ve `supabase/geo_leaderboard.sq
 Native iOS/Android kurulum ve AdMob App/Rewarded ID adımları için
 [`KURULUM-ADMOB-NATIVE.md`](KURULUM-ADMOB-NATIVE.md) dosyasına bakın.
 Mobil olmayan web önizlemesinde gerçek AdMob videosu gösterilmez.
+
+Atlas Arena iOS AdMob App ID ve ödüllü (+1 can) birimi `.env.production` içinde yapılandırılmıştır.
+Android reklam birimleri henüz eklenmedi; gerçek yayın için AdMob incelemesi ve iPhone cihaz testi gerekir.

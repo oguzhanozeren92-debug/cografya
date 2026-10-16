@@ -2,19 +2,23 @@
  *
  * Env: ADMOB_APP_ID_IOS, ADMOB_APP_ID_ANDROID (ca-app-pub-...~...)
  * For native test builds ONLY: ADMOB_USE_GOOGLE_TEST_APP_IDS=true
- * No production IDs have been supplied for the Coğrafya application.
+ * Atlas Arena iOS production IDs are in .env.production (public IDs, no secrets).
  */
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { loadEnv } from 'vite';
 
 const TEST_APP_IDS = {
   android: 'ca-app-pub-3940256099942544~3347511713',
   ios: 'ca-app-pub-3940256099942544~1458002511',
 };
-const testing = process.env.ADMOB_USE_GOOGLE_TEST_APP_IDS === 'true';
+// Reads public production App IDs from .env.production while allowing CI overrides.
+const nativeEnv = loadEnv('production', process.cwd(), '');
+const readSetting = (key) => process.env[key] || nativeEnv[key];
+const testing = readSetting('ADMOB_USE_GOOGLE_TEST_APP_IDS') === 'true';
 
 function appId(platform) {
   const id = testing ? TEST_APP_IDS[platform]
-    : process.env[platform === 'ios' ? 'ADMOB_APP_ID_IOS' : 'ADMOB_APP_ID_ANDROID'];
+    : readSetting(platform === 'ios' ? 'ADMOB_APP_ID_IOS' : 'ADMOB_APP_ID_ANDROID');
   if (!id) return null;
   if (!/^ca-app-pub-\d{16}~\d{10}$/.test(id)) {
     throw new Error(`Invalid AdMob ${platform} app ID. Use ca-app-pub-...~... (NOT / ad unit ID).`);

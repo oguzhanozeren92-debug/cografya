@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 /** The appId is a proposed bundle identifier; confirm availability before store submission. */
 const config: CapacitorConfig = {
   appId: 'com.oguzhanozeren.cografya',
-  appName: 'Coğrafya Oyunu',
+  appName: 'Atlas Arena',
   webDir: 'dist',
   backgroundColor: '#060818',
 };

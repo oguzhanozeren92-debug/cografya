@@ -23,3 +23,5 @@ dist-ssr
 .env
 .env.*
 !.env.example
+# Public AdMob identifiers only: never place secrets in this file.
+!.env.production

@@ -4,14 +4,16 @@ Mevcut Coğrafya uygulaması React/Vite web projesiydi. Bu sürüm Capacitor 8.5
 
 ## Coğrafya için AdMob hesabında yapılacaklar
 
-TarlaPusula'ya ait reklam kimlikleri **kullanılmamalı**. [AdMob](https://admob.google.com) > Apps > Add app bölümünden **Coğrafya** için her hedef platformda ayrı uygulama oluştur; Rewarded formatında birim ekle.
+TarlaPusula'ya ait reklam kimlikleri **kullanılmamalı**. AdMob içinde **Atlas Arena iOS** oluşturuldu ve rewarded birimi eklendi. Android hedeflenirse ayrıca uygulama ve reklam birimi açılmalıdır.
 
-- iOS App ID: `ca-app-pub-...~...` (native Info.plist)
-- iOS Rewarded Ad Unit ID: `ca-app-pub-.../...` (`VITE_ADMOB_REWARDED_IOS_ID`)
+- iOS App ID: `ca-app-pub-3095980373635054~2229587754` (native Info.plist)
+- iOS Rewarded Ad Unit ID: `ca-app-pub-3095980373635054/4664179401` (`VITE_ADMOB_REWARDED_IOS_ID`)
 - Android App ID: `ca-app-pub-...~...` (native AndroidManifest.xml)
 - Android Rewarded Ad Unit ID: `ca-app-pub-.../...` (`VITE_ADMOB_REWARDED_ANDROID_ID`)
 
 Uygulamanın iOS/Android mağaza kimliği: `capacitor.config.ts` içinde **önerilen** `com.oguzhanozeren.cografya`. Mağazaya gönderilmeden önce benzersizliği ve hesap sahipliği doğrulanmalıdır.
+
+iOS kimlikleri kaynak depoda yalnızca **herkese açık reklam kimlikleri** olarak `.env.production` içinde saklanır; gizli API anahtarı değildir. Native hazırlama betiği üretim dosyasını otomatik okur.
 
 ## Native proje oluşturma
 
@@ -19,7 +21,7 @@ Uygulamanın iOS/Android mağaza kimliği: `capacitor.config.ts` içinde **öner
 npm install
 npm run build
 npx cap add android  # Android yayınlanacaksa
-npx cap add ios      # iOS yayınlanacaksa (macOS/Xcode gerekir)
+npm run native:ios   # iOS: platformu oluşturur, gerçek App ID'yi Info.plist'e yazar, sync yapar (macOS/Xcode)
 ```
 
 Test için Google'ın resmi *test app ID* ve *rewarded test unit* değerlerini kullan:
@@ -29,7 +31,7 @@ ADMOB_USE_GOOGLE_TEST_APP_IDS=true npm run native:configure
 VITE_ADMOB_USE_TEST_ADS=true npm run native:sync
 ```
 
-**Üretim:** Önce platform-specific gerçek App ID'leri sağlayarak `npm run native:configure` çalıştır. `.env` ya da build environment'da ilgili rewarded unit'i tanımla. `VITE_ADMOB_USE_TEST_ADS=false` olsun. Daha sonra `npm run native:sync`, `npm run native:release:check` ve cihaz testleri yapılmalı. `npm run native:release:check` yalnızca kimlik/doğru format kontrolleridir; reklam servisinin aktifliğini doğrulamaz.
+**iOS üretim:** Atlas Arena'nın gerçek App ID ve rewarded unit ID'si `.env.production` dosyasında hazırdır. İlk kez `npm run native:ios`, mevcut iOS projesinde `npm run native:ios:sync` kullan. Ardından `CAPACITOR_PLATFORM=ios npm run native:release:check`, Xcode imzalama, gizlilik uyumu ve fiziksel iPhone testleri yapılmalı. Android için ayrı kimlikler hâlâ gerekir. `npm run native:release:check` yalnızca kimlik/doğru format kontrolleridir; reklam servisinin aktifliğini doğrulamaz.
 
 ## UMP gizlilik ve ödül güvenliği
 
@@ -39,7 +41,7 @@ VITE_ADMOB_USE_TEST_ADS=true npm run native:sync
 
 ## Önemli sınırlar
 
-- AdMob onay ve uygulama kaydı gereken harici AdMob işlemleridir. Hesap kimlikleri henüz Coğrafya deposunda yoktur.
+- Atlas Arena iOS reklam kimlikleri yapılandırılmıştır. AdMob ekranında **Requires review** göründüğü için canlı reklam sunumu/onayı henüz doğrulanmamıştır.
 - Plugin'in native derlenmesi için Capacitor platformlarının `cap add` ile üretilmesi ve Google App ID girilmesi gerekir.
 - `package.json` için npm kurulum ve lockfile yenilemesi tamamlanmadan `npm ci` çalıştırılmaz.
 - iOS SKAdNetwork kimlikleri ve App Store privacy declaration, Android data safety & Google Mobile Ads policy ayarları yayımlama öncesi kontrol edilmeli.

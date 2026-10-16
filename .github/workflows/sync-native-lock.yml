@@ -4,6 +4,11 @@ on:
   push:
     paths:
       - package.json
+      - .env.production
+      - capacitor.config.ts
+      - scripts/configure-admob-native.mjs
+      - scripts/validate-admob-release.mjs
+      - src/lib/rewardedAds.ts
       - .github/workflows/sync-native-lock.yml
   workflow_dispatch:
 
