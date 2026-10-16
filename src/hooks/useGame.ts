@@ -5,7 +5,8 @@ import { fetchLeaderboard, saveGlobalScore } from '@/lib/leaderboard';
 import { submitWeeklyScore } from '@/lib/weeklyLeaderboard';
 import { discoverCountry } from '@/lib/discovery';
 
-const MAX_LIVES = 3;
+export const MAX_LIVES = 3;
+export const MAX_REWARDED_HEARTS_PER_RUN = 1;
 const BASE_POINTS = 100;
 const STREAK_BONUS = 50;
 
@@ -62,6 +63,9 @@ export function useGame() {
   const [roundResults, setRoundResults] = useState<RoundResult[]>([]);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [leaderboardError, setLeaderboardError] = useState('');
+  const [rewardedHeartsUsed, setRewardedHeartsUsed] = useState(0);
+  const rewardedUsedRef = useRef(false);
+  const gameRunRef = useRef(0);
   const recentIdsRef = useRef<string[]>([]);
 
   const refreshLeaderboard = useCallback(async () => {
@@ -97,6 +101,9 @@ export function useGame() {
   }, []);
 
   const start = useCallback((gameMode: GameMode = 'mixed') => {
+    gameRunRef.current += 1;
+    rewardedUsedRef.current = false;
+    setRewardedHeartsUsed(0);
     setMode(gameMode);
     setScore(0);
     setLives(MAX_LIVES);
@@ -139,7 +146,7 @@ export function useGame() {
   }, [phase, currentAnswer, currentCountryId, currentQuestionType, streak]);
 
   const onContinue = useCallback(() => {
-    if (lives <= 0) { setPhase('gameover'); return; }
+    if (lives <= 0) { setPhase(rewardedUsedRef.current ? 'gameover' : 'revive'); return; }
     const nextRound = round + 1;
     setRound(nextRound);
     startRound(nextRound, mode);
@@ -151,8 +158,30 @@ export function useGame() {
     return () => window.clearTimeout(timeout);
   }, [phase, onContinue]);
 
+  // This function is called only after the native rewarded SDK has confirmed the reward.
+  // The run token and a synchronous ref prevent delayed/double reward callbacks from
+  // giving extra lives after a restart or multiple taps.
+  const grantRewardedHeart = useCallback((expectedRun: number): boolean => {
+    if (expectedRun !== gameRunRef.current || rewardedUsedRef.current ||
+      (phase !== 'revive' && phase !== 'question')) return false;
+    rewardedUsedRef.current = true;
+    setRewardedHeartsUsed(1);
+    setLives(value => Math.min(MAX_LIVES, value + 1));
+    if (phase === 'revive') {
+      const nextRound = round + 1;
+      setRound(nextRound);
+      startRound(nextRound, mode);
+    }
+    return true;
+  }, [phase, mode, round, startRound]);
+
+  const abandonRun = useCallback(() => {
+    setPhase(current => current === 'revive' ? 'gameover' : current);
+  }, []);
+
   const restart = useCallback(() => {
     void refreshLeaderboard();
+    gameRunRef.current += 1;
     setPhase('idle');
   }, [refreshLeaderboard]);
 
@@ -166,6 +195,7 @@ export function useGame() {
 
   return {
     mode, phase, score, lives, streak, round, currentCountryId, currentQuestionType,
+    rewardedHeartsUsed, gameRunId: gameRunRef.current, grantRewardedHeart, abandonRun,
     currentOptions, currentAnswer, selectedAnswer, roundResults, leaderboard,
     leaderboardError, refreshLeaderboard,
     correctCount: roundResults.filter(r => r.isCorrect).length,

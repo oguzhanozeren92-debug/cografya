@@ -1,13 +1,16 @@
-import { Heart, Flame, Star } from 'lucide-react';
+import { Heart, Flame, Star, Clapperboard, Plus } from 'lucide-react';
 
 interface HUDProps {
   score: number;
   lives: number;
   streak: number;
   round: number;
+  canEarnHeart: boolean;
+  adBusy: boolean;
+  onWatchHeart: () => void;
 }
 
-export function HUD({ score, lives, streak, round }: HUDProps) {
+export function HUD({ score, lives, streak, round, canEarnHeart, adBusy, onWatchHeart }: HUDProps) {
   return (
     <div className="relative z-10 flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
       <div className="glass-panel flex items-center gap-2 px-4 py-2">
@@ -22,6 +25,11 @@ export function HUD({ score, lives, streak, round }: HUDProps) {
             className={`h-4 w-4 transition-all ${i < lives ? 'fill-red-500 text-red-500' : 'text-slate-600'}`}
           />
         ))}
+        {canEarnHeart && (
+          <button type="button" onClick={onWatchHeart} disabled={adBusy} aria-label="Ödüllü reklamla bir can kazan" title="Reklam izle, +1 can" className="heart-reward-pill ml-1 flex h-8 items-center gap-0.5 rounded-lg border border-amber-300/40 bg-amber-400/15 px-2 text-xs font-bold text-amber-200 transition active:scale-95 disabled:opacity-40">
+            <Clapperboard className="h-3.5 w-3.5" /><Plus className="h-3 w-3" />1
+          </button>
+        )}
       </div>
 
       <div className="glass-panel flex items-center gap-3 px-4 py-2">

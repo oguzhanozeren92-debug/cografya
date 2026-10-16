@@ -8,8 +8,10 @@ import { GameOverScreen } from '@/components/GameOverScreen';
 import { WeeklyLeaderboardScreen } from '@/components/WeeklyLeaderboardScreen';
 import { DailyChallengeScreen } from '@/components/DailyChallengeScreen';
 import { ExploreMapScreen } from '@/components/ExploreMapScreen';
+import { ReviveScreen } from '@/components/ReviveScreen';
+import { isRewardedHeartAvailable, watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { syncDiscoveries } from '@/lib/discovery';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { GameMode } from '@/types';
 import { backend, getSavedName, changePlayerName, getPlayerId, setSavedName } from '@/lib/leaderboard';
 
@@ -19,8 +21,34 @@ function App() {
   const [weeklyOpen, setWeeklyOpen] = useState(false);
   const [dailyOpen, setDailyOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
+  const [adBusy, setAdBusy] = useState(false);
+  const [adError, setAdError] = useState('');
+  const adLockRef = useRef(false);
+  const rewardedAvailable = isRewardedHeartAvailable();
+  const watchForHeart = async () => {
+    if (adLockRef.current || !rewardedAvailable || game.rewardedHeartsUsed > 0 ||
+      (game.phase !== 'question' && game.phase !== 'revive')) return;
+    adLockRef.current = true;
+    setAdBusy(true);
+    setAdError('');
+    const runId = game.gameRunId;
+    try {
+      const earned = await watchRewardedHeartAd();
+      if (earned) {
+        if (!game.grantRewardedHeart(runId)) setAdError('Bu oyun için can hakkı zaten kullanılmış.');
+      } else {
+        setAdError('Reklam tamamlanmadı veya şu an gösterilemedi. Can yüklenmedi.');
+      }
+    } catch {
+      setAdError('Reklam şu anda kullanılamıyor.');
+    } finally {
+      adLockRef.current = false;
+      setAdBusy(false);
+    }
+  };
   useEffect(() => { void syncDiscoveries(); }, []);
   const [weeklyMode, setWeeklyMode] = useState<GameMode>('mixed');
+  const startGame = (mode: GameMode) => { setAdError(''); game.start(mode); };
   const openWeekly = (mode: GameMode) => { setWeeklyMode(mode); setWeeklyOpen(true); };
   const updateName = async (name: string) => {
     const clean = name.trim().slice(0, 20);
@@ -46,7 +74,9 @@ function App() {
 
       <div className="relative z-10 flex min-h-screen flex-col">
         {showHUD && (
-          <HUD score={game.score} lives={game.lives} streak={game.streak} round={game.round} />
+          <HUD score={game.score} lives={game.lives} streak={game.streak} round={game.round}
+            canEarnHeart={rewardedAvailable && !adBusy && game.phase === 'question' && game.lives < 3 && game.rewardedHeartsUsed === 0}
+            adBusy={adBusy} onWatchHeart={() => { void watchForHeart(); }} />
         )}
 
         {showGlobe && (
@@ -70,13 +100,20 @@ function App() {
             selectedAnswer={game.selectedAnswer}
             correctAnswer={game.currentAnswer}
             phase={game.phase}
-            onAnswer={game.onAnswer}
+            onAnswer={answer => { if (!adBusy) game.onAnswer(answer); }}
           /></div>
         )}
       </div>
 
       {showStart && (
-        <StartScreen onStart={game.start} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
+        <StartScreen onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
+      )}
+
+      {game.phase === 'revive' && (
+        <ReviveScreen mode={game.mode} score={game.score} round={game.round}
+          available={rewardedAvailable} busy={adBusy} error={adError}
+          onWatchAd={() => { void watchForHeart(); }}
+          onGiveUp={game.abandonRun} />
       )}
 
       {showGameOver && (
@@ -103,7 +140,7 @@ function App() {
       )}
 
       {weeklyOpen && (
-        <WeeklyLeaderboardScreen initialMode={weeklyMode} playerName={playerName} onClose={() => setWeeklyOpen(false)} onPlay={(mode) => { setWeeklyOpen(false); game.start(mode); }} />
+        <WeeklyLeaderboardScreen initialMode={weeklyMode} playerName={playerName} onClose={() => setWeeklyOpen(false)} onPlay={(mode) => { setWeeklyOpen(false); startGame(mode); }} />
       )}
     </div>
   );

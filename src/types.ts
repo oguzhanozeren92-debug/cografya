@@ -4,7 +4,7 @@ export type GameMode = 'mixed' | 'flags';
 
 export type QuestionType = 'country' | 'capital' | 'flag';
 
-export type GamePhase = 'idle' | 'spinning' | 'question' | 'feedback' | 'gameover';
+export type GamePhase = 'idle' | 'spinning' | 'question' | 'feedback' | 'revive' | 'gameover';
 
 export interface CountryMeta {
   nameTr: string;
