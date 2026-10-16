@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+    background-color: #060818;
+    color: #f8fafc;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+
+  .option-btn {
+    @apply relative overflow-hidden rounded-xl border border-white/10 bg-white/5
+           px-4 py-3.5 text-left text-white transition-all duration-200
+           hover:bg-white/10 hover:border-white/25
+           active:scale-[0.98] cursor-pointer;
+  }
+
+  .option-btn-correct {
+    @apply border-emerald-500/60 bg-emerald-500/20 text-emerald-100;
+  }
+
+  .option-btn-wrong {
+    @apply border-red-500/60 bg-red-500/20 text-red-100;
+  }
+
+  .option-btn-disabled {
+    @apply cursor-default opacity-60;
+  }
+}
+
+.highlighted-country {
+  animation: countryPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5));
+}
+
+@keyframes countryPulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

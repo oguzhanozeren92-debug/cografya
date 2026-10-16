@@ -1,0 +1,90 @@
+import { Globe2, Play, Trophy, Pencil, UserRound } from 'lucide-react';
+import type { LeaderboardEntry } from '@/types';
+import { useState } from 'react';
+
+interface StartScreenProps {
+  onStart: () => void;
+  leaderboard: LeaderboardEntry[];
+  playerName: string;
+  onNameChange: (name: string) => Promise<void>;
+  leaderboardError: string;
+}
+
+export function StartScreen({ onStart, leaderboard, playerName, onNameChange, leaderboardError }: StartScreenProps) {
+  const [editing, setEditing] = useState(!playerName);
+  const [name, setName] = useState(playerName);
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  const save = async () => {
+    if (!name.trim() || busy) return;
+    setBusy(true);
+    try { await onNameChange(name); setEditing(false); setError(''); }
+    catch { setError('Oyuncu adı kaydedilemedi. Bağlantıyı kontrol et.'); }
+    finally { setBusy(false); }
+  };
+  return (
+    <div className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-8 px-4">
+      <div className="pointer-events-none flex-1" />
+
+      <div className="w-full max-w-md animate-slide-up">
+        <div className="glass-panel p-6 text-center">
+          <div className="mb-3 flex items-center justify-center gap-2 text-blue-400">
+            <Globe2 className="h-6 w-6" />
+            <span className="text-sm font-medium tracking-wider uppercase">Coğrafya Oyunu</span>
+          </div>
+          <h1 className="mb-2 text-3xl font-bold text-white">
+            Dünya Coğrafya Bulmaca
+          </h1>
+          <p className="mb-5 text-sm text-slate-400 leading-relaxed">
+            Dönen dünya globusu durur ve kırmızı bir ülke belirir.
+            Hangi ülke olduğunu tahmin et! Sonra başkentlerini de öğreneceksin.
+          </p>
+
+          {editing ? (
+            <div className="mb-4 text-left">
+              <label className="mb-2 block text-xs text-slate-300">Oyuncu takma adın (şifre yok)</label>
+              <div className="flex gap-2">
+                <input autoFocus maxLength={20} value={name} onChange={e => setName(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') void save(); }} placeholder="Takma ad seç" className="min-w-0 flex-1 rounded-xl border border-white/15 bg-white/10 px-3 py-3 text-white outline-none focus:border-blue-400" />
+                <button disabled={!name.trim() || busy} onClick={() => void save()} className="rounded-xl bg-blue-600 px-4 text-sm font-semibold text-white disabled:opacity-50">{busy ? '...' : 'Kaydet'}</button>
+              </div>
+              {error && <p className="mt-2 text-xs text-rose-400">{error}</p>}
+            </div>
+          ) : (
+            <button onClick={() => {setName(playerName);setEditing(true);}} className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-3 py-2.5 text-sm text-slate-200"><UserRound className="h-4 w-4" /> {playerName} <Pencil className="h-3.5 w-3.5 opacity-60" /></button>
+          )}
+          <button
+            disabled={!playerName || editing}
+            onClick={onStart}
+            className="group flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:bg-blue-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <Play className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
+            Başla
+          </button>
+        </div>
+
+        {(leaderboard.length > 0 || leaderboardError) && (
+          <div className="glass-panel mt-3 p-4">
+            <div className="mb-2 flex items-center gap-2 text-amber-400">
+              <Trophy className="h-4 w-4" />
+              <span className="text-xs font-semibold tracking-wider uppercase">Dünya Sıralaması • İlk 5</span>
+            </div>
+            {leaderboardError && <p className="mb-2 text-xs text-amber-300">{leaderboardError}</p>}
+            <div className="space-y-1.5">
+              {leaderboard.slice(0, 5).map((entry, i) => (
+                <div key={entry.id} className="flex items-center justify-between text-sm">
+                  <span className="flex items-center gap-2 text-slate-300">
+                    <span className={`font-bold ${i === 0 ? 'text-amber-400' : i === 1 ? 'text-slate-300' : i === 2 ? 'text-orange-400' : 'text-slate-500'}`}>
+                      {i + 1}.
+                    </span>
+                    <span className="max-w-[175px] truncate">{entry.player_name}</span>
+                  </span>
+                  <span className="font-semibold text-white">{entry.score}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
