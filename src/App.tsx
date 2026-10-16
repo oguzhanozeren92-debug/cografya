@@ -90,7 +90,7 @@ function App() {
       await game.refreshLeaderboard();
     } catch { /* Nickname is saved locally; the cloud league may be unavailable. */ }
   };
-  const showGlobe = game.phase === 'idle' || game.phase === 'gameover' || (game.currentQuestionType !== 'flag' && game.currentQuestionType !== 'clue');
+  const showGlobe = game.phase === 'gameover' || (game.phase !== 'idle' && game.currentQuestionType !== 'flag' && game.currentQuestionType !== 'clue');
   const showHUD = game.phase !== 'idle' && game.phase !== 'gameover';
   const showQuestion = game.phase === 'question' || game.phase === 'feedback';
   const showStart = game.phase === 'idle';
