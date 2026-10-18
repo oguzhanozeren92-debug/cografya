@@ -17,7 +17,7 @@ export type DronePanorama = {
 };
 function commonsPhoto(filename: string) {
   return {
-    source: 'https://commons.wikimedia.org/wiki/File:' + encodeURIComponent(filename.replaceAll(' ', '_')),
+    source: 'https://commons.wikimedia.org/wiki/File:' + encodeURIComponent(filename.replace(/ /g, '_')),
     image: 'https://commons.wikimedia.org/w/index.php?title=' +
       encodeURIComponent('Special:Redirect/file/' + filename) + '&width=4096',
   };
