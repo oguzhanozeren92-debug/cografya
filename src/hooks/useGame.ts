@@ -123,8 +123,18 @@ export function useGame() {
   }, [startRound]);
 
   const onSpinEnd = useCallback(() => {
-    setPhase(current => current === 'spinning' ? 'question' : current);
+    // Allow the target to light up while the camera remains still before
+    // bringing in the answer options. This avoids an abrupt scene change.
+    setPhase(current => current === 'spinning' ? 'locking' : current);
   }, []);
+
+  useEffect(() => {
+    if (phase !== 'locking') return;
+    const timeout = window.setTimeout(() => {
+      setPhase(current => current === 'locking' ? 'question' : current);
+    }, 620);
+    return () => window.clearTimeout(timeout);
+  }, [phase]);
 
   const revealNextClue = useCallback(() => {
     if (phase !== 'question' || mode !== 'clues') return;
