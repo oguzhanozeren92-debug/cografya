@@ -20,20 +20,54 @@ CATEGORIES = [
     "Category:360° panoramic photographs",
     "Category:360° panoramas of Argentina",
     "Category:360° panoramas of Austria",
-    "Category:360° panoramics in France",
-    "Category:360° panoramics in Japan",
-    "Category:360° panoramics in Germany",
-    "Category:360° panoramics in the Netherlands",
-    "Category:360° panoramics in Switzerland",
-    "Category:360° panoramics in Sweden",
-    "Category:360° panoramics in Italy",
+    "Category:360° panoramas of Bangladesh",
+    "Category:360° panoramas of Belgium",
+    "Category:360° panoramas of Georgia (country)",
+    "Category:360° panoramas of India",
+    "Category:360° panoramas of Mexico",
+    "Category:360° panoramas of Romania",
+    "Category:360° panoramics in Armenia",
     "Category:360° panoramics in Brazil",
-    "Category:360° panoramics in South Korea",
-    "Category:360° panoramics in Mexico",
+    "Category:360° panoramics in Bulgaria",
+    "Category:360° panoramics in Cambodia",
+    "Category:360° panoramics in Canada",
+    "Category:360° panoramics in China",
+    "Category:360° panoramics in the Czech Republic",
+    "Category:360° panoramics in Denmark",
+    "Category:360° panoramics in Estonia",
+    "Category:360° panoramics in Finland",
+    "Category:360° panoramics in France",
+    "Category:360° panoramics in Germany",
+    "Category:360° panoramics in Greece",
+    "Category:360° panoramics in Hong Kong",
+    "Category:360° panoramics in Iceland",
+    "Category:360° panoramics in Israel",
+    "Category:360° panoramics in Italy",
+    "Category:360° panoramics in Japan",
+    "Category:360° panoramics in Latvia",
+    "Category:360° panoramics in the Netherlands",
+    "Category:360° panoramics in New Zealand",
+    "Category:360° panoramics in the Philippines",
+    "Category:360° panoramics in Poland",
     "Category:360° panoramics in Portugal",
+    "Category:360° panoramics in Russia",
+    "Category:360° panoramics in Serbia",
+    "Category:360° panoramics in Slovakia",
+    "Category:360° panoramics in Slovenia",
+    "Category:360° panoramics in South Korea",
     "Category:360° panoramics in Spain",
-    "Category:360° panoramics in India",
+    "Category:360° panoramics in Sweden",
+    "Category:360° panoramics in Switzerland",
     "Category:360° panoramics in Taiwan",
+    "Category:360° panoramics in Ukraine",
+    "Category:360° panoramics in the United Kingdom",
+    "Category:360° panoramics in the United States",
+    "Category:360° panoramics in Uzbekistan",
+    "Category:Spherical panoramics in South Africa",
+    "Category:Spherical panoramas",
+    "Category:360° panoramics in Kazakhstan",
+    "Category:360° panoramics in Kyrgyzstan",
+    "Category:360° panoramics in Norway",
 ]
 API = "https://commons.wikimedia.org/w/api.php"
 USER_AGENT = "AtlasArenaPanoramaResearch/0.2 (https://github.com/oguzhanozeren92-debug/cografya; noncommercial metadata research)"
@@ -118,12 +152,11 @@ def main():
     candidates = {}
     for category in CATEGORIES:
         try:
-            collect(category, candidates, max_pages=3)
+            collect(category, candidates, max_pages=4)
         except Exception as error:
             print(f"WARNING {category}: {error}")
         print(f"{category}: {len(candidates)} unique matching files")
-        if len(candidates) >= args.limit:
-            break
+        # Scan all countries before choosing the final list so Europe does not crowd out other regions.
     rows = list(candidates.values())
     # GPS present first. Candidates still require every human quality/legal check.
     rows.sort(key=lambda row: (row["gps"]["lat"] is None, -(row["width"]*row["height"])))
@@ -133,7 +166,10 @@ def main():
                                 "candidates":rows[:args.limit]},
                                ensure_ascii=False, indent=2), encoding="utf8")
     geotagged = sum(row["gps"]["lat"] is not None for row in rows)
-    print(f"Found {len(rows)} technically plausible assets, {geotagged} geotagged.")
+    unique_places = len({(round(row["gps"]["lat"],2),round(row["gps"]["lng"],2))
+                         for row in rows if row["gps"]["lat"] is not None and row["gps"]["lng"] is not None})
+    print(f"Found {len(rows)} technically plausible assets, {geotagged} geotagged, "
+          f"~{unique_places} distinct ~1km locations.", flush=True)
     print("None approved. Review license, photography and precise location before R2 upload.")
 if __name__ == "__main__":
     main()
