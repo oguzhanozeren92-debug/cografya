@@ -611,3 +611,60 @@
   .atlas-home-refresh .atlas-home-planet {animation:none;}
   .aa-mode,.aa-play {transition:none;}
 }
+
+
+/* Atlas Arena answer feedback – vivid success with accessible reduced motion. */
+.option-btn.option-btn-correct {
+  background: linear-gradient(115deg,#15803d 0%,#16a34a 44%,#22c55e 100%) !important;
+  border: 1.5px solid #a7f3d0 !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 1px rgba(74,222,128,.35),0 9px 23px rgba(21,128,61,.28),
+              inset 0 1px 0 rgba(255,255,255,.22);
+  text-shadow: 0 1px 1px rgba(2,58,25,.26);
+  isolation: isolate;
+}
+.option-btn.option-btn-correct .font-medium {
+  position:relative;z-index:2;font-weight:800;
+}
+.option-btn.option-btn-correct-picked {
+  animation: atlas-answer-green-pulse .85s ease-out both;
+}
+.option-btn.option-btn-correct::before {
+  content:'';position:absolute;z-index:0;inset:0;pointer-events:none;
+  background:linear-gradient(100deg,transparent 18%,rgba(255,255,255,.22) 49%,transparent 80%);
+  transform:translateX(-125%);opacity:0;
+}
+.option-btn.option-btn-correct-picked::before {
+  animation: atlas-answer-shine .78s ease-out .1s both;
+}
+.answer-correct-badge {
+  position:relative;z-index:2;display:grid;place-items:center;flex-shrink:0;
+  width:27px;height:27px;border-radius:50%;
+  color:#fff;background:#0e7836;border:1.5px solid rgba(255,255,255,.92);
+  box-shadow:0 0 0 3px rgba(255,255,255,.15),0 2px 10px rgba(0,70,31,.22);
+}
+.option-btn-correct-picked .answer-correct-badge {
+  animation:atlas-answer-tick .46s cubic-bezier(.2,1.5,.45,1) both;
+}
+@keyframes atlas-answer-green-pulse {
+  0% {box-shadow:0 0 0 0 rgba(74,222,128,.55),0 7px 20px rgba(21,128,61,.20);}
+  52% {box-shadow:0 0 0 7px rgba(74,222,128,.20),0 0 30px rgba(74,222,128,.48);}
+  100% {box-shadow:0 0 0 1px rgba(74,222,128,.35),0 9px 23px rgba(21,128,61,.28);}
+}
+@keyframes atlas-answer-shine {
+  0% {transform:translateX(-125%);opacity:0;}
+  20% {opacity:.9;}
+  100% {transform:translateX(125%);opacity:0;}
+}
+@keyframes atlas-answer-tick {
+  0% {opacity:0;transform:scale(.35) rotate(-28deg);}
+  75% {opacity:1;transform:scale(1.18) rotate(7deg);}
+  100% {opacity:1;transform:scale(1) rotate(0);}
+}
+@media (prefers-reduced-motion:reduce) {
+  .option-btn.option-btn-correct-picked,
+  .option-btn.option-btn-correct-picked::before,
+  .option-btn-correct-picked .answer-correct-badge {
+    animation:none !important;
+  }
+}
