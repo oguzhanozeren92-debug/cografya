@@ -11,10 +11,13 @@ import html
 import json
 import os
 import re
+import secrets
 import subprocess
 import tempfile
 import urllib.parse
 import urllib.request
+import urllib.error
+import time
 from pathlib import Path
 
 import boto3
@@ -28,8 +31,18 @@ AGENT = "AtlasArenaPanoramaPublisher/0.1 (reviewed-license media importer)"
 def fail(message):
     raise RuntimeError(message)
 def get_json(url):
-    with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": AGENT}), timeout=40) as response:
-        return json.load(response)
+    req=urllib.request.Request(url, headers={"User-Agent": AGENT})
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(req, timeout=50) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as exc:
+            if exc.code not in (429, 503) or attempt == 4:
+                raise
+            pause=min(40, 5 * (2 ** attempt))
+            print(f"Commons API rate limit; waiting {pause}s",flush=True)
+            time.sleep(pause)
+    fail("Commons API unavailable")
 def check_commons_license(row):
     title = row["sourceTitle"]
     params = urllib.parse.urlencode({
@@ -65,7 +78,7 @@ def download(url, output):
             dst.write(chunk)
     with Image.open(output) as img:
         width,height=img.size
-        if width<5000 or height<2500 or abs(width/height-2)>.04:
+        if width<5000 or height<2500 or width != height*2:
             fail(f"Image is not a full high-res 2:1 spherical equirectangular panorama: {width}x{height}")
         img.verify()
     return width,height,total
@@ -91,6 +104,8 @@ def publish(row, client, bucket, generator):
     if not row["source"].startswith("https://commons.wikimedia.org/wiki/File:"):
         fail("Attribution source must link to the specific Commons file page.")
     remote=check_commons_license(row)
+    # Public filenames / panorama IDs must not reveal city, country or attraction.
+    public_id="p"+secrets.token_hex(12)
     with tempfile.TemporaryDirectory(prefix="atlas-pano-") as temp:
         root=Path(temp)
         image=root/"source.jpg"
@@ -106,7 +121,7 @@ def publish(row, client, bucket, generator):
         for filepath in tiles.rglob("*"):
             if not filepath.is_file() or filepath.suffix.lower() not in (".jpg",".jpeg",".json"): continue
             relative=filepath.relative_to(tiles).as_posix()
-            key=f"panoramas/{ID}/{relative}"
+            key=f"panoramas/{public_id}/{relative}"
             props={"ContentType":"application/json" if filepath.suffix==".json" else "image/jpeg",
                    "CacheControl":"public, max-age=31536000, immutable"}
             client.upload_file(str(filepath),bucket,key,ExtraArgs=props)
@@ -115,8 +130,8 @@ def publish(row, client, bucket, generator):
         print(f"Published {ID}: original {w}x{h}, downloaded {n/1024**2:.1f} MiB, "
               f"R2 tiles {bytes_out/1024**2:.1f} MiB in {files} objects")
         return {
-            "id":ID,"approved":True,"mode":"multires",
-            "path":f"panoramas/{ID}","multires":multires,
+            "id":public_id,"sourceId":ID,"approved":True,"mode":"multires",
+            "path":f"panoramas/{public_id}","multires":multires,
             "country":row["country"],"city":row["city"],
             "title":row["title"],"fact":row["fact"],
             "lat":row["lat"],"lng":row["lng"],
@@ -133,7 +148,7 @@ def main():
     reviewed=json.loads(REVIEWED.read_text(encoding="utf8"))["panoramas"]
     by_id={row["id"]:row for row in reviewed}
     current=read_approved()
-    existing={x["id"] for x in current}
+    existing={x.get("sourceId",x["id"]) for x in current}
     needed=[i for i in ids if i not in existing]
     if not needed:
         print("All requested IDs are already published; nothing to do.")

@@ -1,0 +1,46 @@
+name: Atlas Arena 360 Pilot Upload
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'panoramas/reviewed.json'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: atlas-arena
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure R2 credentials were configured
+        run: |
+          test -n "$R2_ACCOUNT_ID" || exit 1
+          test -n "$R2_ACCESS_KEY_ID" || exit 1
+          test -n "$R2_SECRET_ACCESS_KEY" || exit 1
+      - name: Install panorama generator and upload dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y hugin-tools
+          python3 -m pip install --break-system-packages Pillow numpy boto3
+          git clone --depth 1 https://github.com/mpetroff/pannellum.git /tmp/pannellum
+      - name: Publish five reviewed spherical photos to R2 (production data, trial game)
+        run: |
+          python3 scripts/panoramas/publish.py --ids "es-toledo-alcazar-001,jp-yoshinogari-village-001,de-berlin-mauerpark-001,at-mariaenzersdorf-castle-001,lv-riga-aldaris-park-001"
+      - name: Save private, approved coordinates after complete batch
+        run: |
+          git config user.name "atlas-panorama-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add server/street/approved.mjs
+          if ! git diff --staged --quiet; then
+            git commit -m "assets: first five licensed 360 panoramas uploaded to R2"
+            git push origin HEAD:main
+          fi
