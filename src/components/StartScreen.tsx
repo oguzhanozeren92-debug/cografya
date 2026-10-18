@@ -213,9 +213,9 @@ export function StartScreen({
             <button type="button" onClick={startStreet} className="street-entry-main flex w-full items-center gap-3 text-left">
               <span className="street-entry-art" aria-hidden="true"><Camera className="h-9 w-9" strokeWidth={1.7}/><span>📍</span></span>
               <span className="min-w-0 flex-1">
-                <small className="street-entry-kicker">YENİ · 360° DÜNYA TURU</small>
+                <small className="street-entry-kicker">360° PANORAMA · ARŞİV HAZIRLANIYOR</small>
                 <strong className="mt-1 block text-lg font-black leading-tight">Sokak Dedektifi</strong>
-                <span className="mt-1 block text-[11px] font-semibold leading-4">Sokağı incele, dünyada yerini bul!</span>
+                <span className="mt-1 block text-[11px] font-semibold leading-4">Lisanslı panoramalar geliyor; dünyada yerini bul!</span>
               </span>
               <ChevronRight className="h-6 w-6 shrink-0 text-white"/>
             </button>

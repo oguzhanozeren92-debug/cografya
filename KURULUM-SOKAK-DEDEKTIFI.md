@@ -1,70 +1,104 @@
-# Atlas Arena — Sokak Dedektifi (5 rounds, 360° Street View)
+# Atlas Arena — 300 adet 360° panorama, R2 kurulum ve yayın planı
 
-## Oyun akışı
-- 5 konum; ülkelerin kimliğini yansıtan seçilmiş 20+ semt/meydan/sahil.
-- Google Street View API üzerinden 360° panorama; etrafa bakma.
-- Google Maps JavaScript API haritasında konum işaretleme, pan/zoom ve iki nokta arası çizgi.
-- Kullanıcı harita üzerinde bir koordinat işaretler; gerçek Google panorama
-  koordinatıyla Haversine mesafesi hesaplanır.
-- 5000 * exp(-km/1100) her tur için; 5 turda maksimum 25000.
-- Turda mesafe, şehir, ülke ve kısa bilgi; finalde toplam ve tüm tahminler.
-- Ayrı Dünya ve Haftalık en iyi skor sayfası.
+**Durum:** Hedef 300, doğrulanmış / yüklenmiş dosya sayısı başlangıçta 0.
+Lisansı, tam panoraması ve doğru GPS koordinatı onaylanmayan fotoğraf **oyunda gösterilmez**.
+Önce 5 farklı ülkeden görüntü yükleyip iPhone'da test et, sonra partiler halinde 300'e çık.
 
-## 1. Google Street View anahtarı zorunlu
-1. https://console.cloud.google.com/ üzerinden Atlas Arena için proje oluştur/seç.
-2. Projede faturalandırmayı etkinleştir.
-3. APIs & Services > Library > Maps JavaScript API etkinleştir.
-4. Credentials > API key oluştur.
-5. Key için Maps JavaScript API kısıtı ve güvenli HTTPS web referrer
-   kısıtı (örneğin https://atlas-arena-tau.vercel.app/*) uygula.
-6. Vercel'de Atlas Arena > Settings > Environment Variables bölümüne
-   VITE_GOOGLE_MAPS_API_KEY ekle; yeni deploy gereklidir.
-7. Google Cloud Billing > Budgets & alerts ve API quota limiti ayarla.
+## Seçilen yapı
 
-Google Dynamic Street View için yayın anındaki fiyat listesi:
-aylık 5000 ücretsiz Street View yüklemesi, sonrasında ilk ücretli kademede
-1000 başarılı yükleme için 14 USD.
-Ek Google dinamik harita yüklemesi için aylık 10000 ücretsiz kullanım sınırı,
-sonrasında ilk ücretli kademede 1000 yükleme için 7 USD. Güncel rakamı Google'dan doğrula:
-https://developers.google.com/maps/billing-and-pricing/pricing
+- Panorama arşivi: Cloudflare R2 Standard bucket: atlas-arena-panoramas
+- Canlı dosya yolu: panoramas/{id}/{level}/{face}{row}_{column}.jpg
+- Görsel motoru: Pannellum 2.5.7 (R2 üzerindeki multires 512px JPEG tile setleri)
+- Tahmin haritası: uygulamanın mevcut world-atlas / d3-geo ülkeler haritası
+- Oyun koordinatları: yalnızca Node server-side approved.mjs dosyasında
+- 5 tur ve her tur 0–5.000 puan; Haversine mesafesi sunucuda hesaplanır
+- Tek başına oyuncu skoru: cihazda; çevrimiçi rekabetçi puan henüz etkin değil
+- Fotoğraf kaynağı: resmi Wikimedia Commons 360° kategorileri
+  (Panoramax da lisansı ve indirmeyi doğrulayarak sonraki aşamada değerlendirilebilir)
 
-iOS Capacitor WKWebView uyarısı:
-Apple WKWebView'in capacitor://localhost gibi HTTP(S) olmayan URL
-şemalarında referrer kısıtlı Google Maps JavaScript anahtarı sorun
-çıkarabilir. Gerçek TestFlight / iPhone testi yapmadan native
-uyumluluk garantisi yoktur. Gerekirse Maps SDK for iOS panorama
-köprüsüne geçilecek; korumasız API key kullanmak çözüm değildir.
-https://developers.google.com/maps/api-security-best-practices
+## 1. R2 bucket aç (gerekli kullanıcı işlemi)
+1. https://dash.cloudflare.com > R2 Object Storage > Create Bucket.
+2. Ad: atlas-arena-panoramas; **Standard** depolama; yayın için özel domain ekle
+   (örnek: https://panorama.ornek-domain.com). r2.dev test içindir; yoğun trafikte özel domain önerilir.
+3. Bucket CORS için sadece uygulama ve uygulamanın gerçek alan adını
+   GET/HEAD yöntemleriyle izin verilen köken olarak ekle.
+   Örn https://atlas-arena-tau.vercel.app.
+4. R2 > Manage R2 API Tokens ile **yalnız bu bucket'a sınırlı** Read/Write
+   token oluştur. Asla anahtarı sohbete, GitHub koduna veya Vite'a yazma.
+5. GitHub / cografya > Settings > Secrets and variables > Actions kısmında
+   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY adlarında secret tanımla.
+6. Vercel Atlas Arena project > Settings > Environment Variables:
+   STREET_R2_PUBLIC_BASE_URL=https://GERCEK-PUBLIC-DOMAIN
+   STREET_SESSION_SECRET=(en az 32 karakterli rastgele değer)
+   **Bu ikisi VITE_ ile başlamamalı**, çünkü sunucu ayarlarıdır.
+7. Vercel'de yeni bir dağıtım gerekir. Özel domain HTTPS üzerinden çalışmalı.
 
-Google atıfları:
-Google'ın StreetViewPanorama ve Map bileşenleri telif/Google logosunu kendi
-gösterir; onları kaldırmak yasak.
-Google'ın kullanım koşulları Street View ve Google dışı haritanın
-birlikte kullanımını yasaklar; bu modda iki görünüm de Google'dandır.
-Atlas Arena'nın diğer modları ve bütün uygulama kullanımı için
-Google Maps Platform şartlarına uyum ayrıca değerlendirilmelidir.
-https://cloud.google.com/maps-platform/terms Panorama dosyaları cache'lenmez,
-indirilmez, kopyalanmaz. Tahmin haritasının sağlayıcısı da Google Maps'tir.
+**Not:** Bu oturumda R2 bucket'ını veya anahtarları oluşturmadık. Gerçek yükleme yapılmadı.
 
-## 2. Supabase lig
-Atlas Arena'nın GERÇEK Supabase projesini doğrula, TarlaPusula
-veritabanında çalıştırma.
-Supabase SQL Editor'da supabase/geo_street_leaderboard.sql çalıştır.
-Anonim sign-in etkin olmalıdır.
-Mevcut oyun/haftalık tablolarına dokunulmaz, ayrı
-geo_street_best ve geo_street_weekly oluşturulur.
-SQL kurulana kadar oyun sonuçları yalnız cihazda saklanır.
-Gerçek internet sıralaması otomatik olarak oluşmuş sayılmaz.
+## 2. 300 aday fotoğrafı keşfet
+GitHub Actions > Atlas Arena 360 Panorama Library > Run workflow:
+task = discover. Workflow, Wikimedia Commons kategorilerinden equirectangular
+görünen fotoğrafları teknik açıdan tarar; sonucunu indirilebilir
+panorama-candidates-needing-review adlı artifact içine yazar.
 
-ÖNEMLİ: Başlangıç liginde skor istemciden gelir; taklit/hile
-yapılabilir. Bu nedenle ödüllü turnuva için uygun değildir.
-Gelecekte sunucuya özel saklanan gerçek koordinatlar ve sunucu
-tarafı tur/puan doğrulaması gerekir.
+Bu **yayın değildir**. Her aday için editör kontrolü gerekir:
+- En az 5K × 2.5K, tercihen 8K × 4K / 2:1 tam 360° equirectangular formatı
+- Seçtiğimiz ülkeyi gerçekten temsil eden şehir/mahalle / sokak sahnesi
+- Gerçek çekim yerinin GPS koordinatı (ülkenin başkenti tahmin edilmeyecek)
+- CC0 / public domain / uygun CC-BY / CC-BY-SA lisansı
+- Orijinal eser sayfası, sanatçı, lisans ve gerekiyorsa değişiklik bildirimi
+- Kaynağın şartları ticari oyunda yeniden yayınlamaya izin veriyor mu?
+- 20 farklı ülke, kolay/orta/zor dengesi, aynı meydanın fazla tekrar etmemesi
 
-## 3. Testler
-- Gerçek Street View anahtarıyla mobil Safari ve TestFlight WKWebView.
-- Listedeki koordinatların kapsama alanını ve temsil gücünü gözle doğrula.
-- Kullanıcı 5 tur, atlanan panoramada puan kaybı yok.
-- Tahmin haritasının zoom/pan/koordinat hassasiyetini test et.
-- Dünya ligi için doğru Atlas Arena SQL ve anonim Supabase auth kontrolü.
-- Google Maps API maliyet bütçesi ve kota kontrolü.
+Sadece kontrol edilmiş satırları panoramas/reviewed.json içindeki panoramas
+dizisine ekle. Her satırın formatı:
+{
+  "id": "fr-paris-montmartre-001",
+  "sourceTitle": "File:EXACT_WIKIMEDIA_FILENAME.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:EXACT_WIKIMEDIA_FILENAME.jpg",
+  "country": "Fransa",
+  "city": "Paris",
+  "title": "Montmartre",
+  "fact": "Bölgeyle ilgili kısa doğrulanmış bilgi.",
+  "lat": 48.886, "lng": 2.34,
+  "artist": "Gerçek sanatçı adı",
+  "license": "CC BY-SA 4.0",
+  "reviewedProjection": true,
+  "reviewedCoordinates": true,
+  "reviewedLicense": true,
+  "reviewedQuality": true
+}
+
+## 3. R2'ye kontrollü yayın
+Aynı GitHub Actions workflow'unda task=publish, ids alanında onaylı
+ID'leri virgülle ayır. Bir çalıştırmada en fazla 10 fotoğraf seç.
+Script, Wikimedia lisansını API'den tekrar kontrol eder, orijinali indirir,
+Hugin/Pannellum ile alt çözünürlük parçalara ayırır, R2'ye gönderir,
+ardından yalnız sunucuya açık koordinat kataloğunu tek commit'te günceller.
+
+**Önemli:** R2 depolamada orijinal dosyalar yerine yalnız yayın tile seti
+saklanır. Ancak çok çözünürlüklü parçalar da yer kaplar.
+300 × 25 MB = 7.5 GB yalnız tek dosya hesabıdır; tiled toplam
+ayrı hesaplanmalıdır. 10 GB ücretsiz katmanın aşılmaması garanti değildir.
+R2 Standard ücretsiz: 10 GB-month ve 10 milyon Class B / ay;
+işlem ve depolama aşımı ücretli olabilir.
+https://developers.cloudflare.com/r2/pricing/
+
+## 4. Oyun ve güvenlik
+Başlangıçta en az 5 gerçek panorama yüklenmeden oyun açılmaz;
+'360° arşiv hazırlanıyor' mesajı görünür. Aynı oturumda beş
+rastgele konum seçilir. Gerçek koordinatlar istemciye önceden gönderilmez;
+tahmin sonrası API sunucu hesaplamasını yapar.
+
+Sunucu ayrıca R2 dosyalarına tarayıcı tarafından direkt erişimi kısıtlamaz;
+public fotoğraf kaynakları, kredi bağlantıları ve dosya adları üzerinden
+konum ipucu elde edilebilir. Kesin hile önleme için geçerli turnuva
+oturumları, tek kullanımlık turlar, authenticated server score yazma,
+geçerlilik denetimi ve daha kontrollü içerik dağıtımı gerekir.
+Bu nedenle dünya ligine ödüllü resmi yarış skoru henüz gönderilmiyor.
+
+## 5. Mobil performans
+- 512px parçalar; Pannellum yalnız bakılan yöne gerekli seviyeleri yükler.
+- R2 cache ve immutable objeler performansı iyileştirir.
+- iPhone Safari / Capacitor WebView test edilmeden yayına 'tamam' denmez.
+- Kullanıcının R2 erişimi yokken R2 objesi oluşturulamaz.

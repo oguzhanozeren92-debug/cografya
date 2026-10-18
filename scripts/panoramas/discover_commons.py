@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+"""Discover Wikimedia Commons 360° candidates. Never auto-publish discovered media.
+
+Requires only Python stdlib. Every candidate must still be manually checked for:
+full equirectangular projection, accurate EXIF/photographer GPS, usable license,
+street/landscape quality and attribution. Candidate count != approved count.
+"""
+import argparse
+import html
+import json
+import re
+import time
+import urllib.parse
+import urllib.request
+from pathlib import Path
+
+CATEGORIES = [
+    "Category:360° panoramas with equirectangular projection",
+    "Category:360° panoramic photographs",
+    "Category:360° panoramas of Argentina",
+    "Category:360° panoramas of Austria",
+    "Category:360° panoramics in France",
+    "Category:360° panoramics in Japan",
+    "Category:360° panoramics in Germany",
+    "Category:360° panoramics in the Netherlands",
+    "Category:360° panoramics in Switzerland",
+    "Category:360° panoramics in Sweden",
+    "Category:360° panoramics in Italy",
+    "Category:360° panoramics in Brazil",
+    "Category:360° panoramics in South Korea",
+    "Category:360° panoramics in Mexico",
+    "Category:360° panoramics in Portugal",
+    "Category:360° panoramics in Spain",
+    "Category:360° panoramics in India",
+    "Category:360° panoramics in Taiwan",
+]
+API = "https://commons.wikimedia.org/w/api.php"
+USER_AGENT = "AtlasArenaPanoramaResearch/0.1 (manual licensing review; contact via Wikimedia Commons)"
+ALLOWED = {"cc-by-4.0", "cc-by-sa-4.0", "cc-by-3.0", "cc-by-sa-3.0", "cc0", "public domain"}
+def query(params):
+    qs = urllib.parse.urlencode({"action": "query", "format": "json", **params})
+    req = urllib.request.Request(API + "?" + qs, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=45) as resp:
+        return json.load(resp)
+def clean(markup):
+    return html.unescape(re.sub(r"<[^>]+>", "", markup or "")).strip()[:350]
+def meta(ext, key):
+    value = ext.get(key, {})
+    return str(value.get("value", "")) if isinstance(value, dict) else ""
+def collect(category, seen, max_pages=2):
+    cursor = {}
+    for page in range(max_pages):
+        response = query({
+            "generator": "categorymembers",
+            "gcmtitle": category,
+            "gcmnamespace": 6,
+            "gcmlimit": 50,
+            "prop": "imageinfo|coordinates",
+            "iiprop": "url|size|extmetadata",
+            **cursor,
+        })
+        for item in response.get("query", {}).get("pages", {}).values():
+            pic = (item.get("imageinfo") or [{}])[0]
+            width, height = pic.get("width", 0), pic.get("height", 0)
+            if width < 5000 or height < 2500 or abs(width / height - 2) > .08:
+                continue
+            ext = pic.get("extmetadata") or {}
+            licence = clean(meta(ext, "LicenseShortName"))
+            normal = licence.lower().replace(" ", "-").replace("creative-commons-", "")
+            if not any(k in normal for k in ALLOWED):
+                continue
+            if "-nc" in normal or "-nd" in normal:
+                continue
+            title = item.get("title", "")
+            coords = item.get("coordinates") or []
+            coord = coords[0] if coords else {}
+            source = "https://commons.wikimedia.org/wiki/" + title.replace(" ", "_")
+            if title in seen:
+                continue
+            seen[title] = {
+                "title": title, "source": source, "originalUrl": pic.get("url", ""),
+                "width": width, "height": height,
+                "bytes": pic.get("size", 0),
+                "license": licence, "licenseUrl": clean(meta(ext, "LicenseUrl")),
+                "author": clean(meta(ext, "Artist")),
+                "gps": {"lat": coord.get("lat"), "lng": coord.get("lon")},
+                "category": category,
+                "status": "candidate-needs-human-review",
+                "editorial": {"country": None, "city": None, "landmark": None,
+                              "representative": False, "gpsVerified": False,
+                              "projectionVerified": False, "licenseReviewed": False},
+            }
+        cursor = {k:v for k,v in response.get("continue", {}).items() if k in ("gcmcontinue", "continue")}
+        if not cursor: break
+        time.sleep(.35)
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--limit", type=int, default=300)
+    parser.add_argument("--output", default="panoramas/candidates.json")
+    args = parser.parse_args()
+    candidates = {}
+    for category in CATEGORIES:
+        try:
+            collect(category, candidates, max_pages=3)
+        except Exception as error:
+            print(f"WARNING {category}: {error}")
+        print(f"{category}: {len(candidates)} unique matching files")
+        if len(candidates) >= args.limit * 2:
+            break
+    rows = list(candidates.values())
+    # GPS present first. Candidates still require every human quality/legal check.
+    rows.sort(key=lambda row: (row["gps"]["lat"] is None, -(row["width"]*row["height"])))
+    path = Path(args.output)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"target":args.limit, "approved":0,
+                                "candidates":rows[:max(args.limit, len(rows))]},
+                               ensure_ascii=False, indent=2), encoding="utf8")
+    geotagged = sum(row["gps"]["lat"] is not None for row in rows)
+    print(f"Found {len(rows)} technically plausible assets, {geotagged} geotagged.")
+    print("None approved. Review license, photography and precise location before R2 upload.")
+if __name__ == "__main__":
+    main()

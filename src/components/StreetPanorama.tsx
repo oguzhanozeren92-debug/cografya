@@ -1,114 +1,85 @@
 import { useEffect, useRef, useState } from 'react';
-import type { Coordinates, StreetLocation } from '@/lib/streetLocations';
 
-export type GoogleMaps = {
-  maps: {
-    StreetViewSource: { OUTDOOR: string };
-    Map: new (element: HTMLElement, options: Record<string,unknown>) => {
-      addListener(event:string, handler:(e:{latLng?:{lat():number;lng():number}})=>void):{remove():void};
-      setZoom(level:number):void;
-      getZoom():number|undefined;
-    };
-    Marker: new (options:Record<string,unknown>) => {setMap(value:null):void};
-    Polyline: new (options:Record<string,unknown>) => {setMap(value:null):void};
-    StreetViewService: new () => {
-      getPanorama(req: { location: Coordinates; radius: number; source: string }): Promise<{
-        data: { location?: { pano?: string; latLng?: { lat():number; lng():number } } }
-      }>;
-    };
-    StreetViewPanorama: new (element:HTMLElement, options:Record<string,unknown>) => {
-      setVisible(visible:boolean):void;
-    };
-  };
-};
-declare global { interface Window { google?: GoogleMaps } }
-let loader:Promise<void>|null=null;
-function ensureGoogleStreetView(key:string):Promise<void> {
-  if(window.google?.maps?.StreetViewService) return Promise.resolve();
-  if(loader)return loader;
-  loader=new Promise((resolve,reject)=>{
-    const script=document.createElement('script');
-    script.src='https://maps.googleapis.com/maps/api/js?key='+encodeURIComponent(key)+'&v=weekly&loading=async';
-    script.async=true;
-    script.onerror=()=>reject(new Error('Google Street View yüklenemedi. Bağlantıyı ve Maps API anahtarını kontrol et.'));
-    script.onload=()=> {
-      if(window.google?.maps?.StreetViewService)resolve();
-      else reject(new Error('Google Maps anahtarı reddedildi veya Street View kullanılamıyor.'));
-    };
-    document.head.appendChild(script);
-  }).catch((error:unknown)=>{loader=null;throw error});
-  return loader;
+export type PanoramaMedia =
+  | { mode:'equirectangular'; image:string }
+  | { mode:'multires'; base:string; config: {
+      path:string; fallbackPath?:string; extension:string;
+      tileResolution:number; maxLevel:number; cubeResolution:number;
+    } };
+export interface StreetRound {
+  id:string;
+  ticket:string;
+  media:PanoramaMedia;
+  credit:{artist:string;license:string;source:string};
 }
-export async function getGoogleMaps(key:string):Promise<GoogleMaps> {
-  await ensureGoogleStreetView(key);
-  if (!window.google) throw new Error('Google Maps kullanılamıyor.');
-  return window.google;
+interface Viewer {
+  destroy():void;
+  on(event:string,fn:()=>void):void;
 }
-
-export interface StreetPanoramaProps {
-  location:StreetLocation;
-  apiKey:string;
-  onReady:(p:Coordinates)=>void;
-  onError:(reason:string)=>void;
+declare global { interface Window {
+  pannellum?:{viewer:(element:HTMLElement,config:Record<string,unknown>)=>Viewer};
+}}
+let loading:Promise<void>|null=null;
+function ensurePannellum() {
+  if (window.pannellum?.viewer) return Promise.resolve();
+  if (loading) return loading;
+  loading = new Promise<void>((resolve,reject)=>{
+    const css=document.createElement('link');
+    css.rel='stylesheet';
+    css.href='https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css';
+    document.head.appendChild(css);
+    const js=document.createElement('script');
+    js.async=true;
+    js.src='https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js';
+    js.onload=()=> window.pannellum?.viewer ? resolve() : reject(new Error('360° görüntüleyici yüklenemedi.'));
+    js.onerror=()=>reject(new Error('360° görüntüleyici indirilmedi; bağlantını kontrol et.'));
+    document.head.appendChild(js);
+  }).catch((err:unknown)=>{loading=null;throw err;});
+  return loading;
 }
-export function StreetPanorama({location,apiKey,onReady,onError}:StreetPanoramaProps) {
-  const element=useRef<HTMLDivElement>(null);
-  const [loading,setLoading]=useState(true);
+export function StreetPanorama({
+  round,onReady,onError,
+}:{
+  round:StreetRound;
+  onReady:()=>void;
+  onError:(message:string)=>void;
+}) {
+  const container=useRef<HTMLDivElement>(null);
+  const callbacks=useRef({onReady,onError});
+  callbacks.current={onReady,onError};
+  const [loadingView,setLoadingView]=useState(true);
   useEffect(()=>{
-    let cancelled=false;
-    let panorama:{setVisible(visible:boolean):void}|null=null;
-    setLoading(true);
-    void ensureGoogleStreetView(apiKey).then(async ()=>{
-      const g=window.google;
-      if(!g)throw new Error('Google Street View açılamadı.');
-      const service=new g.maps.StreetViewService();
-      const result=await service.getPanorama({
-        location:{lat:location.lat,lng:location.lng},
-        radius:140,
-        source:g.maps.StreetViewSource.OUTDOOR,
-      });
-      if(cancelled)return;
-      const data=result.data.location;
-      const point=data?.latLng;
-      if(!point || !element.current)throw new Error('Bu bölgede kullanılabilir sokak görüntüsü bulunamadı. Başka bir konum deneyelim.');
-      panorama=new g.maps.StreetViewPanorama(element.current,{
-        pano:data?.pano,
-        position:{lat:point.lat(),lng:point.lng()},
-        pov:{heading:location.heading,pitch:0},
-        zoom:0,
-        visible:true,
-        addressControl:false,
-        linksControl:false,
-        clickToGo:false,
-        fullscreenControl:false,
-        enableCloseButton:false,
-        showRoadLabels:false,
-        motionTracking:false,
-        motionTrackingControl:false,
-        panControl:false,
-        zoomControl:true,
-      });
-      setLoading(false);
-      onReady({lat:point.lat(),lng:point.lng()});
+    let active=true;
+    let viewer:Viewer|null=null;
+    setLoadingView(true);
+    void ensurePannellum().then(()=>{
+      if(!active || !container.current || !window.pannellum) return;
+      const media=round.media;
+      const options:Record<string,unknown>={
+        type:media.mode==='multires'?'multires':'equirectangular',
+        autoLoad:true,showControls:true,showFullscreenCtrl:false,
+        showZoomCtrl:true,mouseZoom:true,keyboardZoom:true,
+        hfov:100,minHfov:45,maxHfov:120,
+        compass:false,hotSpotDebug:false,
+        draggable:true,friction:0.16,
+        backgroundColor:[13/255,33/255,59/255],
+      };
+      if(media.mode==='equirectangular') options.panorama=media.image;
+      else options.multiRes={...media.config,basePath:media.base};
+      viewer=window.pannellum.viewer(container.current,options);
+      viewer.on('load',()=>{if(active){setLoadingView(false);callbacks.current.onReady();}});
+      viewer.on('error',()=>{if(active){setLoadingView(false);callbacks.current.onError('360° görüntü indirilemedi. Arşiv dosyasını kontrol et.');}});
     }).catch((e:unknown)=>{
-      if(!cancelled){
-        setLoading(false);
-        onError(e instanceof Error ? e.message : 'Sokak görüntüsü açılmadı.');
-      }
+      if(active){setLoadingView(false);callbacks.current.onError(e instanceof Error?e.message:'360° görüntü açılamadı.');}
     });
-    return ()=>{cancelled=true;panorama?.setVisible(false)};
-    // The owner mounts this view with a location-id key, one panorama per round.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[location.id,apiKey]);
+    return()=>{active=false;try{viewer?.destroy();}catch{/* DOM removed */}};
+  },[round.id,round.media]);
   return (
-    <div className="street-pano-frame relative h-full w-full overflow-hidden rounded-[22px] bg-[#112340]">
-      <div ref={element} className="absolute inset-0" aria-label="Google Street View 360 derece sokak görüntüsü"/>
-      {loading && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#0d2342] text-[#def4ff]">
-          <span className="h-10 w-10 animate-spin rounded-full border-[3px] border-[#9ddde6] border-t-transparent"/>
-          <span className="text-sm font-bold">Sokak görüntüsü hazırlanıyor...</span>
-        </div>
-      )}
+    <div className="relative h-full w-full overflow-hidden rounded-[20px] bg-[#0c2946]">
+      <div ref={container} className="h-full w-full" aria-label="360 derece panorama; parmağınla dönerek etrafına bak"/>
+      {loadingView&&<div className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-[#102c49]/90 text-sm font-bold text-blue-100">
+        360° panorama yükleniyor...
+      </div>}
     </div>
   );
 }
