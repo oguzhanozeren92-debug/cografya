@@ -1,0 +1,286 @@
+{
+  "goal": 50,
+  "visualReview": "manually screened four Wikimedia thumbnail sheets on 2026-10-18; selected for location diversity and image clarity",
+  "selections": [
+    {
+      "index": 0,
+      "id": "at-oberschuetzen-church-002",
+      "country": "Avusturya",
+      "city": "Oberschützen",
+      "title": "Bartholomäus Kilisesi",
+      "fact": "Oberschützen'deki tarihi kilise içinden 360° görünüm."
+    },
+    {
+      "index": 2,
+      "id": "am-yerevan-balloon-002",
+      "country": "Ermenistan",
+      "city": "Erivan",
+      "title": "Erivan şehir merkezi",
+      "fact": "Erivan merkezine balon festivalinden yukarıdan bakış."
+    },
+    {
+      "index": 3,
+      "id": "ee-viru-bog-002",
+      "country": "Estonya",
+      "city": "Lahemaa",
+      "title": "Viru bataklık parkuru",
+      "fact": "Lahemaa Millî Parkı yakınındaki Viru bataklığı ve yürüyüş alanı."
+    },
+    {
+      "index": 4,
+      "id": "fr-soissons-cathedral-002",
+      "country": "Fransa",
+      "city": "Soissons",
+      "title": "Soissons Katedrali",
+      "fact": "Soissons Katedrali'nin yüksek tavanlı iç mekânı."
+    },
+    {
+      "index": 6,
+      "id": "in-hyderabad-lake-002",
+      "country": "Hindistan",
+      "city": "Haydarabad",
+      "title": "Malkam Cheruvu Gölü",
+      "fact": "Haydarabad'daki Malkam Cheruvu Gölü çevresi."
+    },
+    {
+      "index": 7,
+      "id": "mx-alameda-central-002",
+      "country": "Meksika",
+      "city": "Mexico City",
+      "title": "Alameda Central",
+      "fact": "Mexico City'nin merkezindeki Alameda Central Parkı."
+    },
+    {
+      "index": 8,
+      "id": "mx-huentitan-canyon-002",
+      "country": "Meksika",
+      "city": "Guadalajara",
+      "title": "Huentitán Vadisi",
+      "fact": "Guadalajara yakınındaki Barranca de Huentitán vadisi."
+    },
+    {
+      "index": 9,
+      "id": "mx-belize-border-002",
+      "country": "Meksika",
+      "city": "Belize sınırı",
+      "title": "Meksika–Belize sınırı",
+      "fact": "Meksika ile Belize sınırı yakınındaki tropik yerleşim."
+    },
+    {
+      "index": 10,
+      "id": "mx-zocalo-square-002",
+      "country": "Meksika",
+      "city": "Mexico City",
+      "title": "Anayasa Meydanı",
+      "fact": "Mexico City'nin ünlü Zócalo (Anayasa) Meydanı."
+    },
+    {
+      "index": 14,
+      "id": "mx-azteca-stadium-002",
+      "country": "Meksika",
+      "city": "Mexico City",
+      "title": "Azteca Stadyumu",
+      "fact": "Mexico City'nin büyük futbol stadyumlarından Estadio Azteca."
+    },
+    {
+      "index": 16,
+      "id": "mx-guadalajara-night-002",
+      "country": "Meksika",
+      "city": "Guadalajara",
+      "title": "Guadalajara gece manzarası",
+      "fact": "Guadalajara'nın tarihi merkezinin gece görünümü."
+    },
+    {
+      "index": 17,
+      "id": "si-maribor-square-002",
+      "country": "Slovenya",
+      "city": "Maribor",
+      "title": "Boris Kidrič Meydanı",
+      "fact": "Maribor kentinin meydanlarından bir sokak panoraması."
+    },
+    {
+      "index": 18,
+      "id": "ca-port-dover-park-002",
+      "country": "Kanada",
+      "city": "Port Dover",
+      "title": "Port Dover yeşil alanı",
+      "fact": "Ontario'daki Port Dover çevresinden ormanlık bir alan."
+    },
+    {
+      "index": 21,
+      "id": "kh-chroy-changvar-002",
+      "country": "Kamboçya",
+      "city": "Phnom Penh",
+      "title": "Chroy Changvar",
+      "fact": "Phnom Penh'de Tonlé Sap ve Mekong kavşağı yakınındaki şehir manzarası."
+    },
+    {
+      "index": 22,
+      "id": "kh-koh-pich-002",
+      "country": "Kamboçya",
+      "city": "Phnom Penh",
+      "title": "Koh Pich bölgesi",
+      "fact": "Phnom Penh'in Koh Pich (Diamond Island) kesimindeki şehir dokusu."
+    },
+    {
+      "index": 23,
+      "id": "kh-central-market-002",
+      "country": "Kamboçya",
+      "city": "Phnom Penh",
+      "title": "Merkez Pazarı",
+      "fact": "Phnom Penh'in Central Market bölgesindeki kent manzarası."
+    },
+    {
+      "index": 24,
+      "id": "br-iguazu-waterfalls-002",
+      "country": "Brezilya",
+      "city": "Foz do Iguaçu",
+      "title": "Iguaçu Şelaleleri",
+      "fact": "Brezilya–Arjantin sınırındaki Iguaçu şelaleleri çevresi."
+    },
+    {
+      "index": 26,
+      "id": "br-catavento-museum-002",
+      "country": "Brezilya",
+      "city": "São Paulo",
+      "title": "Catavento Müzesi",
+      "fact": "São Paulo'daki Catavento Müzesi'nin avlusu."
+    },
+    {
+      "index": 29,
+      "id": "ge-varketili-metro-002",
+      "country": "Gürcistan",
+      "city": "Tiflis",
+      "title": "Varketili Metro İstasyonu",
+      "fact": "Tiflis metro ağındaki Varketili istasyonu."
+    },
+    {
+      "index": 30,
+      "id": "ge-kashveti-church-002",
+      "country": "Gürcistan",
+      "city": "Tiflis",
+      "title": "Kashveti Kilisesi",
+      "fact": "Tiflis'in Kashveti Kilisesi içinden görünüm."
+    },
+    {
+      "index": 31,
+      "id": "ge-lamaria-svaneti-002",
+      "country": "Gürcistan",
+      "city": "Ushguli",
+      "title": "Lamaria Kilisesi",
+      "fact": "Svaneti dağ bölgesindeki Lamaria Kilisesi'nin içi."
+    },
+    {
+      "index": 32,
+      "id": "ge-tbilisi-parliament-002",
+      "country": "Gürcistan",
+      "city": "Tiflis",
+      "title": "Parlamento Meydanı",
+      "fact": "Tiflis'te Parlamento binası çevresinin gece görünümü."
+    },
+    {
+      "index": 33,
+      "id": "br-plantarum-garden-002",
+      "country": "Brezilya",
+      "city": "Nova Odessa",
+      "title": "Plantarum Botanik Bahçesi",
+      "fact": "São Paulo eyaletindeki Plantarum Botanik Bahçesi."
+    },
+    {
+      "index": 34,
+      "id": "am-yerevan-gallery-night-002",
+      "country": "Ermenistan",
+      "city": "Erivan",
+      "title": "Millî Galeri Meydanı",
+      "fact": "Erivan'daki Millî Galeri önünün yılbaşı ışıklarıyla görünümü."
+    },
+    {
+      "index": 35,
+      "id": "uz-tashkent-museum-002",
+      "country": "Özbekistan",
+      "city": "Taşkent",
+      "title": "Özbekistan Tarih Müzesi",
+      "fact": "Taşkent'teki Devlet Tarih Müzesi'nin iç salonu."
+    },
+    {
+      "index": 36,
+      "id": "uz-tashkent-museum-outside-002",
+      "country": "Özbekistan",
+      "city": "Taşkent",
+      "title": "Tarih Müzesi çevresi",
+      "fact": "Taşkent'teki Özbekistan Tarih Müzesi'nin dış meydanı."
+    },
+    {
+      "index": 37,
+      "id": "fi-oulu-winter-street-002",
+      "country": "Finlandiya",
+      "city": "Oulu",
+      "title": "Kirkkokatu Kış Sokağı",
+      "fact": "Oulu kentinin karlı Kirkkokatu sokağı."
+    },
+    {
+      "index": 38,
+      "id": "ca-niagara-falls-002",
+      "country": "Kanada",
+      "city": "Niagara Falls",
+      "title": "Niagara Şelaleleri",
+      "fact": "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı."
+    },
+    {
+      "index": 40,
+      "id": "fi-oulu-cathedral-002",
+      "country": "Finlandiya",
+      "city": "Oulu",
+      "title": "Oulu Katedrali",
+      "fact": "Finlandiya'daki Oulu Katedrali'nin iç mekânı."
+    },
+    {
+      "index": 41,
+      "id": "is-reykjavik-cafe-002",
+      "country": "İzlanda",
+      "city": "Reykjavík",
+      "title": "Reykjavík sokak kafesi",
+      "fact": "Reykjavík merkezindeki kafe ve şehir sokağı."
+    },
+    {
+      "index": 42,
+      "id": "is-gullfoss-waterfall-002",
+      "country": "İzlanda",
+      "city": "Gullfoss",
+      "title": "Gullfoss Şelalesi",
+      "fact": "İzlanda'daki Gullfoss Şelalesi'nin seyir terası."
+    },
+    {
+      "index": 43,
+      "id": "is-hallgrimskirkja-002",
+      "country": "İzlanda",
+      "city": "Reykjavík",
+      "title": "Hallgrímskirkja Kilisesi",
+      "fact": "Reykjavík'ın simgelerinden Hallgrímskirkja Kilisesi çevresi."
+    },
+    {
+      "index": 44,
+      "id": "is-rainbow-street-002",
+      "country": "İzlanda",
+      "city": "Reykjavík",
+      "title": "Gökkuşağı Sokağı",
+      "fact": "Reykjavík merkezindeki rengârenk Rainbow Street."
+    },
+    {
+      "index": 45,
+      "id": "dk-copenhagen-tower-002",
+      "country": "Danimarka",
+      "city": "Kopenhag",
+      "title": "Kurtarıcımız Kilisesi Kulesi",
+      "fact": "Kopenhag'daki Vor Frelsers Kirke kulesinden şehir manzarası."
+    },
+    {
+      "index": 46,
+      "id": "de-dresden-tram-002",
+      "country": "Almanya",
+      "city": "Dresden",
+      "title": "Dresden Tramvay Müzesi",
+      "fact": "Dresden Tramvay Müzesi'ndeki tarihi tramvayın iç mekânı."
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+name: Atlas Arena — 35 Panoramas R2 Expansion
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'panoramas/curated-35.json'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atlas-street-35-curated-expansion
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: atlas-arena
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check credentials
+        run: |
+          test -n "$R2_ACCOUNT_ID" && test -n "$R2_ACCESS_KEY_ID" && test -n "$R2_SECRET_ACCESS_KEY"
+      - name: Install spherical panorama tile generator
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y hugin-tools
+          python3 -m pip install --break-system-packages Pillow numpy boto3
+          git clone --depth 1 https://github.com/mpetroff/pannellum.git /tmp/pannellum
+      - name: Configure Git identity
+        run: |
+          git config user.name "atlas-panorama-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Verify 35 candidate licences and prepare reviewed records
+        run: python3 -u scripts/panoramas/prepare_curated.py
+      - name: Upload vetted media with checkpoints after each five
+        shell: bash
+        run: |
+          set -u
+          python3 - <<'PY' > /tmp/atlas-ids
+          import json
+          from pathlib import Path
+          rows=json.loads(Path('panoramas/curated-35.json').read_text())['selections']
+          print('\n'.join(row['id'] for row in rows))
+          PY
+          i=0
+          failures=0
+          while IFS= read -r id || [ -n "$id" ]; do
+            i=$((i+1))
+            echo "===== Processing $i/35 $id ====="
+            if python3 -u scripts/panoramas/publish.py --ids "$id"; then
+              echo "PASS $id"
+            else
+              echo "ERROR $id: skipped; will retry with editor review"
+              failures=$((failures+1))
+            fi
+            if (( i % 5 == 0 )); then
+              git add server/street/approved.mjs panoramas/reviewed.json
+              if ! git diff --staged --quiet; then
+                git commit -m "assets(street): curated 360 panoramas checkpoint $i of 35"
+                git pull --rebase origin main
+                git push origin HEAD:main
+              fi
+              echo "CHECKPOINT $i/35 completed; failed since start: $failures"
+            fi
+          done < /tmp/atlas-ids
+          echo "Finished processing. Failures: $failures"
+          python3 - <<'PY'
+          import json,re
+          from pathlib import Path
+          content=Path('server/street/approved.mjs').read_text()
+          m=re.search(r'export const approvedPanoramas\s*=\s*(\[[\s\S]*\]);',content)
+          if not m:raise SystemExit('No valid approved catalog')
+          rows=json.loads(m.group(1))
+          print('Current playable 360 panorama count:',len(rows))
+          if len(rows)<50:
+            raise SystemExit('Below 50: retry failed images / add more reviewed images')
+          PY
