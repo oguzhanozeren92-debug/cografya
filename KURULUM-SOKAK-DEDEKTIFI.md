@@ -6,7 +6,7 @@ Lisansı, tam panoraması ve doğru GPS koordinatı onaylanmayan fotoğraf **oyu
 
 ## Seçilen yapı
 
-- Panorama arşivi: Cloudflare R2 Standard bucket: atlas-arena-panoramas
+- Panorama arşivi: Cloudflare R2 Standard bucket: atlas-arena
 - Canlı dosya yolu: panoramas/{id}/{level}/{face}{row}_{column}.jpg
 - Görsel motoru: Pannellum 2.5.7 (R2 üzerindeki multires 512px JPEG tile setleri)
 - Tahmin haritası: uygulamanın mevcut world-atlas / d3-geo ülkeler haritası
@@ -18,7 +18,7 @@ Lisansı, tam panoraması ve doğru GPS koordinatı onaylanmayan fotoğraf **oyu
 
 ## 1. R2 bucket aç (gerekli kullanıcı işlemi)
 1. https://dash.cloudflare.com > R2 Object Storage > Create Bucket.
-2. Ad: atlas-arena-panoramas; **Standard** depolama; yayın için özel domain ekle
+2. Ad: atlas-arena; **Standard** depolama; yayın için özel domain ekle
    (örnek: https://panorama.ornek-domain.com). r2.dev test içindir; yoğun trafikte özel domain önerilir.
 3. Bucket CORS için sadece uygulama ve uygulamanın gerçek alan adını
    GET/HEAD yöntemleriyle izin verilen köken olarak ekle.
@@ -28,7 +28,7 @@ Lisansı, tam panoraması ve doğru GPS koordinatı onaylanmayan fotoğraf **oyu
 5. GitHub / cografya > Settings > Secrets and variables > Actions kısmında
    R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY adlarında secret tanımla.
 6. Vercel Atlas Arena project > Settings > Environment Variables:
-   STREET_R2_PUBLIC_BASE_URL=https://GERCEK-PUBLIC-DOMAIN
+   STREET_R2_PUBLIC_BASE_URL=https://pub-b3a9d7c95b2449c1a1532fb5b389ef88.r2.dev
    STREET_SESSION_SECRET=(en az 32 karakterli rastgele değer)
    **Bu ikisi VITE_ ile başlamamalı**, çünkü sunucu ayarlarıdır.
 7. Vercel'de yeni bir dağıtım gerekir. Özel domain HTTPS üzerinden çalışmalı.
@@ -102,3 +102,10 @@ Bu nedenle dünya ligine ödüllü resmi yarış skoru henüz gönderilmiyor.
 - R2 cache ve immutable objeler performansı iyileştirir.
 - iPhone Safari / Capacitor WebView test edilmeden yayına 'tamam' denmez.
 - Kullanıcının R2 erişimi yokken R2 objesi oluşturulamaz.
+
+## Güncel bağlantı notu (18 Ekim 2026)
+Kullanıcı Cloudflare R2 Standard bucket'ını `atlas-arena` adıyla oluşturdu.
+Public Development URL: https://pub-b3a9d7c95b2449c1a1532fb5b389ef88.r2.dev
+Vercel projesine STREET_R2_PUBLIC_BASE_URL ve sunucuya özel STREET_SESSION_SECRET değişkenleri bağlandı.
+CORS ayarı, R2 yayın API kimlikleri ve ilk doğrulanmış panoramalar hâlâ gerekli.
+Testten üretime geçerken r2.dev yerine Cloudflare custom domain kullanılmalı.

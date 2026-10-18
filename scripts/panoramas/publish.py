@@ -146,7 +146,7 @@ def main():
         aws_access_key_id=os.environ["R2_ACCESS_KEY_ID"],
         aws_secret_access_key=os.environ["R2_SECRET_ACCESS_KEY"],
         region_name="auto")
-    bucket=os.environ.get("R2_BUCKET","atlas-arena-panoramas")
+    bucket=os.environ.get("R2_BUCKET","atlas-arena")
     generator=Path(args.generator)
     if not generator.is_file():fail("Pannellum generator not found.")
     # Publish and record one by one. If a later upload fails, earlier successful
