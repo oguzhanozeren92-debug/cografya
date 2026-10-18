@@ -1256,3 +1256,48 @@
   .street-entry-art{width:64px;height:68px;}
   .street-entry-main{padding:12px 11px;}
 }
+
+
+/* Atlas Arena — compact clue mode on phone. Keeps question and answer visible. */
+.clue-compact-layout {
+  border-radius:19px;
+  box-shadow:0 10px 30px rgba(14,7,42,.20), inset 0 1px rgba(255,255,255,.06);
+}
+.clue-compact-layout .clue-stage {
+  border-radius:15px;
+}
+.clue-compact-layout .clue-fact {
+  min-height:37px;
+  padding:7px 9px;
+  gap:7px;
+  border-radius:10px;
+  line-height:1.3;
+}
+.clue-compact-layout .clue-fact-index {
+  min-width:20px;
+  font-size:10px;
+}
+.clue-compact-layout .clue-option-btn {
+  min-height:47px;
+  padding:9px 12px;
+  font-size:14px;
+  line-height:1.3;
+}
+.clue-compact-layout .clue-reveal-button {
+  min-height:37px;
+}
+@media (max-width:420px) {
+  .clue-compact-layout .clue-fact {
+    min-height:34px;
+    padding:6px 8px;
+  }
+  .clue-compact-layout .clue-fact span:nth-child(2) {
+    font-size:12px;
+    line-height:1.32;
+  }
+  .clue-compact-layout .clue-reveal-button {
+    min-height:36px;
+    padding-top:7px;
+    padding-bottom:7px;
+  }
+}

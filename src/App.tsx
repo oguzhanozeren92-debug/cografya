@@ -128,7 +128,7 @@ function App() {
         {showHUD && (
           <HUD score={game.score} lives={game.lives} streak={game.streak} round={game.round}
             canEarnHeart={rewardedAvailable && !adBusy && game.phase === 'question' && game.lives < 3 && game.rewardedHeartsUsed === 0}
-            adBusy={adBusy} onWatchHeart={() => { void watchForHeart(); }} />
+            adBusy={adBusy} compact={game.currentQuestionType === 'clue'} onWatchHeart={() => { void watchForHeart(); }} />
         )}
 
         {showGlobe && (
@@ -169,7 +169,7 @@ function App() {
         )}
 
         {showQuestion && !isMapQuestion && (
-          <div className="flex flex-1 items-center justify-center pt-5 pb-8">
+          <div className={'flex flex-1 justify-center ' + (game.currentQuestionType === 'clue' ? 'items-start pt-1 pb-3' : 'items-center pt-5 pb-8')}>
             <QuestionPanel
               countryId={game.currentCountryId}
               round={game.round}

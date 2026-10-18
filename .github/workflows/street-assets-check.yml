@@ -1,0 +1,47 @@
+name: Atlas Arena panorama asset check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/StreetPanorama.tsx'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  public-tiles:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check R2 manifest, image tile and browser CORS
+        run: |
+          python3 - <<'PY'
+          import json
+          import urllib.request
+          import urllib.error
+          base = "https://pub-b3a9d7c95b2449c1a1532fb5b389ef88.r2.dev"
+          origin = "https://atlas-arena-tau.vercel.app"
+          pilots = [
+            "panoramas/pa2255e05e41979cf1e68d924",
+            "panoramas/p170b676a9de5baf00d21d20f",
+          ]
+          for prefix in pilots:
+              print("Checking", prefix, flush=True)
+              for suffix in ("config.json","fallback/f.jpg","1/f0_0.jpg"):
+                  url=f"{base}/{prefix}/{suffix}"
+                  req=urllib.request.Request(url,headers={"Origin":origin,"User-Agent":"AtlasArenaAssetCheck/1.0"})
+                  try:
+                      with urllib.request.urlopen(req,timeout=20) as resp:
+                          data=resp.read(240000) if suffix=="config.json" else resp.read(100)
+                          cors=resp.headers.get("Access-Control-Allow-Origin")
+                          print(suffix,resp.status,"CORS",cors,"content_type",resp.headers.get("Content-Type"),flush=True)
+                          if not cors or cors not in (origin,"*"):
+                              print("WARNING: CORS header missing / mismatched for browser playback",flush=True)
+                          if suffix=="config.json":
+                              obj=json.loads(data)
+                              assert "multiRes" in obj,"R2 config is not a Pannellum multiRes manifest"
+                  except urllib.error.HTTPError as error:
+                      print(suffix, "HTTP",error.code,flush=True)
+                      raise
+          PY

@@ -14,7 +14,8 @@ type Reveal = {
   country:string;city:string;title:string;fact:string;
   credit:{artist:string;license:string;source:string};
 };
-type Completed = Reveal & {id:string;guess:Coordinates};
+type Completed = (Reveal & {id:string;guess:Coordinates;skipped?:false}) |
+  {id:string;skipped:true;city:string;country:string;points:0;km:null};
 const fmt=(value:number)=>new Intl.NumberFormat('tr-TR',{maximumFractionDigits:value<10?1:0}).format(value);
 
 export function StreetDetectiveScreen({
@@ -68,14 +69,25 @@ export function StreetDetectiveScreen({
     }catch(e){setError(e instanceof Error?e.message:'Tahmin hesabı başarısız.');}
     finally{setBusy(false);}
   };
+  const finishGame=(list:Completed[])=>{
+    const finalScore=list.reduce((total,row)=>total+row.points,0);
+    const best=rememberLocalStreetBest(finalScore);
+    setSaveNote('Cihaz rekorun: '+best.toLocaleString('tr-TR')+' puan. Rekabetçi online skor doğrulaması henüz açılmadı.');
+    setPhase('finish');
+  };
+  const resetForNext=()=>{
+    setIdx(n=>n+1);setGuess(null);setReveal(null);setReady(false);setError('');setPhase('view');
+  };
   const advance=()=>{
-    if(completed.length>=STREET_ROUNDS){
-      const best=rememberLocalStreetBest(score);
-      setSaveNote('Cihaz rekorun: '+best.toLocaleString('tr-TR')+' puan. Rekabetçi online skor doğrulaması henüz açılmadı.');
-      setPhase('finish');
-    }else{
-      setIdx(n=>n+1);setGuess(null);setReveal(null);setReady(false);setError('');setPhase('view');
-    }
+    if(completed.length>=STREET_ROUNDS)finishGame(completed);
+    else resetForNext();
+  };
+  const skipBroken=()=>{
+    if(!current||(phase!=='view'&&phase!=='guess'))return;
+    const next:Completed[]=[...completed,{id:current.id,skipped:true,city:'Panorama yüklenemedi',country:'',points:0,km:null}];
+    setCompleted(next);
+    if(next.length>=STREET_ROUNDS)finishGame(next);
+    else resetForNext();
   };
   const banner=(message:string)=>(
     <section className="street-card p-5 text-center">
@@ -124,7 +136,7 @@ export function StreetDetectiveScreen({
               {completed.map((r,i)=><div key={r.id} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3 text-xs">
                 <span className="font-black text-amber-200">{i+1}.</span>
                 <span className="min-w-0 flex-1 truncate">{r.city}, {r.country}</span>
-                <span>{fmt(r.km)} km</span>
+                <span>{r.skipped?'Geçildi':fmt(r.km)+' km'}</span>
                 <strong className="text-emerald-200">+{r.points}</strong>
               </div>)}
             </section>
@@ -140,7 +152,7 @@ export function StreetDetectiveScreen({
               <div className="street-card overflow-hidden p-2">
                 <div className={phase==='guess'?'h-[170px]':'h-[min(48dvh,380px)] min-h-[245px]'}>
                   <StreetPanorama key={current.id} round={current}
-                    onReady={()=>setReady(true)} onError={setError}/>
+                    onReady={()=>{setReady(true);setError('');}} onError={setError} onSkip={skipBroken}/>
                 </div>
                 <div className="px-2 py-2 text-[11px] text-blue-100/85">
                   Görüntü: {current.credit.artist} · {current.credit.license} ·
@@ -148,7 +160,7 @@ export function StreetDetectiveScreen({
                 </div>
               </div>
             )}
-            {error&&<p className="rounded-xl border border-amber-300/40 bg-amber-950/20 p-3 text-sm text-amber-100" role="alert">{error}</p>}
+            {error&&phase==='guess'&&<p className="rounded-xl border border-amber-300/40 bg-amber-950/20 p-3 text-sm text-amber-100" role="alert">{error}</p>}
             {phase==='view'&&(
               <section className="street-card space-y-3 p-4">
                 <h2 className="font-black">Sence burası neresi? 🕵️</h2>
