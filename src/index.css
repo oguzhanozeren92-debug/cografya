@@ -1011,11 +1011,13 @@
 
 /* Atlas Arena: illustrated atlas-paper background, warm and atmospheric. */
 .atlas-home-illustrated {
+  /* Match the blue-night atmosphere used in Daily and Explore; retain warm cards. */
+  color:#ecf5ff;
   background:
-    radial-gradient(ellipse 90% 40% at 100% -5%,rgba(255,186,143,.66),transparent 77%),
-    radial-gradient(ellipse 110% 42% at -25% 45%,rgba(132,223,210,.54),transparent 74%),
-    radial-gradient(ellipse 85% 30% at 105% 100%,rgba(203,174,237,.5),transparent 83%),
-    linear-gradient(165deg,#fff8ec 0%,#fff0e6 26%,#f5f8ed 62%,#eeeaff 100%);
+    radial-gradient(ellipse 90% 32% at 28% -4%,rgba(70,134,190,.32),transparent 76%),
+    radial-gradient(ellipse 84% 28% at 100% 54%,rgba(52,142,171,.15),transparent 85%),
+    radial-gradient(ellipse 74% 25% at 5% 88%,rgba(177,113,178,.11),transparent 88%),
+    radial-gradient(circle at 35% 0%,#1a365d 0%,#091327 39%,#050a19 88%);
 }
 .atlas-home-illustrated .aa-page {position:relative;z-index:1;}
 .atlas-scene {
@@ -1112,4 +1114,50 @@
 }
 @media (prefers-reduced-motion:reduce) {
   .atlas-scene-spark {animation:none;}
+}
+
+
+/* Readability over the darker atlas-blue scenery; colorful action cards stay as-is. */
+.atlas-home-illustrated .atlas-home-brand-name {
+  color:#f1f8ff;
+  text-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+.atlas-home-illustrated .atlas-home-brand-name strong {color:#ffa998;}
+.atlas-home-illustrated .atlas-home-topbutton,
+.atlas-home-illustrated .atlas-home-profile {
+  background:rgba(17,38,71,.76);
+  border-color:rgba(161,210,238,.23);
+  color:#f2f7ff;
+  box-shadow:0 6px 17px rgba(2,9,27,.18);
+}
+.atlas-home-illustrated .atlas-home-profile svg {color:#b2e2e5;}
+.atlas-home-illustrated .aa-section-heading {
+  color:#e9f4ff;
+  text-shadow:0 2px 9px rgba(0,0,0,.16);
+}
+.atlas-home-illustrated .atlas-scene-world {
+  opacity:.23;
+  mix-blend-mode:screen;
+}
+.atlas-home-illustrated .atlas-scene-grid {opacity:.54;}
+.atlas-home-illustrated .atlas-scene-compass {
+  color:#f4d0b0;
+  opacity:.21;
+}
+.atlas-home-illustrated .atlas-scene-orbit-one {border-color:rgba(151,210,239,.18);}
+.atlas-home-illustrated .atlas-scene-orbit-two {border-color:rgba(232,173,186,.16);}
+.atlas-home-illustrated .atlas-scene-spark-one {color:#ffcc92;}
+.atlas-home-illustrated .atlas-scene-spark-two {color:#9fe2ff;}
+.atlas-home-illustrated .atlas-scene-spark-three {color:#e6b6ff;}
+.atlas-home-illustrated .atlas-scene-spark-four {color:#a7f7d8;}
+.atlas-home-illustrated .atlas-scene-glow-peach {background:rgba(235,144,124,.11);}
+.atlas-home-illustrated .atlas-scene-glow-mint {background:rgba(65,168,189,.12);}
+.atlas-home-illustrated .atlas-scene-glow-lilac {background:rgba(159,122,202,.12);}
+.atlas-home-illustrated .aa-hero {
+  box-shadow:0 17px 35px rgba(0,6,23,.28),inset 0 2px 0 rgba(255,255,255,.7);
+}
+.atlas-home-illustrated .aa-mode,
+.atlas-home-illustrated .aa-quick,
+.atlas-home-illustrated .aa-league {
+  box-shadow:0 12px 25px rgba(0,8,30,.22),inset 0 1px rgba(255,255,255,.58);
 }
