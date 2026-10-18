@@ -1,15 +1,14 @@
 import { lazy, Suspense, useState } from 'react';
 import {
-  ArrowRight, CalendarCheck, Check, ChevronRight, Compass, Crown, Flame,
-  Flag, Globe2, Lightbulb, MapPinned, Pencil, Play, Search,
-  ShieldCheck, Sparkles, Trophy, UserRound, Volume2, VolumeX,
+  ArrowRight, CalendarCheck, ChevronRight, Compass, Flag, Globe2,
+  Lightbulb, MapPinned, Pencil, Play, ShieldCheck, Sparkles,
+  Trophy, UserRound, Volume2, VolumeX,
 } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
 import { motion, useReducedMotion } from 'motion/react';
-import { DAILY_TOTAL, getDailyDate, getStreakForDay, loadDailyProgress } from '@/lib/dailyChallenge';
+import { DAILY_TOTAL, getDailyDate, loadDailyProgress } from '@/lib/dailyChallenge';
 import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
-import { playGameSound } from '@/lib/gameFx';
 import { HomePlanet } from '@/components/HomePlanet';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 import type { GameMode, LeaderboardEntry } from '@/types';
@@ -28,66 +27,66 @@ interface StartScreenProps {
   leaderboardError: string;
 }
 
-const arenaModes: GameMode[] = ['mixed', 'flags', 'clues'];
 const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
 
-
 export function StartScreen({
-  onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly, onDaily,
-  onExplore, leaderboard, playerName, onNameChange, leaderboardError,
+  onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly,
+  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
   const [editing, setEditing] = useState(!playerName);
-  const [selectedMode, setSelectedMode] = useState<GameMode>('mixed');
   const [name, setName] = useState(playerName);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
-  const today = getDailyDate();
-  const dailyProgress = loadDailyProgress(today);
-  const foundCount = getDiscoveredCountries().length;
-  const streak = getStreakForDay(today);
-  const progressPercent = Math.round(foundCount / VALID_COUNTRY_IDS.length * 100);
+  const completed = loadDailyProgress(getDailyDate()).answers.length;
+  const found = getDiscoveredCountries().length;
+  const canPlay = Boolean(playerName) && !editing;
 
   const save = async () => {
     if (!name.trim() || busy) return;
     setBusy(true);
     try {
-      await onNameChange(name);
+      await onNameChange(name.trim());
       setEditing(false);
       setError('');
     } catch {
-      setError('Takma ad kaydedilemedi. Tekrar dene.');
+      setError('Takma ad kaydedilemedi. Lütfen tekrar dene.');
     } finally {
       setBusy(false);
     }
   };
 
-  const selectMode = (mode: GameMode) => {
-    setSelectedMode(mode);
-    playGameSound('select');
+  const revealName = () => {
+    setName(playerName);
+    setEditing(true);
   };
 
   const entrance = (index: number) => reduceMotion
     ? {}
-    : { initial: { opacity: 0, y: 13 }, animate: { opacity: 1, y: 0 }, transition: { delay: index * .055, duration: .32 } };
+    : {
+        initial: { opacity: 0, y: 12 },
+        animate: { opacity: 1, y: 0 },
+        transition: { delay: index * 0.06, duration: 0.3 },
+      };
 
   return (
-    <div className="atlas-home fixed inset-0 z-20 overflow-y-auto overscroll-contain text-white">
-      <main className="atlas-home-inner mx-auto w-full max-w-[490px] px-4 sm:px-5">
+    <div className="atlas-home atlas-home-refresh fixed inset-0 z-20 overflow-y-auto overscroll-contain text-white">
+      <main className="atlas-home-inner aa-page mx-auto w-full max-w-[490px] px-4 sm:px-5">
         <header className="atlas-home-topbar flex items-center justify-between gap-2">
           <div className="atlas-home-brand flex min-w-0 items-center gap-2.5">
-            <span className="atlas-home-brand-icon" aria-hidden="true"><Globe2 className="h-6 w-6" strokeWidth={1.8} /></span>
+            <span className="atlas-home-brand-icon" aria-hidden="true">
+              <Globe2 className="h-6 w-6" strokeWidth={1.8} />
+            </span>
             <span className="atlas-home-brand-name">ATLAS <strong>ARENA</strong></span>
           </div>
           <div className="flex shrink-0 items-center gap-2">
             <button type="button" onClick={onToggleSound}
-              title={soundEnabled ? 'Sesleri kapat' : 'Sesleri aç'}
               aria-label={soundEnabled ? 'Oyun sesini kapat' : 'Oyun sesini aç'}
               aria-pressed={soundEnabled} className="atlas-home-topbutton">
-              {soundEnabled ? <Volume2 className="h-4.5 w-4.5" /> : <VolumeX className="h-4.5 w-4.5" />}
+              {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
             </button>
-            <button type="button" onClick={() => { setName(playerName); setEditing(value => !value); }}
-              aria-label="Oyuncu adını düzenle" className="atlas-home-profile flex max-w-[128px] items-center gap-1.5">
+            <button type="button" onClick={revealName} aria-label="Oyuncu adını düzenle"
+              className="atlas-home-profile flex max-w-[128px] items-center gap-1.5">
               <UserRound className="h-4 w-4 shrink-0 text-cyan-200" />
               <span className="truncate">{playerName || 'İsim seç'}</span>
               <Pencil className="h-3 w-3 shrink-0 text-white/50" />
@@ -95,139 +94,113 @@ export function StartScreen({
           </div>
         </header>
 
-        <motion.section {...entrance(0)} className="atlas-home-hero relative isolate overflow-hidden">
-          <div className="atlas-home-hero-grid" aria-hidden="true" />
-          {!reduceMotion && <FxErrorBoundary><Suspense fallback={null}><ArenaParticles /></Suspense></FxErrorBoundary>}
+        <motion.section {...entrance(0)} className="aa-hero relative isolate overflow-hidden">
+          <div className="aa-hero-stars" aria-hidden="true" />
+          {!reduceMotion && (
+            <FxErrorBoundary>
+              <Suspense fallback={null}><ArenaParticles /></Suspense>
+            </FxErrorBoundary>
+          )}
           <HomePlanet />
-          <div className="atlas-home-hero-content relative z-10">
-            <span className="atlas-home-eyebrow"><Sparkles className="h-3.5 w-3.5" /> OYUN ZAMANI</span>
-            <h1 className="atlas-home-hero-title">DÜNYA<br /><span>SENİN!</span></h1>
-            <p className="atlas-home-hero-caption">Keşfet. Yarış. Kazan.</p>
+          <div className="aa-hero-copy relative z-10">
+            <span className="aa-kicker"><Sparkles className="h-3.5 w-3.5" /> DÜNYA SENİ BEKLİYOR</span>
+            <h1>DÜNYAYI<br /><span>KEŞFET!</span></h1>
+            <p>Dönen dünyayı durdur,<br />ülkeyi bul ve puanları topla.</p>
           </div>
-          <div className="atlas-home-hero-footer relative z-10 flex items-center gap-2">
-            <span className="atlas-home-hero-chip"><Globe2 className="h-3.5 w-3.5" /> 3 ARENA</span>
-            <span className="atlas-home-hero-chip atlas-home-hero-chip-gold"><Trophy className="h-3.5 w-3.5" /> ZİRVE SENİ BEKLİYOR</span>
+          <div className="aa-hero-bottom relative z-10">
+            <span>🌍 HARİTA OYUNU</span>
+            <span>🏆 ARKADAŞLARINLA YARIŞ</span>
           </div>
         </motion.section>
 
         {editing && (
-          <motion.form {...entrance(1)} onSubmit={event => { event.preventDefault(); void save(); }}
-            className="atlas-home-nickname mt-3 rounded-2xl border border-amber-200/30 bg-[#142241]/90 p-3">
-            <label htmlFor="atlas-name" className="mb-2 block text-xs font-extrabold tracking-wide text-amber-200">
-              {playerName ? 'OYUNCU ADINI DÜZENLE' : 'MACERAYA BAŞLAMAK İÇİN TAKMA AD SEÇ'}
+          <motion.form {...entrance(1)}
+            onSubmit={event => { event.preventDefault(); void save(); }}
+            className="aa-name mt-3 p-3">
+            <label htmlFor="atlas-name" className="mb-2 block text-xs font-bold text-amber-200">
+              {playerName ? 'TAKMA ADINI DÜZENLE' : 'BAŞLAMAK İÇİN TAKMA ADINI SEÇ'}
             </label>
             <div className="flex gap-2">
-              <input id="atlas-name" maxLength={20} value={name} autoComplete="nickname"
-                onChange={event => setName(event.target.value)} placeholder="Takma adın"
-                className="min-w-0 flex-1 rounded-xl border border-white/15 bg-white/10 px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-400 focus:border-amber-300/70" />
-              <button type="submit" disabled={busy || !name.trim()} className="rounded-xl bg-amber-300 px-4 text-sm font-black text-[#13233c] disabled:opacity-50">
+              <input id="atlas-name" maxLength={20} value={name}
+                autoComplete="nickname" placeholder="Takma adın"
+                onChange={event => setName(event.target.value)}
+                className="min-w-0 flex-1 rounded-xl border border-white/20 bg-white/10 px-3 py-2.5 text-sm text-white outline-none focus:border-amber-300" />
+              <button type="submit" disabled={busy || !name.trim()}
+                className="rounded-xl bg-amber-300 px-4 text-sm font-black text-[#182541] disabled:opacity-50">
                 {busy ? '...' : 'KAYDET'}
               </button>
             </div>
-            {error && <p className="mt-2 text-xs text-rose-300" role="alert">{error}</p>}
+            {error && <p className="mt-2 text-xs text-rose-200" role="alert">{error}</p>}
           </motion.form>
         )}
 
-        <motion.div {...entrance(1)} className="atlas-home-stats mt-3 grid grid-cols-2 gap-2">
-          <button type="button" onClick={onExplore} className="atlas-home-stat group flex items-center gap-2.5 text-left">
-            <span className="atlas-home-stat-icon"><Compass className="h-5 w-5" /></span>
-            <span className="min-w-0 flex-1">
-              <strong>{foundCount}<span className="text-[13px] text-blue-200/60">/{VALID_COUNTRY_IDS.length}</span></strong>
-              <small>ÜLKE KEŞFEDİLDİ</small>
-              <span className="atlas-home-progress"><i style={{ width: `${progressPercent}%` }} /></span>
-            </span>
-          </button>
-          <button type="button" onClick={onDaily} className="atlas-home-stat flex items-center gap-2.5 text-left">
-            <span className="atlas-home-stat-icon atlas-home-stat-fire"><Flame className="h-5 w-5" /></span>
-            <span className="min-w-0 flex-1">
-              <strong>{streak}<span className="ml-1 text-[13px] text-amber-100/65">gün</span></strong>
-              <small>GÜNLÜK SERİ</small>
-              <span className="text-[10px] font-bold text-amber-200/70">{dailyProgress.answers.length}/{DAILY_TOTAL} görev</span>
-            </span>
-          </button>
-        </motion.div>
-
-        <div className="atlas-home-section-title mt-5 mb-2.5 flex items-center justify-between gap-2">
-          <h2>ARENANI SEÇ</h2>
-          <span><span className="atlas-home-live-dot" /> 3 OYUN MODU</span>
-        </div>
-
-        <div className="atlas-home-modes grid grid-cols-2 gap-2.5" role="group" aria-label="Oyun modu seçimi">
-          {arenaModes.map((mode, index) => {
-            const selected = selectedMode === mode;
-            const mixed = mode === 'mixed';
-            const flags = mode === 'flags';
-            const label = mixed ? 'KARIŞIK' : flags ? 'BAYRAKLAR' : 'İPUCU AVI';
-            const subtitle = mixed ? 'Harita · Başkent' : flags ? 'Bayrağı tahmin et' : 'Bilgiden ülkeyi bul';
-            return (
-              <motion.button type="button" key={mode} {...entrance(index + 2)}
-                whileTap={reduceMotion ? undefined : { scale: .965 }}
-                onClick={() => selectMode(mode)} aria-pressed={selected}
-                className={`atlas-home-mode atlas-home-mode-${mode} ${mode === 'clues' ? 'col-span-2' : ''} ${selected ? 'atlas-home-mode-active' : ''}`}>
-                <span className="atlas-home-mode-shine" aria-hidden="true" />
-                <span className="atlas-home-mode-art" aria-hidden="true">
-                  {mixed ? <Globe2 className="h-11 w-11" strokeWidth={1.25} /> : flags
-                    ? <span className="atlas-home-flags">🇹🇷<span>🇯🇵</span>🇧🇷</span>
-                    : <span className="atlas-home-clue-art"><Search className="h-9 w-9" /><Lightbulb className="h-5 w-5" /></span>}
-                </span>
-                <span className="atlas-home-mode-copy">
-                  <strong>{label}</strong><small>{subtitle}</small>
-                </span>
-                <span className="atlas-home-mode-check" aria-hidden="true">
-                  {selected ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : <ArrowRight className="h-3.5 w-3.5" />}
-                </span>
-              </motion.button>
-            );
-          })}
-        </div>
-
-        <motion.button {...entrance(5)} type="button" whileTap={reduceMotion ? undefined : { scale: .97 }}
-          disabled={!playerName || editing} onClick={() => onStart(selectedMode)}
-          className="atlas-home-start mt-3 flex w-full items-center justify-center gap-3 disabled:cursor-not-allowed disabled:opacity-55">
-          <span className="atlas-home-play-symbol"><Play className="h-5 w-5 fill-current" /></span>
-          <strong>{!playerName ? 'ÖNCE TAKMA AD SEÇ' : 'OYUNA BAŞLA'}</strong>
-          <ChevronRight className="ml-auto h-6 w-6" />
+        <motion.button {...entrance(1)} type="button"
+          whileTap={reduceMotion ? undefined : { scale: .97 }}
+          disabled={!canPlay} onClick={() => onStart('mixed')}
+          className="aa-play mt-3 flex w-full items-center gap-3 text-left disabled:opacity-60">
+          <span className="aa-play-icon"><Play className="h-6 w-6 fill-current" /></span>
+          <span className="min-w-0 flex-1">
+            <strong>{canPlay ? 'OYUNA BAŞLA' : 'ÖNCE TAKMA AD SEÇ'}</strong>
+            <small>Karışık dünya turu</small>
+          </span>
+          <ChevronRight className="h-7 w-7 shrink-0" strokeWidth={3} />
         </motion.button>
 
-        <div className="atlas-home-section-title mt-5 mb-2.5 flex items-center justify-between">
-          <h2>MACERAYA DEVAM</h2>
-          <span>GÖREVLER & KEŞİF</span>
-        </div>
+        <motion.section {...entrance(2)} className="mt-5">
+          <h2 className="aa-section-heading">BAŞKA NE OYNAMAK İSTERSİN?</h2>
+          <div className="aa-mode-grid mt-2 grid grid-cols-2 gap-3">
+            <button type="button" disabled={!canPlay} onClick={() => onStart('flags')}
+              className="aa-mode aa-flags text-left disabled:opacity-60">
+              <span className="aa-mode-illustration" aria-hidden="true">🇹🇷 🇯🇵</span>
+              <strong>BAYRAK OYUNU</strong>
+              <small>Bayrağa bak, ülkeyi bil</small>
+              <span className="aa-mode-arrow" aria-hidden="true"><ArrowRight className="h-4 w-4" /></span>
+            </button>
+            <button type="button" disabled={!canPlay} onClick={() => onStart('clues')}
+              className="aa-mode aa-clues text-left disabled:opacity-60">
+              <span className="aa-mode-illustration" aria-hidden="true"><Lightbulb className="h-10 w-10" /></span>
+              <strong>İPUCU AVI</strong>
+              <small>İpuçlarından ülkeyi bul</small>
+              <span className="aa-mode-arrow" aria-hidden="true"><ArrowRight className="h-4 w-4" /></span>
+            </button>
+          </div>
+        </motion.section>
 
-        <div className="atlas-home-quick grid grid-cols-2 gap-2.5">
-          <button type="button" onClick={onDaily} className="atlas-home-quick-card atlas-home-quick-daily">
-            <span className="atlas-home-quick-bubble"><CalendarCheck className="h-6 w-6" /></span>
-            <strong>GÜNLÜK 10</strong>
-            <small>{dailyProgress.answers.length === DAILY_TOTAL ? 'Tamamlandı ✓' : `${dailyProgress.answers.length}/${DAILY_TOTAL} tamamlandı`}</small>
-            <span className="atlas-home-quick-arrow"><ArrowRight className="h-4 w-4" /></span>
-          </button>
-          <button type="button" onClick={onExplore} className="atlas-home-quick-card atlas-home-quick-explore">
-            <span className="atlas-home-quick-bubble"><MapPinned className="h-6 w-6" /></span>
-            <strong>KEŞİF HARİTAM</strong>
-            <small>%{progressPercent} keşfedildi</small>
-            <span className="atlas-home-quick-arrow"><ArrowRight className="h-4 w-4" /></span>
-          </button>
-        </div>
+        <motion.section {...entrance(3)} className="mt-5">
+          <h2 className="aa-section-heading">GÜNLÜK MACERA</h2>
+          <div className="aa-quick-grid mt-2 grid grid-cols-2 gap-3">
+            <button type="button" onClick={onDaily} className="aa-quick aa-daily">
+              <CalendarCheck className="h-6 w-6 text-amber-200" />
+              <strong>GÜNLÜK 10 SORU</strong>
+              <small>{completed}/{DAILY_TOTAL} tamamlandı</small>
+            </button>
+            <button type="button" onClick={onExplore} className="aa-quick aa-map">
+              <MapPinned className="h-6 w-6 text-cyan-200" />
+              <strong>KEŞİF HARİTASI</strong>
+              <small>{found}/{VALID_COUNTRY_IDS.length} ülke keşfedildi</small>
+            </button>
+          </div>
+        </motion.section>
 
-        <button type="button" onClick={() => onViewWeekly(selectedMode)}
-          className="atlas-home-league mt-3 flex w-full items-center gap-3 text-left">
-          <span className="atlas-home-league-cup"><Trophy className="h-7 w-7" /></span>
+        <motion.button {...entrance(4)} type="button"
+          onClick={() => onViewWeekly('mixed')}
+          className="aa-league mt-3 flex w-full items-center gap-3 text-left">
+          <span className="aa-league-icon"><Trophy className="h-6 w-6" /></span>
           <span className="min-w-0 flex-1">
-            <strong>HAFTALIK LİG</strong>
-            <small>{leaderboard.length ? `Lider: ${leaderboard[0].player_name}` : 'Karışık · Bayrak · İpucu'}</small>
+            <strong>HAFTALIK SIRALAMA</strong>
+            <small>{leaderboard.length ? 'Zirvedeki oyuncuları gör' : 'Arkadaşlarınla yarış, zirveye çık'}</small>
           </span>
-          <ChevronRight className="h-5 w-5 shrink-0 text-amber-200" />
-        </button>
+          <ChevronRight className="h-5 w-5 shrink-0" />
+        </motion.button>
 
         {leaderboardError && (
-          <p className="atlas-home-offline mt-2 text-center text-[10px] text-slate-500">
-            <Crown className="mr-1 inline h-3 w-3" /> Çevrim içi sıralama şu an görüntülenemiyor.
+          <p className="mt-2 text-center text-[11px] text-blue-200/70">
+            <Flag className="mr-1 inline h-3 w-3" /> Çevrim içi sıralama şu an görüntülenemiyor.
           </p>
         )}
-
         {Capacitor.isNativePlatform() && onAdPrivacy && (
           <button type="button" onClick={onAdPrivacy}
-            className="mx-auto mt-4 flex items-center gap-1.5 px-3 py-2 text-xs text-slate-400">
+            className="mx-auto mt-4 flex items-center gap-1.5 px-3 py-2 text-xs text-slate-300">
             <ShieldCheck className="h-4 w-4" /> Reklam gizlilik tercihleri
           </button>
         )}
