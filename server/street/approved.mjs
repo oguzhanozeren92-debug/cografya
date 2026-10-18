@@ -1,6 +1,30 @@
 // Verified, editor-approved panoramas. Coordinates stay SERVER SIDE.
 export const approvedPanoramas = [
   {
+    "id": "p15b4482c1a33b00c542cc039",
+    "sourceId": "fr-quarante-church-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p15b4482c1a33b00c542cc039",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 3,
+      "cubeResolution": 1992
+    },
+    "country": "Fransa",
+    "city": "Quarante",
+    "title": "Sainte-Marie Kilisesi",
+    "fact": "Fransa'nın Quarante yerleşimindeki Sainte-Marie kilisesinin panoramik görünümü.",
+    "lat": 43.347168,
+    "lng": 2.960869,
+    "artist": "MaelBathfield",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:(Pano_Spherique)_Eglise_Sainte-Marie_de_Quarante_France.jpg"
+  },
+  {
     "id": "p170b676a9de5baf00d21d20f",
     "sourceId": "de-berlin-mauerpark-001",
     "approved": true,
@@ -97,6 +121,54 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Biebricher_Rheinufer,_Wiesbaden,_360x180,_160409,_ako.jpg"
   },
   {
+    "id": "p5705d53acc14fe3f52616018",
+    "sourceId": "jp-yoshinogari-moats-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p5705d53acc14fe3f52616018",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 3,
+      "cubeResolution": 1888
+    },
+    "country": "Japonya",
+    "city": "Yoshinogari (Saga)",
+    "title": "Yoshinogari dairesel hendekleri",
+    "fact": "Saga bölgesindeki Yoshinogari tarihî yerleşiminin hendekli alanı.",
+    "lat": 33.326306,
+    "lng": 130.384333,
+    "artist": "AsPJT",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Yoshinogari_site,_Circular_Moats_360-degree.jpg"
+  },
+  {
+    "id": "p68cebdf86038a7ee0eea5b39",
+    "sourceId": "ar-santafe-senate-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p68cebdf86038a7ee0eea5b39",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 3,
+      "cubeResolution": 1704
+    },
+    "country": "Arjantin",
+    "city": "Santa Fe",
+    "title": "Santa Fe Senato salonu",
+    "fact": "Arjantin'in Santa Fe kentindeki yasama meclisinin senato salonu.",
+    "lat": -31.656967,
+    "lng": -60.715867,
+    "artist": "TitiNicola",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Legislatura_de_la_Ciudad_de_Santa_Fe_Cámara_de_Senadores_-_360°.jpg"
+  },
+  {
     "id": "p7f1544de98cfddd6772395ba",
     "sourceId": "de-landau-town-001",
     "approved": true,
@@ -119,6 +191,30 @@ export const approvedPanoramas = [
     "artist": "SimonWaldherr",
     "license": "CC BY-SA 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Landau_Stadt_Panorama.jpg"
+  },
+  {
+    "id": "p900aa414f2800c9c078b9a13",
+    "sourceId": "ar-santafe-university-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p900aa414f2800c9c078b9a13",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 3,
+      "cubeResolution": 1704
+    },
+    "country": "Arjantin",
+    "city": "Santa Fe",
+    "title": "Litoral Üniversitesi tören salonu",
+    "fact": "Santa Fe'deki Universidad Nacional del Litoral'in tören salonu.",
+    "lat": -31.634578,
+    "lng": -60.705283,
+    "artist": "TitiNicola",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Paraninfo_-_Universidad_Nacional_del_Litoral_-_360°.jpg"
   },
   {
     "id": "pa2255e05e41979cf1e68d924",
@@ -167,6 +263,30 @@ export const approvedPanoramas = [
     "artist": "Ansgar Koreng",
     "license": "CC BY-SA 3.0 de",
     "source": "https://commons.wikimedia.org/wiki/File:Alte_Nationalgalerie,_Berlin-Mitte,_360_Grad_Panorama,_160101,_ako.jpg"
+  },
+  {
+    "id": "pb7be9959b560b4fc45009da6",
+    "sourceId": "at-vienna-thaliastrasse-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pb7be9959b560b4fc45009da6",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2136
+    },
+    "country": "Avusturya",
+    "city": "Viyana",
+    "title": "Thaliastraße metro istasyonu",
+    "fact": "Viyana'nın U6 hattındaki Thaliastraße istasyonu peron alanı.",
+    "lat": 48.208063,
+    "lng": 16.338151,
+    "artist": "DrTrumpet",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:2023-Mai-20_15h10min_Wien_U6_Station_Thaliastrasse_Bahnsteig_Einfahrtsbereich_U6.jpg"
   },
   {
     "id": "pd1fdf2673802ce80dccffee2",
