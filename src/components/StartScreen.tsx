@@ -232,7 +232,7 @@ export function StartScreen({
               <span aria-hidden="true" className="grid h-[72px] w-[72px] shrink-0 place-items-center rounded-[18px] border border-white/20 bg-emerald-200/20 text-[32px] shadow-inner">🚁</span>
               <span className="min-w-0 flex-1">
                 <small className="block text-[10px] font-black tracking-[.08em] text-emerald-200">
-                  ÜCRETSİZ DENEME · 5 GERÇEK DRONE PANORAMASI
+                  ÜCRETSİZ DENEME · 5 HAVA PANORAMASI
                 </small>
                 <strong className="mt-1 block text-lg font-black leading-tight">Drone'dan Konumu Bul</strong>
                 <span className="mt-1 block text-[11px] font-semibold leading-4 text-blue-100">
