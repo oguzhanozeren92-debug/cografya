@@ -289,6 +289,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Biebricher_Rheinufer,_Wiesbaden,_360x180,_160409,_ako.jpg"
   },
   {
+    "id": "p399560d02487c101e36f39aa",
+    "sourceId": "ge-tbilisi-parliament-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p399560d02487c101e36f39aa",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2136
+    },
+    "country": "Gürcistan",
+    "city": "Tiflis",
+    "title": "Parlamento Meydanı",
+    "fact": "Tiflis'te Parlamento binası çevresinin gece görünümü.",
+    "lat": 41.69706,
+    "lng": 44.79886,
+    "artist": "Unrecognizablepineapple",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Panoramic_Parliament_Square_Tbilisi.jpg"
+  },
+  {
     "id": "p5705d53acc14fe3f52616018",
     "sourceId": "jp-yoshinogari-moats-001",
     "approved": true,
@@ -311,6 +335,30 @@ export const approvedPanoramas = [
     "artist": "AsPJT",
     "license": "CC0",
     "source": "https://commons.wikimedia.org/wiki/File:Yoshinogari_site,_Circular_Moats_360-degree.jpg"
+  },
+  {
+    "id": "p5833c6bd8de5f441b321c7af",
+    "sourceId": "ge-lamaria-svaneti-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p5833c6bd8de5f441b321c7af",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2136
+    },
+    "country": "Gürcistan",
+    "city": "Ushguli",
+    "title": "Lamaria Kilisesi",
+    "fact": "Svaneti dağ bölgesindeki Lamaria Kilisesi'nin içi.",
+    "lat": 42.91834,
+    "lng": 43.019814,
+    "artist": "Unrecognizablepineapple",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lamaria_church_inside_360.jpg"
   },
   {
     "id": "p63f6d7bc28c4e62b6e6774a9",
