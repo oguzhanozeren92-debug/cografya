@@ -27,10 +27,10 @@ for (const platform of platforms) {
     throw new Error(`Missing real ${platform} rewarded ad unit: ${envKey}`);
   }
 }
-// Banner and interstitial are optional, but any configured production unit must be real.
+// Interstitial is optional, but any configured production unit must be real.
 // Avoid passing Google demo IDs into App Store / Play Store builds.
 for (const platform of platforms) {
-  for (const format of ['BANNER','INTERSTITIAL']) {
+  for (const format of ['INTERSTITIAL']) {
     const key = `VITE_ADMOB_${format}_${platform.toUpperCase()}_ID`;
     const value = readSetting(key);
     if (value && (!/^ca-app-pub-\d{16}\/\d{10}$/.test(value) || value.includes('3940256099942544'))) {

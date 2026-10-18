@@ -1301,11 +1301,3 @@
     padding-bottom:7px;
   }
 }
-
-
-/* Native AdMob banners are shown ONLY over the idle home menu.
-   The bottom inset comes from the real native banner's displayed height.
-   No reserved ad space / fake ad is displayed in web or unconfigured builds. */
-html.atlas-native-banner-visible .atlas-home-refresh .aa-page {
-  padding-bottom: calc(var(--atlas-native-banner-height, 0px) + env(safe-area-inset-bottom, 0px) + 28px);
-}

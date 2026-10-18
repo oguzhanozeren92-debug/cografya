@@ -14,7 +14,7 @@ import { ReviveScreen } from '@/components/ReviveScreen';
 import { NotificationSettings } from '@/components/NotificationSettings';
 import { initIosPush, isIosPushSupported, type PushTarget } from '@/lib/iosPush';
 import { isRewardedHeartAvailable, initializeRewardedAds, openAdPrivacyOptions, watchRewardedHeartAd } from '@/lib/rewardedAds';
-import { onGameFinished, preloadGameBreakAd, setHomeBannerVisible } from '@/lib/adPlacements';
+import { onGameFinished, preloadGameBreakAd } from '@/lib/adPlacements';
 import { syncDiscoveries } from '@/lib/discovery';
 import { celebrateGame, isSoundEnabled, playGameSound, saveSoundEnabled } from '@/lib/gameFx';
 import { useEffect, useRef, useState } from 'react';
@@ -43,12 +43,9 @@ function App() {
   }, []);
   const showAdPrivacy = async () => {
     try {
-      setHomeBannerVisible(false);
       await openAdPrivacyOptions();
       setRewardedAvailable(await initializeRewardedAds());
-      setHomeBannerVisible(true);
     } catch {
-      setHomeBannerVisible(true);
       setAdError('Reklam gizlilik tercihleri açılamadı.');
     }
   };
@@ -126,12 +123,6 @@ function App() {
   const expandingMapQuestion = showQuestion && isMapQuestion;
   const showStart = game.phase === 'idle';
   const showGameOver = game.phase === 'gameover';
-  const showHomeBanner = showStart && !weeklyOpen && !dailyOpen && !exploreOpen &&
-    !streetOpen && !droneOpen && !notificationsOpen;
-  useEffect(() => {
-    setHomeBannerVisible(showHomeBanner);
-    return () => setHomeBannerVisible(false);
-  }, [showHomeBanner]);
   useEffect(() => {
     if (game.phase !== 'gameover' || game.gameRunId === 0 ||
         lastCountedGameRun.current === game.gameRunId) return;

@@ -4,33 +4,30 @@
 
 | Yer | Format | Tetik |
 |---|---|---|
-| Yalnız ana menü | Alt sabit adaptif banner | Yalnız native iOS/Android, geçerli AdMob birimi ve izin varsa |
+| Ana menü ve tüm oyun ekranları | **Banner yok** | Hiçbir ekranda sabit reklam bandı gösterilmez |
 | Karışık / Bayrak / İpucu oyunu | Tam ekran geçiş | Oyun tamamen bittiğinde, yalnız önceden hazır reklam varsa |
 | Sokak Dedektifi | Tam ekran geçiş | **5 turun** tamamı bittikten sonra |
 | Dron Dedektifi | Tam ekran geçiş | Tüm tur tamamlanınca |
 | Günlük 10 soru | Tam ekran geçiş | 10. cevap bitince; 24 saatte tekrarlanan tamamlanmış oturum yeniden tetiklemez |
 | İsteğe bağlı ekstra can | Ödüllü video | Oyuncunun açıkça "reklam izle" tuşuna dokunmasıyla (mevcut işleyiş korunur) |
 | Harita döndürme, soru, cevap, ipucu, 360° görüntü, haritada konum seçme | **Reklam yok** | Asla oyun sırasında gösterilmez |
-| Keşif, haftalık sıralama, günlük görev açıkken, bildirim paneli | **Banner yok** | Banner kaldırılır, butonlar kapatılmaz |
+| Keşif, haftalık sıralama, bildirim paneli | **Banner yok** | Ekranlar tamamen temiz kalır |
 
 ### Sıklık koruması
 
 - İlk **2 tamamlanan oyun reklamsızdır**.
 - Her tam ekran geçiş reklamı arasında **en az 3 tamamlanan oyun ve 6 dakika** geçmesi gerekir.
 - Tam ekran reklam yalnız **önceden yüklenmiş** ise gösterilir. Reklam yoksa tur geçişi asla bekletilmez.
-- Ana menü bannerı yalnızca native; web/Vercel sürümünde reklam görünmez, sahte reklam alanı oluşturulmaz.
-- Menünün alt boşluğu yalnız gerçekten yüklenen bannerın yüksekliği kadar artırılır (iPhone çentik/safe area duyarlı).
+- **Hiçbir ekranda banner yok**: ne native ne de web. Reklam kaynaklı alt boşluk ayrılmaz.
 - Reklam yüklenemezse uygulamanın çalışması etkilenmez.
 
 ## AdMob bağlantısı — henüz eksik gerçek birimler
 
 Mevcut `VITE_ADMOB_REWARDED_IOS_ID` gerçek iOS ödüllü reklam birimi korunur.
-**Banner ve interstitial için yeni gerçek reklam birimleri otomatik oluşturulmadı.**
+**Tam ekran reklam için yeni gerçek reklam birimleri otomatik oluşturulmadı.**
 Bunlar AdMob panelinden her platform için ayrı oluşturulup şu değişkenlere girilmelidir:
 
 ```
-VITE_ADMOB_BANNER_IOS_ID=ca-app-pub-.../...
-VITE_ADMOB_BANNER_ANDROID_ID=ca-app-pub-.../...
 VITE_ADMOB_INTERSTITIAL_IOS_ID=ca-app-pub-.../...
 VITE_ADMOB_INTERSTITIAL_ANDROID_ID=ca-app-pub-.../...
 ```
@@ -42,11 +39,11 @@ Eksik birimler ilgili reklam türünü **güvenli biçimde kapalı** tutar. `VIT
 ## Kontrol listesi
 
 1. `npm run typecheck` ve `npm run build` GitHub CI'da geçmeli.
-2. Gerçek iPhone'da native test reklamları ile ana menü bannerı alt butonları örtmemeli.
-3. Bayrak, harita, ipucu, Sokak Dedektifi ve Dron Dedektifi sırasında banner görünmemeli.
+2. Gerçek iPhone'da hiçbir ekranda reklam bandı veya ona ayrılmış boşluk olmamalı.
+3. Bayrak, harita, ipucu, Sokak Dedektifi ve Dron Dedektifi sırasında reklam görünmemeli.
 4. İlk 2 tamamlanan oyun ve 6 dakika koşuluna kadar tam ekran reklam çıkmamalı.
 5. Ağ yavaşsa oyun anında devam etmeli; reklama ait bekleme ekranı olmamalı.
 6. Ödüllü reklam yarıda kapanırsa can verilmemeli.
-7. Yayın öncesinde gerçek banner/interstitial birimleri ayrıca bağlanmalı. Vercel kotası açılmadan yeni kodun canlıda olduğu iddia edilmemeli.
+7. Yayın öncesinde gerçek interstitial birimleri ayrıca bağlanmalı. Vercel kotası açılmadan yeni kodun canlıda olduğu iddia edilmemeli.
 
 Önemli: Apple/Facebook girişini isteğe bağlı hâle getirme ayrı bir geliştirme işidir; bu reklam değişikliği oyuncu kimlik/giriş akışını değiştirmez.
