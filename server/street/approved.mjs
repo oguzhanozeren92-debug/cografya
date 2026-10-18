@@ -49,6 +49,78 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Alcazar_de_Toledo_y_Academia_de_Infantería.jpg"
   },
   {
+    "id": "p238cb0c8e341eae6cb9853b8",
+    "sourceId": "at-oberzeiring-elisabeth-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p238cb0c8e341eae6cb9853b8",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3176
+    },
+    "country": "Avusturya",
+    "city": "Oberzeiring",
+    "title": "Oberzeiring tarihî çevresi",
+    "fact": "Avusturya'nın Oberzeiring yerleşiminde çekilmiş dış mekân panoraması.",
+    "lat": 47.252936,
+    "lng": 14.490646,
+    "artist": "Thomas Wozniak",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Oe_Oberzeiring_Elisab_au_Pano_360x180_2017.jpg"
+  },
+  {
+    "id": "p33e726df6432c7231936aaf5",
+    "sourceId": "de-wiesbaden-rhine-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p33e726df6432c7231936aaf5",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3176
+    },
+    "country": "Almanya",
+    "city": "Wiesbaden",
+    "title": "Ren kıyısında Biebrich",
+    "fact": "Wiesbaden'in Biebrich semtinde Ren Nehri kıyısı.",
+    "lat": 50.03738278,
+    "lng": 8.23122722,
+    "artist": "Ansgar Koreng",
+    "license": "CC BY-SA 3.0 de",
+    "source": "https://commons.wikimedia.org/wiki/File:Biebricher_Rheinufer,_Wiesbaden,_360x180,_160409,_ako.jpg"
+  },
+  {
+    "id": "p7f1544de98cfddd6772395ba",
+    "sourceId": "de-landau-town-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p7f1544de98cfddd6772395ba",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 5,
+      "cubeResolution": 4288
+    },
+    "country": "Almanya",
+    "city": "Landau an der Isar",
+    "title": "Landau şehir manzarası",
+    "fact": "Bavyera'daki Landau an der Isar kentinin çevresini kuşbakışı gösteren panorama.",
+    "lat": 48.666762,
+    "lng": 12.698479,
+    "artist": "SimonWaldherr",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Landau_Stadt_Panorama.jpg"
+  },
+  {
     "id": "pa2255e05e41979cf1e68d924",
     "sourceId": "jp-yoshinogari-village-001",
     "approved": true,
@@ -71,6 +143,30 @@ export const approvedPanoramas = [
     "artist": "AsPJT",
     "license": "CC0",
     "source": "https://commons.wikimedia.org/wiki/File:Yoshinogari_site,_Building_1_360-degree.jpg"
+  },
+  {
+    "id": "pa7f461cb8a5487e7831f5a46",
+    "sourceId": "de-berlin-museum-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pa7f461cb8a5487e7831f5a46",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3176
+    },
+    "country": "Almanya",
+    "city": "Berlin",
+    "title": "Eski Ulusal Galeri çevresi",
+    "fact": "Berlin Müze Adası'ndaki Alte Nationalgalerie çevresinden tarihî mimari görünüm.",
+    "lat": 52.52043306,
+    "lng": 13.39941306,
+    "artist": "Ansgar Koreng",
+    "license": "CC BY-SA 3.0 de",
+    "source": "https://commons.wikimedia.org/wiki/File:Alte_Nationalgalerie,_Berlin-Mitte,_360_Grad_Panorama,_160101,_ako.jpg"
   },
   {
     "id": "pd1fdf2673802ce80dccffee2",
@@ -119,5 +215,29 @@ export const approvedPanoramas = [
     "artist": "DrTrumpet",
     "license": "CC BY-SA 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Burg-Liechtenstein_360-Grad-Photo_2020.jpg"
+  },
+  {
+    "id": "pe931d477cba91a13e3a77b61",
+    "sourceId": "fr-laon-cathedral-001",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pe931d477cba91a13e3a77b61",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 5,
+      "cubeResolution": 4336
+    },
+    "country": "Fransa",
+    "city": "Laon",
+    "title": "Laon Katedrali",
+    "fact": "Laon'daki tarihî katedralin iç mekânından 360° görünüm.",
+    "lat": 49.56439,
+    "lng": 3.624882,
+    "artist": "Diliff",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Laon_Cathedral_Interior_360x180,_Picardy,_France_-_Diliff.jpg"
   }
 ];
