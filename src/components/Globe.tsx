@@ -150,13 +150,13 @@ export const Globe = ({ targetId, phase, onSpinEnd }: GlobeProps) => {
   };
 
   const handleStart = (x: number, y: number) => {
-    if (phase === 'spinning') return;
+    if (phase === 'spinning' || phase === 'locking') return;
     setIsDragging(true);
     dragStartRef.current = { x, y };
   };
 
   const handleMove = (x: number, y: number) => {
-    if (!isDragging || phase === 'spinning') return;
+    if (!isDragging || phase === 'spinning' || phase === 'locking') return;
     const dx = x - dragStartRef.current.x;
     const dy = y - dragStartRef.current.y;
     updateRotation([
@@ -186,7 +186,14 @@ export const Globe = ({ targetId, phase, onSpinEnd }: GlobeProps) => {
     }
   };
 
-  const highlight = phase === 'question' || phase === 'feedback';
+  const highlight = phase === 'locking' || phase === 'question' || phase === 'feedback';
+  const targetCenter = useMemo(() => {
+    if (!highlight || !targetId) return null;
+    const target = countries.find(country => String(country.id) === String(targetId));
+    if (!target) return null;
+    const [x, y] = pathGenerator.centroid(target as never);
+    return Number.isFinite(x) && Number.isFinite(y) ? [x, y] as const : null;
+  }, [highlight, targetId, pathGenerator]);
 
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none"
@@ -208,9 +215,18 @@ export const Globe = ({ targetId, phase, onSpinEnd }: GlobeProps) => {
           const selected = highlight && String(country.id) === String(targetId);
           return <path key={country.id ?? index} d={d}
             fill={selected ? '#ef4444' : '#1e3a8a'}
-            stroke="#0f172a" strokeWidth="0.5"
-            className="transition-colors duration-300" />;
+            stroke={selected ? '#ffdac0' : '#0f172a'}
+            strokeWidth={selected ? 1.6 : 0.5}
+            className={selected ? 'atlas-globe-country-target' : 'transition-colors duration-300'} />;
         })}
+        {phase === 'locking' && targetCenter && (
+          <g className="atlas-globe-reticle" transform={`translate(${targetCenter[0]} ${targetCenter[1]})`}
+            fill="none" stroke="#ffe9b9" strokeWidth="2.4" pointerEvents="none" aria-hidden="true">
+            <circle className="atlas-globe-reticle-ring" r="35" />
+            <circle r="12" strokeWidth="1.3" opacity=".9" />
+            <path d="M -53 0 H -26 M 26 0 H 53 M 0 -53 V -26 M 0 26 V 53" />
+          </g>
+        )}
       </svg>
     </div>
   );
