@@ -3,6 +3,7 @@ import { Stars } from '@/components/Stars';
 import { Globe } from '@/components/Globe';
 import { StartScreen } from '@/components/StartScreen';
 import { StreetDetectiveScreen } from '@/components/StreetDetectiveScreen';
+import { DroneDetectiveScreen } from '@/components/DroneDetectiveScreen';
 import { HUD } from '@/components/HUD';
 import { QuestionPanel } from '@/components/QuestionPanel';
 import { GameOverScreen } from '@/components/GameOverScreen';
@@ -26,6 +27,7 @@ function App() {
   const [dailyOpen, setDailyOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
   const [streetOpen, setStreetOpen] = useState<'play'|'ranking'|null>(null);
+  const [droneOpen, setDroneOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [adBusy, setAdBusy] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(isSoundEnabled);
@@ -185,13 +187,17 @@ function App() {
       </div>
 
       {showStart && (
-        <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} onNotifications={() => setNotificationsOpen(true)} onStreet={() => setStreetOpen('play')} onStreetLeaderboard={() => setStreetOpen('ranking')} />
+        <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} onNotifications={() => setNotificationsOpen(true)} onStreet={() => setStreetOpen('play')} onStreetLeaderboard={() => setStreetOpen('ranking')} onDrone={() => setDroneOpen(true)} />
       )}
 
       {showStart && streetOpen && (
         <StreetDetectiveScreen key={streetOpen} playerName={playerName}
           initialView={streetOpen==='ranking'?'ranking':'play'}
           onClose={() => setStreetOpen(null)} />
+      )}
+
+      {showStart && droneOpen && (
+        <DroneDetectiveScreen onClose={() => setDroneOpen(false)} />
       )}
 
       {showStart && notificationsOpen && isIosPushSupported() && (
