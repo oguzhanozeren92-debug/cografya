@@ -49,6 +49,54 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Amphiteater_im_Mauerpark,_Berlin,_360x180,_1705280617,_ako.jpg"
   },
   {
+    "id": "p19737b3c805ad373c5e91276",
+    "sourceId": "fr-soissons-cathedral-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p19737b3c805ad373c5e91276",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 5,
+      "cubeResolution": 4336
+    },
+    "country": "Fransa",
+    "city": "Soissons",
+    "title": "Soissons Katedrali",
+    "fact": "Soissons Katedrali'nin yüksek tavanlı iç mekânı.",
+    "lat": 49.380854,
+    "lng": 3.325381,
+    "artist": "Diliff",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Soissons_Cathedral_Interior_360x180,_Picardy,_France_-_Diliff.jpg"
+  },
+  {
+    "id": "p1c93459cbf899fcdcf94ea1d",
+    "sourceId": "in-hyderabad-lake-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p1c93459cbf899fcdcf94ea1d",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3816
+    },
+    "country": "Hindistan",
+    "city": "Haydarabad",
+    "title": "Malkam Cheruvu Gölü",
+    "fact": "Haydarabad'daki Malkam Cheruvu Gölü çevresi.",
+    "lat": 17.416563,
+    "lng": 78.386302,
+    "artist": "iMahesh",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Aerial_view_of_Hyderabad_around_Malkam_cheruvu_(360_panorama).jpg"
+  },
+  {
     "id": "p1ee3ef069b79c4975487e4a2",
     "sourceId": "es-toledo-alcazar-001",
     "approved": true,
@@ -167,6 +215,54 @@ export const approvedPanoramas = [
     "artist": "TitiNicola",
     "license": "CC BY-SA 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Legislatura_de_la_Ciudad_de_Santa_Fe_Cámara_de_Senadores_-_360°.jpg"
+  },
+  {
+    "id": "p777c3c3055e8ba59967915fb",
+    "sourceId": "at-oberschuetzen-church-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p777c3c3055e8ba59967915fb",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 5,
+      "cubeResolution": 6088
+    },
+    "country": "Avusturya",
+    "city": "Oberschützen",
+    "title": "Bartholomäus Kilisesi",
+    "fact": "Oberschützen'deki tarihi kilise içinden 360° görünüm.",
+    "lat": 47.345104,
+    "lng": 16.21022,
+    "artist": "Thomas Wozniak",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:OE_Oberschuetzen_Bartholomeus_360_180_2017.jpg"
+  },
+  {
+    "id": "p7c54f9fc2f204373984e4277",
+    "sourceId": "am-yerevan-balloon-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p7c54f9fc2f204373984e4277",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 5,
+      "cubeResolution": 4576
+    },
+    "country": "Ermenistan",
+    "city": "Erivan",
+    "title": "Erivan şehir merkezi",
+    "fact": "Erivan merkezine balon festivalinden yukarıdan bakış.",
+    "lat": 40.176114,
+    "lng": 44.509025,
+    "artist": "Aleksey Chalabyan a.k.a Xelgen",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Aerial_panorama_of_Yerevan_Downtown_during_Air_Balloon_Festival_2023.jpg"
   },
   {
     "id": "p7f1544de98cfddd6772395ba",
@@ -311,6 +407,30 @@ export const approvedPanoramas = [
     "artist": "U.Bardins",
     "license": "CC BY-SA 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Aldara_parks.jpg"
+  },
+  {
+    "id": "pd54467cbac66b55dd5a2686c",
+    "sourceId": "ee-viru-bog-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pd54467cbac66b55dd5a2686c",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 5,
+      "cubeResolution": 4576
+    },
+    "country": "Estonya",
+    "city": "Lahemaa",
+    "title": "Viru bataklık parkuru",
+    "fact": "Lahemaa Millî Parkı yakınındaki Viru bataklığı ve yürüyüş alanı.",
+    "lat": 59.468572,
+    "lng": 25.653681,
+    "artist": "JMdronfly",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Viru_raba_panoraam.jpg"
   },
   {
     "id": "pe8f29d659ed58c581a19ed8e",
