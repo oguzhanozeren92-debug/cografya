@@ -1,0 +1,45 @@
+name: Atlas Arena R2 connection test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/r2-connection-test.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  check-r2:
+    runs-on: ubuntu-24.04
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+    steps:
+      - name: Validate R2 credentials exist
+        shell: bash
+        run: |
+          test -n "$R2_ACCOUNT_ID" || { echo "R2_ACCOUNT_ID is not configured"; exit 1; }
+          test -n "$R2_ACCESS_KEY_ID" || { echo "R2_ACCESS_KEY_ID is not configured"; exit 1; }
+          test -n "$R2_SECRET_ACCESS_KEY" || { echo "R2_SECRET_ACCESS_KEY is not configured"; exit 1; }
+      - name: Install S3 client
+        run: python3 -m pip install --break-system-packages boto3
+      - name: Check Atlas Arena R2 bucket access (no upload)
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os
+          import boto3
+          from botocore.config import Config
+          client=boto3.client(
+              "s3",
+              endpoint_url="https://"+os.environ["R2_ACCOUNT_ID"]+".r2.cloudflarestorage.com",
+              aws_access_key_id=os.environ["R2_ACCESS_KEY_ID"],
+              aws_secret_access_key=os.environ["R2_SECRET_ACCESS_KEY"],
+              region_name="auto",
+              config=Config(signature_version="s3v4"))
+          result=client.list_objects_v2(Bucket="atlas-arena",MaxKeys=1)
+          print("R2 connection successful — atlas-arena bucket accessible.")
+          PY
