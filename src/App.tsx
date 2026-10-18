@@ -93,6 +93,8 @@ function App() {
   const showGlobe = game.phase === 'gameover' || (game.phase !== 'idle' && game.currentQuestionType !== 'flag' && game.currentQuestionType !== 'clue');
   const showHUD = game.phase !== 'idle' && game.phase !== 'gameover';
   const showQuestion = game.phase === 'question' || game.phase === 'feedback';
+  const isMapQuestion = game.currentQuestionType !== 'flag' && game.currentQuestionType !== 'clue';
+  const expandingMapQuestion = showQuestion && isMapQuestion;
   const showStart = game.phase === 'idle';
   const showGameOver = game.phase === 'gameover';
 
@@ -100,7 +102,7 @@ function App() {
     <div className="relative min-h-screen overflow-hidden bg-space-900">
       <Stars />
 
-      <div className="relative z-10 flex min-h-screen flex-col">
+      <div className={showGlobe && game.phase !== 'gameover' ? "relative z-10 flex h-[100dvh] min-h-0 flex-col" : "relative z-10 flex min-h-screen flex-col"}>
         {showHUD && (
           <HUD score={game.score} lives={game.lives} streak={game.streak} round={game.round}
             canEarnHeart={rewardedAvailable && !adBusy && game.phase === 'question' && game.lives < 3 && game.rewardedHeartsUsed === 0}
@@ -108,30 +110,57 @@ function App() {
         )}
 
         {showGlobe && (
-          <div className="flex flex-1 items-center justify-center px-4 py-2">
-            <div className="relative aspect-square w-full max-w-[min(70vh,500px)]">
-              <Globe
-                targetId={game.currentCountryId}
-                phase={game.phase}
-                onSpinEnd={game.onSpinEnd}
-              />
+          <div className={'atlas-geo-flow ' + (expandingMapQuestion ? 'atlas-geo-flow-quiz' : '')}>
+            <div className="atlas-geo-world-stage">
+              <div className="atlas-geo-world-frame">
+                <Globe
+                  targetId={game.currentCountryId}
+                  phase={game.phase}
+                  onSpinEnd={game.onSpinEnd}
+                />
+              </div>
+              {game.phase === 'locking' && (
+                <div className="atlas-geo-lock-notice pointer-events-none" role="status">
+                  <span className="atlas-geo-lock-dot" />
+                  HEDEF BULUNDU
+                  <span className="atlas-geo-lock-underline" />
+                </div>
+              )}
             </div>
+            {expandingMapQuestion && (
+              <div className="atlas-geo-questions">
+                <QuestionPanel
+                  countryId={game.currentCountryId}
+                  round={game.round}
+                  revealedClues={game.revealedClues}
+                  onRevealClue={game.revealNextClue}
+                  questionType={game.currentQuestionType}
+                  options={game.currentOptions}
+                  selectedAnswer={game.selectedAnswer}
+                  correctAnswer={game.currentAnswer}
+                  phase={game.phase}
+                  onAnswer={handleAnswer}
+                />
+              </div>
+            )}
           </div>
         )}
 
-        {showQuestion && (
-          <div className={game.currentQuestionType === 'flag' || game.currentQuestionType === 'clue' ? 'flex flex-1 items-center justify-center pt-5 pb-8' : ''}><QuestionPanel
-            countryId={game.currentCountryId}
-            round={game.round}
-            revealedClues={game.revealedClues}
-            onRevealClue={game.revealNextClue}
-            questionType={game.currentQuestionType}
-            options={game.currentOptions}
-            selectedAnswer={game.selectedAnswer}
-            correctAnswer={game.currentAnswer}
-            phase={game.phase}
-            onAnswer={handleAnswer}
-          /></div>
+        {showQuestion && !isMapQuestion && (
+          <div className="flex flex-1 items-center justify-center pt-5 pb-8">
+            <QuestionPanel
+              countryId={game.currentCountryId}
+              round={game.round}
+              revealedClues={game.revealedClues}
+              onRevealClue={game.revealNextClue}
+              questionType={game.currentQuestionType}
+              options={game.currentOptions}
+              selectedAnswer={game.selectedAnswer}
+              correctAnswer={game.currentAnswer}
+              phase={game.phase}
+              onAnswer={handleAnswer}
+            />
+          </div>
         )}
       </div>
 
