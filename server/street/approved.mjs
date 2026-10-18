@@ -1,6 +1,30 @@
 // Verified, editor-approved panoramas. Coordinates stay SERVER SIDE.
 export const approvedPanoramas = [
   {
+    "id": "p05e431142d98c30cfa048108",
+    "sourceId": "kh-chroy-changvar-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p05e431142d98c30cfa048108",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2600
+    },
+    "country": "Kamboçya",
+    "city": "Phnom Penh",
+    "title": "Chroy Changvar",
+    "fact": "Phnom Penh'de Tonlé Sap ve Mekong kavşağı yakınındaki şehir manzarası.",
+    "lat": 11.56455,
+    "lng": 104.934126,
+    "artist": "Kiensvay",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:360°_Chroy_Changvar_Nov_2022.jpg"
+  },
+  {
     "id": "p15b4482c1a33b00c542cc039",
     "sourceId": "fr-quarante-church-001",
     "approved": true,
@@ -47,6 +71,30 @@ export const approvedPanoramas = [
     "artist": "Ansgar Koreng",
     "license": "CC BY-SA 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Amphiteater_im_Mauerpark,_Berlin,_360x180,_1705280617,_ako.jpg"
+  },
+  {
+    "id": "p187ca3ed52b211676a4a8492",
+    "sourceId": "kh-koh-pich-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p187ca3ed52b211676a4a8492",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2600
+    },
+    "country": "Kamboçya",
+    "city": "Phnom Penh",
+    "title": "Koh Pich bölgesi",
+    "fact": "Phnom Penh'in Koh Pich (Diamond Island) kesimindeki şehir dokusu.",
+    "lat": 11.544886,
+    "lng": 104.934834,
+    "artist": "Kiensvay",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:360°_Koh_Pich_(2022).jpg"
   },
   {
     "id": "p19737b3c805ad373c5e91276",
@@ -289,6 +337,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Panorama_esférico_de_la_Alameda_Central.jpg"
   },
   {
+    "id": "p6c1ab10e776c0dbc76f8e9b7",
+    "sourceId": "si-maribor-square-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p6c1ab10e776c0dbc76f8e9b7",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3784
+    },
+    "country": "Slovenya",
+    "city": "Maribor",
+    "title": "Boris Kidrič Meydanı",
+    "fact": "Maribor kentinin meydanlarından bir sokak panoraması.",
+    "lat": 46.561909,
+    "lng": 15.656692,
+    "artist": "VlaDexa",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Panorama_of_Trg_Borisa_Kidriča.jpg"
+  },
+  {
     "id": "p777c3c3055e8ba59967915fb",
     "sourceId": "at-oberschuetzen-church-002",
     "approved": true,
@@ -385,6 +457,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Paraninfo_-_Universidad_Nacional_del_Litoral_-_360°.jpg"
   },
   {
+    "id": "p9e6947f46abdfa9f6a1c3a4f",
+    "sourceId": "mx-guadalajara-night-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p9e6947f46abdfa9f6a1c3a4f",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3816
+    },
+    "country": "Meksika",
+    "city": "Guadalajara",
+    "title": "Guadalajara gece manzarası",
+    "fact": "Guadalajara'nın tarihi merkezinin gece görünümü.",
+    "lat": 20.677081,
+    "lng": -103.34712,
+    "artist": "ProtoplasmaKid",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sobrevuelo_nocturno_con_dron_del_Centro_Histórico_de_Guadalajara_07.jpg"
+  },
+  {
     "id": "pa2255e05e41979cf1e68d924",
     "sourceId": "jp-yoshinogari-village-001",
     "approved": true,
@@ -431,6 +527,30 @@ export const approvedPanoramas = [
     "artist": "Ansgar Koreng",
     "license": "CC BY-SA 3.0 de",
     "source": "https://commons.wikimedia.org/wiki/File:Alte_Nationalgalerie,_Berlin-Mitte,_360_Grad_Panorama,_160101,_ako.jpg"
+  },
+  {
+    "id": "pb0c4e95ffa596e7a2fa56535",
+    "sourceId": "ca-port-dover-park-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pb0c4e95ffa596e7a2fa56535",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2768
+    },
+    "country": "Kanada",
+    "city": "Port Dover",
+    "title": "Port Dover yeşil alanı",
+    "fact": "Ontario'daki Port Dover çevresinden ormanlık bir alan.",
+    "lat": 42.79468889,
+    "lng": -80.189225,
+    "artist": "JFVoll",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Wintering_Site_360_-_Port_Dover,_ON.jpg"
   },
   {
     "id": "pb7be9959b560b4fc45009da6",
