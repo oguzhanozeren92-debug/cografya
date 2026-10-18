@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef, useState } from 'react';
 import {
-  ArrowRight, Bell, CalendarCheck, ChevronRight, Compass, Flag, Globe2,
+  ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Globe2,
   Lightbulb, MapPinned, Pencil, Play, ShieldCheck, Sparkles,
   Trophy, UserRound, Volume2, VolumeX,
 } from 'lucide-react';
@@ -28,13 +28,15 @@ interface StartScreenProps {
   onNameChange: (name: string) => Promise<void>;
   leaderboardError: string;
   onNotifications?: () => void;
+  onStreet: () => void;
+  onStreetLeaderboard: () => void;
 }
 
 const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
 
 export function StartScreen({
   onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly,
-  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications,
+  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
   const [editing, setEditing] = useState(!playerName);
@@ -42,6 +44,7 @@ export function StartScreen({
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [queuedMode, setQueuedMode] = useState<GameMode | null>(null);
+  const [queuedStreet, setQueuedStreet] = useState(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const completed = loadDailyProgress(getDailyDate()).answers.length;
   const found = getDiscoveredCountries().length;
@@ -57,6 +60,16 @@ export function StartScreen({
     onStart(mode);
   };
 
+  const startStreet = () => {
+    if (!canPlay) {
+      setQueuedStreet(true);
+      setEditing(true);
+      nameInputRef.current?.focus();
+      return;
+    }
+    onStreet();
+  };
+
   const save = async () => {
     if (!name.trim() || busy) return;
     setBusy(true);
@@ -67,6 +80,10 @@ export function StartScreen({
         const mode = queuedMode;
         setQueuedMode(null);
         onStart(mode);
+      }
+      if (queuedStreet) {
+        setQueuedStreet(false);
+        onStreet();
       }
       setError('');
     } catch {
@@ -189,6 +206,22 @@ export function StartScreen({
               <strong>Gizemli ülke</strong>
               <small>İpuçlarından ülkeyi tahmin et</small>
               <span className="aa-mode-arrow" aria-hidden="true"><ArrowRight className="h-4 w-4" /></span>
+            </button>
+          </div>
+
+          <div className="street-entry mt-3 overflow-hidden rounded-[23px]">
+            <button type="button" onClick={startStreet} className="street-entry-main flex w-full items-center gap-3 text-left">
+              <span className="street-entry-art" aria-hidden="true"><Camera className="h-9 w-9" strokeWidth={1.7}/><span>📍</span></span>
+              <span className="min-w-0 flex-1">
+                <small className="street-entry-kicker">YENİ · 360° DÜNYA TURU</small>
+                <strong className="mt-1 block text-lg font-black leading-tight">Sokak Dedektifi</strong>
+                <span className="mt-1 block text-[11px] font-semibold leading-4">Sokağı incele, dünyada yerini bul!</span>
+              </span>
+              <ChevronRight className="h-6 w-6 shrink-0 text-white"/>
+            </button>
+            <button type="button" onClick={onStreetLeaderboard} className="street-entry-league flex w-full items-center justify-between gap-2 px-4 py-2.5 text-xs font-bold">
+              <span className="flex items-center gap-2"><Trophy className="h-4 w-4"/> Sokak Dedektifi dünya sıralaması</span>
+              <ArrowRight className="h-4 w-4"/>
             </button>
           </div>
         </motion.section>

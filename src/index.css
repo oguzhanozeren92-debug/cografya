@@ -1161,3 +1161,98 @@
 .atlas-home-illustrated .aa-league {
   box-shadow:0 12px 25px rgba(0,8,30,.22),inset 0 1px rgba(255,255,255,.58);
 }
+
+
+/* Street Detective — premium map guessing mode, separate from country quizzes. */
+.street-entry {
+  border:1px solid rgba(154,215,229,.55);
+  background:#143858;
+  box-shadow:0 12px 26px rgba(0,7,27,.24),inset 0 1px rgba(255,255,255,.16);
+}
+.street-entry-main {
+  min-height:124px;
+  padding:16px 13px;
+  background:
+    radial-gradient(circle at 84% 20%,rgba(110,226,215,.29),transparent 48%),
+    radial-gradient(circle at 14% 95%,rgba(255,174,136,.38),transparent 57%),
+    linear-gradient(112deg,#30546e,#183a63 75%);
+  color:#fff;
+}
+.street-entry-art {
+  position:relative;display:grid;place-items:center;
+  width:77px;height:75px;flex:none;
+  border-radius:19px;
+  background:linear-gradient(135deg,rgba(253,185,141,.67),rgba(123,201,213,.5));
+  border:1px solid rgba(255,255,255,.28);
+  color:white;
+  box-shadow:0 8px 20px rgba(0,0,0,.12),inset 0 1px rgba(255,255,255,.35);
+}
+.street-entry-art span {position:absolute;right:-5px;top:-12px;font-size:26px;filter:drop-shadow(0 4px 7px rgba(0,0,0,.2));}
+.street-entry-kicker {
+  display:block;font-size:10px;letter-spacing:.07em;color:#ffdda9;font-weight:950;
+}
+.street-entry-league {
+  background:rgba(10,30,53,.85);
+  border-top:1px solid rgba(255,255,255,.12);
+  color:#c8eaf8;
+}
+.street-entry button:focus-visible,.street-screen button:focus-visible {
+  outline:3px solid #ffe49b;outline-offset:2px;
+}
+.street-entry button:active{filter:brightness(1.08);}
+.street-screen {
+  background:
+    radial-gradient(ellipse 120% 45% at 50% -10%,rgba(46,111,156,.43),transparent 75%),
+    radial-gradient(ellipse 80% 40% at 98% 92%,rgba(79,66,137,.25),transparent 75%),
+    linear-gradient(180deg,#102747,#071329 65%,#060d1e);
+  -webkit-overflow-scrolling:touch;
+}
+.street-card {
+  border:1px solid rgba(163,203,222,.18);
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(23,48,79,.96),rgba(11,27,51,.97));
+  box-shadow:0 10px 29px rgba(0,3,17,.18),inset 0 1px rgba(255,255,255,.04);
+}
+.street-round-button {
+  display:grid;place-items:center;
+  flex:none;width:39px;height:39px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:13px;color:#f4faff;
+}
+.street-primary {
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  min-height:54px;padding:10px 14px;
+  border-radius:17px;
+  background:linear-gradient(105deg,#ff9279,#ffbd89);
+  color:#233755;
+  box-shadow:0 8px 19px rgba(217,118,100,.17);
+  font-weight:950;font-size:14px;
+}
+.street-secondary {
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:8px 12px;
+  border-radius:15px;
+  background:rgba(159,208,233,.09);
+  border:1px solid rgba(180,223,244,.20);
+  color:#dff2ff;font-size:13px;font-weight:800;
+}
+.street-period {
+  flex:1;min-height:40px;border-radius:13px;
+  font-size:13px;font-weight:800;color:#b0ccdb;
+}
+.street-period-selected {
+  color:#153550;background:#abebdb;
+  box-shadow:0 4px 9px rgba(0,0,0,.14);
+}
+.street-map-button {
+  display:grid;place-items:center;
+  width:36px;height:36px;border-radius:12px;
+  background:#0e2a43;border:1px solid rgba(255,255,255,.3);
+  color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.25);
+}
+.street-pano-frame .gm-style-cc {visibility:visible!important;opacity:1!important;}
+@media(max-width:385px) {
+  .street-entry-art{width:64px;height:68px;}
+  .street-entry-main{padding:12px 11px;}
+}
