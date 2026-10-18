@@ -1,0 +1,70 @@
+name: Atlas Arena — R2 panorama inventory
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/street-r2-inventory.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    env:
+      R2_ACCOUNT_ID: \${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: \${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: \${{ secrets.R2_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install --break-system-packages boto3
+      - name: Count R2 panorama folders, manifests and real tiles
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import boto3, os, json, re
+          from botocore.config import Config
+          from pathlib import Path
+          s=Path('server/street/approved.mjs').read_text()
+          m=re.search(r'export const approvedPanoramas\s*=\s*(\[[\s\S]*\]);',s)
+          if not m:raise SystemExit('Catalog parser error')
+          rows=json.loads(m.group(1))
+          registered={r['path'].removeprefix('panoramas/'):r.get('sourceId','') for r in rows}
+          client=boto3.client('s3',region_name='auto',
+            endpoint_url='https://'+os.environ['R2_ACCOUNT_ID']+'.r2.cloudflarestorage.com',
+            aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'],
+            aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'],
+            config=Config(signature_version='s3v4',retries={'max_attempts':3}))
+          paginator=client.get_paginator('list_objects_v2')
+          assets={}
+          for page in paginator.paginate(Bucket='atlas-arena',Prefix='panoramas/'):
+            for obj in page.get('Contents',[]):
+              key=obj['Key']
+              p=key.split('/')
+              if len(p)<3:continue
+              id=p[1]
+              row=assets.setdefault(id,{'objects':0,'bytes':0,'manifest':False,'tiles':0})
+              row['objects']+=1;row['bytes']+=obj.get('Size',0)
+              if '/config.json' in key:row['manifest']=True
+              if key.endswith('.jpg'):row['tiles']+=1
+          complete={id:d for id,d in assets.items() if d['manifest'] and d['tiles']>=12}
+          orphaned=[id for id in complete if id not in registered]
+          summary={'catalog_count':len(rows),
+                   'uploaded_folder_count':len(assets),
+                   'plausibly_complete_uploaded_count':len(complete),
+                   'complete_but_not_cataloged_count':len(orphaned),
+                   'partial_folder_count':len(assets)-len(complete),
+                   'total_uploaded_jpg_tiles':sum(x['tiles'] for x in assets.values()),
+                   'total_bytes':sum(x['bytes'] for x in assets.values())}
+          print('R2 INVENTORY SUMMARY: '+json.dumps(summary,ensure_ascii=False),flush=True)
+          print('NOTE: presence of 12+ tiles is a preliminary indicator, not verification of every level or playback.')
+          Path('r2-inventory.json').write_text(json.dumps({'summary':summary,'assets':assets},indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: atlas-arena-r2-inventory
+          path: r2-inventory.json
+          retention-days: 5
