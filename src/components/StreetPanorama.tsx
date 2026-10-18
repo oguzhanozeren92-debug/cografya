@@ -39,7 +39,23 @@ function ensurePannellum():Promise<void> {
   }).catch((err:unknown)=>{libraryPromise=null;throw err;});
   return libraryPromise;
 }
-const MAX_WAIT_MS=14000;
+// Only the next round's small front-face image is warmed. Full 360° images
+// are NEVER preloaded: they can be large and cause mobile WebGL jank.
+export function warmStreetViewer():void {
+  if(typeof window==='undefined')return;
+  void ensurePannellum().catch(()=>{/* The in-game error screen handles failure. */});
+}
+export function warmStreetPreview(round?:StreetRound):void {
+  if(!round||typeof window==='undefined')return;
+  const src=round.media.mode==='multires'
+    ? round.media.base+'/fallback/f.jpg' : round.media.image;
+  if(!/^https:\/\//.test(src))return;
+  const img=new Image();
+  img.decoding='async';
+  img.src=src;
+}
+
+const MAX_WAIT_MS=9000;
 
 export function StreetPanorama({
   round,onReady,onError,onSkip,
@@ -60,26 +76,26 @@ export function StreetPanorama({
     let viewer:Viewer|null=null;
     let checkTimer:ReturnType<typeof setInterval>|undefined;
     let timeoutTimer:ReturnType<typeof setTimeout>|undefined;
-    const abort=new AbortController();
     setState('loading');setFailure('');
     const succeed=()=>{
       if(!active||done)return;
-      done=true;setState('ready');callbacks.current.onReady();
+      done=true;
+      if(timeoutTimer)clearTimeout(timeoutTimer);
+      if(checkTimer)clearInterval(checkTimer);
+      setState('ready');callbacks.current.onReady();
     };
     const fail=(message:string)=>{
       if(!active||done)return;
-      done=true;setState('error');setFailure(message);callbacks.current.onError(message);
+      done=true;
+      if(timeoutTimer)clearTimeout(timeoutTimer);
+      if(checkTimer)clearInterval(checkTimer);
+      setState('error');setFailure(message);callbacks.current.onError(message);
     };
-    timeoutTimer=setTimeout(()=>fail('Panorama 14 saniyede açılamadı. Bağlantını kontrol edip tekrar dene.'),MAX_WAIT_MS);
+    timeoutTimer=setTimeout(()=>fail('9 saniyede açılamadı. Tekrar dene veya sonraki konuma geç.'),MAX_WAIT_MS);
     void (async()=>{
       const media=round.media;
-      // Browser-side check tells us if the R2 address / CORS / uploaded manifest is bad.
-      if(media.mode==='multires'){
-        const response=await fetch(media.base+'/config.json',{signal:abort.signal,cache:'no-store'});
-        if(!response.ok)throw new Error('R2 görüntüsü açılamadı (HTTP '+response.status+').');
-        const config=await response.json() as {multiRes?:unknown};
-        if(!config.multiRes)throw new Error('R2 panorama manifest dosyası geçersiz.');
-      }
+      // The signed session already supplies validated multiRes metadata.
+      // Avoid an extra sequential config.json roundtrip before starting playback.
       await ensurePannellum();
       if(!active||done||!container.current||!window.pannellum)return;
       const options:Record<string,unknown>={
@@ -97,7 +113,7 @@ export function StreetPanorama({
       viewer.on('error',()=>fail('Panorama parçaları indirilemedi. Başka konuma geçebilirsin.'));
       // Some browsers may finish their initial render before the load listener attaches.
       if(viewer.isLoaded?.()===true)succeed();
-      checkTimer=setInterval(()=>{if(viewer?.isLoaded?.()===true)succeed();},350);
+      if(!done)checkTimer=setInterval(()=>{if(viewer?.isLoaded?.()===true)succeed();},350);
     })().catch((e:unknown)=>{
       if(!active||done)return;
       const msg=e instanceof Error?e.message:'Panorama indirilemedi.';
@@ -105,7 +121,7 @@ export function StreetPanorama({
         ? 'R2 bağlantısı veya CORS engellendi. Tekrar dene ya da bu turu geç.' : msg);
     });
     return()=>{
-      active=false;abort.abort();
+      active=false;
       if(timeoutTimer)clearTimeout(timeoutTimer);
       if(checkTimer)clearInterval(checkTimer);
       try{viewer?.destroy();}catch{/* Viewer was already unmounted */}
@@ -116,8 +132,15 @@ export function StreetPanorama({
     <div className="relative h-full w-full overflow-hidden rounded-[20px] bg-[#0c2946]">
       <div ref={container} className="h-full w-full" aria-label="360 derece panorama; parmağınla dönerek etrafına bak"/>
       {state==='loading'&&(
-        <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-[#102c49]/85 p-4 text-center text-sm font-bold text-blue-100" role="status">
-          <span>360° panorama hazırlanıyor...</span>
+        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-end overflow-hidden bg-[#102c49] pb-6 text-center text-sm font-bold text-blue-100" role="status">
+          {round.media.mode==='multires'&&(
+            <img src={round.media.base+'/fallback/f.jpg'} alt="" aria-hidden="true"
+              className="absolute inset-0 h-full w-full object-cover opacity-60 blur-[3px]"
+              draggable={false} decoding="async"/>
+          )}
+          <span className="relative z-10 rounded-full bg-[#0b2341]/85 px-4 py-2">
+            360° açılıyor...
+          </span>
         </div>
       )}
       {state==='error'&&(

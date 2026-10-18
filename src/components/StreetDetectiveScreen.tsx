@@ -3,7 +3,7 @@ import {
   ArrowLeft, ArrowRight, Camera, ChevronRight, Globe2, MapPin,
   Medal, RefreshCcw, Trophy, X,
 } from 'lucide-react';
-import { StreetPanorama, type StreetRound } from '@/components/StreetPanorama';
+import { StreetPanorama, warmStreetPreview, warmStreetViewer, type StreetRound } from '@/components/StreetPanorama';
 import { StreetWorldMap } from '@/components/StreetWorldMap';
 import { getLocalStreetBest, rememberLocalStreetBest } from '@/lib/streetLeaderboard';
 import { STREET_ROUNDS, type Coordinates } from '@/lib/streetLocations';
@@ -39,6 +39,7 @@ export function StreetDetectiveScreen({
   const score=completed.reduce((sum,r)=>sum+r.points,0);
 
   const newGame=useCallback(async()=>{
+    warmStreetViewer(); // Load the viewer while the session request is running.
     setLoading(true);setError('');setRounds([]);
     setIdx(0);setCompleted([]);setGuess(null);setReveal(null);
     setReady(false);setShowRank(false);setSaveNote('');setPhase('view');
@@ -47,12 +48,17 @@ export function StreetDetectiveScreen({
       const data=await response.json() as {rounds?:StreetRound[];error?:string};
       if(!response.ok || !Array.isArray(data.rounds) || data.rounds.length!==STREET_ROUNDS)
         throw new Error(data.error || 'Henüz yeterli lisanslı 360° konum bulunmuyor.');
+      warmStreetPreview(data.rounds[0]);
       setRounds(data.rounds);
     }catch(e){
       setError(e instanceof Error?e.message:'Konum arşivi yüklenemedi.');
     }finally{setLoading(false);}
   },[]);
   useEffect(()=>{if(initialView==='play')void newGame();},[initialView,newGame]);
+  useEffect(()=>{
+    // One small fallback image for the next round only; do not preload full tiles.
+    if(ready && idx+1<rounds.length)warmStreetPreview(rounds[idx+1]);
+  },[ready,idx,rounds]);
   const confirm=async()=>{
     if(busy||!current||!guess||phase!=='guess')return;
     setBusy(true);setError('');
@@ -150,7 +156,7 @@ export function StreetDetectiveScreen({
             </div>
             {(phase==='view'||phase==='guess')&&(
               <div className="street-card overflow-hidden p-2">
-                <div className={phase==='guess'?'h-[170px]':'h-[min(48dvh,380px)] min-h-[245px]'}>
+                <div className="h-[min(35dvh,275px)] min-h-[205px]">
                   <StreetPanorama key={current.id} round={current}
                     onReady={()=>{setReady(true);setError('');}} onError={setError} onSkip={skipBroken}/>
                 </div>
