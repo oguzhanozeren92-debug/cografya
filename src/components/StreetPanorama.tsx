@@ -63,7 +63,7 @@ export function StreetPanorama({
   round:StreetRound;
   onReady:()=>void;
   onError:(message:string)=>void;
-  onSkip:()=>void;
+  onSkip?:()=>void;
 }) {
   const container=useRef<HTMLDivElement>(null);
   const callbacks=useRef({onReady,onError,onSkip});
@@ -150,9 +150,9 @@ export function StreetPanorama({
           <button type="button" className="street-primary w-full max-w-[260px]" onClick={()=>setRetry(n=>n+1)}>
             <RefreshCcw className="h-4 w-4"/> Tekrar dene
           </button>
-          <button type="button" className="street-secondary w-full max-w-[260px]" onClick={()=>callbacks.current.onSkip()}>
+          {onSkip&&<button type="button" className="street-secondary w-full max-w-[260px]" onClick={()=>callbacks.current.onSkip?.()}>
             <SkipForward className="h-4 w-4"/> Bu turu geç (0 puan)
-          </button>
+          </button>}
         </div>
       )}
     </div>
