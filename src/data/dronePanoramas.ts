@@ -1,7 +1,7 @@
 // Pilot catalogue: five geolocated aerial 360° photos with reusable Commons licenses.
 // These public metadata/coordinates intentionally support an unranked demo only.
 // Before enabling competitive scoring, move answers and image paths behind signed server sessions.
-// Commons allows hotlinking but recommends self-hosting; migrate to R2 for sustained traffic.
+// Commons is attribution only. Actual game imagery is always verified and served via R2.
 export type DronePanorama = {
   id: string;
   country: string;
@@ -12,14 +12,11 @@ export type DronePanorama = {
   license: string;
   licenseUrl: string;
   source: string;
-  image: string;
   fact: string;
 };
 function commonsPhoto(filename: string) {
   return {
     source: 'https://commons.wikimedia.org/wiki/File:' + encodeURIComponent(filename.replace(/ /g, '_')),
-    image: 'https://commons.wikimedia.org/w/index.php?title=' +
-      encodeURIComponent('Special:Redirect/file/' + filename) + '&width=4096',
   };
 }
 export const dronePanoramas: DronePanorama[] = [

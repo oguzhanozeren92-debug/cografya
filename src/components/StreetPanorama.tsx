@@ -90,6 +90,9 @@ export function StreetPanorama({
       if(timeoutTimer)clearTimeout(timeoutTimer);
       if(checkTimer)clearInterval(checkTimer);
       setState('error');setFailure(message);callbacks.current.onError(message);
+      // Hide Pannellum's internal English error box behind our own accessible UI.
+      // Deferring destruction avoids mutating Pannellum during its error callback.
+      queueMicrotask(()=>{try{viewer?.destroy();viewer=null;}catch{/* ignore */}});
     };
     timeoutTimer=setTimeout(()=>fail('9 saniyede açılamadı. Tekrar dene veya sonraki konuma geç.'),MAX_WAIT_MS);
     void (async()=>{
@@ -110,7 +113,9 @@ export function StreetPanorama({
       else options.multiRes={...media.config,basePath:media.base};
       viewer=window.pannellum.viewer(container.current,options);
       viewer.on('load',succeed);
-      viewer.on('error',()=>fail('Panorama parçaları indirilemedi. Başka konuma geçebilirsin.'));
+      viewer.on('error',()=>fail(media.mode==='multires'
+        ? '360° görüntü parçaları indirilemedi. Tekrar dene veya bu turu geç.'
+        : '360° fotoğraf açılamadı. Tekrar dene veya bu turu geç.'));
       // Some browsers may finish their initial render before the load listener attaches.
       if(viewer.isLoaded?.()===true)succeed();
       if(!done)checkTimer=setInterval(()=>{if(viewer?.isLoaded?.()===true)succeed();},350);

@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2, Compass, MapPin, RefreshCcw, Trophy, X } from 'lucide-react';
-import { StreetPanorama, type StreetRound } from '@/components/StreetPanorama';
+import { StreetPanorama, warmStreetViewer, warmStreetPreview, type StreetRound, type PanoramaMedia } from '@/components/StreetPanorama';
 import { StreetWorldMap } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
 import { haversineKm, locationPoints, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
 
 type Phase = 'view' | 'guess' | 'result' | 'finish';
-type Answer = { id: string; city: string; country: string; km: number; points: number };
+type Answer = { id: string; city: string; country: string; km: number | null; points: number; skipped?: boolean };
 const BEST_KEY = 'atlas-arena-drone-demo-best-v1';
 const formatKm = (n: number) => new Intl.NumberFormat('tr-TR', {
   maximumFractionDigits: n < 10 ? 1 : 0,
@@ -32,10 +32,32 @@ function saveBest(score: number): number {
 
 export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () => void; onGameComplete?: () => void }) {
   const [rows, setRows] = useState(shuffled);
+  const [mediaById,setMediaById]=useState<Record<string,PanoramaMedia>>({});
+  const [assetLoading,setAssetLoading]=useState(true);
+  const [assetError,setAssetError]=useState('');
+  const [assetsRetry,setAssetsRetry]=useState(0);
+  useEffect(()=>{
+    let active=true;
+    const run=async()=>{
+      setAssetLoading(true);setAssetError('');
+      warmStreetViewer();
+      try{
+        const response=await fetch('/api/drone/session',{cache:'no-store'});
+        const body=await response.json() as {media?:Array<{id:string;media:PanoramaMedia}>;error?:string};
+        if(!response.ok||!body.media||body.media.length<5){
+          throw new Error(body.error||'Dron 360° arşivi henüz hazır değil.');
+        }
+        const map=Object.fromEntries(body.media.map(r=>[r.id,r.media]));
+        if(dronePanoramas.some(row=>!map[row.id]))throw new Error('Bazı drone panoramaları henüz doğrulanmadı.');
+        if(active){setMediaById(map);setAssetLoading(false);}
+      }catch(e){if(active){setAssetLoading(false);setAssetError(e instanceof Error?e.message:'Görüntüler yüklenemedi.');}}
+    };
+    void run();
+    return()=>{active=false;};
+  },[assetsRetry]);
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('view');
   const [ready, setReady] = useState(false);
-  const [error, setError] = useState('');
   const [guess, setGuess] = useState<Coordinates | null>(null);
   const [answered, setAnswered] = useState<Answer[]>([]);
   const [distance, setDistance] = useState<number | null>(null);
@@ -51,14 +73,14 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
   const panorama = useMemo<StreetRound>(() => ({
     id: current.id,
     ticket: '',
-    media: { mode: 'equirectangular', image: current.image },
+    media: mediaById[current.id] ?? { mode: 'equirectangular', image: '' },
     credit: { artist: current.artist, license: current.license, source: current.source },
-  }), [current]);
+  }), [current,mediaById]);
 
   const restart = () => {
     completionNotified.current=false;
     setRows(shuffled()); setIndex(0); setPhase('view'); setReady(false);
-    setError(''); setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);
+    setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);
   };
   const confirm = () => {
     if (!guess || phase !== 'guess') return;
@@ -72,6 +94,25 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
     }]);
     setPhase('result');
   };
+  const skipBroken=()=>{
+    trackPlayEvent({mode:'drone',event_type:'panorama_skipped',question_id:current.id});
+    const skipped:Answer={id:current.id,city:current.city,country:current.country,km:null,points:0,skipped:true};
+    setAnswered(prev=>[...prev,skipped]);
+    if(index===rows.length-1){
+      setBest(saveBest(score));setPhase('finish');
+      if(!completionNotified.current){completionNotified.current=true;onGameComplete?.();}
+    }else{
+      setIndex(n=>n+1);setPhase('view');setReady(false);
+      setGuess(null);setDistance(null);setRoundPoints(0);
+    }
+  };
+  useEffect(()=>{
+    if(mediaById[current.id] && index+1<rows.length){
+      const next=rows[index+1];
+      warmStreetPreview({id:next.id,ticket:'',media:mediaById[next.id],
+        credit:{artist:next.artist,license:next.license,source:next.source}});
+    }
+  },[index,current.id,rows,mediaById]);
   const next = () => {
     if (index === rows.length - 1) {
       setBest(saveBest(score));
@@ -79,7 +120,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
       if(!completionNotified.current){completionNotified.current=true;onGameComplete?.();}
     } else {
       setIndex(n => n + 1); setPhase('view'); setGuess(null);
-      setDistance(null); setRoundPoints(0); setReady(false); setError('');
+      setDistance(null); setRoundPoints(0); setReady(false);
     }
   };
   return (
@@ -100,7 +141,20 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
             <X className="h-4 w-4" />
           </button>
         </header>
-        {phase === 'finish' ? (
+        {assetLoading||assetError ? (
+          <section className="street-card mx-auto max-w-lg space-y-3 p-6 text-center">
+            <Compass className="mx-auto h-10 w-10 text-cyan-200"/>
+            <h2 className="text-lg font-black">360° drone arşivi</h2>
+            <p className="text-sm leading-6 text-blue-100/80">
+              {assetLoading?'Lisanslı görüntüler hazırlanıyor...':assetError}
+            </p>
+            {!assetLoading&&<button type="button" className="street-primary w-full"
+              onClick={()=>setAssetsRetry(x=>x+1)}>
+              <RefreshCcw className="h-4 w-4"/> Tekrar kontrol et
+            </button>}
+            <button type="button" className="street-secondary w-full" onClick={close}>Ana menüye dön</button>
+          </section>
+        ) : phase === 'finish' ? (
           <div className="space-y-4">
             <section className="street-card p-5 text-center">
               <Trophy className="mx-auto mb-3 h-12 w-12 text-amber-300" />
@@ -114,7 +168,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
                 <div key={answer.id} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3 text-xs">
                   <span className="font-black text-amber-200">{i + 1}.</span>
                   <span className="min-w-0 flex-1 truncate">{answer.city}, {answer.country}</span>
-                  <span>{formatKm(answer.km)} km</span>
+                  <span>{answer.skipped?'Görüntü açılamadı':formatKm(answer.km!)+' km'}</span>
                   <strong className="text-emerald-200">+{answer.points}</strong>
                 </div>
               ))}
@@ -132,16 +186,17 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
             </div>
             {(phase === 'view' || phase === 'guess') && (
               <section className="street-card overflow-hidden p-2">
-                <div className={phase === 'guess' ? 'h-[175px]' : 'h-[min(49dvh,380px)] min-h-[245px]'}>
+                <div className="h-[min(35dvh,275px)] min-h-[205px]">
                   <StreetPanorama key={current.id} round={panorama}
                     onReady={()=>{
                       trackPlayEvent({mode:'drone',event_type:'panorama_ready',question_id:current.id,duration_ms:panoramaStart.current?performance.now()-panoramaStart.current:undefined});
-                      setReady(true);setError('');
+                      setReady(true);
                     }}
                     onError={message=>{
                       trackPlayEvent({mode:'drone',event_type:'panorama_error',question_id:current.id,detail:message.includes('9 saniyede')?'timeout':'viewer_error'});
-                      setError(message);setReady(false);
-                    }}/>
+                      setReady(false);
+                    }}
+                    onSkip={skipBroken}/>
                 </div>
                 <div className="space-y-1 px-2 py-2 text-[11px] leading-5 text-blue-100/90">
                   <div>
@@ -152,9 +207,6 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
                 </div>
               </section>
             )}
-            {error && <p role="alert" className="rounded-xl border border-amber-300/40 bg-amber-950/20 p-3 text-sm text-amber-100">
-              {error} İnternet bağlantını kontrol et veya kaynak bağlantısını aç.
-            </p>}
             {phase === 'view' && (
               <section className="street-card space-y-3 p-4">
                 <h2 className="font-black">Sence burası neresi? 🚁</h2>
@@ -202,8 +254,8 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
           </div>
         )}
         <p className="mt-5 text-center text-[11px] leading-5 text-blue-200/65">
-          Ücretsiz 5 konumluk pilot · Commons açık lisanslı hava fotoğrafları · Puanlar yalnızca bu cihazda saklanır.
-          Resmî sıralama ve R2 arşivi henüz bu modda etkin değil.
+          Ücretsiz 5 konumluk pilot · Açık lisanslı 360° drone fotoğrafları · R2 görüntü parçaları.
+          Puanlar bu cihazda saklanır; rekabetçi sıralama henüz açılmadı.
         </p>
       </main>
     </div>

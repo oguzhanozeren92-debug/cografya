@@ -1,0 +1,29 @@
+{
+  "panoramas": [
+    {
+      "id": "air-001",
+      "sourceTitle": "File:Panorama esférico 360 de la ciudad de La Paz, Baja California, Sur.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "id": "air-002",
+      "sourceTitle": "File:Aerial panorama of Yerevan Downtown during Air Balloon Festival 2023.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "id": "air-003",
+      "sourceTitle": "File:Sattledt - Fronius site.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "id": "air-004",
+      "sourceTitle": "File:360° aerial panorama from the Bomen Lagoon.jpg",
+      "license": "CC BY-SA 3.0 AU"
+    },
+    {
+      "id": "air-005",
+      "sourceTitle": "File:Broad Oak Park, Bexhill (360 aerial panorama).jpg",
+      "license": "CC BY 4.0"
+    }
+  ]
+}
