@@ -25,6 +25,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:360°_Chroy_Changvar_Nov_2022.jpg"
   },
   {
+    "id": "p0851b0a0bf00a772ff4c1bb4",
+    "sourceId": "ge-varketili-metro-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p0851b0a0bf00a772ff4c1bb4",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2136
+    },
+    "country": "Gürcistan",
+    "city": "Tiflis",
+    "title": "Varketili Metro İstasyonu",
+    "fact": "Tiflis metro ağındaki Varketili istasyonu.",
+    "lat": 41.691824,
+    "lng": 44.870715,
+    "artist": "Unrecognizablepineapple",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:04-2025_Varketili_Station_Condition.jpg"
+  },
+  {
     "id": "p15b4482c1a33b00c542cc039",
     "sourceId": "fr-quarante-church-001",
     "approved": true,
@@ -71,6 +95,30 @@ export const approvedPanoramas = [
     "artist": "Ansgar Koreng",
     "license": "CC BY-SA 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Amphiteater_im_Mauerpark,_Berlin,_360x180,_1705280617,_ako.jpg"
+  },
+  {
+    "id": "p17db95cc7164cdf7c1d7381b",
+    "sourceId": "br-iguazu-waterfalls-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p17db95cc7164cdf7c1d7381b",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2280
+    },
+    "country": "Brezilya",
+    "city": "Foz do Iguaçu",
+    "title": "Iguaçu Şelaleleri",
+    "fact": "Brezilya–Arjantin sınırındaki Iguaçu şelaleleri çevresi.",
+    "lat": -25.690976,
+    "lng": -54.437038,
+    "artist": "Ricardo de Sampaio Dagnino",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cataratas_do_Iguaçu_-_Panorama_360.jpg"
   },
   {
     "id": "p187ca3ed52b211676a4a8492",
@@ -553,6 +601,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Wintering_Site_360_-_Port_Dover,_ON.jpg"
   },
   {
+    "id": "pb3490dc48a61d6d63ee70f50",
+    "sourceId": "kh-central-market-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pb3490dc48a61d6d63ee70f50",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2600
+    },
+    "country": "Kamboçya",
+    "city": "Phnom Penh",
+    "title": "Merkez Pazarı",
+    "fact": "Phnom Penh'in Central Market bölgesindeki kent manzarası.",
+    "lat": 11.569967,
+    "lng": 104.923323,
+    "artist": "Kiensvay",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:360°_Phnom_Penh_(Central_Market_2022).jpg"
+  },
+  {
     "id": "pb7be9959b560b4fc45009da6",
     "sourceId": "at-vienna-thaliastrasse-001",
     "approved": true,
@@ -625,6 +697,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Viru_raba_panoraam.jpg"
   },
   {
+    "id": "pda3c93f8ee9a53c660c1ff3e",
+    "sourceId": "br-catavento-museum-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pda3c93f8ee9a53c660c1ff3e",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2280
+    },
+    "country": "Brezilya",
+    "city": "São Paulo",
+    "title": "Catavento Müzesi",
+    "fact": "São Paulo'daki Catavento Müzesi'nin avlusu.",
+    "lat": -23.543907,
+    "lng": -46.627706,
+    "artist": "Ricardo de Sampaio Dagnino",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pátio_interno_do_Museu_Catavento_-_Panorama_360.jpg"
+  },
+  {
     "id": "pddeca3721b66132159fb57d2",
     "sourceId": "mx-huentitan-canyon-002",
     "approved": true,
@@ -695,6 +791,30 @@ export const approvedPanoramas = [
     "artist": "Diliff",
     "license": "CC BY-SA 3.0",
     "source": "https://commons.wikimedia.org/wiki/File:Laon_Cathedral_Interior_360x180,_Picardy,_France_-_Diliff.jpg"
+  },
+  {
+    "id": "pf323ed59af0dac8c4145d85d",
+    "sourceId": "ge-kashveti-church-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pf323ed59af0dac8c4145d85d",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2136
+    },
+    "country": "Gürcistan",
+    "city": "Tiflis",
+    "title": "Kashveti Kilisesi",
+    "fact": "Tiflis'in Kashveti Kilisesi içinden görünüm.",
+    "lat": 41.69799,
+    "lng": 44.79928,
+    "artist": "Unrecognizablepineapple",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kashveti_Church_inside_360.jpg"
   },
   {
     "id": "pf760c7acdb84d7f1c6785433",
