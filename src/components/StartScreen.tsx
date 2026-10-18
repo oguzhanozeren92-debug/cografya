@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef, useState } from 'react';
 import {
-  ArrowRight, CalendarCheck, ChevronRight, Compass, Flag, Globe2,
+  ArrowRight, Bell, CalendarCheck, ChevronRight, Compass, Flag, Globe2,
   Lightbulb, MapPinned, Pencil, Play, ShieldCheck, Sparkles,
   Trophy, UserRound, Volume2, VolumeX,
 } from 'lucide-react';
@@ -12,6 +12,7 @@ import { VALID_COUNTRY_IDS } from '@/data/countries';
 import { HomePlanet } from '@/components/HomePlanet';
 import { AtlasHomeBackdrop } from '@/components/AtlasHomeBackdrop';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
+import { isIosPushSupported } from '@/lib/iosPush';
 import type { GameMode, LeaderboardEntry } from '@/types';
 
 interface StartScreenProps {
@@ -26,13 +27,14 @@ interface StartScreenProps {
   playerName: string;
   onNameChange: (name: string) => Promise<void>;
   leaderboardError: string;
+  onNotifications?: () => void;
 }
 
 const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
 
 export function StartScreen({
   onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly,
-  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError,
+  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
   const [editing, setEditing] = useState(!playerName);
@@ -99,6 +101,12 @@ export function StartScreen({
             <span className="atlas-home-brand-name">Atlas <strong>Arena</strong></span>
           </div>
           <div className="flex shrink-0 items-center gap-2">
+            {isIosPushSupported() && onNotifications && (
+              <button type="button" onClick={onNotifications}
+                aria-label="Bildirim ayarları" className="atlas-home-topbutton">
+                <Bell className="h-4 w-4" />
+              </button>
+            )}
             <button type="button" onClick={onToggleSound}
               aria-label={soundEnabled ? 'Oyun sesini kapat' : 'Oyun sesini aç'}
               aria-pressed={soundEnabled} className="atlas-home-topbutton">

@@ -12,7 +12,7 @@
     "native:android": "npm run build && npx cap add android",
     "native:ios": "npm run build && npx cap add ios && npm run native:configure && npx cap sync ios",
     "native:sync": "npm run build && npx cap sync",
-    "native:configure": "node scripts/configure-admob-native.mjs",
+    "native:configure": "node scripts/configure-admob-native.mjs && node scripts/configure-push-ios.mjs",
     "native:release:check": "node scripts/validate-admob-release.mjs",
     "native:ios:sync": "npm run build && npx cap sync ios && npm run native:configure"
   },
@@ -36,7 +36,8 @@
     "@tsparticles/slim": "4.4.0",
     "lottie-react": "2.4.2",
     "howler": "2.2.4",
-    "three": "0.170.0"
+    "three": "0.170.0",
+    "@capacitor/push-notifications": "8.1.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

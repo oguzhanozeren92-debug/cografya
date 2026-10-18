@@ -9,6 +9,8 @@ import { WeeklyLeaderboardScreen } from '@/components/WeeklyLeaderboardScreen';
 import { DailyChallengeScreen } from '@/components/DailyChallengeScreen';
 import { ExploreMapScreen } from '@/components/ExploreMapScreen';
 import { ReviveScreen } from '@/components/ReviveScreen';
+import { NotificationSettings } from '@/components/NotificationSettings';
+import { initIosPush, isIosPushSupported, type PushTarget } from '@/lib/iosPush';
 import { isRewardedHeartAvailable, initializeRewardedAds, openAdPrivacyOptions, watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { syncDiscoveries } from '@/lib/discovery';
 import { celebrateGame, isSoundEnabled, playGameSound, saveSoundEnabled } from '@/lib/gameFx';
@@ -22,6 +24,7 @@ function App() {
   const [weeklyOpen, setWeeklyOpen] = useState(false);
   const [dailyOpen, setDailyOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [adBusy, setAdBusy] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(isSoundEnabled);
   const [adError, setAdError] = useState('');
@@ -63,6 +66,21 @@ function App() {
   };
   useEffect(() => { void syncDiscoveries(); }, []);
   const [weeklyMode, setWeeklyMode] = useState<GameMode>('mixed');
+  useEffect(() => {
+    if (!isIosPushSupported()) return;
+    let active = true;
+    let dispose: (() => void) | undefined;
+    const navigate = (target: PushTarget) => {
+      if (!active) return;
+      if (target === 'daily') { setWeeklyOpen(false); setExploreOpen(false); setDailyOpen(true); }
+      if (target === 'weekly') { setDailyOpen(false); setExploreOpen(false); setWeeklyMode('mixed'); setWeeklyOpen(true); }
+    };
+    void initIosPush(navigate).then(fn => {
+      if (active) dispose = fn;
+      else fn();
+    }).catch(error => console.warn('Atlas push initialization:', error));
+    return () => { active = false; dispose?.(); };
+  }, []);
   const startGame = (mode: GameMode) => { playGameSound('select'); setAdError(''); game.start(mode); };
   const toggleSound = () => {
     const next = !soundEnabled;
@@ -165,7 +183,11 @@ function App() {
       </div>
 
       {showStart && (
-        <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} />
+        <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} onNotifications={() => setNotificationsOpen(true)} />
+      )}
+
+      {showStart && notificationsOpen && isIosPushSupported() && (
+        <NotificationSettings onClose={() => setNotificationsOpen(false)} />
       )}
 
       {game.phase === 'revive' && (
