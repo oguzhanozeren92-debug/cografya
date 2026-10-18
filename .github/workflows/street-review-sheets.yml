@@ -1,0 +1,25 @@
+name: Atlas Arena 360 Review Contact Sheets
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'panoramas/shortlist-preview.json'
+      - 'scripts/panoramas/preview_shortlist.py'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  sheets:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install --break-system-packages Pillow
+      - name: Inspect Commons metadata and download tiny previews
+        run: python3 -u scripts/panoramas/preview_shortlist.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: panorama-review-sheets-and-metadata
+          path: panorama-review/
+          retention-days: 30
