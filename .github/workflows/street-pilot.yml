@@ -1,10 +1,6 @@
 name: Atlas Arena 360 Pilot Upload
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'panoramas/reviewed.json'
   workflow_dispatch: {}
 
 permissions:

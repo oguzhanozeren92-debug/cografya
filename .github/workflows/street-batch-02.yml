@@ -1,0 +1,64 @@
+name: Atlas Arena 360 Panoramas — Batch 02 (10 new)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'panoramas/reviewed.json'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: street-r2-approved-catalog
+  cancel-in-progress: false
+
+jobs:
+  upload-batch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: atlas-arena
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Check R2 permissions
+        run: |
+          test -n "$R2_ACCOUNT_ID" && test -n "$R2_ACCESS_KEY_ID" && test -n "$R2_SECRET_ACCESS_KEY"
+      - name: Install Pannellum generator and R2 uploader
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y hugin-tools
+          python3 -m pip install --break-system-packages Pillow numpy boto3
+          git clone --depth 1 https://github.com/mpetroff/pannellum.git /tmp/pannellum
+      - name: Configure commit identity
+        run: |
+          git config user.name "atlas-panorama-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Upload first 5 reviewed panoramas
+        run: |
+          python3 -u scripts/panoramas/publish.py --ids "fr-laon-cathedral-001,de-landau-town-001,de-berlin-museum-001,de-wiesbaden-rhine-001,at-oberzeiring-elisabeth-001"
+      - name: Record first 5 and publish coordinates to server
+        run: |
+          git add server/street/approved.mjs
+          if ! git diff --staged --quiet; then
+            git commit -m "assets(street): register first 5 new reviewed panoramas"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Upload next 5 reviewed panoramas
+        run: |
+          python3 -u scripts/panoramas/publish.py --ids "at-vienna-thaliastrasse-001,fr-quarante-church-001,jp-yoshinogari-moats-001,ar-santafe-senate-001,ar-santafe-university-001"
+      - name: Record second 5 and publish coordinates to server
+        run: |
+          git add server/street/approved.mjs
+          if ! git diff --staged --quiet; then
+            git commit -m "assets(street): register next 5 reviewed panoramas"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
