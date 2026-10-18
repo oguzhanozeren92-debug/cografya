@@ -109,12 +109,12 @@ export function QuestionPanel({
             const selected = selectedAnswer === option;
             const correct = option === correctAnswer;
             let classes = 'option-btn';
-            if (isFeedback) classes += correct ? ' option-btn-correct' : selected ? ' option-btn-wrong' : ' option-btn-disabled';
+            if (isFeedback) classes += correct ? (selected ? ' option-btn-correct option-btn-correct-picked' : ' option-btn-correct') : selected ? ' option-btn-wrong' : ' option-btn-disabled';
             return (
               <motion.button key={option} type="button" initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, x: isFeedback && selected && !correct ? [0, -8, 7, -4, 0] : 0, scale: isFeedback && correct ? [1, 1.035, 1] : 1 }} transition={{ duration: isFeedback ? .32 : .24, delay: isFeedback ? 0 : index * .045 }} whileTap={reduceMotion || isFeedback ? undefined : { scale: .97 }} onClick={() => !isFeedback && onAnswer(option)} disabled={isFeedback} className={classes}>
                 <div className="flex items-center justify-between gap-3">
                   <span className="font-medium">{option}</span>
-                  {isFeedback && correct && <Check className="h-5 w-5 shrink-0 text-emerald-400" />}
+                  {isFeedback && correct && <span className="answer-correct-badge" aria-label="Doğru cevap"><Check className="h-4 w-4" strokeWidth={3.5} /></span>}
                   {isFeedback && selected && !correct && <X className="h-5 w-5 shrink-0 text-red-400" />}
                 </div>
               </motion.button>
