@@ -145,6 +145,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Oe_Oberzeiring_Elisab_au_Pano_360x180_2017.jpg"
   },
   {
+    "id": "p2ac0b697dadd01b15d9bc49b",
+    "sourceId": "mx-zocalo-square-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p2ac0b697dadd01b15d9bc49b",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3816
+    },
+    "country": "Meksika",
+    "city": "Mexico City",
+    "title": "Anayasa Meydanı",
+    "fact": "Mexico City'nin ünlü Zócalo (Anayasa) Meydanı.",
+    "lat": 19.432745,
+    "lng": -99.133315,
+    "artist": "ProtoplasmaKid",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Panorama_esférico_de_la_Plaza_de_la_Constitución_de_la_Ciudad_de_México.jpg"
+  },
+  {
     "id": "p33e726df6432c7231936aaf5",
     "sourceId": "de-wiesbaden-rhine-001",
     "approved": true,
@@ -193,6 +217,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Yoshinogari_site,_Circular_Moats_360-degree.jpg"
   },
   {
+    "id": "p63f6d7bc28c4e62b6e6774a9",
+    "sourceId": "mx-belize-border-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p63f6d7bc28c4e62b6e6774a9",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3816
+    },
+    "country": "Meksika",
+    "city": "Belize sınırı",
+    "title": "Meksika–Belize sınırı",
+    "fact": "Meksika ile Belize sınırı yakınındaki tropik yerleşim.",
+    "lat": 18.490872,
+    "lng": -88.395213,
+    "artist": "ProtoplasmaKid",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Panorama_esférico_de_la_frontera_México_Belice.jpg"
+  },
+  {
     "id": "p68cebdf86038a7ee0eea5b39",
     "sourceId": "ar-santafe-senate-001",
     "approved": true,
@@ -215,6 +263,30 @@ export const approvedPanoramas = [
     "artist": "TitiNicola",
     "license": "CC BY-SA 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Legislatura_de_la_Ciudad_de_Santa_Fe_Cámara_de_Senadores_-_360°.jpg"
+  },
+  {
+    "id": "p6aa1f13594e209052646e192",
+    "sourceId": "mx-alameda-central-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p6aa1f13594e209052646e192",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3816
+    },
+    "country": "Meksika",
+    "city": "Mexico City",
+    "title": "Alameda Central",
+    "fact": "Mexico City'nin merkezindeki Alameda Central Parkı.",
+    "lat": 19.437024,
+    "lng": -99.142926,
+    "artist": "ProtoplasmaKid",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Panorama_esférico_de_la_Alameda_Central.jpg"
   },
   {
     "id": "p777c3c3055e8ba59967915fb",
@@ -433,6 +505,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Viru_raba_panoraam.jpg"
   },
   {
+    "id": "pddeca3721b66132159fb57d2",
+    "sourceId": "mx-huentitan-canyon-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pddeca3721b66132159fb57d2",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3816
+    },
+    "country": "Meksika",
+    "city": "Guadalajara",
+    "title": "Huentitán Vadisi",
+    "fact": "Guadalajara yakınındaki Barranca de Huentitán vadisi.",
+    "lat": 20.722293,
+    "lng": -103.286277,
+    "artist": "ProtoplasmaKid",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Panorama_esférico_de_la_Barranca_de_Huentitán.jpg"
+  },
+  {
     "id": "pe8f29d659ed58c581a19ed8e",
     "sourceId": "at-mariaenzersdorf-castle-001",
     "approved": true,
@@ -479,5 +575,29 @@ export const approvedPanoramas = [
     "artist": "Diliff",
     "license": "CC BY-SA 3.0",
     "source": "https://commons.wikimedia.org/wiki/File:Laon_Cathedral_Interior_360x180,_Picardy,_France_-_Diliff.jpg"
+  },
+  {
+    "id": "pf760c7acdb84d7f1c6785433",
+    "sourceId": "mx-azteca-stadium-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pf760c7acdb84d7f1c6785433",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 3816
+    },
+    "country": "Meksika",
+    "city": "Mexico City",
+    "title": "Azteca Stadyumu",
+    "fact": "Mexico City'nin büyük futbol stadyumlarından Estadio Azteca.",
+    "lat": 19.302932,
+    "lng": -99.150523,
+    "artist": "ProtoplasmaKid",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Panorama_esférico_del_Estadio_Azteca.jpg"
   }
 ];
