@@ -159,8 +159,8 @@ export function StartScreen({
             <button type="button" disabled={!canPlay} onClick={() => onStart('clues')}
               className="aa-mode aa-clues text-left disabled:opacity-60">
               <span className="aa-mode-illustration" aria-hidden="true"><Lightbulb className="h-10 w-10" /></span>
-              <strong>İPUCU AVI</strong>
-              <small>İpuçlarından ülkeyi bul</small>
+              <strong>GİZEMLİ ÜLKE</strong>
+              <small>İpuçlarından ülkeyi tahmin et</small>
               <span className="aa-mode-arrow" aria-hidden="true"><ArrowRight className="h-4 w-4" /></span>
             </button>
           </div>
