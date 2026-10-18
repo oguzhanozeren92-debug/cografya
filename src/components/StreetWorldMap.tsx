@@ -21,12 +21,19 @@ export function StreetWorldMap({
   guess:Coordinates|null;actual?:Coordinates|null;
   onGuess:(point:Coordinates)=>void;locked?:boolean;
 }) {
-  const [zoom,setZoom]=useState(1);
-  const [center,setCenter]=useState({x:W/2,y:H/2});
-  const pan=useRef<{x:number;y:number;cx:number;cy:number;dragged:boolean}|null>(null);
+
+  // Pointer events support both mouse-drag and true iOS/Android two-finger pinch.
+  // Keep the active view in a ref to avoid stale React render values during gestures.
+  const [view,setView]=useState({zoom:1,cx:W/2,cy:H/2});
+  const liveView=useRef(view);
+  const touches=useRef(new Map<number,{x:number;y:number}>());
+  const drag=useRef<{x:number;y:number;cx:number;cy:number;moved:boolean}|null>(null);
+  const pinch=useRef<{distance:number;zoom:number;anchorX:number;anchorY:number}|null>(null);
+  const pinchUsed=useRef(false);
+  const zoom=view.zoom;
   const vw=W/zoom,vh=H/zoom;
-  const cx=Math.min(W-vw/2,Math.max(vw/2,center.x));
-  const cy=Math.min(H-vh/2,Math.max(vh/2,center.y));
+  const cx=Math.min(W-vw/2,Math.max(vw/2,view.cx));
+  const cy=Math.min(H-vh/2,Math.max(vh/2,view.cy));
   const viewX=cx-vw/2,viewY=cy-vh/2;
   const guessXY=guess?position(guess):null;
   const actualXY=actual?position(actual):null;
@@ -37,47 +44,113 @@ export function StreetWorldMap({
     return worldPath({type:'LineString',coordinates:coords} as never)??'';
   },[actual?.lat,actual?.lng,guess?.lat,guess?.lng]);
 
+  const clamp=(zoom:number,cx:number,cy:number)=>{
+    const nextZoom=Math.max(1,Math.min(8,zoom));
+    const halfW=W/nextZoom/2,halfH=H/nextZoom/2;
+    return {zoom:nextZoom,cx:Math.max(halfW,Math.min(W-halfW,cx)),
+      cy:Math.max(halfH,Math.min(H-halfH,cy))};
+  };
+  const updateView=(zoom:number,cx:number,cy:number)=>{
+    const next=clamp(zoom,cx,cy);
+    liveView.current=next;setView(next);
+  };
   const zoomBy=(factor:number)=>{
-    const next=Math.max(1,Math.min(5,zoom*factor));
-    setZoom(next);
-    if(next===1)setCenter({x:W/2,y:H/2});
+    const current=liveView.current;
+    const next=current.zoom*factor;
+    updateView(next,current.cx,current.cy);
+  };
+  const mapPoint=(e:PointerEvent<SVGSVGElement>)=>{
+    const rect=e.currentTarget.getBoundingClientRect();
+    return {x:e.clientX,y:e.clientY,rect};
+  };
+  const startPinch=(rect:DOMRect)=>{
+    const [a,b]=[...touches.current.values()];
+    if(!a||!b)return;
+    const distance=Math.hypot(a.x-b.x,a.y-b.y);
+    const midpointX=(a.x+b.x)/2,midpointY=(a.y+b.y)/2;
+    const current=liveView.current;
+    const width=W/current.zoom,height=H/current.zoom;
+    pinch.current={distance:Math.max(8,distance),zoom:current.zoom,
+      anchorX:current.cx-width/2+(midpointX-rect.left)/rect.width*width,
+      anchorY:current.cy-height/2+(midpointY-rect.top)/rect.height*height};
+    pinchUsed.current=true;
+    drag.current=null;
   };
   const down=(e:PointerEvent<SVGSVGElement>)=>{
-    if(locked)return;
+    if(e.pointerType==='mouse'&&e.button!==0)return;
     e.currentTarget.setPointerCapture(e.pointerId);
-    pan.current={x:e.clientX,y:e.clientY,cx,cy,dragged:false};
+    touches.current.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(touches.current.size===1){
+      const v=liveView.current;
+      drag.current={x:e.clientX,y:e.clientY,cx:v.cx,cy:v.cy,moved:false};
+      pinchUsed.current=false;
+    }else if(touches.current.size===2){
+      startPinch(e.currentTarget.getBoundingClientRect());
+    }
   };
   const move=(e:PointerEvent<SVGSVGElement>)=>{
-    const p=pan.current;
-    if(!p||locked)return;
+    if(!touches.current.has(e.pointerId))return;
+    touches.current.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    const rect=e.currentTarget.getBoundingClientRect();
+    if(touches.current.size>=2){
+      const [a,b]=[...touches.current.values()];
+      if(!a||!b)return;
+      if(!pinch.current)startPinch(rect);
+      const p=pinch.current;
+      if(!p)return;
+      const distance=Math.hypot(a.x-b.x,a.y-b.y);
+      const nextZoom=Math.max(1,Math.min(8,p.zoom*distance/p.distance));
+      const width=W/nextZoom,height=H/nextZoom;
+      const midX=(a.x+b.x)/2,midY=(a.y+b.y)/2;
+      updateView(nextZoom,
+        p.anchorX-(midX-rect.left)/rect.width*width+width/2,
+        p.anchorY-(midY-rect.top)/rect.height*height+height/2);
+      return;
+    }
+    const p=drag.current;
+    if(!p||pinchUsed.current)return;
     const dx=e.clientX-p.x,dy=e.clientY-p.y;
-    if(Math.abs(dx)+Math.abs(dy)>8)p.dragged=true;
-    if(p.dragged){
-      const rect=e.currentTarget.getBoundingClientRect();
-      setCenter({
-        x:Math.max(vw/2,Math.min(W-vw/2,p.cx-dx/rect.width*vw)),
-        y:Math.max(vh/2,Math.min(H-vh/2,p.cy-dy/rect.height*vh)),
-      });
+    if(Math.abs(dx)+Math.abs(dy)>7)p.moved=true;
+    if(p.moved){
+      const v=liveView.current;
+      const width=W/v.zoom,height=H/v.zoom;
+      updateView(v.zoom,p.cx-dx/rect.width*width,p.cy-dy/rect.height*height);
     }
   };
   const up=(e:PointerEvent<SVGSVGElement>)=>{
-    const p=pan.current;pan.current=null;
-    if(!p||locked||p.dragged)return;
-    const rect=e.currentTarget.getBoundingClientRect();
-    const px=viewX+(e.clientX-rect.left)/rect.width*vw;
-    const py=viewY+(e.clientY-rect.top)/rect.height*vh;
+    const wasTracked=touches.current.has(e.pointerId);
+    const oneFingerTap=wasTracked && touches.current.size===1 &&
+      !pinchUsed.current && !drag.current?.moved &&
+      Math.abs(e.clientX-(drag.current?.x??e.clientX))<8 &&
+      Math.abs(e.clientY-(drag.current?.y??e.clientY))<8;
+    touches.current.delete(e.pointerId);
+    if(touches.current.size===0){
+      drag.current=null;pinch.current=null;pinchUsed.current=false;
+    }else if(touches.current.size===1){
+      pinch.current=null;drag.current=null;
+    }
+    if(!oneFingerTap||locked)return;
+    const {x,y,rect}=mapPoint(e);
+    const v=liveView.current;
+    const width=W/v.zoom,height=H/v.zoom;
+    const px=v.cx-width/2+(x-rect.left)/rect.width*width;
+    const py=v.cy-height/2+(y-rect.top)/rect.height*height;
     const result=projection.invert?.([px,py]);
     if(!result||!Number.isFinite(result[0])||!Number.isFinite(result[1]))return;
     onGuess({lng:Math.max(-180,Math.min(180,result[0])),
       lat:Math.max(-85,Math.min(85,result[1]))});
   };
-  const cancel=()=>{pan.current=null;};
+  const cancel=(e:PointerEvent<SVGSVGElement>)=>{
+    touches.current.delete(e.pointerId);
+    drag.current=null;pinch.current=null;pinchUsed.current=true;
+    if(touches.current.size===0)pinchUsed.current=false;
+  };
   return (
     <div className="street-map relative overflow-hidden rounded-[20px] border border-[#5c839e]/55 bg-[#102944]">
       <svg viewBox={[viewX,viewY,vw,vh].join(' ')} preserveAspectRatio="none"
-        className="block h-[min(45dvh,355px)] min-h-[244px] w-full select-none"
+        className="block h-[min(54dvh,420px)] min-h-[330px] w-full select-none"
         style={{touchAction:'none',cursor:locked?'default':'crosshair'}}
-        role="application" aria-label="Dünya tahmin haritası. Dokunup sürükleyerek gez; dokunarak nokta seç."
+        role="application" aria-label="Dünya haritası. İki parmakla yakınlaştır, bir parmakla sürükle, dokunarak konum seç."
         onPointerDown={down} onPointerMove={move} onPointerUp={up}
         onPointerCancel={cancel}>
         <rect x="0" y="0" width={W} height={H} fill="#193f62"/>
@@ -102,7 +175,7 @@ export function StreetWorldMap({
       <div className="absolute right-3 top-3 flex flex-col gap-2">
         <button type="button" onClick={()=>zoomBy(1.6)} aria-label="Haritayı yakınlaştır" className="street-map-button"><Plus className="h-4 w-4"/></button>
         <button type="button" onClick={()=>zoomBy(1/1.6)} aria-label="Haritayı uzaklaştır" className="street-map-button"><Minus className="h-4 w-4"/></button>
-        <button type="button" onClick={()=>{setZoom(1);setCenter({x:W/2,y:H/2});}} aria-label="Haritayı sıfırla" className="street-map-button"><LocateFixed className="h-4 w-4"/></button>
+        <button type="button" onClick={()=>updateView(1,W/2,H/2)} aria-label="Haritayı sıfırla" className="street-map-button"><LocateFixed className="h-4 w-4"/></button>
       </div>
     </div>
   );

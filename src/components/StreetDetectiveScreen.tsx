@@ -3,7 +3,8 @@ import {
   ArrowLeft, ArrowRight, Camera, ChevronRight, Globe2, MapPin,
   Medal, RefreshCcw, Trophy, X,
 } from 'lucide-react';
-import { StreetPanorama, warmStreetPreview, warmStreetViewer, type StreetRound } from '@/components/StreetPanorama';
+import { type StreetRound } from '@/components/StreetPanorama';
+import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap } from '@/components/StreetWorldMap';
 import { getLocalStreetBest, rememberLocalStreetBest } from '@/lib/streetLeaderboard';
 import { STREET_ROUNDS, type Coordinates } from '@/lib/streetLocations';
@@ -44,7 +45,6 @@ export function StreetDetectiveScreen({
   const newGame=useCallback(async()=>{
     completionNotified.current=false;
     trackPlayEvent({mode:'street',event_type:'mode_start'});
-    warmStreetViewer(); // Load the viewer while the session request is running.
     setLoading(true);setError('');setRounds([]);
     setIdx(0);setCompleted([]);setGuess(null);setReveal(null);
     setReady(false);setShowRank(false);setSaveNote('');setPhase('view');
@@ -53,7 +53,7 @@ export function StreetDetectiveScreen({
       const data=await response.json() as {rounds?:StreetRound[];error?:string};
       if(!response.ok || !Array.isArray(data.rounds) || data.rounds.length!==STREET_ROUNDS)
         throw new Error(data.error || 'Henüz yeterli lisanslı 360° konum bulunmuyor.');
-      warmStreetPreview(data.rounds[0]);
+      warmStreetPhoto(data.rounds[0]);
       setRounds(data.rounds);
     }catch(e){
       setError(e instanceof Error?e.message:'Konum arşivi yüklenemedi.');
@@ -61,8 +61,8 @@ export function StreetDetectiveScreen({
   },[]);
   useEffect(()=>{if(initialView==='play')void newGame();},[initialView,newGame]);
   useEffect(()=>{
-    // One small fallback image for the next round only; do not preload full tiles.
-    if(ready && idx+1<rounds.length)warmStreetPreview(rounds[idx+1]);
+    // Prefetch only one lightweight static photo; never download WebGL 360° tiles.
+    if(ready && idx+1<rounds.length)warmStreetPhoto(rounds[idx+1]);
   },[ready,idx,rounds]);
   useEffect(()=>{
     if(!current)return;
@@ -134,7 +134,7 @@ export function StreetDetectiveScreen({
           <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#ffab88] text-[#253859]"><Camera className="h-5 w-5"/></span>
           <div className="min-w-0 flex-1">
             <h1 className="text-[19px] font-black leading-tight">Sokak Dedektifi</h1>
-            <p className="text-[11px] text-blue-200/80">360° bak, dünyadan konumu tahmin et!</p>
+            <p className="text-[11px] text-blue-200/80">Fotoğrafa bak, dünyada konumunu bul!</p>
           </div>
           <button type="button" onClick={()=>setShowRank(!showRank)} aria-label="Dedektifler Ligi" className="street-round-button"><Trophy className="h-5 w-5 text-[#ffd58c]"/></button>
           <button type="button" onClick={onClose} aria-label="Kapat" className="street-round-button"><X className="h-4 w-4"/></button>
@@ -169,7 +169,7 @@ export function StreetDetectiveScreen({
             </section>
             <button type="button" className="street-primary w-full" onClick={()=>{void newGame();}}><RefreshCcw className="h-4 w-4"/> Yeni dünya turu</button>
           </div>
-        ):loading?banner('Doğrulanmış panorama arşivi kontrol ediliyor...'):!current?banner(error||'İlk 5 doğrulanmış 360° fotoğraf R2 arşivine yüklenince oyun açılacak.'):(
+        ):loading?banner('Lisanslı fotoğraf arşivi kontrol ediliyor...'):!current?banner(error||'Doğrulanmış konum fotoğrafları hazırlanıyor.'):(
           <div className="space-y-3">
             <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
               <span className="flex items-center gap-2 text-sm font-black"><Globe2 className="h-4 w-4 text-emerald-200"/> Tur {idx+1}/{STREET_ROUNDS}</span>
@@ -178,14 +178,14 @@ export function StreetDetectiveScreen({
             {(phase==='view'||phase==='guess')&&(
               <div className="street-card overflow-hidden p-2">
                 <div className="h-[min(35dvh,275px)] min-h-[205px]">
-                  <StreetPanorama key={current.id} round={current}
+                  <StreetPhoto key={current.id} round={current}
                     onReady={()=>{
                       trackPlayEvent({mode:'street',event_type:'panorama_ready',question_id:current.id,
                         duration_ms:panoramaOpenedAt.current?performance.now()-panoramaOpenedAt.current:undefined});
                       setReady(true);setError('');
                     }} onError={message=>{
                       trackPlayEvent({mode:'street',event_type:'panorama_error',question_id:current.id,
-                        detail:message.includes('9 saniyede')?'timeout':'viewer_error'});
+                        detail:message.includes('açılamadı')?'timeout':'photo_error'});
                       setError(message);
                     }} onSkip={skipBroken}/>
                 </div>
@@ -199,7 +199,7 @@ export function StreetDetectiveScreen({
             {phase==='view'&&(
               <section className="street-card space-y-3 p-4">
                 <h2 className="font-black">Sence burası neresi? 🕵️</h2>
-                <p className="text-sm leading-6 text-blue-100/75">Etrafına bak. Mimariyi, tabelaları ve çevreyi incele. Ardından haritada konumunu işaretle.</p>
+                <p className="text-sm leading-6 text-blue-100/75">Fotoğrafın sağ-sol oklarıyla farklı yönleri incele. Ardından haritada konumunu işaretle.</p>
                 <button type="button" disabled={!ready} onClick={()=>setPhase('guess')} className="street-primary w-full disabled:opacity-50">
                   <MapPin className="h-5 w-5"/> Dünya haritasında tahmin et <ChevronRight className="h-5 w-5"/>
                 </button>
@@ -217,7 +217,7 @@ export function StreetDetectiveScreen({
                   </section>
                 )}
                 <section className="street-card space-y-3 p-3">
-                  {phase==='guess'&&<p className="px-1 text-xs text-blue-100/80">Haritaya dokunarak konum seç. Yakınlaştırabilir ve sürükleyebilirsin.</p>}
+                  {phase==='guess'&&<p className="px-1 text-xs text-blue-100/80">Haritayı iki parmakla yakınlaştır, sürükle ve istediğin yere dokunarak tahminini seç.</p>}
                   <StreetWorldMap guess={guess} actual={phase==='result'?reveal?.actual:null}
                     onGuess={setGuess} locked={phase==='result'}/>
                   {phase==='guess'?(
@@ -225,7 +225,7 @@ export function StreetDetectiveScreen({
                       <button type="button" disabled={!guess||busy} onClick={()=>{void confirm();}} className="street-primary w-full disabled:opacity-50">
                         <MapPin className="h-5 w-5"/> {busy?'Hesaplanıyor...':'Tahmini onayla'} <ArrowRight className="h-4 w-4"/>
                       </button>
-                      <button type="button" className="street-secondary w-full" onClick={()=>setPhase('view')}>Panoramaya tekrar bak</button>
+                      <button type="button" className="street-secondary w-full" onClick={()=>setPhase('view')}>Fotoğrafa tekrar bak</button>
                     </>
                   ):<button type="button" onClick={advance} className="street-primary w-full">
                     {completed.length===STREET_ROUNDS?'Sonuçlarımı gör':'Sonraki konum'} <ArrowRight className="h-4 w-4"/>
@@ -236,7 +236,7 @@ export function StreetDetectiveScreen({
           </div>
         )}
         <p className="mt-5 text-center text-[11px] text-blue-200/65">
-          360° arşiv: lisanslı panoramalar · Depolama: Cloudflare R2 · Tahmin haritası: açık coğrafi veri
+          Fotoğraf arşivi: lisanslı ve doğrulanmış konumlar · Cloudflare R2 · İki parmakla yakınlaşabilen harita
           {phase==='finish'?' · En iyi skor: '+getLocalStreetBest().toLocaleString('tr-TR'):''}
         </p>
       </main>
