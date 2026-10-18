@@ -11,6 +11,7 @@ const FACES=['f','r','b','l'] as const;
 const LABELS=['Ön','Sağ','Arka','Sol'];
 function photoUrl(media:PanoramaMedia, face:string):string {
   if(media.mode==='equirectangular')return media.image;
+  if(media.staticBase)return media.staticBase.replace(/\/+$/,'')+'/'+face+'.jpg';
   const template=media.config.fallbackPath ?? '/fallback/%s';
   const filename=template.replace('%s',face).replace(/^\/+/,'');
   const extension=media.config.extension.replace(/[^a-z0-9]/gi,'') || 'jpg';

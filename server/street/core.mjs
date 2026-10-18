@@ -1,5 +1,6 @@
 import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 import { approvedPanoramas } from './approved.mjs';
+import { approvedPhotoIds } from './photo-ready.mjs';
 
 const SECRET = process.env.STREET_SESSION_SECRET ?? '';
 export const ROUNDS = 5;
@@ -36,7 +37,7 @@ export function publicRound(row) {
   // Never expose GPS, city, country, street name or identifying EXIF.
   const media = row.mode === 'multires'
     ? { mode: 'multires', base: publicBase + '/' + row.path.replace(/^\/+|\/+$/g, ''),
-      config: row.multires }
+      staticBase: '/street-photos/' + row.id, config: row.multires }
     : { mode: 'equirectangular', image: publicBase + '/' + row.path.replace(/^\/+/, '') };
   return {
     id: row.id, media, ticket: ticketFor(row.id),
@@ -44,7 +45,9 @@ export function publicRound(row) {
   };
 }
 export function chooseRounds() {
-  const pool = approvedPanoramas.filter(x => x.approved === true);
+  const ready = new Set(approvedPhotoIds);
+  // Never select a panorama without verified local JPGs; otherwise iPhone shows a blank card.
+  const pool = approvedPanoramas.filter(x => x.approved === true && ready.has(x.id));
   for (let i = pool.length - 1; i > 0; i--) {
     const rnd = Math.floor(Math.random() * (i + 1)); [pool[i], pool[rnd]] = [pool[rnd], pool[i]];
   }

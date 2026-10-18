@@ -3,7 +3,7 @@ import { RefreshCcw, SkipForward, AlertCircle } from 'lucide-react';
 
 export type PanoramaMedia =
   | { mode:'equirectangular'; image:string }
-  | { mode:'multires'; base:string; config: {
+  | { mode:'multires'; base:string; staticBase?:string; config: {
       path:string; fallbackPath?:string; extension:string;
       tileResolution:number; maxLevel:number; cubeResolution:number;
     } };
