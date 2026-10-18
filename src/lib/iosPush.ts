@@ -1,5 +1,5 @@
-import { Capacitor } from '@capacitor/core';
-import { PushNotifications, type PluginListenerHandle } from '@capacitor/push-notifications';
+import { Capacitor, type PluginListenerHandle } from '@capacitor/core';
+import { PushNotifications } from '@capacitor/push-notifications';
 import { backend, getPlayerId } from '@/lib/leaderboard';
 
 const KEY = 'atlas-push-settings-v1';
