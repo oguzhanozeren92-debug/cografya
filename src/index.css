@@ -1007,3 +1007,109 @@
 @media (prefers-reduced-motion:reduce) {
   .atlas-home-cozy .aa-play,.atlas-home-cozy .aa-mode {transition:none;}
 }
+
+
+/* Atlas Arena: illustrated atlas-paper background, warm and atmospheric. */
+.atlas-home-illustrated {
+  background:
+    radial-gradient(ellipse 90% 40% at 100% -5%,rgba(255,186,143,.66),transparent 77%),
+    radial-gradient(ellipse 110% 42% at -25% 45%,rgba(132,223,210,.54),transparent 74%),
+    radial-gradient(ellipse 85% 30% at 105% 100%,rgba(203,174,237,.5),transparent 83%),
+    linear-gradient(165deg,#fff8ec 0%,#fff0e6 26%,#f5f8ed 62%,#eeeaff 100%);
+}
+.atlas-home-illustrated .aa-page {position:relative;z-index:1;}
+.atlas-scene {
+  position:fixed;inset:0;
+  z-index:0;overflow:hidden;
+  pointer-events:none;user-select:none;
+}
+.atlas-scene-glow {position:absolute;border-radius:50%;filter:blur(36px);pointer-events:none;}
+.atlas-scene-glow-peach {
+  top:4%;right:-37%;width:100vw;height:62vw;
+  background:rgba(255,175,139,.25);
+}
+.atlas-scene-glow-mint {
+  top:31%;left:-33%;width:89vw;height:99vw;
+  background:rgba(89,215,199,.22);
+}
+.atlas-scene-glow-lilac {
+  bottom:-13%;right:-44%;width:110vw;height:105vw;
+  background:rgba(189,157,229,.26);
+}
+.atlas-scene-world {
+  position:absolute;
+  top:8%;
+  left:50%;
+  width:max(760px,178vw);
+  height:auto;
+  overflow:visible;
+  opacity:.19;
+  transform:translateX(-50%) rotate(-8deg);
+  filter:drop-shadow(0 6px 12px rgba(123,165,155,.08));
+  -webkit-mask-image:radial-gradient(ellipse 55% 60% at 52% 49%,#000 15%,transparent 94%);
+  mask-image:radial-gradient(ellipse 55% 60% at 52% 49%,#000 15%,transparent 94%);
+}
+.atlas-scene-grid {opacity:.62;}
+.atlas-scene-orbit {
+  position:absolute;
+  display:block;
+  width:135vw;height:115vw;
+  border:1.5px solid rgba(227,146,123,.14);
+  border-radius:50%;
+  transform:rotate(-38deg);
+}
+.atlas-scene-orbit-one {top:12%;right:-87%;}
+.atlas-scene-orbit-two {
+  left:-91%;bottom:-5%;
+  width:160vw;height:98vw;
+  transform:rotate(22deg);
+  border-color:rgba(81,178,164,.19);
+}
+.atlas-scene-compass {
+  position:absolute;
+  width:135px;height:135px;
+  right:-37px;top:52%;
+  color:#d29c8b;
+  opacity:.18;
+  transform:rotate(-16deg);
+}
+.atlas-scene-spark {
+  position:absolute;
+  font-weight:700;
+  color:#e4a06e;
+  opacity:.6;
+  text-shadow:0 1px 8px rgba(255,229,183,.5);
+  animation:atlas-scene-twinkle 5s ease-in-out infinite;
+}
+.atlas-scene-spark-one {top:24%;left:4%;font-size:22px;}
+.atlas-scene-spark-two {top:43%;right:4%;font-size:27px;color:#72aabb;animation-delay:-1.8s;}
+.atlas-scene-spark-three {bottom:26%;left:5%;font-size:16px;color:#b49acb;animation-delay:-3s;}
+.atlas-scene-spark-four {bottom:12%;right:6%;font-size:18px;color:#71bcae;animation-delay:-2s;}
+@keyframes atlas-scene-twinkle {
+  0%,100% {opacity:.32;transform:scale(.9) rotate(-6deg);}
+  50% {opacity:.8;transform:scale(1.14) rotate(8deg);}
+}
+/* Give the main art a subtle illustrated-map feeling without covering content. */
+.atlas-home-illustrated .aa-hero {
+  box-shadow:0 16px 34px rgba(203,135,114,.17),inset 0 2px 0 rgba(255,255,255,.7);
+}
+.atlas-home-illustrated .aa-hero::before {
+  content:'';
+  position:absolute;inset:0;z-index:0;
+  pointer-events:none;opacity:.38;
+  background:
+    radial-gradient(circle at 77% 27%,transparent 0 45px,rgba(255,255,255,.45) 46px 47px,transparent 48px 77px,rgba(255,255,255,.3) 78px 79px,transparent 80px),
+    linear-gradient(115deg,transparent 38%,rgba(255,255,255,.24) 45%,transparent 58%);
+  border-radius:inherit;
+}
+.atlas-home-illustrated .aa-mode,
+.atlas-home-illustrated .aa-quick {
+  box-shadow:0 9px 21px rgba(145,121,144,.15),inset 0 1px rgba(255,255,255,.65);
+}
+@media (max-width:380px) {
+  .atlas-scene-world {width:730px;top:14%;opacity:.15;}
+  .atlas-scene-compass {width:110px;height:110px;right:-30px;}
+}
+@media (prefers-reduced-motion:reduce) {
+  .atlas-scene-spark {animation:none;}
+}

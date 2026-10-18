@@ -10,6 +10,7 @@ import { DAILY_TOTAL, getDailyDate, loadDailyProgress } from '@/lib/dailyChallen
 import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
 import { HomePlanet } from '@/components/HomePlanet';
+import { AtlasHomeBackdrop } from '@/components/AtlasHomeBackdrop';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 import type { GameMode, LeaderboardEntry } from '@/types';
 
@@ -87,7 +88,8 @@ export function StartScreen({
       };
 
   return (
-    <div className="atlas-home atlas-home-refresh atlas-home-cozy fixed inset-0 z-20 overflow-y-auto overscroll-contain text-white">
+    <div className="atlas-home atlas-home-refresh atlas-home-cozy atlas-home-illustrated fixed inset-0 z-20 overflow-y-auto overscroll-contain text-white">
+      <AtlasHomeBackdrop />
       <main className="atlas-home-inner aa-page mx-auto w-full max-w-[490px] px-4 sm:px-5">
         <header className="atlas-home-topbar flex items-center justify-between gap-2">
           <div className="atlas-home-brand flex min-w-0 items-center gap-2.5">
