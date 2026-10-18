@@ -668,3 +668,114 @@
     animation:none !important;
   }
 }
+
+
+/* Atlas Arena globe -> highlighted target -> question: one continuous scene. */
+.atlas-geo-flow {
+  display:flex;
+  flex:1 1 auto;
+  min-height:0;
+  flex-direction:column;
+  align-items:center;
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior-y:contain;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+.atlas-geo-flow::-webkit-scrollbar {display:none;}
+.atlas-geo-world-stage {
+  position:relative;
+  display:flex;
+  flex:0 0 auto;
+  width:100%;
+  height:calc(100dvh - 84px);
+  align-items:center;
+  justify-content:center;
+  transition:height 480ms cubic-bezier(.19,1,.33,1);
+  will-change:height;
+}
+.atlas-geo-world-frame {
+  position:relative;
+  display:flex;
+  flex:0 0 auto;
+  align-items:center;
+  justify-content:center;
+  width:min(94vw,500px);
+  height:min(94vw,500px);
+  transition:width 480ms cubic-bezier(.19,1,.33,1),height 480ms cubic-bezier(.19,1,.33,1);
+}
+.atlas-geo-flow-quiz .atlas-geo-world-stage {height:clamp(173px,27dvh,235px);}
+.atlas-geo-flow-quiz .atlas-geo-world-frame {
+  width:clamp(172px,30dvh,248px);
+  height:clamp(172px,30dvh,248px);
+}
+.atlas-geo-questions {
+  position:relative;
+  flex:0 0 auto;
+  width:100%;
+  max-width:680px;
+  animation:atlas-geo-question-in 440ms cubic-bezier(.19,1,.34,1) 110ms both;
+}
+.atlas-globe-country-target {
+  fill:#ef4444;
+  stroke:#ffd8bf;
+  stroke-width:1.6;
+  filter:drop-shadow(0 0 7px rgba(255,88,74,.8));
+  transition:fill 330ms ease-out,stroke 330ms ease-out;
+}
+.atlas-globe-reticle {filter:drop-shadow(0 0 8px rgba(255,192,106,.75));}
+.atlas-globe-reticle-ring {
+  transform-origin:center;
+  transform-box:fill-box;
+  animation:atlas-geo-lock-ring 620ms ease-out both;
+}
+.atlas-geo-lock-notice {
+  position:absolute;
+  z-index:3;
+  bottom:15px;
+  left:50%;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 17px;
+  border:1px solid rgba(255,222,161,.6);
+  border-radius:999px;
+  background:linear-gradient(110deg,rgba(54,24,45,.93),rgba(19,27,64,.93));
+  box-shadow:0 0 20px rgba(255,91,77,.19),inset 0 1px rgba(255,255,255,.12);
+  color:#ffead1;
+  font-size:11px;
+  font-weight:950;
+  letter-spacing:.14em;
+  white-space:nowrap;
+  transform:translateX(-50%);
+  animation:atlas-geo-lock-label 520ms ease-out both;
+}
+.atlas-geo-lock-dot {
+  width:8px;height:8px;flex:none;border-radius:50%;
+  background:#fa5555;box-shadow:0 0 0 4px rgba(250,85,85,.18),0 0 11px #ff5d59;
+}
+.atlas-geo-lock-underline {position:absolute;bottom:0;left:20%;right:20%;height:1px;background:#ffda8f;opacity:.65;}
+@keyframes atlas-geo-lock-ring {
+  0% {opacity:0;transform:scale(1.6);}
+  52% {opacity:1;transform:scale(.89);}
+  100% {opacity:.92;transform:scale(1);}
+}
+@keyframes atlas-geo-lock-label {
+  from {opacity:0;transform:translate(-50%,12px) scale(.94);}
+  to {opacity:1;transform:translate(-50%,0) scale(1);}
+}
+@keyframes atlas-geo-question-in {
+  from {opacity:0;transform:translateY(25px) scale(.975);}
+  to {opacity:1;transform:translateY(0) scale(1);}
+}
+@media (max-height:690px) {
+  .atlas-geo-flow-quiz .atlas-geo-world-stage {height:170px;}
+  .atlas-geo-flow-quiz .atlas-geo-world-frame {width:185px;height:185px;}
+}
+@media (prefers-reduced-motion:reduce) {
+  .atlas-geo-world-stage,.atlas-geo-world-frame {transition:none;will-change:auto;}
+  .atlas-geo-questions,.atlas-globe-reticle-ring,.atlas-geo-lock-notice {animation:none;}
+  .atlas-geo-lock-notice {transform:translateX(-50%);}
+  .atlas-globe-country-target {transition:none;filter:none;}
+}
