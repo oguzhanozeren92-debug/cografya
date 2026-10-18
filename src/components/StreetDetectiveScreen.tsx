@@ -20,9 +20,9 @@ type Completed = (Reveal & {id:string;guess:Coordinates;skipped?:false}) |
 const fmt=(value:number)=>new Intl.NumberFormat('tr-TR',{maximumFractionDigits:value<10?1:0}).format(value);
 
 export function StreetDetectiveScreen({
-  onClose,initialView='play',
+  onClose,onGameComplete,initialView='play',
 }:{
-  onClose:()=>void;playerName:string;initialView?:'play'|'ranking';
+  onClose:()=>void;onGameComplete?:()=>void;playerName:string;initialView?:'play'|'ranking';
 }) {
   const [phase,setPhase]=useState<Phase>(initialView==='ranking'?'ranking':'view');
   const [rounds,setRounds]=useState<StreetRound[]>([]);
@@ -38,9 +38,11 @@ export function StreetDetectiveScreen({
   const [saveNote,setSaveNote]=useState('');
   const current=rounds[idx];
   const panoramaOpenedAt=useRef(0);
+  const completionNotified=useRef(false);
   const score=completed.reduce((sum,r)=>sum+r.points,0);
 
   const newGame=useCallback(async()=>{
+    completionNotified.current=false;
     trackPlayEvent({mode:'street',event_type:'mode_start'});
     warmStreetViewer(); // Load the viewer while the session request is running.
     setLoading(true);setError('');setRounds([]);
@@ -94,6 +96,10 @@ export function StreetDetectiveScreen({
     const best=rememberLocalStreetBest(finalScore);
     setSaveNote('Cihaz rekorun: '+best.toLocaleString('tr-TR')+' puan. Rekabetçi online skor doğrulaması henüz açılmadı.');
     setPhase('finish');
+    if(!completionNotified.current){
+      completionNotified.current=true;
+      onGameComplete?.();
+    }
   };
   const resetForNext=()=>{
     setIdx(n=>n+1);setGuess(null);setReveal(null);setReady(false);setError('');setPhase('view');

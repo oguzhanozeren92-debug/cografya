@@ -41,8 +41,8 @@ export function canConfigureNativeAds(): boolean {
  * UMP privacy consent is refreshed at launch. Google Mobile Ads is initialized
  * only after the SDK confirms that ads may be requested (v8.2 consent flow).
  */
-export async function initializeRewardedAds(): Promise<boolean> {
-  if (!getNativeRewardedUnit()) return false;
+export async function initializeNativeAdSdk(): Promise<boolean> {
+  if (!Capacitor.isNativePlatform() || !['ios','android'].includes(Capacitor.getPlatform())) return false;
   if (initialized) return true;
   if (initializing) return initializing;
   initializing = (async () => {
@@ -59,6 +59,11 @@ export async function initializeRewardedAds(): Promise<boolean> {
     return false;
   }).finally(() => { initializing = null; });
   return initializing;
+}
+
+/** Rewarded availability must still require its own platform-specific ad unit. */
+export async function initializeRewardedAds(): Promise<boolean> {
+  return getNativeRewardedUnit() !== null && initializeNativeAdSdk();
 }
 
 /** Show UMP privacy options only on native, never simulate this on the web. */

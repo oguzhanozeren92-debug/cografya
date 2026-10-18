@@ -27,4 +27,15 @@ for (const platform of platforms) {
     throw new Error(`Missing real ${platform} rewarded ad unit: ${envKey}`);
   }
 }
-console.log('AdMob native app identity and rewarded units are configured for release.');
+// Banner and interstitial are optional, but any configured production unit must be real.
+// Avoid passing Google demo IDs into App Store / Play Store builds.
+for (const platform of platforms) {
+  for (const format of ['BANNER','INTERSTITIAL']) {
+    const key = `VITE_ADMOB_${format}_${platform.toUpperCase()}_ID`;
+    const value = readSetting(key);
+    if (value && (!/^ca-app-pub-\d{16}\/\d{10}$/.test(value) || value.includes('3940256099942544'))) {
+      throw new Error(`Invalid or Google test ${format} unit for ${platform}: ${key}`);
+    }
+  }
+}
+console.log('AdMob native app identity and enabled ad units are validated for release.');

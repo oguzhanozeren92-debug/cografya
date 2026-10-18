@@ -13,9 +13,9 @@ import {
   loadDailyProgress, saveDailyAnswer,
 } from '@/lib/dailyChallenge';
 
-interface Props { onClose: () => void; onExplore: () => void; }
+interface Props { onClose: () => void; onExplore: () => void; onGameComplete?: () => void; }
 
-export function DailyChallengeScreen({ onClose, onExplore }: Props) {
+export function DailyChallengeScreen({ onClose, onExplore, onGameComplete }: Props) {
   const reduceMotion = useReducedMotion();
   const day = useMemo(getDailyDate, []);
   const questions = useMemo(() => getDailyQuestions(day), [day]);
@@ -57,6 +57,7 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
       setProgress(updated);
       if (updated.answers.length === DAILY_TOTAL) {
         trackPlayEvent({mode:'daily',event_type:'daily_complete'});
+        onGameComplete?.();
         playGameSound('victory');
         void celebrateGame('daily');
       }

@@ -14,6 +14,7 @@ import { ReviveScreen } from '@/components/ReviveScreen';
 import { NotificationSettings } from '@/components/NotificationSettings';
 import { initIosPush, isIosPushSupported, type PushTarget } from '@/lib/iosPush';
 import { isRewardedHeartAvailable, initializeRewardedAds, openAdPrivacyOptions, watchRewardedHeartAd } from '@/lib/rewardedAds';
+import { onGameFinished, preloadGameBreakAd, setHomeBannerVisible } from '@/lib/adPlacements';
 import { syncDiscoveries } from '@/lib/discovery';
 import { celebrateGame, isSoundEnabled, playGameSound, saveSoundEnabled } from '@/lib/gameFx';
 import { useEffect, useRef, useState } from 'react';
@@ -33,6 +34,7 @@ function App() {
   const [soundEnabled, setSoundEnabled] = useState(isSoundEnabled);
   const [adError, setAdError] = useState('');
   const adLockRef = useRef(false);
+  const lastCountedGameRun = useRef(-1);
   const [rewardedAvailable, setRewardedAvailable] = useState(isRewardedHeartAvailable);
   useEffect(() => {
     let mounted = true;
@@ -41,9 +43,12 @@ function App() {
   }, []);
   const showAdPrivacy = async () => {
     try {
+      setHomeBannerVisible(false);
       await openAdPrivacyOptions();
       setRewardedAvailable(await initializeRewardedAds());
+      setHomeBannerVisible(true);
     } catch {
+      setHomeBannerVisible(true);
       setAdError('Reklam gizlilik tercihleri açılamadı.');
     }
   };
@@ -69,6 +74,8 @@ function App() {
     }
   };
   useEffect(() => { void syncDiscoveries(); }, []);
+  // Warm only a configured native interstitial. Never delay game navigation for ads.
+  useEffect(() => { void preloadGameBreakAd(); }, []);
   const [weeklyMode, setWeeklyMode] = useState<GameMode>('mixed');
   useEffect(() => {
     if (!isIosPushSupported()) return;
@@ -119,6 +126,18 @@ function App() {
   const expandingMapQuestion = showQuestion && isMapQuestion;
   const showStart = game.phase === 'idle';
   const showGameOver = game.phase === 'gameover';
+  const showHomeBanner = showStart && !weeklyOpen && !dailyOpen && !exploreOpen &&
+    !streetOpen && !droneOpen && !notificationsOpen;
+  useEffect(() => {
+    setHomeBannerVisible(showHomeBanner);
+    return () => setHomeBannerVisible(false);
+  }, [showHomeBanner]);
+  useEffect(() => {
+    if (game.phase !== 'gameover' || game.gameRunId === 0 ||
+        lastCountedGameRun.current === game.gameRunId) return;
+    lastCountedGameRun.current = game.gameRunId;
+    onGameFinished();
+  }, [game.phase,game.gameRunId]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-space-900">
@@ -191,13 +210,13 @@ function App() {
       )}
 
       {showStart && streetOpen && (
-        <StreetDetectiveScreen key={streetOpen} playerName={playerName}
+        <StreetDetectiveScreen key={streetOpen} playerName={playerName} onGameComplete={onGameFinished}
           initialView={streetOpen==='ranking'?'ranking':'play'}
           onClose={() => setStreetOpen(null)} />
       )}
 
       {showStart && droneOpen && (
-        <DroneDetectiveScreen onClose={() => setDroneOpen(false)} />
+        <DroneDetectiveScreen onClose={() => setDroneOpen(false)} onGameComplete={onGameFinished} />
       )}
 
       {showStart && notificationsOpen && isIosPushSupported() && (
@@ -227,7 +246,7 @@ function App() {
       )}
 
       {dailyOpen && (
-        <DailyChallengeScreen onClose={() => setDailyOpen(false)} onExplore={() => { setDailyOpen(false); setExploreOpen(true); }} />
+        <DailyChallengeScreen onClose={() => setDailyOpen(false)} onGameComplete={onGameFinished} onExplore={() => { setDailyOpen(false); setExploreOpen(true); }} />
       )}
 
       {exploreOpen && (

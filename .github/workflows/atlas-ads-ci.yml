@@ -1,0 +1,30 @@
+name: Atlas Arena — Native Ads Quality Check
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/lib/adPlacements.ts'
+      - 'src/lib/rewardedAds.ts'
+      - 'src/App.tsx'
+      - 'src/components/StreetDetectiveScreen.tsx'
+      - 'src/components/DroneDetectiveScreen.tsx'
+      - 'src/components/DailyChallengeScreen.tsx'
+      - 'scripts/validate-admob-release.mjs'
+      - '.github/workflows/atlas-ads-ci.yml'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run build
+      - run: node --check scripts/validate-admob-release.mjs

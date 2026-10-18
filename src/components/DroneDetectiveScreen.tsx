@@ -30,7 +30,7 @@ function saveBest(score: number): number {
   return best;
 }
 
-export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
+export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () => void; onGameComplete?: () => void }) {
   const [rows, setRows] = useState(shuffled);
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('view');
@@ -43,6 +43,7 @@ export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
   const [best, setBest] = useState(getBest);
   const current = rows[index];
   const panoramaStart=useRef(0);
+  const completionNotified=useRef(false);
   useEffect(()=>{trackPlayEvent({mode:'drone',event_type:'mode_start'});},[]);
   useEffect(()=>{panoramaStart.current=performance.now();trackPlayEvent({mode:'drone',event_type:'question_shown',question_id:current.id});},[current.id]);
   const close=()=>{trackPlayEvent({mode:'drone',event_type:'mode_exit',detail:phase});onClose();};
@@ -55,6 +56,7 @@ export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
   }), [current]);
 
   const restart = () => {
+    completionNotified.current=false;
     setRows(shuffled()); setIndex(0); setPhase('view'); setReady(false);
     setError(''); setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);
   };
@@ -74,6 +76,7 @@ export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
     if (index === rows.length - 1) {
       setBest(saveBest(score));
       setPhase('finish');
+      if(!completionNotified.current){completionNotified.current=true;onGameComplete?.();}
     } else {
       setIndex(n => n + 1); setPhase('view'); setGuess(null);
       setDistance(null); setRoundPoints(0); setReady(false); setError('');
