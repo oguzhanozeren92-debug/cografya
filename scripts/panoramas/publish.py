@@ -18,9 +18,11 @@ import urllib.parse
 import urllib.request
 import urllib.error
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 import boto3
+from boto3.s3.transfer import TransferConfig
 from PIL import Image
 
 Image.MAX_IMAGE_PIXELS = 150_000_000
@@ -117,18 +119,31 @@ def publish(row, client, bucket, generator):
         multires=conf["multiRes"]
         expected=("path","extension","tileResolution","maxLevel","cubeResolution")
         if any(k not in multires for k in expected):fail("Invalid Pannellum generator config.")
-        bytes_out=0;files=0
-        for filepath in tiles.rglob("*"):
-            if not filepath.is_file() or filepath.suffix.lower() not in (".jpg",".jpeg",".json"): continue
+        entries=[p for p in tiles.rglob("*") if p.is_file() and p.suffix.lower() in (".jpg",".jpeg",".json")]
+        if len(entries)<12: fail("Suspiciously few panorama tiles were generated.")
+        bytes_out=sum(p.stat().st_size for p in entries)
+        # Small Pannellum tiles used to be sent strictly one by one. Cloudflare R2
+        # latency dominated a batch of hundreds of PutObject requests. Parallelize
+        # small independent requests with bounded workers; boto3 client is thread safe.
+        transfer=TransferConfig(use_threads=False)
+        def send_tile(filepath):
             relative=filepath.relative_to(tiles).as_posix()
             key=f"panoramas/{public_id}/{relative}"
             props={"ContentType":"application/json" if filepath.suffix==".json" else "image/jpeg",
                    "CacheControl":"public, max-age=31536000, immutable"}
-            client.upload_file(str(filepath),bucket,key,ExtraArgs=props)
-            bytes_out+=filepath.stat().st_size;files+=1
-        if files<12: fail("Suspiciously few panorama tiles were generated.")
+            client.upload_file(str(filepath),bucket,key,ExtraArgs=props,Config=transfer)
+        start=time.monotonic()
+        print(f"Uploading {len(entries)} tiles to R2 with 12 concurrent workers for {ID}",flush=True)
+        with ThreadPoolExecutor(max_workers=12) as pool:
+            futures=[pool.submit(send_tile,p) for p in entries]
+            for i,future in enumerate(as_completed(futures),1):
+                future.result()
+                if i%100==0 or i==len(entries):
+                    print(f"Uploaded {i}/{len(entries)} tiles for {ID} "
+                          f"({time.monotonic()-start:.1f}s)",flush=True)
+        files=len(entries)
         print(f"Published {ID}: original {w}x{h}, downloaded {n/1024**2:.1f} MiB, "
-              f"R2 tiles {bytes_out/1024**2:.1f} MiB in {files} objects")
+              f"R2 tiles {bytes_out/1024**2:.1f} MiB in {files} objects",flush=True)
         return {
             "id":public_id,"sourceId":ID,"approved":True,"mode":"multires",
             "path":f"panoramas/{public_id}","multires":multires,
