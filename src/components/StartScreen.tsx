@@ -30,13 +30,14 @@ interface StartScreenProps {
   onNotifications?: () => void;
   onStreet: () => void;
   onStreetLeaderboard: () => void;
+  onDrone: () => void;
 }
 
 const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
 
 export function StartScreen({
   onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly,
-  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard,
+  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onDrone,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
   const [editing, setEditing] = useState(!playerName);
@@ -45,6 +46,7 @@ export function StartScreen({
   const [busy, setBusy] = useState(false);
   const [queuedMode, setQueuedMode] = useState<GameMode | null>(null);
   const [queuedStreet, setQueuedStreet] = useState(false);
+  const [queuedDrone, setQueuedDrone] = useState(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const completed = loadDailyProgress(getDailyDate()).answers.length;
   const found = getDiscoveredCountries().length;
@@ -70,6 +72,16 @@ export function StartScreen({
     onStreet();
   };
 
+  const startDrone = () => {
+    if (!canPlay) {
+      setQueuedDrone(true);
+      setEditing(true);
+      nameInputRef.current?.focus();
+      return;
+    }
+    onDrone();
+  };
+
   const save = async () => {
     if (!name.trim() || busy) return;
     setBusy(true);
@@ -84,6 +96,10 @@ export function StartScreen({
       if (queuedStreet) {
         setQueuedStreet(false);
         onStreet();
+      }
+      if (queuedDrone) {
+        setQueuedDrone(false);
+        onDrone();
       }
       setError('');
     } catch {
@@ -206,6 +222,24 @@ export function StartScreen({
               <strong>Gizemli ülke</strong>
               <small>İpuçlarından ülkeyi tahmin et</small>
               <span className="aa-mode-arrow" aria-hidden="true"><ArrowRight className="h-4 w-4" /></span>
+            </button>
+          </div>
+
+
+          <div className="mt-3 overflow-hidden rounded-[23px] border border-emerald-200/40 bg-gradient-to-br from-[#176c7c] via-[#174b69] to-[#172e53] shadow-[0_12px_26px_rgba(0,7,27,.24)]">
+            <button type="button" onClick={startDrone}
+              className="flex min-h-[116px] w-full items-center gap-3 px-3 py-4 text-left text-white">
+              <span aria-hidden="true" className="grid h-[72px] w-[72px] shrink-0 place-items-center rounded-[18px] border border-white/20 bg-emerald-200/20 text-[32px] shadow-inner">🚁</span>
+              <span className="min-w-0 flex-1">
+                <small className="block text-[10px] font-black tracking-[.08em] text-emerald-200">
+                  ÜCRETSİZ DENEME · 5 GERÇEK DRONE PANORAMASI
+                </small>
+                <strong className="mt-1 block text-lg font-black leading-tight">Drone'dan Konumu Bul</strong>
+                <span className="mt-1 block text-[11px] font-semibold leading-4 text-blue-100">
+                  Havadan 360° bak, haritada tahmin et, kilometreyi öğren!
+                </span>
+              </span>
+              <ChevronRight className="h-6 w-6 shrink-0" />
             </button>
           </div>
 
