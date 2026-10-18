@@ -12,6 +12,7 @@ import re
 import time
 import urllib.parse
 import urllib.request
+import urllib.error
 from pathlib import Path
 
 CATEGORIES = [
@@ -35,13 +36,28 @@ CATEGORIES = [
     "Category:360° panoramics in Taiwan",
 ]
 API = "https://commons.wikimedia.org/w/api.php"
-USER_AGENT = "AtlasArenaPanoramaResearch/0.1 (manual licensing review; contact via Wikimedia Commons)"
+USER_AGENT = "AtlasArenaPanoramaResearch/0.2 (https://github.com/oguzhanozeren92-debug/cografya; noncommercial metadata research)"
 ALLOWED = {"cc-by-4.0", "cc-by-sa-4.0", "cc-by-3.0", "cc-by-sa-3.0", "cc0", "public domain"}
+last_request = 0.0
 def query(params):
-    qs = urllib.parse.urlencode({"action": "query", "format": "json", **params})
+    global last_request
+    qs = urllib.parse.urlencode({"action": "query", "format": "json", "maxlag": "5", **params})
     req = urllib.request.Request(API + "?" + qs, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=45) as resp:
-        return json.load(resp)
+    for attempt in range(5):
+        # Be courteous to Wikimedia: pace requests, especially on shared CI runners.
+        time.sleep(max(0, 1.6 - (time.monotonic() - last_request)))
+        last_request = time.monotonic()
+        try:
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                return json.load(resp)
+        except urllib.error.HTTPError as error:
+            if error.code not in (429, 503) or attempt == 4:
+                raise
+            retry = error.headers.get("Retry-After", "")
+            delay = max(int(retry) if retry.isdecimal() else 0, min(45, 5 * 2 ** attempt))
+            print(f"API busy ({error.code}); retrying after {delay}s", flush=True)
+            time.sleep(delay)
+    raise RuntimeError("Wikimedia request retry exhausted")
 def clean(markup):
     return html.unescape(re.sub(r"<[^>]+>", "", markup or "")).strip()[:350]
 def meta(ext, key):
@@ -92,7 +108,7 @@ def collect(category, seen, max_pages=2):
             }
         cursor = {k:v for k,v in response.get("continue", {}).items() if k in ("gcmcontinue", "continue")}
         if not cursor: break
-        time.sleep(.35)
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -106,7 +122,7 @@ def main():
         except Exception as error:
             print(f"WARNING {category}: {error}")
         print(f"{category}: {len(candidates)} unique matching files")
-        if len(candidates) >= args.limit * 2:
+        if len(candidates) >= args.limit:
             break
     rows = list(candidates.values())
     # GPS present first. Candidates still require every human quality/legal check.
@@ -114,7 +130,7 @@ def main():
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps({"target":args.limit, "approved":0,
-                                "candidates":rows[:max(args.limit, len(rows))]},
+                                "candidates":rows[:args.limit]},
                                ensure_ascii=False, indent=2), encoding="utf8")
     geotagged = sum(row["gps"]["lat"] is not None for row in rows)
     print(f"Found {len(rows)} technically plausible assets, {geotagged} geotagged.")
