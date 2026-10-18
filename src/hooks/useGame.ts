@@ -5,6 +5,7 @@ import { fetchLeaderboard, saveGlobalScore } from '@/lib/leaderboard';
 import { submitWeeklyScore } from '@/lib/weeklyLeaderboard';
 import { discoverCountry } from '@/lib/discovery';
 import { CLUE_COUNTRIES_BY_DIFFICULTY } from '@/data/countryClues';
+import { analyticsQuestionId, trackPlayEvent } from '@/lib/atlasTelemetry';
 
 export const MAX_LIVES = 3;
 export const MAX_REWARDED_HEARTS_PER_RUN = 1;
@@ -68,6 +69,7 @@ export function useGame() {
   const [rewardedHeartsUsed, setRewardedHeartsUsed] = useState(0);
   const rewardedUsedRef = useRef(false);
   const gameRunRef = useRef(0);
+  const questionOpenedAt = useRef(0);
   const recentIdsRef = useRef<string[]>([]);
 
   const refreshLeaderboard = useCallback(async () => {
@@ -113,6 +115,7 @@ export function useGame() {
     rewardedUsedRef.current = false;
     setRewardedHeartsUsed(0);
     setMode(gameMode);
+    trackPlayEvent({mode:gameMode,event_type:'mode_start'});
     setScore(0);
     setLives(MAX_LIVES);
     setStreak(0);
@@ -136,15 +139,25 @@ export function useGame() {
     return () => window.clearTimeout(timeout);
   }, [phase]);
 
+  useEffect(() => {
+    if (phase!=='question'||!currentCountryId)return;
+    questionOpenedAt.current=performance.now();
+    trackPlayEvent({mode,event_type:'question_shown',question_id:analyticsQuestionId(currentCountryId,currentQuestionType)});
+  }, [phase,mode,currentCountryId,currentQuestionType]);
+
   const revealNextClue = useCallback(() => {
     if (phase !== 'question' || mode !== 'clues') return;
+    trackPlayEvent({mode,event_type:'hint',question_id:analyticsQuestionId(currentCountryId,'clue')});
     setRevealedClues(value => Math.min(3, value + 1));
-  }, [mode, phase]);
+  }, [mode, phase, currentCountryId]);
 
   const onAnswer = useCallback((answer: string) => {
     if (phase !== 'question') return;
     setSelectedAnswer(answer);
     const isCorrect = answer === currentAnswer;
+    trackPlayEvent({mode,event_type:'answer',question_id:analyticsQuestionId(currentCountryId,currentQuestionType),
+      correct:isCorrect,duration_ms:questionOpenedAt.current?performance.now()-questionOpenedAt.current:undefined,
+      option_index:currentOptions.indexOf(answer)});
     const meta = currentCountryId ? COUNTRY_DATA[currentCountryId] : null;
     if (isCorrect) {
       if (currentCountryId) discoverCountry(currentCountryId);
@@ -168,7 +181,7 @@ export function useGame() {
       }]);
     }
     setPhase('feedback');
-  }, [phase, currentAnswer, currentCountryId, currentQuestionType, streak, revealedClues]);
+  }, [phase, currentAnswer, currentCountryId, currentQuestionType, currentOptions, mode, streak, revealedClues]);
 
   const onContinue = useCallback(() => {
     if (lives <= 0) { setPhase(rewardedUsedRef.current ? 'gameover' : 'revive'); return; }
@@ -201,14 +214,16 @@ export function useGame() {
   }, [phase, mode, round, startRound]);
 
   const abandonRun = useCallback(() => {
+    trackPlayEvent({mode,event_type:'mode_exit',detail:'revive_quit'});
     setPhase(current => current === 'revive' ? 'gameover' : current);
-  }, []);
+  }, [mode]);
 
   const restart = useCallback(() => {
     void refreshLeaderboard();
+    trackPlayEvent({mode,event_type:'mode_exit',detail:'restart'});
     gameRunRef.current += 1;
     setPhase('idle');
-  }, [refreshLeaderboard]);
+  }, [refreshLeaderboard,mode]);
 
   const saveScore = useCallback(async (name: string) => {
     const correct = roundResults.filter(result => result.isCorrect).length;

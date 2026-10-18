@@ -1,0 +1,32 @@
+name: Atlas Arena Admin Panel CI
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/AdminDashboard.tsx'
+      - 'src/lib/atlasTelemetry.ts'
+      - 'src/hooks/useGame.ts'
+      - 'src/components/DailyChallengeScreen.tsx'
+      - 'src/components/StreetDetectiveScreen.tsx'
+      - 'src/components/DroneDetectiveScreen.tsx'
+      - 'src/main.tsx'
+      - '.github/workflows/geo-admin-ci.yml'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Type check
+        run: npm run typecheck
+      - name: Build
+        run: npm run build

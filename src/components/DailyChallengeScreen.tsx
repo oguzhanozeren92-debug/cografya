@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 const VictoryBadge = lazy(() => import('@/components/VictoryBadge'));
 import { motion, useReducedMotion } from 'motion/react';
 import { celebrateGame, playGameSound } from '@/lib/gameFx';
@@ -7,6 +7,7 @@ import { ArrowLeft, Check, Compass, Flame, Flag, Gift, LockKeyhole, Sparkles, Tr
 import { COUNTRY_DATA } from '@/data/countries';
 import { getCountryFlag } from '@/data/flags';
 import { discoverCountry } from '@/lib/discovery';
+import { analyticsQuestionId, trackPlayEvent } from '@/lib/atlasTelemetry';
 import {
   DAILY_TOTAL, getDailyDate, getDailyQuestions, getStreakForDay,
   loadDailyProgress, saveDailyAnswer,
@@ -22,6 +23,7 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
   const [dateExpired, setDateExpired] = useState(false);
   const busy = useRef(false);
+  const questionOpenedAt = useRef(0);
   const index = progress.answers.length;
   const complete = index >= DAILY_TOTAL;
   const question = questions[Math.min(index, DAILY_TOTAL - 1)];
@@ -29,10 +31,23 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
   const streak = getStreakForDay(day);
   const flag = getCountryFlag(question.countryId);
 
+  useEffect(()=>{ trackPlayEvent({mode:'daily',event_type:'mode_start'}); },[]);
+  useEffect(()=>{
+    if(complete)return;
+    questionOpenedAt.current=performance.now();
+    trackPlayEvent({mode:'daily',event_type:'question_shown',
+      question_id:analyticsQuestionId(question.countryId,question.type)});
+  },[complete,question.countryId,question.type]);
+  const close=()=>{ trackPlayEvent({mode:'daily',event_type:'mode_exit'}); onClose(); };
   const answer = (choice: string) => {
     if (busy.current || complete || selected !== null) return;
     if (getDailyDate() !== day) { setDateExpired(true); return; }
     busy.current = true;
+    trackPlayEvent({mode:'daily',event_type:'answer',
+      question_id:analyticsQuestionId(question.countryId,question.type),
+      correct:choice===question.answer,
+      option_index:question.options.indexOf(choice),
+      duration_ms:questionOpenedAt.current?performance.now()-questionOpenedAt.current:undefined});
     setSelected(choice);
     if (choice === question.answer) discoverCountry(question.countryId);
     playGameSound(choice === question.answer ? 'correct' : 'wrong');
@@ -41,6 +56,7 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
     window.setTimeout(() => {
       setProgress(updated);
       if (updated.answers.length === DAILY_TOTAL) {
+        trackPlayEvent({mode:'daily',event_type:'daily_complete'});
         playGameSound('victory');
         void celebrateGame('daily');
       }
@@ -53,7 +69,7 @@ export function DailyChallengeScreen({ onClose, onExplore }: Props) {
     <div className="daily-screen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label="Günlük dünya görevi">
       <div className="mx-auto max-w-2xl px-4 pb-12 pt-5 sm:px-7">
         <header className="mb-4 flex items-center justify-between gap-3">
-          <button className="weekly-nav-button gap-2" onClick={onClose}><ArrowLeft className="h-4 w-4" /> Geri</button>
+          <button className="weekly-nav-button gap-2" onClick={close}><ArrowLeft className="h-4 w-4" /> Geri</button>
           <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1.5 text-[11px] font-bold text-amber-200">HER GÜN YENİ GÖREV</span>
         </header>
         <section className="daily-hero relative mb-4 overflow-hidden rounded-[26px] border border-cyan-300/25 p-6 shadow-2xl sm:p-8">

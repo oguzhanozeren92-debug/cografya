@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ArrowLeft, ArrowRight, Camera, ChevronRight, Globe2, MapPin,
   Medal, RefreshCcw, Trophy, X,
@@ -7,6 +7,7 @@ import { StreetPanorama, warmStreetPreview, warmStreetViewer, type StreetRound }
 import { StreetWorldMap } from '@/components/StreetWorldMap';
 import { getLocalStreetBest, rememberLocalStreetBest } from '@/lib/streetLeaderboard';
 import { STREET_ROUNDS, type Coordinates } from '@/lib/streetLocations';
+import { trackPlayEvent } from '@/lib/atlasTelemetry';
 
 type Phase = 'view' | 'guess' | 'result' | 'finish' | 'ranking';
 type Reveal = {
@@ -36,9 +37,11 @@ export function StreetDetectiveScreen({
   const [showRank,setShowRank]=useState(initialView==='ranking');
   const [saveNote,setSaveNote]=useState('');
   const current=rounds[idx];
+  const panoramaOpenedAt=useRef(0);
   const score=completed.reduce((sum,r)=>sum+r.points,0);
 
   const newGame=useCallback(async()=>{
+    trackPlayEvent({mode:'street',event_type:'mode_start'});
     warmStreetViewer(); // Load the viewer while the session request is running.
     setLoading(true);setError('');setRounds([]);
     setIdx(0);setCompleted([]);setGuess(null);setReveal(null);
@@ -59,6 +62,15 @@ export function StreetDetectiveScreen({
     // One small fallback image for the next round only; do not preload full tiles.
     if(ready && idx+1<rounds.length)warmStreetPreview(rounds[idx+1]);
   },[ready,idx,rounds]);
+  useEffect(()=>{
+    if(!current)return;
+    panoramaOpenedAt.current=performance.now();
+    trackPlayEvent({mode:'street',event_type:'question_shown',question_id:current.id});
+  },[current?.id]);
+  const close=()=>{
+    trackPlayEvent({mode:'street',event_type:'mode_exit',detail:phase});
+    onClose();
+  };
   const confirm=async()=>{
     if(busy||!current||!guess||phase!=='guess')return;
     setBusy(true);setError('');
@@ -69,6 +81,8 @@ export function StreetDetectiveScreen({
       });
       const data=await response.json() as Reveal & {error?:string};
       if(!response.ok || !Number.isFinite(data.points))throw new Error(data.error||'Tahmin hesaplanamadı.');
+      trackPlayEvent({mode:'street',event_type:'street_guess',question_id:current.id,
+        duration_ms:panoramaOpenedAt.current?performance.now()-panoramaOpenedAt.current:undefined});
       setReveal(data);
       setCompleted(prev=>[...prev,{...data,id:current.id,guess}]);
       setPhase('result');
@@ -90,6 +104,7 @@ export function StreetDetectiveScreen({
   };
   const skipBroken=()=>{
     if(!current||(phase!=='view'&&phase!=='guess'))return;
+    trackPlayEvent({mode:'street',event_type:'panorama_skipped',question_id:current.id});
     const next:Completed[]=[...completed,{id:current.id,skipped:true,city:'Panorama yüklenemedi',country:'',points:0,km:null}];
     setCompleted(next);
     if(next.length>=STREET_ROUNDS)finishGame(next);
@@ -109,7 +124,7 @@ export function StreetDetectiveScreen({
     <div className="street-screen fixed inset-0 z-[65] overflow-y-auto overscroll-contain text-white">
       <main className="mx-auto min-h-full w-full max-w-[600px] px-4 pb-10 pt-[max(16px,env(safe-area-inset-top))]">
         <header className="mb-4 flex items-center gap-3">
-          <button type="button" onClick={onClose} aria-label="Ana ekrana dön" className="street-round-button"><ArrowLeft className="h-5 w-5"/></button>
+          <button type="button" onClick={close} aria-label="Ana ekrana dön" className="street-round-button"><ArrowLeft className="h-5 w-5"/></button>
           <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#ffab88] text-[#253859]"><Camera className="h-5 w-5"/></span>
           <div className="min-w-0 flex-1">
             <h1 className="text-[19px] font-black leading-tight">Sokak Dedektifi</h1>
@@ -158,7 +173,15 @@ export function StreetDetectiveScreen({
               <div className="street-card overflow-hidden p-2">
                 <div className="h-[min(35dvh,275px)] min-h-[205px]">
                   <StreetPanorama key={current.id} round={current}
-                    onReady={()=>{setReady(true);setError('');}} onError={setError} onSkip={skipBroken}/>
+                    onReady={()=>{
+                      trackPlayEvent({mode:'street',event_type:'panorama_ready',question_id:current.id,
+                        duration_ms:panoramaOpenedAt.current?performance.now()-panoramaOpenedAt.current:undefined});
+                      setReady(true);setError('');
+                    }} onError={message=>{
+                      trackPlayEvent({mode:'street',event_type:'panorama_error',question_id:current.id,
+                        detail:message.includes('9 saniyede')?'timeout':'viewer_error'});
+                      setError(message);
+                    }} onSkip={skipBroken}/>
                 </div>
                 <div className="px-2 py-2 text-[11px] text-blue-100/85">
                   Görüntü: {current.credit.artist} · {current.credit.license} ·

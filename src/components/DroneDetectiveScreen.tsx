@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2, Compass, MapPin, RefreshCcw, Trophy, X } from 'lucide-react';
 import { StreetPanorama, type StreetRound } from '@/components/StreetPanorama';
 import { StreetWorldMap } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
 import { haversineKm, locationPoints, type Coordinates } from '@/lib/streetLocations';
+import { trackPlayEvent } from '@/lib/atlasTelemetry';
 
 type Phase = 'view' | 'guess' | 'result' | 'finish';
 type Answer = { id: string; city: string; country: string; km: number; points: number };
@@ -41,6 +42,10 @@ export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
   const [roundPoints, setRoundPoints] = useState(0);
   const [best, setBest] = useState(getBest);
   const current = rows[index];
+  const panoramaStart=useRef(0);
+  useEffect(()=>{trackPlayEvent({mode:'drone',event_type:'mode_start'});},[]);
+  useEffect(()=>{panoramaStart.current=performance.now();trackPlayEvent({mode:'drone',event_type:'question_shown',question_id:current.id});},[current.id]);
+  const close=()=>{trackPlayEvent({mode:'drone',event_type:'mode_exit',detail:phase});onClose();};
   const score = answered.reduce((sum, item) => sum + item.points, 0);
   const panorama = useMemo<StreetRound>(() => ({
     id: current.id,
@@ -57,6 +62,7 @@ export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
     if (!guess || phase !== 'guess') return;
     const km = haversineKm(guess, { lat: current.lat, lng: current.lng });
     const points = locationPoints(km);
+    trackPlayEvent({mode:'drone',event_type:'street_guess',question_id:current.id,duration_ms:panoramaStart.current?performance.now()-panoramaStart.current:undefined});
     setDistance(km);
     setRoundPoints(points);
     setAnswered(previous => [...previous, {
@@ -77,7 +83,7 @@ export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
     <div className="street-screen fixed inset-0 z-[66] overflow-y-auto overscroll-contain text-white">
       <main className="mx-auto min-h-full w-full max-w-[600px] px-4 pb-10 pt-[max(16px,env(safe-area-inset-top))]">
         <header className="mb-4 flex items-center gap-3">
-          <button type="button" onClick={onClose} aria-label="Ana ekrana dön" className="street-round-button">
+          <button type="button" onClick={close} aria-label="Ana ekrana dön" className="street-round-button">
             <ArrowLeft className="h-5 w-5" />
           </button>
           <span className="grid h-10 w-10 place-items-center rounded-2xl bg-emerald-200 text-[#20445a]">
@@ -87,7 +93,7 @@ export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
             <h1 className="text-[19px] font-black leading-tight">Drone'dan Konumu Bul</h1>
             <p className="text-[11px] text-blue-200/80">Havadan 360° keşfet · Dünyada işaretle</p>
           </div>
-          <button type="button" onClick={onClose} aria-label="Kapat" className="street-round-button">
+          <button type="button" onClick={close} aria-label="Kapat" className="street-round-button">
             <X className="h-4 w-4" />
           </button>
         </header>
@@ -113,7 +119,7 @@ export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
             <button type="button" onClick={restart} className="street-primary w-full">
               <RefreshCcw className="h-4 w-4" /> Tekrar uç
             </button>
-            <button type="button" onClick={onClose} className="street-secondary w-full">Ana ekrana dön</button>
+            <button type="button" onClick={close} className="street-secondary w-full">Ana ekrana dön</button>
           </div>
         ) : (
           <div className="space-y-3">
@@ -125,8 +131,14 @@ export function DroneDetectiveScreen({ onClose }: { onClose: () => void }) {
               <section className="street-card overflow-hidden p-2">
                 <div className={phase === 'guess' ? 'h-[175px]' : 'h-[min(49dvh,380px)] min-h-[245px]'}>
                   <StreetPanorama key={current.id} round={panorama}
-                    onReady={() => { setReady(true); setError(''); }}
-                    onError={message => { setError(message); setReady(false); }}/>
+                    onReady={()=>{
+                      trackPlayEvent({mode:'drone',event_type:'panorama_ready',question_id:current.id,duration_ms:panoramaStart.current?performance.now()-panoramaStart.current:undefined});
+                      setReady(true);setError('');
+                    }}
+                    onError={message=>{
+                      trackPlayEvent({mode:'drone',event_type:'panorama_error',question_id:current.id,detail:message.includes('9 saniyede')?'timeout':'viewer_error'});
+                      setError(message);setReady(false);
+                    }}/>
                 </div>
                 <div className="space-y-1 px-2 py-2 text-[11px] leading-5 text-blue-100/90">
                   <div>
