@@ -779,3 +779,231 @@
   .atlas-geo-lock-notice {transform:translateX(-50%);}
   .atlas-globe-country-target {transition:none;filter:none;}
 }
+
+
+/* Atlas Arena: warm, approachable home. Scoped to the welcome screen only. */
+.atlas-home-cozy {
+  color:#2c4153;
+  font-family:ui-rounded, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(ellipse 100% 35% at 100% 2%,rgba(255,201,156,.75),transparent 72%),
+    radial-gradient(ellipse 90% 30% at 0% 46%,rgba(190,223,237,.74),transparent 90%),
+    radial-gradient(ellipse 100% 38% at 80% 93%,rgba(234,204,246,.62),transparent 90%),
+    linear-gradient(175deg,#fff6e9 0%,#f8f1ee 45%,#eaf7f6 100%);
+}
+.atlas-home-cozy .atlas-home-brand-name {
+  font-size:clamp(17px,4.6vw,21px);
+  font-weight:900;
+  letter-spacing:-.035em;
+  color:#263d51;
+  text-shadow:none;
+}
+.atlas-home-cozy .atlas-home-brand-name strong {color:#eb756d;}
+.atlas-home-cozy .atlas-home-brand-icon {
+  color:#fff;
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:14px;
+  background:linear-gradient(138deg,#72cfc1,#459ab6);
+  box-shadow:0 5px 14px rgba(54,142,158,.17),inset 0 1px 0 rgba(255,255,255,.5);
+}
+.atlas-home-cozy .atlas-home-topbutton,
+.atlas-home-cozy .atlas-home-profile {
+  border:1px solid rgba(131,172,181,.25);
+  border-radius:14px;
+  background:rgba(255,255,255,.82);
+  color:#375568;
+  box-shadow:0 5px 16px rgba(109,120,145,.08);
+}
+.atlas-home-cozy .atlas-home-profile {font-size:11px;max-width:122px;}
+.atlas-home-cozy .atlas-home-profile svg {color:#568f9a;}
+.atlas-home-cozy .aa-hero {
+  min-height:234px;
+  padding:19px 16px 15px;
+  border:1.5px solid rgba(255,255,255,.88);
+  border-radius:27px;
+  background:
+    linear-gradient(98deg,rgba(255,246,219,.95) 1%,rgba(255,223,195,.86) 48%,rgba(128,231,224,.20) 100%),
+    url('https://images-assets.nasa.gov/image/PIA18033/PIA18033~medium.jpg') center 43% / cover,
+    linear-gradient(140deg,#ffdfb1,#a1e9e8);
+  box-shadow:0 13px 30px rgba(195,130,122,.12),inset 0 1px 0 rgba(255,255,255,.7);
+}
+.atlas-home-cozy .aa-hero::after {
+  background:linear-gradient(90deg,rgba(255,248,226,.26),transparent 83%),
+    linear-gradient(180deg,transparent 65%,rgba(255,234,198,.35));
+}
+.atlas-home-cozy .aa-hero-stars {opacity:.43;}
+.atlas-home-cozy .atlas-home-planet-wrap {
+  width:272px;
+  height:272px;
+  right:-53px;
+  top:-20px;
+  filter:drop-shadow(0 15px 14px rgba(37,115,125,.14)) drop-shadow(0 0 18px rgba(94,221,214,.20));
+}
+.atlas-home-cozy .aa-hero-copy {width:64%;min-height:157px;}
+.atlas-home-cozy .aa-kicker {
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid rgba(250,168,124,.35);
+  color:#aa4e43;
+  background:rgba(255,255,255,.75);
+  letter-spacing:0;
+  font-size:10px;
+  font-weight:800;
+  box-shadow:0 2px 8px rgba(203,122,88,.07);
+}
+.atlas-home-cozy .aa-hero-copy h1 {
+  margin-top:16px;
+  color:#32495b;
+  font-size:clamp(34px,9.3vw,43px);
+  line-height:1.02;
+  letter-spacing:-.048em;
+  font-weight:950;
+  text-shadow:none;
+}
+.atlas-home-cozy .aa-hero-copy h1 span {color:#e77360;}
+.atlas-home-cozy .aa-hero-copy p {
+  margin-top:10px;
+  color:#566d77;
+  font-size:12px;
+  line-height:1.48;
+  font-weight:650;
+  text-shadow:none;
+}
+.atlas-home-cozy .aa-hero-bottom {gap:6px;}
+.atlas-home-cozy .aa-hero-bottom > span {
+  padding:6px 9px;
+  color:#56717c;
+  background:rgba(255,255,255,.80);
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:0;
+  box-shadow:0 2px 7px rgba(120,113,93,.09);
+}
+.atlas-home-cozy .aa-name {
+  border:1px solid rgba(232,166,145,.28);
+  border-radius:20px;
+  background:rgba(255,255,255,.85);
+  box-shadow:0 7px 25px rgba(165,134,136,.10);
+}
+.atlas-home-cozy .aa-name label {color:#755565;font-size:13px;letter-spacing:0;}
+.atlas-home-cozy .aa-name input {
+  min-height:45px;
+  color:#263e52;
+  border:1px solid rgba(155,174,177,.34);
+  background:#fff9f4;
+  font-size:14px;
+}
+.atlas-home-cozy .aa-name input::placeholder {color:#9a9599;}
+.atlas-home-cozy .aa-name input:focus {border-color:#ed997f;outline:2px solid rgba(237,153,127,.12);}
+.atlas-home-cozy .aa-name button {
+  color:#fff;
+  background:linear-gradient(135deg,#ee8c79,#de746e);
+  border-radius:13px;
+  font-size:13px;
+  box-shadow:0 4px 10px rgba(224,122,100,.17);
+}
+.atlas-home-cozy .aa-play {
+  min-height:74px;
+  border:1px solid rgba(255,240,226,.9);
+  border-radius:21px;
+  color:#fff;
+  background:linear-gradient(108deg,#ef726a 0%,#fd8e6b 48%,#ffad78 100%);
+  box-shadow:0 11px 26px rgba(237,123,100,.28),inset 0 2px 0 rgba(255,255,255,.3);
+}
+.atlas-home-cozy .aa-play-icon {
+  color:#f46f64;
+  background:#fff7ea;
+  border-radius:14px;
+  box-shadow:0 4px 13px rgba(138,64,48,.12);
+}
+.atlas-home-cozy .aa-play strong {
+  color:#fff;
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:0;
+}
+.atlas-home-cozy .aa-play small {color:rgba(255,255,255,.95);font-size:11px;font-weight:650;}
+.atlas-home-cozy .aa-section-heading {
+  color:#40596c;
+  font-size:14px;
+  font-weight:850;
+  letter-spacing:-.015em;
+}
+.atlas-home-cozy .aa-mode {
+  min-height:137px;
+  border:1px solid rgba(255,255,255,.80);
+  border-radius:20px;
+  color:#3b4355;
+  box-shadow:0 9px 21px rgba(140,122,140,.10),inset 0 1px rgba(255,255,255,.6);
+}
+.atlas-home-cozy .aa-mode::before {border-color:rgba(255,255,255,.23);box-shadow:0 0 0 20px rgba(255,255,255,.10);}
+.atlas-home-cozy .aa-flags {
+  background:radial-gradient(circle at 85% 17%,rgba(255,240,196,.95),transparent 50%),
+    linear-gradient(135deg,#ffeddc,#ffbea7 82%);
+}
+.atlas-home-cozy .aa-clues {
+  background:radial-gradient(circle at 85% 17%,rgba(255,238,252,.97),transparent 48%),
+    linear-gradient(135deg,#f1e1ff,#cebdf4 83%);
+}
+.atlas-home-cozy .aa-mode strong {
+  font-size:14px;
+  font-weight:880;
+  color:#4a4255;
+  letter-spacing:-.01em;
+  text-shadow:none;
+}
+.atlas-home-cozy .aa-mode small {font-size:11px;color:#685d68;font-weight:650;}
+.atlas-home-cozy .aa-mode-arrow {color:#68596c;background:rgba(255,255,255,.62);border-color:rgba(255,255,255,.9);}
+.atlas-home-cozy .aa-clues .aa-mode-illustration {color:#8665c7;}
+.atlas-home-cozy .aa-quick {
+  min-height:109px;
+  gap:5px;
+  border-radius:19px;
+  border:1px solid rgba(255,255,255,.82);
+  color:#465066;
+  background:#fff;
+  box-shadow:0 8px 19px rgba(134,150,158,.10),inset 0 1px rgba(255,255,255,.58);
+}
+.atlas-home-cozy .aa-daily {background:linear-gradient(125deg,#fff1cb,#ffd6a5);}
+.atlas-home-cozy .aa-map {background:linear-gradient(125deg,#e0fff0,#b5ece4);}
+.atlas-home-cozy .aa-quick strong {color:#43556a;font-size:13px;letter-spacing:-.012em;}
+.atlas-home-cozy .aa-quick small {color:#63787e;font-size:11px;}
+.atlas-home-cozy .aa-daily svg {color:#c98336;}
+.atlas-home-cozy .aa-map svg {color:#399b8c;}
+.atlas-home-cozy .aa-league {
+  min-height:70px;
+  border:1px solid rgba(255,255,255,.81);
+  border-radius:19px;
+  background:linear-gradient(109deg,#ffdfbc,#e8d7ff);
+  box-shadow:0 9px 22px rgba(177,142,156,.11);
+  color:#495267;
+}
+.atlas-home-cozy .aa-league-icon {
+  background:linear-gradient(120deg,#fff9e6,#ffc874);
+  color:#be7544;
+  box-shadow:0 5px 15px rgba(201,147,78,.16);
+}
+.atlas-home-cozy .aa-league strong {color:#455266;font-size:13px;letter-spacing:0;}
+.atlas-home-cozy .aa-league small {color:#7b6f7e;font-size:11px;}
+.atlas-home-cozy .aa-league > svg {color:#be8168;}
+.atlas-home-cozy .aa-mode:focus-visible,
+.atlas-home-cozy .aa-play:focus-visible,
+.atlas-home-cozy .aa-quick:focus-visible,
+.atlas-home-cozy .aa-league:focus-visible,
+.atlas-home-cozy .aa-name button:focus-visible {
+  outline:3px solid #f5a27b;
+  outline-offset:3px;
+}
+@media (max-width:380px) {
+  .atlas-home-cozy .atlas-home-planet-wrap {width:238px;height:238px;right:-55px;top:-9px;}
+  .atlas-home-cozy .aa-hero {min-height:226px;}
+  .atlas-home-cozy .aa-hero-copy {min-height:153px;width:66%;}
+  .atlas-home-cozy .aa-hero-copy h1 {font-size:32px;}
+  .atlas-home-cozy .aa-hero-bottom > span {font-size:9px;}
+  .atlas-home-cozy .aa-mode strong {font-size:13px;}
+}
+@media (prefers-reduced-motion:reduce) {
+  .atlas-home-cozy .aa-play,.atlas-home-cozy .aa-mode {transition:none;}
+}
