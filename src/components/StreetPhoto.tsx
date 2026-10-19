@@ -20,7 +20,7 @@ function photoUrl(media:PanoramaMedia, face:string):string {
 export function warmStreetPhoto(round?:StreetRound):void {
   if(!round||typeof window==='undefined')return;
   const url=photoUrl(round.media,'f');
-  if(!/^https:\/\//.test(url))return;
+  if(!/^https:\/\//.test(url)&&!url.startsWith('/'))return;
   const preview=new Image();
   preview.decoding='async';
   preview.src=url;
