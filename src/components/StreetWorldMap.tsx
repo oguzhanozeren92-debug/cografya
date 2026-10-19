@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, type PointerEvent } from 'react';
-import { geoInterpolate, geoNaturalEarth1, geoPath } from 'd3-geo';
+import { geoContains, geoInterpolate, geoNaturalEarth1, geoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
 import { LocateFixed, Minus, Plus } from 'lucide-react';
 import world from 'world-atlas/countries-110m.json';
@@ -14,6 +14,23 @@ const projection=geoNaturalEarth1().fitExtent([[13,12],[W-13,H-12]],
 const worldPath=geoPath(projection);
 const outlines=countries.map((country,i)=>({key:String(country.id??i),d:worldPath(country as never)??''})).filter(x=>x.d);
 const position=(p:Coordinates):[number,number]|null=>projection([p.lng,p.lat]) as [number,number]|null;
+const COUNTRY_NUMERIC_IDS: Record<string,number> = {
+  'Kamboçya':116, 'Gürcistan':268, 'Fransa':250, 'Almanya':276,
+  'Brezilya':76, 'Hindistan':356, 'İspanya':724, 'Avusturya':40,
+  'Meksika':484, 'Japonya':392, 'Arjantin':32, 'Slovenya':705,
+  'Ermenistan':51, 'Kanada':124, 'Letonya':428, 'Estonya':233,
+  'Avustralya':36, 'Birleşik Krallık':826,
+};
+/** Feedback only: score is always computed from distance on the server. */
+export function guessedCorrectCountry(guess:Coordinates|null,country:string):boolean|null {
+  if(!guess)return null;
+  const id=COUNTRY_NUMERIC_IDS[country];
+  if(!id)return null;
+  const polygon=countries.find(feature=>Number(feature.id)===id);
+  if(!polygon)return null;
+  return geoContains(polygon as never,[guess.lng,guess.lat]);
+}
+
 
 export function StreetWorldMap({
   guess,actual,onGuess,locked,
