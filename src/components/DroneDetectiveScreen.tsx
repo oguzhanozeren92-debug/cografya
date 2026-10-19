@@ -6,6 +6,9 @@ import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldM
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
 import { haversineKm, locationPoints, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
+import { submitDroneScore } from '@/lib/droneLeaderboard';
+import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
+import { backend } from '@/lib/leaderboard';
 
 type Phase = 'view' | 'guess' | 'result' | 'finish';
 type Answer = { id: string; city: string; country: string; km: number | null; points: number; skipped?: boolean };
@@ -31,7 +34,7 @@ function saveBest(score: number): number {
   return best;
 }
 
-export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () => void; onGameComplete?: () => void }) {
+export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { onClose: () => void; onGameComplete?: () => void; playerName: string }) {
   const [rows, setRows] = useState(shuffled);
   const [mediaById,setMediaById]=useState<Record<string,PanoramaMedia>>({});
   const [assetLoading,setAssetLoading]=useState(true);
@@ -63,6 +66,10 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
   const [distance, setDistance] = useState<number | null>(null);
   const [roundPoints, setRoundPoints] = useState(0);
   const [best, setBest] = useState(getBest);
+  const [showRank,setShowRank]=useState(false);
+  const [saveState,setSaveState]=useState<'idle'|'saving'|'saved'|'error'|'offline'>('idle');
+  const [saveError,setSaveError]=useState('');
+  const [finalScore,setFinalScore]=useState(0);
   const current = rows[index];
   const panoramaStart=useRef(0);
   const completionNotified=useRef(false);
@@ -77,10 +84,33 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
     credit: { artist: current.artist, license: current.license, source: current.source },
   }), [current,mediaById]);
 
+  const saveOnline=async(points:number)=>{
+    if(!backend){setSaveState('offline');return;}
+    setSaveState('saving');setSaveError('');
+    try{
+      await submitDroneScore(playerName,points);
+      setSaveState('saved');
+    }catch(e){
+      setSaveError(e instanceof Error?e.message:'Skor kaydedilemedi.');
+      setSaveState('error');
+    }
+  };
+  const finishDrone=(allAnswers:Answer[])=>{
+    const points=allAnswers.reduce((sum,row)=>sum+row.points,0);
+    setBest(saveBest(points));
+    setFinalScore(points);
+    setPhase('finish');
+    if(!completionNotified.current){
+      completionNotified.current=true;
+      void saveOnline(points);
+      onGameComplete?.();
+    }
+  };
   const restart = () => {
     completionNotified.current=false;
     setRows(shuffled()); setIndex(0); setPhase('view'); setReady(false);
     setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);
+    setSaveState('idle');setSaveError('');setFinalScore(0);setShowRank(false);
   };
   const confirm = () => {
     if (!guess || phase !== 'guess') return;
@@ -97,10 +127,10 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
   const skipBroken=()=>{
     trackPlayEvent({mode:'drone',event_type:'panorama_skipped',question_id:current.id});
     const skipped:Answer={id:current.id,city:current.city,country:current.country,km:null,points:0,skipped:true};
-    setAnswered(prev=>[...prev,skipped]);
+    const allAnswers=[...answered,skipped];
+    setAnswered(allAnswers);
     if(index===rows.length-1){
-      setBest(saveBest(score));setPhase('finish');
-      if(!completionNotified.current){completionNotified.current=true;onGameComplete?.();}
+      finishDrone(allAnswers);
     }else{
       setIndex(n=>n+1);setPhase('view');setReady(false);
       setGuess(null);setDistance(null);setRoundPoints(0);
@@ -115,9 +145,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
   },[index,current.id,rows,mediaById]);
   const next = () => {
     if (index === rows.length - 1) {
-      setBest(saveBest(score));
-      setPhase('finish');
-      if(!completionNotified.current){completionNotified.current=true;onGameComplete?.();}
+      finishDrone(answered);
     } else {
       setIndex(n => n + 1); setPhase('view'); setGuess(null);
       setDistance(null); setRoundPoints(0); setReady(false);
@@ -137,11 +165,14 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
             <h1 className="text-[19px] font-black leading-tight">Drone'dan Konumu Bul</h1>
             <p className="text-[11px] text-blue-200/80">Havadan keşfet · Dünyada işaretle</p>
           </div>
+          <button type="button" onClick={()=>setShowRank(v=>!v)} aria-label="Dron dünya ligi" className="street-round-button"><Trophy className="h-5 w-5 text-amber-300"/></button>
           <button type="button" onClick={close} aria-label="Kapat" className="street-round-button">
             <X className="h-4 w-4" />
           </button>
         </header>
-        {assetLoading||assetError ? (
+        {showRank?(
+          <LocationLeaguePanel mode="drone" playerName={playerName} onBack={()=>setShowRank(false)}/>
+        ):assetLoading||assetError ? (
           <section className="street-card mx-auto max-w-lg space-y-3 p-6 text-center">
             <Compass className="mx-auto h-10 w-10 text-cyan-200"/>
             <h2 className="text-lg font-black">Dron görüntü arşivi</h2>
@@ -162,6 +193,12 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
               <h2 className="my-3 text-[42px] font-black text-[#ffda96] tabular-nums">{score.toLocaleString('tr-TR')}</h2>
               <p className="font-bold">/ {rows.length * 5000} puan</p>
               <p className="mt-3 text-sm text-emerald-200">Cihaz rekoru: {best.toLocaleString('tr-TR')}</p>
+              <div aria-live="polite" className="mt-3 rounded-xl bg-white/5 px-3 py-3 text-xs text-blue-100">
+                {saveState==='saving'?'Skorun dünya ligine kaydediliyor...':saveState==='saved'?'Dünya ve haftalık lige kaydedildi!':
+                  saveState==='offline'?'Cihaz rekorun saklandı. Dünya ligine bağlantı bekleniyor.':
+                  saveState==='error'?saveError:'Skor kaydı hazırlanıyor...'}
+                {saveState==='error'&&<button type="button" className="street-secondary mt-2 w-full" onClick={()=>{void saveOnline(finalScore);}}>Kaydı tekrar dene</button>}
+              </div>
             </section>
             <section className="street-card space-y-2 p-4">
               {answered.map((answer, i) => (
@@ -173,6 +210,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
                 </div>
               ))}
             </section>
+            <button type="button" onClick={()=>setShowRank(true)} className="street-secondary w-full"><Trophy className="h-4 w-4"/> Dünya sıralamasını gör</button>
             <button type="button" onClick={restart} className="street-primary w-full">
               <RefreshCcw className="h-4 w-4" /> Tekrar uç
             </button>
@@ -258,7 +296,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
         )}
         <p className="mt-5 text-center text-[11px] leading-5 text-blue-200/65">
           Ücretsiz 5 konumluk pilot · Lisanslı gerçek dron görüntüleri · Dört yöne bakış ve tam ekran.
-          Puanlar bu cihazda saklanır; rekabetçi sıralama henüz açılmadı.
+          Puanlar önce cihazda, Supabase kurulduysa dünya ve haftalık ligde saklanır.
         </p>
       </main>
     </div>
