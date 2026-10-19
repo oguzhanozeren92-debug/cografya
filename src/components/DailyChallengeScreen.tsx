@@ -89,8 +89,8 @@ export function DailyChallengeScreen({ onClose, onExplore, onGameComplete }: Pro
         </section>
         <section className="mb-4 rounded-2xl border border-white/10 bg-white/5 p-4">
           <div className="mb-3 flex items-center justify-between gap-2 text-sm"><strong>{complete ? t('Görev tamamlandı!') : `${t('Soru')} ${index + 1} / ${DAILY_TOTAL}`}</strong><span className="font-bold text-emerald-300">{correct} {t('Doğru')}</span></div>
-          <div className="grid grid-cols-10 gap-1.5" aria-label="Günlük ilerleme">
-            {questions.map((q, i) => <div key={q.countryId} title={`${i + 1}. soru`} className={'h-2.5 rounded-full ' + (i < progress.answers.length ? progress.answers[i] === q.answer ? 'bg-emerald-400' : 'bg-rose-400' : i === index ? 'bg-amber-300/85' : 'bg-white/15')} />)}
+          <div className="grid grid-cols-10 gap-1.5" aria-label={t("Günlük ilerleme")}>
+            {questions.map((q, i) => <div key={q.countryId} title={`${i + 1}. ${t('soru')}`} className={'h-2.5 rounded-full ' + (i < progress.answers.length ? progress.answers[i] === q.answer ? 'bg-emerald-400' : 'bg-rose-400' : i === index ? 'bg-amber-300/85' : 'bg-white/15')} />)}
           </div>
           <div className="mt-2 flex justify-between text-[11px] text-slate-400"><span>{t('İlk 4 kolay')}</span><span>{t('Son 2 zor')}</span></div>
         </section>
@@ -117,8 +117,8 @@ export function DailyChallengeScreen({ onClose, onExplore, onGameComplete }: Pro
               <span className={'rounded-lg px-2 py-1 text-[10px] font-black ' + (question.difficulty === 1 ? 'bg-emerald-400/15 text-emerald-300' : question.difficulty === 2 ? 'bg-amber-400/15 text-amber-300' : 'bg-rose-400/15 text-rose-300')}>{question.difficulty === 1 ? t('KOLAY') : question.difficulty === 2 ? t('ORTA') : t('ZOR')}</span>
             </div>
             <div className="daily-flag-frame mb-5 flex min-h-44 flex-col items-center justify-center rounded-2xl p-4 text-center">
-              {flag ? <img src={flag.url} alt="Tahmin edeceğin ülkenin bayrağı" className="max-h-32 w-full max-w-56 object-contain drop-shadow-xl" onError={event => { event.currentTarget.style.display = 'none'; event.currentTarget.nextElementSibling?.classList.remove('hidden'); }} /> : null}
-              <span className={'text-7xl ' + (flag ? 'hidden' : '')} role="img" aria-label="Bayrak">{flag?.emoji ?? '🌍'}</span>
+              {flag ? <img src={flag.url} alt={t("Bu bayrak hangi ülkeye ait?")} className="max-h-32 w-full max-w-56 object-contain drop-shadow-xl" onError={event => { event.currentTarget.style.display = 'none'; event.currentTarget.nextElementSibling?.classList.remove('hidden'); }} /> : null}
+              <span className={'text-7xl ' + (flag ? 'hidden' : '')} role="img" aria-label={t("Bayrak")}>{flag?.emoji ?? '🌍'}</span>
               {question.type === 'capital' && <p className="mt-3 text-lg font-black text-white">{localizedCountryById(question.countryId,language)}</p>}
             </div>
             <h2 className="mb-4 text-center text-lg font-black">{question.type === 'capital' ? t('Bu ülkenin başkenti hangisi?') : t('Bu bayrak hangi ülkeye ait?')}</h2>
