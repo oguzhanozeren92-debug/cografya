@@ -6,6 +6,7 @@ import { ArrowLeft, CheckCircle2, Compass, Flag, Globe2, MapPinned, Sparkles, Tr
 import { COUNTRY_DATA, VALID_COUNTRY_IDS } from '@/data/countries';
 import { useLanguage } from '@/lib/i18n';
 import { localizedCountryById } from '@/lib/countryLanguage';
+import { localizedCapitalName } from '@/lib/capitalLanguage';
 import { getCountryFlag } from '@/data/flags';
 import { DISCOVERY_EVENT, getDiscoveredCountries, syncDiscoveries } from '@/lib/discovery';
 
@@ -57,9 +58,9 @@ export function ExploreMapScreen({ onClose, onDaily }: Props) {
         </div>
       </section>
       <section className="explore-map-frame relative mb-4 overflow-hidden rounded-3xl border border-white/15 p-3 sm:p-5">
-        <div className="mb-3 flex items-center justify-between gap-2 px-1"><span className="flex items-center gap-2 text-sm font-black"><Globe2 className="h-4 w-4 text-cyan-300" /> {t('Keşif Atlası')}</span><span className="text-[11px] text-slate-300">{percentage}% tamamlandı</span></div>
+        <div className="mb-3 flex items-center justify-between gap-2 px-1"><span className="flex items-center gap-2 text-sm font-black"><Globe2 className="h-4 w-4 text-cyan-300" /> {t('Keşif Atlası')}</span><span className="text-[11px] text-slate-300">{percentage}% {t('tamamlandı')}</span></div>
         <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#091a32]">
-          <svg viewBox="0 0 900 470" className="w-full select-none" role="img" aria-label={`Dünya haritası, ${earned.length} ülke keşfedildi`}>
+          <svg viewBox="0 0 900 470" className="w-full select-none" role="img" aria-label={`${t('Dünya')} ${t('Haritam')}: ${earned.length} ${t('ülke keşfedildi')}`}>
             <defs>
               <radialGradient id="mapSea" cx="50%" cy="45%" r="65%"><stop stopColor="#163c63" /><stop offset="1" stopColor="#06152a" /></radialGradient>
               <filter id="discoveryGlow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -87,16 +88,16 @@ export function ExploreMapScreen({ onClose, onDaily }: Props) {
         <p className="mt-3 text-center text-[11px] text-slate-400">Ülkeye dokunarak bilgi kartını açabilirsin. Haritayı + / − ile yakınlaştır.</p>
       </section>
       {selected && selectedMeta && <section className={'mb-4 flex items-center gap-4 rounded-2xl border p-4 ' + (selectedDiscovered ? 'border-cyan-300/35 bg-cyan-300/10' : 'border-white/15 bg-white/5')}>
-        <div className="flex h-16 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-slate-900/60 p-2">{selectedFlag ? <img src={selectedFlag.url} alt={`${localizedCountryById(selected,language)}`} className="max-h-12 w-full object-contain" /> : <Flag className="h-7 w-7 text-slate-400" />}</div>
-        <div className="min-w-0 flex-1"><div className="truncate font-black">{localizedCountryById(selected,language)}</div><div className="mt-1 text-xs text-slate-300">{t('Başkent:')} {selectedMeta.capitalTr}</div><div className={'mt-1 flex items-center gap-1 text-xs font-bold ' + (selectedDiscovered ? 'text-emerald-300' : 'text-slate-400')}>{selectedDiscovered ? <CheckCircle2 className="h-3.5 w-3.5" /> : <MapPinned className="h-3.5 w-3.5" />}{t(selectedDiscovered ? 'Keşfedildi' : 'Henüz keşfedilmedi')}</div></div>
+        <div className="flex h-16 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-slate-900/60 p-2">{selectedFlag ? <img src={selectedFlag.url} alt={localizedCountryById(selected,language)} className="max-h-12 w-full object-contain" /> : <Flag className="h-7 w-7 text-slate-400" />}</div>
+        <div className="min-w-0 flex-1"><div className="truncate font-black">{localizedCountryById(selected,language)}</div><div className="mt-1 text-xs text-slate-300">{t('Başkent:')} {localizedCapitalName(selectedMeta.capitalTr,language)}</div><div className={'mt-1 flex items-center gap-1 text-xs font-bold ' + (selectedDiscovered ? 'text-emerald-300' : 'text-slate-400')}>{selectedDiscovered ? <CheckCircle2 className="h-3.5 w-3.5" /> : <MapPinned className="h-3.5 w-3.5" />}{t(selectedDiscovered ? 'Keşfedildi' : 'Henüz keşfedilmedi')}</div></div>
         <button onClick={() => setSelected(null)} className="text-sm text-slate-400" aria-label={t("Kartı kapat")}>✕</button>
       </section>}
       <section className="mb-4 rounded-2xl border border-white/10 bg-white/5 p-4">
         <div className="mb-3 flex items-center justify-between"><h2 className="flex items-center gap-2 font-black"><Trophy className="h-5 w-5 text-amber-300" /> {t('Keşif Rozetleri')}</h2><span className="text-xs text-slate-400">{earned.length}/{total}</span></div>
-        <div className="grid grid-cols-3 gap-2">{[10, 50, total].map(target => <div key={target} className={'rounded-xl border p-3 text-center ' + (earned.length >= target ? 'border-amber-300/35 bg-amber-300/10' : 'border-white/10 bg-slate-900/30')}><span className="text-2xl">{target === 10 ? '🥉' : target === 50 ? '🥈' : '🏆'}</span><p className="mt-1 text-xs font-black">{target} ülke</p><p className={'mt-1 text-[10px] ' + (earned.length >= target ? 'text-amber-200' : 'text-slate-400')}>{earned.length >= target ? 'Kazanıldı' : 'Kilitli'}</p></div>)}</div>
+        <div className="grid grid-cols-3 gap-2">{[10, 50, total].map(target => <div key={target} className={'rounded-xl border p-3 text-center ' + (earned.length >= target ? 'border-amber-300/35 bg-amber-300/10' : 'border-white/10 bg-slate-900/30')}><span className="text-2xl">{target === 10 ? '🥉' : target === 50 ? '🥈' : '🏆'}</span><p className="mt-1 text-xs font-black">{target} {t('ülke')}</p><p className={'mt-1 text-[10px] ' + (earned.length >= target ? 'text-amber-200' : 'text-slate-400')}>{earned.length >= target ? t('Kazanıldı') : t('Kilitli')}</p></div>)}</div>
       </section>
       <section className="mb-5 rounded-2xl border border-white/10 bg-white/5 p-4">
-        <div className="mb-3 flex items-center justify-between"><h2 className="flex items-center gap-2 font-black"><Sparkles className="h-5 w-5 text-cyan-300" /> {t('Keşfettiklerin')}</h2>{earned.length > 6 && <button onClick={() => setShowAll(v => !v)} className="text-xs font-bold text-cyan-300">{showAll ? 'Daha az' : 'Tümünü gör'}</button>}</div>
+        <div className="mb-3 flex items-center justify-between"><h2 className="flex items-center gap-2 font-black"><Sparkles className="h-5 w-5 text-cyan-300" /> {t('Keşfettiklerin')}</h2>{earned.length > 6 && <button onClick={() => setShowAll(v => !v)} className="text-xs font-bold text-cyan-300">{t(showAll ? 'Daha az' : 'Tümünü gör')}</button>}</div>
         {earned.length ? <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">{(showAll ? [...earned].reverse() : recent).map(id => {
           const flag = getCountryFlag(id);
           return <button key={id} onClick={() => { setSelected(id); document.querySelector('.explore-map-frame')?.scrollIntoView({ behavior: 'smooth' }); }} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-2 py-3 text-left text-xs font-bold hover:bg-white/10">{flag ? <img src={flag.url} alt="" className="h-7 w-10 shrink-0 object-contain" /> : '🌍'}<span className="truncate">{localizedCountryById(id,language)}</span></button>;
