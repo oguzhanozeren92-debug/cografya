@@ -59,9 +59,33 @@ def batch(texts,target):
         print('Batch failed; retrying separately:',str(ex)[:120],flush=True)
     return [one(key,target) for key in texts]
 
+def source_geographic_facts():
+    # Street facts are an approved, versioned JSON catalogue.
+    street = Path('server/street/approved.mjs').read_text(encoding='utf-8')
+    match = re.search(r'export const approvedPanoramas\\s*=\\s*(\\[[\\s\\S]*?\\]);', street)
+    if not match:
+        raise ValueError('Approved street facts not found')
+    street_facts = [row['fact'] for row in json.loads(match.group(1))]
+    # Drone facts are five literal strings within the reviewed pilot catalogue.
+    drone = Path('src/data/dronePanoramas.ts').read_text(encoding='utf-8')
+    drone_facts = re.findall(r"\\bfact:\\s*'([^'\\n]+)'", drone)
+    if len(street_facts) != 37 or len(drone_facts) != 5:
+        raise ValueError(f'Expected 37+5 reviewed location facts; got {len(street_facts)}+{len(drone_facts)}')
+    return list(dict.fromkeys(street_facts + drone_facts))
+
 def run():
+    fact_keys=source_geographic_facts()
+    missing_english=[key for key in fact_keys if key not in DICTIONARIES['en']]
+    print('Location fact translations missing in English:',len(missing_english),flush=True)
+    for index in range(0,len(missing_english),10):
+        keys=missing_english[index:index+10]
+        values=batch(keys,'en')
+        for key,value in zip(keys,values):
+            DICTIONARIES['en'][key]=value
+        time.sleep(.35)
+    keys=list(DICTIONARIES['en'])
     for language,target in TARGETS.items():
-        missing=[key for key in KEYS if key not in DICTIONARIES[language]]
+        missing=[key for key in keys if key not in DICTIONARIES[language]]
         print(language,'missing',len(missing),flush=True)
         for index in range(0,len(missing),10):
             current=missing[index:index+10]
@@ -76,10 +100,10 @@ def run():
                 print(language,':',min(index+10,len(missing)),'/',len(missing),flush=True)
             time.sleep(.35)
     for language in TARGETS:
-        missing=[key for key in KEYS if not DICTIONARIES[language].get(key)]
+        missing=[key for key in keys if not DICTIONARIES[language].get(key)]
         if missing:
             raise ValueError(language+' still missing '+str(len(missing))+' translations')
     PATH.write_text(SOURCE[:POS+1]+' '+json.dumps(DICTIONARIES,ensure_ascii=False,indent=2)+';\n',encoding='utf-8')
-    print('Translated all',len(KEYS),'UI phrases into all 8 foreign-language dictionaries.',flush=True)
+    print('Translated all',len(keys),'interface and geographic-fact phrases into all 8 locale dictionaries.',flush=True)
 
 if __name__=='__main__':run()
