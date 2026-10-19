@@ -7,6 +7,7 @@ import { playGameSound } from '@/lib/gameFx';
 import type { GamePhase, QuestionType } from '@/types';
 import { useLanguage } from '@/lib/i18n';
 import { localizedAnswer } from '@/lib/countryLanguage';
+import { localizedClueCard } from '@/lib/clueLanguage';
 
 interface QuestionPanelProps {
   questionType: QuestionType;
@@ -34,7 +35,8 @@ export function QuestionPanel({
   const isFlag = questionType === 'flag';
   const isClue = questionType === 'clue';
   const isCountry = questionType === 'country';
-  const clue = isClue ? getCountryClue(countryId) : null;
+  const originalClue = isClue ? getCountryClue(countryId) : null;
+  const clue = originalClue ? localizedClueCard(originalClue,language) : null;
   const flag = countryId ? getCountryFlag(countryId) : null;
 
   return (
