@@ -51,12 +51,12 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
         const response=await fetch('/api/drone/session',{cache:'no-store'});
         const body=await response.json() as {media?:Array<{id:string;media:PanoramaMedia}>;error?:string};
         if(!response.ok||!body.media||body.media.length<5){
-          throw new Error(body.error||'Dron 360° arşivi henüz hazır değil.');
+          throw new Error(body.error||t('Dron 360° arşivi henüz hazır değil.'));
         }
         const map=Object.fromEntries(body.media.map(r=>[r.id,r.media]));
-        if(dronePanoramas.some(row=>!map[row.id]))throw new Error('Bazı drone panoramaları henüz doğrulanmadı.');
+        if(dronePanoramas.some(row=>!map[row.id]))throw new Error(t('Bazı drone panoramaları henüz doğrulanmadı.'));
         if(active){setMediaById(map);setAssetLoading(false);}
-      }catch(e){if(active){setAssetLoading(false);setAssetError(e instanceof Error?e.message:'Görüntüler yüklenemedi.');}}
+      }catch(e){if(active){setAssetLoading(false);setAssetError(e instanceof Error?e.message:t('Görüntüler yüklenemedi.'));}}
     };
     void run();
     return()=>{active=false;};
@@ -165,7 +165,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
             <Compass className="h-5 w-5" />
           </span>
           <div className="min-w-0 flex-1">
-            <h1 className="text-[19px] font-black leading-tight">Drone'dan Konumu Bul</h1>
+            <h1 className="text-[19px] font-black leading-tight">{t("Drone'dan Konumu Bul")}</h1>
             <p className="text-[11px] text-blue-200/80">{t('Havadan keşfet · Dünyada işaretle')}</p>
           </div>
           <button type="button" onClick={()=>setShowRank(v=>!v)} aria-label="Dron dünya ligi" className="street-round-button"><Trophy className="h-5 w-5 text-amber-300"/></button>
@@ -194,13 +194,13 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
               <Trophy className="mx-auto mb-3 h-12 w-12 text-amber-300" />
               <p className="text-sm font-bold text-blue-100/80">Drone turunu bitirdin!</p>
               <h2 className="my-3 text-[42px] font-black text-[#ffda96] tabular-nums">{score.toLocaleString('tr-TR')}</h2>
-              <p className="font-bold">/ {rows.length * 5000} puan</p>
+              <p className="font-bold">/ {rows.length * 5000} {t('puan')}</p>
               <p className="mt-3 text-sm text-emerald-200">{t('Cihaz rekoru:')} {best.toLocaleString(language)}</p>
               <div aria-live="polite" className="mt-3 rounded-xl bg-white/5 px-3 py-3 text-xs text-blue-100">
-                {saveState==='saving'?'Skorun dünya ligine kaydediliyor...':saveState==='saved'?'Dünya ve haftalık lige kaydedildi!':
-                  saveState==='offline'?'Cihaz rekorun saklandı. Dünya ligine bağlantı bekleniyor.':
-                  saveState==='error'?saveError:'Skor kaydı hazırlanıyor...'}
-                {saveState==='error'&&<button type="button" className="street-secondary mt-2 w-full" onClick={()=>{void saveOnline(finalScore);}}>Kaydı tekrar dene</button>}
+                {saveState==='saving'?t('Skorun dünya ligine kaydediliyor...'):saveState==='saved'?t('Dünya ve haftalık lige kaydedildi!'):
+                  saveState==='offline'?t('Cihaz rekorun saklandı. Dünya ligine bağlantı bekleniyor.'):
+                  saveState==='error'?saveError:t('Skor kaydı hazırlanıyor...')}
+                {saveState==='error'&&<button type="button" className="street-secondary mt-2 w-full" onClick={()=>{void saveOnline(finalScore);}}>{t('Kaydı tekrar dene')}</button>}
               </div>
             </section>
             <section className="street-card space-y-2 p-4">
@@ -208,7 +208,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                 <div key={answer.id} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3 text-xs">
                   <span className="font-black text-amber-200">{i + 1}.</span>
                   <span className="min-w-0 flex-1 truncate">{answer.city}, {localizedCountryName(answer.country,language)}</span>
-                  <span>{answer.skipped?'Görüntü açılamadı':formatKm(answer.km!)+' km'}</span>
+                  <span>{answer.skipped?t('Görüntü açılamadı'):formatKm(answer.km!)+' km'}</span>
                   <strong className="text-emerald-200">+{answer.points}</strong>
                 </div>
               ))}
@@ -217,7 +217,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
             <button type="button" onClick={restart} className="street-primary w-full">
               <RefreshCcw className="h-4 w-4" /> {t('Tekrar uç')}
             </button>
-            <button type="button" onClick={close} className="street-secondary w-full">Ana ekrana dön</button>
+            <button type="button" onClick={close} className="street-secondary w-full">{t('Ana ekrana dön')}</button>
           </div>
         ) : (
           <div className="space-y-3">
@@ -259,7 +259,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                     <CheckCircle2 className="mx-auto mb-1 h-7 w-7 text-emerald-300" />
                     <p className="text-sm text-blue-100/80">{t('Gerçek konuma uzaklığın')}</p>
                     <p className="text-[32px] font-black text-[#ffbb91]">{formatKm(distance)} km</p>
-                    <p className="text-[25px] font-black text-[#8df3c0]">+{roundPoints.toLocaleString('tr-TR')} puan</p>
+                    <p className="text-[25px] font-black text-[#8df3c0]">+{roundPoints.toLocaleString(language)} {t('puan')}</p>
                     <p className="pt-1 text-base font-black">{current.city}, {localizedCountryName(current.country,language)}</p>
                     {guessedCorrectCountry(guess,current.country)!==null&&(
                       <p className="text-sm font-bold text-[#ffdc95]">
@@ -274,7 +274,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                   </section>
                 )}
                 <section className="street-card space-y-3 p-3">
-                  {phase === 'guess' && <p className="px-1 text-xs text-blue-100/80">Haritaya dokun; yakınlaştırıp sürükleyerek ayrıntılı konum seçebilirsin.</p>}
+                  {phase === 'guess' && <p className="px-1 text-xs text-blue-100/80">{t('Haritaya dokun; yakınlaştırıp sürükleyerek ayrıntılı konum seçebilirsin.')}</p>}
                   <StreetWorldMap guess={guess}
                     actual={phase === 'result' ? { lat: current.lat, lng: current.lng } : null}
                     onGuess={setGuess} locked={phase === 'result'} />
@@ -298,8 +298,8 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
           </div>
         )}
         <p className="mt-5 text-center text-[11px] leading-5 text-blue-200/65">
-          Ücretsiz 5 konumluk pilot · Lisanslı gerçek dron görüntüleri · Dört yöne bakış ve tam ekran.
-          Puanlar önce cihazda, Supabase kurulduysa dünya ve haftalık ligde saklanır.
+          {t('Ücretsiz 5 konumluk pilot · Lisanslı gerçek dron görüntüleri · Dört yöne bakış ve tam ekran.')}
+          {t('Puanlar önce cihazda, Supabase kurulduysa dünya ve haftalık ligde saklanır.')}
         </p>
       </main>
     </div>
