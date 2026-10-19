@@ -9,6 +9,10 @@ on:
       - 'src/components/DailyChallengeScreen.tsx'
       - 'src/components/StreetDetectiveScreen.tsx'
       - 'src/components/DroneDetectiveScreen.tsx'
+      - 'src/components/LocationLeaguePanel.tsx'
+      - 'src/lib/streetLeaderboard.ts'
+      - 'src/lib/droneLeaderboard.ts'
+      - 'src/App.tsx'
       - 'src/main.tsx'
       - '.github/workflows/geo-admin-ci.yml'
   workflow_dispatch: {}
