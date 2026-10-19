@@ -102,7 +102,7 @@ export function StreetPhoto({
       )}
       {state==='loading'&&<div role="status"
         className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-[#0b2341]/90 px-4 py-2 text-xs font-bold text-white">
-        Fotoğraf açılıyor...
+        {t('Fotoğraf açılıyor...')}
       </div>}
       {state==='ready'&&(
         <button type="button" onClick={()=>{setFullscreen(v=>!v);setZoom(1);}}
