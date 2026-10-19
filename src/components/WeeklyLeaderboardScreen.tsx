@@ -27,6 +27,7 @@ function shortName(name: string): string {
 }
 
 function PodiumPlayer({ entry, place }: { entry: WeeklyLeaderboardEntry | undefined; place: 1 | 2 | 3 }) {
+  const {t}=useLanguage();
   const reduceMotion = useReducedMotion();
   const first = place === 1;
   const shade = first ? 'gold' : place === 2 ? 'silver' : 'bronze';
