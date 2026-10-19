@@ -266,7 +266,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                         {guessedCorrectCountry(guess,current.country)?t('Ülkeyi doğru buldun!'):t('Ülke tahminin farklı çıktı.')}
                       </p>
                     )}
-                    <p className="text-xs leading-5 text-blue-100/75">{current.fact}</p>
+                    <p className="text-xs leading-5 text-blue-100/75">{t(current.fact)}</p>
                     <p className="pt-3 text-[11px] leading-5 text-blue-100/70">
                       {t('Fotoğraf:')} {current.artist} · <a href={current.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{current.license}</a>
                       {' '}· <a href={current.source} target="_blank" rel="noopener noreferrer" className="underline">Kaynak / lisans</a>
