@@ -14,10 +14,11 @@ export function getWeekStart(weekOffset = 0): string {
   return new Date(monday - weekday * 86400000 + weekOffset * 604800000).toISOString().slice(0, 10);
 }
 
-export function getWeekLabel(weekOffset = 0): string {
+export function getWeekLabel(weekOffset = 0, language = 'tr'): string {
   const start = new Date(getWeekStart(weekOffset) + 'T00:00:00Z');
   const end = new Date(start.getTime() + 6 * 86400000);
-  const label = (date: Date) => date.toLocaleDateString('tr-TR', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+  const tag=language==='pt'?'pt-BR':language==='zh'?'zh-CN':language==='tr'?'tr-TR':language;
+  const label = (date: Date) => date.toLocaleDateString(tag, { day: 'numeric', month: 'short', timeZone: 'UTC' });
   return label(start) + ' – ' + label(end);
 }
 
