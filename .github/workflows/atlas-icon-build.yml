@@ -1,0 +1,43 @@
+name: Atlas Arena Icon Assets
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/atlas-arena-icon.avif'
+      - 'scripts/build-app-icons.py'
+      - '.github/workflows/atlas-icon-build.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atlas-arena-icon-generation
+  cancel-in-progress: false
+
+jobs:
+  icons:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image converter
+        run: python -m pip install 'pillow>=11.3'
+      - name: Verify icon source and generate iOS / Android / web PNGs
+        run: python scripts/build-app-icons.py
+      - name: Commit generated app icons
+        run: |
+          git config user.name "atlas-icon-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/favicon.png public/icon-192.png public/icon-512.png public/icon-1024.png public/apple-touch-icon.png resources/icon.png
+          if ! git diff --staged --quiet; then
+            git commit -m "assets(atlas): publish approved globe icon for web and native"
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi
