@@ -207,7 +207,7 @@ function App() {
       )}
 
       {showStart && droneOpen && (
-        <DroneDetectiveScreen onClose={() => setDroneOpen(false)} onGameComplete={onGameFinished} />
+        <DroneDetectiveScreen playerName={playerName} onClose={() => setDroneOpen(false)} onGameComplete={onGameFinished} />
       )}
 
       {showStart && notificationsOpen && isIosPushSupported() && (
