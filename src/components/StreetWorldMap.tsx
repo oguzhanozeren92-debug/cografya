@@ -4,6 +4,7 @@ import { feature } from 'topojson-client';
 import { LocateFixed, Minus, Plus } from 'lucide-react';
 import world from 'world-atlas/countries-110m.json';
 import type { Coordinates } from '@/lib/streetLocations';
+import { useLanguage } from '@/lib/i18n';
 
 type Shape = {id?:string|number;geometry:unknown;type:string;properties?:{name?:string}};
 const W=1000,H=540;
@@ -39,6 +40,7 @@ export function StreetWorldMap({
   onGuess:(point:Coordinates)=>void;locked?:boolean;
 }) {
 
+  const {t}=useLanguage();
   // Pointer events support both mouse-drag and true iOS/Android two-finger pinch.
   // Keep the active view in a ref to avoid stale React render values during gestures.
   const [view,setView]=useState({zoom:1,cx:W/2,cy:H/2});
@@ -167,7 +169,7 @@ export function StreetWorldMap({
       <svg viewBox={[viewX,viewY,vw,vh].join(' ')} preserveAspectRatio="none"
         className="block h-[min(54dvh,420px)] min-h-[330px] w-full select-none"
         style={{touchAction:'none',cursor:locked?'default':'crosshair'}}
-        role="application" aria-label="Dünya haritası. İki parmakla yakınlaştır, bir parmakla sürükle, dokunarak konum seç."
+        role="application" aria-label={t("Dünya haritası. İki parmakla yakınlaştır, bir parmakla sürükle, dokunarak konum seç.")}
         onPointerDown={down} onPointerMove={move} onPointerUp={up}
         onPointerCancel={cancel}>
         <rect x="0" y="0" width={W} height={H} fill="#193f62"/>
@@ -187,12 +189,12 @@ export function StreetWorldMap({
         </g>}
       </svg>
       <div className="pointer-events-none absolute bottom-3 left-3 rounded-xl border border-[#bfdae4]/20 bg-[#0c223c]/85 px-3 py-2 text-[11px] font-bold text-white">
-        {locked?'🟠 Tahmin  ·  🟢 Gerçek konum':guess?'📍 Tahminin seçildi':'🌍 Haritada bir yere dokun'}
+        {locked?'🟠 '+t('Tahmin')+' · 🟢 '+t('Gerçek konum'):guess?'📍 '+t('Tahminin seçildi'):'🌍 '+t('Haritada bir yere dokun')}
       </div>
       <div className="absolute right-3 top-3 flex flex-col gap-2">
-        <button type="button" onClick={()=>zoomBy(1.6)} aria-label="Haritayı yakınlaştır" className="street-map-button"><Plus className="h-4 w-4"/></button>
-        <button type="button" onClick={()=>zoomBy(1/1.6)} aria-label="Haritayı uzaklaştır" className="street-map-button"><Minus className="h-4 w-4"/></button>
-        <button type="button" onClick={()=>updateView(1,W/2,H/2)} aria-label="Haritayı sıfırla" className="street-map-button"><LocateFixed className="h-4 w-4"/></button>
+        <button type="button" onClick={()=>zoomBy(1.6)} aria-label={t("Haritayı yakınlaştır")} className="street-map-button"><Plus className="h-4 w-4"/></button>
+        <button type="button" onClick={()=>zoomBy(1/1.6)} aria-label={t("Haritayı uzaklaştır")} className="street-map-button"><Minus className="h-4 w-4"/></button>
+        <button type="button" onClick={()=>updateView(1,W/2,H/2)} aria-label={t("Haritayı sıfırla")} className="street-map-button"><LocateFixed className="h-4 w-4"/></button>
       </div>
     </div>
   );
