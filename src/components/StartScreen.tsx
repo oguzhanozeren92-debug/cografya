@@ -14,6 +14,7 @@ import { AtlasHomeBackdrop } from '@/components/AtlasHomeBackdrop';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 import { isIosPushSupported } from '@/lib/iosPush';
 import type { GameMode, LeaderboardEntry } from '@/types';
+import { useLanguage, availableLanguages, type Language } from '@/lib/i18n';
 
 interface StartScreenProps {
   onStart: (mode: GameMode) => void;
@@ -40,6 +41,7 @@ export function StartScreen({
   onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onDrone,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
+  const { language, setLanguage, t } = useLanguage();
   const [editing, setEditing] = useState(!playerName);
   const [name, setName] = useState(playerName);
   const [error, setError] = useState('');
@@ -103,7 +105,7 @@ export function StartScreen({
       }
       setError('');
     } catch {
-      setError('Takma ad kaydedilemedi. Lütfen tekrar dene.');
+      setError(t('Takma ad kaydedilemedi. Lütfen tekrar dene.'));
     } finally {
       setBusy(false);
     }
@@ -136,19 +138,26 @@ export function StartScreen({
           <div className="flex shrink-0 items-center gap-2">
             {isIosPushSupported() && onNotifications && (
               <button type="button" onClick={onNotifications}
-                aria-label="Bildirim ayarları" className="atlas-home-topbutton">
+                aria-label={t('Bildirim ayarları')} className="atlas-home-topbutton">
                 <Bell className="h-4 w-4" />
               </button>
             )}
+            <label className="relative flex h-9 max-w-[65px] shrink-0 items-center gap-1 rounded-xl border border-white/20 bg-white/10 px-1.5 text-[10px] font-extrabold text-white" title={t('Dil')}>
+              <Globe2 className="h-3.5 w-3.5 shrink-0 text-cyan-200"/>
+              <select value={language} onChange={event=>setLanguage(event.target.value as Language)}
+                aria-label={t('Dil')} className="w-[34px] min-w-0 appearance-none bg-transparent font-extrabold uppercase text-white outline-none">
+                {availableLanguages.map(([code,label])=><option key={code} value={code} className="bg-[#0c2946] text-white">{code.toUpperCase()} · {label}</option>)}
+              </select>
+            </label>
             <button type="button" onClick={onToggleSound}
-              aria-label={soundEnabled ? 'Oyun sesini kapat' : 'Oyun sesini aç'}
+              aria-label={soundEnabled ? t('Oyun sesini kapat') : t('Oyun sesini aç')}
               aria-pressed={soundEnabled} className="atlas-home-topbutton">
               {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
             </button>
-            <button type="button" onClick={revealName} aria-label="Oyuncu adını düzenle"
+            <button type="button" onClick={revealName} aria-label={t('Oyuncu adını düzenle')}
               className="atlas-home-profile flex max-w-[128px] items-center gap-1.5">
               <UserRound className="h-4 w-4 shrink-0 text-cyan-200" />
-              <span className="truncate">{playerName || 'Takma adım'}</span>
+              <span className="truncate">{playerName || t('Takma adım')}</span>
               <Pencil className="h-3 w-3 shrink-0 text-white/50" />
             </button>
           </div>
@@ -163,13 +172,13 @@ export function StartScreen({
           )}
           <HomePlanet />
           <div className="aa-hero-copy relative z-10">
-            <span className="aa-kicker"><Sparkles className="h-3.5 w-3.5" /> Bir dünya macera!</span>
-            <h1>Hadi,<br /><span>keşfe çık!</span></h1>
-            <p>Dünyayı döndür, durdur,<br />ülkeyi bul, puanı kap!</p>
+            <span className="aa-kicker"><Sparkles className="h-3.5 w-3.5" /> {t('Bir dünya macera!')}</span>
+            <h1>{t('Hadi,')}<br /><span>{t('keşfe çık!')}</span></h1>
+            <p>{t('Dünyayı döndür, durdur,')}<br />{t('ülkeyi bul, puanı kap!')}</p>
           </div>
           <div className="aa-hero-bottom relative z-10">
-            <span>🌍 Dünya turu</span>
-            <span>🏆 Arkadaşlarınla yarış</span>
+            <span>🌍 {t('Dünya turu')}</span>
+            <span>🏆 {t('Arkadaşlarınla yarış')}</span>
           </div>
         </motion.section>
 
@@ -178,16 +187,16 @@ export function StartScreen({
             onSubmit={event => { event.preventDefault(); void save(); }}
             className="aa-name mt-3 p-3">
             <label htmlFor="atlas-name" className="mb-2 block text-xs font-bold text-amber-200">
-              {playerName ? 'Takma adını değiştirelim mi?' : 'Seni nasıl çağıralım? 😊'}
+              {playerName ? t('Takma adını değiştirelim mi?') : t('Seni nasıl çağıralım? 😊')}
             </label>
             <div className="flex gap-2">
               <input ref={nameInputRef} id="atlas-name" maxLength={20} value={name}
-                autoComplete="nickname" placeholder="Takma adını yaz"
+                autoComplete="nickname" placeholder={t('Takma adını yaz')}
                 onChange={event => setName(event.target.value)}
                 className="min-w-0 flex-1 rounded-xl border border-white/20 bg-white/10 px-3 py-2.5 text-sm text-white outline-none focus:border-amber-300" />
               <button type="submit" disabled={busy || !name.trim()}
                 className="rounded-xl bg-amber-300 px-4 text-sm font-black text-[#182541] disabled:opacity-50">
-                {busy ? '...' : 'Kaydet'}
+                {busy ? '...' : t('Kaydet')}
               </button>
             </div>
             {error && <p className="mt-2 text-xs text-rose-200" role="alert">{error}</p>}
@@ -200,27 +209,27 @@ export function StartScreen({
           className="aa-play mt-3 flex w-full items-center gap-3 text-left">
           <span className="aa-play-icon"><Play className="h-6 w-6 fill-current" /></span>
           <span className="min-w-0 flex-1">
-            <strong>Oyuna başla!</strong>
-            <small>{canPlay ? 'Karışık dünya turu seni bekliyor' : 'Bir takma ad seç, macera başlasın'}</small>
+            <strong>{t('Oyuna başla!')}</strong>
+            <small>{canPlay ? t('Karışık dünya turu seni bekliyor') : t('Bir takma ad seç, macera başlasın')}</small>
           </span>
           <ChevronRight className="h-7 w-7 shrink-0" strokeWidth={3} />
         </motion.button>
 
         <motion.section {...entrance(2)} className="mt-5">
-          <h2 className="aa-section-heading">Başka ne oynayalım?</h2>
+          <h2 className="aa-section-heading">{t('Başka ne oynayalım?')}</h2>
           <div className="aa-mode-grid mt-2 grid grid-cols-2 gap-3">
             <button type="button" onClick={() => startOrAskName('flags')}
               className="aa-mode aa-flags text-left">
               <span className="aa-mode-illustration" aria-hidden="true">🇹🇷 🇯🇵</span>
-              <strong>Bayrak oyunu</strong>
-              <small>Bayrağa bak, ülkeyi bil</small>
+              <strong>{t('Bayrak oyunu')}</strong>
+              <small>{t('Bayrağa bak, ülkeyi bil')}</small>
               <span className="aa-mode-arrow" aria-hidden="true"><ArrowRight className="h-4 w-4" /></span>
             </button>
             <button type="button" onClick={() => startOrAskName('clues')}
               className="aa-mode aa-clues text-left">
               <span className="aa-mode-illustration" aria-hidden="true"><Lightbulb className="h-10 w-10" /></span>
-              <strong>Gizemli ülke</strong>
-              <small>İpuçlarından ülkeyi tahmin et</small>
+              <strong>{t('Gizemli ülke')}</strong>
+              <small>{t('İpuçlarından ülkeyi tahmin et')}</small>
               <span className="aa-mode-arrow" aria-hidden="true"><ArrowRight className="h-4 w-4" /></span>
             </button>
           </div>
@@ -232,11 +241,11 @@ export function StartScreen({
               <span aria-hidden="true" className="grid h-[72px] w-[72px] shrink-0 place-items-center rounded-[18px] border border-white/20 bg-emerald-200/20 text-[32px] shadow-inner">🚁</span>
               <span className="min-w-0 flex-1">
                 <small className="block text-[10px] font-black tracking-[.08em] text-emerald-200">
-                  ÜCRETSİZ DENEME · 5 HAVA PANORAMASI
+                  {t('ÜCRETSİZ DENEME · 5 HAVA PANORAMASI')}
                 </small>
-                <strong className="mt-1 block text-lg font-black leading-tight">Drone'dan Konumu Bul</strong>
+                <strong className="mt-1 block text-lg font-black leading-tight">{t("Drone'dan Konumu Bul")}</strong>
                 <span className="mt-1 block text-[11px] font-semibold leading-4 text-blue-100">
-                  Havadan 360° bak, haritada tahmin et, kilometreyi öğren!
+                  {t('Havadan 360° bak, haritada tahmin et, kilometreyi öğren!')}
                 </span>
               </span>
               <ChevronRight className="h-6 w-6 shrink-0" />
@@ -247,31 +256,31 @@ export function StartScreen({
             <button type="button" onClick={startStreet} className="street-entry-main flex w-full items-center gap-3 text-left">
               <span className="street-entry-art" aria-hidden="true"><Camera className="h-9 w-9" strokeWidth={1.7}/><span>📍</span></span>
               <span className="min-w-0 flex-1">
-                <small className="street-entry-kicker">360° PANORAMA · ARŞİV HAZIRLANIYOR</small>
-                <strong className="mt-1 block text-lg font-black leading-tight">Sokak Dedektifi</strong>
-                <span className="mt-1 block text-[11px] font-semibold leading-4">Lisanslı panoramalar geliyor; dünyada yerini bul!</span>
+                <small className="street-entry-kicker">{t('360° PANORAMA · ARŞİV HAZIRLANIYOR')}</small>
+                <strong className="mt-1 block text-lg font-black leading-tight">{t('Sokak Dedektifi')}</strong>
+                <span className="mt-1 block text-[11px] font-semibold leading-4">{t('Lisanslı panoramalar geliyor; dünyada yerini bul!')}</span>
               </span>
               <ChevronRight className="h-6 w-6 shrink-0 text-white"/>
             </button>
             <button type="button" onClick={onStreetLeaderboard} className="street-entry-league flex w-full items-center justify-between gap-2 px-4 py-2.5 text-xs font-bold">
-              <span className="flex items-center gap-2"><Trophy className="h-4 w-4"/> Sokak Dedektifi dünya sıralaması</span>
+              <span className="flex items-center gap-2"><Trophy className="h-4 w-4"/> {t('Sokak Dedektifi dünya sıralaması')}</span>
               <ArrowRight className="h-4 w-4"/>
             </button>
           </div>
         </motion.section>
 
         <motion.section {...entrance(3)} className="mt-5">
-          <h2 className="aa-section-heading">Her gün yeni bir macera</h2>
+          <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
           <div className="aa-quick-grid mt-2 grid grid-cols-2 gap-3">
             <button type="button" onClick={onDaily} className="aa-quick aa-daily">
               <CalendarCheck className="h-6 w-6 text-amber-200" />
-              <strong>Günlük 10 soru</strong>
-              <small>{completed}/{DAILY_TOTAL} tamamlandı</small>
+              <strong>{t('Günlük 10 soru')}</strong>
+              <small>{completed}/{DAILY_TOTAL} {t('tamamlandı')}</small>
             </button>
             <button type="button" onClick={onExplore} className="aa-quick aa-map">
               <MapPinned className="h-6 w-6 text-cyan-200" />
-              <strong>Keşif haritası</strong>
-              <small>{found}/{VALID_COUNTRY_IDS.length} ülke keşfedildi</small>
+              <strong>{t('Keşif haritası')}</strong>
+              <small>{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</small>
             </button>
           </div>
         </motion.section>
@@ -281,21 +290,21 @@ export function StartScreen({
           className="aa-league mt-3 flex w-full items-center gap-3 text-left">
           <span className="aa-league-icon"><Trophy className="h-6 w-6" /></span>
           <span className="min-w-0 flex-1">
-            <strong>Haftalık sıralama</strong>
-            <small>{leaderboard.length ? 'Zirvedeki oyuncuları gör' : 'Arkadaşlarınla yarış, zirveye çık'}</small>
+            <strong>{t('Haftalık sıralama')}</strong>
+            <small>{leaderboard.length ? t('Zirvedeki oyuncuları gör') : t('Arkadaşlarınla yarış, zirveye çık')}</small>
           </span>
           <ChevronRight className="h-5 w-5 shrink-0" />
         </motion.button>
 
         {leaderboardError && (
           <p className="mt-2 text-center text-[11px] text-blue-200/70">
-            <Flag className="mr-1 inline h-3 w-3" /> Çevrim içi sıralama şu an görüntülenemiyor.
+            <Flag className="mr-1 inline h-3 w-3" /> {t('Çevrim içi sıralama şu an görüntülenemiyor.')}
           </p>
         )}
         {Capacitor.isNativePlatform() && onAdPrivacy && (
           <button type="button" onClick={onAdPrivacy}
             className="mx-auto mt-4 flex items-center gap-1.5 px-3 py-2 text-xs text-slate-300">
-            <ShieldCheck className="h-4 w-4" /> Reklam gizlilik tercihleri
+            <ShieldCheck className="h-4 w-4" /> {t('Reklam gizlilik tercihleri')}
           </button>
         )}
       </main>
