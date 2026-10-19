@@ -62,13 +62,13 @@ def batch(texts,target):
 def source_geographic_facts():
     # Street facts are an approved, versioned JSON catalogue.
     street = Path('server/street/approved.mjs').read_text(encoding='utf-8')
-    match = re.search(r'export const approvedPanoramas\\s*=\\s*(\\[[\\s\\S]*?\\]);', street)
+    match = re.search(r'export const approvedPanoramas\s*=\s*(\[[\s\S]*?\]);', street)
     if not match:
         raise ValueError('Approved street facts not found')
     street_facts = [row['fact'] for row in json.loads(match.group(1))]
     # Drone facts are five literal strings within the reviewed pilot catalogue.
     drone = Path('src/data/dronePanoramas.ts').read_text(encoding='utf-8')
-    drone_facts = re.findall(r"\\bfact:\\s*'([^'\\n]+)'", drone)
+    drone_facts = re.findall(r"\bfact:\s*'([^'\n]+)'", drone)
     if len(street_facts) != 37 or len(drone_facts) != 5:
         raise ValueError(f'Expected 37+5 reviewed location facts; got {len(street_facts)}+{len(drone_facts)}')
     return list(dict.fromkeys(street_facts + drone_facts))
