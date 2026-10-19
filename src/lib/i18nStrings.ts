@@ -301,7 +301,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Kazanıldı": "Earned",
     "Kilitli": "Locked",
     "Daha az": "Show less",
-    "Tümünü gör": "See all"
+    "Tümünü gör": "See all",
+    "Günlük ilerleme": "Daily progress"
   },
   "es": {
     "Dil": "Idioma",
@@ -599,7 +600,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Kazanıldı": "Conseguido",
     "Kilitli": "Bloqueado",
     "Daha az": "Ver menos",
-    "Tümünü gör": "Ver todo"
+    "Tümünü gör": "Ver todo",
+    "Günlük ilerleme": "Progreso diario"
   },
   "de": {
     "Dil": "Sprache",
@@ -897,7 +899,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Kazanıldı": "Erhalten",
     "Kilitli": "Gesperrt",
     "Daha az": "Weniger",
-    "Tümünü gör": "Alle anzeigen"
+    "Tümünü gör": "Alle anzeigen",
+    "Günlük ilerleme": "Täglicher Fortschritt"
   },
   "fr": {
     "Dil": "Langue",
@@ -1195,7 +1198,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Kazanıldı": "Obtenu",
     "Kilitli": "Verrouillé",
     "Daha az": "Voir moins",
-    "Tümünü gör": "Tout voir"
+    "Tümünü gör": "Tout voir",
+    "Günlük ilerleme": "Progression quotidienne"
   },
   "pt": {
     "Dil": "Idioma",
@@ -1493,7 +1497,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Kazanıldı": "Conquistado",
     "Kilitli": "Bloqueado",
     "Daha az": "Ver menos",
-    "Tümünü gör": "Ver todos"
+    "Tümünü gör": "Ver todos",
+    "Günlük ilerleme": "Progresso diário"
   },
   "ru": {
     "Dil": "Язык",
@@ -1791,7 +1796,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Kazanıldı": "Получено",
     "Kilitli": "Закрыто",
     "Daha az": "Свернуть",
-    "Tümünü gör": "Показать все"
+    "Tümünü gör": "Показать все",
+    "Günlük ilerleme": "Ежедневный прогресс"
   },
   "zh": {
     "Dil": "语言",
@@ -2089,7 +2095,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Kazanıldı": "已获得",
     "Kilitli": "未解锁",
     "Daha az": "收起",
-    "Tümünü gör": "查看全部"
+    "Tümünü gör": "查看全部",
+    "Günlük ilerleme": "每日进度"
   },
   "ja": {
     "Dil": "言語",
@@ -2387,6 +2394,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Kazanıldı": "獲得済み",
     "Kilitli": "未解放",
     "Daha az": "閉じる",
-    "Tümünü gör": "すべて表示"
+    "Tümünü gör": "すべて表示",
+    "Günlük ilerleme": "デイリー進捗"
   }
 };
