@@ -71,4 +71,15 @@ export function distanceKm(a, b) {
     Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLon / 2) ** 2;
   return 6371.0088 * 2 * Math.atan2(Math.sqrt(q), Math.sqrt(Math.max(0, 1 - q)));
 }
-export const scoreKm = km => Math.max(0, Math.min(MAX_PER_ROUND, Math.round(MAX_PER_ROUND * Math.exp(-km / 1100))));
+export const scoreKm = km => {
+  if(!Number.isFinite(km)||km<0)return 0;
+  const steps=[[0,5000],[10,4900],[50,4500],[100,4000],[250,3000],[500,1800],[1000,600],[2000,100],[3000,0]];
+  for(let i=1;i<steps.length;i++){
+    const [maxKm,maxPoints]=steps[i];
+    if(km<=maxKm){
+      const [minKm,minPoints]=steps[i-1];
+      return Math.round(minPoints+(maxPoints-minPoints)*(km-minKm)/(maxKm-minKm));
+    }
+  }
+  return 0;
+};
