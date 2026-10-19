@@ -2,6 +2,7 @@ import type { CountryClueCard } from '@/data/countryClues';
 import { COUNTRY_DATA } from '@/data/countries';
 import type { Language } from './i18nStrings';
 import { localizedCapitalName } from './capitalLanguage';
+import { localizedClueFeature } from './clueLandmarks';
 
 // Localised geographic clue cards: one regional clue, one distinguishing
 // landmark/cultural clue and one progressively revealing capital clue.
@@ -64,9 +65,9 @@ const templates:Record<Exclude<Language,'tr'>,{
   en:{region:r=>`This country is in ${r}.`,landmark:f=>`It is known for ${f}.`,capital:c=>`Its capital is ${c}.`,fact:(r,f)=>`Located in ${r}, this country is associated with ${f}.`},
   es:{region:r=>`Este país está en ${r}.`,landmark:f=>`Es conocido por ${f}.`,capital:c=>`Su capital es ${c}.`,fact:(r,f)=>`Este país de ${r} es conocido por ${f}.`},
   de:{region:r=>`Dieses Land liegt in ${r}.`,landmark:f=>`Es ist bekannt für ${f}.`,capital:c=>`Die Hauptstadt ist ${c}.`,fact:(r,f)=>`Dieses Land in ${r} ist für ${f} bekannt.`},
-  fr:{region:r=>`Ce pays se situe en ${r}.`,landmark:f=>`Il est connu pour ${f}.`,capital:c=>`Sa capitale est ${c}.`,fact:(r,f)=>`Ce pays situé en ${r} est connu pour ${f}.`},
-  pt:{region:r=>`Este país fica na região de ${r}.`,landmark:f=>`É conhecido por ${f}.`,capital:c=>`Sua capital é ${c}.`,fact:(r,f)=>`Este país de ${r} é conhecido por ${f}.`},
-  ru:{region:r=>`Эта страна находится в ${r}.`,landmark:f=>`Она известна благодаря ${f}.`,capital:c=>`Её столица — ${c}.`,fact:(r,f)=>`Страна расположена в ${r} и известна благодаря ${f}.`},
+  fr:{region:r=>`Région du monde : ${r}.`,landmark:f=>`Il est connu pour ${f}.`,capital:c=>`Sa capitale est ${c}.`,fact:(r,f)=>`Région : ${r}. Élément célèbre : ${f}.`},
+  pt:{region:r=>`Região do mundo: ${r}.`,landmark:f=>`Uma pista importante: ${f}.`,capital:c=>`Sua capital é ${c}.`,fact:(r,f)=>`Região: ${r}. Elemento conhecido: ${f}.`},
+  ru:{region:r=>`Эта страна находится в ${r}.`,landmark:f=>`Её отличительная особенность — ${f}.`,capital:c=>`Её столица — ${c}.`,fact:(r,f)=>`Страна расположена в ${r}. Известная особенность — ${f}.`},
   zh:{region:r=>`这个国家位于${r}。`,landmark:f=>`这里以${f}闻名。`,capital:c=>`首都是${c}。`,fact:(r,f)=>`这个位于${r}的国家因${f}而闻名。`},
   ja:{region:r=>`この国は${r}にあります。`,landmark:f=>`${f}で知られています。`,capital:c=>`首都は${c}です。`,fact:(r,f)=>`${r}に位置し、${f}で知られる国です。`}
 };
@@ -78,10 +79,11 @@ export function localizedClueCard(card:CountryClueCard,language:Language):Countr
   if(!signal||!meta)return card; // explicitly audited in test scripts
   const region=regions[language][signal.region], t=templates[language];
   const capital=localizedCapitalName(meta.capitalTr,language);
+  const feature=localizedClueFeature(card.countryId,language,signal.feature);
   return {
     ...card,
-    clues:[t.region(region),t.landmark(signal.feature),t.capital(capital)],
-    fact:t.fact(region,signal.feature)
+    clues:[t.region(region),t.landmark(feature),t.capital(capital)],
+    fact:t.fact(region,feature)
   };
 }
 export const localizedClueIds=Object.keys(signals);
