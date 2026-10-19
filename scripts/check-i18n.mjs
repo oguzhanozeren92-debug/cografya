@@ -41,9 +41,9 @@ for(const lang of ['es','de','fr','pt','ru','zh','ja']){
   if(parts.length!==63||parts.some(x=>!x.trim()))throw new Error(lang+': missing landmark translations.');
 }
 const streetSource=read('server/street/approved.mjs');
-const streetMatch=streetSource.match(/export const approvedPanoramas\\s*=\\s*(\\[[\\s\\S]*?\\]);/);
+const streetMatch=streetSource.match(/export const approvedPanoramas\s*=\s*(\[[\s\S]*?\]);/);
 const streetFacts=JSON.parse(streetMatch?.[1]??'[]').map(row=>row.fact);
-const droneFacts=[...read('src/data/dronePanoramas.ts').matchAll(/\\bfact:\\s*'([^'\\n]+)'/g)].map(m=>m[1]);
+const droneFacts=[...read('src/data/dronePanoramas.ts').matchAll(/\bfact:\s*'([^'\n]+)'/g)].map(m=>m[1]);
 if(streetFacts.length!==37||droneFacts.length!==5)throw new Error('Expected 42 geolocated source facts.');
 for(const fact of [...streetFacts,...droneFacts]){
   for(const language of languages){
