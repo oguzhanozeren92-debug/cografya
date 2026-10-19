@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2, Compass, MapPin, RefreshCcw, Trophy, X } from 'lucide-react';
 import { type StreetRound, type PanoramaMedia } from '@/components/StreetPanorama';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
-import { StreetWorldMap } from '@/components/StreetWorldMap';
+import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
 import { haversineKm, locationPoints, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
@@ -220,6 +220,11 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
                     <p className="text-[32px] font-black text-[#ffbb91]">{formatKm(distance)} km</p>
                     <p className="text-[25px] font-black text-[#8df3c0]">+{roundPoints.toLocaleString('tr-TR')} puan</p>
                     <p className="pt-1 text-base font-black">{current.city}, {current.country}</p>
+                    {guessedCorrectCountry(guess,current.country)!==null&&(
+                      <p className="text-sm font-bold text-[#ffdc95]">
+                        {guessedCorrectCountry(guess,current.country)?'Ülkeyi doğru buldun!':'Ülke tahminin farklı çıktı.'}
+                      </p>
+                    )}
                     <p className="text-xs leading-5 text-blue-100/75">{current.fact}</p>
                     <p className="pt-3 text-[11px] leading-5 text-blue-100/70">
                       Fotoğraf: {current.artist} · <a href={current.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{current.license}</a>
