@@ -41,7 +41,7 @@ function PodiumPlayer({ entry, place }: { entry: WeeklyLeaderboardEntry | undefi
         </div>
       </div>
       <div className="mt-4 min-h-[43px] px-1 text-center">
-        <div className="truncate text-[13px] font-extrabold text-white sm:text-sm">{entry?.player_name ?? 'Yerini al'}</div>
+        <div className="truncate text-[13px] font-extrabold text-white sm:text-sm">{entry?.player_name ?? t('Yerini al')}</div>
         <div className="mt-0.5 text-xs font-bold text-amber-100/75">{entry ? number.format(entry.score) : '—'} <span className="font-medium">{t('puan')}</span></div>
       </div>
       <div className={'podium-stand podium-stand-' + shade}>
@@ -97,7 +97,7 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
             <ArrowLeft className="h-4 w-4" /><span className="text-xs font-bold tracking-wide">{t('GERİ DÖN')}</span>
           </button>
           <span className="flex items-center gap-2 text-[10px] font-extrabold tracking-[.23em] text-blue-200/75">
-            {mode === 'flags' ? <Flag className="h-4 w-4 text-amber-300" /> : mode === 'clues' ? <Lightbulb className="h-4 w-4 text-violet-300" /> : <Globe2 className="h-4 w-4 text-cyan-300" />} {mode === 'flags' ? 'BAYRAK LİGİ' : mode === 'clues' ? 'İPUCU LİGİ' : 'DÜNYA LİGİ'}
+            {mode === 'flags' ? <Flag className="h-4 w-4 text-amber-300" /> : mode === 'clues' ? <Lightbulb className="h-4 w-4 text-violet-300" /> : <Globe2 className="h-4 w-4 text-cyan-300" />} {t(mode === 'flags' ? 'BAYRAK LİGİ' : mode === 'clues' ? 'İPUCU LİGİ' : 'DÜNYA LİGİ')}
           </span>
           <button onClick={() => setRefresh(v => v + 1)} className="weekly-nav-button" aria-label={t("Sıralamayı yenile")}>
             <RefreshCw className={'h-4 w-4' + (loading ? ' animate-spin' : '')} />
@@ -114,24 +114,24 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
             <div className="mt-5 flex items-start gap-3">
               <div className="weekly-cup-emblem shrink-0"><Trophy className="h-8 w-8 text-amber-100" strokeWidth={1.8} /></div>
               <div className="max-w-[285px]">
-                <h1 className="text-[27px] font-black leading-[1.08] tracking-tight text-white sm:text-4xl">HAFTALIK<br /><span className="weekly-gold-text">{mode === 'flags' ? 'BAYRAK LİGİ' : mode === 'clues' ? 'İPUCU LİGİ' : 'KARIŞIK LİG'}</span></h1>
+                <h1 className="text-[27px] font-black leading-[1.08] tracking-tight text-white sm:text-4xl">{t('HAFTALIK')}<br /><span className="weekly-gold-text">{t(mode === 'flags' ? 'BAYRAK LİGİ' : mode === 'clues' ? 'İPUCU LİGİ' : 'KARIŞIK LİG')}</span></h1>
                 <p className="mt-3 max-w-xs text-xs leading-relaxed text-blue-100/85 sm:text-sm">{t(mode === 'flags' ? 'Bayrakları tanı, puanını yükselt ve Bayrak Ligi şampiyonu ol.' : mode === 'clues' ? 'İpuçlarını çöz, gizemli ülkeleri keşfet ve İpucu Ligi şampiyonu ol.' : 'Ülkeler, başkentler ve bayraklar: hepsi tek yarışta. Dünya liginde zirveye çık.')}</p>
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-2">
               <span className="weekly-hero-pill"><CalendarDays className="h-3.5 w-3.5" /> {dateLabel}</span>
-              {weekOffset === 0 && <span className="weekly-hero-pill"><Timer className="h-3.5 w-3.5 text-amber-300" /> {getTimeToReset()} kaldı</span>}
-              <span className="weekly-hero-pill"><Users className="h-3.5 w-3.5" /> {rows.length > 99 ? '100+' : rows.length} oyuncu listede</span>
+              {weekOffset === 0 && <span className="weekly-hero-pill"><Timer className="h-3.5 w-3.5 text-amber-300" /> {getTimeToReset()} {t('kaldı')}</span>}
+              <span className="weekly-hero-pill"><Users className="h-3.5 w-3.5" /> {rows.length > 99 ? '100+' : rows.length} {t('oyuncu listede')}</span>
             </div>
           </div>
         </section>
 
-        <div className="mt-5 grid grid-cols-3 gap-1 rounded-2xl border border-amber-300/20 bg-[#071b35] p-1.5" role="tablist" aria-label="Haftalık lig türü">
-          <button type="button" role="tab" aria-selected={mode === 'mixed'} onClick={() => setMode('mixed')} className={'weekly-tab ' + (mode === 'mixed' ? 'weekly-tab-selected' : '')}><Globe2 className="h-4 w-4" /> Karışık</button>
-          <button type="button" role="tab" aria-selected={mode === 'flags'} onClick={() => setMode('flags')} className={'weekly-tab ' + (mode === 'flags' ? 'weekly-tab-selected' : '')}><Flag className="h-4 w-4" /> Bayrak</button>
-          <button type="button" role="tab" aria-selected={mode === 'clues'} onClick={() => setMode('clues')} className={'weekly-tab ' + (mode === 'clues' ? 'weekly-tab-selected' : '')}><Lightbulb className="h-4 w-4" /> İpucu</button>
+        <div className="mt-5 grid grid-cols-3 gap-1 rounded-2xl border border-amber-300/20 bg-[#071b35] p-1.5" role="tablist" aria-label={t("Haftalık lig türü")}>
+          <button type="button" role="tab" aria-selected={mode === 'mixed'} onClick={() => setMode('mixed')} className={'weekly-tab ' + (mode === 'mixed' ? 'weekly-tab-selected' : '')}><Globe2 className="h-4 w-4" /> {t('Karışık')}</button>
+          <button type="button" role="tab" aria-selected={mode === 'flags'} onClick={() => setMode('flags')} className={'weekly-tab ' + (mode === 'flags' ? 'weekly-tab-selected' : '')}><Flag className="h-4 w-4" /> {t('Bayrak')}</button>
+          <button type="button" role="tab" aria-selected={mode === 'clues'} onClick={() => setMode('clues')} className={'weekly-tab ' + (mode === 'clues' ? 'weekly-tab-selected' : '')}><Lightbulb className="h-4 w-4" /> {t('İpucu')}</button>
         </div>
-        <div className="mt-3 grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/5 p-1.5" role="tablist" aria-label="Sıralama haftası">
+        <div className="mt-3 grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/5 p-1.5" role="tablist" aria-label={t("Sıralama haftası")}>
           <button type="button" role="tab" aria-selected={weekOffset === 0} onClick={() => setWeekOffset(0)} className={'weekly-tab' + (weekOffset === 0 ? ' weekly-tab-selected' : '')}>{t('Bu Hafta')} <ArrowUpRight className="h-4 w-4" /></button>
           <button type="button" role="tab" aria-selected={weekOffset === -1} onClick={() => setWeekOffset(-1)} className={'weekly-tab' + (weekOffset === -1 ? ' weekly-tab-selected' : '')}>{t('Geçen Hafta')} <Medal className="h-4 w-4" /></button>
         </div>
@@ -140,7 +140,7 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
           <div className="weekly-stage-grid" aria-hidden="true" />
           <div className="relative z-10 flex items-center justify-center gap-2 text-center text-[11px] font-black tracking-[.2em] text-amber-200"><Crown className="h-4 w-4" /> {t('ŞAMPİYONLAR PODYUMU')} <Crown className="h-4 w-4" /></div>
           {loading ? (
-            <div className="flex h-56 items-center justify-center gap-3 text-slate-300"><RefreshCw className="h-5 w-5 animate-spin text-cyan-300" /> Podyum hazırlanıyor...</div>
+            <div className="flex h-56 items-center justify-center gap-3 text-slate-300"><RefreshCw className="h-5 w-5 animate-spin text-cyan-300" /> {t('Podyum hazırlanıyor...')}</div>
           ) : error ? (
             <div className="flex min-h-[225px] flex-col items-center justify-center gap-3 text-center"><Shield className="h-11 w-11 text-amber-300" /><p className="max-w-[275px] text-sm leading-relaxed text-slate-300">{error}</p><button onClick={() => setRefresh(v => v + 1)} className="rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold">Yeniden Dene</button></div>
           ) : (
@@ -155,7 +155,7 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
         <section className="weekly-me mt-5 overflow-hidden rounded-2xl border border-cyan-300/25 p-4 sm:p-5">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3"><div className="weekly-me-icon"><Target className="h-6 w-6 text-cyan-100" /></div><div><p className="text-[10px] font-bold tracking-[.16em] text-cyan-200">{t('SENİN SIRAN')}</p><p className="mt-1 truncate text-sm font-bold text-white">{playerName || 'Yeni gezgin'}</p></div></div>
-            <div className="text-right"><p className="text-2xl font-black text-white">{mine ? '#' + number.format(mine.rank) : '—'}</p><p className="text-[10px] text-blue-200/65">{mode === 'flags' ? 'Bayrak ligi' : mode === 'clues' ? 'İpucu ligi' : 'Karışık lig'}</p></div>
+            <div className="text-right"><p className="text-2xl font-black text-white">{mine ? '#' + number.format(mine.rank) : '—'}</p><p className="text-[10px] text-blue-200/65">{mode === 'flags' ? t('Bayrak ligi') : mode === 'clues' ? t('İpucu ligi') : t('Karışık lig')}</p></div>
           </div>
           <div className="mt-4 grid grid-cols-3 divide-x divide-white/10 rounded-xl border border-white/10 bg-black/20 py-3 text-center">
             <div><div className="text-lg font-black text-amber-200">{number.format(mine?.entry.score ?? 0)}</div><div className="text-[10px] text-slate-300">{t('Haftalık puan')}</div></div>
@@ -166,7 +166,7 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
         </section>
 
         <section className="mt-6 rounded-[24px] border border-white/10 bg-[#111a35]/80 p-4 sm:p-5">
-          <div className="mb-4 flex items-center justify-between"><div className="flex items-center gap-2"><Award className="h-5 w-5 text-amber-300" /><h2 className="text-base font-extrabold">{t('Tüm Sıralama')}</h2></div><span className="text-[10px] font-bold tracking-wider text-slate-400">İLK 100</span></div>
+          <div className="mb-4 flex items-center justify-between"><div className="flex items-center gap-2"><Award className="h-5 w-5 text-amber-300" /><h2 className="text-base font-extrabold">{t('Tüm Sıralama')}</h2></div><span className="text-[10px] font-bold tracking-wider text-slate-400">{t('İLK 100')}</span></div>
           {!loading && !error && rows.length === 0 && <div className="weekly-empty">{mode === 'flags' ? <Flag className="h-12 w-12 text-amber-300/70" /> : mode === 'clues' ? <Lightbulb className="h-12 w-12 text-violet-300/70" /> : <Globe2 className="h-12 w-12 text-cyan-300/70" />}<p className="mt-3 font-bold text-white">{t('İlk kaşif sen ol!')}</p><p className="mt-1 text-sm text-slate-400">{t('Bu hafta henüz kimse puan kazanmadı.')}</p></div>}
           {!loading && !error && rows.length > 0 && remaining.length === 0 && <p className="rounded-xl bg-white/5 p-4 text-center text-xs text-slate-400">{t('İlk üç oyuncu yukarıdaki podyumda. Yeni rakipler bu listede belirecek.')}</p>}
           {!loading && !error && remaining.length > 0 && <div className="space-y-2">
@@ -174,7 +174,7 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
               <div key={entry.id} className={'weekly-ranking-row' + (mine?.entry.player_id === entry.player_id ? ' weekly-ranking-self' : '')}>
                 <span className="w-8 shrink-0 text-center text-sm font-black text-slate-300">{index + 4}</span>
                 <div className="weekly-mini-avatar">{shortName(entry.player_name)}</div>
-                <div className="min-w-0 flex-1"><div className="truncate text-sm font-bold text-white">{entry.player_name}</div><div className="text-[10px] text-slate-400">{entry.correct_answers} doğru • {entry.games_played} oyun</div></div>
+                <div className="min-w-0 flex-1"><div className="truncate text-sm font-bold text-white">{entry.player_name}</div><div className="text-[10px] text-slate-400">{entry.correct_answers} {t('doğru')} • {entry.games_played} {t('oyun')}</div></div>
                 <span className="shrink-0 text-sm font-black text-amber-100">{number.format(entry.score)}</span>
                 <ChevronRight className="h-4 w-4 shrink-0 text-white/20" />
               </div>
@@ -182,10 +182,10 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
           </div>}
         </section>
 
-        {weekOffset === 0 && <div className="mt-5 rounded-2xl border border-violet-300/20 bg-violet-400/5 p-4 text-center text-xs leading-relaxed text-slate-300"><Sparkles className="mr-1 inline h-4 w-4 text-violet-300" /> Her pazartesi UTC 00.00'da yeni bir hafta başlar. Geçmiş şampiyonlar kaybolmaz.</div>}
-        <button disabled={!playerName.trim()} onClick={() => onPlay(mode)} className="weekly-play-button mt-5 flex w-full items-center justify-center gap-3 rounded-2xl px-5 py-4 text-sm font-black tracking-wide disabled:cursor-not-allowed disabled:opacity-50"><Rocket className="h-5 w-5" /> {mode === 'flags' ? 'BAYRAK LİGİNDE OYNA' : mode === 'clues' ? 'İPUCU LİGİNDE OYNA' : 'KARIŞIK LİGDE OYNA'} <ArrowUpRight className="h-5 w-5" /></button>
+        {weekOffset === 0 && <div className="mt-5 rounded-2xl border border-violet-300/20 bg-violet-400/5 p-4 text-center text-xs leading-relaxed text-slate-300"><Sparkles className="mr-1 inline h-4 w-4 text-violet-300" /> {t("Her pazartesi UTC 00.00'da yeni bir hafta başlar. Geçmiş şampiyonlar kaybolmaz.")}</div>}
+        <button disabled={!playerName.trim()} onClick={() => onPlay(mode)} className="weekly-play-button mt-5 flex w-full items-center justify-center gap-3 rounded-2xl px-5 py-4 text-sm font-black tracking-wide disabled:cursor-not-allowed disabled:opacity-50"><Rocket className="h-5 w-5" /> {mode === 'flags' ? t('BAYRAK LİGİNDE OYNA') : mode === 'clues' ? t('İPUCU LİGİNDE OYNA') : t('KARIŞIK LİGDE OYNA')} <ArrowUpRight className="h-5 w-5" /></button>
         {!playerName.trim() && <p className="mt-2 text-center text-xs text-amber-300">Oynamak için geri dönüp bir takma ad seç.</p>}
-        <div className="mt-5 flex items-center justify-center gap-2 text-[10px] text-slate-500"><Shield className="h-3.5 w-3.5" /> Şifresiz oyuncu sistemi • Atlas Arena</div>
+        <div className="mt-5 flex items-center justify-center gap-2 text-[10px] text-slate-500"><Shield className="h-3.5 w-3.5" /> {t('Şifresiz oyuncu sistemi • Atlas Arena')}</div>
       </div>
     </div>
   );
