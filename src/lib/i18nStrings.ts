@@ -206,7 +206,16 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Keşif Rozetleri": "Discovery badges",
     "Keşfettiklerin": "Your discoveries",
     "Henüz keşfedilmiş ülke yok. İlk ülkeni doğru bilerek haritanı renklendir!": "No countries discovered yet. Guess your first country correctly!",
-    "Günlük 10 Soruyu Oyna": "Play today's 10 questions"
+    "Günlük 10 Soruyu Oyna": "Play today's 10 questions",
+    "Haftalık sıralama verileri alınamadı. Supabase bağlantısını ve haftalık tablo kurulumunu kontrol et.": "Weekly rankings could not be loaded. Check the leaderboard connection.",
+    "Doğru! Haritanda yeni bir ülke keşfettin.": "Correct! You discovered another country.",
+    "Doğru cevap:": "Correct answer:",
+    "Yeni gün başladı! Ana menüye dönüp günlük görevi yeniden aç.": "A new day has started. Return to the menu to open today's challenge.",
+    "Havadan keşfet · Dünyada işaretle": "Explore from above · Pin the location",
+    "Tekrar uç": "Fly again",
+    "Sıralama okunamadı.": "Leaderboard could not be loaded.",
+    "Dünya Ligi": "World League",
+    "Gezgin": "Explorer"
   },
   "es": {
     "Dil": "Idioma",
@@ -265,7 +274,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Bu Hafta": "Esta semana",
     "Tüm Zamanlar": "De todos los tiempos",
     "Haftalık Dünya Sıralaması": "Clasificación mundial semanal",
-    "Dünya Ligi": "Liga mundial",
+    "Dünya Ligi": "Liga Mundial",
     "Yeni dünya turu": "Nueva vuelta al mundo",
     "Dünya turunu tamamladın!": "¡Vuelta al mundo completada!",
     "Dron Dedektifi": "Detective aéreo",
@@ -279,7 +288,15 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Oyuna dön": "Volver al juego",
     "Ana Menüye Dön": "Volver al menú",
     "Yeni tur başlat": "Nueva partida",
-    "Soru": "Pregunta"
+    "Soru": "Pregunta",
+    "Haftalık sıralama verileri alınamadı. Supabase bağlantısını ve haftalık tablo kurulumunu kontrol et.": "No se pudo cargar la clasificación semanal.",
+    "Doğru! Haritanda yeni bir ülke keşfettin.": "¡Correcto! Descubriste otro país.",
+    "Doğru cevap:": "Respuesta correcta:",
+    "Yeni gün başladı! Ana menüye dönüp günlük görevi yeniden aç.": "Comenzó un nuevo día. Vuelve al menú para el reto diario.",
+    "Havadan keşfet · Dünyada işaretle": "Explora desde arriba · Marca el lugar",
+    "Tekrar uç": "Volar de nuevo",
+    "Sıralama okunamadı.": "No se pudo cargar la clasificación.",
+    "Gezgin": "Explorador"
   },
   "de": {
     "Dil": "Sprache",
@@ -351,7 +368,15 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Oyuna dön": "Zurück zum Spiel",
     "Ana Menüye Dön": "Zum Hauptmenü",
     "Yeni tur başlat": "Neue Runde",
-    "Soru": "Frage"
+    "Soru": "Frage",
+    "Haftalık sıralama verileri alınamadı. Supabase bağlantısını ve haftalık tablo kurulumunu kontrol et.": "Die Wochenrangliste konnte nicht geladen werden.",
+    "Doğru! Haritanda yeni bir ülke keşfettin.": "Richtig! Du hast ein weiteres Land entdeckt.",
+    "Doğru cevap:": "Richtige Antwort:",
+    "Yeni gün başladı! Ana menüye dönüp günlük görevi yeniden aç.": "Ein neuer Tag beginnt. Öffne die Tagesaufgabe erneut über das Menü.",
+    "Havadan keşfet · Dünyada işaretle": "Von oben erkunden · Ort markieren",
+    "Tekrar uç": "Erneut fliegen",
+    "Sıralama okunamadı.": "Rangliste konnte nicht geladen werden.",
+    "Gezgin": "Entdecker"
   },
   "fr": {
     "Dil": "Langue",
@@ -423,7 +448,15 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Oyuna dön": "Retour au jeu",
     "Ana Menüye Dön": "Retour au menu",
     "Yeni tur başlat": "Nouvelle partie",
-    "Soru": "Question"
+    "Soru": "Question",
+    "Haftalık sıralama verileri alınamadı. Supabase bağlantısını ve haftalık tablo kurulumunu kontrol et.": "Impossible de charger le classement hebdomadaire.",
+    "Doğru! Haritanda yeni bir ülke keşfettin.": "Bravo ! Tu as découvert un autre pays.",
+    "Doğru cevap:": "Bonne réponse :",
+    "Yeni gün başladı! Ana menüye dönüp günlük görevi yeniden aç.": "Une nouvelle journée commence. Retourne au menu pour le défi du jour.",
+    "Havadan keşfet · Dünyada işaretle": "Explore du ciel · Place ton repère",
+    "Tekrar uç": "Repartir en vol",
+    "Sıralama okunamadı.": "Impossible de charger le classement.",
+    "Gezgin": "Explorateur"
   },
   "pt": {
     "Dil": "Idioma",
@@ -481,7 +514,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Bu Hafta": "Esta semana",
     "Tüm Zamanlar": "Todos os tempos",
     "Haftalık Dünya Sıralaması": "Ranking mundial semanal",
-    "Dünya Ligi": "Liga mundial",
+    "Dünya Ligi": "Liga Mundial",
     "Yeni dünya turu": "Nova volta ao mundo",
     "Dünya turunu tamamladın!": "Volta ao mundo concluída!",
     "Dron Dedektifi": "Detetive aéreo",
@@ -495,7 +528,15 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Oyuna dön": "Voltar ao jogo",
     "Ana Menüye Dön": "Voltar ao menu",
     "Yeni tur başlat": "Nova rodada",
-    "Soru": "Pergunta"
+    "Soru": "Pergunta",
+    "Haftalık sıralama verileri alınamadı. Supabase bağlantısını ve haftalık tablo kurulumunu kontrol et.": "Não foi possível carregar o ranking semanal.",
+    "Doğru! Haritanda yeni bir ülke keşfettin.": "Correto! Você descobriu outro país.",
+    "Doğru cevap:": "Resposta correta:",
+    "Yeni gün başladı! Ana menüye dönüp günlük görevi yeniden aç.": "Um novo dia começou. Volte ao menu e abra o desafio diário.",
+    "Havadan keşfet · Dünyada işaretle": "Explore do alto · Marque o local",
+    "Tekrar uç": "Voar novamente",
+    "Sıralama okunamadı.": "Não foi possível carregar o ranking.",
+    "Gezgin": "Explorador"
   },
   "ru": {
     "Dil": "Язык",
@@ -567,7 +608,15 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Oyuna dön": "Вернуться к игре",
     "Ana Menüye Dön": "В главное меню",
     "Yeni tur başlat": "Новый раунд",
-    "Soru": "Вопрос"
+    "Soru": "Вопрос",
+    "Haftalık sıralama verileri alınamadı. Supabase bağlantısını ve haftalık tablo kurulumunu kontrol et.": "Не удалось загрузить недельный рейтинг.",
+    "Doğru! Haritanda yeni bir ülke keşfettin.": "Верно! Ты открыл ещё одну страну.",
+    "Doğru cevap:": "Правильный ответ:",
+    "Yeni gün başladı! Ana menüye dönüp günlük görevi yeniden aç.": "Начался новый день. Вернись в меню и открой ежедневное задание.",
+    "Havadan keşfet · Dünyada işaretle": "Исследуй с воздуха · Отметь на карте",
+    "Tekrar uç": "Лететь снова",
+    "Sıralama okunamadı.": "Не удалось загрузить рейтинг.",
+    "Gezgin": "Путешественник"
   },
   "zh": {
     "Dil": "语言",
@@ -639,7 +688,15 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Oyuna dön": "返回游戏",
     "Ana Menüye Dön": "返回主菜单",
     "Yeni tur başlat": "开始新一轮",
-    "Soru": "题目"
+    "Soru": "题目",
+    "Haftalık sıralama verileri alınamadı. Supabase bağlantısını ve haftalık tablo kurulumunu kontrol et.": "无法加载每周排行榜。",
+    "Doğru! Haritanda yeni bir ülke keşfettin.": "回答正确！你发现了一个新国家。",
+    "Doğru cevap:": "正确答案：",
+    "Yeni gün başladı! Ana menüye dönüp günlük görevi yeniden aç.": "新的一天开始了！返回主菜单打开今日挑战。",
+    "Havadan keşfet · Dünyada işaretle": "从空中探索 · 在地图上标记",
+    "Tekrar uç": "再次飞行",
+    "Sıralama okunamadı.": "无法加载排行榜。",
+    "Gezgin": "探险家"
   },
   "ja": {
     "Dil": "言語",
@@ -711,6 +768,14 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Oyuna dön": "ゲームに戻る",
     "Ana Menüye Dön": "メニューに戻る",
     "Yeni tur başlat": "新しいラウンド",
-    "Soru": "問題"
+    "Soru": "問題",
+    "Haftalık sıralama verileri alınamadı. Supabase bağlantısını ve haftalık tablo kurulumunu kontrol et.": "週間ランキングを読み込めませんでした。",
+    "Doğru! Haritanda yeni bir ülke keşfettin.": "正解！新しい国を発見したよ。",
+    "Doğru cevap:": "正解：",
+    "Yeni gün başladı! Ana menüye dönüp günlük görevi yeniden aç.": "新しい一日が始まりました。メニューに戻り、今日のチャレンジを開いてください。",
+    "Havadan keşfet · Dünyada işaretle": "空から探索 · 地図にピンを置こう",
+    "Tekrar uç": "もう一度飛ぶ",
+    "Sıralama okunamadı.": "ランキングを読み込めませんでした。",
+    "Gezgin": "探検者"
   }
 };
