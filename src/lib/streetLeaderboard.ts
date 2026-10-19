@@ -19,7 +19,7 @@ export async function fetchStreetLeaders(period:'all'|'weekly'):Promise<StreetRa
   if(!backend)throw new Error('Sıralama sunucusu bağlı değil.');
   const table=period==='all'?'geo_street_best':'geo_street_weekly';
   let query=backend.from(table).select('player_id,player_name,score,updated_at')
-    .order('score',{ascending:false}).order('updated_at',{ascending:true}).limit(50);
+    .order('score',{ascending:false}).order('updated_at',{ascending:true}).limit(100);
   if(period==='weekly'){
     const now=new Date();
     const midnight=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());
@@ -33,6 +33,7 @@ export async function fetchStreetLeaders(period:'all'|'weekly'):Promise<StreetRa
 export async function submitStreetScore(playerName:string,score:number):Promise<void>{
   if(!backend)throw new Error('Dünya sıralaması için Supabase bağlantısı gerekiyor.');
   if(!playerName.trim())throw new Error('Dünya sıralaması için takma ad gerekiyor.');
+  if(!Number.isInteger(score)||score<0||score>25000)throw new Error('Geçersiz tur skoru.');
   await getPlayerId();
   const {error}=await backend.rpc('geo_submit_street_score',{
     p_player_name:playerName.trim().slice(0,20),p_score:score,p_rounds:5,
