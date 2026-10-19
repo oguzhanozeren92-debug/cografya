@@ -123,7 +123,7 @@ export function GameOverScreen({
           </div>
         )}
 
-        <button onClick={onExplore} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-5 py-3 font-bold text-cyan-200 hover:bg-cyan-500/20"><MapPinned className="h-5 w-5" /> Keşif Haritamı Gör</button>
+        <button onClick={onExplore} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-5 py-3 font-bold text-cyan-200 hover:bg-cyan-500/20"><MapPinned className="h-5 w-5" /> {t('Keşif Haritamı Gör')}</button>
         <button onClick={() => onViewWeekly(mode)} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-500/15 px-5 py-3 font-bold text-amber-200 hover:bg-amber-500/25"><Trophy className="h-5 w-5" />{mode === 'flags' ? t('Bayrak Ligi Sıralaması') : mode === 'clues' ? t('İpucu Ligi Sıralaması') : t('Karışık Lig Sıralaması')}</button>
         <button
           onClick={onRestart}
