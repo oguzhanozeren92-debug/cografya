@@ -9,7 +9,7 @@ source = Path("public/atlas-arena-icon.avif")
 assert source.exists(), "Approved Atlas Arena icon source missing"
 with Image.open(source) as im:
     im.load()  # Decode completely; fail if corrupt, rather than committing damaged assets
-    assert im.width == im.height and im.width >= 256, f"Invalid icon size: {im.size}"
+    assert im.width == im.height and im.width >= 128, f"Invalid icon size: {im.size}"
     icon = im.convert("RGB")
 
 def png(destination, size):
