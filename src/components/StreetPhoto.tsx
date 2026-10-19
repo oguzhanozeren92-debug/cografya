@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AlertCircle, ChevronLeft, ChevronRight, Maximize2, Minimize2, Minus, Plus, RefreshCcw, SkipForward } from 'lucide-react';
 import type { StreetRound, PanoramaMedia } from '@/components/StreetPanorama';
+import { useLanguage } from '@/lib/i18n';
 
 /**
  * Lightweight, static photo player. Uses the already-published cube-face JPEGs
@@ -33,6 +34,7 @@ export function StreetPhoto({
   onError:(message:string)=>void;
   onSkip?:()=>void;
 }) {
+  const {t}=useLanguage();
   const [face,setFace]=useState(0);
   const [retry,setRetry]=useState(0);
   const [state,setState]=useState<'loading'|'ready'|'error'>('loading');
@@ -58,7 +60,7 @@ export function StreetPhoto({
     if(state!=='loading')return;
     const timeout=setTimeout(()=>{
       setState('error');
-      const msg='Fotoğraf açılamadı. Tekrar dene veya bu turu geç.';
+      const msg=t('Fotoğraf açılamadı. Tekrar dene veya bu turu geç.');
       setFailure(msg);handlers.current.onError(msg);
     },7500);
     return()=>clearTimeout(timeout);
@@ -77,7 +79,7 @@ export function StreetPhoto({
       setState('loading');
       return;
     }
-    const msg='Fotoğraf indirilemedi. Tekrar dene veya bu turu geç.';
+    const msg=t('Fotoğraf indirilemedi. Tekrar dene veya bu turu geç.');
     setFailure(msg);setState('error');handlers.current.onError(msg);
   };
   const changeFace=(delta:number)=>{
@@ -92,7 +94,7 @@ export function StreetPhoto({
       ? 'fixed inset-0 z-[120] h-[100dvh] w-screen overflow-hidden bg-[#071426]'
       : 'relative h-full w-full overflow-hidden rounded-[20px] bg-[#112b45]'}>
       {state!=='error'&&(
-        <img key={round.id+'-'+face+'-'+retry} src={src} alt="Konumdan bir fotoğraf; çevreyi inceleyip haritada tahmin et."
+        <img key={round.id+'-'+face+'-'+retry} src={src} alt={t("Konumdan bir fotoğraf; çevreyi inceleyip haritada tahmin et.")}
           decoding="async" loading="eager" fetchPriority="high" draggable={false}
           className={fullscreen?'h-full w-full object-contain select-none transition-transform duration-150':'h-full w-full object-cover select-none'}
           style={fullscreen?{transform:'scale('+zoom+')'}:undefined}
@@ -104,30 +106,30 @@ export function StreetPhoto({
       </div>}
       {state==='ready'&&(
         <button type="button" onClick={()=>{setFullscreen(v=>!v);setZoom(1);}}
-          aria-label={fullscreen?'Tam ekrandan çık':'Fotoğrafı tam ekran göster'}
+          aria-label={t(fullscreen?'Tam ekrandan çık':'Fotoğrafı tam ekran göster')}
           className="absolute right-3 top-[max(12px,env(safe-area-inset-top))] z-30 rounded-full border border-white/30 bg-[#0b2341]/90 p-2.5 text-white">
           {fullscreen?<Minimize2 className="h-5 w-5"/>:<Maximize2 className="h-5 w-5"/>}
         </button>
       )}
       {fullscreen&&state==='ready'&&(
         <div className="absolute bottom-[max(20px,env(safe-area-inset-bottom))] left-1/2 z-30 flex -translate-x-1/2 items-center gap-3 rounded-full border border-white/20 bg-[#0b2341]/90 px-3 py-2 text-white">
-          <button type="button" aria-label="Uzaklaştır" disabled={zoom<=1} onClick={()=>setZoom(v=>Math.max(1,Math.round((v-0.25)*100)/100))} className="p-2 disabled:opacity-40"><Minus className="h-5 w-5"/></button>
+          <button type="button" aria-label={t("Uzaklaştır")} disabled={zoom<=1} onClick={()=>setZoom(v=>Math.max(1,Math.round((v-0.25)*100)/100))} className="p-2 disabled:opacity-40"><Minus className="h-5 w-5"/></button>
           <span className="min-w-[45px] text-center text-xs font-bold">{Math.round(zoom*100)}%</span>
-          <button type="button" aria-label="Yakınlaştır" disabled={zoom>=2.5} onClick={()=>setZoom(v=>Math.min(2.5,Math.round((v+0.25)*100)/100))} className="p-2 disabled:opacity-40"><Plus className="h-5 w-5"/></button>
+          <button type="button" aria-label={t("Yakınlaştır")} disabled={zoom>=2.5} onClick={()=>setZoom(v=>Math.min(2.5,Math.round((v+0.25)*100)/100))} className="p-2 disabled:opacity-40"><Plus className="h-5 w-5"/></button>
         </div>
       )}
       {state==='ready'&&round.media.mode==='multires'&&(
         <>
-          <button type="button" aria-label="Fotoğrafta sola bak" onClick={()=>changeFace(-1)}
+          <button type="button" aria-label={t("Fotoğrafta sola bak")} onClick={()=>changeFace(-1)}
             className="absolute z-20 left-2 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-[#0b2341]/75 p-2.5 text-white">
             <ChevronLeft className="h-5 w-5"/>
           </button>
-          <button type="button" aria-label="Fotoğrafta sağa bak" onClick={()=>changeFace(1)}
+          <button type="button" aria-label={t("Fotoğrafta sağa bak")} onClick={()=>changeFace(1)}
             className="absolute z-20 right-2 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-[#0b2341]/75 p-2.5 text-white">
             <ChevronRight className="h-5 w-5"/>
           </button>
           <span className="pointer-events-none absolute bottom-2 right-3 rounded-full bg-[#0b2341]/75 px-2.5 py-1 text-[10px] font-bold text-white">
-            {LABELS[face]} görünüş
+            {t(LABELS[face])} {t('görünüş')}
           </span>
         </>
       )}
@@ -137,11 +139,11 @@ export function StreetPhoto({
           <p className="text-sm font-bold text-white">{failure}</p>
           <button type="button" className="street-primary w-full max-w-[260px]"
             onClick={()=>{setRetry(x=>x+1);setFace(0);setState('loading');}}>
-            <RefreshCcw className="h-4 w-4"/> Tekrar dene
+            <RefreshCcw className="h-4 w-4"/> {t('Tekrar dene')}
           </button>
           {onSkip&&<button type="button" className="street-secondary w-full max-w-[260px]"
             onClick={()=>handlers.current.onSkip?.()}>
-            <SkipForward className="h-4 w-4"/> Bu turu geç (0 puan)
+            <SkipForward className="h-4 w-4"/> {t('Bu turu geç (0 puan)')}
           </button>}
         </div>
       )}
