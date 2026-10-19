@@ -142,13 +142,7 @@ export function StartScreen({
                 <Bell className="h-4 w-4" />
               </button>
             )}
-            <label className="relative flex h-9 max-w-[65px] shrink-0 items-center gap-1 rounded-xl border border-white/20 bg-white/10 px-1.5 text-[10px] font-extrabold text-white" title={t('Dil')}>
-              <Globe2 className="h-3.5 w-3.5 shrink-0 text-cyan-200"/>
-              <select value={language} onChange={event=>setLanguage(event.target.value as Language)}
-                aria-label={t('Dil')} className="w-[34px] min-w-0 appearance-none bg-transparent font-extrabold uppercase text-white outline-none">
-                {availableLanguages.map(([code,label])=><option key={code} value={code} className="bg-[#0c2946] text-white">{code.toUpperCase()} · {label}</option>)}
-              </select>
-            </label>
+
             <button type="button" onClick={onToggleSound}
               aria-label={soundEnabled ? t('Oyun sesini kapat') : t('Oyun sesini aç')}
               aria-pressed={soundEnabled} className="atlas-home-topbutton">
@@ -164,6 +158,15 @@ export function StartScreen({
         </header>
 
         <motion.section {...entrance(0)} className="aa-hero relative isolate overflow-hidden">
+          <div className="absolute right-3 top-3 z-30">
+            <label className="relative flex h-9 max-w-[65px] shrink-0 items-center gap-1 rounded-xl border border-white/20 bg-white/10 px-1.5 text-[10px] font-extrabold text-white" title={t('Dil')}>
+              <Globe2 className="h-3.5 w-3.5 shrink-0 text-cyan-200"/>
+              <select value={language} onChange={event=>setLanguage(event.target.value as Language)}
+                aria-label={t('Dil')} className="w-[34px] min-w-0 appearance-none bg-transparent font-extrabold uppercase text-white outline-none">
+                {availableLanguages.map(([code,label])=><option key={code} value={code} className="bg-[#0c2946] text-white">{code.toUpperCase()} · {label}</option>)}
+              </select>
+            </label>
+          </div>
           <div className="aa-hero-stars" aria-hidden="true" />
           {!reduceMotion && (
             <FxErrorBoundary>
