@@ -4,7 +4,7 @@ import type { Language } from './i18nStrings';
 // answer values or country IDs: only the labels rendered to the player.
 const englishCapitals:Record<string,string>={
   'Kabil':'Kabul','Tiran':'Tirana','Cezayir':'Algiers','Luanda':'Luanda',
-  'Bakü':'Baku','Tiran':'Tirana','Brasilya':'Brasília','Viyana':'Vienna',
+  'Bakü':'Baku','Brasilya':'Brasília','Viyana':'Vienna',
   'Dakka':'Dhaka','Erivan':'Yerevan','Brüksel':'Brussels','Thimbu':'Thimphu',
   'Saraybosna':'Sarajevo','Sofya':'Sofia','Encemine':"N'Djamena",
   'Librevil':'Libreville','Lome':'Lomé','Konakri':'Conakry',
@@ -41,7 +41,7 @@ const englishCapitals:Record<string,string>={
   'Bratislava':'Bratislava','Amsterdam':'Amsterdam',
   'Lüksemburg':'Luxembourg','Lefkoşa':'Nicosia',
   'Büyük Britanya':'London','Belgrad':'Belgrade','Zagreb':'Zagreb',
-  'Tiran':'Tirana','Bişkek':'Bishkek','Belmopan':'Belmopan',
+  'Belmopan':'Belmopan',
   'Georgetown':'Georgetown','Port of Spain':'Port of Spain',
   'Kalküta':'Kolkata','Honiara':'Honiara',
 };
