@@ -167,14 +167,14 @@ export function StreetDetectiveScreen({
           <div className="space-y-4">
             <section className="street-card p-5 text-center">
               <Medal className="mx-auto mb-3 h-12 w-12 text-[#ffce7d]"/>
-              <p className="text-sm font-bold text-blue-100/80">Dünya turunu tamamladın!</p>
+              <p className="text-sm font-bold text-blue-100/80">{t('Dünya turunu tamamladın!')}</p>
               <h2 className="my-3 text-[42px] font-black text-[#ffda96] tabular-nums">{score.toLocaleString('tr-TR')}</h2>
-              <p className="font-bold">/ 25.000 puan</p>
+              <p className="font-bold">/ 25.000 {t('puan')}</p>
               <p className="mt-3 rounded-xl bg-white/5 px-3 py-2 text-xs leading-5 text-blue-100">{saveNote}</p>
               <div aria-live="polite" className="mt-2 rounded-xl bg-white/5 p-3 text-xs text-blue-100">
                 {saveState==='saving'?t('Skorun dünya ligine kaydediliyor...'):saveState==='saved'?t('Dünya ve haftalık lige kaydedildi!'):
-                  saveState==='offline'?'Cihaz skorun saklandı. Dünya ligi için Supabase bağlantısı bekleniyor.':
-                  saveState==='error'?saveError:'Skor kaydı hazırlanıyor...'}
+                  saveState==='offline'?t('Cihaz skorun saklandı. Dünya ligi için Supabase bağlantısı bekleniyor.'):
+                  saveState==='error'?saveError:t('Skor kaydı hazırlanıyor...')}
                 {saveState==='error'&&<button type="button" className="street-secondary mt-2 w-full" onClick={()=>{void saveOnline(lastFinalScore);}}>Kaydı tekrar dene</button>}
               </div>
             </section>
@@ -182,18 +182,18 @@ export function StreetDetectiveScreen({
               {completed.map((r,i)=><div key={r.id} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3 text-xs">
                 <span className="font-black text-amber-200">{i+1}.</span>
                 <span className="min-w-0 flex-1 truncate">{r.city}, {localizedCountryName(r.country,language)}</span>
-                <span>{r.skipped?'Geçildi':fmt(r.km)+' km'}</span>
+                <span>{r.skipped?t('Geçildi'):fmt(r.km)+' km'}</span>
                 <strong className="text-emerald-200">+{r.points}</strong>
               </div>)}
             </section>
             <button type="button" className="street-secondary w-full" onClick={()=>setShowRank(true)}><Trophy className="h-4 w-4"/> {t('Dünya sıralamasını gör')}</button>
             <button type="button" className="street-primary w-full" onClick={()=>{void newGame();}}><RefreshCcw className="h-4 w-4"/> {t('Yeni dünya turu')}</button>
           </div>
-        ):loading?banner('Lisanslı fotoğraf arşivi kontrol ediliyor...'):!current?banner(error||'Doğrulanmış konum fotoğrafları hazırlanıyor.'):(
+        ):loading?banner(t('Lisanslı fotoğraf arşivi kontrol ediliyor...')):!current?banner(error||t('Doğrulanmış konum fotoğrafları hazırlanıyor.')):(
           <div className="space-y-3">
             <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
               <span className="flex items-center gap-2 text-sm font-black"><Globe2 className="h-4 w-4 text-emerald-200"/> {t('Tur')} {idx+1}/{STREET_ROUNDS}</span>
-              <span className="text-sm font-black tabular-nums text-[#ffda96]">{score.toLocaleString('tr-TR')} puan</span>
+              <span className="text-sm font-black tabular-nums text-[#ffda96]">{score.toLocaleString(language)} {t('puan')}</span>
             </div>
             {(phase==='view'||phase==='guess')&&(
               <div className="street-card overflow-hidden p-2">
@@ -209,14 +209,14 @@ export function StreetDetectiveScreen({
                       setError(message);
                     }} onSkip={skipBroken}/>
                 </div>
-                <p className="px-2 py-2 text-[11px] text-blue-100/75">Fotoğrafı tam ekran büyütüp dört yönden incele. Lisans ve kaynak bilgisi tahmininden sonra gösterilir.</p>
+                <p className="px-2 py-2 text-[11px] text-blue-100/75">{t('Fotoğrafı tam ekran büyütüp dört yönden incele. Lisans ve kaynak bilgisi tahmininden sonra gösterilir.')}</p>
               </div>
             )}
             {error&&phase==='guess'&&<p className="rounded-xl border border-amber-300/40 bg-amber-950/20 p-3 text-sm text-amber-100" role="alert">{error}</p>}
             {phase==='view'&&(
               <section className="street-card space-y-3 p-4">
-                <h2 className="font-black">Sence burası neresi? 🕵️</h2>
-                <p className="text-sm leading-6 text-blue-100/75">Fotoğrafı tam ekran açabilir, sağ-sol oklarıyla farklı yönlere bakabilirsin. Ardından konumu haritada işaretle.</p>
+                <h2 className="font-black">{t('Sence burası neresi? 🕵️')}</h2>
+                <p className="text-sm leading-6 text-blue-100/75">{t('Fotoğrafı tam ekran açabilir, sağ-sol oklarıyla farklı yönlere bakabilirsin. Ardından konumu haritada işaretle.')}</p>
                 <button type="button" disabled={!ready} onClick={()=>setPhase('guess')} className="street-primary w-full disabled:opacity-50">
                   <MapPin className="h-5 w-5"/> {t('Dünya haritasında tahmin et')} <ChevronRight className="h-5 w-5"/>
                 </button>
@@ -226,9 +226,9 @@ export function StreetDetectiveScreen({
               <div className="space-y-3">
                 {phase==='result'&&reveal&&(
                   <section className="street-card space-y-1 p-4 text-center">
-                    <p className="text-sm text-blue-100/80">Gerçek konuma uzaklığın</p>
+                    <p className="text-sm text-blue-100/80">{t('Gerçek konuma uzaklığın')}</p>
                     <p className="text-[32px] font-black text-[#ffbb91]">{fmt(reveal.km)} km</p>
-                    <p className="text-[25px] font-black text-[#8df3c0]">+{reveal.points.toLocaleString('tr-TR')} puan</p>
+                    <p className="text-[25px] font-black text-[#8df3c0]">+{reveal.points.toLocaleString(language)} {t('puan')}</p>
                     <p className="pt-1 text-base font-black">{reveal.city}, {localizedCountryName(reveal.country,language)}</p>
                     {guessedCorrectCountry(guess,reveal.country)!==null&&(
                       <p className="text-sm font-bold text-[#ffdc95]">
@@ -236,7 +236,7 @@ export function StreetDetectiveScreen({
                       </p>
                     )}
                     <p className="text-xs leading-5 text-blue-100/75">{reveal.fact}</p>
-                    <p className="pt-2 text-xs text-blue-100/80">Yaklaştıkça puanın artar. 10 km: 4.900 · 500 km: 1.800 · 3.000 km ve üzeri: 0 puan.</p>
+                    <p className="pt-2 text-xs text-blue-100/80">{t('Yaklaştıkça puanın artar. 10 km: 4.900 · 500 km: 1.800 · 3.000 km ve üzeri: 0 puan.')}</p>
                     <p className="pt-2 text-[11px] leading-5 text-blue-100/70">
                       {t('Görüntü:')} {reveal.credit.artist} · {reveal.credit.license} ·
                       {' '}<a href={reveal.credit.source} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{t('Kaynak / lisans')}</a>
@@ -244,15 +244,15 @@ export function StreetDetectiveScreen({
                   </section>
                 )}
                 <section className="street-card space-y-3 p-3">
-                  {phase==='guess'&&<p className="px-1 text-xs text-blue-100/80">Haritayı iki parmakla yakınlaştır, sürükle ve istediğin yere dokunarak tahminini seç.</p>}
+                  {phase==='guess'&&<p className="px-1 text-xs text-blue-100/80">{t('Haritayı iki parmakla yakınlaştır, sürükle ve istediğin yere dokunarak tahminini seç.')}</p>}
                   <StreetWorldMap guess={guess} actual={phase==='result'?reveal?.actual:null}
                     onGuess={setGuess} locked={phase==='result'}/>
                   {phase==='guess'?(
                     <>
                       <button type="button" disabled={!guess||busy} onClick={()=>{void confirm();}} className="street-primary w-full disabled:opacity-50">
-                        <MapPin className="h-5 w-5"/> {busy?'Hesaplanıyor...':'Tahmini onayla'} <ArrowRight className="h-4 w-4"/>
+                        <MapPin className="h-5 w-5"/> {busy?t('Hesaplanıyor...'):t('Tahmini onayla')} <ArrowRight className="h-4 w-4"/>
                       </button>
-                      <button type="button" className="street-secondary w-full" onClick={()=>setPhase('view')}>Fotoğrafa tekrar bak</button>
+                      <button type="button" className="street-secondary w-full" onClick={()=>setPhase('view')}>{t('Fotoğrafa tekrar bak')}</button>
                     </>
                   ):<button type="button" onClick={advance} className="street-primary w-full">
                     {completed.length===STREET_ROUNDS?t('Sonuçlarımı gör'):t('Sonraki konum')} <ArrowRight className="h-4 w-4"/>
@@ -263,7 +263,7 @@ export function StreetDetectiveScreen({
           </div>
         )}
         <p className="mt-5 text-center text-[11px] text-blue-200/65">
-          Fotoğraf arşivi: lisanslı ve doğrulanmış konumlar · Cloudflare R2 · İki parmakla yakınlaşabilen harita
+          {t('Fotoğraf arşivi: lisanslı ve doğrulanmış konumlar · Cloudflare R2 · İki parmakla yakınlaşabilen harita')}
           {phase==='finish'?' · En iyi skor: '+getLocalStreetBest().toLocaleString('tr-TR'):''}
         </p>
       </main>
