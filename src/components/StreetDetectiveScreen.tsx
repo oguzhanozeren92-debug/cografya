@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { type StreetRound } from '@/components/StreetPanorama';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
-import { StreetWorldMap } from '@/components/StreetWorldMap';
+import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
 import { getLocalStreetBest, rememberLocalStreetBest } from '@/lib/streetLeaderboard';
 import { STREET_ROUNDS, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
@@ -210,6 +210,11 @@ export function StreetDetectiveScreen({
                     <p className="text-[32px] font-black text-[#ffbb91]">{fmt(reveal.km)} km</p>
                     <p className="text-[25px] font-black text-[#8df3c0]">+{reveal.points.toLocaleString('tr-TR')} puan</p>
                     <p className="pt-1 text-base font-black">{reveal.city}, {reveal.country}</p>
+                    {guessedCorrectCountry(guess,reveal.country)!==null&&(
+                      <p className="text-sm font-bold text-[#ffdc95]">
+                        {guessedCorrectCountry(guess,reveal.country)?'Ülkeyi doğru buldun!':'Ülke tahminin farklı çıktı.'}
+                      </p>
+                    )}
                     <p className="text-xs leading-5 text-blue-100/75">{reveal.fact}</p>
                     <p className="pt-2 text-xs text-blue-100/80">Yaklaştıkça puanın artar. 10 km: 4.900 · 500 km: 1.800 · 3.000 km ve üzeri: 0 puan.</p>
                     <p className="pt-2 text-[11px] leading-5 text-blue-100/70">
