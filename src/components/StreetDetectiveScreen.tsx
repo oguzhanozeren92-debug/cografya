@@ -6,7 +6,9 @@ import {
 import { type StreetRound } from '@/components/StreetPanorama';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
-import { getLocalStreetBest, rememberLocalStreetBest } from '@/lib/streetLeaderboard';
+import { getLocalStreetBest, rememberLocalStreetBest, submitStreetScore } from '@/lib/streetLeaderboard';
+import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
+import { backend } from '@/lib/leaderboard';
 import { STREET_ROUNDS, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
 
@@ -21,7 +23,7 @@ type Completed = (Reveal & {id:string;guess:Coordinates;skipped?:false}) |
 const fmt=(value:number)=>new Intl.NumberFormat('tr-TR',{maximumFractionDigits:value<10?1:0}).format(value);
 
 export function StreetDetectiveScreen({
-  onClose,onGameComplete,initialView='play',
+  onClose,onGameComplete,playerName,initialView='play',
 }:{
   onClose:()=>void;onGameComplete?:()=>void;playerName:string;initialView?:'play'|'ranking';
 }) {
@@ -37,6 +39,9 @@ export function StreetDetectiveScreen({
   const [error,setError]=useState('');
   const [showRank,setShowRank]=useState(initialView==='ranking');
   const [saveNote,setSaveNote]=useState('');
+  const [saveState,setSaveState]=useState<'idle'|'saving'|'saved'|'error'|'offline'>('idle');
+  const [lastFinalScore,setLastFinalScore]=useState(0);
+  const [saveError,setSaveError]=useState('');
   const current=rounds[idx];
   const panoramaOpenedAt=useRef(0);
   const completionNotified=useRef(false);
@@ -48,6 +53,7 @@ export function StreetDetectiveScreen({
     setLoading(true);setError('');setRounds([]);
     setIdx(0);setCompleted([]);setGuess(null);setReveal(null);
     setReady(false);setShowRank(false);setSaveNote('');setPhase('view');
+    setSaveState('idle');setLastFinalScore(0);setSaveError('');
     try{
       const response=await fetch('/api/street/session',{cache:'no-store'});
       const data=await response.json() as {rounds?:StreetRound[];error?:string};
@@ -91,13 +97,26 @@ export function StreetDetectiveScreen({
     }catch(e){setError(e instanceof Error?e.message:'Tahmin hesabı başarısız.');}
     finally{setBusy(false);}
   };
+  const saveOnline=async(finalScore:number)=>{
+    if(!backend){setSaveState('offline');return;}
+    setSaveState('saving');setSaveError('');
+    try{
+      await submitStreetScore(playerName,finalScore);
+      setSaveState('saved');
+    }catch(e){
+      setSaveError(e instanceof Error?e.message:'Skor kaydedilemedi.');
+      setSaveState('error');
+    }
+  };
   const finishGame=(list:Completed[])=>{
     const finalScore=list.reduce((total,row)=>total+row.points,0);
     const best=rememberLocalStreetBest(finalScore);
-    setSaveNote('Cihaz rekorun: '+best.toLocaleString('tr-TR')+' puan. Rekabetçi online skor doğrulaması henüz açılmadı.');
+    setLastFinalScore(finalScore);
+    setSaveNote('Cihaz rekorun: '+best.toLocaleString('tr-TR')+' puan.');
     setPhase('finish');
     if(!completionNotified.current){
       completionNotified.current=true;
+      void saveOnline(finalScore);
       onGameComplete?.();
     }
   };
@@ -140,16 +159,7 @@ export function StreetDetectiveScreen({
           <button type="button" onClick={onClose} aria-label="Kapat" className="street-round-button"><X className="h-4 w-4"/></button>
         </header>
         {showRank||phase==='ranking'?(
-          <section className="street-card space-y-3 p-5">
-            <Medal className="h-10 w-10 text-amber-300"/>
-            <h2 className="text-xl font-black">Dedektifler Ligi</h2>
-            <p className="text-sm leading-6 text-blue-100/80">
-              Ayrı dünya ve haftalık sıralama sistemi hazırlanıyor. Fotoğraf konumu ve puan sunucuda doğrulanmadan yarış skorlarını yayına almayacağız.
-            </p>
-            <button type="button" className="street-primary w-full" onClick={()=>{setShowRank(false);if(phase==='ranking')void newGame();}}>
-              <ChevronRight className="h-4 w-4"/> {rounds.length?'Oyuna dön':'Yeni tur başlat'}
-            </button>
-          </section>
+          <LocationLeaguePanel mode="street" playerName={playerName} onBack={()=>{setShowRank(false);if(phase==='ranking')void newGame();}}/>
         ):phase==='finish'?(
           <div className="space-y-4">
             <section className="street-card p-5 text-center">
@@ -158,6 +168,12 @@ export function StreetDetectiveScreen({
               <h2 className="my-3 text-[42px] font-black text-[#ffda96] tabular-nums">{score.toLocaleString('tr-TR')}</h2>
               <p className="font-bold">/ 25.000 puan</p>
               <p className="mt-3 rounded-xl bg-white/5 px-3 py-2 text-xs leading-5 text-blue-100">{saveNote}</p>
+              <div aria-live="polite" className="mt-2 rounded-xl bg-white/5 p-3 text-xs text-blue-100">
+                {saveState==='saving'?'Skorun dünya ligine kaydediliyor...':saveState==='saved'?'Dünya ve haftalık lige kaydedildi!':
+                  saveState==='offline'?'Cihaz skorun saklandı. Dünya ligi için Supabase bağlantısı bekleniyor.':
+                  saveState==='error'?saveError:'Skor kaydı hazırlanıyor...'}
+                {saveState==='error'&&<button type="button" className="street-secondary mt-2 w-full" onClick={()=>{void saveOnline(lastFinalScore);}}>Kaydı tekrar dene</button>}
+              </div>
             </section>
             <section className="street-card space-y-2 p-4">
               {completed.map((r,i)=><div key={r.id} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3 text-xs">
@@ -167,6 +183,7 @@ export function StreetDetectiveScreen({
                 <strong className="text-emerald-200">+{r.points}</strong>
               </div>)}
             </section>
+            <button type="button" className="street-secondary w-full" onClick={()=>setShowRank(true)}><Trophy className="h-4 w-4"/> Dünya sıralamasını gör</button>
             <button type="button" className="street-primary w-full" onClick={()=>{void newGame();}}><RefreshCcw className="h-4 w-4"/> Yeni dünya turu</button>
           </div>
         ):loading?banner('Lisanslı fotoğraf arşivi kontrol ediliyor...'):!current?banner(error||'Doğrulanmış konum fotoğrafları hazırlanıyor.'):(
