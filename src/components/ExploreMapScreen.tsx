@@ -4,6 +4,8 @@ import { feature } from 'topojson-client';
 import worldData from 'world-atlas/countries-110m.json';
 import { ArrowLeft, CheckCircle2, Compass, Flag, Globe2, MapPinned, Sparkles, Trophy, ZoomIn, ZoomOut } from 'lucide-react';
 import { COUNTRY_DATA, VALID_COUNTRY_IDS } from '@/data/countries';
+import { useLanguage } from '@/lib/i18n';
+import { localizedCountryById } from '@/lib/countryLanguage';
 import { getCountryFlag } from '@/data/flags';
 import { DISCOVERY_EVENT, getDiscoveredCountries, syncDiscoveries } from '@/lib/discovery';
 
@@ -17,6 +19,7 @@ const graticule = geoGraticule10();
 const formatId = (id: string | number) => String(id).padStart(3, '0');
 
 export function ExploreMapScreen({ onClose, onDaily }: Props) {
+  const {language,t}=useLanguage();
   const [discovered, setDiscovered] = useState<string[]>(getDiscoveredCountries);
   const [selected, setSelected] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
@@ -38,23 +41,23 @@ export function ExploreMapScreen({ onClose, onDaily }: Props) {
   const selectedDiscovered = Boolean(selected && discoveredSet.has(selected));
   const recent = earned.slice(-6).reverse();
 
-  return <div className="explore-screen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label="Dünya keşif haritası">
+  return <div className="explore-screen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label={t("Dünya keşif haritası")}>
     <div className="mx-auto max-w-3xl px-4 pb-12 pt-5 sm:px-7">
       <header className="mb-4 flex items-center justify-between">
-        <button className="weekly-nav-button gap-2" onClick={onClose}><ArrowLeft className="h-4 w-4" /> Geri</button>
-        <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1.5 text-[11px] font-black tracking-wide text-cyan-200">KEŞİF GÜNLÜĞÜ</span>
+        <button className="weekly-nav-button gap-2" onClick={onClose}><ArrowLeft className="h-4 w-4" /> {t('GERİ DÖN')}</button>
+        <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1.5 text-[11px] font-black tracking-wide text-cyan-200">{t('KEŞİF GÜNLÜĞÜ')}</span>
       </header>
       <section className="explore-hero relative mb-4 overflow-hidden rounded-[26px] border border-cyan-300/25 p-6 sm:p-8">
         <div className="relative z-10">
-          <div className="mb-2 flex items-center gap-2 text-xs font-black tracking-[.18em] text-cyan-200"><Compass className="h-4 w-4" /> DÜNYANI KEŞFET</div>
-          <h1 className="text-3xl font-black sm:text-4xl">Dünya <span className="text-cyan-300">Haritam</span></h1>
-          <p className="mt-2 max-w-sm text-sm text-slate-200">Doğru bildiğin ülkeler haritada parlasın. Yeni ülkeler öğren, dünyayı renklendir!</p>
-          <div className="mt-5 flex items-end gap-3"><strong className="text-4xl font-black text-white">{earned.length}<span className="text-xl text-cyan-200">/{total}</span></strong><span className="mb-1 text-xs font-bold text-slate-300">ülke keşfedildi</span></div>
+          <div className="mb-2 flex items-center gap-2 text-xs font-black tracking-[.18em] text-cyan-200"><Compass className="h-4 w-4" /> {t('DÜNYANI KEŞFET')}</div>
+          <h1 className="text-3xl font-black sm:text-4xl">{t('Dünya')} <span className="text-cyan-300">{t('Haritam')}</span></h1>
+          <p className="mt-2 max-w-sm text-sm text-slate-200">{t('Doğru bildiğin ülkeler haritada parlasın. Yeni ülkeler öğren, dünyayı renklendir!')}</p>
+          <div className="mt-5 flex items-end gap-3"><strong className="text-4xl font-black text-white">{earned.length}<span className="text-xl text-cyan-200">/{total}</span></strong><span className="mb-1 text-xs font-bold text-slate-300">{t('ülke keşfedildi')}</span></div>
           <div className="mt-2 h-2.5 max-w-xs overflow-hidden rounded-full bg-white/20"><div className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-amber-300 transition-all" style={{ width: `${percentage}%` }} /></div>
         </div>
       </section>
       <section className="explore-map-frame relative mb-4 overflow-hidden rounded-3xl border border-white/15 p-3 sm:p-5">
-        <div className="mb-3 flex items-center justify-between gap-2 px-1"><span className="flex items-center gap-2 text-sm font-black"><Globe2 className="h-4 w-4 text-cyan-300" /> Keşif Atlası</span><span className="text-[11px] text-slate-300">{percentage}% tamamlandı</span></div>
+        <div className="mb-3 flex items-center justify-between gap-2 px-1"><span className="flex items-center gap-2 text-sm font-black"><Globe2 className="h-4 w-4 text-cyan-300" /> {t('Keşif Atlası')}</span><span className="text-[11px] text-slate-300">{percentage}% tamamlandı</span></div>
         <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#091a32]">
           <svg viewBox="0 0 900 470" className="w-full select-none" role="img" aria-label={`Dünya haritası, ${earned.length} ülke keşfedildi`}>
             <defs>
@@ -73,7 +76,7 @@ export function ExploreMapScreen({ onClose, onDaily }: Props) {
                 const active = selected === id;
                 return <path key={id + i} d={geometry} fill={active ? '#ffd477' : unlocked ? '#38d5c7' : valid ? '#2e4f73' : '#233b58'} stroke={active ? '#fff4cc' : unlocked ? '#a3fff1' : '#102943'} strokeWidth={active ? 1.9 : .68} opacity={valid ? 1 : .65} className={valid ? 'cursor-pointer transition-colors duration-300' : ''} filter={unlocked ? 'url(#discoveryGlow)' : undefined}
                   onClick={() => { if (valid) setSelected(id); }}>
-                    {valid && <title>{COUNTRY_DATA[id].nameTr} · {unlocked ? 'Keşfedildi' : 'Keşfedilmedi'}</title>}
+                    {valid && <title>{localizedCountryById(id,language)} · {t(unlocked ? 'Keşfedildi' : 'Keşfedilmedi')}</title>}
                   </path>;
               })}
             </g>
@@ -84,22 +87,22 @@ export function ExploreMapScreen({ onClose, onDaily }: Props) {
         <p className="mt-3 text-center text-[11px] text-slate-400">Ülkeye dokunarak bilgi kartını açabilirsin. Haritayı + / − ile yakınlaştır.</p>
       </section>
       {selected && selectedMeta && <section className={'mb-4 flex items-center gap-4 rounded-2xl border p-4 ' + (selectedDiscovered ? 'border-cyan-300/35 bg-cyan-300/10' : 'border-white/15 bg-white/5')}>
-        <div className="flex h-16 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-slate-900/60 p-2">{selectedFlag ? <img src={selectedFlag.url} alt={`${selectedMeta.nameTr} bayrağı`} className="max-h-12 w-full object-contain" /> : <Flag className="h-7 w-7 text-slate-400" />}</div>
-        <div className="min-w-0 flex-1"><div className="truncate font-black">{selectedMeta.nameTr}</div><div className="mt-1 text-xs text-slate-300">Başkent: {selectedMeta.capitalTr}</div><div className={'mt-1 flex items-center gap-1 text-xs font-bold ' + (selectedDiscovered ? 'text-emerald-300' : 'text-slate-400')}>{selectedDiscovered ? <CheckCircle2 className="h-3.5 w-3.5" /> : <MapPinned className="h-3.5 w-3.5" />}{selectedDiscovered ? 'Keşfedildi' : 'Henüz keşfedilmedi'}</div></div>
-        <button onClick={() => setSelected(null)} className="text-sm text-slate-400" aria-label="Kartı kapat">✕</button>
+        <div className="flex h-16 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-slate-900/60 p-2">{selectedFlag ? <img src={selectedFlag.url} alt={`${localizedCountryById(selected,language)}`} className="max-h-12 w-full object-contain" /> : <Flag className="h-7 w-7 text-slate-400" />}</div>
+        <div className="min-w-0 flex-1"><div className="truncate font-black">{localizedCountryById(selected,language)}</div><div className="mt-1 text-xs text-slate-300">{t('Başkent:')} {selectedMeta.capitalTr}</div><div className={'mt-1 flex items-center gap-1 text-xs font-bold ' + (selectedDiscovered ? 'text-emerald-300' : 'text-slate-400')}>{selectedDiscovered ? <CheckCircle2 className="h-3.5 w-3.5" /> : <MapPinned className="h-3.5 w-3.5" />}{t(selectedDiscovered ? 'Keşfedildi' : 'Henüz keşfedilmedi')}</div></div>
+        <button onClick={() => setSelected(null)} className="text-sm text-slate-400" aria-label={t("Kartı kapat")}>✕</button>
       </section>}
       <section className="mb-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-        <div className="mb-3 flex items-center justify-between"><h2 className="flex items-center gap-2 font-black"><Trophy className="h-5 w-5 text-amber-300" /> Keşif Rozetleri</h2><span className="text-xs text-slate-400">{earned.length}/{total}</span></div>
+        <div className="mb-3 flex items-center justify-between"><h2 className="flex items-center gap-2 font-black"><Trophy className="h-5 w-5 text-amber-300" /> {t('Keşif Rozetleri')}</h2><span className="text-xs text-slate-400">{earned.length}/{total}</span></div>
         <div className="grid grid-cols-3 gap-2">{[10, 50, total].map(target => <div key={target} className={'rounded-xl border p-3 text-center ' + (earned.length >= target ? 'border-amber-300/35 bg-amber-300/10' : 'border-white/10 bg-slate-900/30')}><span className="text-2xl">{target === 10 ? '🥉' : target === 50 ? '🥈' : '🏆'}</span><p className="mt-1 text-xs font-black">{target} ülke</p><p className={'mt-1 text-[10px] ' + (earned.length >= target ? 'text-amber-200' : 'text-slate-400')}>{earned.length >= target ? 'Kazanıldı' : 'Kilitli'}</p></div>)}</div>
       </section>
       <section className="mb-5 rounded-2xl border border-white/10 bg-white/5 p-4">
-        <div className="mb-3 flex items-center justify-between"><h2 className="flex items-center gap-2 font-black"><Sparkles className="h-5 w-5 text-cyan-300" /> Keşfettiklerin</h2>{earned.length > 6 && <button onClick={() => setShowAll(v => !v)} className="text-xs font-bold text-cyan-300">{showAll ? 'Daha az' : 'Tümünü gör'}</button>}</div>
+        <div className="mb-3 flex items-center justify-between"><h2 className="flex items-center gap-2 font-black"><Sparkles className="h-5 w-5 text-cyan-300" /> {t('Keşfettiklerin')}</h2>{earned.length > 6 && <button onClick={() => setShowAll(v => !v)} className="text-xs font-bold text-cyan-300">{showAll ? 'Daha az' : 'Tümünü gör'}</button>}</div>
         {earned.length ? <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">{(showAll ? [...earned].reverse() : recent).map(id => {
           const flag = getCountryFlag(id);
-          return <button key={id} onClick={() => { setSelected(id); document.querySelector('.explore-map-frame')?.scrollIntoView({ behavior: 'smooth' }); }} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-2 py-3 text-left text-xs font-bold hover:bg-white/10">{flag ? <img src={flag.url} alt="" className="h-7 w-10 shrink-0 object-contain" /> : '🌍'}<span className="truncate">{COUNTRY_DATA[id].nameTr}</span></button>;
-        })}</div> : <p className="py-4 text-center text-sm text-slate-400">Henüz keşfedilmiş ülke yok. İlk ülkeni doğru bilerek haritanı renklendir!</p>}
+          return <button key={id} onClick={() => { setSelected(id); document.querySelector('.explore-map-frame')?.scrollIntoView({ behavior: 'smooth' }); }} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-2 py-3 text-left text-xs font-bold hover:bg-white/10">{flag ? <img src={flag.url} alt="" className="h-7 w-10 shrink-0 object-contain" /> : '🌍'}<span className="truncate">{localizedCountryById(id,language)}</span></button>;
+        })}</div> : <p className="py-4 text-center text-sm text-slate-400">{t('Henüz keşfedilmiş ülke yok. İlk ülkeni doğru bilerek haritanı renklendir!')}</p>}
       </section>
-      <button onClick={onDaily} className="weekly-play-button flex w-full items-center justify-center gap-2 rounded-xl py-4 font-black"><Compass className="h-5 w-5" /> Günlük 10 Soruyu Oyna</button>
+      <button onClick={onDaily} className="weekly-play-button flex w-full items-center justify-center gap-2 rounded-xl py-4 font-black"><Compass className="h-5 w-5" /> {t('Günlük 10 Soruyu Oyna')}</button>
     </div>
   </div>;
 }
