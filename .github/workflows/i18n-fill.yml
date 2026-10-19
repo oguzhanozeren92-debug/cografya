@@ -1,0 +1,41 @@
+name: Atlas Arena — fill missing global UI translations
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/i18n-fill.yml']
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atlas-arena-locale-catalogue
+  cancel-in-progress: false
+
+jobs:
+  fill:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Complete non-English static UI dictionaries
+        run: python3 -u scripts/fill-i18n.py
+      - name: Install pinned dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Audit language and geographic clue coverage
+        run: node scripts/check-i18n.mjs
+      - name: Check types and build
+        run: npm run typecheck && npm run build
+      - name: Commit translated UI strings
+        run: |
+          git config user.name "atlas-localization-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/lib/i18nStrings.ts
+          if ! git diff --staged --quiet; then
+            git commit -m "i18n: complete remaining 7 native UI dictionaries"
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi
