@@ -9,6 +9,8 @@ import { trackPlayEvent } from '@/lib/atlasTelemetry';
 import { submitDroneScore } from '@/lib/droneLeaderboard';
 import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
 import { backend } from '@/lib/leaderboard';
+import { useLanguage } from '@/lib/i18n';
+import { localizedCountryName } from '@/lib/countryLanguage';
 
 type Phase = 'view' | 'guess' | 'result' | 'finish';
 type Answer = { id: string; city: string; country: string; km: number | null; points: number; skipped?: boolean };
@@ -35,6 +37,7 @@ function saveBest(score: number): number {
 }
 
 export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { onClose: () => void; onGameComplete?: () => void; playerName: string }) {
+  const {language,t}=useLanguage();
   const [rows, setRows] = useState(shuffled);
   const [mediaById,setMediaById]=useState<Record<string,PanoramaMedia>>({});
   const [assetLoading,setAssetLoading]=useState(true);
@@ -163,7 +166,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
           </span>
           <div className="min-w-0 flex-1">
             <h1 className="text-[19px] font-black leading-tight">Drone'dan Konumu Bul</h1>
-            <p className="text-[11px] text-blue-200/80">Havadan keşfet · Dünyada işaretle</p>
+            <p className="text-[11px] text-blue-200/80">{t('Havadan keşfet · Dünyada işaretle')}</p>
           </div>
           <button type="button" onClick={()=>setShowRank(v=>!v)} aria-label="Dron dünya ligi" className="street-round-button"><Trophy className="h-5 w-5 text-amber-300"/></button>
           <button type="button" onClick={close} aria-label="Kapat" className="street-round-button">
@@ -175,15 +178,15 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
         ):assetLoading||assetError ? (
           <section className="street-card mx-auto max-w-lg space-y-3 p-6 text-center">
             <Compass className="mx-auto h-10 w-10 text-cyan-200"/>
-            <h2 className="text-lg font-black">Dron görüntü arşivi</h2>
+            <h2 className="text-lg font-black">{t('Dron görüntü arşivi')}</h2>
             <p className="text-sm leading-6 text-blue-100/80">
-              {assetLoading?'Lisanslı görüntüler hazırlanıyor...':assetError}
+              {assetLoading?t('Lisanslı görüntüler hazırlanıyor...'):assetError}
             </p>
             {!assetLoading&&<button type="button" className="street-primary w-full"
               onClick={()=>setAssetsRetry(x=>x+1)}>
-              <RefreshCcw className="h-4 w-4"/> Tekrar kontrol et
+              <RefreshCcw className="h-4 w-4"/> {t('Tekrar kontrol et')}
             </button>}
-            <button type="button" className="street-secondary w-full" onClick={close}>Ana menüye dön</button>
+            <button type="button" className="street-secondary w-full" onClick={close}>{t('Ana menüye dön')}</button>
           </section>
         ) : phase === 'finish' ? (
           <div className="space-y-4">
@@ -192,7 +195,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
               <p className="text-sm font-bold text-blue-100/80">Drone turunu bitirdin!</p>
               <h2 className="my-3 text-[42px] font-black text-[#ffda96] tabular-nums">{score.toLocaleString('tr-TR')}</h2>
               <p className="font-bold">/ {rows.length * 5000} puan</p>
-              <p className="mt-3 text-sm text-emerald-200">Cihaz rekoru: {best.toLocaleString('tr-TR')}</p>
+              <p className="mt-3 text-sm text-emerald-200">{t('Cihaz rekoru:')} {best.toLocaleString(language)}</p>
               <div aria-live="polite" className="mt-3 rounded-xl bg-white/5 px-3 py-3 text-xs text-blue-100">
                 {saveState==='saving'?'Skorun dünya ligine kaydediliyor...':saveState==='saved'?'Dünya ve haftalık lige kaydedildi!':
                   saveState==='offline'?'Cihaz rekorun saklandı. Dünya ligine bağlantı bekleniyor.':
@@ -204,23 +207,23 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
               {answered.map((answer, i) => (
                 <div key={answer.id} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3 text-xs">
                   <span className="font-black text-amber-200">{i + 1}.</span>
-                  <span className="min-w-0 flex-1 truncate">{answer.city}, {answer.country}</span>
+                  <span className="min-w-0 flex-1 truncate">{answer.city}, {localizedCountryName(answer.country,language)}</span>
                   <span>{answer.skipped?'Görüntü açılamadı':formatKm(answer.km!)+' km'}</span>
                   <strong className="text-emerald-200">+{answer.points}</strong>
                 </div>
               ))}
             </section>
-            <button type="button" onClick={()=>setShowRank(true)} className="street-secondary w-full"><Trophy className="h-4 w-4"/> Dünya sıralamasını gör</button>
+            <button type="button" onClick={()=>setShowRank(true)} className="street-secondary w-full"><Trophy className="h-4 w-4"/> {t('Dünya sıralamasını gör')}</button>
             <button type="button" onClick={restart} className="street-primary w-full">
-              <RefreshCcw className="h-4 w-4" /> Tekrar uç
+              <RefreshCcw className="h-4 w-4" /> {t('Tekrar uç')}
             </button>
             <button type="button" onClick={close} className="street-secondary w-full">Ana ekrana dön</button>
           </div>
         ) : (
           <div className="space-y-3">
             <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
-              <span className="text-sm font-black">🚁 Konum {index + 1}/{rows.length}</span>
-              <span className="text-sm font-black text-[#ffda96]">{score.toLocaleString('tr-TR')} puan</span>
+              <span className="text-sm font-black">🚁 {t('Konum')} {index + 1}/{rows.length}</span>
+              <span className="text-sm font-black text-[#ffda96]">{score.toLocaleString(language)} {t('puan')}</span>
             </div>
             {(phase === 'view' || phase === 'guess') && (
               <section className="street-card overflow-hidden p-2">
@@ -236,16 +239,16 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                     }}
                     onSkip={skipBroken}/>
                 </div>
-                <p className="px-2 py-2 text-[11px] text-blue-100/75">Fotoğrafı büyütebilir, sağ-sol oklarıyla çevreyi inceleyebilirsin. Görselin lisansı tahminden sonra gösterilir.</p>
+                <p className="px-2 py-2 text-[11px] text-blue-100/75">{t('Fotoğrafı büyütebilir, sağ-sol oklarıyla çevreyi inceleyebilirsin. Görselin lisansı tahminden sonra gösterilir.')}</p>
               </section>
             )}
             {phase === 'view' && (
               <section className="street-card space-y-3 p-4">
-                <h2 className="font-black">Sence burası neresi? 🚁</h2>
-                <p className="text-sm leading-6 text-blue-100/75">Dört yöne bak, fotoğrafı tam ekranda büyüt. Kıyıları, binaları, dağları ve araziyi incele. Sonra konumu haritada seç.</p>
+                <h2 className="font-black">{t('Sence burası neresi? 🚁')}</h2>
+                <p className="text-sm leading-6 text-blue-100/75">{t('Dört yöne bak, fotoğrafı tam ekranda büyüt. Kıyıları, binaları, dağları ve araziyi incele. Sonra konumu haritada seç.')}</p>
                 <button type="button" disabled={!ready} onClick={() => setPhase('guess')}
                   className="street-primary w-full disabled:opacity-50">
-                  <MapPin className="h-5 w-5" /> Haritada tahmin et <ArrowRight className="h-4 w-4" />
+                  <MapPin className="h-5 w-5" /> {t('Haritada tahmin et')} <ArrowRight className="h-4 w-4" />
                 </button>
               </section>
             )}
@@ -254,18 +257,18 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                 {phase === 'result' && distance !== null && (
                   <section className="street-card space-y-1 p-4 text-center">
                     <CheckCircle2 className="mx-auto mb-1 h-7 w-7 text-emerald-300" />
-                    <p className="text-sm text-blue-100/80">Gerçek konuma uzaklığın</p>
+                    <p className="text-sm text-blue-100/80">{t('Gerçek konuma uzaklığın')}</p>
                     <p className="text-[32px] font-black text-[#ffbb91]">{formatKm(distance)} km</p>
                     <p className="text-[25px] font-black text-[#8df3c0]">+{roundPoints.toLocaleString('tr-TR')} puan</p>
-                    <p className="pt-1 text-base font-black">{current.city}, {current.country}</p>
+                    <p className="pt-1 text-base font-black">{current.city}, {localizedCountryName(current.country,language)}</p>
                     {guessedCorrectCountry(guess,current.country)!==null&&(
                       <p className="text-sm font-bold text-[#ffdc95]">
-                        {guessedCorrectCountry(guess,current.country)?'Ülkeyi doğru buldun!':'Ülke tahminin farklı çıktı.'}
+                        {guessedCorrectCountry(guess,current.country)?t('Ülkeyi doğru buldun!'):t('Ülke tahminin farklı çıktı.')}
                       </p>
                     )}
                     <p className="text-xs leading-5 text-blue-100/75">{current.fact}</p>
                     <p className="pt-3 text-[11px] leading-5 text-blue-100/70">
-                      Fotoğraf: {current.artist} · <a href={current.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{current.license}</a>
+                      {t('Fotoğraf:')} {current.artist} · <a href={current.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{current.license}</a>
                       {' '}· <a href={current.source} target="_blank" rel="noopener noreferrer" className="underline">Kaynak / lisans</a>
                     </p>
                   </section>
@@ -278,15 +281,15 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                   {phase === 'guess' ? (
                     <>
                       <button type="button" disabled={!guess} onClick={confirm} className="street-primary w-full disabled:opacity-50">
-                        <MapPin className="h-4 w-4" /> Tahminimi onayla
+                        <MapPin className="h-4 w-4" /> {t('Tahminimi onayla')}
                       </button>
                       <button type="button" onClick={() => setPhase('view')} className="street-secondary w-full">
-                        Panoramaya tekrar bak
+                        {t('Panoramaya tekrar bak')}
                       </button>
                     </>
                   ) : (
                     <button type="button" onClick={next} className="street-primary w-full">
-                      {index === rows.length - 1 ? 'Sonuçları gör' : 'Sonraki drone konumu'} <ArrowRight className="h-4 w-4" />
+                      {index === rows.length - 1 ? t('Sonuçları gör') : t('Sonraki drone konumu')} <ArrowRight className="h-4 w-4" />
                     </button>
                   )}
                 </section>
