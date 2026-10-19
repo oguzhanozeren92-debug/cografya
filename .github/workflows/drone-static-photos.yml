@@ -41,6 +41,8 @@ jobs:
           git add public/drone-photos server/drone/photo-ready.mjs
           if ! git diff --staged --quiet; then
             git commit -m "assets(drone): publish five licensed photo galleries on Atlas domain"
-            git pull --rebase origin main
+            # Rebase onto current main before pushing; the verified ready list exists there.
+            git fetch origin main
+            git rebase origin/main
             git push origin HEAD:main
           fi
