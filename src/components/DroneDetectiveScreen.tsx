@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2, Compass, MapPin, RefreshCcw, Trophy, X } from 'lucide-react';
-import { StreetPanorama, warmStreetViewer, warmStreetPreview, type StreetRound, type PanoramaMedia } from '@/components/StreetPanorama';
+import { type StreetRound, type PanoramaMedia } from '@/components/StreetPanorama';
+import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
 import { haversineKm, locationPoints, type Coordinates } from '@/lib/streetLocations';
@@ -40,7 +41,6 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
     let active=true;
     const run=async()=>{
       setAssetLoading(true);setAssetError('');
-      warmStreetViewer();
       try{
         const response=await fetch('/api/drone/session',{cache:'no-store'});
         const body=await response.json() as {media?:Array<{id:string;media:PanoramaMedia}>;error?:string};
@@ -109,7 +109,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
   useEffect(()=>{
     if(mediaById[current.id] && index+1<rows.length){
       const next=rows[index+1];
-      warmStreetPreview({id:next.id,ticket:'',media:mediaById[next.id],
+      warmStreetPhoto({id:next.id,ticket:'',media:mediaById[next.id],
         credit:{artist:next.artist,license:next.license,source:next.source}});
     }
   },[index,current.id,rows,mediaById]);
@@ -135,7 +135,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
           </span>
           <div className="min-w-0 flex-1">
             <h1 className="text-[19px] font-black leading-tight">Drone'dan Konumu Bul</h1>
-            <p className="text-[11px] text-blue-200/80">Havadan 360° keşfet · Dünyada işaretle</p>
+            <p className="text-[11px] text-blue-200/80">Havadan keşfet · Dünyada işaretle</p>
           </div>
           <button type="button" onClick={close} aria-label="Kapat" className="street-round-button">
             <X className="h-4 w-4" />
@@ -144,7 +144,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
         {assetLoading||assetError ? (
           <section className="street-card mx-auto max-w-lg space-y-3 p-6 text-center">
             <Compass className="mx-auto h-10 w-10 text-cyan-200"/>
-            <h2 className="text-lg font-black">360° drone arşivi</h2>
+            <h2 className="text-lg font-black">Dron görüntü arşivi</h2>
             <p className="text-sm leading-6 text-blue-100/80">
               {assetLoading?'Lisanslı görüntüler hazırlanıyor...':assetError}
             </p>
@@ -187,30 +187,24 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
             {(phase === 'view' || phase === 'guess') && (
               <section className="street-card overflow-hidden p-2">
                 <div className="h-[min(35dvh,275px)] min-h-[205px]">
-                  <StreetPanorama key={current.id} round={panorama}
+                  <StreetPhoto key={current.id} round={panorama}
                     onReady={()=>{
                       trackPlayEvent({mode:'drone',event_type:'panorama_ready',question_id:current.id,duration_ms:panoramaStart.current?performance.now()-panoramaStart.current:undefined});
                       setReady(true);
                     }}
                     onError={message=>{
-                      trackPlayEvent({mode:'drone',event_type:'panorama_error',question_id:current.id,detail:message.includes('9 saniyede')?'timeout':'viewer_error'});
+                      trackPlayEvent({mode:'drone',event_type:'panorama_error',question_id:current.id,detail:message.includes('açılamadı')?'timeout':'photo_error'});
                       setReady(false);
                     }}
                     onSkip={skipBroken}/>
                 </div>
-                <div className="space-y-1 px-2 py-2 text-[11px] leading-5 text-blue-100/90">
-                  <div>
-                    Fotoğraf: {current.artist} · <a href={current.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{current.license}</a>
-                    {' '}· <a href={current.source} target="_blank" rel="noopener noreferrer" className="underline">Wikimedia Commons kaynağı</a>
-                  </div>
-                  <p className="text-blue-200/65">Kaynak görsel aynen gösterilir; 360° panorama ve fotoğraftaki gökyüzü dijital birleştirmeler içerebilir.</p>
-                </div>
+                <p className="px-2 py-2 text-[11px] text-blue-100/75">Fotoğrafı büyütebilir, sağ-sol oklarıyla çevreyi inceleyebilirsin. Görselin lisansı tahminden sonra gösterilir.</p>
               </section>
             )}
             {phase === 'view' && (
               <section className="street-card space-y-3 p-4">
                 <h2 className="font-black">Sence burası neresi? 🚁</h2>
-                <p className="text-sm leading-6 text-blue-100/75">Parmağınla 360° dön. Kıyıları, binaları, dağları ve araziyi incele. Sonra konumu haritada seç.</p>
+                <p className="text-sm leading-6 text-blue-100/75">Dört yöne bak, fotoğrafı tam ekranda büyüt. Kıyıları, binaları, dağları ve araziyi incele. Sonra konumu haritada seç.</p>
                 <button type="button" disabled={!ready} onClick={() => setPhase('guess')}
                   className="street-primary w-full disabled:opacity-50">
                   <MapPin className="h-5 w-5" /> Haritada tahmin et <ArrowRight className="h-4 w-4" />
@@ -227,6 +221,10 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
                     <p className="text-[25px] font-black text-[#8df3c0]">+{roundPoints.toLocaleString('tr-TR')} puan</p>
                     <p className="pt-1 text-base font-black">{current.city}, {current.country}</p>
                     <p className="text-xs leading-5 text-blue-100/75">{current.fact}</p>
+                    <p className="pt-3 text-[11px] leading-5 text-blue-100/70">
+                      Fotoğraf: {current.artist} · <a href={current.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{current.license}</a>
+                      {' '}· <a href={current.source} target="_blank" rel="noopener noreferrer" className="underline">Kaynak / lisans</a>
+                    </p>
                   </section>
                 )}
                 <section className="street-card space-y-3 p-3">
@@ -254,7 +252,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete }: { onClose: () 
           </div>
         )}
         <p className="mt-5 text-center text-[11px] leading-5 text-blue-200/65">
-          Ücretsiz 5 konumluk pilot · Açık lisanslı 360° drone fotoğrafları · R2 görüntü parçaları.
+          Ücretsiz 5 konumluk pilot · Lisanslı gerçek dron görüntüleri · Dört yöne bakış ve tam ekran.
           Puanlar bu cihazda saklanır; rekabetçi sıralama henüz açılmadı.
         </p>
       </main>
