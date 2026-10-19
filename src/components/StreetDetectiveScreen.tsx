@@ -189,17 +189,14 @@ export function StreetDetectiveScreen({
                       setError(message);
                     }} onSkip={skipBroken}/>
                 </div>
-                <div className="px-2 py-2 text-[11px] text-blue-100/85">
-                  Görüntü: {current.credit.artist} · {current.credit.license} ·
-                  {' '}<a href={current.credit.source} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Kaynak / lisans</a>
-                </div>
+                <p className="px-2 py-2 text-[11px] text-blue-100/75">Fotoğrafı tam ekran büyütüp dört yönden incele. Lisans ve kaynak bilgisi tahmininden sonra gösterilir.</p>
               </div>
             )}
             {error&&phase==='guess'&&<p className="rounded-xl border border-amber-300/40 bg-amber-950/20 p-3 text-sm text-amber-100" role="alert">{error}</p>}
             {phase==='view'&&(
               <section className="street-card space-y-3 p-4">
                 <h2 className="font-black">Sence burası neresi? 🕵️</h2>
-                <p className="text-sm leading-6 text-blue-100/75">Fotoğrafın sağ-sol oklarıyla farklı yönleri incele. Ardından haritada konumunu işaretle.</p>
+                <p className="text-sm leading-6 text-blue-100/75">Fotoğrafı tam ekran açabilir, sağ-sol oklarıyla farklı yönlere bakabilirsin. Ardından konumu haritada işaretle.</p>
                 <button type="button" disabled={!ready} onClick={()=>setPhase('guess')} className="street-primary w-full disabled:opacity-50">
                   <MapPin className="h-5 w-5"/> Dünya haritasında tahmin et <ChevronRight className="h-5 w-5"/>
                 </button>
@@ -214,6 +211,11 @@ export function StreetDetectiveScreen({
                     <p className="text-[25px] font-black text-[#8df3c0]">+{reveal.points.toLocaleString('tr-TR')} puan</p>
                     <p className="pt-1 text-base font-black">{reveal.city}, {reveal.country}</p>
                     <p className="text-xs leading-5 text-blue-100/75">{reveal.fact}</p>
+                    <p className="pt-2 text-xs text-blue-100/80">Yaklaştıkça puanın artar. 10 km: 4.900 · 500 km: 1.800 · 3.000 km ve üzeri: 0 puan.</p>
+                    <p className="pt-2 text-[11px] leading-5 text-blue-100/70">
+                      Görüntü: {reveal.credit.artist} · {reveal.credit.license} ·
+                      {' '}<a href={reveal.credit.source} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Kaynak / lisans</a>
+                    </p>
                   </section>
                 )}
                 <section className="street-card space-y-3 p-3">
