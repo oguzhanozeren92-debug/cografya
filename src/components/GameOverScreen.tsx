@@ -3,6 +3,7 @@ const VictoryBadge = lazy(() => import('@/components/VictoryBadge'));
 import { Trophy, RotateCcw, CheckCircle2, MapPinned } from 'lucide-react';
 import type { LeaderboardEntry, GameMode } from '@/types';
 import { backend } from '@/lib/leaderboard';
+import { useLanguage } from '@/lib/i18n';
 import { motion, useReducedMotion } from 'motion/react';
 import { celebrateGame, playGameSound } from '@/lib/gameFx';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
@@ -33,6 +34,7 @@ export function GameOverScreen({
   onExplore,
 }: GameOverScreenProps) {
   const reduceMotion = useReducedMotion();
+  const {language,t}=useLanguage();
   const celebratedRef = useRef(false);
   useEffect(() => {
     if (celebratedRef.current || correctAnswers < 5) return;
@@ -46,7 +48,7 @@ export function GameOverScreen({
     if (!backend) { setSaveState('offline'); return; }
     setSaveState('saving');
     try { await onSave(); setSaveState('saved'); }
-    catch { setSaveError('Skorun kaydı tamamlanamadı. Haftalık sıralama için Supabase kurulumunu ve bağlantını kontrol et.'); setSaveState('error'); }
+    catch { setSaveError(t('Skorun kaydı tamamlanamadı. Haftalık sıralama için Supabase kurulumunu ve bağlantını kontrol et.')); setSaveState('error'); }
   };
   const submittedRef = useRef(false);
   useEffect(() => { if (submittedRef.current) return; submittedRef.current = true; void save(); }, []);
@@ -62,38 +64,38 @@ export function GameOverScreen({
               <VictoryBadge size={78} />
             </Suspense>
           </FxErrorBoundary>
-          <h2 className="text-2xl font-bold text-white">{mode === 'flags' ? 'Bayrak Arenası Tamamlandı' : mode === 'clues' ? 'İpucu Arenası Tamamlandı' : 'Oyun Bitti'}</h2>
-          <p className="mt-1 text-xs font-bold tracking-wider text-amber-300">{mode === 'flags' ? '🚩 BAYRAK LİGİ' : mode === 'clues' ? '💡 İPUCU LİGİ' : '🌍 KARIŞIK LİG'}</p>
+          <h2 className="text-2xl font-bold text-white">{t(mode === 'flags' ? 'Bayrak Arenası Tamamlandı' : mode === 'clues' ? 'İpucu Arenası Tamamlandı' : 'Oyun Bitti')}</h2>
+          <p className="mt-1 text-xs font-bold tracking-wider text-amber-300">{mode === 'flags' ? '🚩 '+t('BAYRAK LİGİ') : mode === 'clues' ? '💡 '+t('İPUCU LİGİ') : '🌍 '+t('KARIŞIK LİG')}</p>
         </div>
 
         <div className="mb-5 grid grid-cols-3 gap-2">
           <div className="rounded-xl bg-white/5 p-3 text-center">
-            <div className="text-2xl font-bold text-white tabular-nums">{score}</div>
-            <div className="text-xs text-slate-400 mt-0.5">Skor</div>
+            <div className="text-2xl font-bold text-white tabular-nums">{score.toLocaleString(language)}</div>
+            <div className="text-xs text-slate-400 mt-0.5">{t('Skor')}</div>
           </div>
           <div className="rounded-xl bg-white/5 p-3 text-center">
             <div className="text-2xl font-bold text-emerald-400 tabular-nums">{correctAnswers}/{totalQuestions}</div>
-            <div className="text-xs text-slate-400 mt-0.5">Doğru</div>
+            <div className="text-xs text-slate-400 mt-0.5">{t('Doğru')}</div>
           </div>
           <div className="rounded-xl bg-white/5 p-3 text-center">
             <div className="text-2xl font-bold text-blue-400 tabular-nums">%{accuracy}</div>
-            <div className="text-xs text-slate-400 mt-0.5">Başarı</div>
+            <div className="text-xs text-slate-400 mt-0.5">{t('Başarı')}</div>
           </div>
         </div>
 
         <div className="mb-4 rounded-lg bg-white/5 px-3 py-3 text-center text-sm text-slate-200">
           <span className="font-semibold text-blue-300">{playerName}</span>
-          {saveState === 'saving' && <p className="mt-1 text-slate-400">Skorun dünya sıralamasına gönderiliyor...</p>}
-          {saveState === 'saved' && <p className="mt-1 text-emerald-400"><CheckCircle2 className="mr-1 inline h-4 w-4"/>Skorun kaydedildi!</p>}
-          {saveState === 'offline' && <p className="mt-1 text-slate-300">Turu tamamladın! Çevrim içi sıralama henüz kurulmadığı için bu turun puanı lige gönderilmedi.</p>}
-          {saveState === 'error' && <div className="mt-2"><p className="text-rose-400">{saveError}</p><button onClick={() => void save()} className="mt-2 rounded-lg bg-blue-600 px-3 py-2 text-white">Tekrar Dene</button></div>}
+          {saveState === 'saving' && <p className="mt-1 text-slate-400">{t('Skorun dünya sıralamasına gönderiliyor...')}</p>}
+          {saveState === 'saved' && <p className="mt-1 text-emerald-400"><CheckCircle2 className="mr-1 inline h-4 w-4"/>{t('Skorun kaydedildi!')}</p>}
+          {saveState === 'offline' && <p className="mt-1 text-slate-300">{t('Turu tamamladın! Çevrim içi sıralama henüz kurulmadığı için bu turun puanı lige gönderilmedi.')}</p>}
+          {saveState === 'error' && <div className="mt-2"><p className="text-rose-400">{saveError}</p><button onClick={() => void save()} className="mt-2 rounded-lg bg-blue-600 px-3 py-2 text-white">{t('Tekrar Dene')}</button></div>}
         </div>
 
         {mode === 'mixed' && leaderboard.length > 0 && (
           <div className="mb-5">
             <div className="mb-2 flex items-center gap-2 text-amber-400">
               <Trophy className="h-4 w-4" />
-              <span className="text-xs font-semibold tracking-wider uppercase">Dünya Sıralaması</span>
+              <span className="text-xs font-semibold tracking-wider uppercase">{t('Dünya Sıralaması')}</span>
             </div>
             <div className="max-h-40 space-y-1.5 overflow-y-auto pr-1">
               {leaderboard.slice(0, 10).map((entry, i) => (
@@ -122,13 +124,13 @@ export function GameOverScreen({
         )}
 
         <button onClick={onExplore} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-5 py-3 font-bold text-cyan-200 hover:bg-cyan-500/20"><MapPinned className="h-5 w-5" /> Keşif Haritamı Gör</button>
-        <button onClick={() => onViewWeekly(mode)} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-500/15 px-5 py-3 font-bold text-amber-200 hover:bg-amber-500/25"><Trophy className="h-5 w-5" />{mode === 'flags' ? 'Bayrak Ligi Sıralaması' : mode === 'clues' ? 'İpucu Ligi Sıralaması' : 'Karışık Lig Sıralaması'}</button>
+        <button onClick={() => onViewWeekly(mode)} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-500/15 px-5 py-3 font-bold text-amber-200 hover:bg-amber-500/25"><Trophy className="h-5 w-5" />{mode === 'flags' ? t('Bayrak Ligi Sıralaması') : mode === 'clues' ? t('İpucu Ligi Sıralaması') : t('Karışık Lig Sıralaması')}</button>
         <button
           onClick={onRestart}
           className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-6 py-3 font-semibold text-white transition-all hover:bg-white/20 active:scale-[0.98]"
         >
           <RotateCcw className="h-5 w-5 transition-transform group-hover:rotate-[-180deg] duration-500" />
-          Ana Menüye Dön
+          {t('Ana Menüye Dön')}
         </button>
       </motion.div>
     </div>
