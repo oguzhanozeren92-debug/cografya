@@ -1,6 +1,7 @@
 import { COUNTRY_DATA } from '@/data/countries';
 import type { QuestionType } from '@/types';
 import type { Language } from './i18nStrings';
+import { localizedCapitalName } from './capitalLanguage';
 
 // ISO 3166-1 UN M49 to alpha-2 mapping. DisplayNames supplies CLDR names for
 // each supported device locale; a country is not translated by machine at runtime.
@@ -28,6 +29,6 @@ export function localizedCountryName(turkishName:string,locale:Language):string{
   return id?localizedCountryById(id,locale):turkishName;
 }
 export function localizedAnswer(option:string,kind:QuestionType,locale:Language):string{
-  if(kind==='capital')return option; // Proper city names stay as provided until the capital catalog is localized.
+  if(kind==='capital')return localizedCapitalName(option,locale);
   return localizedCountryName(option,locale);
 }
