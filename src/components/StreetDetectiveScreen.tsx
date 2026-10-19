@@ -235,7 +235,7 @@ export function StreetDetectiveScreen({
                         {guessedCorrectCountry(guess,reveal.country)?t('Ülkeyi doğru buldun!'):t('Ülke tahminin farklı çıktı.')}
                       </p>
                     )}
-                    <p className="text-xs leading-5 text-blue-100/75">{reveal.fact}</p>
+                    <p className="text-xs leading-5 text-blue-100/75">{t(reveal.fact)}</p>
                     <p className="pt-2 text-xs text-blue-100/80">{t('Yaklaştıkça puanın artar. 10 km: 4.900 · 500 km: 1.800 · 3.000 km ve üzeri: 0 puan.')}</p>
                     <p className="pt-2 text-[11px] leading-5 text-blue-100/70">
                       {t('Görüntü:')} {reveal.credit.artist} · {reveal.credit.license} ·
