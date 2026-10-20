@@ -56,14 +56,32 @@ export const STREET_EASY_IDS = new Set([
   'pf760c7acdb84d7f1c6785433',
   'pa7f461cb8a5487e7831f5a46',
 ]);
-// All rewards are deterministic on the server: four hints have a descending
-// ceiling, but a wrong country never earns points, however close the pin is.
+// The score combines exact-distance accuracy and a correct-country bonus.
+// Each hint reduces the total possible points, even if the pin is perfect.
 export const STREET_HINT_MAX=4;
 export const STREET_HINT_SCORES=Object.freeze([5000,4200,3400,2500,1500]);
-export function countryAnswerPoints(correct,hintsUsed){
+export function streetDistancePoints(km) {
+  if(!Number.isFinite(km)||km<0)return 0;
+  const steps=[[0,4000],[10,3920],[50,3600],[100,3200],[250,2400],
+    [500,1440],[1000,480],[2000,80],[3000,0]];
+  for(let i=1;i<steps.length;i++){
+    const [maxDistance,points]=steps[i];
+    if(km<=maxDistance){
+      const [minDistance,prior]=steps[i-1];
+      return Math.round(prior+(points-prior)*(km-minDistance)/(maxDistance-minDistance));
+    }
+  }
+  return 0;
+}
+export function scoreStreetGuess(km,correctCountry,hintsUsed) {
   if(!Number.isInteger(hintsUsed)||hintsUsed<0||hintsUsed>STREET_HINT_MAX)
     throw new RangeError('Invalid hintsUsed');
-  return correct?STREET_HINT_SCORES[hintsUsed]:0;
+  const distancePoints=streetDistancePoints(km);
+  const countryBonus=correctCountry?1000:0;
+  const rawPoints=distancePoints+countryBonus;
+  const points=Math.round(rawPoints*STREET_HINT_SCORES[hintsUsed]/5000);
+  return {distancePoints,countryBonus,rawPoints,points,
+    hintPenalty:rawPoints-points,maxPoints:STREET_HINT_SCORES[hintsUsed]};
 }
 const CONTINENT_BY_SUBREGION=Object.freeze({
   '005':'019','013':'019','021':'019',
@@ -71,14 +89,28 @@ const CONTINENT_BY_SUBREGION=Object.freeze({
   '155':'150','039':'150','154':'150',
   '053':'009',
 });
-const CAPITAL=Object.freeze({
-  'Kamboçya':'Phnom Penh','Gürcistan':'Tbilisi','Fransa':'Paris',
-  'Almanya':'Berlin','Brezilya':'Brasília','Hindistan':'New Delhi',
-  'İspanya':'Madrid','Avusturya':'Vienna','Meksika':'Mexico City',
-  'Japonya':'Tokyo','Arjantin':'Buenos Aires','Slovenya':'Ljubljana',
-  'Ermenistan':'Yerevan','Kanada':'Ottawa','Letonya':'Riga',
-  'Estonya':'Tallinn','Avustralya':'Canberra','Birleşik Krallık':'London',
-});
+export function countryChoices(country,random=Math.random){
+  const clue=COUNTRY_HINTS[country];
+  if(!clue)return [];
+  const thisContinent=CONTINENT_BY_SUBREGION[clue.region];
+  const all=Object.keys(COUNTRY_HINTS).filter(name=>name!==country);
+  const same=all.filter(name=>CONTINENT_BY_SUBREGION[COUNTRY_HINTS[name].region]===thisContinent);
+  const other=all.filter(name=>!same.includes(name));
+  const shuffle=items=>{
+    for(let i=items.length-1;i>0;i--){
+      const j=Math.floor(random()*(i+1));
+      [items[i],items[j]]=[items[j],items[i]];
+    }
+    return items;
+  };
+  // Similar-country distractors make this a useful late hint, not a giveaway.
+  const options=[country,...shuffle(same).slice(0,3)];
+  for(const candidate of shuffle(other)){
+    if(options.length>=4)break;
+    options.push(candidate);
+  }
+  return shuffle(options);
+}
 export function clueForCountry(country,level){
   const clue=COUNTRY_HINTS[country];
   if(!clue||!Number.isInteger(level)||level<1||level>STREET_HINT_MAX)
@@ -86,5 +118,5 @@ export function clueForCountry(country,level){
   if(level===1)return {kind:'region',value:CONTINENT_BY_SUBREGION[clue.region]};
   if(level===2)return {kind:'region',value:clue.region};
   if(level===3)return {kind:'landmark',value:clue.landmark};
-  return {kind:'capital',value:CAPITAL[country]};
+  return {kind:'choices',options:countryChoices(country)};
 }
