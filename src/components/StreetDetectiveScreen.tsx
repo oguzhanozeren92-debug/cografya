@@ -18,9 +18,10 @@ import { STREET_ROUNDS, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
 
 type Phase = 'view'|'guess'|'result'|'finish'|'ranking';
-type Clue = {level:number;kind:'region'|'landmark'|'capital';value:string};
+type Clue = {level:number;kind:'region'|'landmark'|'choices';value?:string;options?:string[]};
 type Reveal = {
-  correct:boolean;points:number;actual:Coordinates;
+  correct:boolean;points:number;actual:Coordinates;km:number;
+  distancePoints:number;countryBonus:number;hintPenalty:number;maxPoints:number;
   country:string;city:string;title:string;fact:string;
   credit:{artist:string;license:string;source:string};
 };
@@ -135,9 +136,10 @@ export function StreetDetectiveScreen({
         body:JSON.stringify({ticket:current.ticket,level}),
       });
       const data=await response.json() as Partial<Clue> & {error?:string};
-      if(!response.ok||data.level!==level||!data.kind||!data.value)
+      if(!response.ok||data.level!==level||!data.kind||
+         (data.kind==='choices'?(!Array.isArray(data.options)||data.options.length!==4):!data.value))
         throw new Error(data.error||'İpucu şu anda yüklenemedi.');
-      setClues(old=>[...old,{level,kind:data.kind as Clue['kind'],value:data.value as string}]);
+      setClues(old=>[...old,{level,kind:data.kind as Clue['kind'],value:data.value,options:data.options}]);
       setHintCount(level);
       setEarnedHintLevel(null);
       trackPlayEvent({mode:'street',event_type:'hint',question_id:current.id,detail:String(level)});
@@ -193,12 +195,12 @@ export function StreetDetectiveScreen({
     </section>
   );
   const clueText=(clue:Clue)=>{
-    if(clue.kind==='region')return streetRegionLabel(clue.value,language);
-    if(clue.kind==='landmark')return streetLandmarkLabel(clue.value,language);
-    return clue.value;
+    if(clue.kind==='region')return streetRegionLabel(clue.value??'',language);
+    if(clue.kind==='landmark')return streetLandmarkLabel(clue.value??'',language);
+    return '';
   };
   const hintNames=[
-    t('Kıta ipucu'),t('Bölge ipucu'),t('Kültür ipucu'),t('Başkent ipucu'),
+    t('Kıta ipucu'),t('Bölge ipucu'),t('Kültür ipucu'),t('4 ülke seçeneği'),
   ];
   const hintsPanel=()=>{
     if(phase!=='view'&&phase!=='guess')return null;
@@ -214,7 +216,13 @@ export function StreetDetectiveScreen({
       {clues.length>0&&<div className="space-y-2">
         {clues.map(clue=><div key={clue.level} className="rounded-xl border border-amber-200/20 bg-amber-200/10 px-3 py-2 text-xs text-amber-50">
           <span className="mr-2 font-extrabold">{hintNames[clue.level-1]}:</span>
-          <strong>{clueText(clue)}</strong>
+          {clue.kind==='choices'&&clue.options?(
+            <div className="mt-2 grid grid-cols-2 gap-2" aria-label={t('Dördüncü ipucunun ülke seçenekleri')}>
+              {clue.options.map(country=><div key={country} className="rounded-xl border border-amber-200/20 bg-[#1a3d57] px-2 py-2 text-center font-bold">
+                {localizedCountryName(country,language)}
+              </div>)}
+            </div>
+          ):<strong>{clueText(clue)}</strong>}
         </div>)}
       </div>}
       {hintCount<4?(
@@ -324,7 +332,7 @@ export function StreetDetectiveScreen({
                       }}/>
                   </div>
                   <p className="px-2 py-2 text-[11px] text-blue-100/75">
-                    {t('Fotoğrafı dört yönden incele; şehir bulmak zorunda değilsin.')}
+                    {t('Fotoğrafı dört yönden incele; tam konuma yaklaşmaya çalış.')}
                   </p>
                 </div>
                 {hintsPanel()}
@@ -342,7 +350,7 @@ export function StreetDetectiveScreen({
                 <section className="street-card space-y-3 p-3">
                   <h2 className="text-base font-black">{t('Sence fotoğraf hangi ülkeden?')}</h2>
                   <p className="text-xs leading-5 text-blue-100/75">
-                    {t('Haritada ülkenin herhangi bir noktasını işaretle. Şehri bilmen gerekmiyor.')}
+                    {t('Fotoğrafın gerçek konumuna yaklaşmaya çalış. Ülkeyi doğru bulursan ekstra puan kazanırsın.')}
                   </p>
                   <StreetWorldMap guess={guess} actual={null} onGuess={setGuess}/>
                   <button type="button" disabled={!ready||!guess||hintBusy||busy}
@@ -371,6 +379,12 @@ export function StreetDetectiveScreen({
                 <p className="text-[32px] font-black text-amber-200">
                   +{reveal.points.toLocaleString(language)} {t('puan')}
                 </p>
+                <div className="space-y-1 rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-left text-xs text-blue-100">
+                  <p className="flex justify-between gap-2"><span>{t('Gerçek konuma uzaklığın')}</span><strong>{new Intl.NumberFormat(language,{maximumFractionDigits:1}).format(reveal.km)} km</strong></p>
+                  <p className="flex justify-between gap-2"><span>{t('Mesafe puanı')}</span><strong>+{reveal.distancePoints.toLocaleString(language)}</strong></p>
+                  <p className="flex justify-between gap-2"><span>{t('Doğru ülke bonusu')}</span><strong className="text-emerald-200">+{reveal.countryBonus.toLocaleString(language)}</strong></p>
+                  <p className="flex justify-between gap-2"><span>{t('İpucu puan kesintisi')}</span><strong className="text-orange-200">−{reveal.hintPenalty.toLocaleString(language)}</strong></p>
+                </div>
                 <p className="text-sm text-blue-100/80">{t('Doğru ülke:')}</p>
                 <p className="text-2xl font-black text-emerald-200">
                   {localizedCountryName(reveal.country,language)}
@@ -392,7 +406,7 @@ export function StreetDetectiveScreen({
           </div>
         )}
         <p className="mt-5 text-center text-[11px] text-blue-200/65">
-          {t('Sokak Dedektifi: doğru ülkeyi işaretle · dört isteğe bağlı ipucu')}
+          {t('Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu')}
           {phase==='finish'?' · '+t('Cihaz rekorun:')+' '+getLocalStreetBest().toLocaleString(language):''}
         </p>
       </main>
