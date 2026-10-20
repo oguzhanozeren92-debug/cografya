@@ -1,7 +1,7 @@
 import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 import { approvedPanoramas } from './approved.mjs';
 import { approvedPhotoIds } from './photo-ready.mjs';
-import { COUNTRY_HINTS, STREET_PLAYABLE_IDS, STREET_EASY_IDS, countryChoices } from './country-mode.mjs';
+import { COUNTRY_HINTS, STREET_PLAYABLE_IDS, STREET_EASY_IDS } from './country-mode.mjs';
 
 const SECRET = process.env.STREET_SESSION_SECRET ?? '';
 export const ROUNDS = 5;
@@ -43,8 +43,7 @@ export function publicRound(row) {
   return {
     id: row.id, media, ticket: ticketFor(row.id),
     credit: { artist: row.artist, license: row.license, source: row.source },
-    countryOptions: countryChoices(row.country, approvedPanoramas.map(x=>x.country)),
-    hints: COUNTRY_HINTS[row.country],
+    // Neither answer options nor clue data are shipped before a rewarded hint.
   };
 }
 export function chooseRounds() {
