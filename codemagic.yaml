@@ -1,0 +1,104 @@
+# Atlas Arena — iOS release pipeline (Capacitor + Vite).
+# Add this private repository to Codemagic and select the workflow to run.
+# Production publishing is NEVER automatically triggered by a Git push.
+workflows:
+  atlas-ios-smoke:
+    name: Atlas Arena — iOS simulator smoke test
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      node: 20
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Install locked JS dependencies
+        script: npm ci --no-audit --no-fund
+      - name: Verify translations, TypeScript, web build and Street game
+        script: |
+          node scripts/check-i18n.mjs
+          node --test tests/street/country-mode.test.mjs
+          npm run typecheck
+          npm run build
+      - name: Generate native iOS project and bundle icon
+        script: |
+          npx cap add ios
+          npx cap sync ios
+          mkdir -p assets
+          cp resources/icon.png assets/icon-only.png
+          npx --yes @capacitor/assets generate --ios
+          node scripts/configure-admob-native.mjs
+          node scripts/configure-push-ios.mjs
+      - name: Build unsigned iOS simulator app
+        script: |
+          xcodebuild -workspace ios/App/App.xcworkspace \
+            -scheme App -configuration Debug -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$CM_BUILD_DIR/ios-simulator-build" \
+            CODE_SIGNING_ALLOWED=NO build > /tmp/atlas-ios-smoke.log 2>&1 || {
+              tail -n 130 /tmp/atlas-ios-smoke.log
+              exit 1
+            }
+    artifacts:
+      - ios-simulator-build/Build/Products/Debug-iphonesimulator/*.app
+      - /tmp/atlas-ios-smoke.log
+
+  atlas-ios-testflight:
+    name: Atlas Arena — signed iOS IPA to TestFlight
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    integrations:
+      # Create this integration in Codemagic's Developer Portal integrations.
+      app_store_connect: atlas_arena_apple
+    environment:
+      node: 20
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        # Confirm this identifier exists in YOUR Apple Developer account.
+        bundle_identifier: com.oguzhanozeren.cografya
+      # Create the group in Codemagic. Add Atlas-only Supabase credentials
+      # when its separate project is ready; never put secrets in Git.
+      groups:
+        - atlas_arena_release
+      vars:
+        VITE_ATLAS_API_ORIGIN: "https://atlas-arena-tau.vercel.app"
+    scripts:
+      - name: Install and verify game
+        script: |
+          npm ci --no-audit --no-fund
+          node scripts/check-i18n.mjs
+          node --test tests/street/country-mode.test.mjs
+          npm run typecheck
+          npm run build
+      - name: Generate Capacitor iOS project and approved application icon
+        script: |
+          npx cap add ios
+          npx cap sync ios
+          mkdir -p assets
+          cp resources/icon.png assets/icon-only.png
+          npx --yes @capacitor/assets generate --ios
+          node scripts/configure-admob-native.mjs
+          node scripts/configure-push-ios.mjs
+          CAPACITOR_PLATFORM=ios npm run native:release:check
+      - name: Apply distribution signing and unique build number
+        script: |
+          xcode-project use-profiles
+          cd ios/App
+          xcrun agvtool new-version -all "$BUILD_NUMBER"
+      - name: Create signed TestFlight IPA
+        script: |
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/ios/App/App.xcworkspace" \
+            --scheme "App"
+    artifacts:
+      - ios/App/build/ios/ipa/*.ipa
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      app_store_connect:
+        auth: integration
+        # Upload the IPA to TestFlight, but do not submit App Store review.
+        submit_to_testflight: false
+        submit_to_app_store: false
