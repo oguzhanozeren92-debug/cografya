@@ -9,6 +9,24 @@ export const MAX_PER_ROUND = 5000;
 export const configured = () => SECRET.length >= 32 &&
   /^https:\/\/[^/]+\/?$/.test(process.env.STREET_R2_PUBLIC_BASE_URL || '');
 
+// Only the installed app's webview origins may call HTTPS game functions
+// cross-origin. Browser access on the Vercel domain remains same-origin.
+export function allowAtlasNativeCors(req,res){
+  const origin=req.headers?.origin??req.headers?.Origin??'';
+  const allowed=new Set(['capacitor://localhost','ionic://localhost','http://localhost','https://localhost']);
+  if(allowed.has(origin)){
+    res.setHeader('Access-Control-Allow-Origin',origin);
+    res.setHeader('Vary','Origin');
+    res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers','Content-Type');
+    res.setHeader('Access-Control-Max-Age','3600');
+  }
+  if(req.method==='OPTIONS'){
+    if(!allowed.has(origin))return res.status(403).end();
+    return res.status(204).end();
+  }
+  return false;
+}
 export function send(res, status, data) {
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
