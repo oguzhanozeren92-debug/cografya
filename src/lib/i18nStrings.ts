@@ -388,7 +388,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Mesafe puanı": "Distance points",
     "Doğru ülke bonusu": "Correct-country bonus",
     "İpucu puan kesintisi": "Hint deduction",
-    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Street Detective: pinpoint the spot, earn country bonuses · 4 optional hints"
+    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Street Detective: pinpoint the spot, earn country bonuses · 4 optional hints",
+    "Gizlilik Politikası": "Privacy Policy"
   },
   "es": {
     "Dil": "Idioma",
@@ -773,7 +774,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Mesafe puanı": "Puntos por distancia",
     "Doğru ülke bonusu": "Bono por país correcto",
     "İpucu puan kesintisi": "Penalización por pistas",
-    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Detective callejero: marca el lugar y gana bonos de país · 4 pistas opcionales"
+    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Detective callejero: marca el lugar y gana bonos de país · 4 pistas opcionales",
+    "Gizlilik Politikası": "Política de privacidad"
   },
   "de": {
     "Dil": "Sprache",
@@ -1158,7 +1160,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Mesafe puanı": "Entfernungspunkte",
     "Doğru ülke bonusu": "Bonus für richtiges Land",
     "İpucu puan kesintisi": "Punktabzug für Hinweise",
-    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Straßen-Detektiv: Ort finden, Länderbonus erhalten · 4 optionale Hinweise"
+    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Straßen-Detektiv: Ort finden, Länderbonus erhalten · 4 optionale Hinweise",
+    "Gizlilik Politikası": "Datenschutzerklärung"
   },
   "fr": {
     "Dil": "Langue",
@@ -1543,7 +1546,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Mesafe puanı": "Points de distance",
     "Doğru ülke bonusu": "Bonus du bon pays",
     "İpucu puan kesintisi": "Pénalité des indices",
-    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Détective des rues : situe le lieu, gagne un bonus de pays · 4 indices en option"
+    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Détective des rues : situe le lieu, gagne un bonus de pays · 4 indices en option",
+    "Gizlilik Politikası": "Politique de confidentialité"
   },
   "pt": {
     "Dil": "Idioma",
@@ -1928,7 +1932,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Mesafe puanı": "Pontos de distância",
     "Doğru ülke bonusu": "Bônus por país correto",
     "İpucu puan kesintisi": "Desconto das dicas",
-    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Detetive de rua: encontre o local e ganhe bônus por país · 4 dicas opcionais"
+    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Detetive de rua: encontre o local e ganhe bônus por país · 4 dicas opcionais",
+    "Gizlilik Politikası": "Política de privacidade"
   },
   "ru": {
     "Dil": "Язык",
@@ -2313,7 +2318,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Mesafe puanı": "Очки за расстояние",
     "Doğru ülke bonusu": "Бонус за верную страну",
     "İpucu puan kesintisi": "Штраф за подсказки",
-    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Уличный детектив: найди место и получи бонус за страну · 4 подсказки"
+    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Уличный детектив: найди место и получи бонус за страну · 4 подсказки",
+    "Gizlilik Politikası": "Политика конфиденциальности"
   },
   "zh": {
     "Dil": "语言",
@@ -2698,7 +2704,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Mesafe puanı": "距离得分",
     "Doğru ülke bonusu": "国家答对奖励",
     "İpucu puan kesintisi": "提示扣分",
-    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "街景侦探：精准定位，赢得国家奖励 · 4条可选提示"
+    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "街景侦探：精准定位，赢得国家奖励 · 4条可选提示",
+    "Gizlilik Politikası": "隐私政策"
   },
   "ja": {
     "Dil": "言語",
@@ -3083,6 +3090,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Mesafe puanı": "距離ポイント",
     "Doğru ülke bonusu": "国の正解ボーナス",
     "İpucu puan kesintisi": "ヒントによる減点",
-    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "ストリート探偵：場所を探して国ボーナスを獲得 · 任意のヒント4つ"
+    "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "ストリート探偵：場所を探して国ボーナスを獲得 · 任意のヒント4つ",
+    "Gizlilik Politikası": "プライバシーポリシー"
   }
 };
