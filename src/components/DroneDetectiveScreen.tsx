@@ -1,3 +1,4 @@
+import { atlasApi } from '@/lib/atlasApi';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2, Compass, MapPin, RefreshCcw, Trophy, X } from 'lucide-react';
 import { type StreetRound, type PanoramaMedia } from '@/components/StreetPanorama';
@@ -48,7 +49,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
     const run=async()=>{
       setAssetLoading(true);setAssetError('');
       try{
-        const response=await fetch('/api/drone/session',{cache:'no-store'});
+        const response=await fetch(atlasApi('/api/drone/session'),{cache:'no-store'});
         const body=await response.json() as {media?:Array<{id:string;media:PanoramaMedia}>;error?:string};
         if(!response.ok||!body.media||body.media.length<5){
           throw new Error(body.error||t('Dron 360° arşivi henüz hazır değil.'));
