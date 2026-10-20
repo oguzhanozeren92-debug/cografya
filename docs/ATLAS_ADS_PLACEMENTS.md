@@ -10,7 +10,8 @@
 | Dron Dedektifi | Tam ekran geçiş | Tüm tur tamamlanınca |
 | Günlük 10 soru | Tam ekran geçiş | 10. cevap bitince; 24 saatte tekrarlanan tamamlanmış oturum yeniden tetiklemez |
 | İsteğe bağlı ekstra can | Ödüllü video | Oyuncunun açıkça "reklam izle" tuşuna dokunmasıyla (mevcut işleyiş korunur) |
-| Harita döndürme, soru, cevap, ipucu, 360° görüntü, haritada konum seçme | **Reklam yok** | Asla oyun sırasında gösterilmez |
+| Sokak Dedektifi: oyuncunun istediği 1.–4. ipucu | **Ödüllü video** | Yalnız mobil native AdMob SDK ödülü doğrularsa ipucu açılır. Puan çarpanı azalır. Web önizlemesinde reklam yoktur |
+| Harita döndürme, soru, cevap, pasif fotoğraf izleme, haritada konum seçme | **Kendiliğinden reklam yok** | Oyuncu ipucu istemedikçe oyun sırasında reklam gösterilmez |
 | Keşif, haftalık sıralama, bildirim paneli | **Banner yok** | Ekranlar tamamen temiz kalır |
 
 ### Sıklık koruması
@@ -40,10 +41,19 @@ Eksik birimler ilgili reklam türünü **güvenli biçimde kapalı** tutar. `VIT
 
 1. `npm run typecheck` ve `npm run build` GitHub CI'da geçmeli.
 2. Gerçek iPhone'da hiçbir ekranda reklam bandı veya ona ayrılmış boşluk olmamalı.
-3. Bayrak, harita, ipucu, Sokak Dedektifi ve Dron Dedektifi sırasında reklam görünmemeli.
+3. Oyun ekranlarında kendiliğinden reklam görünmemeli. Sokak Dedektifi'nde sadece kullanıcının açık talebiyle ödüllü ipucu reklamı açılabilir.
 4. İlk 2 tamamlanan oyun ve 6 dakika koşuluna kadar tam ekran reklam çıkmamalı.
 5. Ağ yavaşsa oyun anında devam etmeli; reklama ait bekleme ekranı olmamalı.
 6. Ödüllü reklam yarıda kapanırsa can verilmemeli.
 7. Yayın öncesinde gerçek interstitial birimleri ayrıca bağlanmalı. Vercel kotası açılmadan yeni kodun canlıda olduğu iddia edilmemeli.
 
 Önemli: Apple/Facebook girişini isteğe bağlı hâle getirme ayrı bir geliştirme işidir; bu reklam değişikliği oyuncu kimlik/giriş akışını değiştirmez.
+
+## Sokak Dedektifi: konum tahmini ve 4 aşamalı ipucu (2026-10-20)
+
+- Kullanıcı dünya haritasında fotoğrafın **çekildiği kesin konuma yaklaşmaya** çalışır. Yakınlık 0–4000 puan; pin doğru ülkenin içindeyse +1000 bonus. 5 turda en fazla 25.000 puan.
+- İpuçları sırayla **kıta → bölge → kültürel simge → 4 olası ülke** şeklinde açılır. Dördüncü ipucundaki ülkeler yalnızca fikir verir; kullanıcı yine haritaya pin bırakır.
+- İpucuna göre azami tur puanları **5000 / 4200 / 3400 / 2500 / 1500**. İpucu kesintileri mesafe + ülke puanının toplamıyla orantılıdır.
+- Native iOS/Android'de mevcut AdMob ödüllü reklam SDK'sı kullanılır. Reklamın kapanması ya da hata vermesi ipucu kazandırmaz. Reklam yüklenemezse tahmin yapmaya devam edilebilir.
+- Vercel/web oyunu reklamsız önizlemedir; web için ödüllü reklam sağlayıcısı kurulmamıştır. Test reklamları sadece native test derlemelerinde kullanılmalıdır.
+- **Önemli güvenlik sınırı:** Reklam başarı teyidi bugün native istemciden gelir; Google AdMob **Server-Side Verification (SSV)** kurulmadan ipuçlarının sunucu tarafından ödül bazlı açılması ve dünya sıralamasının sahtekârlığa dayanıklı olması garanti edilmez. Büyük ödüllü rekabetlerde SSV ve sunucu oturumunda doğrulanmış ipucu tüketimi eklenmelidir.
