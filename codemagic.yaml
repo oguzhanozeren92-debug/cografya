@@ -7,7 +7,7 @@ workflows:
     max_build_duration: 90
     instance_type: mac_mini_m2
     environment:
-      node: 20
+      node: 22
       xcode: latest
       cocoapods: default
     scripts:
@@ -21,7 +21,7 @@ workflows:
           npm run build
       - name: Generate native iOS project and bundle icon
         script: |
-          npx cap add ios
+          npx cap add ios --packagemanager SPM
           npx cap sync ios
           mkdir -p assets
           cp resources/icon.png assets/icon-only.png
@@ -30,7 +30,14 @@ workflows:
           node scripts/configure-push-ios.mjs
       - name: Build unsigned iOS simulator app
         script: |
-          xcodebuild -workspace ios/App/App.xcworkspace \
+          # Capacitor 8 uses Swift Package Manager by default.
+          # Its project is an .xcodeproj, not an .xcworkspace.
+          test -d ios/App/App.xcodeproj || {
+            echo "Missing ios/App/App.xcodeproj after cap add ios"
+            find ios/App -maxdepth 2 -name '*.xcodeproj' -o -name '*.xcworkspace'
+            exit 1
+          }
+          xcodebuild -project ios/App/App.xcodeproj \
             -scheme App -configuration Debug -sdk iphonesimulator \
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$CM_BUILD_DIR/ios-simulator-build" \
@@ -50,7 +57,7 @@ workflows:
       # Create this integration in Codemagic's Developer Portal integrations.
       app_store_connect: atlas_arena_apple
     environment:
-      node: 20
+      node: 22
       xcode: latest
       cocoapods: default
       ios_signing:
@@ -73,7 +80,7 @@ workflows:
           npm run build
       - name: Generate Capacitor iOS project and approved application icon
         script: |
-          npx cap add ios
+          npx cap add ios --packagemanager SPM
           npx cap sync ios
           mkdir -p assets
           cp resources/icon.png assets/icon-only.png
@@ -83,13 +90,17 @@ workflows:
           CAPACITOR_PLATFORM=ios npm run native:release:check
       - name: Apply distribution signing and unique build number
         script: |
-          xcode-project use-profiles
+          test -d ios/App/App.xcodeproj || {
+            echo "Missing native iOS Xcode project"
+            exit 1
+          }
+          xcode-project use-profiles --project "$CM_BUILD_DIR/ios/App/App.xcodeproj"
           cd ios/App
           xcrun agvtool new-version -all "$BUILD_NUMBER"
       - name: Create signed TestFlight IPA
         script: |
           xcode-project build-ipa \
-            --workspace "$CM_BUILD_DIR/ios/App/App.xcworkspace" \
+            --project "$CM_BUILD_DIR/ios/App/App.xcodeproj" \
             --scheme "App"
     artifacts:
       - ios/App/build/ios/ipa/*.ipa
