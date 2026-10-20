@@ -14,6 +14,7 @@ export default function handler(req,res){
   if(!Number.isInteger(level)||level<1||level>STREET_HINT_MAX)
     return send(res,400,{error:'Geçersiz ipucu seviyesi.'});
   const clue=clueForCountry(row.country,level);
-  if(!clue||!clue.value)return send(res,404,{error:'Bu konum için ipucu bulunamadı.'});
+  if(!clue||(clue.kind==='choices'?!Array.isArray(clue.options)||clue.options.length!==4:!clue.value))
+    return send(res,404,{error:'Bu konum için ipucu bulunamadı.'});
   return send(res,200,{level,...clue});
 }
