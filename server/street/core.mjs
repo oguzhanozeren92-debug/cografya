@@ -1,6 +1,7 @@
 import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 import { approvedPanoramas } from './approved.mjs';
 import { approvedPhotoIds } from './photo-ready.mjs';
+import { COUNTRY_HINTS, STREET_PLAYABLE_IDS, STREET_EASY_IDS, countryChoices } from './country-mode.mjs';
 
 const SECRET = process.env.STREET_SESSION_SECRET ?? '';
 export const ROUNDS = 5;
@@ -42,27 +43,36 @@ export function publicRound(row) {
   return {
     id: row.id, media, ticket: ticketFor(row.id),
     credit: { artist: row.artist, license: row.license, source: row.source },
+    countryOptions: countryChoices(row.country, approvedPanoramas.map(x=>x.country)),
+    hints: COUNTRY_HINTS[row.country],
   };
 }
 export function chooseRounds() {
   const ready = new Set(approvedPhotoIds);
-  // Never select a panorama without verified local JPGs; otherwise iPhone shows a blank card.
-  const pool = approvedPanoramas.filter(x => x.approved === true && ready.has(x.id));
-  for (let i = pool.length - 1; i > 0; i--) {
-    const rnd = Math.floor(Math.random() * (i + 1)); [pool[i], pool[rnd]] = [pool[rnd], pool[i]];
-  }
-  const chosen = [], used = new Set();
-  for (const item of pool) {
-    if (used.has(item.country)) continue;
-    chosen.push(item); used.add(item.country);
-    if (chosen.length === ROUNDS) break;
-  }
-  if (chosen.length < ROUNDS) {
-    for (const item of pool) {
-      if (!chosen.includes(item)) chosen.push(item);
-      if (chosen.length === ROUNDS) break;
+  // Only show curated and successfully synced photos, never random interiors or
+  // nondescript forest paths. Reserve the fifth round for a modest challenge.
+  const pool = approvedPanoramas.filter(x=>x.approved === true &&
+    ready.has(x.id) && STREET_PLAYABLE_IDS.has(x.id) && COUNTRY_HINTS[x.country]);
+  const shuffle = items => {
+    for(let i=items.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [items[i],items[j]]=[items[j],items[i]];
+    }
+    return items;
+  };
+  const easy=shuffle(pool.filter(row=>STREET_EASY_IDS.has(row.id)));
+  const medium=shuffle(pool.filter(row=>!STREET_EASY_IDS.has(row.id)));
+  const chosen=[],used=new Set();
+  function addDistinct(rows,amount){
+    for(const item of rows){
+      if(chosen.length>=amount)break;
+      if(used.has(item.country))continue;
+      chosen.push(item);used.add(item.country);
     }
   }
+  addDistinct(easy,4);
+  addDistinct(medium,ROUNDS);
+  if(chosen.length<ROUNDS)addDistinct(easy,ROUNDS);
   return chosen.length === ROUNDS ? chosen.map(publicRound) : null;
 }
 export function distanceKm(a, b) {
