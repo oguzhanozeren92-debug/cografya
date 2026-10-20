@@ -1,9 +1,11 @@
+import { allowAtlasNativeCors } from '../../server/street/core.mjs';
 import { approvedDroneMedia } from '../../server/drone/approved.mjs';
 import { readyDronePhotoIds } from '../../server/drone/photo-ready.mjs';
 
 // Use verified, same-origin images: no r2.dev CORS, CDN dependency or WebGL
 // player is needed on mobile for the reliable four-angle photo mode.
 export default function handler(req,res) {
+  if(allowAtlasNativeCors(req,res))return;
   res.setHeader('Cache-Control','no-store');
   res.setHeader('Content-Type','application/json; charset=utf-8');
   if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});
