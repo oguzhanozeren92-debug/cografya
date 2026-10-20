@@ -245,7 +245,7 @@ export function StreetDetectiveScreen({
                     {t('Şehir veya haritada nokta bulmana gerek yok. Doğru ülkeyi seçmen yeterli!')}
                   </p>
                   <div className="grid grid-cols-2 gap-2" role="group" aria-label={t('Ülke seçenekleri')}>
-                    {current.countryOptions.map((country,i)=>{
+                    {(current.countryOptions??[]).map((country,i)=>{
                       const selected=selectedCountry===country;
                       return <button key={country} type="button" disabled={!ready||busy}
                         aria-pressed={selected}
@@ -261,8 +261,8 @@ export function StreetDetectiveScreen({
 
                   {hintCount>0&&(
                     <div className="space-y-2 rounded-xl border border-amber-300/25 bg-amber-200/10 p-3 text-sm leading-6 text-amber-50">
-                      <p><Lightbulb className="mr-1 inline h-4 w-4"/> {t('Bölge:')} <strong>{streetRegionLabel(current.hints.region,language)}</strong></p>
-                      {hintCount===2&&<p><HelpCircle className="mr-1 inline h-4 w-4"/> {t('Ünlü simge:')} <strong>{streetLandmarkLabel(current.hints.landmark,language)}</strong></p>}
+                      <p><Lightbulb className="mr-1 inline h-4 w-4"/> {t('Bölge:')} <strong>{streetRegionLabel(current.hints?.region??'150',language)}</strong></p>
+                      {hintCount===2&&<p><HelpCircle className="mr-1 inline h-4 w-4"/> {t('Ünlü simge:')} <strong>{streetLandmarkLabel(current.hints?.landmark??'',language)}</strong></p>}
                     </div>
                   )}
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
@@ -298,7 +298,7 @@ export function StreetDetectiveScreen({
                 </div>
                 <p className="text-sm text-blue-100/80">{t('Doğru ülke:')}</p>
                 <p className="text-2xl font-black text-emerald-200">{localizedCountryName(reveal.country,language)}</p>
-                <p className="text-xs text-blue-100/75">{reveal.city} · {t(reveal.title)}</p>
+                <p className="text-xs text-blue-100/75">{reveal.city}</p>
                 <p className="text-sm leading-6 text-blue-100/80">{t(reveal.fact)}</p>
                 <p className="text-[11px] leading-5 text-blue-100/65">
                   {t('Görüntü:')} {reveal.credit.artist} · {reveal.credit.license} ·{' '}
