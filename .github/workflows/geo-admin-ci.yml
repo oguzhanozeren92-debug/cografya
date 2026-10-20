@@ -8,6 +8,11 @@ on:
       - 'src/hooks/useGame.ts'
       - 'src/components/DailyChallengeScreen.tsx'
       - 'src/components/StreetDetectiveScreen.tsx'
+      - 'src/lib/streetHintLocale.ts'
+      - 'server/street/country-mode.mjs'
+      - 'server/street/core.mjs'
+      - 'api/street/guess.js'
+      - 'tests/street/country-mode.test.mjs'
       - 'src/components/DroneDetectiveScreen.tsx'
       - 'src/components/LocationLeaguePanel.tsx'
       - 'src/lib/streetLeaderboard.ts'
@@ -50,6 +55,8 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Check localization coverage
         run: node scripts/check-i18n.mjs
+      - name: Street Detective country-mode checks
+        run: node --test tests/street/country-mode.test.mjs
       - name: Type check
         run: npm run typecheck
       - name: Build
