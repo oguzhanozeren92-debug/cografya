@@ -1,4 +1,4 @@
-import { configured, validateTicket, send } from '../../server/street/core.mjs';
+import { configured, validateTicket, send, allowAtlasNativeCors } from '../../server/street/core.mjs';
 import { clueForCountry, STREET_HINT_MAX } from '../../server/street/country-mode.mjs';
 
 // Client requests this only after a successful opt-in rewarded ad on native;
@@ -6,6 +6,7 @@ import { clueForCountry, STREET_HINT_MAX } from '../../server/street/country-mod
 // Production ranked play will need AdMob server-side verification before
 // advertised views / hint penalties can be treated as tamper-proof.
 export default function handler(req,res){
+  if(allowAtlasNativeCors(req,res))return;
   if(req.method!=='POST')return send(res,405,{error:'Method not allowed'});
   if(!configured())return send(res,503,{error:'Konum servisi hazır değil.'});
   const {ticket,level}=req.body??{};
