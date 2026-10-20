@@ -1,3 +1,4 @@
+import { atlasApi } from '@/lib/atlasApi';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ArrowLeft, ArrowRight, Camera, CheckCircle2, Globe2, Lightbulb,
@@ -73,7 +74,7 @@ export function StreetDetectiveScreen({
     setReady(false);setShowRank(false);setSaveNote('');setPhase('view');
     setSaveState('idle');setLastFinalScore(0);setSaveError('');
     try{
-      const response=await fetch('/api/street/session',{cache:'no-store'});
+      const response=await fetch(atlasApi('/api/street/session'),{cache:'no-store'});
       const data=await response.json() as {rounds?:StreetRound[];error?:string};
       if(!response.ok||!Array.isArray(data.rounds)||data.rounds.length!==STREET_ROUNDS)
         throw new Error(data.error||'Doğrulanmış konum fotoğrafları hazırlanıyor.');
@@ -101,7 +102,7 @@ export function StreetDetectiveScreen({
     if(busy||hintBusy||!ready||!current||!guess||phase!=='guess')return;
     setBusy(true);setError('');
     try{
-      const response=await fetch('/api/street/guess',{
+      const response=await fetch(atlasApi('/api/street/guess'),{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({ticket:current.ticket,guess,hintsUsed:hintCount}),
       });
@@ -131,7 +132,7 @@ export function StreetDetectiveScreen({
         }
         setEarnedHintLevel(level);
       }
-      const response=await fetch('/api/street/hint',{
+      const response=await fetch(atlasApi('/api/street/hint'),{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({ticket:current.ticket,level}),
       });
