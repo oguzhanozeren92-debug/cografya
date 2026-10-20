@@ -56,22 +56,35 @@ export const STREET_EASY_IDS = new Set([
   'pf760c7acdb84d7f1c6785433',
   'pa7f461cb8a5487e7831f5a46',
 ]);
-export function countryChoices(country,allCountries,random=Math.random){
-  const incorrect=[...new Set(allCountries.filter(x=>x!==country))];
-  for(let i=incorrect.length-1;i>0;i--){
-    const j=Math.floor(random()*(i+1));
-    [incorrect[i],incorrect[j]]=[incorrect[j],incorrect[i]];
-  }
-  const options=[country,...incorrect.slice(0,3)];
-  for(let i=options.length-1;i>0;i--){
-    const j=Math.floor(random()*(i+1));
-    [options[i],options[j]]=[options[j],options[i]];
-  }
-  return options;
-}
-export function countryAnswerPoints(isCorrect,hintsUsed){
-  if(!isCorrect)return 0;
-  if(!Number.isInteger(hintsUsed)||hintsUsed<0||hintsUsed>2)
+// All rewards are deterministic on the server: four hints have a descending
+// ceiling, but a wrong country never earns points, however close the pin is.
+export const STREET_HINT_MAX=4;
+export const STREET_HINT_SCORES=Object.freeze([5000,4200,3400,2500,1500]);
+export function countryAnswerPoints(correct,hintsUsed){
+  if(!Number.isInteger(hintsUsed)||hintsUsed<0||hintsUsed>STREET_HINT_MAX)
     throw new RangeError('Invalid hintsUsed');
-  return [5000,3500,2000][hintsUsed];
+  return correct?STREET_HINT_SCORES[hintsUsed]:0;
+}
+const CONTINENT_BY_SUBREGION=Object.freeze({
+  '005':'019','013':'019','021':'019',
+  '034':'142','030':'142','035':'142','145':'142',
+  '155':'150','039':'150','154':'150',
+  '053':'009',
+});
+const CAPITAL=Object.freeze({
+  'Kamboçya':'Phnom Penh','Gürcistan':'Tbilisi','Fransa':'Paris',
+  'Almanya':'Berlin','Brezilya':'Brasília','Hindistan':'New Delhi',
+  'İspanya':'Madrid','Avusturya':'Vienna','Meksika':'Mexico City',
+  'Japonya':'Tokyo','Arjantin':'Buenos Aires','Slovenya':'Ljubljana',
+  'Ermenistan':'Yerevan','Kanada':'Ottawa','Letonya':'Riga',
+  'Estonya':'Tallinn','Avustralya':'Canberra','Birleşik Krallık':'London',
+});
+export function clueForCountry(country,level){
+  const clue=COUNTRY_HINTS[country];
+  if(!clue||!Number.isInteger(level)||level<1||level>STREET_HINT_MAX)
+    return null;
+  if(level===1)return {kind:'region',value:CONTINENT_BY_SUBREGION[clue.region]};
+  if(level===2)return {kind:'region',value:clue.region};
+  if(level===3)return {kind:'landmark',value:clue.landmark};
+  return {kind:'capital',value:CAPITAL[country]};
 }
