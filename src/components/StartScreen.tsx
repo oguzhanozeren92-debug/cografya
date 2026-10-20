@@ -304,6 +304,10 @@ export function StartScreen({
             <Flag className="mr-1 inline h-3 w-3" /> {t('Çevrim içi sıralama şu an görüntülenemiyor.')}
           </p>
         )}
+        <a href="https://atlas-arena-tau.vercel.app/privacy.html" target="_blank" rel="noopener noreferrer"
+          className="mx-auto mt-3 flex w-fit items-center gap-1.5 px-3 py-2 text-xs text-slate-300 underline underline-offset-4">
+          <ShieldCheck className="h-4 w-4" /> {t('Gizlilik Politikası')}
+        </a>
         {Capacitor.isNativePlatform() && onAdPrivacy && (
           <button type="button" onClick={onAdPrivacy}
             className="mx-auto mt-4 flex items-center gap-1.5 px-3 py-2 text-xs text-slate-300">
