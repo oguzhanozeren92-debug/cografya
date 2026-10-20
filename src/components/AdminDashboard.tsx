@@ -59,7 +59,7 @@ export function AdminDashboard() {
   const [dataError,setDataError]=useState('');
 
   const authorize=useCallback(async():Promise<boolean>=>{
-    if(!backend){setMessage('Atlas Arena Supabase bağlantısı yapılandırılmamış.');setStatus('login');return false;}
+    if(!backend){setMessage('Globriva Supabase bağlantısı yapılandırılmamış.');setStatus('login');return false;}
     const {data:{user},error}=await backend.auth.getUser();
     if(error||!user){setStatus('login');return false;}
     const {data, error:roleError}=await backend.from('geo_admin_members')
@@ -120,7 +120,7 @@ export function AdminDashboard() {
         </button>
         <div className="rounded-[27px] border border-cyan-200/20 bg-[#112640] p-6 shadow-2xl">
           <ShieldCheck className="h-10 w-10 text-cyan-300"/>
-          <h1 className="mt-3 text-2xl font-black">Atlas Arena Admin</h1>
+          <h1 className="mt-3 text-2xl font-black">Globriva Admin</h1>
           <p className="mt-2 text-sm leading-6 text-slate-300">
             İstatistikler ve sistem sağlığı yalnız yetkili yöneticilere açıktır.
           </p>
@@ -160,7 +160,7 @@ export function AdminDashboard() {
         <header className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <ShieldCheck className="h-9 w-9 text-cyan-300"/>
-            <div><h1 className="text-xl font-black">Atlas Arena · Yönetim</h1>
+            <div><h1 className="text-xl font-black">Globriva · Yönetim</h1>
               <p className="text-[11px] text-slate-400">Gerçek oyuncu sinyalleri · Kimlikler gizli</p></div>
           </div>
           <div className="flex gap-2">

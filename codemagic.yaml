@@ -1,9 +1,9 @@
-# Atlas Arena — iOS release pipeline (Capacitor + Vite).
+# Globriva — iOS release pipeline (Capacitor + Vite).
 # Add this private repository to Codemagic and select the workflow to run.
 # Production publishing is NEVER automatically triggered by a Git push.
 workflows:
   atlas-ios-smoke:
-    name: Atlas Arena — iOS simulator smoke test
+    name: Globriva — iOS simulator smoke test
     max_build_duration: 90
     instance_type: mac_mini_m2
     environment:
@@ -50,7 +50,7 @@ workflows:
       - /tmp/atlas-ios-smoke.log
 
   atlas-ios-testflight:
-    name: Atlas Arena — signed iOS IPA to TestFlight
+    name: Globriva — signed iOS IPA to TestFlight
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:

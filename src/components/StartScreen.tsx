@@ -133,7 +133,7 @@ export function StartScreen({
             <span className="atlas-home-brand-icon" aria-hidden="true">
               <Globe2 className="h-6 w-6" strokeWidth={1.8} />
             </span>
-            <span className="atlas-home-brand-name">Atlas <strong>Arena</strong></span>
+            <span className="atlas-home-brand-name">Glo<strong>briva</strong></span>
           </div>
           <div className="flex shrink-0 items-center gap-2">
             {isIosPushSupported() && onNotifications && (

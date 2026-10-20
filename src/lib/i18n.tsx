@@ -39,7 +39,7 @@ export function LanguageProvider({children}:{children:ReactNode}){
     try{localStorage.setItem(STORAGE_KEY,language);}catch{/* optional */}
     document.documentElement.lang=language==='zh'?'zh-CN':language==='pt'?'pt-BR':language;
     document.documentElement.dir='ltr';
-    document.title='Atlas Arena';
+    document.title='Globriva';
   },[language]);
   const value=useMemo<I18nContext>(()=>{
     const t=(text:string)=>language==='tr' ? text
