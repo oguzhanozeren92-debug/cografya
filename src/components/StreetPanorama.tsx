@@ -10,6 +10,8 @@ export type PanoramaMedia =
 export interface StreetRound {
   id:string;
   ticket:string;
+  countryOptions:string[];
+  hints:{region:string;landmark:string};
   media:PanoramaMedia;
   credit:{artist:string;license:string;source:string};
 }
