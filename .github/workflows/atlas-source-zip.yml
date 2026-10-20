@@ -1,0 +1,50 @@
+name: Atlas Arena - Source ZIP Export
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/atlas-source-zip.yml'
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bundle full tracked Atlas Arena source, excluding local secrets
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import subprocess, zipfile, pathlib, os
+          dest='Atlas-Arena-Kaynak-Kod.zip'
+          paths=subprocess.check_output(['git','ls-files','-z']).decode('utf-8').split('\0')
+          excluded=[]
+          with zipfile.ZipFile(dest,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as out:
+            for path in paths:
+              if not path: continue
+              leaf=pathlib.Path(path).name
+              # Do not export environment credentials or code-signing secrets.
+              if (leaf.startswith('.env') and leaf!='.env.example') or leaf.endswith(('.p8','.p12','.mobileprovision','.keystore','.jks','.pem','.key')):
+                excluded.append(path)
+                continue
+              if not os.path.isfile(path):
+                continue
+              out.write(path,arcname='Atlas-Arena/'+path)
+          with zipfile.ZipFile(dest) as check:
+            bad=check.testzip()
+            assert bad is None, bad
+            names=check.namelist()
+            assert 'Atlas-Arena/package.json' in names
+            assert 'Atlas-Arena/src/App.tsx' in names
+            assert 'Atlas-Arena/resources/icon.png' in names
+            print('Archive:',dest,'files:',len(names),'bytes:',os.path.getsize(dest))
+            print('Excluded private config:',excluded)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Atlas-Arena-Tam-Kaynak-Kod
+          path: Atlas-Arena-Kaynak-Kod.zip
+          retention-days: 7
+          if-no-files-found: error
