@@ -1,25 +1,33 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, Camera, CheckCircle2, Globe2, HelpCircle, Lightbulb, Medal, RefreshCcw, Trophy, X, XCircle } from 'lucide-react';
+import {
+  ArrowLeft, ArrowRight, Camera, CheckCircle2, Globe2, Lightbulb,
+  MapPin, Medal, PlayCircle, RefreshCcw, Trophy, X, XCircle,
+} from 'lucide-react';
+import { Capacitor } from '@capacitor/core';
 import type { StreetRound } from '@/components/StreetPanorama';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
+import { StreetWorldMap } from '@/components/StreetWorldMap';
+import { watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { getLocalStreetBest, rememberLocalStreetBest, submitStreetScore } from '@/lib/streetLeaderboard';
 import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
 import { backend } from '@/lib/leaderboard';
 import { useLanguage } from '@/lib/i18n';
 import { localizedCountryName } from '@/lib/countryLanguage';
 import { streetLandmarkLabel, streetRegionLabel } from '@/lib/streetHintLocale';
-import { STREET_ROUNDS } from '@/lib/streetLocations';
+import { STREET_ROUNDS, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
 
-type Phase = 'guess'|'result'|'finish'|'ranking';
+type Phase = 'view'|'guess'|'result'|'finish'|'ranking';
+type Clue = {level:number;kind:'region'|'landmark'|'capital';value:string};
 type Reveal = {
-  correct:boolean;points:number;country:string;city:string;title:string;fact:string;
+  correct:boolean;points:number;actual:Coordinates;
+  country:string;city:string;title:string;fact:string;
   credit:{artist:string;license:string;source:string};
 };
 type Completed = {
   id:string;country:string;city:string;points:number;correct:boolean;skipped?:boolean;
 };
-const MAX_ROUND_POINTS=[5000,3500,2000] as const;
+const MAX_ROUND_POINTS=[5000,4200,3400,2500,1500] as const;
 
 export function StreetDetectiveScreen({
   onClose,onGameComplete,playerName,initialView='play',
@@ -27,11 +35,17 @@ export function StreetDetectiveScreen({
   onClose:()=>void;onGameComplete?:()=>void;playerName:string;initialView?:'play'|'ranking';
 }) {
   const {language,t}=useLanguage();
-  const [phase,setPhase]=useState<Phase>(initialView==='ranking'?'ranking':'guess');
+  const [phase,setPhase]=useState<Phase>(initialView==='ranking'?'ranking':'view');
   const [rounds,setRounds]=useState<StreetRound[]>([]);
   const [idx,setIdx]=useState(0);
-  const [selectedCountry,setSelectedCountry]=useState<string|null>(null);
+  const [guess,setGuess]=useState<Coordinates|null>(null);
   const [hintCount,setHintCount]=useState(0);
+  const [clues,setClues]=useState<Clue[]>([]);
+  // A confirmed native reward is reusable if the hint API temporarily fails.
+  // A network retry must not demand that the player watch the same ad again.
+  const [earnedHintLevel,setEarnedHintLevel]=useState<number|null>(null);
+  const [hintBusy,setHintBusy]=useState(false);
+  const [hintError,setHintError]=useState('');
   const [reveal,setReveal]=useState<Reveal|null>(null);
   const [completed,setCompleted]=useState<Completed[]>([]);
   const [ready,setReady]=useState(false);
@@ -47,20 +61,21 @@ export function StreetDetectiveScreen({
   const openedAt=useRef(0);
   const completionNotified=useRef(false);
   const score=completed.reduce((total,row)=>total+row.points,0);
+  const native=Capacitor.isNativePlatform();
 
   const newGame=useCallback(async()=>{
     completionNotified.current=false;
     trackPlayEvent({mode:'street',event_type:'mode_start'});
-    setLoading(true);setError('');setRounds([]);
-    setIdx(0);setCompleted([]);setSelectedCountry(null);setReveal(null);
-    setHintCount(0);setReady(false);setShowRank(false);setSaveNote('');setPhase('guess');
+    setLoading(true);setError('');setRounds([]);setIdx(0);setCompleted([]);
+    setGuess(null);setReveal(null);setClues([]);setHintCount(0);
+    setEarnedHintLevel(null);setHintBusy(false);setHintError('');
+    setReady(false);setShowRank(false);setSaveNote('');setPhase('view');
     setSaveState('idle');setLastFinalScore(0);setSaveError('');
     try{
       const response=await fetch('/api/street/session',{cache:'no-store'});
       const data=await response.json() as {rounds?:StreetRound[];error?:string};
-      if(!response.ok||!Array.isArray(data.rounds)||data.rounds.length!==STREET_ROUNDS||
-        data.rounds.some(row=>!Array.isArray(row.countryOptions)||row.countryOptions.length!==4||!row.hints))
-        throw new Error(data.error||'Ülke tahminleri için fotoğraf arşivi hazırlanıyor.');
+      if(!response.ok||!Array.isArray(data.rounds)||data.rounds.length!==STREET_ROUNDS)
+        throw new Error(data.error||'Doğrulanmış konum fotoğrafları hazırlanıyor.');
       warmStreetPhoto(data.rounds[0]);
       setRounds(data.rounds);
     }catch(e){setError(e instanceof Error?e.message:'Fotoğraf arşivi yüklenemedi.');}
@@ -82,24 +97,55 @@ export function StreetDetectiveScreen({
   };
 
   const confirm=async()=>{
-    if(busy||!ready||!current||!selectedCountry||phase!=='guess')return;
+    if(busy||hintBusy||!ready||!current||!guess||phase!=='guess')return;
     setBusy(true);setError('');
     try{
       const response=await fetch('/api/street/guess',{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({ticket:current.ticket,countryGuess:selectedCountry,hintsUsed:hintCount}),
+        body:JSON.stringify({ticket:current.ticket,guess,hintsUsed:hintCount}),
       });
       const data=await response.json() as Reveal & {error?:string};
       if(!response.ok||typeof data.correct!=='boolean'||!Number.isInteger(data.points))
-        throw new Error(data.error||'Ülke tahmini hesaplanamadı.');
+        throw new Error(data.error||'Konum tahmini hesaplanamadı.');
       trackPlayEvent({mode:'street',event_type:'street_guess',question_id:current.id,
         duration_ms:openedAt.current?performance.now()-openedAt.current:undefined});
       setReveal(data);
       setCompleted(prev=>[...prev,{...data,id:current.id}]);
       setPhase('result');
-    }catch(e){setError(e instanceof Error?e.message:'Ülke tahmini gönderilemedi.');}
+    }catch(e){setError(e instanceof Error?e.message:'Tahmin gönderilemedi.');}
     finally{setBusy(false);}
   };
+  const unlockHint=async()=>{
+    if(!current||hintBusy||busy||!ready||(phase!=='view'&&phase!=='guess')||hintCount>=4)return;
+    const level=hintCount+1;
+    setHintBusy(true);setHintError('');
+    try{
+      if(earnedHintLevel!==level&&native){
+        // This existing native AdMob helper returns true ONLY if its SDK
+        // gives the reward. Closing, failed loading or lack of consent is not enough.
+        const rewarded=await watchRewardedHeartAd();
+        if(!rewarded){
+          setHintError(t('Reklam tamamlanmadı. İpucu açılmadı.'));
+          return;
+        }
+        setEarnedHintLevel(level);
+      }
+      const response=await fetch('/api/street/hint',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ticket:current.ticket,level}),
+      });
+      const data=await response.json() as Partial<Clue> & {error?:string};
+      if(!response.ok||data.level!==level||!data.kind||!data.value)
+        throw new Error(data.error||'İpucu şu anda yüklenemedi.');
+      setClues(old=>[...old,{level,kind:data.kind as Clue['kind'],value:data.value as string}]);
+      setHintCount(level);
+      setEarnedHintLevel(null);
+      trackPlayEvent({mode:'street',event_type:'hint_used',question_id:current.id,detail:String(level)});
+    }catch(e){
+      setHintError(e instanceof Error?t(e.message):t('İpucu şu anda yüklenemedi.'));
+    }finally{setHintBusy(false);}
+  };
+
   const saveOnline=async(finalScore:number)=>{
     if(!backend){setSaveState('offline');return;}
     setSaveState('saving');setSaveError('');
@@ -119,15 +165,16 @@ export function StreetDetectiveScreen({
     }
   };
   const resetForNext=()=>{
-    setIdx(i=>i+1);setSelectedCountry(null);setHintCount(0);
-    setReveal(null);setReady(false);setError('');setPhase('guess');
+    setIdx(i=>i+1);setGuess(null);setClues([]);setHintCount(0);
+    setEarnedHintLevel(null);setHintBusy(false);setHintError('');
+    setReveal(null);setReady(false);setError('');setPhase('view');
   };
   const advance=()=>{
     if(completed.length>=STREET_ROUNDS)finishGame(completed);
     else resetForNext();
   };
   const skipBroken=()=>{
-    if(!current||phase!=='guess')return;
+    if(!current||(phase!=='view'&&phase!=='guess'))return;
     trackPlayEvent({mode:'street',event_type:'panorama_skipped',question_id:current.id});
     const next:Completed[]=[...completed,{id:current.id,skipped:true,
       city:'',country:'',correct:false,points:0}];
@@ -145,6 +192,49 @@ export function StreetDetectiveScreen({
       </button>
     </section>
   );
+  const clueText=(clue:Clue)=>{
+    if(clue.kind==='region')return streetRegionLabel(clue.value,language);
+    if(clue.kind==='landmark')return streetLandmarkLabel(clue.value,language);
+    return clue.value;
+  };
+  const hintNames=[
+    t('Kıta ipucu'),t('Bölge ipucu'),t('Kültür ipucu'),t('Başkent ipucu'),
+  ];
+  const hintsPanel=()=>{
+    if(phase!=='view'&&phase!=='guess')return null;
+    return <section className="street-card space-y-3 p-3">
+      <div className="flex items-center justify-between gap-2">
+        <h2 className="flex items-center gap-2 text-sm font-black">
+          <Lightbulb className="h-4 w-4 text-amber-200"/> {t('İpuçları')}
+        </h2>
+        <span className="text-xs font-extrabold text-amber-200">
+          {t('Bu tur:')} {MAX_ROUND_POINTS[hintCount].toLocaleString(language)} {t('puan')}
+        </span>
+      </div>
+      {clues.length>0&&<div className="space-y-2">
+        {clues.map(clue=><div key={clue.level} className="rounded-xl border border-amber-200/20 bg-amber-200/10 px-3 py-2 text-xs text-amber-50">
+          <span className="mr-2 font-extrabold">{hintNames[clue.level-1]}:</span>
+          <strong>{clueText(clue)}</strong>
+        </div>)}
+      </div>}
+      {hintCount<4?(
+        <button type="button" disabled={!ready||hintBusy||busy}
+          onClick={()=>{void unlockHint();}}
+          className="street-secondary w-full disabled:opacity-50">
+          {native?<PlayCircle className="h-4 w-4"/>:<Lightbulb className="h-4 w-4"/>}
+          {hintBusy?t('İpucu hazırlanıyor...'):earnedHintLevel===hintCount+1?t('İpucunu tekrar yükle'):
+            native?t('Reklam izle ve ipucunu aç'):t('İpucunu aç')}
+          <span className="ml-1 text-amber-200">
+            {hintNames[hintCount]} · -{(MAX_ROUND_POINTS[hintCount]-MAX_ROUND_POINTS[hintCount+1]).toLocaleString(language)}
+          </span>
+        </button>
+      ):<p className="text-xs font-semibold text-blue-100/70">{t('Dört ipucunun tamamı açıldı.')}</p>}
+      {!native&&hintCount<4&&<p className="text-[11px] text-blue-100/65">
+        {t('Web önizlemesinde reklam gösterilmez; mobil uygulamada ödüllü reklam gerekir.')}
+      </p>}
+      {hintError&&<p role="alert" className="text-xs font-semibold text-orange-200">{hintError}</p>}
+    </section>;
+  };
 
   return (
     <div className="street-screen fixed inset-0 z-[65] overflow-y-auto overscroll-contain text-white">
@@ -158,7 +248,7 @@ export function StreetDetectiveScreen({
           </span>
           <div className="min-w-0 flex-1">
             <h1 className="text-[19px] font-black leading-tight">{t('Sokak Dedektifi')}</h1>
-            <p className="text-[11px] text-blue-200/80">{t('Fotoğrafa bak, doğru ülkeyi bul!')}</p>
+            <p className="text-[11px] text-blue-200/80">{t('Fotoğrafa bak, ülkedeki konumu işaretle!')}</p>
           </div>
           <button type="button" onClick={()=>setShowRank(v=>!v)} aria-label={t('Dünya Sıralaması')} className="street-round-button">
             <Trophy className="h-5 w-5 text-[#ffd58c]"/>
@@ -218,10 +308,10 @@ export function StreetDetectiveScreen({
               </span>
             </div>
 
-            {phase==='guess'&&(
+            {phase==='view'&&(
               <>
                 <div className="street-card overflow-hidden p-2">
-                  <div className="h-[min(40dvh,335px)] min-h-[205px]">
+                  <div className="h-[min(38dvh,305px)] min-h-[205px]">
                     <StreetPhoto key={current.id} round={current} onSkip={skipBroken}
                       onReady={()=>{
                         trackPlayEvent({mode:'street',event_type:'panorama_ready',question_id:current.id,
@@ -229,76 +319,64 @@ export function StreetDetectiveScreen({
                         setReady(true);setError('');
                       }}
                       onError={message=>{
-                        trackPlayEvent({mode:'street',event_type:'panorama_error',question_id:current.id,
-                          detail:message});
+                        trackPlayEvent({mode:'street',event_type:'panorama_error',question_id:current.id,detail:message});
                         setError(message);
                       }}/>
                   </div>
                   <p className="px-2 py-2 text-[11px] text-blue-100/75">
-                    {t('Fotoğrafta dört yöne bakabilir ve tam ekran büyütebilirsin.')}
+                    {t('Fotoğrafı dört yönden incele; şehir bulmak zorunda değilsin.')}
                   </p>
                 </div>
+                {hintsPanel()}
+                {error&&<p role="alert" className="text-xs text-orange-200">{t(error)}</p>}
+                <button type="button" disabled={!ready||busy||hintBusy}
+                  onClick={()=>setPhase('guess')} className="street-primary w-full disabled:opacity-50">
+                  <MapPin className="h-4 w-4"/> {t('Dünya haritasında konum seç')}
+                  <ArrowRight className="h-4 w-4"/>
+                </button>
+              </>
+            )}
 
-                <section className="street-card space-y-3 p-4">
-                  <h2 className="text-lg font-black">{t('Bu fotoğraf hangi ülkede çekilmiş?')}</h2>
+            {phase==='guess'&&(
+              <>
+                <section className="street-card space-y-3 p-3">
+                  <h2 className="text-base font-black">{t('Sence fotoğraf hangi ülkeden?')}</h2>
                   <p className="text-xs leading-5 text-blue-100/75">
-                    {t('Şehir veya haritada nokta bulmana gerek yok. Doğru ülkeyi seçmen yeterli!')}
+                    {t('Haritada ülkenin herhangi bir noktasını işaretle. Şehri bilmen gerekmiyor.')}
                   </p>
-                  <div className="grid grid-cols-2 gap-2" role="group" aria-label={t('Ülke seçenekleri')}>
-                    {(current.countryOptions??[]).map((country,i)=>{
-                      const selected=selectedCountry===country;
-                      return <button key={country} type="button" disabled={!ready||busy}
-                        aria-pressed={selected}
-                        onClick={()=>setSelectedCountry(country)}
-                        className={`min-h-[64px] rounded-2xl border px-2 py-3 text-center text-sm font-bold leading-5 transition-colors disabled:opacity-50 ${selected
-                          ?'border-amber-300 bg-amber-300/20 text-amber-100'
-                          :'border-white/15 bg-white/5 text-white hover:border-white/40 hover:bg-white/10'}`}>
-                        <span className="mr-1 text-amber-200/80">{String.fromCharCode(65+i)}.</span>
-                        {localizedCountryName(country,language)}
-                      </button>;
-                    })}
-                  </div>
-
-                  {hintCount>0&&(
-                    <div className="space-y-2 rounded-xl border border-amber-300/25 bg-amber-200/10 p-3 text-sm leading-6 text-amber-50">
-                      <p><Lightbulb className="mr-1 inline h-4 w-4"/> {t('Bölge:')} <strong>{streetRegionLabel(current.hints?.region??'150',language)}</strong></p>
-                      {hintCount===2&&<p><HelpCircle className="mr-1 inline h-4 w-4"/> {t('Ünlü simge:')} <strong>{streetLandmarkLabel(current.hints?.landmark??'',language)}</strong></p>}
-                    </div>
-                  )}
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-                    <span className="font-semibold text-blue-100/80">
-                      {t('Bu tur kazanılabilecek puan:')} <strong className="text-amber-200">{MAX_ROUND_POINTS[hintCount].toLocaleString(language)}</strong>
-                    </span>
-                    {hintCount<2&&<button type="button" disabled={!ready||busy}
-                      onClick={()=>setHintCount(v=>Math.min(2,v+1))}
-                      className="inline-flex items-center gap-1 rounded-xl border border-amber-300/25 bg-amber-300/10 px-3 py-2 font-bold text-amber-100 disabled:opacity-50">
-                      <Lightbulb className="h-4 w-4"/> {hintCount===0?t('Bölge ipucunu aç'):t('Kültür ipucunu aç')}
-                      <span className="opacity-75">−1.500</span>
-                    </button>}
-                  </div>
-                  {error&&<p role="alert" className="rounded-xl border border-amber-300/40 bg-amber-950/20 p-3 text-xs text-amber-100">{t(error)}</p>}
-                  <button type="button" disabled={!ready||!selectedCountry||busy}
+                  <StreetWorldMap guess={guess} actual={null} onGuess={setGuess}/>
+                  <button type="button" disabled={!ready||!guess||hintBusy||busy}
                     onClick={()=>{void confirm();}} className="street-primary w-full disabled:opacity-50">
-                    {busy?t('Hesaplanıyor...'):t('Ülkeyi onayla')} <ArrowRight className="h-4 w-4"/>
+                    <MapPin className="h-4 w-4"/>
+                    {busy?t('Hesaplanıyor...'):t('Konumu onayla')}
+                    <ArrowRight className="h-4 w-4"/>
+                  </button>
+                  <button type="button" className="street-secondary w-full" onClick={()=>setPhase('view')}>
+                    <Camera className="h-4 w-4"/> {t('Fotoğrafa tekrar bak')}
                   </button>
                 </section>
+                {hintsPanel()}
+                {error&&<p role="alert" className="text-xs text-orange-200">{t(error)}</p>}
               </>
             )}
 
             {phase==='result'&&reveal&&(
               <section className="street-card space-y-3 p-5 text-center" aria-live="polite">
                 {reveal.correct
-                  ? <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-300"/>
-                  : <XCircle className="mx-auto h-12 w-12 text-orange-300"/>}
+                  ?<CheckCircle2 className="mx-auto h-12 w-12 text-emerald-300"/>
+                  :<XCircle className="mx-auto h-12 w-12 text-orange-300"/>}
                 <h2 className="text-xl font-black">
                   {reveal.correct?t('Ülkeyi doğru buldun!'):t('Ülke tahminin farklı çıktı.')}
                 </h2>
-                <div className="text-[32px] font-black text-amber-200">
+                <p className="text-[32px] font-black text-amber-200">
                   +{reveal.points.toLocaleString(language)} {t('puan')}
-                </div>
+                </p>
                 <p className="text-sm text-blue-100/80">{t('Doğru ülke:')}</p>
-                <p className="text-2xl font-black text-emerald-200">{localizedCountryName(reveal.country,language)}</p>
-                <p className="text-xs text-blue-100/75">{reveal.city}</p>
+                <p className="text-2xl font-black text-emerald-200">
+                  {localizedCountryName(reveal.country,language)}
+                </p>
+                <p className="text-xs text-blue-100/75">{reveal.city} · {t(reveal.title)}</p>
+                <StreetWorldMap guess={guess} actual={reveal.actual} onGuess={()=>{}} locked/>
                 <p className="text-sm leading-6 text-blue-100/80">{t(reveal.fact)}</p>
                 <p className="text-[11px] leading-5 text-blue-100/65">
                   {t('Görüntü:')} {reveal.credit.artist} · {reveal.credit.license} ·{' '}
@@ -314,7 +392,7 @@ export function StreetDetectiveScreen({
           </div>
         )}
         <p className="mt-5 text-center text-[11px] text-blue-200/65">
-          {t('Sokak Dedektifi: ülkeyi bilmen yeterli · İpuçları isteğe bağlıdır.')}
+          {t('Sokak Dedektifi: doğru ülkeyi işaretle · dört isteğe bağlı ipucu')}
           {phase==='finish'?' · '+t('Cihaz rekorun:')+' '+getLocalStreetBest().toLocaleString(language):''}
         </p>
       </main>
