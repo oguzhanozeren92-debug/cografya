@@ -55,7 +55,7 @@ workflows:
     instance_type: mac_mini_m2
     integrations:
       # Create this integration in Codemagic's Developer Portal integrations.
-      app_store_connect: atlas_arena_apple
+      app_store_connect: TarlaPusula CI 2
     environment:
       node: 22
       xcode: latest
