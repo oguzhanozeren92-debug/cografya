@@ -1,10 +1,11 @@
-import { configured, validateTicket, send, distanceKm } from '../../server/street/core.mjs';
+import { configured, validateTicket, send, distanceKm, allowAtlasNativeCors } from '../../server/street/core.mjs';
 import { scoreStreetGuess, STREET_HINT_MAX } from '../../server/street/country-mode.mjs';
 import { isPointInCountry } from '../../server/street/country-map.mjs';
 
 // Precision matters: score by km from the photographed point, plus 1000
 // country bonus when the map pin lands within the correct country polygon.
 export default function handler(req,res){
+  if(allowAtlasNativeCors(req,res))return;
   if(req.method!=='POST')return send(res,405,{error:'Method not allowed'});
   if(!configured())return send(res,503,{error:'Konum servisi hazır değil.'});
   const {ticket,guess,hintsUsed=0}=req.body??{};
