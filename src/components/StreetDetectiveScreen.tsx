@@ -140,7 +140,7 @@ export function StreetDetectiveScreen({
       setClues(old=>[...old,{level,kind:data.kind as Clue['kind'],value:data.value as string}]);
       setHintCount(level);
       setEarnedHintLevel(null);
-      trackPlayEvent({mode:'street',event_type:'hint_used',question_id:current.id,detail:String(level)});
+      trackPlayEvent({mode:'street',event_type:'hint',question_id:current.id,detail:String(level)});
     }catch(e){
       setHintError(e instanceof Error?t(e.message):t('İpucu şu anda yüklenemedi.'));
     }finally{setHintBusy(false);}
