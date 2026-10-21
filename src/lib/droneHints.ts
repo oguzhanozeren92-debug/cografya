@@ -3,7 +3,6 @@ import { localizedCountryName } from '@/lib/countryLanguage';
 
 /** Drone pilot: three optional hints per round; never reveal city or coordinates. */
 export const DRONE_HINT_TOTAL = 3;
-type ClueStage = 1 | 2 | 3;
 
 export const droneHintCopy: Record<Language, {
   labels: readonly [string,string,string];
@@ -52,7 +51,7 @@ const landscape:Record<string,Record<Language,string>>={
 };
 
 /** Uses CLDR instead of hand-translating region names in nine languages. */
-export function droneHintText(id:string,country:string,level:ClueStage,language:Language):string{
+export function droneHintText(id:string,country:string,level:number,language:Language):string{
   if(level===3)return localizedCountryName(country,language);
   if(level===2)return landscape[id]?.[language] ?? '';
   const region=continents[id];
