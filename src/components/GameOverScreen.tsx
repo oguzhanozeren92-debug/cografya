@@ -56,7 +56,7 @@ export function GameOverScreen({
   const accuracy = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
 
   return (
-    <div className="absolute inset-0 z-20 flex items-center justify-center px-4 py-6 overflow-y-auto">
+    <div className="gameover-scroll absolute inset-0 z-20 flex items-center justify-center overflow-x-hidden overflow-y-auto px-4 py-6">
       <motion.div initial={reduceMotion ? false : { opacity: 0, y: 19, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .34 }} className="w-full max-w-md glass-panel p-6 my-auto">
         <div className="mb-4 text-center">
           <FxErrorBoundary fallback={<Trophy className="mx-auto mb-2 h-12 w-12 text-amber-300" />}>

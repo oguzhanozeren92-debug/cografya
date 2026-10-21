@@ -15,7 +15,7 @@ interface HUDProps {
 export function HUD({ score, lives, streak, round, canEarnHeart, adBusy, onWatchHeart, compact=false }: HUDProps) {
   const {language,t}=useLanguage();
   return (
-    <div className={'relative z-10 flex items-center justify-between ' + (compact ? 'gap-1.5 px-3 py-1.5' : 'px-4 py-3 sm:px-6 sm:py-4')}>
+    <div className={'game-hud relative z-10 flex min-w-0 items-center justify-between ' + (compact ? 'gap-1.5 px-3 py-1.5' : 'gap-2 px-4 py-3 sm:px-6 sm:py-4')}>
       <div className={'glass-panel flex items-center gap-1.5 ' + (compact?'px-2.5 py-1.5':'gap-2 px-4 py-2')}>
         <Star className="h-4 w-4 text-amber-400" />
         <span className="text-lg font-bold text-white tabular-nums">{score.toLocaleString(language)}</span>

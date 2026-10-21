@@ -131,7 +131,7 @@ function App() {
   }, [game.phase,game.gameRunId]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-space-900">
+    <div className="relative min-h-[100dvh] w-full min-w-0 overflow-x-hidden bg-space-900">
       <Stars />
 
       <div className={showGlobe && game.phase !== 'gameover' ? "relative z-10 flex h-[100dvh] min-h-0 flex-col" : "relative z-10 flex min-h-screen flex-col"}>
@@ -179,7 +179,7 @@ function App() {
         )}
 
         {showQuestion && !isMapQuestion && (
-          <div className={'flex flex-1 justify-center ' + (game.currentQuestionType === 'clue' ? 'items-start pt-1 pb-3' : 'items-center pt-5 pb-8')}>
+          <div className={'game-question-scroll flex min-h-0 min-w-0 flex-1 justify-center overflow-x-hidden overflow-y-auto overscroll-contain ' + (game.currentQuestionType === 'clue' ? 'pt-1' : 'pt-3')}>
             <QuestionPanel
               countryId={game.currentCountryId}
               round={game.round}

@@ -40,7 +40,7 @@ export function QuestionPanel({
   const flag = countryId ? getCountryFlag(countryId) : null;
 
   return (
-    <div className={'relative z-10 w-full animate-slide-up ' + (isClue ? 'clue-compact-shell max-w-xl px-3 pb-3' : 'px-4 pb-5 ' + (isFlag ? 'max-w-xl' : ''))}>
+    <div className={'relative z-10 mx-auto w-full min-w-0 animate-slide-up ' + (isClue ? 'clue-compact-shell max-w-xl px-3 pb-3' : 'px-4 pb-5 ' + (isFlag ? 'max-w-xl' : ''))}>
       <motion.div key={countryId ?? 'none'} initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .28 }} className={'glass-panel mx-auto max-w-2xl ' + (isClue ? 'clue-question-panel clue-compact-layout p-3 sm:p-4' : 'p-4 sm:p-5 ' + (isFlag ? 'flag-question-panel' : ''))}>
         <div className={(isClue ? 'mb-2 ' : 'mb-4 ') + 'flex items-center justify-between gap-2'}>
           <div className="flex min-w-0 items-center gap-2">

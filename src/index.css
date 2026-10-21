@@ -1301,3 +1301,104 @@
     padding-bottom:7px;
   }
 }
+
+
+/* Globriva — iPhone viewport and safe-area correction (TestFlight feedback #1).
+ * Keep the main menu vertically scrollable: the game has more modes than fit on one page.
+ * Make every question and result reachable without clipping behind the Dynamic Island/home bar.
+ */
+html, body, #root {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+}
+html, body { overflow-x: hidden; }
+#root { min-height: 100dvh; }
+.atlas-home,
+.street-screen,
+.daily-screen,
+.explore-screen,
+.weekly-fullscreen {
+  width: 100%;
+  height: 100dvh;
+  max-width: 100vw;
+  overscroll-behavior-y: contain;
+}
+.atlas-home { overflow-x: hidden; overflow-y: auto; }
+.atlas-home-inner { min-width: 0; max-width: 490px; }
+.game-hud {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 8px);
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.game-hud > .glass-panel { min-width: 0; }
+.game-question-scroll {
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+  width: 100%;
+  max-width: 100%;
+}
+.game-question-scroll .flag-question-panel {
+  max-height: none;
+  overflow: visible;
+}
+.atlas-geo-flow {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+}
+.atlas-geo-world-stage {
+  height: calc(100dvh - 84px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  min-height: 300px;
+}
+.atlas-geo-world-frame {
+  width: min(94vw, 500px, 64dvh);
+  height: auto;
+  aspect-ratio: 1;
+}
+.atlas-geo-flow-quiz .atlas-geo-world-stage { height: clamp(173px, 27dvh, 235px); min-height: 0; }
+.atlas-geo-flow-quiz .atlas-geo-world-frame { width: clamp(172px, 30dvh, 248px); height: clamp(172px, 30dvh, 248px); }
+.gameover-scroll {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 16px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+  -webkit-overflow-scrolling: touch;
+}
+.weekly-fullscreen > div:first-child,
+.explore-screen > div:first-child,
+.daily-screen > div:first-child,
+.street-screen > main:first-child {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 28px);
+}
+@media (max-width: 430px) {
+  .atlas-home-refresh .atlas-home-topbar { min-height: 44px; margin-bottom: 8px; }
+  .atlas-home-brand-icon { width: 34px; height: 34px; }
+  .atlas-home-brand-name { font-size: clamp(14px, 4.2vw, 18px); letter-spacing: 0; }
+  .atlas-home-topbutton, .atlas-home-profile { height: 35px; }
+  .atlas-home-topbutton { width: 35px; flex-shrink: 0; }
+  .atlas-home-illustrated .aa-hero { min-height: 202px; padding: 14px 13px 11px; }
+  .atlas-home-cozy .aa-hero-copy { min-height: 136px; width: 67%; }
+  .atlas-home-cozy .aa-hero-copy h1 { margin-top: 10px; font-size: clamp(28px, 8vw, 36px); }
+  .atlas-home-cozy .aa-hero-copy p { margin-top: 7px; font-size: 11px; }
+  .atlas-home-cozy .atlas-home-planet-wrap { width: 240px; height: 240px; top: -13px; right: -57px; }
+  .atlas-home-cozy .aa-play { min-height: 65px; }
+  .atlas-home-cozy .aa-mode { min-height: 122px; padding: 10px; }
+  .aa-mode-illustration { height: 43px; font-size: 29px; }
+  .atlas-home-cozy .aa-quick { min-height: 93px; }
+}
+@media (max-width: 390px) {
+  .atlas-home-profile { min-width: 35px; max-width: 36px; padding: 0 8px; }
+  .atlas-home-profile span, .atlas-home-profile svg:last-child { display: none; }
+  .game-hud { gap: 4px; padding-left: 7px; padding-right: 7px; }
+  .game-hud > .glass-panel { gap: 4px; padding: 5px 7px; }
+  .game-hud .text-lg { font-size: 15px; }
+  .game-hud .text-sm { font-size: 11px; }
+  .game-hud .heart-reward-pill { padding-left: 5px; padding-right: 5px; }
+  .game-question-scroll .flag-stage { padding: 12px; margin-bottom: 10px; }
+  .game-question-scroll .flag-stage .relative.mx-auto { height: 120px; }
+  .game-question-scroll .option-btn { padding: 10px 12px; }
+}
+@media (max-height: 720px) and (max-width: 500px) {
+  .atlas-home-illustrated .aa-hero { min-height: 180px; }
+  .atlas-home-cozy .aa-hero-copy { min-height: 117px; }
+  .atlas-home-cozy .aa-hero-copy h1 { font-size: 28px; }
+  .atlas-home-cozy .atlas-home-planet-wrap { width: 215px; height: 215px; }
+}
