@@ -110,9 +110,11 @@ workflows:
     publishing:
       app_store_connect:
         auth: integration
-        # Automatically distribute each successfully uploaded build to the
-        # existing Globriva internal tester group (no App Store submission).
-        submit_to_testflight: true
-        beta_groups:
-          - Globriva Test
+        # Upload the IPA to App Store Connect. The existing internal TestFlight
+        # group should use Automatic Distribution in App Store Connect.
+        # Do not explicitly add an Automatic internal group via beta_groups:
+        # Apple rejects that API operation, even after processing succeeds.
+        # submit_to_testflight is for external beta review; internal tests
+        # do not require it, and App Store review is initiated manually.
+        submit_to_testflight: false
         submit_to_app_store: false
