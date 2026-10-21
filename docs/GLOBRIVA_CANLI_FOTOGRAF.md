@@ -51,5 +51,5 @@
 - Wikimedia telif şartları (CC BY/SA ve benzerleri) sürdürülür; sanatçı, lisans, kaynak görüntüden sonra oyuncuya gösterilir. CC BY-SA için türev görsel dağıtımında gerekli paylaşım şartlarına da uy.
 - Güncellenen veri **görseldir ve soru metaverisidir**. Uygulamanın çalışma kodunu uzaktan indirme / değiştirme söz konusu değildir.
 - Sistemi bir kez mağaza sürümüne dahil etmek için **yeni bir iOS/Android build gerekir**; ondan sonraki fotoğraflar için gerekmez.
-- Şu an fotoğraf kataloğunda **3 aday** var; bunların görsel, lisans, koordinat ve kalite onayları henüz beklemede. Hiçbiri şu an R2 canlı arşivine gönderilmiş değil. Geçerli **50 fotoğraf** seçilip yayınlanmadan bitmiş değildir.
+- Şu an fotoğraf kataloğunda **5 aday** var. Bunlardan yeni eklenen Almanya/Eckersdorf ve Meksika/Guadalajara kaynaklarının lisans, çözünürlük ve konum bilgileri kaynak sayfalarından incelendi; hepsinin son görsel kalite incelemesi ve R2 yüklemesi beklemede. Hiçbiri şu an R2 canlı arşivine gönderilmiş değil. Geçerli **50 fotoğraf** seçilip yayınlanmadan bitmiş değildir.
 - Bu ilk uygulamada yönetim arayüzü **GitHub Actions** üzerinden çalışır. Ayrı görsel admin ekranı henüz eklenmemiştir.
