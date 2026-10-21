@@ -50,7 +50,7 @@ export function warmStreetViewer():void {
 }
 export function warmStreetPreview(round?:StreetRound):void {
   if(!round||typeof window==='undefined')return;
-  const src=round.media.mode==='gallery' ? round.media.images[0]?.url
+  const src=round.media.mode==='gallery' ? (round.media.images[0]?.url ?? '')
     : round.media.mode==='multires' ? round.media.base+'/fallback/f.jpg' : round.media.image;
   if(!/^https:\/\//.test(src))return;
   const img=new Image();
