@@ -13,6 +13,7 @@ export type DronePanorama = {
   licenseUrl: string;
   source: string;
   fact: string;
+  difficulty: 'easy' | 'medium' | 'hard';
 };
 function commonsPhoto(filename: string) {
   return {
@@ -22,6 +23,7 @@ function commonsPhoto(filename: string) {
 export const dronePanoramas: DronePanorama[] = [
   {
     id: 'air-001', country: 'Meksika', city: 'La Paz',
+    difficulty: 'easy',
     lat: 24.142893, lng: -110.311479, artist: 'ProtoplasmaKid',
     license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
     fact: 'La Paz, Baja California Sur bölgesinde, Kaliforniya Körfezi kıyısında yer alır.',
@@ -29,6 +31,7 @@ export const dronePanoramas: DronePanorama[] = [
   },
   {
     id: 'air-002', country: 'Ermenistan', city: 'Erivan',
+    difficulty: 'easy',
     lat: 40.176114, lng: 44.509025, artist: 'Aleksey Chalabyan (Xelgen)',
     license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
     fact: 'Erivan şehir merkezi, 2023 sıcak hava balonu festivali sırasında havadan görüntülendi.',
@@ -36,6 +39,7 @@ export const dronePanoramas: DronePanorama[] = [
   },
   {
     id: 'air-003', country: 'Avusturya', city: 'Sattledt',
+    difficulty: 'hard',
     lat: 48.086220, lng: 14.048450, artist: 'PepponeDrohne',
     license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
     fact: 'Bu panoramada Yukarı Avusturya bölgesindeki Sattledt yerleşimi görülür.',
@@ -43,6 +47,7 @@ export const dronePanoramas: DronePanorama[] = [
   },
   {
     id: 'air-004', country: 'Avustralya', city: 'Wagga Wagga',
+    difficulty: 'medium',
     lat: -35.095478, lng: 147.393821, artist: 'Robert Myers (Bidgee)',
     license: 'CC BY-SA 3.0 AU', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/au/',
     fact: 'Bomen Lagünü, Yeni Güney Galler eyaletindeki Wagga Wagga yakınındadır. Panoramanın gökyüzü bölümü dijital düzenlenmiştir.',
@@ -50,6 +55,7 @@ export const dronePanoramas: DronePanorama[] = [
   },
   {
     id: 'air-005', country: 'Birleşik Krallık', city: 'Bexhill-on-Sea',
+    difficulty: 'hard',
     lat: 50.849229, lng: 0.443017, artist: 'Alexis Markwick',
     license: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
     fact: 'Broad Oak Park, İngiltere’nin güneyindeki Bexhill çevresinde çayırlar ve ormanlık alanlar içerir.',

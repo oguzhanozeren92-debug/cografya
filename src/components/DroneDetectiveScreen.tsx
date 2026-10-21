@@ -1,10 +1,12 @@
 import { atlasApi } from '@/lib/atlasApi';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, CheckCircle2, Compass, Lightbulb, MapPin, RefreshCcw, Trophy, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Compass, Lightbulb, MapPin, PlayCircle, RefreshCcw, Trophy, X } from 'lucide-react';
 import { type StreetRound, type PanoramaMedia } from '@/components/StreetPanorama';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
+import { Capacitor } from '@capacitor/core';
+import { watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { haversineKm, locationPoints, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
 import { submitDroneScore } from '@/lib/droneLeaderboard';
@@ -12,7 +14,7 @@ import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
 import { backend } from '@/lib/leaderboard';
 import { useLanguage } from '@/lib/i18n';
 import { localizedCountryName } from '@/lib/countryLanguage';
-import { DRONE_HINT_TOTAL, droneHintCopy, droneHintText, droneHintPoints } from '@/lib/droneHints';
+import { DRONE_HINT_TOTAL, droneHintCopy, droneHintText, droneHintPoints, droneHintChoices, dronePhotoFocus } from '@/lib/droneHints';
 
 type Phase = 'view' | 'guess' | 'result' | 'finish';
 type Answer = { id: string; city: string; country: string; km: number | null; points: number; skipped?: boolean; hintsUsed?: number };
@@ -26,7 +28,9 @@ function shuffled(): DronePanorama[] {
     const j = Math.floor(Math.random() * (i + 1));
     [items[i], items[j]] = [items[j], items[i]];
   }
-  return items;
+  // A gentle learning curve: distinctive city/coast views first, then harder terrain.
+  const difficulty={easy:0,medium:1,hard:2};
+  return items.sort((a,b)=>difficulty[a.difficulty]-difficulty[b.difficulty]);
 }
 function getBest(): number {
   try { return Number(localStorage.getItem(BEST_KEY)) || 0; }
@@ -66,6 +70,17 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('view');
   const [hintCount, setHintCount] = useState(0);
+  const [hintBusy,setHintBusy]=useState(false);
+  const [hintError,setHintError]=useState('');
+  const hintBusyRef=useRef(false);
+  const roundTokenRef=useRef(0);
+  const native=Capacitor.isNativePlatform();
+  const cancelPendingHint=()=>{
+    roundTokenRef.current+=1;
+    hintBusyRef.current=false;
+    setHintBusy(false);
+    setHintError('');
+  };
   const [ready, setReady] = useState(false);
   const [guess, setGuess] = useState<Coordinates | null>(null);
   const [answered, setAnswered] = useState<Answer[]>([]);
@@ -82,7 +97,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   const completionNotified=useRef(false);
   useEffect(()=>{trackPlayEvent({mode:'drone',event_type:'mode_start'});},[]);
   useEffect(()=>{panoramaStart.current=performance.now();trackPlayEvent({mode:'drone',event_type:'question_shown',question_id:current.id});},[current.id]);
-  const close=()=>{trackPlayEvent({mode:'drone',event_type:'mode_exit',detail:phase});onClose();};
+  const close=()=>{cancelPendingHint();trackPlayEvent({mode:'drone',event_type:'mode_exit',detail:phase});onClose();};
   const score = answered.reduce((sum, item) => sum + item.points, 0);
   const panorama = useMemo<StreetRound>(() => ({
     id: current.id,
@@ -114,15 +129,20 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
     }
   };
   const restart = () => {
+    cancelPendingHint();
     completionNotified.current=false;
     setRows(shuffled()); setIndex(0); setPhase('view'); setReady(false);
     setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);setHintCount(0);
     setSaveState('idle');setSaveError('');setFinalScore(0);setShowRank(false);
   };
   const confirm = () => {
-    if (!guess || phase !== 'guess') return;
+    if (!guess || hintBusyRef.current || phase !== 'guess') return;
     const km = haversineKm(guess, { lat: current.lat, lng: current.lng });
-    const points = droneHintPoints(locationPoints(km), hintCount);
+    // Country identification is the aim: do not force users to pinpoint a
+    // random park or garden to earn a decent score.
+    const inCorrectCountry=guessedCorrectCountry(guess,current.country)===true;
+    const base=Math.max(locationPoints(km),inCorrectCountry?3100:0);
+    const points=droneHintPoints(base,hintCount);
     trackPlayEvent({mode:'drone',event_type:'street_guess',question_id:current.id,duration_ms:panoramaStart.current?performance.now()-panoramaStart.current:undefined});
     setDistance(km);
     setRoundPoints(points);
@@ -132,6 +152,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
     setPhase('result');
   };
   const skipBroken=()=>{
+    cancelPendingHint();
     trackPlayEvent({mode:'drone',event_type:'panorama_skipped',question_id:current.id});
     const skipped:Answer={id:current.id,city:current.city,country:current.country,km:null,points:0,skipped:true};
     const allAnswers=[...answered,skipped];
@@ -151,6 +172,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
     }
   },[index,current.id,rows,mediaById]);
   const next = () => {
+    cancelPendingHint();
     if (index === rows.length - 1) {
       finishDrone(answered);
     } else {
@@ -158,11 +180,34 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
       setDistance(null); setRoundPoints(0); setReady(false); setHintCount(0);
     }
   };
-  const unlockHint = () => {
-    if (!ready || (phase !== 'view' && phase !== 'guess') || hintCount >= DRONE_HINT_TOTAL) return;
-    const nextLevel = hintCount + 1;
-    setHintCount(nextLevel);
-    trackPlayEvent({mode:'drone',event_type:'hint',question_id:current.id,detail:String(nextLevel)});
+  const unlockHint = async () => {
+    if (!ready || hintBusyRef.current ||
+      (phase !== 'view' && phase !== 'guess') || hintCount >= DRONE_HINT_TOTAL) return;
+    const nextLevel=hintCount+1;
+    const token=roundTokenRef.current;
+    hintBusyRef.current=true;
+    setHintBusy(true);
+    setHintError('');
+    try {
+      // First hint is free. Further hints require a verified AdMob reward
+      // in the native app. Dismissal, failure or lack of consent never unlocks.
+      if(nextLevel>1 && native){
+        const earned=await watchRewardedHeartAd();
+        if(!earned)throw new Error(hintCopy.adFailed);
+      }
+      if(roundTokenRef.current!==token)return;
+      setHintCount(nextLevel);
+      trackPlayEvent({mode:'drone',event_type:'hint',question_id:current.id,detail:String(nextLevel)});
+    } catch(e) {
+      if(roundTokenRef.current===token){
+        setHintError(e instanceof Error ? hintCopy.adFailed : hintCopy.adFailed);
+      }
+    } finally {
+      if(roundTokenRef.current===token){
+        hintBusyRef.current=false;
+        setHintBusy(false);
+      }
+    }
   };
   const hintsPanel = () => (
     <section className="street-card space-y-2 p-3" aria-label={t('İpuçları')}>
@@ -180,19 +225,30 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
             const level = i + 1;
             return <li key={level} className="rounded-xl border border-amber-200/20 bg-amber-200/10 px-3 py-2 text-xs leading-5 text-amber-50">
               <strong className="mr-1 text-amber-200">{level}. {hintCopy.labels[i]}:</strong>
-              {droneHintText(current.id,current.country,level,language)}
+              {level===3 ? (
+                <div className="mt-2 grid grid-cols-2 gap-2" aria-label={hintCopy.fourChoices}>
+                  {droneHintChoices(current.id).map(country=>
+                    <span key={country} className="rounded-lg border border-amber-200/25 bg-[#173653] px-2 py-2 text-center font-bold">
+                      {localizedCountryName(country,language)}
+                    </span>
+                  )}
+                </div>
+              ) : droneHintText(current.id,level,language)}
             </li>;
           })}
         </ol>
       )}
       {hintCount < DRONE_HINT_TOTAL ? (
-        <button type="button" onClick={unlockHint} disabled={!ready}
+        <button type="button" onClick={()=>{void unlockHint();}} disabled={!ready||hintBusy}
           className="street-secondary w-full disabled:opacity-50">
-          <Lightbulb className="h-4 w-4 text-amber-200"/>
-          {hintCopy.unlock} ({hintCount + 1}/{DRONE_HINT_TOTAL})
-          <span className="text-xs text-amber-200">−20%</span>
+          {native && hintCount>=1 ? <PlayCircle className="h-4 w-4 text-amber-200"/> : <Lightbulb className="h-4 w-4 text-amber-200"/>}
+          {hintBusy ? hintCopy.loadingAd : native && hintCount>=1 ? hintCopy.watchAd : hintCopy.unlock}
+          <span className="text-xs text-amber-200">({hintCount + 1}/{DRONE_HINT_TOTAL}) · −20%</span>
         </button>
       ) : <p className="text-xs font-semibold text-blue-100/75">{hintCopy.allUsed}</p>}
+      {!native && hintCount>=1 && hintCount<DRONE_HINT_TOTAL &&
+        <p className="text-[11px] text-blue-100/65">{hintCopy.preview}</p>}
+      {hintError && <p className="text-xs font-semibold text-orange-200" role="alert">{hintError}</p>}
     </section>
   );
   return (
@@ -281,7 +337,12 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                     }}
                     onSkip={skipBroken}/>
                 </div>
-                <p className="px-2 py-2 text-[11px] text-blue-100/75">{t('Fotoğrafı büyütebilir, sağ-sol oklarıyla çevreyi inceleyebilirsin. Görselin lisansı tahminden sonra gösterilir.')}</p>
+                <p className="px-2 pt-2 text-[11px] text-blue-100/75">{t('Fotoğrafı büyütebilir, sağ-sol oklarıyla çevreyi inceleyebilirsin. Görselin lisansı tahminden sonra gösterilir.')}</p>
+                <p className="mx-2 mb-1 mt-2 rounded-lg border border-cyan-200/15 bg-cyan-200/10 px-3 py-2 text-xs leading-5 text-blue-50">
+                  <Compass className="mr-1 inline h-3.5 w-3.5 text-cyan-200"/>
+                  <strong className="mr-1 text-cyan-100">{hintCopy.photoGuideLabel}:</strong>
+                  {dronePhotoFocus(current.id,language)}
+                </p>
               </section>
             )}
             {(phase === 'view' || phase === 'guess') && hintsPanel()}
@@ -289,7 +350,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
               <section className="street-card space-y-3 p-4">
                 <h2 className="font-black">{t('Sence burası neresi? 🚁')}</h2>
                 <p className="text-sm leading-6 text-blue-100/75">{t('Dört yöne bak, fotoğrafı tam ekranda büyüt. Kıyıları, binaları, dağları ve araziyi incele. Sonra konumu haritada seç.')}</p>
-                <button type="button" disabled={!ready} onClick={() => setPhase('guess')}
+                <button type="button" disabled={!ready||hintBusy} onClick={() => setPhase('guess')}
                   className="street-primary w-full disabled:opacity-50">
                   <MapPin className="h-5 w-5" /> {t('Haritada tahmin et')} <ArrowRight className="h-4 w-4" />
                 </button>
@@ -323,7 +384,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                     onGuess={setGuess} locked={phase === 'result'} />
                   {phase === 'guess' ? (
                     <>
-                      <button type="button" disabled={!guess} onClick={confirm} className="street-primary w-full disabled:opacity-50">
+                      <button type="button" disabled={!guess||hintBusy} onClick={confirm} className="street-primary w-full disabled:opacity-50">
                         <MapPin className="h-4 w-4" /> {t('Tahminimi onayla')}
                       </button>
                       <button type="button" onClick={() => setPhase('view')} className="street-secondary w-full">

@@ -1,5 +1,5 @@
 import type { Language } from '@/lib/i18nStrings';
-import { localizedCountryName } from '@/lib/countryLanguage';
+
 
 /** Drone pilot: three optional hints per round; never reveal city or coordinates. */
 export const DRONE_HINT_TOTAL = 3;
@@ -10,16 +10,22 @@ export const droneHintCopy: Record<Language, {
   maxPoints: string;
   allUsed: string;
   usedLabel: string;
+  watchAd: string;
+  loadingAd: string;
+  adFailed: string;
+  preview: string;
+  photoGuideLabel: string;
+  fourChoices: string;
 }> = {
-  tr:{labels:['Kıta','Coğrafi özellik','Ülke'],unlock:'İpucunu aç',maxPoints:'En yüksek puan',allUsed:'Bu konumdaki bütün ipuçları açıldı.',usedLabel:'Kullanılan ipuçları'},
-  en:{labels:['Continent','Geography','Country'],unlock:'Reveal hint',maxPoints:'Maximum score',allUsed:'All hints for this location are revealed.',usedLabel:'Hints used'},
-  es:{labels:['Continente','Geografía','País'],unlock:'Mostrar pista',maxPoints:'Puntuación máxima',allUsed:'Se han mostrado todas las pistas de este lugar.',usedLabel:'Pistas usadas'},
-  de:{labels:['Kontinent','Geografie','Land'],unlock:'Hinweis anzeigen',maxPoints:'Maximale Punktzahl',allUsed:'Alle Hinweise für diesen Ort sind aufgedeckt.',usedLabel:'Verwendete Hinweise'},
-  fr:{labels:['Continent','Géographie','Pays'],unlock:"Révéler l'indice",maxPoints:'Score maximal',allUsed:'Tous les indices de ce lieu sont dévoilés.',usedLabel:'Indices utilisés'},
-  pt:{labels:['Continente','Geografia','País'],unlock:'Revelar dica',maxPoints:'Pontuação máxima',allUsed:'Todas as dicas deste local foram reveladas.',usedLabel:'Dicas usadas'},
-  ru:{labels:['Континент','География','Страна'],unlock:'Открыть подсказку',maxPoints:'Максимум очков',allUsed:'Все подсказки для этого места открыты.',usedLabel:'Использовано подсказок'},
-  zh:{labels:['大洲','地理特征','国家'],unlock:'查看提示',maxPoints:'最高得分',allUsed:'已解锁此地点的所有提示。',usedLabel:'已用提示'},
-  ja:{labels:['大陸','地理的特徴','国'],unlock:'ヒントを開く',maxPoints:'最高スコア',allUsed:'この場所のヒントはすべて開きました。',usedLabel:'使用したヒント'},
+  tr:{labels:['Kıta','Coğrafi özellik','Ülke'],unlock:'İpucunu aç',maxPoints:'En yüksek puan',allUsed:'Bu konumdaki bütün ipuçları açıldı.',usedLabel:'Kullanılan ipuçları',watchAd:"Reklam izle ve ipucunu aç",loadingAd:"Reklam yükleniyor...",adFailed:"Reklam tamamlanmadı veya kullanılamıyor. İpucu açılmadı; tekrar deneyebilirsin.",preview:"Web önizlemesinde reklam gösterilmez.",photoGuideLabel:"Fotoğrafta şunlara dikkat et",fourChoices:"Bu dört ülkeden biri"},
+  en:{labels:['Continent','Geography','Country'],unlock:'Reveal hint',maxPoints:'Maximum score',allUsed:'All hints for this location are revealed.',usedLabel:'Hints used',watchAd:"Watch an ad to unlock",loadingAd:"Loading rewarded ad...",adFailed:"Ad unavailable or reward not earned. Hint not unlocked; please try again.",preview:"Ads are not displayed in the web preview.",photoGuideLabel:"Look for these details",fourChoices:"One of these four countries"},
+  es:{labels:['Continente','Geografía','País'],unlock:'Mostrar pista',maxPoints:'Puntuación máxima',allUsed:'Se han mostrado todas las pistas de este lugar.',usedLabel:'Pistas usadas',watchAd:"Ver anuncio para desbloquear",loadingAd:"Cargando anuncio...",adFailed:"El anuncio no está disponible o no se completó. Pista bloqueada.",preview:"En la vista web no se muestran anuncios.",photoGuideLabel:"Observa estos detalles",fourChoices:"Uno de estos cuatro países"},
+  de:{labels:['Kontinent','Geografie','Land'],unlock:'Hinweis anzeigen',maxPoints:'Maximale Punktzahl',allUsed:'Alle Hinweise für diesen Ort sind aufgedeckt.',usedLabel:'Verwendete Hinweise',watchAd:"Werbung ansehen und Tipp freischalten",loadingAd:"Belohnungsanzeige wird geladen...",adFailed:"Werbung nicht verfügbar oder nicht abgeschlossen. Hinweis bleibt gesperrt.",preview:"In der Web-Vorschau gibt es keine Werbung.",photoGuideLabel:"Achte auf diese Merkmale",fourChoices:"Eines dieser vier Länder"},
+  fr:{labels:['Continent','Géographie','Pays'],unlock:"Révéler l'indice",maxPoints:'Score maximal',allUsed:'Tous les indices de ce lieu sont dévoilés.',usedLabel:'Indices utilisés',watchAd:"Voir une publicité pour débloquer",loadingAd:"Chargement de la publicité...",adFailed:"Publicité indisponible ou non terminée. Indice non débloqué.",preview:"Aucune publicité dans l’aperçu web.",photoGuideLabel:"Observe ces éléments",fourChoices:"Un de ces quatre pays"},
+  pt:{labels:['Continente','Geografia','País'],unlock:'Revelar dica',maxPoints:'Pontuação máxima',allUsed:'Todas as dicas deste local foram reveladas.',usedLabel:'Dicas usadas',watchAd:"Assista ao anúncio para liberar",loadingAd:"Carregando anúncio...",adFailed:"Anúncio indisponível ou não concluído. Dica não liberada.",preview:"Sem anúncios na prévia da web.",photoGuideLabel:"Observe estes detalhes",fourChoices:"Um destes quatro países"},
+  ru:{labels:['Континент','География','Страна'],unlock:'Открыть подсказку',maxPoints:'Максимум очков',allUsed:'Все подсказки для этого места открыты.',usedLabel:'Использовано подсказок',watchAd:"Посмотреть рекламу и открыть подсказку",loadingAd:"Загрузка рекламы...",adFailed:"Реклама недоступна или не досмотрена. Подсказка закрыта.",preview:"В веб-версии реклама не показывается.",photoGuideLabel:"Обрати внимание",fourChoices:"Одна из четырёх стран"},
+  zh:{labels:['大洲','地理特征','国家'],unlock:'查看提示',maxPoints:'最高得分',allUsed:'已解锁此地点的所有提示。',usedLabel:'已用提示',watchAd:"看广告解锁提示",loadingAd:"正在加载激励广告...",adFailed:"广告不可用或未完成，提示尚未解锁。",preview:"网页预览不播放广告。",photoGuideLabel:"留意这些线索",fourChoices:"以下四个国家之一"},
+  ja:{labels:['大陸','地理的特徴','国'],unlock:'ヒントを開く',maxPoints:'最高スコア',allUsed:'この場所のヒントはすべて開きました。',usedLabel:'使用したヒント',watchAd:"広告を見てヒントを開く",loadingAd:"広告を読み込み中...",adFailed:"広告が利用できないか完了していません。ヒントは未解除です。",preview:"ウェブ版では広告を表示しません。",photoGuideLabel:"写真の注目ポイント",fourChoices:"この4か国のうちの1つ"},
 };
 
 // UN M49 continent/subregion codes; localized with device CLDR names.
@@ -50,9 +56,22 @@ const landscape:Record<string,Record<Language,string>>={
   }
 };
 
-/** Uses CLDR instead of hand-translating region names in nine languages. */
-export function droneHintText(id:string,country:string,level:number,language:Language):string{
-  if(level===3)return localizedCountryName(country,language);
+/** Country suggestions are not the answer: each curated set contains
+ * four geographically plausible alternatives, including the target.
+ */
+const choices:Record<string,readonly [string,string,string,string]>={
+  'air-001':['Kanada','Meksika','Amerika Birleşik Devletleri','Küba'],
+  'air-002':['Ermenistan','Azerbaycan','Gürcistan','Türkiye'],
+  'air-003':['Avusturya','Almanya','İsviçre','Çekya'],
+  'air-004':['Avustralya','Yeni Zelanda','Fiji','Papua Yeni Gine'],
+  'air-005':['Birleşik Krallık','İrlanda','Fransa','Hollanda'],
+};
+export function droneHintChoices(id:string):readonly string[]{
+  return choices[id] ?? [];
+}
+/** Never return the answer as a level-three clue. */
+export function droneHintText(id:string,level:number,language:Language):string{
+  if(level===3)return '';
   if(level===2)return landscape[id]?.[language] ?? '';
   const region=continents[id];
   if(!region)return '';
@@ -60,6 +79,68 @@ export function droneHintText(id:string,country:string,level:number,language:Lan
     const locale=language==='zh'?'zh-CN':language==='pt'?'pt-BR':language;
     return new Intl.DisplayNames([locale,'en'],{type:'region'}).of(region) ?? region;
   }catch{return region;}
+}
+
+/** Photo-specific, answer-neutral guidance for less distinctive panoramas. */
+const photoFocus:Record<string,Record<Language,string>>={
+  'air-001':{
+    tr:'Kıyı çizgisinin biçimi, dağlar ve kent dokusu.',
+    en:'The outline of the coast, mountains and city blocks.',
+    es:'La forma de la costa, montañas y manzanas urbanas.',
+    de:'Küstenverlauf, Berge und Stadtstruktur.',
+    fr:'Le tracé de la côte, les montagnes et les quartiers.',
+    pt:'O litoral, as montanhas e o desenho das ruas.',
+    ru:'Береговая линия, горы и планировка города.',
+    zh:'观察海岸线、山脉和街区布局。',
+    ja:'海岸線、山並み、街区の並び方。'
+  },
+  'air-002':{
+    tr:'Yoğun şehir yerleşimi, geniş yollar ve uzak manzara.',
+    en:'Dense urban blocks, wide roads and the distant skyline.',
+    es:'Edificios densos, avenidas amplias y horizonte lejano.',
+    de:'Dichte Bebauung, breite Straßen und die Fernsicht.',
+    fr:'Des immeubles serrés, de larges routes et l’horizon.',
+    pt:'Quarteirões densos, vias largas e o horizonte.',
+    ru:'Плотная застройка, широкие улицы и дальний горизонт.',
+    zh:'留意密集街区、宽阔道路和远处天际线。',
+    ja:'密集した街並み、広い道路、遠景。'
+  },
+  'air-003':{
+    tr:'Büyük yapı çatıları, yol düzeni ve yeşil çevre.',
+    en:'Large building roofs, road layout and green surroundings.',
+    es:'Techos grandes, distribución vial y entorno verde.',
+    de:'Große Gebäudedächer, Straßennetz und grüne Umgebung.',
+    fr:'Grands toits, réseau de routes et environnement vert.',
+    pt:'Grandes telhados, vias e arredores verdes.',
+    ru:'Крупные крыши, сеть дорог и зелёные окрестности.',
+    zh:'观察大型屋顶、道路布局和周围绿地。',
+    ja:'大きな屋根、道路配置、周囲の緑。'
+  },
+  'air-004':{
+    tr:'Sulak alanın şekli, açık arazi ve yerleşim yoğunluğu.',
+    en:'The shape of the wetland, open land and sparse settlement.',
+    es:'La forma del humedal, espacios abiertos y casas dispersas.',
+    de:'Die Form des Feuchtgebiets, weites Land und lockere Siedlung.',
+    fr:'La forme de la zone humide, les terres ouvertes et les maisons.',
+    pt:'O formato da área úmida, campos abertos e poucas construções.',
+    ru:'Форма водоёма, открытые пространства и редкая застройка.',
+    zh:'观察湿地形状、开阔土地和稀疏居民区。',
+    ja:'湿地の形、広い土地、まばらな家並み。'
+  },
+  'air-005':{
+    tr:'Yeşil alanlar, küçük yol izleri ve çevredeki yerleşim.',
+    en:'Green spaces, small roads and the surrounding settlement.',
+    es:'Zonas verdes, caminos pequeños y casas alrededor.',
+    de:'Grünflächen, kleine Wege und umliegende Siedlungen.',
+    fr:'Espaces verts, petits chemins et habitations proches.',
+    pt:'Áreas verdes, vias pequenas e construções próximas.',
+    ru:'Зелёные зоны, небольшие дороги и окружающие дома.',
+    zh:'观察绿地、小路和周围住宅。',
+    ja:'緑地、小道、周辺の集落。'
+  },
+};
+export function dronePhotoFocus(id:string,language:Language):string{
+  return photoFocus[id]?.[language]??'';
 }
 
 /** Every clue removes a further 20% of the original distance-based reward. */
