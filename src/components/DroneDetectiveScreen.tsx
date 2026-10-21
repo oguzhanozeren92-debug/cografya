@@ -1,6 +1,6 @@
 import { atlasApi } from '@/lib/atlasApi';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, CheckCircle2, Compass, MapPin, RefreshCcw, Trophy, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Compass, Lightbulb, MapPin, RefreshCcw, Trophy, X } from 'lucide-react';
 import { type StreetRound, type PanoramaMedia } from '@/components/StreetPanorama';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
@@ -12,9 +12,10 @@ import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
 import { backend } from '@/lib/leaderboard';
 import { useLanguage } from '@/lib/i18n';
 import { localizedCountryName } from '@/lib/countryLanguage';
+import { DRONE_HINT_TOTAL, droneHintCopy, droneHintText, droneHintPoints } from '@/lib/droneHints';
 
 type Phase = 'view' | 'guess' | 'result' | 'finish';
-type Answer = { id: string; city: string; country: string; km: number | null; points: number; skipped?: boolean };
+type Answer = { id: string; city: string; country: string; km: number | null; points: number; skipped?: boolean; hintsUsed?: number };
 const BEST_KEY = 'atlas-arena-drone-demo-best-v1';
 const formatKm = (n: number) => new Intl.NumberFormat('tr-TR', {
   maximumFractionDigits: n < 10 ? 1 : 0,
@@ -64,6 +65,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   },[assetsRetry]);
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('view');
+  const [hintCount, setHintCount] = useState(0);
   const [ready, setReady] = useState(false);
   const [guess, setGuess] = useState<Coordinates | null>(null);
   const [answered, setAnswered] = useState<Answer[]>([]);
@@ -75,6 +77,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   const [saveError,setSaveError]=useState('');
   const [finalScore,setFinalScore]=useState(0);
   const current = rows[index];
+  const hintCopy = droneHintCopy[language];
   const panoramaStart=useRef(0);
   const completionNotified=useRef(false);
   useEffect(()=>{trackPlayEvent({mode:'drone',event_type:'mode_start'});},[]);
@@ -113,18 +116,18 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   const restart = () => {
     completionNotified.current=false;
     setRows(shuffled()); setIndex(0); setPhase('view'); setReady(false);
-    setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);
+    setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);setHintCount(0);
     setSaveState('idle');setSaveError('');setFinalScore(0);setShowRank(false);
   };
   const confirm = () => {
     if (!guess || phase !== 'guess') return;
     const km = haversineKm(guess, { lat: current.lat, lng: current.lng });
-    const points = locationPoints(km);
+    const points = droneHintPoints(locationPoints(km), hintCount);
     trackPlayEvent({mode:'drone',event_type:'street_guess',question_id:current.id,duration_ms:panoramaStart.current?performance.now()-panoramaStart.current:undefined});
     setDistance(km);
     setRoundPoints(points);
     setAnswered(previous => [...previous, {
-      id: current.id, city: current.city, country: current.country, km, points,
+      id: current.id, city: current.city, country: current.country, km, points, hintsUsed: hintCount,
     }]);
     setPhase('result');
   };
@@ -137,7 +140,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
       finishDrone(allAnswers);
     }else{
       setIndex(n=>n+1);setPhase('view');setReady(false);
-      setGuess(null);setDistance(null);setRoundPoints(0);
+      setGuess(null);setDistance(null);setRoundPoints(0);setHintCount(0);
     }
   };
   useEffect(()=>{
@@ -152,9 +155,46 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
       finishDrone(answered);
     } else {
       setIndex(n => n + 1); setPhase('view'); setGuess(null);
-      setDistance(null); setRoundPoints(0); setReady(false);
+      setDistance(null); setRoundPoints(0); setReady(false); setHintCount(0);
     }
   };
+  const unlockHint = () => {
+    if (!ready || (phase !== 'view' && phase !== 'guess') || hintCount >= DRONE_HINT_TOTAL) return;
+    const nextLevel = hintCount + 1;
+    setHintCount(nextLevel);
+    trackPlayEvent({mode:'drone',event_type:'hint',question_id:current.id,detail:String(nextLevel)});
+  };
+  const hintsPanel = () => (
+    <section className="street-card space-y-2 p-3" aria-label={t('İpuçları')}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="flex items-center gap-1.5 text-sm font-black">
+          <Lightbulb className="h-4 w-4 text-amber-200" /> {t('İpuçları')}
+        </h2>
+        <span className="text-[11px] font-bold text-amber-200">
+          {hintCopy.maxPoints}: {droneHintPoints(5000,hintCount).toLocaleString(language)} {t('puan')}
+        </span>
+      </div>
+      {hintCount > 0 && (
+        <ol className="space-y-1.5" aria-live="polite">
+          {Array.from({length:hintCount},(_,i)=>{
+            const level = i + 1;
+            return <li key={level} className="rounded-xl border border-amber-200/20 bg-amber-200/10 px-3 py-2 text-xs leading-5 text-amber-50">
+              <strong className="mr-1 text-amber-200">{level}. {hintCopy.labels[i]}:</strong>
+              {droneHintText(current.id,current.country,level,language)}
+            </li>;
+          })}
+        </ol>
+      )}
+      {hintCount < DRONE_HINT_TOTAL ? (
+        <button type="button" onClick={unlockHint} disabled={!ready}
+          className="street-secondary w-full disabled:opacity-50">
+          <Lightbulb className="h-4 w-4 text-amber-200"/>
+          {hintCopy.unlock} ({hintCount + 1}/{DRONE_HINT_TOTAL})
+          <span className="text-xs text-amber-200">−20%</span>
+        </button>
+      ) : <p className="text-xs font-semibold text-blue-100/75">{hintCopy.allUsed}</p>}
+    </section>
+  );
   return (
     <div className="globriva-screen street-screen fixed inset-0 z-[66] overflow-y-auto overscroll-contain text-white">
       <main className="globriva-content mx-auto min-h-full w-full max-w-[600px] px-4 pb-10 pt-[max(16px,env(safe-area-inset-top))]">
@@ -210,6 +250,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                   <span className="font-black text-amber-200">{i + 1}.</span>
                   <span className="min-w-0 flex-1 truncate">{answer.city}, {localizedCountryName(answer.country,language)}</span>
                   <span>{answer.skipped?t('Görüntü açılamadı'):formatKm(answer.km!)+' km'}</span>
+                  {answer.hintsUsed ? <span className="text-amber-200" title={hintCopy.usedLabel}>💡{answer.hintsUsed}</span> : null}
                   <strong className="text-emerald-200">+{answer.points}</strong>
                 </div>
               ))}
@@ -243,6 +284,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                 <p className="px-2 py-2 text-[11px] text-blue-100/75">{t('Fotoğrafı büyütebilir, sağ-sol oklarıyla çevreyi inceleyebilirsin. Görselin lisansı tahminden sonra gösterilir.')}</p>
               </section>
             )}
+            {(phase === 'view' || phase === 'guess') && hintsPanel()}
             {phase === 'view' && (
               <section className="street-card space-y-3 p-4">
                 <h2 className="font-black">{t('Sence burası neresi? 🚁')}</h2>
