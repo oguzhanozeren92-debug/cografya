@@ -1,0 +1,72 @@
+{
+  "status": "shortlist_only_not_published",
+  "purpose": "Replace three generic drone views with visually stronger, geographic 360-degree aerial panoramas; do not alter currently published five-location game until photo assets have passed licensing/image/availability tests.",
+  "safetyRules": [
+    "No live game metadata or manifest changes while media files are unavailable.",
+    "Photos must be 2:1 equirectangular at least 5000x2500; source licenses and actual coordinates validated before upload.",
+    "Use new unique IDs for image asset publication, not in-place overwrites with stale cached media.",
+    "All four static cube-face previews must exist and work before enabling a location.",
+    "After publication align src/data/dronePanoramas.ts, src/lib/droneHints.ts, manifests, API session and licensed credit.",
+    "No Vercel deployment or TestFlight build until requested; network endpoint and native static asset availability must be tested."
+  ],
+  "candidates": [
+    {
+      "futureId": "air-006",
+      "replaces": "air-003",
+      "country": "Avusturya",
+      "city": "Windischgarsten",
+      "sourceTitle": "File:Wurbauerkogel Windischgarsten.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Wurbauerkogel_Windischgarsten.jpg",
+      "author": "PepponeDrohne",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "width": 14000,
+      "height": 7000,
+      "lat": 47.72547,
+      "lng": 14.33939,
+      "difficulty": "easy",
+      "visualCue": "Alpine mountain basin and Austrian hillside scenery; replaces generic industrial site",
+      "futureHint2Tr": "Avrupa'nın dağlık bir bölgesinde, dağların çevrelediği küçük bir yerleşim."
+    },
+    {
+      "futureId": "air-007",
+      "replaces": "air-005",
+      "country": "Birleşik Krallık",
+      "city": "Bexhill-on-Sea",
+      "sourceTitle": "File:De La Warr Pavilion, Bexhill (360 aerial panorama).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:De_La_Warr_Pavilion,_Bexhill_(360_aerial_panorama).jpg",
+      "author": "Alexis Markwick",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "width": 10240,
+      "height": 5120,
+      "lat": 50.836989,
+      "lng": 0.471848,
+      "difficulty": "easy",
+      "visualCue": "Distinctive seafront architecture, shoreline and town pattern; replaces generic park",
+      "futureHint2Tr": "Kuzey Avrupa'da deniz kıyısında, sahil yolu ve mimari yapıları görülen bir kent."
+    },
+    {
+      "futureId": "air-008",
+      "replaces": "air-004",
+      "country": "Avustralya",
+      "city": "Wagga Wagga",
+      "sourceTitle": "File:360° aerial panorama of Wagga Wagga over the Murrumbidgee River.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:360%C2%B0_aerial_panorama_of_Wagga_Wagga_over_the_Murrumbidgee_River.jpg",
+      "author": "Robert Myers (Bidgee)",
+      "license": "CC BY-SA 3.0 AU",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/au/",
+      "width": 12000,
+      "height": 6000,
+      "lat": -35.104591,
+      "lng": 147.372898,
+      "difficulty": "medium",
+      "visualCue": "A visible river corridor and Australian inland town; replaces ambiguous lagoon",
+      "futureHint2Tr": "Okyanusya'da, iç kesimlerde bir nehrin çevresinde gelişmiş bir kent."
+    }
+  ],
+  "keepExisting": [
+    "air-001",
+    "air-002"
+  ]
+}
