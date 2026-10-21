@@ -10,14 +10,15 @@
 
 `panoramas/drone-gallery-candidates.json` — yeni fotoğraf albümlerinin kaynakları, eser sahipleri, lisans bağlantıları, konumları, ipuçları ve onay durumları.
 
-Şu anda burada **4 albüme ayrılmış 15 kaynak adayı** var:
+Şu anda burada **16 albümde, 16 farklı ülkeden 51 kaynak adayı** var:
 
-- Birleşik Krallık / Londra — 4
-- Türkiye / İstanbul — 4
-- İtalya / Roma — 4
-- Fransa / Paris — 3
+- Londra — 4, İstanbul — 4, Roma — 4, Paris — 3
+- Berlin, Sidney, Tokyo, Barselona, New York — üçer fotoğraf
+- Rio de Janeiro, Atina, Amsterdam, Toronto, Gize, Agra, Mexico City — üçer fotoğraf
 
-Bu 15 kayıt **araştırılmış adaydır**. Fotoğrafların son görsel doğrulaması ve R2'ye yüklenmesi yapılmadan bunları aktif sayma. Her albümde `reviewedLocation` ve `reviewedQuality`, ayrıca her fotoğrafta `reviewedVisual`, `reviewedLicense` ve `reviewedPlace` doğrulanıp `true` yapılmalıdır. Sadece dosya adlarına dayanarak onay verme.
+**51 aday ≠ 51 yayımlanmış fotoğraf.** Bu seçkide her fotoğrafın kaynak URL'si, bildirilen eser sahibi ve Creative Commons lisans bağlantısı saklıdır. Kaynak URL'sinin varlığı fotoğrafın görsel olarak uygun veya R2'ye yüklenmiş olduğu anlamına gelmez. Albümlerdeki inceleme işaretleri bilerek `false` tutuluyor.
+
+Bu 51 kayıt **araştırılmış adaydır**. Fotoğrafların son görsel doğrulaması ve R2'ye yüklenmesi yapılmadan bunları aktif sayma. Her albümde `reviewedLocation` ve `reviewedQuality`, ayrıca her fotoğrafta `reviewedVisual`, `reviewedLicense` ve `reviewedPlace` doğrulanıp `true` yapılmalıdır. Sadece dosya adlarına dayanarak onay verme.
 
 ## Yayınlama
 
