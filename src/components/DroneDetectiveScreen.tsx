@@ -22,8 +22,8 @@ const BEST_KEY = 'atlas-arena-drone-demo-best-v1';
 const formatKm = (n: number) => new Intl.NumberFormat('tr-TR', {
   maximumFractionDigits: n < 10 ? 1 : 0,
 }).format(n);
-function shuffled(): DronePanorama[] {
-  const items = [...dronePanoramas];
+function shuffled(catalog: DronePanorama[] = dronePanoramas): DronePanorama[] {
+  const items = [...catalog];
   for (let i = items.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [items[i], items[j]] = [items[j], items[i]];
@@ -55,13 +55,14 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
       setAssetLoading(true);setAssetError('');
       try{
         const response=await fetch(atlasApi('/api/drone/session'),{cache:'no-store'});
-        const body=await response.json() as {media?:Array<{id:string;media:PanoramaMedia}>;error?:string};
+        const body=await response.json() as {media?:Array<{id:string;media:PanoramaMedia}>;rows?:DronePanorama[];error?:string};
         if(!response.ok||!body.media||body.media.length<5){
           throw new Error(body.error||t('Dron 360° arşivi henüz hazır değil.'));
         }
         const map=Object.fromEntries(body.media.map(r=>[r.id,r.media]));
-        if(dronePanoramas.some(row=>!map[row.id]))throw new Error(t('Bazı drone panoramaları henüz doğrulanmadı.'));
-        if(active){setMediaById(map);setAssetLoading(false);}
+        const catalog=body.rows?.length ? body.rows : dronePanoramas;
+        if(catalog.some(row=>!map[row.id]))throw new Error(t('Bazı drone panoramaları henüz doğrulanmadı.'));
+        if(active){setRows(shuffled(catalog));setIndex(0);setMediaById(map);setAssetLoading(false);}
       }catch(e){if(active){setAssetLoading(false);setAssetError(e instanceof Error?e.message:t('Görüntüler yüklenemedi.'));}}
     };
     void run();
@@ -131,7 +132,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   const restart = () => {
     cancelPendingHint();
     completionNotified.current=false;
-    setRows(shuffled()); setIndex(0); setPhase('view'); setReady(false);
+    setRows(shuffled(rows)); setIndex(0); setPhase('view'); setReady(false);
     setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);setHintCount(0);
     setSaveState('idle');setSaveError('');setFinalScore(0);setShowRank(false);
   };
@@ -225,13 +226,17 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
               <strong className="mr-1 text-amber-200">{level}. {hintCopy.labels[i]}:</strong>
               {level===3 ? (
                 <div className="mt-2 grid grid-cols-2 gap-2" aria-label={hintCopy.fourChoices}>
-                  {droneHintChoices(current.id).map(country=>
+                  {(current.choices?.length===4 ? current.choices : droneHintChoices(current.id)).map(country=>
                     <span key={country} className="rounded-lg border border-amber-200/25 bg-[#173653] px-2 py-2 text-center font-bold">
                       {localizedCountryName(country,language)}
                     </span>
                   )}
                 </div>
-              ) : droneHintText(current.id,level,language)}
+              ) : level===2 && current.hint
+                ? (current.hint[language] || current.hint.en || current.hint.tr || '')
+                : level===1 && current.regionCode
+                  ? new Intl.DisplayNames([language==='zh'?'zh-CN':language==='pt'?'pt-BR':language,'en'],{type:'region'}).of(current.regionCode)
+                  : droneHintText(current.id,level,language)}
             </li>;
           })}
         </ol>
@@ -339,7 +344,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                 <p className="mx-2 mb-1 mt-2 rounded-lg border border-cyan-200/15 bg-cyan-200/10 px-3 py-2 text-xs leading-5 text-blue-50">
                   <Compass className="mr-1 inline h-3.5 w-3.5 text-cyan-200"/>
                   <strong className="mr-1 text-cyan-100">{hintCopy.photoGuideLabel}:</strong>
-                  {dronePhotoFocus(current.id,language)}
+                  {current.photoFocus?.[language] || current.photoFocus?.en || current.photoFocus?.tr || dronePhotoFocus(current.id,language)}
                 </p>
               </section>
             )}
@@ -400,7 +405,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
           </div>
         )}
         <p className="mt-5 text-center text-[11px] leading-5 text-blue-200/65">
-          {t('Ücretsiz 5 konumluk pilot · Lisanslı gerçek dron görüntüleri · Dört yöne bakış ve tam ekran.')}
+          {t('Lisanslı gerçek dron görüntüleri · Dört yöne bakış ve tam ekran.')}
           {t('Puanlar önce cihazda, Supabase kurulduysa dünya ve haftalık ligde saklanır.')}
         </p>
       </main>
