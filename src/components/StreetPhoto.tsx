@@ -10,7 +10,8 @@ import { useLanguage } from '@/lib/i18n';
  */
 const FACES=['f','r','b','l'] as const;
 const LABELS=['Ön','Sağ','Arka','Sol'];
-function photoUrl(media:PanoramaMedia, face:string):string {
+function photoUrl(media:PanoramaMedia, face:string, index=0):string {
+  if(media.mode==='gallery')return media.images[index]?.url || '';
   if(media.mode==='equirectangular')return media.image;
   if(media.staticBase)return media.staticBase.replace(/\/+$/,'')+'/'+face+'.jpg';
   const template=media.config.fallbackPath ?? '/fallback/%s';
@@ -36,6 +37,8 @@ export function StreetPhoto({
 }) {
   const {t}=useLanguage();
   const [face,setFace]=useState(0);
+  const gallery=round.media.mode==='gallery';
+  const totalPhotos=gallery?round.media.images.length:FACES.length;
   const [retry,setRetry]=useState(0);
   const [state,setState]=useState<'loading'|'ready'|'error'>('loading');
   const [failure,setFailure]=useState('');
@@ -74,7 +77,7 @@ export function StreetPhoto({
     }
   };
   const handleError=()=>{
-    if(face!==0&&readyFired.current){
+    if(!gallery&&face!==0&&readyFired.current){
       setFace(0); // A secondary angle is optional; return to already-cached front photo.
       setState('loading');
       return;
@@ -84,11 +87,11 @@ export function StreetPhoto({
   };
   const changeFace=(delta:number)=>{
     if(state!=='ready')return;
-    setFace(v=>(v+delta+FACES.length)%FACES.length);
+    setFace(v=>(v+delta+totalPhotos)%totalPhotos);
     setZoom(1);
     setState('loading');
   };
-  const src=photoUrl(round.media,FACES[face]);
+  const src=photoUrl(round.media,FACES[face] || 'f',face);
   return (
     <div className={fullscreen
       ? 'fixed inset-0 z-[120] h-[100dvh] w-screen overflow-hidden bg-[#071426]'
@@ -118,7 +121,7 @@ export function StreetPhoto({
           <button type="button" aria-label={t("Yakınlaştır")} disabled={zoom>=2.5} onClick={()=>setZoom(v=>Math.min(2.5,Math.round((v+0.25)*100)/100))} className="p-2 disabled:opacity-40"><Plus className="h-5 w-5"/></button>
         </div>
       )}
-      {state==='ready'&&round.media.mode==='multires'&&(
+      {state==='ready'&&(round.media.mode==='multires'||(gallery&&totalPhotos>=2))&&(
         <>
           <button type="button" aria-label={t("Fotoğrafta sola bak")} onClick={()=>changeFace(-1)}
             className="absolute z-20 left-2 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-[#0b2341]/75 p-2.5 text-white">
@@ -129,7 +132,7 @@ export function StreetPhoto({
             <ChevronRight className="h-5 w-5"/>
           </button>
           <span className="pointer-events-none absolute bottom-2 right-3 rounded-full bg-[#0b2341]/75 px-2.5 py-1 text-[10px] font-bold text-white">
-            {t(LABELS[face])} {t('görünüş')}
+            {gallery ? `${t('Fotoğraf')} ${face+1}/${totalPhotos}` : `${t(LABELS[face])} ${t('görünüş')}`}
           </span>
         </>
       )}
