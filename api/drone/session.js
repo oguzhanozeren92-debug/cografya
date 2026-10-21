@@ -57,7 +57,15 @@ async function liveGallery() {
     const rows = manifest.photos.filter(row => row.approved === true && validRow(row));
     if (rows.length < MIN_LIVE_PHOTOS || new Set(rows.map(x => x.id)).size !== rows.length ||
         new Set(rows.map(x => x.country)).size < 10) return null;
-    const publicRows = rows.map(({approved, ...row}) => row);
+    // Whitelist only game content: editorial flags or future private fields
+    // can never become part of a public player response.
+    const publicRows = rows.map(row => ({
+      id:row.id, country:row.country, city:row.city, fact:row.fact,
+      lat:row.lat, lng:row.lng, artist:row.artist, license:row.license,
+      licenseUrl:row.licenseUrl, source:row.source,
+      difficulty:row.difficulty, regionCode:row.regionCode,
+      hint:row.hint, photoFocus:row.photoFocus, choices:row.choices,
+    }));
     return {
       rows: publicRows,
       media: rows.map(row => {
