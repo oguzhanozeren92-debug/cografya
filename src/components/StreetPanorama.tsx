@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { RefreshCcw, SkipForward, AlertCircle } from 'lucide-react';
 
 export type PanoramaMedia =
+  | { mode:'gallery'; images: Array<{url:string;credit:{artist:string;license:string;licenseUrl:string;source:string}}> }
   | { mode:'equirectangular'; image:string }
   | { mode:'multires'; base:string; staticBase?:string; config: {
       path:string; fallbackPath?:string; extension:string;
@@ -49,8 +50,8 @@ export function warmStreetViewer():void {
 }
 export function warmStreetPreview(round?:StreetRound):void {
   if(!round||typeof window==='undefined')return;
-  const src=round.media.mode==='multires'
-    ? round.media.base+'/fallback/f.jpg' : round.media.image;
+  const src=round.media.mode==='gallery' ? round.media.images[0]?.url
+    : round.media.mode==='multires' ? round.media.base+'/fallback/f.jpg' : round.media.image;
   if(!/^https:\/\//.test(src))return;
   const img=new Image();
   img.decoding='async';
@@ -111,6 +112,7 @@ export function StreetPanorama({
         compass:false,hotSpotDebug:false,draggable:true,friction:0.16,
         backgroundColor:[13/255,33/255,59/255],
       };
+      if(media.mode==='gallery')throw new Error('Fotoğraf albümleri için fotoğraf görüntüleyiciyi kullan.');
       if(media.mode==='equirectangular')options.panorama=media.image;
       else options.multiRes={...media.config,basePath:media.base};
       viewer=window.pannellum.viewer(container.current,options);
