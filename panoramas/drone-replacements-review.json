@@ -1,0 +1,146 @@
+{
+  "title": "Globriva Drone — licensed recognizable 360 panorama replacements",
+  "status": "selected_for_staging_not_published",
+  "notes": [
+    "These files are verified by their Wikimedia Commons descriptions for a 2:1 360-degree aerial panorama, coordinates, and open reuse license. Visual composition still requires inspection of the actual four rendered faces.",
+    "Do not replace live catalog entries until the original imagery, R2 tiles and static face galleries are verified and served; old playable IDs must remain until replacements are ready.",
+    "The current drone publisher skips existing IDs and the readiness API requires five complete face galleries: adding metadata alone will not install photographs.",
+    "Attribution plus original link and the Creative Commons license must remain visible in gameplay, and adapted files should be identified appropriately."
+  ],
+  "retain": [
+    {
+      "current_id": "air-002",
+      "country": "Ermenistan",
+      "city": "Erivan",
+      "reason": "Existing high-resolution spherical aerial panorama already shows an identifiable downtown."
+    }
+  ],
+  "replacements": [
+    {
+      "new_id": "air-006",
+      "replaces": "air-001",
+      "country": "Meksika",
+      "city": "Mexico City",
+      "place": "Estadio Azteca",
+      "difficulty": "easy",
+      "coordinates": {
+        "lat": 19.302932,
+        "lng": -99.150523
+      },
+      "sourceTitle": "File:Panorama esférico del Estadio Azteca.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Panorama_esf%C3%A9rico_del_Estadio_Azteca.jpg",
+      "author": "ProtoplasmaKid",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "original": {
+        "width": 12000,
+        "height": 6000
+      },
+      "visualReason": "Iconic large football stadium plus capital-city urban layout, easier than nondescript coast"
+    },
+    {
+      "new_id": "air-007",
+      "replaces": "air-003",
+      "country": "Avusturya",
+      "city": "Edlbach",
+      "place": "Edlbach-Dörfl",
+      "difficulty": "medium",
+      "coordinates": {
+        "lat": 47.71515,
+        "lng": 14.34283
+      },
+      "sourceTitle": "File:Edlbach-Dörfl.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Edlbach-D%C3%B6rfl.jpg",
+      "author": "PepponeDrohne",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "original": {
+        "width": 14000,
+        "height": 7000
+      },
+      "visualReason": "Alpine village, mountain valley and characteristic Austrian rural settlement instead of factory roofs"
+    },
+    {
+      "new_id": "air-008",
+      "replaces": "air-004",
+      "country": "Avustralya",
+      "city": "Wagga Wagga",
+      "place": "Duke of Kent Oval",
+      "difficulty": "medium",
+      "coordinates": {
+        "lat": -35.114373,
+        "lng": 147.352932
+      },
+      "sourceTitle": "File:360° panorama aerial view of Duke of Kent Oval.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:360%C2%B0_panorama_aerial_view_of_Duke_of_Kent_Oval.jpg",
+      "author": "Robert Myers (Bidgee)",
+      "license": "CC BY-SA 3.0 AU",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/au/",
+      "original": {
+        "width": 9000,
+        "height": 4500
+      },
+      "visualReason": "Sports oval and settlement layout give recognizable Australian outdoor culture, unlike a random lagoon"
+    },
+    {
+      "new_id": "air-009",
+      "replaces": "air-005",
+      "country": "Birleşik Krallık",
+      "city": "Bexhill-on-Sea",
+      "place": "De La Warr Pavilion",
+      "difficulty": "easy",
+      "coordinates": {
+        "lat": 50.836989,
+        "lng": 0.471848
+      },
+      "sourceTitle": "File:De La Warr Pavilion, Bexhill (360 aerial panorama).jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:De_La_Warr_Pavilion%2C_Bexhill_%28360_aerial_panorama%29.jpg",
+      "author": "Alexis Markwick",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "original": {
+        "width": 10240,
+        "height": 5120
+      },
+      "visualReason": "Seafront colonnade, coastal town and recognizable built environment instead of generic park"
+    }
+  ],
+  "alternates": [
+    {
+      "country": "Avusturya",
+      "sourceTitle": "File:Wurbauerkogel Windischgarsten.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Wurbauerkogel_Windischgarsten.jpg",
+      "coordinates": {
+        "lat": 47.72547,
+        "lng": 14.33939
+      },
+      "width": 14000,
+      "height": 7000,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "country": "Birleşik Krallık",
+      "sourceTitle": "File:Central, Bexhill (360 aerial panorama).jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Central%2C_Bexhill_%28360_aerial_panorama%29.jpg",
+      "coordinates": {
+        "lat": 50.840147,
+        "lng": 0.469926
+      },
+      "width": 10240,
+      "height": 5120,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "country": "Avustralya",
+      "sourceTitle": "File:360° aerial panorama from Rocky Hill.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:360%C2%B0_aerial_panorama_from_Rocky_Hill.jpg",
+      "coordinates": {
+        "lat": -35.130592,
+        "lng": 147.382222
+      },
+      "width": 12000,
+      "height": 6000,
+      "license": "CC BY-SA 3.0 AU"
+    }
+  ]
+}
