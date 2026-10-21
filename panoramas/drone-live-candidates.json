@@ -1,5 +1,5 @@
 {
-  "description": "Three preselected replacement candidates are PENDING. Nothing publishes until all four reviewed flags are true and Commons checks pass. Add 47+ additional vetted photos to reach the 50-photo launch gate.",
+  "description": "Five researched aerial panorama candidates, including two newly sourced Commons works. Only license/projection/GPS metadata are checked for the two new works; final visual editorial checks and verified R2 uploads are outstanding. Fifty approved photos across at least ten countries activate live sessions.",
   "panoramas": [
     {
       "id": "air-006",
@@ -102,6 +102,78 @@
       "reviewedLicense": false,
       "reviewedQuality": false,
       "editorialStatus": "pending_final_image_license_gps_review"
+    },
+    {
+      "id": "air-009",
+      "sourceTitle": "File:Eckersdorf OT Hardt 360 pano.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Eckersdorf_OT_Hardt_360_pano.jpg",
+      "country": "Almanya",
+      "city": "Eckersdorf (Hardt)",
+      "fact": "Hardt, Almanya'nın Bavyera eyaletindeki Eckersdorf yerleşimine bağlıdır.",
+      "lat": 49.925739,
+      "lng": 11.510372,
+      "artist": "J. Lunau",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "difficulty": "medium",
+      "regionCode": "150",
+      "hint": {
+        "tr": "Orta Avrupa'da küçük bir yerleşim ve çevresindeki kırsal peyzaj.",
+        "en": "A small settlement in Central Europe surrounded by countryside."
+      },
+      "photoFocus": {
+        "tr": "Evlerin çatılarını, yerleşim düzenini ve yeşil alanları incele.",
+        "en": "Look at roofs, settlement patterns and nearby green spaces."
+      },
+      "choices": [
+        "Almanya",
+        "Avusturya",
+        "Çekya",
+        "İsviçre"
+      ],
+      "reviewedProjection": true,
+      "reviewedCoordinates": true,
+      "reviewedLicense": true,
+      "reviewedQuality": false,
+      "editorialStatus": "pending_visual_review_and_R2_verification",
+      "sourceDimensions": "9520x4760",
+      "researchNote": "Wikimedia file shows equirectangular 360x180, CC BY-SA 4.0, camera GPS and 9,520x4,760 pixels; scene still needs player-difficulty review."
+    },
+    {
+      "id": "air-010",
+      "sourceTitle": "File:Panorama esférico de Guadalajara desde el Hospicio Cabañas.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Panorama_esférico_de_Guadalajara_desde_el_Hospicio_Cabañas.jpg",
+      "country": "Meksika",
+      "city": "Guadalajara",
+      "fact": "Guadalajara'nın tarihî Hospicio Cabañas çevresinde şehir merkezinden dronla çekilmiş panoramik görüntü.",
+      "lat": 20.676887,
+      "lng": -103.338755,
+      "artist": "ProtoplasmaKid",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "difficulty": "easy",
+      "regionCode": "013",
+      "hint": {
+        "tr": "Kuzey Amerika'daki büyük bir kentte tarihi mimari ve geniş bir şehir dokusu.",
+        "en": "A large North American city with historic architecture and an extensive urban skyline."
+      },
+      "photoFocus": {
+        "tr": "Tarihî mimariye, meydanlara ve şehir planına bak.",
+        "en": "Study historic architecture, squares, and the city layout."
+      },
+      "choices": [
+        "Meksika",
+        "Amerika Birleşik Devletleri",
+        "Guatemala",
+        "Kolombiya"
+      ],
+      "reviewedProjection": true,
+      "reviewedCoordinates": true,
+      "reviewedLicense": true,
+      "reviewedQuality": false,
+      "editorialStatus": "pending_visual_review_and_R2_verification",
+      "sourceDimensions": "12000x6000",
+      "researchNote": "Wikimedia file confirms a drone spherical 2:1 panorama from Hospicio Cabañas, 12,000x6,000, CC BY-SA 4.0, camera coordinates; pending manual framing and publish checks."
     }
   ]
 }
