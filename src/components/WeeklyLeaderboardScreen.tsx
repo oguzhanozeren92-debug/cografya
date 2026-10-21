@@ -7,7 +7,8 @@ import {
 } from 'lucide-react';
 import type { GameMode, WeeklyLeaderboardEntry } from '@/types';
 import { useLanguage } from '@/lib/i18n';
-import { VirtualRivals } from '@/components/VirtualRivals';
+import { mixRankings, mixedCopy, type DisplayRank } from '@/lib/rankingMix';
+import { getVirtualRivals } from '@/lib/virtualRivals';
 import {
   fetchMyWeeklyStanding, fetchWeeklyLeaderboard, getTimeToReset,
   getWeekLabel, getWeekStart, type MyWeeklyStanding,
@@ -27,8 +28,8 @@ function shortName(name: string): string {
   return (parts.length > 1 ? parts[0][0] + parts[1][0] : name.slice(0, 2)).toLocaleUpperCase('tr-TR');
 }
 
-function PodiumPlayer({ entry, place }: { entry: WeeklyLeaderboardEntry | undefined; place: 1 | 2 | 3 }) {
-  const {t}=useLanguage();
+function PodiumPlayer({ entry, place }: { entry: DisplayRank<WeeklyLeaderboardEntry> | undefined; place: 1 | 2 | 3 }) {
+  const {language,t}=useLanguage();
   const reduceMotion = useReducedMotion();
   const first = place === 1;
   const shade = first ? 'gold' : place === 2 ? 'silver' : 'bronze';
@@ -42,7 +43,11 @@ function PodiumPlayer({ entry, place }: { entry: WeeklyLeaderboardEntry | undefi
         </div>
       </div>
       <div className="mt-4 min-h-[43px] px-1 text-center">
-        <div className="truncate text-[13px] font-extrabold text-white sm:text-sm">{entry?.player_name ?? t('Yerini al')}</div>
+        <div className="flex min-w-0 items-center justify-center gap-1 text-[13px] font-extrabold text-white sm:text-sm">
+          {entry?.flag && <span className="shrink-0 text-xs">{entry.flag}</span>}
+          <span className="min-w-0 truncate">{entry?.player_name ?? t('Yerini al')}</span>
+        </div>
+        {entry?.virtual && <span className="inline-block rounded bg-cyan-200/15 px-1 text-[9px] font-bold text-cyan-100">{mixedCopy[language].label}</span>
         <div className="mt-0.5 text-xs font-bold text-amber-100/75">{entry ? number.format(entry.score) : '—'} <span className="font-medium">{t('puan')}</span></div>
       </div>
       <div className={'podium-stand podium-stand-' + shade}>
@@ -83,8 +88,12 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
     return () => { active = false; };
   }, [mode, weekOffset, refresh]);
 
-  const topThree = rows.slice(0, 3);
-  const remaining = rows.slice(3);
+  const seed=getWeekStart(weekOffset);
+  const displayRows=mixRankings(rows,mode,seed,entry=>entry.player_id);
+  const myDisplayRank=mine?mine.rank+getVirtualRivals(mode,seed).filter(x=>x.score>mine.entry.score).length:null;
+  const copy=mixedCopy[language];
+  const topThree = displayRows.slice(0, 3);
+  const remaining = displayRows.slice(3);
   const dateLabel = getWeekLabel(weekOffset,language);
 
   return (
@@ -156,7 +165,7 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
         <section className="weekly-me mt-5 overflow-hidden rounded-2xl border border-cyan-300/25 p-4 sm:p-5">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3"><div className="weekly-me-icon"><Target className="h-6 w-6 text-cyan-100" /></div><div><p className="text-[10px] font-bold tracking-[.16em] text-cyan-200">{t('SENİN SIRAN')}</p><p className="mt-1 truncate text-sm font-bold text-white">{playerName || 'Yeni gezgin'}</p></div></div>
-            <div className="text-right"><p className="text-2xl font-black text-white">{mine ? '#' + number.format(mine.rank) : '—'}</p><p className="text-[10px] text-blue-200/65">{mode === 'flags' ? t('Bayrak ligi') : mode === 'clues' ? t('İpucu ligi') : t('Karışık lig')}</p></div>
+            <div className="text-right"><p className="text-2xl font-black text-white">{myDisplayRank!==null ? '#' + number.format(myDisplayRank) : '—'}</p><p className="text-[10px] text-blue-200/65">{copy.rank}</p></div>
           </div>
           <div className="mt-4 grid grid-cols-3 divide-x divide-white/10 rounded-xl border border-white/10 bg-black/20 py-3 text-center">
             <div><div className="text-lg font-black text-amber-200">{number.format(mine?.entry.score ?? 0)}</div><div className="text-[10px] text-slate-300">{t('Haftalık puan')}</div></div>
@@ -168,14 +177,20 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
 
         <section className="mt-6 rounded-[24px] border border-white/10 bg-[#111a35]/80 p-4 sm:p-5">
           <div className="mb-4 flex items-center justify-between"><div className="flex items-center gap-2"><Award className="h-5 w-5 text-amber-300" /><h2 className="text-base font-extrabold">{t('Tüm Sıralama')}</h2></div><span className="text-[10px] font-bold tracking-wider text-slate-400">{t('İLK 100')}</span></div>
-          {!loading && !error && rows.length === 0 && <div className="weekly-empty">{mode === 'flags' ? <Flag className="h-12 w-12 text-amber-300/70" /> : mode === 'clues' ? <Lightbulb className="h-12 w-12 text-violet-300/70" /> : <Globe2 className="h-12 w-12 text-cyan-300/70" />}<p className="mt-3 font-bold text-white">{t('İlk kaşif sen ol!')}</p><p className="mt-1 text-sm text-slate-400">{t('Bu hafta henüz kimse puan kazanmadı.')}</p></div>}
-          {!loading && !error && rows.length > 0 && remaining.length === 0 && <p className="rounded-xl bg-white/5 p-4 text-center text-xs text-slate-400">{t('İlk üç oyuncu yukarıdaki podyumda. Yeni rakipler bu listede belirecek.')}</p>}
+          <p className="mb-3 text-[11px] leading-5 text-slate-400">{copy.note}</p>
           {!loading && !error && remaining.length > 0 && <div className="space-y-2">
             {remaining.map((entry, index) => (
-              <div key={entry.id} className={'weekly-ranking-row' + (mine?.entry.player_id === entry.player_id ? ' weekly-ranking-self' : '')}>
+              <div key={entry.id} className={'weekly-ranking-row' + (mine && mine.entry.player_id === entry.real?.player_id ? ' weekly-ranking-self' : '')}>
                 <span className="w-8 shrink-0 text-center text-sm font-black text-slate-300">{index + 4}</span>
                 <div className="weekly-mini-avatar">{shortName(entry.player_name)}</div>
-                <div className="min-w-0 flex-1"><div className="truncate text-sm font-bold text-white">{entry.player_name}</div><div className="text-[10px] text-slate-400">{entry.correct_answers} {t('doğru')} • {entry.games_played} {t('oyun')}</div></div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex min-w-0 items-center gap-1">
+                    {entry.flag && <span className="shrink-0 text-base">{entry.flag}</span>}
+                    <span className="truncate text-sm font-bold text-white">{entry.player_name}</span>
+                    {entry.virtual && <span className="shrink-0 rounded bg-cyan-200/15 px-1 text-[9px] font-bold text-cyan-100">{copy.label}</span>}
+                  </div>
+                  <div className="text-[10px] text-slate-400">{entry.real ? <>{entry.real.correct_answers} {t('doğru')} • {entry.real.games_played} {t('oyun')}</> : copy.subtitle}</div>
+                </div>
                 <span className="shrink-0 text-sm font-black text-amber-100">{number.format(entry.score)}</span>
                 <ChevronRight className="h-4 w-4 shrink-0 text-white/20" />
               </div>
@@ -183,7 +198,6 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
           </div>}
         </section>
 
-        <VirtualRivals key={mode + getWeekStart(weekOffset)} mode={mode} seed={getWeekStart(weekOffset)} myScore={mine?.entry.score} />
         {weekOffset === 0 && <div className="mt-5 rounded-2xl border border-violet-300/20 bg-violet-400/5 p-4 text-center text-xs leading-relaxed text-slate-300"><Sparkles className="mr-1 inline h-4 w-4 text-violet-300" /> {t("Her pazartesi UTC 00.00'da yeni bir hafta başlar. Geçmiş şampiyonlar kaybolmaz.")}</div>}
         <button disabled={!playerName.trim()} onClick={() => onPlay(mode)} className="weekly-play-button mt-5 flex w-full items-center justify-center gap-3 rounded-2xl px-5 py-4 text-sm font-black tracking-wide disabled:cursor-not-allowed disabled:opacity-50"><Rocket className="h-5 w-5" /> {mode === 'flags' ? t('BAYRAK LİGİNDE OYNA') : mode === 'clues' ? t('İPUCU LİGİNDE OYNA') : t('KARIŞIK LİGDE OYNA')} <ArrowUpRight className="h-5 w-5" /></button>
         {!playerName.trim() && <p className="mt-2 text-center text-xs text-amber-300">{t('Oynamak için geri dönüp bir takma ad seç.')}</p>}
