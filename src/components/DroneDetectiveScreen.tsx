@@ -198,10 +198,8 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
       if(roundTokenRef.current!==token)return;
       setHintCount(nextLevel);
       trackPlayEvent({mode:'drone',event_type:'hint',question_id:current.id,detail:String(nextLevel)});
-    } catch(e) {
-      if(roundTokenRef.current===token){
-        setHintError(e instanceof Error ? hintCopy.adFailed : hintCopy.adFailed);
-      }
+    } catch {
+      if(roundTokenRef.current===token)setHintError(hintCopy.adFailed);
     } finally {
       if(roundTokenRef.current===token){
         hintBusyRef.current=false;
