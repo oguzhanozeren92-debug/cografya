@@ -4,8 +4,6 @@ import { backend } from '@/lib/leaderboard';
 import { fetchStreetLeaders, type StreetRank } from '@/lib/streetLeaderboard';
 import { fetchDroneLeaders } from '@/lib/droneLeaderboard';
 import { useLanguage } from '@/lib/i18n';
-import { mixRankings, mixedCopy } from '@/lib/rankingMix';
-import { getWeekStart } from '@/lib/weeklyLeaderboard';
 
 type LocationMode='street'|'drone';
 export function LocationLeaguePanel({
@@ -42,9 +40,7 @@ export function LocationLeaguePanel({
     }).finally(()=>{if(active)setLoading(false);});
     return()=>{active=false;};
   },[mode,period,reload]);
-  const displayRows=mixRankings(rows,mode,period==='weekly'?getWeekStart():'all-time',entry=>entry.player_id);
-  const myIndex=me?displayRows.findIndex(x=>x.real?.player_id===me):-1;
-  const copy=mixedCopy[language];
+  const myIndex=rows.findIndex(x=>x.player_id===me);
   return <section className="street-card space-y-4 p-4 sm:p-5">
     <div className="flex items-start gap-3">
       <Trophy className="h-8 w-8 shrink-0 text-amber-300"/>
@@ -63,24 +59,20 @@ export function LocationLeaguePanel({
     {me&&<div className="flex items-center gap-3 rounded-xl border border-cyan-300/25 bg-cyan-300/10 p-3">
       <Award className="h-5 w-5 text-cyan-200"/>
       <div className="min-w-0 flex-1">
-        <p className="text-[11px] text-cyan-200">{copy.rank}</p>
+        <p className="text-[11px] text-cyan-200">{t('Senin sıran')}</p>
         <p className="truncate text-sm font-bold">{playerName||t('Gezgin')}</p>
       </div>
       <strong className="text-lg text-amber-200">{myIndex>=0?'#'+(myIndex+1):'—'}</strong>
     </div>}
     {loading?<p className="py-8 text-center text-sm text-blue-200">{t('Sıralama yükleniyor...')}</p>:
       error?<p role="alert" className="rounded-xl border border-amber-400/30 bg-amber-400/5 p-4 text-sm text-amber-100">{error}</p>:
-      <div>
-        <p className="mb-3 text-[11px] leading-5 text-blue-100/70">{copy.note}</p>
-        <div className="max-h-[52dvh] space-y-2 overflow-y-auto">
-          {displayRows.map((player,index)=><div key={player.id} className={'flex items-center gap-2 rounded-xl border p-3 '+(me&&player.real?.player_id===me?'border-cyan-300/40 bg-cyan-300/10':'border-white/10 bg-white/5')}>
-            <span className={'w-8 shrink-0 text-center font-black '+(index===0?'text-amber-300':'text-slate-300')}>{index+1}.</span>
-            {player.flag && <span className="shrink-0 text-base">{player.flag}</span>}
-            <span className="min-w-0 flex-1 truncate text-sm font-semibold">{player.player_name}</span>
-            {player.virtual && <span className="shrink-0 rounded bg-cyan-200/15 px-1 text-[9px] font-bold text-cyan-100">{copy.label}</span>}
-            <span className="shrink-0 text-sm font-black text-amber-100">{player.score.toLocaleString(language)}</span>
-          </div>)}
-        </div>
+      rows.length===0?<div className="py-8 text-center text-sm text-blue-100/80"><Users className="mx-auto mb-2 h-8 w-8 text-amber-300"/>{t('Bu ligde ilk puanı sen kaydedebilirsin!')}</div>:
+      <div className="max-h-[52dvh] space-y-2 overflow-y-auto">
+        {rows.map((player,index)=><div key={player.player_id} className={'flex items-center gap-3 rounded-xl border p-3 '+(me===player.player_id?'border-cyan-300/40 bg-cyan-300/10':'border-white/10 bg-white/5')}>
+          <span className={'w-8 shrink-0 text-center font-black '+(index===0?'text-amber-300':'text-slate-300')}>{index+1}.</span>
+          <span className="min-w-0 flex-1 truncate text-sm font-semibold">{player.player_name}</span>
+          <span className="shrink-0 text-sm font-black text-amber-100">{player.score.toLocaleString(language)}</span>
+        </div>)}
       </div>}
     <p className="text-center text-[11px] text-blue-200/65">{t("Her pazartesi 00.00 UTC'de haftalık lig yenilenir. Para ödüllü resmî yarışmalar için anti-hile denetimi ayrıca gereklidir.")}</p>
     <button type="button" className="street-primary w-full" onClick={onBack}>{t('Oyuna dön')}</button>
