@@ -89,11 +89,80 @@ async function liveGallery() {
   }
 }
 
+
+const GALLERY_MIN_IMAGES = 50; // Fifty INDIVIDUAL photos, not 50 panoramas.
+const GALLERY_MIN_COUNTRIES = 10;
+const GALLERY_PATH = '/drone-gallery/catalog-v2.json';
+const safeText = (v, limit = 500) => typeof v === 'string' && v.trim().length > 0 && v.length <= limit;
+const isCommons = url => /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/i.test(url || '');
+const isCc = url => /^https:\/\/creativecommons\.org\/(?:licenses|publicdomain)\//i.test(url || '');
+function validGalleryCollection(row) {
+  if (!row || typeof row !== 'object' || !ID_RE.test(row.id || '')) return false;
+  if (!safeText(row.country,100) || !safeText(row.city,140) ||
+      !safeText(row.fact,700) || !['easy','medium','hard'].includes(row.difficulty)) return false;
+  if (!Number.isFinite(row.lat) || row.lat < -90 || row.lat > 90 ||
+      !Number.isFinite(row.lng) || row.lng < -180 || row.lng > 180 ||
+      !/^\d{3}$/.test(row.regionCode || '')) return false;
+  if (!row.hint || !safeText(row.hint.tr,220) || !safeText(row.hint.en,220) ||
+      !row.photoFocus || !safeText(row.photoFocus.tr,220) || !safeText(row.photoFocus.en,220)) return false;
+  if (!Array.isArray(row.choices) || row.choices.length !== 4 ||
+      !row.choices.every(x=>safeText(x,100)) ||
+      new Set(row.choices).size !== 4 || !row.choices.includes(row.country)) return false;
+  if (!Array.isArray(row.images) || row.images.length < 3 || row.images.length > 4) return false;
+  return row.images.every(photo => photo && safeText(photo.artist,300) &&
+      safeText(photo.license,60) && isCc(photo.licenseUrl) && isCommons(photo.source));
+}
+
+async function photoGallery(base) {
+  try {
+    const response = await fetch(base + GALLERY_PATH + '?t=' + Math.floor(Date.now()/60000),
+       {signal:AbortSignal.timeout(4500),cache:'no-store'});
+    if (!response.ok) return null;
+    const raw = await response.text();
+    if (raw.length > 1200000) return null;
+    const manifest = JSON.parse(raw);
+    if (manifest.version !== 2 || !Array.isArray(manifest.collections) ||
+        manifest.collections.length < 5 || manifest.collections.length > 600) return null;
+    const collections = manifest.collections.filter(x => x.approved === true && validGalleryCollection(x));
+    if (collections.length !== manifest.collections.length ||
+        new Set(collections.map(x => x.id)).size !== collections.length ||
+        new Set(collections.map(x => x.country)).size < GALLERY_MIN_COUNTRIES ||
+        new Set(collections.flatMap(x => x.images.map(image => image.source))).size !==
+          collections.reduce((sum,x)=>sum+x.images.length,0) ||
+        collections.reduce((sum,x)=>sum+x.images.length,0) < GALLERY_MIN_IMAGES) return null;
+
+    return {
+      origin:'live-gallery',
+      imageCount:collections.reduce((sum,x)=>sum+x.images.length,0),
+      rows:collections.map(row => ({
+        id:row.id,city:row.city,country:row.country,lat:row.lat,lng:row.lng,
+        artist:row.images[0].artist,license:row.images[0].license,
+        licenseUrl:row.images[0].licenseUrl,source:row.images[0].source,
+        fact:row.fact,difficulty:row.difficulty,regionCode:row.regionCode,
+        hint:row.hint,photoFocus:row.photoFocus,choices:row.choices,
+      })),
+      media:collections.map(row => ({
+        id:row.id,media:{mode:'gallery',images:row.images.map((pic,i)=>({
+          url:base+'/drone-gallery/photos/'+row.id+'/'+(i+1)+'.jpg',
+          credit:{artist:pic.artist,license:pic.license,licenseUrl:pic.licenseUrl,source:pic.source},
+        }))},
+      })),
+    };
+  }catch{return null;}
+}
+
 export default async function handler(req, res) {
   if (allowAtlasNativeCors(req, res)) return;
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   if (req.method !== 'GET') return res.status(405).json({error: 'Method not allowed'});
+  // v=2 opt-in prevents older App Store binaries from seeing a new media type.
+  const galleryCapable = String(req.query?.v ?? '') === '2';
+  const cdn = process.env.STREET_R2_PUBLIC_BASE_URL?.replace(/\/+$/,'');
+  if (galleryCapable && cdn && /^https:\/\/[a-z0-9.-]+(?::443)?$/i.test(cdn)) {
+    const gallery = await photoGallery(cdn);
+    if (gallery) return res.status(200).json(gallery);
+  }
   const live = await liveGallery();
   if (live) return res.status(200).json({...live, origin: 'live'});
   const media = fallback();
