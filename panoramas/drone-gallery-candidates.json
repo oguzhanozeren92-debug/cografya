@@ -1,5 +1,5 @@
 {
-  "description": "30 sourced JPG candidates in 9 geographic albums; no imagery published to R2. Every photo still requires visual/credit/geolocation review. Fifty verified individual photos from ten countries required to activate.",
+  "description": "51 individually sourced JPG CANDIDATES grouped into 16 country-identifying city albums, representing 16 countries. Unverified/unpublished until per-photo editorial review, licensing confirmation, live media import and R2 verification; do not claim these are uploaded.",
   "collections": [
     {
       "id": "album-001",
@@ -551,6 +551,419 @@
           "sourceTitle": "File:Times Square, NYC.jpg",
           "source": "https://commons.wikimedia.org/wiki/File:Times_Square%2C_NYC.jpg",
           "artist": "Macieklew",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-010",
+      "country": "Brezilya",
+      "city": "Rio de Janeiro",
+      "lat": -22.94,
+      "lng": -43.19,
+      "difficulty": "easy",
+      "regionCode": "005",
+      "fact": "Rio de Janeiro, deniz kıyısındaki Copacabana, Sugarloaf Dağı ve Kurtarıcı İsa heykeliyle bilinir.",
+      "hint": {
+        "tr": "Güney Amerika'da dağlarla çevrili kıyı manzaralarıyla tanınan bir kent.",
+        "en": "A South American coastal city famous for mountains near the ocean."
+      },
+      "photoFocus": {
+        "tr": "Deniz kıyısına, yüksek kayalık tepelere ve tepedeki heykele bak.",
+        "en": "Look for the beach, steep rocky peaks and a hilltop statue."
+      },
+      "choices": [
+        "Brezilya",
+        "Arjantin",
+        "Kolombiya",
+        "Portekiz"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Christ-Redeemer-Rio-de-Janeiro.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Christ-Redeemer-Rio-de-Janeiro.jpg",
+          "artist": "acediscovery",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Copacabana beach.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Copacabana_beach.jpg",
+          "artist": "Luca Gebara",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Sugarloaf Mountain - Rio de Janeiro.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Sugarloaf_Mountain_-_Rio_de_Janeiro.jpg",
+          "artist": "Tlrmediax",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-011",
+      "country": "Yunanistan",
+      "city": "Atina",
+      "lat": 37.974,
+      "lng": 23.726,
+      "difficulty": "easy",
+      "regionCode": "150",
+      "fact": "Atina'nın Akropolis tepesi ve Parthenon yapısı şehrin en bilinen tarihî simgeleridir.",
+      "hint": {
+        "tr": "Güney Avrupa'da antik tapınaklar ve tepe üzerindeki kalıntılarla tanınan başkent.",
+        "en": "A Southern European capital known for ancient temples on a hill."
+      },
+      "photoFocus": {
+        "tr": "Antik sütunları, tepedeki taş yapıları ve çevredeki kenti incele.",
+        "en": "Examine ancient columns, hilltop stone buildings and the surrounding city."
+      },
+      "choices": [
+        "Yunanistan",
+        "İtalya",
+        "Türkiye",
+        "İspanya"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Athens Acropolis with the Parthenon, viewed from Philopappou Hill.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Athens_Acropolis_with_the_Parthenon%2C_viewed_from_Philopappou_Hill.jpg",
+          "artist": "MegAlexandrou",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:The Acropolis of Athens as seen from Dionysiou Areopagitou Pedestrian Street on December 21, 2020.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:The_Acropolis_of_Athens_as_seen_from_Dionysiou_Areopagitou_Pedestrian_Street_on_December_21%2C_2020.jpg",
+          "artist": "George E. Koronaios",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:View of Acropolis of Athens.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:View_of_Acropolis_of_Athens.jpg",
+          "artist": "DanielValahul",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-012",
+      "country": "Hollanda",
+      "city": "Amsterdam",
+      "lat": 52.371,
+      "lng": 4.897,
+      "difficulty": "easy",
+      "regionCode": "150",
+      "fact": "Amsterdam, kanalları, tarihi cepheli evleri ve Dam Meydanı'yla tanınan bir Avrupa başkentidir.",
+      "hint": {
+        "tr": "Batı Avrupa'da yoğun kanalları ve bisiklet kültürüyle tanınan başkent.",
+        "en": "A Western European capital famous for canals and bicycles."
+      },
+      "photoFocus": {
+        "tr": "Kanalları, dar ev cephelerini ve meydan çevresini incele.",
+        "en": "Look for canals, narrow house façades and the main square."
+      },
+      "choices": [
+        "Hollanda",
+        "Belçika",
+        "Danimarka",
+        "Almanya"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Amsterdam Canals (Ank Kumar) 04.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_Canals_(Ank_Kumar)_04.jpg",
+          "artist": "Ank Kumar",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Amsterdam - Dam Square - View on Damrak, Beurs van Berlage & Bijenkorf.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_-_Dam_Square_-_View_on_Damrak%2C_Beurs_van_Berlage_%26_Bijenkorf.jpg",
+          "artist": "Txllxt TxllxT",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Amsterdam Centraal -.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_Centraal_-.jpg",
+          "artist": "Elekes Andor",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-013",
+      "country": "Kanada",
+      "city": "Toronto",
+      "lat": 43.65,
+      "lng": -79.38,
+      "difficulty": "easy",
+      "regionCode": "021",
+      "fact": "Toronto, Ontario Gölü kenarındaki gökdelenleri, CN Tower ve belediye binasıyla tanınır.",
+      "hint": {
+        "tr": "Kuzey Amerika'da büyük göl kıyısında yükselen çok kültürlü bir şehir.",
+        "en": "A multicultural North American city with skyscrapers beside a large lake."
+      },
+      "photoFocus": {
+        "tr": "İnce kuleye, yüksek binalara ve meydandaki modern mimariye bak.",
+        "en": "Look for a slender tower, skyline and modern civic buildings."
+      },
+      "choices": [
+        "Kanada",
+        "Amerika Birleşik Devletleri",
+        "Birleşik Krallık",
+        "Avustralya"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Toronto-skyline.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Toronto-skyline.jpg",
+          "artist": "Daynarama",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Toronto City Hall, Toronto ON.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Toronto_City_Hall%2C_Toronto_ON.jpg",
+          "artist": "Shawn M. Kent",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Toronto City Hall and Nathan Phillips Square (55401075630).jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Toronto_City_Hall_and_Nathan_Phillips_Square_(55401075630).jpg",
+          "artist": "Joe Carr",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-014",
+      "country": "Mısır",
+      "city": "Gize",
+      "lat": 29.98,
+      "lng": 31.13,
+      "difficulty": "easy",
+      "regionCode": "015",
+      "fact": "Gize, Kahire yakınlarında piramitler ve Büyük Sfenks'i içeren tarihî nekropolüyle tanınır.",
+      "hint": {
+        "tr": "Kuzey Afrika'da çöl çevresinde antik anıtlar ve taş piramitler.",
+        "en": "Ancient monumental stone pyramids in the desert of North Africa."
+      },
+      "photoFocus": {
+        "tr": "Çöldeki piramitlere ve taş aslan-insan heykeline dikkat et.",
+        "en": "Look at the desert pyramids and the stone lion-human sculpture."
+      },
+      "choices": [
+        "Mısır",
+        "Fas",
+        "Ürdün",
+        "Tunus"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Pyramids of Giza.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Pyramids_of_Giza.jpg",
+          "artist": "Ireneusz Jerzy Borysiewicz",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Sphinx giza.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Sphinx_giza.jpg",
+          "artist": "Abir Kamel abdel rahman",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:The Pyramids of GIZA.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:The_Pyramids_of_GIZA.jpg",
+          "artist": "Bilal Detailz",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-015",
+      "country": "Hindistan",
+      "city": "Agra",
+      "lat": 27.17,
+      "lng": 78.04,
+      "difficulty": "easy",
+      "regionCode": "034",
+      "fact": "Agra, Tac Mahal, Kızıl Kale ve Yamuna Nehri kıyısındaki mimari yapılarıyla tanınır.",
+      "hint": {
+        "tr": "Güney Asya'da nehir kenarındaki anıtsal mozole ve tarihi kalelerle ünlü şehir.",
+        "en": "A South Asian city famous for a monumental mausoleum and riverside forts."
+      },
+      "photoFocus": {
+        "tr": "Beyaz mermer anıta, kırmızı taş kaleye ve nehir kıyısına bak.",
+        "en": "Look for a white marble monument, red sandstone fort and riverside."
+      },
+      "choices": [
+        "Hindistan",
+        "Pakistan",
+        "Bangladeş",
+        "Nepal"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Taj Mahal view from Mehtab Bagh.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Taj_Mahal_view_from_Mehtab_Bagh.jpg",
+          "artist": "Rohangpt70",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Agra Fort in Agra, Uttar Pradesh.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Agra_Fort_in_Agra%2C_Uttar_Pradesh.jpg",
+          "artist": "StonesThatRemember",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Mehtab Bagh on the river bank, facing Taj.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Mehtab_Bagh_on_the_river_bank%2C_facing_Taj.jpg",
+          "artist": "Rameezm raza",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-016",
+      "country": "Meksika",
+      "city": "Mexico City",
+      "lat": 19.43,
+      "lng": -99.14,
+      "difficulty": "easy",
+      "regionCode": "013",
+      "fact": "Mexico City, tarihi Zócalo Meydanı, Bağımsızlık Meleği ve Bellas Artes Sarayı gibi simgelere ev sahipliği yapar.",
+      "hint": {
+        "tr": "Kuzey Amerika'da Aztek mirası ve büyük meydanlarıyla tanınan yüksek rakımlı başkent.",
+        "en": "A high-altitude North American capital known for Aztec heritage and grand plazas."
+      },
+      "photoFocus": {
+        "tr": "Geniş meydanları, kubbeli sanat sarayını ve sütun üzerindeki heykeli incele.",
+        "en": "Look for grand squares, a domed arts palace and a statue atop a column."
+      },
+      "choices": [
+        "Meksika",
+        "Guatemala",
+        "Kolombiya",
+        "Amerika Birleşik Devletleri"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Angel of Independence Mexico City.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Angel_of_Independence_Mexico_City.jpg",
+          "artist": "Jpesch95",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Palacio de Bellas Artes, Mexico City, MX.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Palacio_de_Bellas_Artes%2C_Mexico_City%2C_MX.jpg",
+          "artist": "Tyrv",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:ZOCALO MEXICO CITY.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:ZOCALO_MEXICO_CITY.jpg",
+          "artist": "Fabiola Pelaez",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
