@@ -77,7 +77,7 @@ export function StreetPhoto({
     }
   };
   const handleError=()=>{
-    if(!gallery&&face!==0&&readyFired.current){
+    if(face!==0&&readyFired.current){
       setFace(0); // A secondary angle is optional; return to already-cached front photo.
       setState('loading');
       return;
