@@ -1,0 +1,38 @@
+name: Globriva — drone live gallery checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'api/drone/session.js'
+      - 'src/components/DroneDetectiveScreen.tsx'
+      - 'src/data/dronePanoramas.ts'
+      - 'scripts/panoramas/publish_drone_live.py'
+      - 'tests/drone-live.test.mjs'
+      - '.github/workflows/drone-live-checks.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Verify Node server, fallback, min-50 catalog and Python upload syntax
+        run: |
+          node --check api/drone/session.js
+          node --test tests/drone-live.test.mjs
+          python3 -m py_compile scripts/panoramas/publish_drone_live.py
+      - name: Install dependencies
+        run: npm ci
+      - name: Check TypeScript
+        run: npm run typecheck
+      - name: Build app
+        run: npm run build
