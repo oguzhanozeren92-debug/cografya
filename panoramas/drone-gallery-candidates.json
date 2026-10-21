@@ -1,0 +1,271 @@
+{
+  "description": "Fifteen distinct Commons file candidates grouped into four location albums. Publication flags are false; no photos have been uploaded to live R2. 3-4 images per location, 50 total approved photos across at least 10 countries needed for activation.",
+  "collections": [
+    {
+      "id": "album-001",
+      "country": "Birleşik Krallık",
+      "city": "Londra",
+      "lat": 51.5055,
+      "lng": -0.087,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Londra'da Thames kıyısındaki tarihi köprü, Westminster bölgesi ve anıtsal yapılar öne çıkar.",
+      "hint": {
+        "tr": "Avrupa'da geniş bir nehir çevresine yayılmış tarihî başkent.",
+        "en": "A historic European capital built along a wide river."
+      },
+      "photoFocus": {
+        "tr": "Nehre, köprülere ve tarihî kulelere bak.",
+        "en": "Look for the river, bridges and historic towers."
+      },
+      "choices": [
+        "Birleşik Krallık",
+        "İrlanda",
+        "Fransa",
+        "Hollanda"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Tower Bridge from London Tower.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Tower_Bridge_from_London_Tower.jpg",
+          "artist": "Historywriter",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:London Tower Bridge 2026.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:London_Tower_Bridge_2026.jpg",
+          "artist": "Boaventuravinicius",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Westminster Palace London.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Westminster_Palace_London.jpg",
+          "artist": "Steven Lek",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:BigBen London.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:BigBen_London.jpg",
+          "artist": "Taha Osman",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_individual_image_composition_license_and_place_review"
+    },
+    {
+      "id": "album-002",
+      "country": "Türkiye",
+      "city": "İstanbul",
+      "lat": 41.012,
+      "lng": 28.976,
+      "regionCode": "142",
+      "difficulty": "easy",
+      "fact": "İstanbul, Boğaz'ın iki kıyısında tarihi kule, cami ve kıyı manzaralarıyla tanınır.",
+      "hint": {
+        "tr": "İki kıtayı birbirine bağlayan bir boğazın çevresindeki tarihî şehir.",
+        "en": "A historic city around a strait connecting two continents."
+      },
+      "photoFocus": {
+        "tr": "Su yolunu, kubbeleri ve taş kuleleri incele.",
+        "en": "Look for a waterway, domes and stone towers."
+      },
+      "choices": [
+        "Türkiye",
+        "Yunanistan",
+        "Gürcistan",
+        "İtalya"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Hagia Sophia Istanbul 4.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Hagia_Sophia_Istanbul_4.jpg",
+          "artist": "Adnane Chahboun",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Galata Tower, Istanbul 2022.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Galata_Tower%2C_Istanbul_2022.jpg",
+          "artist": "Dudva",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Bosphorus, Istanbul (P1100297).jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Bosphorus%2C_Istanbul_(P1100297).jpg",
+          "artist": "Matti Blume",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Bosphorus - البوسفور - Bosphore - İstanbul Boğazı.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Bosphorus_-_%D8%A7%D9%84%D8%A8%D9%88%D8%B3%D9%81%D9%88%D8%B1_-_Bosphore_-_%C4%B0stanbul_Bo%C4%9Faz%C4%B1.jpg",
+          "artist": "Sami Mlouhi",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_individual_image_composition_license_and_place_review"
+    },
+    {
+      "id": "album-003",
+      "country": "İtalya",
+      "city": "Roma",
+      "lat": 41.899,
+      "lng": 12.482,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Roma, Kolezyum, Pantheon, Trevi Çeşmesi ve İspanyol Merdivenleri gibi çok sayıda tarihî yapıya ev sahipliği yapar.",
+      "hint": {
+        "tr": "Akdeniz bölgesinde antik kalıntılar ve barok meydanlarıyla tanınan başkent.",
+        "en": "A Mediterranean capital known for ancient ruins and Baroque squares."
+      },
+      "photoFocus": {
+        "tr": "Antik taş mimariye, çeşmelere ve geniş meydanlara bak.",
+        "en": "Look for ancient stone architecture, fountains and large squares."
+      },
+      "choices": [
+        "İtalya",
+        "Yunanistan",
+        "İspanya",
+        "Fransa"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Colosseum (Rome).jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Colosseum_(Rome).jpg",
+          "artist": "Wknight94",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Trevi fountain Rome.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Trevi_fountain_Rome.jpg",
+          "artist": "Gracchus Tiberius",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Pantheon. Rome.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Pantheon._Rome.jpg",
+          "artist": "Tomáš Novotný",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Spanish steps, Rome.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Spanish_steps%2C_Rome.jpg",
+          "artist": "Alexander Popkov (engineerontour.com)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_individual_image_composition_license_and_place_review"
+    },
+    {
+      "id": "album-004",
+      "country": "Fransa",
+      "city": "Paris",
+      "lat": 48.861,
+      "lng": 2.335,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Paris, nehir kıyısındaki müzeleri, bulvarları ve anıtsal yapılarıyla ünlüdür.",
+      "hint": {
+        "tr": "Batı Avrupa'da nehir çevresinde geniş bulvarlara sahip sanat ve kültür şehri.",
+        "en": "A western European arts capital with wide boulevards beside a river."
+      },
+      "photoFocus": {
+        "tr": "Yüksek metal kuleyi, kemerli anıtı ve müzeyi incele.",
+        "en": "Notice a tall iron tower, an arch and a museum."
+      },
+      "choices": [
+        "Fransa",
+        "Belçika",
+        "İtalya",
+        "Almanya"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Eiffel Tower, Paris.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Eiffel_Tower%2C_Paris.jpg",
+          "artist": "Kate",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Arc de Triomphe, Paris.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Arc_de_Triomphe%2C_Paris.jpg",
+          "artist": "Gerda Arendt",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa-4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Louvre Paris.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Louvre_Paris.jpg",
+          "artist": "Jonaseckerbom",
+          "license": "CC0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_individual_image_composition_license_and_place_review"
+    }
+  ]
+}
