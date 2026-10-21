@@ -21,17 +21,17 @@ function response() {
   };
 }
 const request={method:'GET',headers:{}};
-const choice=['Avusturya','Almanya','İsviçre','İtalya'];
+const countries=['Avusturya','Almanya','İsviçre','İtalya','Fransa','İspanya','Portekiz','Polonya','Belçika','Hollanda','Danimarka','İsveç'];
 const photo=i=>({
   id:'air-live-'+String(i).padStart(3,'0'),
-  country:'Avusturya',city:'Hallstatt',lat:47.5,lng:13.6,
+  country:countries[i%countries.length],city:'Example Place',lat:47.5,lng:13.6,
   artist:'Example Author',license:'CC BY-SA 4.0',
   licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/',
   source:'https://commons.wikimedia.org/wiki/File:Example.jpg',
   fact:'Lakeside town in the Alps.',difficulty:'easy',regionCode:'150',
   hint:{tr:'Dağlık bölgede bir yerleşim.',en:'A town in a mountain region.'},
   photoFocus:{tr:'Dağlara ve göle bak.',en:'Examine the lake and mountains.'},
-  choices:choice,approved:true,
+  choices:[countries[i%countries.length],...countries.filter(x=>x!==countries[i%countries.length]).slice(0,3)],approved:true,
 });
 
 test('falls back to five built-in safe pictures on R2 outage',async()=>{
