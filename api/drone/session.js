@@ -55,7 +55,8 @@ async function liveGallery() {
     if (manifest.version !== 1 || !Array.isArray(manifest.photos) ||
         manifest.photos.length < MIN_LIVE_PHOTOS || manifest.photos.length > MAX_LIVE_PHOTOS) return null;
     const rows = manifest.photos.filter(row => row.approved === true && validRow(row));
-    if (rows.length < MIN_LIVE_PHOTOS || new Set(rows.map(x => x.id)).size !== rows.length) return null;
+    if (rows.length < MIN_LIVE_PHOTOS || new Set(rows.map(x => x.id)).size !== rows.length ||
+        new Set(rows.map(x => x.country)).size < 10) return null;
     const publicRows = rows.map(({approved, ...row}) => row);
     return {
       rows: publicRows,
