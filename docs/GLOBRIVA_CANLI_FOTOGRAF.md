@@ -1,55 +1,49 @@
-# Globriva — canlı drone fotoğraf yayınlama
+# Globriva — 3–4 fotoğraflı canlı konum albümleri
 
-**Amaç:** Globriva iOS / Android mağazadayken yeni drone fotoğraflarını mağaza güncellemesi göndermeden yayınlamak.
+## Temel karar
 
-## Nasıl çalışır?
+**360° görüntü zorunlu değildir.** Her konumun aynı şehri/ülkeyi temsil eden **3 veya 4 gerçek fotoğrafı** bulunur. Oyuncu oklarla fotoğraflar arasında geçer, tam ekran açar ve yakınlaştırır. İlk oyun beş turdur; 50 fotoğraf tek turda oynatılmaz.
 
-- Oyunun ilk sürümündeki mevcut 5 fotoğraf güvenli yedektir.
-- `/api/drone/session`, yayınlanan R2 `drone-live/catalog-v1.json` dosyasını her oturumda kontrol eder.
-- **50 veya daha fazla** doğrulanmış kaydı olan katalog, yeni oyun listesini sağlar. Daha az kayıt veya R2 sorunu varsa oyun mevcut beş fotoğrafı kullanır.
-- Fotoğraflar Cloudflare R2 üzerinde `drone-live/photos/<id>/f.jpg`, `r.jpg`, `b.jpg`, `l.jpg` anahtarlarıyla (dört yön) yayınlanır. Mobil oyunda görselleri göstermek için yeniden Codemagic build gerekmez.
-- CDN URL'si: Vercel sunucu ortamındaki mevcut `STREET_R2_PUBLIC_BASE_URL` (R2 kamuya açık **HTTPS özel alanı**). Anahtarlar yalnızca GitHub Actions Secrets içinde saklanır.
+İlk hedef **50 ADET FARKLI FOTOĞRAF**. Bu, 50 konum veya 50 panorama anlamına gelmez; örneğin 13 konum × 4 fotoğraf = 52 fotoğraf. Kopya dosyalar sayılmaz. 50 ayrı lisanslı fotoğraf, en az 10 farklı ülkeden tamamlandığında yeni arşiv otomatik açılır.
 
-## Fotoğraf ekleme (yönetici iş akışı)
+## İçerik eklemek için kullanılan dosya
 
-1. `panoramas/drone-live-candidates.json` içine **yeni ID ile**, editörce doğrulanmış kayıt ekle.
-2. Örneğin aşağıdaki alanları doldur. `lat/lng`, görselin çekildiği **gerçek konum** olmalı. Dört rakip ülkeden biri hedef ülke olmalı. `hint` hedefi doğrudan söylememeli.
-3. Kaydı hem görsel kalitesi hem lisans hem yazar/kaynak hem de çekim koordinatı bakımından kontrol et. Yalnızca dört inceleme işaretinin de değeri **true** olan kayıtlar yüklenebilir.
-4. GitHub > **Actions > Globriva — publish approved drone photos without a new app build > Run workflow**. `ids` alanına en fazla 10 ID yaz; örneğin `air-006,air-007`. 10'lu partilerle ilerle.
-5. İş akışı Wikimedia Commons üzerinden kaynağı/CC lisansını doğrular, 2:1 ve en az 5000x2500 boyutu kontrol eder, dört JPG önizleme üretir, R2'ye yükler ve HEAD kontrolünden sonra **R2 kataloğunu** günceller.
-6. İş akışı logunda `TOTAL READY: 50` (veya üstü) görünene kadar **yeni fotoğraflar aktif oyuna girmez**. Sonrasında uygulama yeniden açılınca yeni arşiv sunulur.
+`panoramas/drone-gallery-candidates.json` — yeni fotoğraf albümlerinin kaynakları, eser sahipleri, lisans bağlantıları, konumları, ipuçları ve onay durumları.
 
-Örnek şema (yayınlanmamış taslak; gerçek onay olmadan kopyala/yapıştır yayınlama):
+Şu anda burada **4 albüme ayrılmış 15 kaynak adayı** var:
 
-```json
-{
-  "id": "air-006",
-  "sourceTitle": "File:GERCEK_DOSYA_ADI.jpg",
-  "source": "https://commons.wikimedia.org/wiki/File:GERCEK_DOSYA_ADI.jpg",
-  "country": "Avusturya",
-  "city": "Gerçek şehir",
-  "fact": "Kısa doğru yer açıklaması",
-  "lat": 47.5, "lng": 14.5,
-  "artist": "Gerçek eser sahibi",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-  "difficulty": "easy",
-  "regionCode": "150",
-  "hint": {"tr":"Dağlarla çevrili Avrupa yerleşimi.","en":"A European settlement surrounded by mountains."},
-  "photoFocus": {"tr":"Dağ siluetini ve çatı biçimlerini incele.","en":"Examine the mountains and rooftops."},
-  "choices": ["Avusturya", "İsviçre", "Almanya", "İtalya"],
-  "reviewedProjection": true,
-  "reviewedCoordinates": true,
-  "reviewedLicense": true,
-  "reviewedQuality": true
-}
-```
+- Birleşik Krallık / Londra — 4
+- Türkiye / İstanbul — 4
+- İtalya / Roma — 4
+- Fransa / Paris — 3
 
-## Dikkat
+Bu 15 kayıt **araştırılmış adaydır**. Fotoğrafların son görsel doğrulaması ve R2'ye yüklenmesi yapılmadan bunları aktif sayma. Her albümde `reviewedLocation` ve `reviewedQuality`, ayrıca her fotoğrafta `reviewedVisual`, `reviewedLicense` ve `reviewedPlace` doğrulanıp `true` yapılmalıdır. Sadece dosya adlarına dayanarak onay verme.
 
-- **Benzersiz ID** kullanılır; mevcut ID üzerine görsel yazmak yasaktır. Böylece eski CDN önbellekleri yeni fotoğrafı bozmaz.
-- Wikimedia telif şartları (CC BY/SA ve benzerleri) sürdürülür; sanatçı, lisans, kaynak görüntüden sonra oyuncuya gösterilir. CC BY-SA için türev görsel dağıtımında gerekli paylaşım şartlarına da uy.
-- Güncellenen veri **görseldir ve soru metaverisidir**. Uygulamanın çalışma kodunu uzaktan indirme / değiştirme söz konusu değildir.
-- Sistemi bir kez mağaza sürümüne dahil etmek için **yeni bir iOS/Android build gerekir**; ondan sonraki fotoğraflar için gerekmez.
-- Şu an fotoğraf kataloğunda **5 aday** var. Bunlardan yeni eklenen Almanya/Eckersdorf ve Meksika/Guadalajara kaynaklarının lisans, çözünürlük ve konum bilgileri kaynak sayfalarından incelendi; hepsinin son görsel kalite incelemesi ve R2 yüklemesi beklemede. Hiçbiri şu an R2 canlı arşivine gönderilmiş değil. Geçerli **50 fotoğraf** seçilip yayınlanmadan bitmiş değildir.
-- Bu ilk uygulamada yönetim arayüzü **GitHub Actions** üzerinden çalışır. Ayrı görsel admin ekranı henüz eklenmemiştir.
+## Yayınlama
+
+GitHub Actions → **Globriva — publish 3-4 photo location albums to R2** → **Run workflow** → `ids` alanına virgülle ayrılmış en çok 10 adet onaylı albüm kimliği (ör. `album-001,album-002`) yaz.
+
+`scripts/panoramas/publish_drone_gallery.py` şunları yapar:
+
+1. **Her fotoğrafı ayrı ayrı** Wikimedia Commons'ta lisans açısından yeniden doğrular.
+2. Fotoğrafları indirip en az 1.100 × 650 uygun kalitede olduklarını kontrol eder; 360° oranı aranmaz.
+3. Orijinalden, konum EXIF verilerini taşımayan, yüklemeye uygun optimize JPEG oluşturur.
+4. R2'ye `drone-gallery/photos/<album-id>/1.jpg`, `2.jpg`, `3.jpg` ve isteğe bağlı `4.jpg` yollarına yükler.
+5. Her fotoğrafın R2 HEAD ve boyut doğrulaması yapıldıktan sonra `drone-gallery/catalog-v2.json` kataloğuna albümü ekler. Başarısız albüm yayınlanmaz.
+6. Etkinlik için en az **50 farklı Commons kaynağı** ve **10 farklı ülke** olması gerekir. Oyuncu her oyun başlangıcında yeni katalogdan 5 konum görür.
+
+Yeni uygulama sürümü `/api/drone/session?v=2` üzerinden fotoğraf albümlerini tanır. Eski sürümler farklı galeri veri türünü almaz; varsa güvenli eski pilot fotoğraflara döner.
+
+## Telif ve görünürlük
+
+Her fotoğrafın `artist`, `license`, `licenseUrl`, `source` bilgisi ayrıdır. Oyun cevaptan **sonra fotoğrafların her biri için** lisans ve kaynağı gösterir. Paylaşım / aynı lisansla kullanım gibi CC BY-SA şartlarını ayrıca takip et. Albüm kimliklerinde şehir/ülke adı kullanma, böylece görsel URL'si oyunun cevabını söylemez.
+
+## Mağaza ve operasyon
+
+Bu galeri görüntüleyiciyi destekleyen uygulama kodu bir kez App Store / Google Play sürümüne dahil edilmelidir. **Sonrasındaki yeni fotoğraf eklemeleri** yalnız R2 içeriği ve katalog güncellemesiyle yapılabilir; TestFlight veya mağaza güncellemesi gerekmez.
+
+**Henüz mağazada çalıştığı teyit edilmedi:** GitHub değişiklikleri cihaz build'i ve Vercel dağıtımı olmadan canlı değildir. Mevcut 5 fotoğraflı pilot bölüm korunur.
+
+### Eski 360° arşivi
+
+`panoramas/drone-live-candidates.json`, `scripts/panoramas/publish_drone_live.py` ve `drone-live/catalog-v1.json` önceki 360° sistemidir. Yeni 50 fotoğraf hedefini burada arama; yeni işler için `drone-gallery-candidates.json` kullan.
