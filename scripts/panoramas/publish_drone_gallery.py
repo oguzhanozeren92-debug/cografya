@@ -35,7 +35,7 @@ def verify(row):
         fail(ident + ': location and gameplay composition require human approval')
     if not isinstance(row.get('images'),list) or len(row['images']) not in (3,4):
         fail(ident + ': supply 3–4 independent source photos')
-    if row.get('difficulty') not in ('easy','medium','hard') or not re.fullmatch(r'\\d{3}',str(row.get('regionCode',''))):
+    if row.get('difficulty') not in ('easy','medium','hard') or not re.fullmatch(r'\d{3}',str(row.get('regionCode',''))):
         fail(ident + ': invalid difficulty/continent')
     if not isinstance(row.get('lat'),(int,float)) or not -90<=row['lat']<=90:
         fail(ident + ': invalid latitude')
