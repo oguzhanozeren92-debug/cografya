@@ -35,7 +35,7 @@ export function NotificationSettings({ onClose }: { onClose: () => void }) {
     </label>
   );
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-[#030918]/80 px-4 py-6 backdrop-blur-md"
+    <div className="globriva-modal fixed inset-0 z-[90] flex items-center justify-center bg-[#030918]/80 px-4 py-6 backdrop-blur-md"
       role="dialog" aria-modal="true" aria-labelledby="atlas-notification-title">
       <section className="w-full max-w-[440px] max-h-[90dvh] overflow-y-auto rounded-[26px] border border-[#466681]/60 bg-gradient-to-b from-[#1b3355] to-[#101e37] p-5 text-white shadow-[0_22px_80px_rgba(0,0,0,.5)]">
         <div className="flex items-start justify-between gap-3">

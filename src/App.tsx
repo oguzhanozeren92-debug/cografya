@@ -131,10 +131,10 @@ function App() {
   }, [game.phase,game.gameRunId]);
 
   return (
-    <div className="relative min-h-[100dvh] w-full min-w-0 overflow-x-hidden bg-space-900">
+    <div className="globriva-app-root relative min-h-[100dvh] w-full min-w-0 overflow-x-hidden bg-space-900">
       <Stars />
 
-      <div className={showGlobe && game.phase !== 'gameover' ? "relative z-10 flex h-[100dvh] min-h-0 flex-col" : "relative z-10 flex min-h-screen flex-col"}>
+      <div className={showGlobe && game.phase !== 'gameover' ? "globriva-game-shell relative z-10 flex h-[100dvh] min-h-0 flex-col" : "relative z-10 flex min-h-screen flex-col"}>
         {showHUD && (
           <HUD score={game.score} lives={game.lives} streak={game.streak} round={game.round}
             canEarnHeart={rewardedAvailable && !adBusy && game.phase === 'question' && game.lives < 3 && game.rewardedHeartsUsed === 0}

@@ -246,8 +246,8 @@ export function StreetDetectiveScreen({
   };
 
   return (
-    <div className="street-screen fixed inset-0 z-[65] overflow-y-auto overscroll-contain text-white">
-      <main className="mx-auto min-h-full w-full max-w-[600px] px-4 pb-10 pt-[max(16px,env(safe-area-inset-top))]">
+    <div className="globriva-screen street-screen fixed inset-0 z-[65] overflow-y-auto overscroll-contain text-white">
+      <main className="globriva-content mx-auto min-h-full w-full max-w-[600px] px-4 pb-10 pt-[max(16px,env(safe-area-inset-top))]">
         <header className="mb-4 flex items-center gap-3">
           <button type="button" onClick={close} aria-label={t('Ana ekrana dön')} className="street-round-button">
             <ArrowLeft className="h-5 w-5"/>

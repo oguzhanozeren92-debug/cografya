@@ -42,8 +42,8 @@ export function ExploreMapScreen({ onClose, onDaily }: Props) {
   const selectedDiscovered = Boolean(selected && discoveredSet.has(selected));
   const recent = earned.slice(-6).reverse();
 
-  return <div className="explore-screen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label={t("Dünya keşif haritası")}>
-    <div className="mx-auto max-w-3xl px-4 pb-12 pt-5 sm:px-7">
+  return <div className="globriva-screen explore-screen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label={t("Dünya keşif haritası")}>
+    <div className="globriva-content mx-auto max-w-3xl px-4 pb-12 pt-5 sm:px-7">
       <header className="mb-4 flex items-center justify-between">
         <button className="weekly-nav-button gap-2" onClick={onClose}><ArrowLeft className="h-4 w-4" /> {t('GERİ DÖN')}</button>
         <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1.5 text-[11px] font-black tracking-wide text-cyan-200">{t('KEŞİF GÜNLÜĞÜ')}</span>

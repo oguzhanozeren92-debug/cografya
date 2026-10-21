@@ -1,0 +1,164 @@
+/* Globriva responsive viewport system — shared by all game screens.
+ * Stable CSS units: safe-area insets + dynamic viewport height work without
+ * depending on a particular iPhone model or hard-coded screen resolution.
+ * Large menus intentionally scroll; controls never require shrinking the app.
+ */
+:root {
+  --gl-viewport-height: 100vh;
+  --gl-safe-top: env(safe-area-inset-top, 0px);
+  --gl-safe-right: env(safe-area-inset-right, 0px);
+  --gl-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --gl-safe-left: env(safe-area-inset-left, 0px);
+  --gl-content-gutter: 16px;
+}
+@supports (height: 100dvh) {
+  :root { --gl-viewport-height: 100dvh; }
+}
+html, body, #root {
+  min-width: 0;
+  width: 100%;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+#root, .globriva-app-root {
+  min-height: var(--gl-viewport-height);
+  max-width: 100%;
+}
+.globriva-screen {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--gl-viewport-height);
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.globriva-screen .globriva-content {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding-top: calc(var(--gl-safe-top) + 14px);
+  padding-bottom: calc(var(--gl-safe-bottom) + 26px);
+  padding-left: max(var(--gl-content-gutter), var(--gl-safe-left));
+  padding-right: max(var(--gl-content-gutter), var(--gl-safe-right));
+}
+.globriva-screen.atlas-home .globriva-content {
+  padding-top: calc(var(--gl-safe-top) + 10px);
+  padding-bottom: calc(var(--gl-safe-bottom) + 24px);
+}
+.globriva-modal {
+  width: 100%;
+  height: var(--gl-viewport-height);
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: calc(var(--gl-safe-top) + 16px);
+  padding-bottom: calc(var(--gl-safe-bottom) + 18px);
+  padding-left: max(16px, var(--gl-safe-left));
+  padding-right: max(16px, var(--gl-safe-right));
+  -webkit-overflow-scrolling: touch;
+}
+.globriva-modal > :first-child {
+  max-width: 100%;
+  flex-shrink: 0;
+}
+.globriva-modal .max-h-\[90dvh\] {
+  max-height: calc(var(--gl-viewport-height) - var(--gl-safe-top) - var(--gl-safe-bottom) - 40px);
+}
+.globriva-game-shell {
+  height: var(--gl-viewport-height);
+  min-height: 0;
+  max-width: 100%;
+}
+.game-hud {
+  max-width: 100%;
+  min-width: 0;
+  flex-shrink: 0;
+  padding-top: calc(var(--gl-safe-top) + 8px);
+}
+.game-hud > .glass-panel { min-width: 0; }
+.game-question-scroll {
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
+  min-height: 0;
+  padding-bottom: calc(var(--gl-safe-bottom) + 20px);
+  -webkit-overflow-scrolling: touch;
+}
+.game-question-scroll .flag-question-panel {
+  max-height: none;
+  overflow: visible;
+}
+.atlas-geo-flow {
+  padding-bottom: calc(var(--gl-safe-bottom) + 12px);
+}
+.atlas-geo-world-stage {
+  height: calc(var(--gl-viewport-height) - 84px - var(--gl-safe-top) - var(--gl-safe-bottom));
+  min-height: min(300px, 55dvh);
+}
+.atlas-geo-world-frame {
+  width: min(94vw, 500px, 64dvh);
+  height: auto;
+  aspect-ratio: 1;
+}
+.atlas-geo-flow-quiz .atlas-geo-world-stage {
+  height: clamp(173px, 27dvh, 235px);
+  min-height: 0;
+}
+.atlas-geo-flow-quiz .atlas-geo-world-frame {
+  width: clamp(172px, 30dvh, 248px);
+  height: clamp(172px, 30dvh, 248px);
+}
+/* Let long game menus scroll; scale artwork/cards rather than text or page. */
+@media (max-width: 430px) {
+  .atlas-home-refresh .atlas-home-topbar { min-height: 44px; margin-bottom: 8px; }
+  .atlas-home-brand-icon { width: 34px; height: 34px; }
+  .atlas-home-brand-name { font-size: clamp(14px, 4.2vw, 18px); letter-spacing: 0; }
+  .atlas-home-topbutton, .atlas-home-profile { height: 35px; }
+  .atlas-home-topbutton { width: 35px; flex-shrink: 0; }
+  .atlas-home-illustrated .aa-hero { min-height: 202px; padding: 14px 13px 11px; }
+  .atlas-home-cozy .aa-hero-copy { min-height: 136px; width: 67%; }
+  .atlas-home-cozy .aa-hero-copy h1 { margin-top: 10px; font-size: clamp(28px, 8vw, 36px); }
+  .atlas-home-cozy .aa-hero-copy p { margin-top: 7px; font-size: 11px; }
+  .atlas-home-cozy .atlas-home-planet-wrap { width: 240px; height: 240px; top: -13px; right: -57px; }
+  .atlas-home-cozy .aa-play { min-height: 65px; }
+  .atlas-home-cozy .aa-mode { min-height: 122px; padding: 10px; }
+  .aa-mode-illustration { height: 43px; font-size: 29px; }
+  .atlas-home-cozy .aa-quick { min-height: 93px; }
+}
+@media (max-width: 390px) {
+  .atlas-home-profile { min-width: 35px; max-width: 36px; padding: 0 8px; }
+  .atlas-home-profile span, .atlas-home-profile svg:last-child { display: none; }
+  .game-hud { gap: 4px; padding-left: 7px; padding-right: 7px; }
+  .game-hud > .glass-panel { gap: 4px; padding: 5px 7px; }
+  .game-hud .text-lg { font-size: 15px; }
+  .game-hud .text-sm { font-size: 11px; }
+  .game-hud .heart-reward-pill { padding-left: 5px; padding-right: 5px; }
+  .game-question-scroll .flag-stage { padding: 12px; margin-bottom: 10px; }
+  .game-question-scroll .flag-stage .relative.mx-auto { height: 120px; }
+  .game-question-scroll .option-btn { padding: 10px 12px; }
+}
+@media (max-height: 720px) and (max-width: 500px) {
+  .atlas-home-illustrated .aa-hero { min-height: 180px; }
+  .atlas-home-cozy .aa-hero-copy { min-height: 117px; }
+  .atlas-home-cozy .aa-hero-copy h1 { font-size: 28px; }
+  .atlas-home-cozy .atlas-home-planet-wrap { width: 215px; height: 215px; }
+}
+@media (orientation: landscape) and (max-height: 520px) {
+  .atlas-home-illustrated .aa-hero { min-height: 168px; }
+  .atlas-home-cozy .aa-hero-copy { min-height: 104px; }
+  .atlas-home-cozy .aa-hero-copy h1 { font-size: 25px; }
+  .atlas-geo-flow-quiz .atlas-geo-world-stage { height: 140px; }
+  .atlas-geo-flow-quiz .atlas-geo-world-frame { width: 140px; height: 140px; }
+  .atlas-geo-world-stage { min-height: 160px; }
+}
+/* Respect comfortable minimum controls. Never scale the entire page to fit. */
+.globriva-screen button,
+.globriva-modal button { touch-action: manipulation; }

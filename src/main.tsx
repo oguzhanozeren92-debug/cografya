@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { LanguageProvider } from './lib/i18n';
 import './index.css';
+import './mobile.css';
 
 // Private admin route is code-split; it is never mounted while playing.
 const AdminDashboard = lazy(() => import('./components/AdminDashboard.tsx')

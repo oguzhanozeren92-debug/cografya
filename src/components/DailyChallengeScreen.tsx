@@ -70,8 +70,8 @@ export function DailyChallengeScreen({ onClose, onExplore, onGameComplete }: Pro
   };
 
   return (
-    <div className="daily-screen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label={t("Günlük dünya görevi")}>
-      <div className="mx-auto max-w-2xl px-4 pb-12 pt-5 sm:px-7">
+    <div className="globriva-screen daily-screen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label={t("Günlük dünya görevi")}>
+      <div className="globriva-content mx-auto max-w-2xl px-4 pb-12 pt-5 sm:px-7">
         <header className="mb-4 flex items-center justify-between gap-3">
           <button className="weekly-nav-button gap-2" onClick={close}><ArrowLeft className="h-4 w-4" /> {t('GERİ DÖN')}</button>
           <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1.5 text-[11px] font-bold text-amber-200">{t('HER GÜN YENİ GÖREV')}</span>

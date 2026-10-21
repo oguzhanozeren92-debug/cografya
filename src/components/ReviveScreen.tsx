@@ -16,7 +16,7 @@ interface ReviveScreenProps {
 export function ReviveScreen({ mode, score, round, available, busy, error, onWatchAd, onGiveUp }: ReviveScreenProps) {
   const {language,t}=useLanguage();
   return (
-    <div className="revive-overlay fixed inset-0 z-40 flex items-center justify-center overflow-y-auto px-4 py-7" role="dialog" aria-modal="true" aria-labelledby="revive-title">
+    <div className="globriva-modal revive-overlay fixed inset-0 z-40 flex items-center justify-center overflow-y-auto px-4 py-7" role="dialog" aria-modal="true" aria-labelledby="revive-title">
       <div className="revive-panel relative my-auto w-full max-w-sm overflow-hidden rounded-[28px] border border-white/15 px-6 pb-6 pt-8 text-center text-white shadow-2xl">
         <div className="revive-orb" aria-hidden="true" />
         <div className="relative z-10 mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-[25px] border border-rose-300/40 bg-rose-400/10 shadow-[0_0_32px_rgba(244,63,94,.28)]">

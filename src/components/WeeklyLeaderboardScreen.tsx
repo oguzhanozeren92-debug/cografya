@@ -87,11 +87,11 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
   const dateLabel = getWeekLabel(weekOffset,language);
 
   return (
-    <div className="weekly-fullscreen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label={t("Haftalık Dünya Sıralaması")}>
+    <div className="globriva-screen weekly-fullscreen fixed inset-0 z-50 overflow-y-auto overscroll-contain text-white" role="dialog" aria-modal="true" aria-label={t("Haftalık Dünya Sıralaması")}>
       <div className="weekly-ambient weekly-ambient-left" aria-hidden="true" />
       <div className="weekly-ambient weekly-ambient-right" aria-hidden="true" />
 
-      <div className="relative mx-auto w-full max-w-2xl px-4 pb-12 pt-4 sm:px-7">
+      <div className="globriva-content relative mx-auto w-full max-w-2xl px-4 pb-12 pt-4 sm:px-7">
         <div className="mb-4 flex items-center justify-between">
           <button onClick={onClose} className="weekly-nav-button flex items-center gap-2" aria-label={t("Oyuna dön")}>
             <ArrowLeft className="h-4 w-4" /><span className="text-xs font-bold tracking-wide">{t('GERİ DÖN')}</span>
