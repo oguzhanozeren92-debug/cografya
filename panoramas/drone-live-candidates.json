@@ -1,4 +1,107 @@
 {
-  "description": "Editorially approved, geolocated 2:1 aerial panoramas ONLY. Do not list generic interiors, random gardens or unsupported images. A photo becomes playable only after license, image and four-face R2 checks. Minimum 50 for automatic live activation.",
-  "panoramas": []
+  "description": "Three preselected replacement candidates are PENDING. Nothing publishes until all four reviewed flags are true and Commons checks pass. Add 47+ additional vetted photos to reach the 50-photo launch gate.",
+  "panoramas": [
+    {
+      "id": "air-006",
+      "sourceTitle": "File:Wurbauerkogel Windischgarsten.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Wurbauerkogel_Windischgarsten.jpg",
+      "country": "Avusturya",
+      "city": "Windischgarsten",
+      "fact": "Windischgarsten, Avusturya Alpleri'nin dağlık bir bölgesindedir.",
+      "lat": 47.72547,
+      "lng": 14.33939,
+      "artist": "PepponeDrohne",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "difficulty": "easy",
+      "regionCode": "150",
+      "hint": {
+        "tr": "Avrupa'nın dağlık bir bölgesinde, dağların çevrelediği küçük bir yerleşim.",
+        "en": "A small settlement in a mountainous European region."
+      },
+      "photoFocus": {
+        "tr": "Dağ siluetlerini ve yamaçlardaki yerleşimi incele.",
+        "en": "Notice the mountain ridges and hillside settlement."
+      },
+      "choices": [
+        "Avusturya",
+        "İsviçre",
+        "Almanya",
+        "Slovenya"
+      ],
+      "reviewedProjection": false,
+      "reviewedCoordinates": false,
+      "reviewedLicense": false,
+      "reviewedQuality": false,
+      "editorialStatus": "pending_final_image_license_gps_review"
+    },
+    {
+      "id": "air-007",
+      "sourceTitle": "File:De La Warr Pavilion, Bexhill (360 aerial panorama).jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:De_La_Warr_Pavilion,_Bexhill_(360_aerial_panorama).jpg",
+      "country": "Birleşik Krallık",
+      "city": "Bexhill-on-Sea",
+      "fact": "Bexhill-on-Sea, İngiltere'nin güney kıyısındaki bir sahil kentidir.",
+      "lat": 50.836989,
+      "lng": 0.471848,
+      "artist": "Alexis Markwick",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "difficulty": "easy",
+      "regionCode": "150",
+      "hint": {
+        "tr": "Kuzey Avrupa'da deniz kıyısında, sahil yolu ve mimari yapıları görülen bir kent.",
+        "en": "A coastal town with a seafront road and striking buildings in northern Europe."
+      },
+      "photoFocus": {
+        "tr": "Sahil şeridini ve sahildeki mimari yapıları incele.",
+        "en": "Look at the shoreline and distinctive waterfront buildings."
+      },
+      "choices": [
+        "Birleşik Krallık",
+        "İrlanda",
+        "Fransa",
+        "Hollanda"
+      ],
+      "reviewedProjection": false,
+      "reviewedCoordinates": false,
+      "reviewedLicense": false,
+      "reviewedQuality": false,
+      "editorialStatus": "pending_final_image_license_gps_review"
+    },
+    {
+      "id": "air-008",
+      "sourceTitle": "File:360° aerial panorama of Wagga Wagga over the Murrumbidgee River.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:360%C2%B0_aerial_panorama_of_Wagga_Wagga_over_the_Murrumbidgee_River.jpg",
+      "country": "Avustralya",
+      "city": "Wagga Wagga",
+      "fact": "Wagga Wagga, Avustralya'nın Yeni Güney Galler eyaletinde Murrumbidgee Nehri üzerinde yer alır.",
+      "lat": -35.104591,
+      "lng": 147.372898,
+      "artist": "Robert Myers (Bidgee)",
+      "license": "CC BY-SA 3.0 AU",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/au/",
+      "difficulty": "medium",
+      "regionCode": "009",
+      "hint": {
+        "tr": "Okyanusya'da, iç kesimlerde bir nehrin çevresinde gelişmiş bir kent.",
+        "en": "An inland city in Oceania built alongside a river."
+      },
+      "photoFocus": {
+        "tr": "Nehrin kıvrımlarını ve şehir dokusunu incele.",
+        "en": "Look for river bends and the layout of the town."
+      },
+      "choices": [
+        "Avustralya",
+        "Yeni Zelanda",
+        "Güney Afrika",
+        "Arjantin"
+      ],
+      "reviewedProjection": false,
+      "reviewedCoordinates": false,
+      "reviewedLicense": false,
+      "reviewedQuality": false,
+      "editorialStatus": "pending_final_image_license_gps_review"
+    }
+  ]
 }
