@@ -67,14 +67,14 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
     const run=async()=>{
       setAssetLoading(true);setAssetError('');
       try{
-        const response=await fetch(atlasApi('/api/drone/session'),{cache:'no-store'});
+        const response=await fetch(atlasApi('/api/drone/session?v=2'),{cache:'no-store'});
         const body=await response.json() as {media?:Array<{id:string;media:PanoramaMedia}>;rows?:DronePanorama[];error?:string};
         if(!response.ok||!body.media||body.media.length<5){
-          throw new Error(body.error||t('Dron 360° arşivi henüz hazır değil.'));
+          throw new Error(body.error||t('Fotoğraf arşivi henüz hazır değil.'));
         }
         const map=Object.fromEntries(body.media.map(r=>[r.id,r.media]));
         const catalog=body.rows?.length ? body.rows : dronePanoramas;
-        if(catalog.some(row=>!map[row.id]))throw new Error(t('Bazı drone panoramaları henüz doğrulanmadı.'));
+        if(catalog.some(row=>!map[row.id]))throw new Error(t('Bazı fotoğraflar henüz doğrulanmadı.'));
         if(active){setCatalog(catalog);setRows(shuffled(catalog));setIndex(0);setMediaById(map);setAssetLoading(false);}
       }catch(e){if(active){setAssetLoading(false);setAssetError(e instanceof Error?e.message:t('Görüntüler yüklenemedi.'));}}
     };
@@ -353,7 +353,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                     }}
                     onSkip={skipBroken}/>
                 </div>
-                <p className="px-2 pt-2 text-[11px] text-blue-100/75">{t('Fotoğrafı büyütebilir, sağ-sol oklarıyla çevreyi inceleyebilirsin. Görselin lisansı tahminden sonra gösterilir.')}</p>
+                <p className="px-2 pt-2 text-[11px] text-blue-100/75">{t('Fotoğrafı büyütebilir, sağ-sol oklarıyla diğer fotoğraflara geçebilirsin. Kaynak ve lisanslar tahminden sonra gösterilir.')}</p>
                 <p className="mx-2 mb-1 mt-2 rounded-lg border border-cyan-200/15 bg-cyan-200/10 px-3 py-2 text-xs leading-5 text-blue-50">
                   <Compass className="mr-1 inline h-3.5 w-3.5 text-cyan-200"/>
                   <strong className="mr-1 text-cyan-100">{hintCopy.photoGuideLabel}:</strong>
@@ -387,10 +387,22 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                       </p>
                     )}
                     <p className="text-xs leading-5 text-blue-100/75">{t(current.fact)}</p>
-                    <p className="pt-3 text-[11px] leading-5 text-blue-100/70">
-                      {t('Fotoğraf:')} {current.artist} · <a href={current.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{current.license}</a>
-                      {' '}· <a href={current.source} target="_blank" rel="noopener noreferrer" className="underline">Kaynak / lisans</a>
-                    </p>
+                    {panorama.media.mode==='gallery' ? (
+                      <div className="pt-3 space-y-1 text-[11px] leading-5 text-blue-100/70">
+                        {panorama.media.images.map((photo,i)=>(
+                          <p key={photo.url}>
+                            {t('Fotoğraf')} {i+1}: {photo.credit.artist} ·{' '}
+                            <a href={photo.credit.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{photo.credit.license}</a> ·{' '}
+                            <a href={photo.credit.source} target="_blank" rel="noopener noreferrer" className="underline">Kaynak</a>
+                          </p>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="pt-3 text-[11px] leading-5 text-blue-100/70">
+                        {t('Fotoğraf:')} {current.artist} · <a href={current.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{current.license}</a>
+                        {' '}· <a href={current.source} target="_blank" rel="noopener noreferrer" className="underline">Kaynak / lisans</a>
+                      </p>
+                    )}
                   </section>
                 )}
                 <section className="street-card space-y-3 p-3">
@@ -418,7 +430,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
           </div>
         )}
         <p className="mt-5 text-center text-[11px] leading-5 text-blue-200/65">
-          {t('Lisanslı gerçek dron görüntüleri · Dört yöne bakış ve tam ekran.')}
+          {t('Lisanslı konum fotoğrafları · Fotoğraflar arasında geçiş ve tam ekran.')}
           {t('Puanlar önce cihazda, Supabase kurulduysa dünya ve haftalık ligde saklanır.')}
         </p>
       </main>
