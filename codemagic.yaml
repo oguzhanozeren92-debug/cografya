@@ -110,6 +110,9 @@ workflows:
     publishing:
       app_store_connect:
         auth: integration
-        # Upload the IPA to TestFlight, but do not submit App Store review.
-        submit_to_testflight: false
+        # Automatically distribute each successfully uploaded build to the
+        # existing Globriva internal tester group (no App Store submission).
+        submit_to_testflight: true
+        beta_groups:
+          - Globriva Test
         submit_to_app_store: false
