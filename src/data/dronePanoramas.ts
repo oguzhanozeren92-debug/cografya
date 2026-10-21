@@ -14,6 +14,11 @@ export type DronePanorama = {
   source: string;
   fact: string;
   difficulty: 'easy' | 'medium' | 'hard';
+  /** Optional editorial hints, supplied only for vetted live-gallery rounds. */
+  regionCode?: string;
+  hint?: Record<string, string>;
+  photoFocus?: Record<string, string>;
+  choices?: [string, string, string, string];
 };
 function commonsPhoto(filename: string) {
   return {
