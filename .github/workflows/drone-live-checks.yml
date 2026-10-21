@@ -8,6 +8,10 @@ on:
       - 'src/components/DroneDetectiveScreen.tsx'
       - 'src/data/dronePanoramas.ts'
       - 'scripts/panoramas/publish_drone_live.py'
+      - 'scripts/panoramas/publish_drone_gallery.py'
+      - 'panoramas/drone-gallery-candidates.json'
+      - 'src/components/StreetPhoto.tsx'
+      - 'src/components/StreetPanorama.tsx'
       - 'tests/drone-live.test.mjs'
       - '.github/workflows/drone-live-checks.yml'
   workflow_dispatch: {}
@@ -29,7 +33,7 @@ jobs:
         run: |
           node --check api/drone/session.js
           node --test tests/drone-live.test.mjs
-          python3 -m py_compile scripts/panoramas/publish_drone_live.py
+          python3 -m py_compile scripts/panoramas/publish_drone_live.py scripts/panoramas/publish_drone_gallery.py
       - name: Install dependencies
         run: npm ci
       - name: Check TypeScript
