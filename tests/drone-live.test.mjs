@@ -124,3 +124,24 @@ test('old versions without v=2 never receive unrecognized gallery media',async()
   assert.equal(res.body.origin,'pilot');
   assert.equal(res.body.media.every(x=>x.media.mode==='multires'),true);
 });
+
+test('exactly 50 distinct photos across 13 albums activates gallery',async()=>{
+  const albums=Array.from({length:13},(_,i)=>galleryCollection(i));
+  albums[11].images.pop();
+  albums[12].images.pop();
+  assert.equal(albums.reduce((n,a)=>n+a.images.length,0),50);
+  globalThis.fetch=async()=>galleryResponse(albums);
+  const res=response();await handler(v2request,res);
+  assert.equal(res.body.origin,'live-gallery');
+  assert.equal(res.body.imageCount,50);
+  assert.equal(res.body.media[11].media.images.length,3);
+});
+
+test('49 photos across complete three-to-four image albums stays inactive',async()=>{
+  const albums=Array.from({length:13},(_,i)=>galleryCollection(i));
+  for(let i=10;i<13;i++)albums[i].images.pop();
+  assert.equal(albums.reduce((n,a)=>n+a.images.length,0),49);
+  globalThis.fetch=async()=>galleryResponse(albums);
+  const res=response();await handler(v2request,res);
+  assert.equal(res.body.origin,'pilot');
+});
