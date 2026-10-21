@@ -1,5 +1,5 @@
 {
-  "description": "Fifteen distinct Commons file candidates grouped into four location albums. Publication flags are false; no photos have been uploaded to live R2. 3-4 images per location, 50 total approved photos across at least 10 countries needed for activation.",
+  "description": "30 sourced JPG candidates in 9 geographic albums; no imagery published to R2. Every photo still requires visual/credit/geolocation review. Fifty verified individual photos from ten countries required to activate.",
   "collections": [
     {
       "id": "album-001",
@@ -266,6 +266,301 @@
       "reviewedLocation": false,
       "reviewedQuality": false,
       "editorialStatus": "sourced_pending_individual_image_composition_license_and_place_review"
+    },
+    {
+      "id": "album-005",
+      "country": "Almanya",
+      "city": "Berlin",
+      "lat": 52.518,
+      "lng": 13.401,
+      "difficulty": "easy",
+      "regionCode": "150",
+      "fact": "Berlin, Brandenburg Kapısı, tarihî duvar sanatı ve televizyon kulesiyle tanınır.",
+      "hint": {
+        "tr": "Orta Avrupa'da yakın tarihle ve bölünmüşlük geçmişiyle tanınan başkent.",
+        "en": "A Central European capital known for twentieth-century division."
+      },
+      "photoFocus": {
+        "tr": "Zafer kapısı benzeri yapıya ve sokak sanatına bak.",
+        "en": "Look for a monumental gate and extensive street art."
+      },
+      "choices": [
+        "Almanya",
+        "Polonya",
+        "Avusturya",
+        "Çekya"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Brandenburg-Gate-Berlin.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Brandenburg-Gate-Berlin.jpg",
+          "artist": "KK nationsonline",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:East side gallery Berlin.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:East_side_gallery_Berlin.jpg",
+          "artist": "Youssefbhy",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Berlin, fernsehturm..jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Berlin%2C_fernsehturm..jpg",
+          "artist": "Jonaseckerbom",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-006",
+      "country": "Avustralya",
+      "city": "Sidney",
+      "lat": -33.863,
+      "lng": 151.21,
+      "difficulty": "easy",
+      "regionCode": "009",
+      "fact": "Sidney'in liman bölgesinde yelken biçimli opera binası, demir kemerli köprü ve körfez manzaraları bulunur.",
+      "hint": {
+        "tr": "Okyanusya'da büyük bir doğal liman etrafına kurulmuş kıyı kenti.",
+        "en": "A major Oceanian coastal city built around a natural harbour."
+      },
+      "photoFocus": {
+        "tr": "Yelken şeklindeki çatıyı, büyük köprüyü ve limanı incele.",
+        "en": "Notice the sail-shaped roof, large bridge and harbour."
+      },
+      "choices": [
+        "Avustralya",
+        "Yeni Zelanda",
+        "Kanada",
+        "Güney Afrika"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:SydneyOperaHouse.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:SydneyOperaHouse.jpg",
+          "artist": "Bjarte Sorensen",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Sydney - Harbour Bridge.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Sydney_-_Harbour_Bridge.jpg",
+          "artist": "Codex",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Sydney city skyline.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Sydney_city_skyline.jpg",
+          "artist": "Mindtravelfitness",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-007",
+      "country": "Japonya",
+      "city": "Tokyo",
+      "lat": 35.685,
+      "lng": 139.76,
+      "difficulty": "easy",
+      "regionCode": "030",
+      "fact": "Tokyo'da Tokyo Skytree, çok katlı kent dokusu ve tarihî merkez tren istasyonu bulunur.",
+      "hint": {
+        "tr": "Doğu Asya'da teknolojisi ve çok kalabalık kent dokusuyla tanınan ülkenin başkenti.",
+        "en": "An East Asian capital known for high technology and dense urban districts."
+      },
+      "photoFocus": {
+        "tr": "Yüksek yayın kulesine ve çok katlı sokaklara bak.",
+        "en": "Look for a tall broadcast tower and dense city streets."
+      },
+      "choices": [
+        "Japonya",
+        "Güney Kore",
+        "Çin",
+        "Tayvan"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Tokyo SkyTree.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Tokyo_SkyTree.jpg",
+          "artist": "Adn tl",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Tokyo station.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Tokyo_station.jpg",
+          "artist": "Funasan",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:City you see from Tokyo Skytree.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:City_you_see_from_Tokyo_Skytree.jpg",
+          "artist": "Svetlana Davidova",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-008",
+      "country": "İspanya",
+      "city": "Barselona",
+      "lat": 41.39,
+      "lng": 2.17,
+      "difficulty": "easy",
+      "regionCode": "150",
+      "fact": "Barselona, Gaudí'nin alışılmadık mimarisi ve renkli parklarıyla tanınır.",
+      "hint": {
+        "tr": "Akdeniz kıyısında sıradışı Art Nouveau mimarili Avrupa kenti.",
+        "en": "A Mediterranean European city famous for imaginative Art Nouveau architecture."
+      },
+      "photoFocus": {
+        "tr": "Yüksek kilise kulelerine, mozaiklere ve kıvrımlı cephelere dikkat et.",
+        "en": "Look for cathedral spires, mosaics and flowing façades."
+      },
+      "choices": [
+        "İspanya",
+        "Portekiz",
+        "İtalya",
+        "Fransa"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Sagrada Familia Barcelona.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Sagrada_Familia_Barcelona.jpg",
+          "artist": "Xilvitar",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Park Güell Barcelona.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Park_G%C3%BCell_Barcelona.jpg",
+          "artist": "Oh-Barcelona.com",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Casa Batllo Barcelona.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Casa_Batllo_Barcelona.jpg",
+          "artist": "Ecmarlak",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
+    },
+    {
+      "id": "album-009",
+      "country": "Amerika Birleşik Devletleri",
+      "city": "New York",
+      "lat": 40.722,
+      "lng": -73.988,
+      "difficulty": "easy",
+      "regionCode": "021",
+      "fact": "New York; Özgürlük Heykeli, Brooklyn Köprüsü ve Times Square gibi simgeleriyle tanınır.",
+      "hint": {
+        "tr": "Kuzey Amerika'da yüksek gökdelenleri ve çok uluslu yaşamıyla ünlü kent.",
+        "en": "A North American city known for skyscrapers and global cultural influence."
+      },
+      "photoFocus": {
+        "tr": "Özgürlük heykelini, asma köprüyü ve ışıklı meydanları incele.",
+        "en": "Look for a famous statue, suspension bridge and brightly lit square."
+      },
+      "choices": [
+        "Amerika Birleşik Devletleri",
+        "Kanada",
+        "Meksika",
+        "Birleşik Krallık"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Statue of Liberty New York.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Statue_of_Liberty_New_York.jpg",
+          "artist": "Kong of Lasers",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Brooklyn Bridge-New York.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Brooklyn_Bridge-New_York.jpg",
+          "artist": "Yair Haklai",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Times Square, NYC.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Times_Square%2C_NYC.jpg",
+          "artist": "Macieklew",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "sourced_pending_visual_license_place_review"
     }
   ]
 }
