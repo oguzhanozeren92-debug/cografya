@@ -7,9 +7,10 @@ import {
 } from 'lucide-react';
 import type { GameMode, WeeklyLeaderboardEntry } from '@/types';
 import { useLanguage } from '@/lib/i18n';
+import { VirtualRivals } from '@/components/VirtualRivals';
 import {
   fetchMyWeeklyStanding, fetchWeeklyLeaderboard, getTimeToReset,
-  getWeekLabel, type MyWeeklyStanding,
+  getWeekLabel, getWeekStart, type MyWeeklyStanding,
 } from '@/lib/weeklyLeaderboard';
 
 interface WeeklyLeaderboardScreenProps {
@@ -182,6 +183,7 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
           </div>}
         </section>
 
+        <VirtualRivals key={mode + getWeekStart(weekOffset)} mode={mode} seed={getWeekStart(weekOffset)} myScore={mine?.entry.score} />
         {weekOffset === 0 && <div className="mt-5 rounded-2xl border border-violet-300/20 bg-violet-400/5 p-4 text-center text-xs leading-relaxed text-slate-300"><Sparkles className="mr-1 inline h-4 w-4 text-violet-300" /> {t("Her pazartesi UTC 00.00'da yeni bir hafta başlar. Geçmiş şampiyonlar kaybolmaz.")}</div>}
         <button disabled={!playerName.trim()} onClick={() => onPlay(mode)} className="weekly-play-button mt-5 flex w-full items-center justify-center gap-3 rounded-2xl px-5 py-4 text-sm font-black tracking-wide disabled:cursor-not-allowed disabled:opacity-50"><Rocket className="h-5 w-5" /> {mode === 'flags' ? t('BAYRAK LİGİNDE OYNA') : mode === 'clues' ? t('İPUCU LİGİNDE OYNA') : t('KARIŞIK LİGDE OYNA')} <ArrowUpRight className="h-5 w-5" /></button>
         {!playerName.trim() && <p className="mt-2 text-center text-xs text-amber-300">{t('Oynamak için geri dönüp bir takma ad seç.')}</p>}

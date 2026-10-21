@@ -4,6 +4,8 @@ import { backend } from '@/lib/leaderboard';
 import { fetchStreetLeaders, type StreetRank } from '@/lib/streetLeaderboard';
 import { fetchDroneLeaders } from '@/lib/droneLeaderboard';
 import { useLanguage } from '@/lib/i18n';
+import { VirtualRivals } from '@/components/VirtualRivals';
+import { getWeekStart } from '@/lib/weeklyLeaderboard';
 
 type LocationMode='street'|'drone';
 export function LocationLeaguePanel({
@@ -74,6 +76,7 @@ export function LocationLeaguePanel({
           <span className="shrink-0 text-sm font-black text-amber-100">{player.score.toLocaleString(language)}</span>
         </div>)}
       </div>}
+    <VirtualRivals key={mode + period + getWeekStart()} mode={mode} seed={period==='weekly'?getWeekStart():'all-time'} />
     <p className="text-center text-[11px] text-blue-200/65">{t("Her pazartesi 00.00 UTC'de haftalık lig yenilenir. Para ödüllü resmî yarışmalar için anti-hile denetimi ayrıca gereklidir.")}</p>
     <button type="button" className="street-primary w-full" onClick={onBack}>{t('Oyuna dön')}</button>
   </section>;
