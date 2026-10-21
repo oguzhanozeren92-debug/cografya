@@ -28,9 +28,21 @@ function shuffled(catalog: DronePanorama[] = dronePanoramas): DronePanorama[] {
     const j = Math.floor(Math.random() * (i + 1));
     [items[i], items[j]] = [items[j], items[i]];
   }
-  // A gentle learning curve: distinctive city/coast views first, then harder terrain.
+  // Keep a five-round game even when the remote library grows beyond 50.
+  // Prefer different countries and progress from easier scenes to harder ones.
+  const selected: DronePanorama[]=[];
+  const usedCountries=new Set<string>();
+  for(const item of items){
+    if(selected.length>=5)break;
+    if(usedCountries.has(item.country))continue;
+    selected.push(item);usedCountries.add(item.country);
+  }
+  for(const item of items){
+    if(selected.length>=5)break;
+    if(!selected.some(row=>row.id===item.id))selected.push(item);
+  }
   const difficulty={easy:0,medium:1,hard:2};
-  return items.sort((a,b)=>difficulty[a.difficulty]-difficulty[b.difficulty]);
+  return selected.sort((a,b)=>difficulty[a.difficulty]-difficulty[b.difficulty]);
 }
 function getBest(): number {
   try { return Number(localStorage.getItem(BEST_KEY)) || 0; }
@@ -44,6 +56,7 @@ function saveBest(score: number): number {
 
 export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { onClose: () => void; onGameComplete?: () => void; playerName: string }) {
   const {language,t}=useLanguage();
+  const [catalog,setCatalog] = useState<DronePanorama[]>(dronePanoramas);
   const [rows, setRows] = useState(shuffled);
   const [mediaById,setMediaById]=useState<Record<string,PanoramaMedia>>({});
   const [assetLoading,setAssetLoading]=useState(true);
@@ -62,7 +75,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
         const map=Object.fromEntries(body.media.map(r=>[r.id,r.media]));
         const catalog=body.rows?.length ? body.rows : dronePanoramas;
         if(catalog.some(row=>!map[row.id]))throw new Error(t('Bazı drone panoramaları henüz doğrulanmadı.'));
-        if(active){setRows(shuffled(catalog));setIndex(0);setMediaById(map);setAssetLoading(false);}
+        if(active){setCatalog(catalog);setRows(shuffled(catalog));setIndex(0);setMediaById(map);setAssetLoading(false);}
       }catch(e){if(active){setAssetLoading(false);setAssetError(e instanceof Error?e.message:t('Görüntüler yüklenemedi.'));}}
     };
     void run();
@@ -132,7 +145,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   const restart = () => {
     cancelPendingHint();
     completionNotified.current=false;
-    setRows(shuffled(rows)); setIndex(0); setPhase('view'); setReady(false);
+    setRows(shuffled(catalog)); setIndex(0); setPhase('view'); setReady(false);
     setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);setHintCount(0);
     setSaveState('idle');setSaveError('');setFinalScore(0);setShowRank(false);
   };
