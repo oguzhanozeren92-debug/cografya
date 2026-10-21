@@ -49,8 +49,8 @@ def validate(row):
             fail(id + ': invalid ' + key)
     if row['difficulty'] not in ('easy','medium','hard'):
         fail(id + ': difficulty must be easy, medium or hard')
-    if not re.fullmatch(r'\d{3}', str(row['regionCode'])):
-        fail(id + ': invalid UN M49 region code')
+    if not isinstance(row['regionCode'],str) or not re.fullmatch(r'\d{3}', row['regionCode']):
+        fail(id + ': UN M49 region code must be a three-digit string')
     if not row['source'].startswith('https://commons.wikimedia.org/wiki/File:'):
         fail(id + ': Commons credit URL required')
     if not row['licenseUrl'].startswith('https://creativecommons.org/'):
