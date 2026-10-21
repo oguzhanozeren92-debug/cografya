@@ -1,0 +1,44 @@
+name: Globriva — publish approved drone photos without a new app build
+
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: "Comma-separated APPROVED IDs from panoramas/drone-live-candidates.json (max 10)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: globriva-r2-live-drone-catalog
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: atlas-arena
+      REQUESTED_IDS: ${{ inputs.ids }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify existing R2 secrets
+        shell: bash
+        run: |
+          test -n "$R2_ACCOUNT_ID" && test -n "$R2_ACCESS_KEY_ID" && test -n "$R2_SECRET_ACCESS_KEY"
+      - name: Install trusted panorama converter
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y hugin-tools
+          python3 -m pip install --break-system-packages 'Pillow>=10,<12' numpy boto3
+          git clone --depth 1 https://github.com/mpetroff/pannellum.git /tmp/pannellum
+      - name: Check source metadata and upload verified photo previews to R2
+        shell: bash
+        run: python3 -u scripts/panoramas/publish_drone_live.py --ids "$REQUESTED_IDS"
+      - name: Deployment policy
+        run: echo "Only R2 media and R2 catalog were updated; no app or Vercel build is needed."
