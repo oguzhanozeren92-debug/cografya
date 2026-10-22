@@ -1,0 +1,43 @@
+name: Globriva - weekly photo archive quality report
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Monday morning, 09:10 Turkey time (UTC+3)
+    - cron: '10 6 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  archive-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Wikimedia files, licenses and photo archive
+        run: node scripts/panoramas/audit-archive.mjs --live --out=reports/photo-archive-audit.json
+      - name: Add summary to workflow run
+        run: |
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            const r = JSON.parse(fs.readFileSync('reports/photo-archive-audit.json', 'utf8'));
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+              '# Globriva photo archive\n\n' +
+              '- Drone playable panoramas: ' + r.drone.live360 + '\n' +
+              '- Drone candidate photos: ' + r.drone.candidatePhotos + '\n' +
+              '- Editorially approved albums: ' + r.drone.editoriallyApprovedAlbums + '\n' +
+              '- Street playable locations: ' + r.street.playableLocations + '\n' +
+              '- Metadata warnings: ' + r.warnings.length + '\n' +
+              '- Metadata errors: ' + r.errors.length + '\n');
+          "
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: globriva-photo-archive-audit
+          path: reports/photo-archive-audit.json
+          if-no-files-found: warn
+          retention-days: 30
