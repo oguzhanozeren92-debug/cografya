@@ -1,3 +1,4 @@
+
 {
   "name": "cografya-oyunu",
   "private": true,
@@ -37,7 +38,8 @@
     "lottie-react": "2.4.2",
     "howler": "2.2.4",
     "three": "0.170.0",
-    "@capacitor/push-notifications": "8.1.3"
+    "@capacitor/push-notifications": "8.1.3",
+    "@capacitor/app": "8.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

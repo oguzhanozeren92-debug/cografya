@@ -2,14 +2,13 @@ import { lazy, Suspense, useRef, useState } from 'react';
 import {
   ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Globe2,
   Lightbulb, MapPinned, Pencil, Play, ShieldCheck, Sparkles,
-  Trophy, UserRound, Volume2, VolumeX,
+  Trophy, UserRound, Volume2, VolumeX, Swords,
 } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
 import { motion, useReducedMotion } from 'motion/react';
 import { DAILY_TOTAL, getDailyDate, loadDailyProgress } from '@/lib/dailyChallenge';
 import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
-import { HomePlanet } from '@/components/HomePlanet';
 import { AtlasHomeBackdrop } from '@/components/AtlasHomeBackdrop';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 import { isIosPushSupported } from '@/lib/iosPush';
@@ -32,13 +31,14 @@ interface StartScreenProps {
   onStreet: () => void;
   onStreetLeaderboard: () => void;
   onDrone: () => void;
+  onVersus: () => void;
 }
 
 const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
 
 export function StartScreen({
   onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly,
-  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onDrone,
+  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onDrone, onVersus,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
   const { language, setLanguage, t } = useLanguage();
@@ -127,11 +127,152 @@ export function StartScreen({
   return (
     <div className="globriva-screen atlas-home atlas-home-refresh atlas-home-cozy atlas-home-illustrated fixed inset-0 z-20 overflow-y-auto overscroll-contain text-white">
       <AtlasHomeBackdrop />
+      <style>{`
+        .atlas-home-illustrated .globriva-explore-hero {
+          position: relative;
+          min-height: 290px;
+          padding: 16px 16px 16px;
+          border: 1.5px solid rgba(255,255,255,.91);
+          border-radius: 29px;
+          isolation: isolate;
+          background: linear-gradient(92deg,rgba(255,247,228,.30) 0%,rgba(255,234,192,.09) 48%,rgba(16,156,202,.05) 100%),
+                      url('/globriva-hero-atmosphere.webp') center / cover no-repeat,
+                      linear-gradient(115deg,#fff2d6,#2aadd5);
+          box-shadow: 0 17px 35px rgba(0,11,38,.25), inset 0 2px rgba(255,255,255,.72);
+        }
+        .atlas-home-illustrated .globriva-explore-hero::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          border-radius: inherit;
+          pointer-events: none;
+          opacity: 1;
+          background: radial-gradient(circle at 76% 51%,rgba(29,208,255,.30),transparent 40%),
+                      linear-gradient(90deg,rgba(255,245,218,.18),transparent 62%);
+        }
+        .atlas-home-illustrated .globriva-explore-hero::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: 1;
+          z-index: 0;
+          background: linear-gradient(180deg,rgba(255,255,255,.15),transparent 45%,rgba(233,178,123,.10));
+          border-radius: inherit;
+        }
+        .globriva-explore-hero .aa-hero-stars { opacity: .42; pointer-events:none; }
+        .atlas-home-cozy .globriva-explore-hero .aa-hero-copy {
+          position: relative;
+          z-index: 12;
+          min-height: 216px;
+          width: 65%;
+          pointer-events: none;
+        }
+        .atlas-home-cozy .globriva-explore-hero .aa-kicker {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 11px;
+          color: #b44030;
+          font-size: 10px;
+          font-weight: 950;
+          letter-spacing: -.005em;
+          background: rgba(255,253,247,.92);
+          box-shadow: 0 4px 13px rgba(174,100,46,.15);
+          border: 1px solid rgba(255,255,255,.9);
+        }
+        .atlas-home-cozy .globriva-explore-hero .aa-hero-copy h1 {
+          margin: 20px 0 0;
+          color: #153755;
+          font-size: clamp(35px,9vw,49px);
+          line-height: .98;
+          letter-spacing: -.055em;
+          font-weight: 1000;
+          text-shadow: 0 2px 0 rgba(255,255,255,.08);
+        }
+        .atlas-home-cozy .globriva-explore-hero .aa-hero-copy h1 span {
+          color: #ed5c44;
+          background: linear-gradient(110deg,#ff624b 10%,#f64e62 62%,#f4a223);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .atlas-home-cozy .globriva-explore-hero .aa-hero-copy p {
+          margin-top: 12px;
+          color: #224b68;
+          font-size: 12px;
+          font-weight: 800;
+          line-height: 1.43;
+          text-shadow: 0 1px rgba(255,255,255,.43);
+        }
+        .atlas-home-illustrated .globriva-explore-hero .aa-hero-bottom {
+          position: relative;
+          z-index: 20;
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          align-items: center;
+          padding-top: 2px;
+        }
+        .globriva-explore-hero .globriva-hero-action {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          min-height: 42px;
+          padding: 9px 11px;
+          border-radius: 999px;
+          border: 1px solid rgba(255,255,255,.97);
+          background: rgba(255,255,255,.93);
+          color: #163c61;
+          font-size: 11px;
+          font-weight: 900;
+          white-space: nowrap;
+          box-shadow: 0 5px 13px rgba(85,92,132,.16), inset 0 1px rgba(255,255,255,.90);
+          transition: transform .16s ease, box-shadow .16s ease;
+          cursor: pointer;
+        }
+        .globriva-explore-hero .globriva-hero-action:active { transform: scale(.96); }
+        .globriva-explore-hero .globriva-hero-action:hover { box-shadow:0 8px 16px rgba(53,115,151,.23); }
+        .globriva-explore-hero .globriva-hero-action:focus-visible { outline:3px solid #1769a2;outline-offset:3px; }
+        .globriva-explore-hero .globriva-hero-action svg { flex-shrink:0; }
+        .globriva-explore-hero .globriva-hero-float {
+          position: absolute;
+          top: 51px;
+          left: 55%;
+          z-index: 6;
+          color: #fff9dc;
+          pointer-events:none;
+          opacity: .93;
+          filter: drop-shadow(0 0 6px rgba(255,183,77,.9));
+          animation: globriva-hero-hover 5s ease-in-out infinite;
+        }
+        @keyframes globriva-hero-hover { 0%,100%{transform:translateY(0) rotate(-9deg)} 50%{transform:translateY(-7px) rotate(-4deg)} }
+        @media (max-width:380px) {
+          .atlas-home-illustrated .globriva-explore-hero {min-height: 274px; padding:14px 12px 13px;}
+          .atlas-home-cozy .globriva-explore-hero .aa-hero-copy {min-height:210px;width:69%;}
+          .atlas-home-cozy .globriva-explore-hero .aa-hero-copy h1 {font-size:32px;margin-top:19px;}
+          .atlas-home-cozy .globriva-explore-hero .aa-hero-copy p {font-size:11px;}
+          .globriva-explore-hero .globriva-hero-action {font-size:10px;min-height:38px;padding:7px 9px;}
+        }
+        @media (prefers-reduced-motion:reduce) {
+          .globriva-explore-hero .globriva-hero-float {animation:none;}
+          .globriva-explore-hero .globriva-hero-action {transition:none;}
+        }
+      `}</style>
       <main className="globriva-content atlas-home-inner aa-page mx-auto w-full max-w-[490px] px-4 sm:px-5">
         <header className="atlas-home-topbar flex items-center justify-between gap-2">
           <div className="atlas-home-brand flex min-w-0 items-center gap-2.5">
-            <span className="atlas-home-brand-icon" aria-hidden="true">
-              <Globe2 className="h-6 w-6" strokeWidth={1.8} />
+            <span className="atlas-home-brand-icon overflow-hidden" aria-hidden="true">
+              <img
+                src="/globriva-logo.png"
+                alt=""
+                width={39}
+                height={39}
+                draggable={false}
+                className="h-full w-full rounded-[13px] object-cover"
+              />
             </span>
             <span className="atlas-home-brand-name">Glo<strong>briva</strong></span>
           </div>
@@ -157,7 +298,7 @@ export function StartScreen({
           </div>
         </header>
 
-        <motion.section {...entrance(0)} className="aa-hero relative isolate overflow-hidden">
+        <motion.section {...entrance(0)} className="aa-hero globriva-explore-hero relative isolate overflow-hidden">
           <div className="absolute right-3 top-3 z-30">
             <label className="relative flex h-9 max-w-[65px] shrink-0 items-center gap-1 rounded-xl border border-white/20 bg-white/10 px-1.5 text-[10px] font-extrabold text-white" title={t('Dil')}>
               <Globe2 className="h-3.5 w-3.5 shrink-0 text-cyan-200"/>
@@ -168,20 +309,38 @@ export function StartScreen({
             </label>
           </div>
           <div className="aa-hero-stars" aria-hidden="true" />
+          <span className="globriva-hero-float" aria-hidden="true"><Sparkles className="h-6 w-6" /></span>
           {!reduceMotion && (
             <FxErrorBoundary>
               <Suspense fallback={null}><ArenaParticles /></Suspense>
             </FxErrorBoundary>
           )}
-          <HomePlanet />
           <div className="aa-hero-copy relative z-10">
             <span className="aa-kicker"><Sparkles className="h-3.5 w-3.5" /> {t('Bir dünya macera!')}</span>
             <h1>{t('Hadi,')}<br /><span>{t('keşfe çık!')}</span></h1>
             <p>{t('Dünyayı döndür, durdur,')}<br />{t('ülkeyi bul, puanı kap!')}</p>
           </div>
-          <div className="aa-hero-bottom relative z-10">
-            <span>🌍 {t('Dünya turu')}</span>
-            <span>🏆 {t('Arkadaşlarınla yarış')}</span>
+          <div className="aa-hero-bottom">
+            <button
+              type="button"
+              onClick={() => startOrAskName('mixed')}
+              aria-label={t('Dünya turu')}
+              className="globriva-hero-action touch-manipulation"
+            >
+              <span aria-hidden="true">🌍</span>
+              <span>{t('Dünya turu')}</span>
+              <ArrowRight className="h-4 w-4 text-[#3686b7]" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={onVersus}
+              aria-label={t('Arkadaşlarınla yarış')}
+              className="globriva-hero-action touch-manipulation"
+            >
+              <span aria-hidden="true">🏆</span>
+              <span>{t('Arkadaşlarınla yarış')}</span>
+              <ArrowRight className="h-4 w-4 text-[#d99736]" aria-hidden="true" />
+            </button>
           </div>
         </motion.section>
 
@@ -220,23 +379,73 @@ export function StartScreen({
 
         <motion.section {...entrance(2)} className="mt-5">
           <h2 className="aa-section-heading">{t('Başka ne oynayalım?')}</h2>
-          <div className="aa-mode-grid mt-2 grid grid-cols-2 gap-3">
-            <button type="button" onClick={() => startOrAskName('flags')}
-              className="aa-mode aa-flags text-left">
-              <span className="aa-mode-illustration" aria-hidden="true">🇹🇷 🇯🇵</span>
-              <strong>{t('Bayrak oyunu')}</strong>
-              <small>{t('Bayrağa bak, ülkeyi bil')}</small>
-              <span className="aa-mode-arrow" aria-hidden="true"><ArrowRight className="h-4 w-4" /></span>
+          <div className="mt-2 grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => startOrAskName('flags')}
+              aria-label={t('Bayrak oyunu')}
+              className="group relative isolate flex min-h-[218px] flex-col overflow-hidden rounded-[27px] border border-[#ffd6a9]/70 bg-[#e6a66d] p-3 text-left text-white shadow-[0_12px_28px_rgba(15,16,54,.28)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(245,151,93,.32)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 sm:min-h-[236px] sm:p-4"
+            >
+              <img
+                src="/game-cards/bayrak-oyunu.webp"
+                alt=""
+                loading="lazy"
+                draggable={false}
+                className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+              />
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#3b231d]/15 via-transparent to-[#071c31]/55" />
+              <span className="flex w-full items-start justify-between gap-1.5">
+                <span className="inline-flex min-h-8 items-center gap-1 rounded-full border border-white/65 bg-white/90 px-2 py-1 text-[9px] font-black tracking-[.02em] text-[#9b5235] shadow-sm sm:px-2.5 sm:text-[10px]">
+                  <Flag className="h-3 w-3 shrink-0" />
+                  {t('KLASİK MOD')}
+                </span>
+                <span aria-hidden="true" className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/70 bg-white/90 text-[#334262] shadow-sm transition-transform group-hover:translate-x-0.5 sm:h-9 sm:w-9">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </span>
+              <span className="mt-auto block w-full pt-14 drop-shadow-[0_2px_4px_rgba(0,0,0,.5)]">
+                <strong className="block text-[19px] font-black leading-[1.08] tracking-[-.02em] sm:text-[22px]">{t('Bayrak oyunu')}</strong>
+                <small className="mt-1.5 block text-[11px] font-bold leading-snug text-white/95 sm:text-xs">{t('Bayrağa bak, ülkeyi bil')}</small>
+              </span>
             </button>
-            <button type="button" onClick={() => startOrAskName('clues')}
-              className="aa-mode aa-clues text-left">
-              <span className="aa-mode-illustration" aria-hidden="true"><Lightbulb className="h-10 w-10" /></span>
-              <strong>{t('Gizemli ülke')}</strong>
-              <small>{t('İpuçlarından ülkeyi tahmin et')}</small>
-              <span className="aa-mode-arrow" aria-hidden="true"><ArrowRight className="h-4 w-4" /></span>
+
+            <button
+              type="button"
+              onClick={() => startOrAskName('clues')}
+              aria-label={t('Gizemli ülke')}
+              className="group relative isolate flex min-h-[218px] flex-col overflow-hidden rounded-[27px] border border-[#d9c5ff]/80 bg-[#7162d8] p-3 text-left text-white shadow-[0_12px_28px_rgba(15,16,54,.28)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(128,109,250,.30)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-200 sm:min-h-[236px] sm:p-4"
+            >
+              <img
+                src="/game-cards/gizemli-ulke.webp"
+                alt=""
+                loading="lazy"
+                draggable={false}
+                className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+              />
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#251d64]/15 via-transparent to-[#0d1145]/65" />
+              <span className="flex w-full items-start justify-between gap-1.5">
+                <span className="inline-flex min-h-8 items-center gap-1 rounded-full border border-white/65 bg-white/90 px-2 py-1 text-[9px] font-black tracking-[.02em] text-[#6650b0] shadow-sm sm:px-2.5 sm:text-[10px]">
+                  <Sparkles className="h-3 w-3 shrink-0" />
+                  {t('YENİ NESİL İPUCU')}
+                </span>
+                <span aria-hidden="true" className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/70 bg-white/90 text-[#334262] shadow-sm transition-transform group-hover:translate-x-0.5 sm:h-9 sm:w-9">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </span>
+              <span className="mt-auto block w-full pt-14 drop-shadow-[0_2px_4px_rgba(0,0,0,.55)]">
+                <strong className="block text-[19px] font-black leading-[1.08] tracking-[-.02em] sm:text-[22px]">{t('Gizemli ülke')}</strong>
+                <small className="mt-1.5 block text-[11px] font-bold leading-snug text-white/95 sm:text-xs">{t('İpuçlarından ülkeyi tahmin et')}</small>
+              </span>
             </button>
           </div>
 
+
+          <button type="button" onClick={onVersus}
+            className="mt-3 flex w-full items-center gap-4 overflow-hidden rounded-[23px] border border-rose-200/40 bg-gradient-to-r from-[#ffbd89] via-[#ff9697] to-[#d8a8ff] px-4 py-4 text-left text-[#202742] shadow-[0_14px_35px_rgba(220,108,183,.22)] transition hover:brightness-105 active:scale-[0.99]">
+            <span aria-hidden="true" className="grid h-14 w-14 shrink-0 place-items-center rounded-[18px] bg-white/35 shadow-inner"><Swords className="h-9 w-9" /></span>
+            <span className="min-w-0 flex-1"><small className="block text-[10px] font-black tracking-[.11em]">YENİ · 1'E 1 MEYDAN OKUMA</small><strong className="mt-1 block text-xl font-black leading-tight">Arkadaşınla VS At!</strong><span className="mt-1 block text-xs font-semibold leading-4">Davet et, aynı 10 soruda karşılaş, kazananı gör.</span></span>
+            <ChevronRight className="h-6 w-6 shrink-0" />
+          </button>
 
           <div className="mt-3 overflow-hidden rounded-[23px] border border-emerald-200/40 bg-gradient-to-br from-[#176c7c] via-[#174b69] to-[#172e53] shadow-[0_12px_26px_rgba(0,7,27,.24)]">
             <button type="button" onClick={startDrone}

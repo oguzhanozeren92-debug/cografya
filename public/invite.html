@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Globriva VS Daveti</title><meta name="theme-color" content="#0b1730">
+<style>
+*{box-sizing:border-box}body{margin:0;font:500 16px/1.5 system-ui,-apple-system,sans-serif;color:#fff;background:radial-gradient(ellipse at 80% 0,#473481 0,transparent 52%),linear-gradient(160deg,#0a1f37,#09132b 80%)}main{min-height:100dvh;display:grid;place-items:center;padding:24px}section{max-width:440px;width:100%;border:1px solid #58648166;background:#172a4bea;border-radius:30px;padding:30px;box-shadow:0 24px 70px #0006;text-align:center}h1{font-size:30px;line-height:1.13;margin:16px 0 12px}p{color:#cbd8ed;margin:8px 0 24px}.emoji{font-size:56px}.code{font:700 19px ui-monospace,Consolas,monospace;letter-spacing:3px;color:#ffd4a1;padding:12px;border:1px solid #7188a866;border-radius:13px;margin:18px 0}a,button{display:block;width:100%;border:0;text-decoration:none;cursor:pointer;border-radius:14px;padding:15px;font:800 15px system-ui;margin:11px 0}a.primary{background:linear-gradient(110deg,#ffb280,#ff839d);color:#14243d}button{background:#29415e;color:white}small{display:block;color:#abc0d9;margin-top:20px;line-height:1.7}
+</style></head><body><main><section>
+<div class="emoji">🌍⚔️</div><h1>Globriva'da VS zamanı!</h1>
+<p>Arkadaşın seni aynı 10 coğrafya sorusuyla yarışmaya davet etti.</p>
+<div class="code" id="code">—</div>
+<a class="primary" id="play" href="/">Tarayıcıdan VS’ye katıl →</a>
+<button type="button" id="copy">Davet bağlantısını kopyala</button>
+<small>Globriva telefonunda yüklüyse bağlantı, Universal Link / App Link etkinleştirildikten sonra uygulamayı doğrudan açar.<br>Mağaza sürümü hazır olana kadar webden de katılabilirsin.</small>
+</section></main><script>
+(function(){
+ const raw = new URLSearchParams(location.search).get('vs') || '';
+ const code = raw.toUpperCase().replace(/[^A-F0-9]/g,'').slice(0,12);
+ if(code.length !== 12){document.querySelector('h1').textContent='Davet bağlantısı geçersiz';document.querySelector('p').textContent='Arkadaşından yeni bir VS daveti iste.';document.getElementById('play').textContent='Ana sayfaya dön';document.getElementById('copy').hidden=true;return;}
+ document.getElementById('code').textContent=code;
+ document.getElementById('play').href='/?vs='+encodeURIComponent(code);
+ document.getElementById('copy').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(location.href);document.getElementById('copy').textContent='Bağlantı kopyalandı ✓';}
+  catch{document.getElementById('copy').textContent='Davet kodu: '+code;}
+ });
+})();
+</script></body></html>

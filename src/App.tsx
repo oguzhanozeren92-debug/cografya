@@ -1,7 +1,12 @@
+
 import { useGame } from '@/hooks/useGame';
 import { Stars } from '@/components/Stars';
 import { Globe } from '@/components/Globe';
 import { StartScreen } from '@/components/StartScreen';
+import { GlobrivaVersusScreen } from '@/components/GlobrivaVersusScreen';
+import { inviteCodeFromUrl, inviteCodeFromAnyUrl } from '@/lib/versus';
+import { App as NativeApp } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
 import { StreetDetectiveScreen } from '@/components/StreetDetectiveScreen';
 import { DroneDetectiveScreen } from '@/components/DroneDetectiveScreen';
 import { HUD } from '@/components/HUD';
@@ -25,6 +30,8 @@ function App() {
   const game = useGame();
   const [playerName, setPlayerName] = useState(getSavedName);
   const [weeklyOpen, setWeeklyOpen] = useState(false);
+  const [activeInviteCode, setActiveInviteCode] = useState(inviteCodeFromUrl);
+  const [versusOpen, setVersusOpen] = useState(() => Boolean(inviteCodeFromUrl()));
   const [dailyOpen, setDailyOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
   const [streetOpen, setStreetOpen] = useState<'play'|'ranking'|null>(null);
@@ -36,6 +43,35 @@ function App() {
   const adLockRef = useRef(false);
   const lastCountedGameRun = useRef(-1);
   const [rewardedAvailable, setRewardedAvailable] = useState(isRewardedHeartAvailable);
+  // Universal Link / App Link: cold launch and already-running app.
+  // A domain association + new native build are required for OS routing.
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+    let active = true;
+    let dispose: (() => Promise<void>) | undefined;
+    const handleInvite = (url: string) => {
+      const code = inviteCodeFromAnyUrl(url);
+      if (!active || !code) return;
+      setActiveInviteCode(code);
+      setVersusOpen(true);
+      setWeeklyOpen(false);
+      setDailyOpen(false);
+      setExploreOpen(false);
+      setDroneOpen(false);
+      setStreetOpen(null);
+    };
+    void NativeApp.addListener('appUrlOpen', ({ url }) => handleInvite(url))
+      .then(handle => {
+        if (!active) void handle.remove();
+        else dispose = () => handle.remove();
+      })
+      .catch(error => console.warn('VS deep link listener:', error));
+    void NativeApp.getLaunchUrl()
+      .then(result => { if (result?.url) handleInvite(result.url); })
+      .catch(error => console.warn('VS launch link:', error));
+    return () => { active = false; void dispose?.(); };
+  }, []);
+
   useEffect(() => {
     let mounted = true;
     void initializeRewardedAds().then(ready => { if (mounted) setRewardedAvailable(ready); });
@@ -197,7 +233,13 @@ function App() {
       </div>
 
       {showStart && (
-        <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} onNotifications={() => setNotificationsOpen(true)} onStreet={() => setStreetOpen('play')} onStreetLeaderboard={() => setStreetOpen('ranking')} onDrone={() => setDroneOpen(true)} />
+        <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} onNotifications={() => setNotificationsOpen(true)} onStreet={() => setStreetOpen('play')} onStreetLeaderboard={() => setStreetOpen('ranking')} onDrone={() => setDroneOpen(true)} onVersus={() => setVersusOpen(true)} />
+      )}
+
+      {versusOpen && (
+        <GlobrivaVersusScreen key={activeInviteCode || 'manual'} initialInviteCode={activeInviteCode}
+          playerName={playerName} onNameChange={updateName}
+          onClose={() => { setVersusOpen(false); setActiveInviteCode(''); }} />
       )}
 
       {showStart && streetOpen && (
