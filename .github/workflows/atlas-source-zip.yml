@@ -1,3 +1,4 @@
+# Refresh source export after 21 October Globriva updates.
 name: Atlas Arena - Source ZIP Export
 on:
   workflow_dispatch:
