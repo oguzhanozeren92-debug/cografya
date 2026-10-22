@@ -20,6 +20,9 @@ export const COUNTRY_HINTS = Object.freeze({
   'Estonya':{region:'154',landmark:'Tallinn Old Town'},
   'Avustralya':{region:'053',landmark:'Great Barrier Reef'},
   'Birleşik Krallık':{region:'154',landmark:'Big Ben'},
+  'Finlandiya':{region:'154',landmark:'Northern lights'},
+  'İzlanda':{region:'154',landmark:'Geysers and volcanoes'},
+  'Danimarka':{region:'154',landmark:'Little Mermaid statue'},
 });
 // Actual verified outdoor images with distinctive architecture or landmarks.
 // Interior rooms, generic wooded paths and poorly identifiable vistas are
@@ -43,6 +46,17 @@ export const STREET_PLAYABLE_IDS = new Set([
   'p6c1ab10e776c0dbc76f8e9b7', // Slovenia town square
   'p187ca3ed52b211676a4a8492', // Cambodia city neighbourhood
   'p05e431142d98c30cfa048108', // Phnom Penh river confluence
+]);
+// New outdoor photos are allowed only after their independent JPG files
+// and R2 multiresolution tiles are verified and whitelisted server-side.
+// Source IDs are editor-reviewed; public photo IDs are randomized on upload.
+export const STREET_PLAYABLE_SOURCE_IDS = new Set([
+  'de-dresden-tram-002',
+  'fi-oulu-winter-street-002',
+  'is-rainbow-street-002',
+  'dk-copenhagen-tower-002',
+  'ca-niagara-falls-002',
+  'is-gullfoss-waterfall-002',
 ]);
 // Easier photos are selected before the harder, smaller-city scenes.
 export const STREET_EASY_IDS = new Set([
