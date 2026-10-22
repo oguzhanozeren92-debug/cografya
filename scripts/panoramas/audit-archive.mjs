@@ -19,9 +19,12 @@ const albums = JSON.parse(readFileSync(resolve(ROOT, 'panoramas/drone-gallery-ca
 const photos = albums.flatMap(album => album.images.map((p,i) => ({
   id: album.id, country: album.country, number: i + 1,
   title: p.sourceTitle, source: p.source, listedLicense: p.license,
+  listedArtist: p.artist,
   editorialReview: !!(p.reviewedVisual && p.reviewedLicense && p.reviewedPlace),
 })));
 const errors = [], warnings = [], seen = new Set(), checked = [];
+const plain = value => String(value ?? '').replace(/<[^>]*>/g,' ').replace(/&(?:amp|nbsp|quot);/ig,' ')
+  .toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 for (const pic of photos) {
   if (!pic.title?.startsWith('File:') || !pic.source?.startsWith('https://commons.wikimedia.org/wiki/File:')) {
     errors.push(pic.id + '/' + pic.number + ': incomplete source');
@@ -59,12 +62,15 @@ if (!process.argv.includes('--offline')) {
         const image=page?.imageinfo?.[0];
         const license=image?.extmetadata?.LicenseShortName?.value??null;
         const matches=!!image && license===pic.listedLicense;
+        const credit=image?.extmetadata?.Artist?.value??'';
+        const artistMatches=!!credit && plain(credit).includes(plain(pic.listedArtist));
         if (!image) errors.push(pic.id+'/'+pic.number+': file does not exist');
         else if (!matches) errors.push(pic.id+'/'+pic.number+': licensed as '+license+' not '+pic.listedLicense);
+        if (image && !artistMatches) errors.push(pic.id+'/'+pic.number+': photographer credit does not match source metadata');
         if (image && (image.width<1200 || image.height<600))
           warnings.push(pic.id+'/'+pic.number+': small image '+image.width+'x'+image.height);
         checked.push({id:pic.id,number:pic.number,source:pic.source,
-          found:!!image,licenseMatches:matches,width:image?.width??null,
+          found:!!image,licenseMatches:matches,artistMatches,width:image?.width??null,
           height:image?.height??null,editorialReview:pic.editorialReview});
       }
     } catch (error) {
@@ -115,6 +121,7 @@ if(out){
 }
 console.log(JSON.stringify({drone:report.drone,street:report.street,live,
   checked:checked.length,licenseMatches:checked.filter(p=>p.licenseMatches).length,
+  photographerMatches:checked.filter(p=>p.artistMatches).length,
   errors:errors.length,pendingEditorialAlbums:albums.length-approvedAlbums},null,2));
 for(const e of errors)console.error('ERROR',e);
 if(process.argv.includes('--strict')&&errors.length)process.exitCode=1;
