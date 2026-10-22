@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Compass, Landmark,
   RefreshCcw, ShieldCheck, Trophy, XCircle } from 'lucide-react';
 import { StreetPanorama, type PanoramaMedia, type StreetRound } from '@/components/StreetPanorama';
@@ -105,6 +105,16 @@ export function HistoryDetectiveScreen({
   const active=cases[index];
   const score=results.reduce((sum,row)=>sum+row.points,0)+roundPoints;
   const question=active?.questions[questionIndex];
+  // Question bank uses canonical options, but players see a different
+  // position each time so 'always tap A' can never game the score.
+  const choiceOrder=useMemo(()=>{
+    const order=[0,1,2,3];
+    for(let i=order.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [order[i],order[j]]=[order[j],order[i]];
+    }
+    return order;
+  },[active?.id,questionIndex,run]);
   const round:StreetRound|undefined=active?{
     id:active.id,ticket:'',media:active.media,credit:active.credit,
   }:undefined;
@@ -329,12 +339,13 @@ export function HistoryDetectiveScreen({
                 </div>
                 <h2 className="py-1 text-lg font-black leading-6">{localized(question.prompt)}</h2>
                 <div className="space-y-2">
-                  {question.options.map((option,i)=>{
+                  {choiceOrder.map((optionIndex,i)=>{
+                    const option=question.options[optionIndex];
                     const answered=picked!==null;
-                    const correct=i===question.correct;
-                    const selected=picked===i;
+                    const correct=optionIndex===question.correct;
+                    const selected=picked===optionIndex;
                     return (
-                      <button key={i} type="button" disabled={answered} onClick={()=>answer(i)}
+                      <button key={optionIndex} type="button" disabled={answered} onClick={()=>answer(optionIndex)}
                         className={'flex min-h-[49px] w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left text-sm font-bold transition '+
                           (answered&&correct?'border-emerald-300/80 bg-emerald-300/20 text-emerald-50':
                             answered&&selected?'border-rose-300/70 bg-rose-300/15 text-rose-100':
