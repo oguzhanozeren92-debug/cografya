@@ -260,6 +260,49 @@ export function StartScreen({
           .globriva-explore-hero .globriva-hero-float {animation:none;}
           .globriva-explore-hero .globriva-hero-action {transition:none;}
         }
+
+        /* The approved PNG/WebP screenshots carried a 22px strip of dark
+           page background at their top. Crop that strip inside the real
+           interactive button (no replacement artwork or duplicate buttons). */
+        .atlas-home-illustrated .globriva-art-crop {
+          position: relative;
+          display: block;
+          box-sizing: border-box;
+          width: 100%;
+          min-width: 0;
+          height: auto;
+          padding: 0 !important;
+          overflow: hidden;
+          isolation: isolate;
+          border: 1.5px solid rgba(255,255,255,.94) !important;
+          border-radius: 22px !important;
+          background-clip: padding-box;
+          line-height: 0;
+          -webkit-mask-image: -webkit-radial-gradient(white, black);
+        }
+        .atlas-home-illustrated .globriva-art-crop-daily { aspect-ratio: 431 / 162; }
+        .atlas-home-illustrated .globriva-art-crop-explore { aspect-ratio: 419 / 162; }
+        .atlas-home-illustrated .globriva-art-crop-league { aspect-ratio: 862 / 94; }
+        .atlas-home-illustrated .globriva-art-crop > img {
+          position: absolute !important;
+          inset: 0 !important;
+          display: block !important;
+          width: 100% !important;
+          height: 100% !important;
+          max-width: none !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          border: 0 !important;
+          object-fit: cover !important;
+          object-position: center bottom !important;
+        }
+        .atlas-home-illustrated .globriva-art-crop > span {
+          z-index: 2;
+          line-height: 1.15;
+        }
+        @media (max-width: 380px) {
+          .atlas-home-illustrated .globriva-art-crop { border-radius: 19px !important; }
+        }
       `}</style>
       <main className="globriva-content atlas-home-inner aa-page mx-auto w-full max-w-[490px] px-4 sm:px-5">
         <header className="atlas-home-topbar flex items-center justify-between gap-2">
@@ -511,11 +554,11 @@ export function StartScreen({
           <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
           {language === 'tr' ? (
             <div className="mt-2 grid grid-cols-2 gap-3">
-              <button type="button" onClick={onDaily} aria-label={t('Günlük 10 soru')} className="relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f9dda6] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
+              <button type="button" onClick={onDaily} aria-label={t('Günlük 10 soru')} className="globriva-art-crop globriva-art-crop-daily relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f9dda6] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
                 <img src="/game-cards/approved-daily.webp" width={431} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
                 {completed > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#ffe7bb] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#687782]">{completed}/{DAILY_TOTAL} {t('tamamlandı')}</span>}
               </button>
-              <button type="button" onClick={onExplore} aria-label={t('Keşif haritası')} className="relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#b0eee4] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
+              <button type="button" onClick={onExplore} aria-label={t('Keşif haritası')} className="globriva-art-crop globriva-art-crop-explore relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#b0eee4] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
                 <img src="/game-cards/approved-explore.webp" width={419} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
                 {found > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#c6f3e9] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#647787]">{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</span>}
               </button>
@@ -537,7 +580,7 @@ export function StartScreen({
         </motion.section>
 
         {language === 'tr' ? (
-          <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')} className="relative mt-3 block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f6c9ed] text-left shadow-[0_12px_25px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 hover:brightness-[1.03] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
+          <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')} className="globriva-art-crop globriva-art-crop-league relative mt-3 block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f6c9ed] text-left shadow-[0_12px_25px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 hover:brightness-[1.03] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
             <img src="/game-cards/approved-league.webp" width={862} height={116} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
           </motion.button>
         ) : (
