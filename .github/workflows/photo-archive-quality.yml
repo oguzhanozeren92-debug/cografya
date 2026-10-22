@@ -1,47 +1,127 @@
-name: Globriva - weekly photo archive quality report
+name: Globriva - daily photo search and verified archive publishing
 
 on:
   workflow_dispatch:
   schedule:
-    # Monday morning, 09:10 Turkey time (UTC+3)
-    - cron: '10 6 * * 1'
+    # Daily 08:00 Istanbul, ahead of the 09:00 ChatGPT user report
+    - cron: '0 5 * * *'
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: globriva-daily-archive
+  cancel-in-progress: false
 
 jobs:
-  archive-audit:
+  search-review-publish:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 75
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: atlas-arena
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify Wikimedia files, licenses and photo archive
+      - name: Rotate worldwide photo searches and store only new geotagged candidates
+        run: node scripts/panoramas/daily-discover.mjs
+      - name: Audit existing Commons licenses and playable archive
+        continue-on-error: true
         run: node scripts/panoramas/audit-archive.mjs --live --out=reports/photo-archive-audit.json
-      - name: Discover licensed panorama candidates in small European countries
-        run: node scripts/panoramas/discover-archive.mjs --out=reports/photo-discovery-candidates.json
-      - name: Add summary to workflow run
+      - name: Identify reviewed Street photos awaiting release
+        id: street_probe
         run: |
-          node --input-type=module -e "
-            import fs from 'node:fs';
-            const r = JSON.parse(fs.readFileSync('reports/photo-archive-audit.json', 'utf8'));
-            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
-              '# Globriva photo archive\n\n' +
-              '- Drone playable panoramas: ' + r.drone.live360 + '\n' +
-              '- Drone candidate photos: ' + r.drone.candidatePhotos + '\n' +
-              '- Editorially approved albums: ' + r.drone.editoriallyApprovedAlbums + '\n' +
-              '- Street playable locations: ' + r.street.playableLocations + '\n' +
-              '- Metadata warnings: ' + r.warnings.length + '\n' +
-              '- Metadata errors: ' + r.errors.length + '\n');
-          "
+          NEED=$(python3 scripts/panoramas/daily-publish-street.py --probe)
+          echo "needed=$NEED" >> "$GITHUB_OUTPUT"
+          echo "Street panorama backlog available: $NEED"
+      - name: Install publisher dependencies only when R2 keys are configured
+        if: env.R2_ACCOUNT_ID != '' && env.R2_ACCESS_KEY_ID != '' && env.R2_SECRET_ACCESS_KEY != ''
+        run: python3 -m pip install --break-system-packages 'Pillow>=10,<12' boto3 numpy
+      - name: Publish fully approved 3-4-photo Drone albums and verify uploads
+        if: env.R2_ACCOUNT_ID != '' && env.R2_ACCESS_KEY_ID != '' && env.R2_SECRET_ACCESS_KEY != ''
+        continue-on-error: true
+        run: python3 -u scripts/panoramas/daily-publish-drone.py
+      - name: Setup 360 panorama tile generator (only when needed)
+        if: steps.street_probe.outputs.needed == 'true' && env.R2_ACCOUNT_ID != '' && env.R2_ACCESS_KEY_ID != '' && env.R2_SECRET_ACCESS_KEY != ''
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y hugin-tools
+          git clone --depth=1 https://github.com/mpetroff/pannellum.git /tmp/pannellum
+      - name: Publish 1 pre-reviewed outdoor Street panorama and sync 4 view JPGs
+        if: env.R2_ACCOUNT_ID != '' && env.R2_ACCESS_KEY_ID != '' && env.R2_SECRET_ACCESS_KEY != ''
+        continue-on-error: true
+        run: python3 -u scripts/panoramas/daily-publish-street.py
+      - name: Create explicit no-upload reports when R2 credentials are absent
+        if: env.R2_ACCOUNT_ID == '' || env.R2_ACCESS_KEY_ID == '' || env.R2_SECRET_ACCESS_KEY == ''
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          out=pathlib.Path('panoramas/daily-discovery')
+          out.mkdir(parents=True,exist_ok=True)
+          for mode in ('drone','street'):
+              (out/(mode+'-publish-status.json')).write_text(json.dumps({
+                  'publishedTodayPhotos':0,'publishedTodayPanoramas':0,
+                  'activatedTodayPanoramas':0,
+                  'errors':['R2 credentials unavailable, no upload attempted.']
+              },indent=2)+'\n')
+          PY
+      - name: Explain results and verified publication counts
+        if: always()
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const read=p=>{try{return JSON.parse(fs.readFileSync(p,'utf8'));}catch{return {};}};
+          const d=read('panoramas/daily-discovery/latest.json');
+          const drone=read('panoramas/daily-discovery/drone-publish-status.json');
+          const street=read('panoramas/daily-discovery/street-publish-status.json');
+          const lines=[
+            '# Globriva Daily Archive',
+            'Date: '+(d.date??'not run'),
+            '- Countries and regions searched: '+(d.regionsSearched??'unknown'),
+            '- Newly discovered unique licensed candidates: '+(d.newUniqueCandidates??0),
+            '- New panoramic candidates: '+(d.new360Candidates??0),
+            '- New Drone gallery photo candidates: '+(d.newGalleryCandidates??0),
+            '- In editorial queue: '+(d.pendingReview??'unknown'),
+            '- Drone gallery albums actually published today: '+(drone.publishedTodayAlbums??0),
+            '- Drone gallery photos actually uploaded today: '+(drone.publishedTodayPhotos??0),
+            '- Street panorama sets uploaded today: '+(street.publishedTodayPanoramas??0),
+            '- Street panorama sets newly activated today: '+(street.activatedTodayPanoramas??0),
+            '- Drone gallery active at 50 verified photos and >=10 countries: '+(drone.activated??false),
+            '- Drone publisher errors: '+(drone.errors??[]).join(' | '),
+            '- Street publisher errors: '+(street.errors??[]).join(' | '),
+            '- Discovery warnings: '+(d.warnings??[]).join(' | '),
+            '',
+            'Newly discovered photos are NOT uploaded without validated photo/location/license/editorial review.'
+          ];
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,lines.join('\n')+'\n');
+          console.log(lines.join('\n'));
+          NODE
+      - name: Commit candidate history, published approved panorama catalog and verified JPGs
+        if: always()
+        run: |
+          git config user.name "globriva-archive-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add panoramas/daily-discovery server/street/approved.mjs server/street/photo-ready.mjs public/street-photos
+          if ! git diff --staged --quiet; then
+            git commit -m "data(globriva): daily deduplicated search and verified photo archive"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: globriva-photo-archive-audit
+          name: globriva-daily-archive
           path: |
+            panoramas/daily-discovery/latest.json
+            panoramas/daily-discovery/drone-publish-status.json
+            panoramas/daily-discovery/street-publish-status.json
             reports/photo-archive-audit.json
-            reports/photo-discovery-candidates.json
           if-no-files-found: warn
           retention-days: 30
