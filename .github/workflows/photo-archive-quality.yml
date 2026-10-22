@@ -2,6 +2,10 @@ name: Globriva - daily photo search and verified archive publishing
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/photo-archive-quality.yml'
   schedule:
     # Daily 08:00 Istanbul, ahead of the 09:00 ChatGPT user report
     - cron: '0 5 * * *'
