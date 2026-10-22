@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef, useState } from 'react';
 import {
-  ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Globe2,
+  ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Globe2, Landmark,
   Lightbulb, MapPinned, Pencil, Play, ShieldCheck, Sparkles,
   Trophy, UserRound, Volume2, VolumeX, Swords,
 } from 'lucide-react';
@@ -31,6 +31,7 @@ interface StartScreenProps {
   onStreet: () => void;
   onStreetLeaderboard: () => void;
   onDrone: () => void;
+  onHistory: () => void;
   onVersus: () => void;
 }
 
@@ -38,7 +39,7 @@ const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
 
 export function StartScreen({
   onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly,
-  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onDrone, onVersus,
+  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onDrone, onHistory, onVersus,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
   const { language, setLanguage, t } = useLanguage();
@@ -49,6 +50,7 @@ export function StartScreen({
   const [queuedMode, setQueuedMode] = useState<GameMode | null>(null);
   const [queuedStreet, setQueuedStreet] = useState(false);
   const [queuedDrone, setQueuedDrone] = useState(false);
+  const [queuedHistory, setQueuedHistory] = useState(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const completed = loadDailyProgress(getDailyDate()).answers.length;
   const found = getDiscoveredCountries().length;
@@ -84,6 +86,16 @@ export function StartScreen({
     onDrone();
   };
 
+  const startHistory = () => {
+    if (!canPlay) {
+      setQueuedHistory(true);
+      setEditing(true);
+      nameInputRef.current?.focus();
+      return;
+    }
+    onHistory();
+  };
+
   const save = async () => {
     if (!name.trim() || busy) return;
     setBusy(true);
@@ -102,6 +114,10 @@ export function StartScreen({
       if (queuedDrone) {
         setQueuedDrone(false);
         onDrone();
+      }
+      if (queuedHistory) {
+        setQueuedHistory(false);
+        onHistory();
       }
       setError('');
     } catch {
@@ -550,7 +566,36 @@ export function StartScreen({
           )}
         </motion.section>
 
-        <motion.section {...entrance(3)} className="mt-5">
+        <motion.section {...entrance(3)} className="mt-3">
+          <button type="button" onClick={startHistory}
+            aria-label={language === 'tr' ? 'Medeniyet Dedektifi oyununu başlat' : 'Play Civilization Detective'}
+            className="group relative isolate flex min-h-[137px] w-full items-center overflow-hidden rounded-[24px] border border-amber-200/70 bg-[#4c3e4f] px-4 py-4 text-left text-white shadow-[0_14px_30px_rgba(2,10,30,.3)] transition-all duration-200 hover:brightness-110 active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
+            <img src="/street-photos/p19737b3c805ad373c5e91276/f.jpg"
+              alt="" aria-hidden="true" draggable={false} loading="lazy"
+              className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-center opacity-75 transition-transform duration-500 group-hover:scale-[1.05]"/>
+            <span aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#25172c]/95 via-[#3c2a42]/85 to-[#2d334c]/30"/>
+            <span aria-hidden="true"
+              className="mr-3 grid h-14 w-14 shrink-0 place-items-center rounded-[18px] border border-amber-200/60 bg-amber-200/15 text-amber-100 backdrop-blur-sm">
+              <Landmark className="h-8 w-8"/>
+            </span>
+            <span className="min-w-0 flex-1">
+              <small className="mb-1 block text-[10px] font-black tracking-[.10em] text-amber-200">
+                {language === 'tr' ? 'YENİ · 360° TARİH MACERASI' : 'NEW · 360° HISTORY ADVENTURE'}
+              </small>
+              <strong className="block text-[clamp(17px,4.5vw,23px)] font-black leading-tight">
+                {language === 'tr' ? 'Medeniyet Dedektifi' : 'Civilization Detective'}
+              </strong>
+              <span className="mt-1 block max-w-[250px] text-[11px] font-semibold leading-4 text-white/90">
+                {language === 'tr' ? '5 tarihî mekân · 15 soru · Uygarlığı, dönemi ve amacı çöz!'
+                  : '5 historical sites · 15 questions · Discover cultures, eras and purpose!'}
+              </span>
+            </span>
+            <ChevronRight className="ml-1 h-6 w-6 shrink-0 text-amber-100"/>
+          </button>
+        </motion.section>
+
+        <motion.section {...entrance(4)} className="mt-5">
           <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
           {language === 'tr' ? (
             <div className="mt-2 grid grid-cols-2 gap-3">
