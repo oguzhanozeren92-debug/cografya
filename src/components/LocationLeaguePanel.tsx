@@ -41,12 +41,18 @@ export function LocationLeaguePanel({
     return()=>{active=false;};
   },[mode,period,reload]);
   const myIndex=rows.findIndex(x=>x.player_id===me);
+  const fairWeeklyActive = new Date().toISOString().slice(0, 10) >= '2026-10-26';
+  const leagueRule = period === 'weekly' && fairWeeklyActive
+    ? (language === 'tr'
+      ? 'Haftalık lig: Herkes aynı 5 fotoğrafı oynar. Sadece ilk tamamlanan 5\'li turun puanı sayılır; tekrarlar kişisel rekor içindir.'
+      : 'Weekly league: Everyone plays the same 5 photos. Only the first completed five-photo run counts; replays improve your personal best.')
+    : t('Her oyuncunun en yüksek 5 turluk skoru listelenir.');
   return <section className="street-card space-y-4 p-4 sm:p-5">
     <div className="flex items-start gap-3">
       <Trophy className="h-8 w-8 shrink-0 text-amber-300"/>
       <div className="min-w-0 flex-1">
         <h2 className="text-lg font-black">{t(mode==='street'?'Sokak Dedektifi':'Dron Dedektifi')} {t('Dünya Ligi')}</h2>
-        <p className="mt-1 text-xs text-blue-100/70">{t('Şifresiz, takma adlı yarışma. Her oyuncunun en yüksek 5 turluk skoru listelenir.')}</p>
+        <p className="mt-1 text-xs text-blue-100/70">{leagueRule}</p>
       </div>
       <button type="button" onClick={()=>setReload(x=>x+1)} aria-label={t("Sıralamayı yenile")} className="street-round-button">
         <RefreshCw className={'h-4 w-4'+(loading?' animate-spin':'')}/>
