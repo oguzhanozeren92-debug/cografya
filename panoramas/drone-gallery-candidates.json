@@ -32,7 +32,7 @@
           "license": "CC BY 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -42,7 +42,7 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -52,7 +52,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -62,13 +62,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_individual_image_composition_license_and_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-002",
@@ -101,7 +101,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -111,7 +111,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -121,7 +121,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -131,13 +131,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_individual_image_composition_license_and_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-003",
@@ -170,7 +170,7 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -180,7 +180,7 @@
           "license": "CC BY 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -190,7 +190,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -200,13 +200,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_individual_image_composition_license_and_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-004",
@@ -239,7 +239,7 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -249,7 +249,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -259,13 +259,13 @@
           "license": "CC0",
           "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_individual_image_composition_license_and_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-005",
@@ -298,7 +298,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -308,7 +308,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -318,13 +318,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-006",
@@ -357,7 +357,7 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -367,7 +367,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -377,13 +377,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-007",
@@ -412,11 +412,11 @@
         {
           "sourceTitle": "File:Tokyo SkyTree.jpg",
           "source": "https://commons.wikimedia.org/wiki/File:Tokyo_SkyTree.jpg",
-          "artist": "Adn tl",
+          "artist": "adn_tl",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -426,7 +426,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -436,13 +436,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-008",
@@ -475,7 +475,7 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -485,7 +485,7 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -495,13 +495,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-009",
@@ -534,7 +534,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -544,7 +544,7 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -554,13 +554,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-010",
@@ -593,7 +593,7 @@
           "license": "CC BY 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -603,23 +603,23 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
           "sourceTitle": "File:Sugarloaf Mountain - Rio de Janeiro.jpg",
           "source": "https://commons.wikimedia.org/wiki/File:Sugarloaf_Mountain_-_Rio_de_Janeiro.jpg",
-          "artist": "Tlrmediax",
+          "artist": "Tlrmedia",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-011",
@@ -652,7 +652,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -662,7 +662,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -672,13 +672,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-012",
@@ -711,7 +711,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -721,7 +721,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -731,13 +731,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-013",
@@ -770,7 +770,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -780,7 +780,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -790,13 +790,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-014",
@@ -829,7 +829,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -839,7 +839,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -849,13 +849,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-015",
@@ -888,7 +888,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -898,7 +898,7 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -908,13 +908,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     },
     {
       "id": "album-016",
@@ -947,17 +947,17 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
           "sourceTitle": "File:Palacio de Bellas Artes, Mexico City, MX.jpg",
           "source": "https://commons.wikimedia.org/wiki/File:Palacio_de_Bellas_Artes%2C_Mexico_City%2C_MX.jpg",
-          "artist": "Tyrv",
+          "artist": "Timothy Neesam",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         },
         {
@@ -967,13 +967,13 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "reviewedVisual": false,
-          "reviewedLicense": false,
+          "reviewedLicense": true,
           "reviewedPlace": false
         }
       ],
       "reviewedLocation": false,
       "reviewedQuality": false,
-      "editorialStatus": "sourced_pending_visual_license_place_review"
+      "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
     }
   ]
 }
