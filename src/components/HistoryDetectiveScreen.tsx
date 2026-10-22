@@ -152,6 +152,7 @@ export function HistoryDetectiveScreen({
       const nextBest=Math.max(best,total);
       setBest(nextBest);
       try{localStorage.setItem(BEST_KEY,String(nextBest));}catch{/* optional */}
+      setRoundPoints(0);
       setStage('finish');
       if(!completedRef.current){
         completedRef.current=true;
