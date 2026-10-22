@@ -446,7 +446,7 @@ export function StartScreen({
                 <img src="/game-cards/approved-vs.webp" width={865} height={209} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
                 
               </button>
-              <button type="button" onClick={startDrone} aria-label={t('Drone'dan Konumu Bul')} className="relative mt-3 block w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#132947] text-left shadow-[0_12px_25px_rgba(0,5,25,.25)] transition-[transform,filter] duration-150 hover:brightness-[1.04] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
+              <button type="button" onClick={startDrone} aria-label={t("Drone'dan Konumu Bul")} className="relative mt-3 block w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#132947] text-left shadow-[0_12px_25px_rgba(0,5,25,.25)] transition-[transform,filter] duration-150 hover:brightness-[1.04] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
                 <img src="/game-cards/approved-drone.webp" width={865} height={329} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
                 
               </button>
