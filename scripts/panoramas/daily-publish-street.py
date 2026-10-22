@@ -65,8 +65,7 @@ def main():
     if args.probe:
         print('true' if (pending or incomplete) else 'false')
         return
-    old=read_catalog()
-    beforeIds={p['id'] for p in old}
+    beforeReady=ready_ids()
     info={'date':datetime.now(timezone.utc).date().isoformat(),
         'editoriallyApprovedOutdoorPending':len(pending),
         'publishedTodayPanoramas':0,'activatedTodayPanoramas':0,
@@ -92,7 +91,7 @@ def main():
         except Exception as e:
             info['errors'].append('Static photo sync: '+str(e)[:180])
     afterIds=ready_ids()
-    info['activatedTodayPanoramas']=len(afterIds-beforeIds)
+    info['activatedTodayPanoramas']=len(afterIds-beforeReady)
     info['readyTotalPanoramas']=len(afterIds)
     write(info)
 
