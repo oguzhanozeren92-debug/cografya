@@ -23,9 +23,31 @@ const formatKm = (n: number) => new Intl.NumberFormat('tr-TR', {
   maximumFractionDigits: n < 10 ? 1 : 0,
 }).format(n);
 function shuffled(catalog: DronePanorama[] = dronePanoramas): DronePanorama[] {
-  const items = [...catalog];
+  // Weekly league: one fixed set of five photos for everyone (Monday UTC).
+  // Use the current shuffle through 25 Oct to preserve existing weekly scores.
+  const today = new Date();
+  const monday = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(),
+    today.getUTCDate() - ((today.getUTCDay() + 6) % 7)));
+  const weekly = monday.toISOString().slice(0, 10) >= '2026-10-26';
+  const items = weekly
+    ? [...catalog].sort((a, b) => a.id.localeCompare(b.id))
+    : [...catalog];
+  let random = Math.random;
+  if (weekly) {
+    const key = 'globriva-drone-five:' + monday.toISOString().slice(0, 10);
+    let seed = 2166136261;
+    for (let i = 0; i < key.length; i++) {
+      seed = Math.imul(seed ^ key.charCodeAt(i), 16777619);
+    }
+    random = () => {
+      seed = (seed + 0x6D2B79F5) >>> 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
   for (let i = items.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(random() * (i + 1));
     [items[i], items[j]] = [items[j], items[i]];
   }
   // Keep a five-round game even when the remote library grows beyond 50.
