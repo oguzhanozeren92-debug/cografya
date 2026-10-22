@@ -70,12 +70,34 @@ export function chooseRounds() {
   // nondescript forest paths. Reserve the fifth round for a modest challenge.
   const pool = approvedPanoramas.filter(x=>x.approved === true &&
     ready.has(x.id) && STREET_PLAYABLE_IDS.has(x.id) && COUNTRY_HINTS[x.country]);
-  const shuffle = items => {
-    for(let i=items.length-1;i>0;i--){
-      const j=Math.floor(Math.random()*(i+1));
-      [items[i],items[j]]=[items[j],items[i]];
+  // Each player gets the SAME five-country weekly challenge from Monday UTC.
+  // Start on 26 Oct 2026, so the current week's existing results stay comparable.
+  const today = new Date();
+  const monday = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(),
+    today.getUTCDate() - ((today.getUTCDay() + 6) % 7)));
+  const weekly = monday.toISOString().slice(0, 10) >= '2026-10-26';
+  let random = Math.random;
+  if (weekly) {
+    const key = 'globriva-street-five:' + monday.toISOString().slice(0, 10);
+    let seed = 2166136261;
+    for (let i = 0; i < key.length; i++) {
+      seed = Math.imul(seed ^ key.charCodeAt(i), 16777619);
     }
-    return items;
+    random = () => {
+      seed = (seed + 0x6D2B79F5) >>> 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  const shuffle = items => {
+    // Canonical sorting keeps each week's result independent of catalog order.
+    const sorted = weekly ? [...items].sort((a, b) => a.id.localeCompare(b.id)) : [...items];
+    for (let i = sorted.length - 1; i > 0; i--) {
+      const j = Math.floor(random() * (i + 1));
+      [sorted[i], sorted[j]] = [sorted[j], sorted[i]];
+    }
+    return sorted;
   };
   const easy=shuffle(pool.filter(row=>STREET_EASY_IDS.has(row.id)));
   const medium=shuffle(pool.filter(row=>!STREET_EASY_IDS.has(row.id)));
