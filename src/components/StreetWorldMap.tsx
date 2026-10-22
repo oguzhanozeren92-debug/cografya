@@ -1,19 +1,32 @@
-import { useMemo, useRef, useState, type PointerEvent } from 'react';
+import { useMemo, useRef, useState, type PointerEvent, type WheelEvent } from 'react';
 import { geoContains, geoInterpolate, geoNaturalEarth1, geoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
 import { LocateFixed, Minus, Plus } from 'lucide-react';
-import world from 'world-atlas/countries-110m.json';
+import world from 'world-atlas/countries-50m.json';
 import type { Coordinates } from '@/lib/streetLocations';
 import { useLanguage } from '@/lib/i18n';
 
 type Shape = {id?:string|number;geometry:unknown;type:string;properties?:{name?:string}};
-const W=1000,H=540;
+const W=1000,H=540,MAX_ZOOM=40;
 const topology=world as unknown as {objects:{countries:unknown}};
 const countries=(feature(topology as never,topology.objects.countries as never) as unknown as {features:Shape[]}).features;
 const projection=geoNaturalEarth1().fitExtent([[13,12],[W-13,H-12]],
   {type:'FeatureCollection',features:countries} as never);
 const worldPath=geoPath(projection);
 const outlines=countries.map((country,i)=>({key:String(country.id??i),d:worldPath(country as never)??''})).filter(x=>x.d);
+const countryLabels=countries.flatMap((country,i)=>{
+  const name=country.properties?.name;
+  if(!name)return [];
+  const [x,y]=worldPath.centroid(country as never);
+  const [[minX,minY],[maxX,maxY]]=worldPath.bounds(country as never);
+  if(![x,y,minX,minY,maxX,maxY].every(Number.isFinite))return [];
+  return [{id:String(country.id??i),name,x,y,width:maxX-minX}];
+});
+const focusPresets=[
+  {label:'Avrupa', lat:50.2,lng:15.5,zoom:4.5},
+  {label:'Balkanlar',lat:43.7,lng:21,zoom:9},
+  {label:'Benelüks',lat:51,lng:5.1,zoom:17},
+] as const;
 const position=(p:Coordinates):[number,number]|null=>projection([p.lng,p.lat]) as [number,number]|null;
 const COUNTRY_NUMERIC_IDS: Record<string,number> = {
   'Kamboçya':116, 'Gürcistan':268, 'Fransa':250, 'Almanya':276,
@@ -64,7 +77,7 @@ export function StreetWorldMap({
   },[actual?.lat,actual?.lng,guess?.lat,guess?.lng]);
 
   const clamp=(zoom:number,cx:number,cy:number)=>{
-    const nextZoom=Math.max(1,Math.min(8,zoom));
+    const nextZoom=Math.max(1,Math.min(MAX_ZOOM,zoom));
     const halfW=W/nextZoom/2,halfH=H/nextZoom/2;
     return {zoom:nextZoom,cx:Math.max(halfW,Math.min(W-halfW,cx)),
       cy:Math.max(halfH,Math.min(H-halfH,cy))};
@@ -75,8 +88,24 @@ export function StreetWorldMap({
   };
   const zoomBy=(factor:number)=>{
     const current=liveView.current;
-    const next=current.zoom*factor;
-    updateView(next,current.cx,current.cy);
+    updateView(current.zoom*factor,current.cx,current.cy);
+  };
+  const focusRegion=(lat:number,lng:number,scale:number)=>{
+    const xy=projection([lng,lat]);
+    if(!xy)return;
+    updateView(scale,xy[0],xy[1]);
+  };
+  const wheel=(e:WheelEvent<SVGSVGElement>)=>{
+    if(locked)return;
+    e.preventDefault();
+    // Zoom under the pointer, keeping the geographic position in place.
+    const rect=e.currentTarget.getBoundingClientRect();
+    const v=liveView.current;
+    const zoom=Math.min(MAX_ZOOM,Math.max(1,v.zoom*Math.exp(-e.deltaY*.002)));
+    const width=W/v.zoom,height=H/v.zoom;
+    const nx=(e.clientX-rect.left)/rect.width,ny=(e.clientY-rect.top)/rect.height;
+    const worldX=v.cx-width/2+nx*width,worldY=v.cy-height/2+ny*height;
+    updateView(zoom,worldX+(0.5-nx)*W/zoom,worldY+(0.5-ny)*H/zoom);
   };
   const mapPoint=(e:PointerEvent<SVGSVGElement>)=>{
     const rect=e.currentTarget.getBoundingClientRect();
@@ -118,7 +147,7 @@ export function StreetWorldMap({
       const p=pinch.current;
       if(!p)return;
       const distance=Math.hypot(a.x-b.x,a.y-b.y);
-      const nextZoom=Math.max(1,Math.min(8,p.zoom*distance/p.distance));
+      const nextZoom=Math.max(1,Math.min(MAX_ZOOM,p.zoom*distance/p.distance));
       const width=W/nextZoom,height=H/nextZoom;
       const midX=(a.x+b.x)/2,midY=(a.y+b.y)/2;
       updateView(nextZoom,
@@ -164,36 +193,70 @@ export function StreetWorldMap({
     drag.current=null;pinch.current=null;pinchUsed.current=true;
     if(touches.current.size===0)pinchUsed.current=false;
   };
+  const visibleLabels=zoom>=3.5?countryLabels.filter(l=>
+    l.x>=viewX&&l.x<=viewX+vw&&l.y>=viewY&&l.y<=viewY+vh&&
+    l.width*zoom*0.38>=42
+  ).slice(0,75):[];
   return (
     <div className="street-map relative overflow-hidden rounded-[20px] border border-[#5c839e]/55 bg-[#102944]">
       <svg viewBox={[viewX,viewY,vw,vh].join(' ')} preserveAspectRatio="none"
-        className="block h-[min(54dvh,420px)] min-h-[330px] w-full select-none"
-        style={{touchAction:'none',cursor:locked?'default':'crosshair'}}
+        className="block h-[min(56dvh,470px)] min-h-[350px] w-full select-none"
+        style={{touchAction:'none',cursor:locked?'grab':'crosshair'}}
         role="application" aria-label={t("Dünya haritası. İki parmakla yakınlaştır, bir parmakla sürükle, dokunarak konum seç.")}
         onPointerDown={down} onPointerMove={move} onPointerUp={up}
-        onPointerCancel={cancel}>
-        <rect x="0" y="0" width={W} height={H} fill="#193f62"/>
-        {Array.from({length:11},(_,i)=><line key={'h'+i} x1="0" y1={i*54} x2={W} y2={i*54} stroke="#a9d5e0" strokeOpacity=".10"/>)}
-        {Array.from({length:19},(_,i)=><line key={'v'+i} x1={i*55.55} y1="0" x2={i*55.55} y2={H} stroke="#a9d5e0" strokeOpacity=".10"/>)}
-        <g fill="#699b83" stroke="#b1cbb4" strokeWidth=".65">
+        onPointerCancel={cancel} onWheel={wheel}>
+        <defs>
+          <linearGradient id="atlasMapOcean" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#173f68"/>
+            <stop offset="55%" stopColor="#103654"/>
+            <stop offset="100%" stopColor="#0c284b"/>
+          </linearGradient>
+          <linearGradient id="atlasMapLand" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#81b8a0"/>
+            <stop offset="65%" stopColor="#5da28c"/>
+            <stop offset="100%" stopColor="#458c79"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width={W} height={H} fill="url(#atlasMapOcean)"/>
+        {Array.from({length:11},(_,i)=><line key={'h'+i} x1="0" y1={i*54} x2={W} y2={i*54} stroke="#a9d5e0" strokeWidth={.7/zoom} strokeOpacity=".18"/>)}
+        {Array.from({length:19},(_,i)=><line key={'v'+i} x1={i*55.55} y1="0" x2={i*55.55} y2={H} stroke="#a9d5e0" strokeWidth={.7/zoom} strokeOpacity=".18"/>)}
+        <g fill="url(#atlasMapLand)" stroke="#d6e9d8" strokeWidth={1.8/zoom} strokeLinejoin="round">
           {outlines.map(x=><path key={x.key} d={x.d}/>)}
         </g>
-        {line&&<path d={line} stroke="#f6dd85" strokeWidth={3/Math.sqrt(zoom)} strokeDasharray="7 5" fill="none"/>}
+        <g pointerEvents="none" textAnchor="middle" fill="#102e3d" fontWeight={800}
+          fontSize={31/zoom} paintOrder="stroke" stroke="#dcf6e6" strokeWidth={3/zoom}
+          strokeLinejoin="round">
+          {visibleLabels.map(l=><text key={l.id} x={l.x} y={l.y}>{l.name}</text>)}
+        </g>
+        {line&&<path d={line} stroke="#ffdf81" strokeWidth={3/zoom} strokeDasharray={`${7/zoom} ${5/zoom}`} fill="none"/>}
         {actualXY&&<g transform={'translate('+actualXY[0]+' '+actualXY[1]+')'}>
-          <circle r={11/Math.sqrt(zoom)} fill="#43e1a9" fillOpacity=".24"/>
-          <circle r={5.5/Math.sqrt(zoom)} fill="#25d5a0" stroke="white" strokeWidth="2"/>
+          <circle r={19/zoom} fill="#43e1a9" fillOpacity=".24"/>
+          <circle r={9/zoom} fill="#16c58a" stroke="white" strokeWidth={2.6/zoom}/>
         </g>}
         {guessXY&&<g transform={'translate('+guessXY[0]+' '+guessXY[1]+')'}>
-          <circle r={12/Math.sqrt(zoom)} fill="#ff9479" fillOpacity=".35"/>
-          <circle r={6/Math.sqrt(zoom)} fill="#fc796d" stroke="white" strokeWidth="2"/>
+          <circle r={20/zoom} fill="#ff9479" fillOpacity=".32"/>
+          <circle r={9/zoom} fill="#f77865" stroke="white" strokeWidth={2.6/zoom}/>
         </g>}
       </svg>
-      <div className="pointer-events-none absolute bottom-3 left-3 rounded-xl border border-[#bfdae4]/20 bg-[#0c223c]/85 px-3 py-2 text-[11px] font-bold text-white">
+      <div className="absolute left-2 top-2 z-10 flex max-w-[calc(100%-62px)] flex-wrap gap-1.5">
+        {focusPresets.map(preset=>(
+          <button key={preset.label} type="button"
+            onClick={()=>focusRegion(preset.lat,preset.lng,preset.zoom)}
+            className="rounded-lg border border-cyan-200/35 bg-[#0b294b]/90 px-2.5 py-2 text-[11px] font-extrabold text-cyan-50 shadow-[0_2px_8px_rgba(0,0,0,.3)] active:scale-[.96]"
+            aria-label={t(preset.label)+' '+t('haritasına yakınlaştır')}>
+            {t(preset.label)}
+          </button>
+        ))}
+      </div>
+      <div className="pointer-events-none absolute bottom-3 left-3 max-w-[78%] rounded-xl border border-[#bfdae4]/20 bg-[#0c223c]/90 px-3 py-2 text-[11px] font-bold text-white">
         {locked?'🟠 '+t('Tahmin')+' · 🟢 '+t('Gerçek konum'):guess?'📍 '+t('Tahminin seçildi'):'🌍 '+t('Haritada bir yere dokun')}
       </div>
-      <div className="absolute right-3 top-3 flex flex-col gap-2">
-        <button type="button" onClick={()=>zoomBy(1.6)} aria-label={t("Haritayı yakınlaştır")} className="street-map-button"><Plus className="h-4 w-4"/></button>
-        <button type="button" onClick={()=>zoomBy(1/1.6)} aria-label={t("Haritayı uzaklaştır")} className="street-map-button"><Minus className="h-4 w-4"/></button>
+      <div className="absolute right-3 top-3 z-10 flex flex-col gap-2">
+        <span className="rounded-lg border border-cyan-200/20 bg-[#092642]/90 px-1.5 py-1 text-center text-[10px] font-extrabold text-white" aria-live="off">
+          {Math.round(zoom*10)/10}×
+        </span>
+        <button type="button" disabled={zoom>=MAX_ZOOM} onClick={()=>zoomBy(1.8)} aria-label={t("Haritayı yakınlaştır")} className="street-map-button"><Plus className="h-4 w-4"/></button>
+        <button type="button" disabled={zoom<=1} onClick={()=>zoomBy(1/1.8)} aria-label={t("Haritayı uzaklaştır")} className="street-map-button"><Minus className="h-4 w-4"/></button>
         <button type="button" onClick={()=>updateView(1,W/2,H/2)} aria-label={t("Haritayı sıfırla")} className="street-map-button"><LocateFixed className="h-4 w-4"/></button>
       </div>
     </div>
