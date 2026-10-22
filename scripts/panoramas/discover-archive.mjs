@@ -29,7 +29,7 @@ for(const target of targets){
   const params=new URLSearchParams({
     action:'query',format:'json',generator:'search',
     gsrsearch:target.query,gsrnamespace:'6',gsrlimit:'25',
-    prop:'imageinfo',iiprop:'url|size|extmetadata'
+    prop:'imageinfo',iiprop:'url|size|extmetadata',iiurlwidth:'480'
   });
   try {
     const response=await fetch('https://commons.wikimedia.org/w/api.php?'+params,{
@@ -55,6 +55,7 @@ for(const target of targets){
         countrySearchHint:target.country,title:page.title,
         source:'https://commons.wikimedia.org/wiki/'+encodeURIComponent(page.title).replaceAll('%3A',':'),
         license,width:image.width,height:image.height,aspect:Number(aspect.toFixed(3)),score,
+        thumbnailUrl:image.thumburl??null, originalImageUrl:image.url??null,
         countryVerified:false,coordinatesVerified:false,visualQualityReviewed:false,
         panoramaProjectionReviewed:false,attributionVerified:false,
         status:'candidate_only_not_published',
