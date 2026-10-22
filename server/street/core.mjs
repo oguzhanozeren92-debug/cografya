@@ -1,7 +1,7 @@
 import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 import { approvedPanoramas } from './approved.mjs';
 import { approvedPhotoIds } from './photo-ready.mjs';
-import { COUNTRY_HINTS, STREET_PLAYABLE_IDS, STREET_EASY_IDS } from './country-mode.mjs';
+import { COUNTRY_HINTS, STREET_PLAYABLE_IDS, STREET_PLAYABLE_SOURCE_IDS, STREET_EASY_IDS } from './country-mode.mjs';
 
 const SECRET = process.env.STREET_SESSION_SECRET ?? '';
 export const ROUNDS = 5;
@@ -69,7 +69,7 @@ export function chooseRounds() {
   // Only show curated and successfully synced photos, never random interiors or
   // nondescript forest paths. Reserve the fifth round for a modest challenge.
   const pool = approvedPanoramas.filter(x=>x.approved === true &&
-    ready.has(x.id) && STREET_PLAYABLE_IDS.has(x.id) && COUNTRY_HINTS[x.country]);
+    ready.has(x.id) && (STREET_PLAYABLE_IDS.has(x.id) || STREET_PLAYABLE_SOURCE_IDS.has(x.sourceId)) && COUNTRY_HINTS[x.country]);
   // Each player gets the SAME five-country weekly challenge from Monday UTC.
   // Start on 26 Oct 2026, so the current week's existing results stay comparable.
   const today = new Date();
