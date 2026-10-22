@@ -20,6 +20,8 @@ jobs:
           node-version: '22'
       - name: Verify Wikimedia files, licenses and photo archive
         run: node scripts/panoramas/audit-archive.mjs --live --out=reports/photo-archive-audit.json
+      - name: Discover licensed panorama candidates in small European countries
+        run: node scripts/panoramas/discover-archive.mjs --out=reports/photo-discovery-candidates.json
       - name: Add summary to workflow run
         run: |
           node --input-type=module -e "
@@ -38,6 +40,8 @@ jobs:
         if: always()
         with:
           name: globriva-photo-archive-audit
-          path: reports/photo-archive-audit.json
+          path: |
+            reports/photo-archive-audit.json
+            reports/photo-discovery-candidates.json
           if-no-files-found: warn
           retention-days: 30
