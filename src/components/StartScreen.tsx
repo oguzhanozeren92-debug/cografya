@@ -447,9 +447,9 @@ export function StartScreen({
             <ChevronRight className="h-6 w-6 shrink-0" />
           </button>
 
-          <div className="mt-3 overflow-hidden rounded-[23px] border border-emerald-200/40 bg-gradient-to-br from-[#176c7c] via-[#174b69] to-[#172e53] shadow-[0_12px_26px_rgba(0,7,27,.24)]">
+          <div className="globriva-drone-stage mt-3 overflow-hidden rounded-[23px] border border-emerald-200/40 bg-gradient-to-br from-[#176c7c] via-[#174b69] to-[#172e53] shadow-[0_12px_26px_rgba(0,7,27,.24)]">
             <button type="button" onClick={startDrone}
-              className="flex min-h-[116px] w-full items-center gap-3 px-3 py-4 text-left text-white">
+              className="globriva-drone-button flex min-h-[116px] w-full items-center gap-3 px-3 py-4 text-left text-white">
               <span aria-hidden="true" className="grid h-[72px] w-[72px] shrink-0 place-items-center rounded-[18px] border border-white/20 bg-emerald-200/20 text-[32px] shadow-inner">🚁</span>
               <span className="min-w-0 flex-1">
                 <small className="block text-[10px] font-black tracking-[.08em] text-emerald-200">
@@ -464,7 +464,7 @@ export function StartScreen({
             </button>
           </div>
 
-          <div className="street-entry mt-3 overflow-hidden rounded-[23px]">
+          <div className="street-entry globriva-street-stage mt-3 overflow-hidden rounded-[23px]">
             <button type="button" onClick={startStreet} className="street-entry-main flex w-full items-center gap-3 text-left">
               <span className="street-entry-art" aria-hidden="true"><Camera className="h-9 w-9" strokeWidth={1.7}/><span>📍</span></span>
               <span className="min-w-0 flex-1">
@@ -484,12 +484,12 @@ export function StartScreen({
         <motion.section {...entrance(3)} className="mt-5">
           <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
           <div className="aa-quick-grid mt-2 grid grid-cols-2 gap-3">
-            <button type="button" onClick={onDaily} className="aa-quick aa-daily">
+            <button type="button" onClick={onDaily} className="aa-quick aa-daily globriva-daily-art">
               <CalendarCheck className="h-6 w-6 text-amber-200" />
               <strong>{t('Günlük 10 soru')}</strong>
               <small>{completed}/{DAILY_TOTAL} {t('tamamlandı')}</small>
             </button>
-            <button type="button" onClick={onExplore} className="aa-quick aa-map">
+            <button type="button" onClick={onExplore} className="aa-quick aa-map globriva-explore-art">
               <MapPinned className="h-6 w-6 text-cyan-200" />
               <strong>{t('Keşif haritası')}</strong>
               <small>{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</small>
@@ -499,7 +499,7 @@ export function StartScreen({
 
         <motion.button {...entrance(4)} type="button"
           onClick={() => onViewWeekly('mixed')}
-          className="aa-league mt-3 flex w-full items-center gap-3 text-left">
+          className="aa-league globriva-league-art mt-3 flex w-full items-center gap-3 text-left">
           <span className="aa-league-icon"><Trophy className="h-6 w-6" /></span>
           <span className="min-w-0 flex-1">
             <strong>{t('Haftalık sıralama')}</strong>
