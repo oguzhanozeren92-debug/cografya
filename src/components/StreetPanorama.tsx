@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { RefreshCcw, SkipForward, AlertCircle } from 'lucide-react';
+import 'pannellum/build/pannellum.css';
 
 export type PanoramaMedia =
   | { mode:'gallery'; images: Array<{url:string;credit:{artist:string;license:string;licenseUrl:string;source:string}}> }
@@ -24,22 +25,20 @@ interface Viewer {
 declare global { interface Window {
   pannellum?:{viewer:(element:HTMLElement,config:Record<string,unknown>)=>Viewer};
 }}
+// Pannellum now ships inside the app bundle. iOS/Safari no longer needs an
+// extra third-party CDN request to start the interactive 360° renderer.
 let libraryPromise:Promise<void>|null=null;
 function ensurePannellum():Promise<void> {
   if (window.pannellum?.viewer) return Promise.resolve();
   if (libraryPromise) return libraryPromise;
-  libraryPromise = new Promise<void>((resolve,reject)=>{
-    const css=document.createElement('link');
-    css.rel='stylesheet';
-    css.href='https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css';
-    document.head.appendChild(css);
-    const js=document.createElement('script');
-    js.async=true;
-    js.src='https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js';
-    js.onload=()=>window.pannellum?.viewer?resolve():reject(new Error('360° görüntüleyici başlatılamadı.'));
-    js.onerror=()=>reject(new Error('360° oynatıcı indirilemedi. İnternet bağlantını kontrol et.'));
-    document.head.appendChild(js);
-  }).catch((err:unknown)=>{libraryPromise=null;throw err;});
+  libraryPromise=import('pannellum/build/pannellum.js')
+    .then(()=>{
+      if(!window.pannellum?.viewer)throw new Error('360° görüntüleyici başlatılamadı.');
+    })
+    .catch((error:unknown)=>{
+      libraryPromise=null;
+      throw error;
+    });
   return libraryPromise;
 }
 // Only the next round's small front-face image is warmed. Full 360° images
@@ -58,7 +57,7 @@ export function warmStreetPreview(round?:StreetRound):void {
   img.src=src;
 }
 
-const MAX_WAIT_MS=9000;
+const MAX_WAIT_MS=18000;
 
 export function StreetPanorama({
   round,onReady,onError,onSkip,
@@ -97,7 +96,7 @@ export function StreetPanorama({
       // Deferring destruction avoids mutating Pannellum during its error callback.
       queueMicrotask(()=>{try{viewer?.destroy();viewer=null;}catch{/* ignore */}});
     };
-    timeoutTimer=setTimeout(()=>fail('9 saniyede açılamadı. Tekrar dene veya sonraki konuma geç.'),MAX_WAIT_MS);
+    timeoutTimer=setTimeout(()=>fail('360° görüntü 18 saniyede yüklenmedi. Yeniden dene.'),MAX_WAIT_MS);
     void (async()=>{
       const media=round.media;
       // The signed session already supplies validated multiRes metadata.
