@@ -440,6 +440,30 @@ export function StartScreen({
           </div>
 
 
+          {language === 'tr' ? (
+            <>
+              <button type="button" onClick={onVersus} aria-label={t('Arkadaşlarınla yarış')} className="relative mt-3 block w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#132947] text-left shadow-[0_12px_25px_rgba(0,5,25,.25)] transition-[transform,filter] duration-150 hover:brightness-[1.04] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
+                <img src="/game-cards/approved-vs.webp" width={865} height={209} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
+                
+              </button>
+              <button type="button" onClick={startDrone} aria-label={t('Drone'dan Konumu Bul')} className="relative mt-3 block w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#132947] text-left shadow-[0_12px_25px_rgba(0,5,25,.25)] transition-[transform,filter] duration-150 hover:brightness-[1.04] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
+                <img src="/game-cards/approved-drone.webp" width={865} height={329} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
+                
+              </button>
+              <div className="relative mt-3 w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#142c4d] shadow-[0_14px_28px_rgba(0,7,26,.27)]">
+                <img src="/game-cards/approved-street.webp" width={863} height={389} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
+                <button type="button" onClick={startStreet} aria-label={t('Sokak Dedektifi oyununa başla')} className="absolute inset-x-0 top-0 z-10 h-[79%] touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-amber-200">
+                  <span className="sr-only">{t('Sokak Dedektifi')}</span>
+                </button>
+                <button type="button" onClick={onStreetLeaderboard} aria-label={t('Sokak Dedektifi dünya sıralaması')} className="absolute inset-x-0 bottom-0 z-10 h-[21%] touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-amber-200">
+                  <span className="sr-only">{t('Sokak Dedektifi dünya sıralaması')}</span>
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+
+
           <button type="button" onClick={onVersus}
             className="mt-3 flex w-full items-center gap-4 overflow-hidden rounded-[23px] border border-rose-200/40 bg-gradient-to-r from-[#ffbd89] via-[#ff9697] to-[#d8a8ff] px-4 py-4 text-left text-[#202742] shadow-[0_14px_35px_rgba(220,108,183,.22)] transition hover:brightness-105 active:scale-[0.99]">
             <span aria-hidden="true" className="grid h-14 w-14 shrink-0 place-items-center rounded-[18px] bg-white/35 shadow-inner"><Swords className="h-9 w-9" /></span>
@@ -479,10 +503,24 @@ export function StartScreen({
               <ArrowRight className="h-4 w-4"/>
             </button>
           </div>
+            </>
+          )}
         </motion.section>
 
         <motion.section {...entrance(3)} className="mt-5">
           <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
+          {language === 'tr' ? (
+            <div className="mt-2 grid grid-cols-2 gap-3">
+              <button type="button" onClick={onDaily} aria-label={t('Günlük 10 soru')} className="relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f9dda6] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
+                <img src="/game-cards/approved-daily.webp" width={431} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
+                {completed > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#ffe7bb] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#687782]">{completed}/{DAILY_TOTAL} {t('tamamlandı')}</span>}
+              </button>
+              <button type="button" onClick={onExplore} aria-label={t('Keşif haritası')} className="relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#b0eee4] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
+                <img src="/game-cards/approved-explore.webp" width={419} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
+                {found > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#c6f3e9] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#647787]">{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</span>}
+              </button>
+            </div>
+          ) : (
           <div className="aa-quick-grid mt-2 grid grid-cols-2 gap-3">
             <button type="button" onClick={onDaily} className="aa-quick aa-daily globriva-daily-art">
               <CalendarCheck className="h-6 w-6 text-amber-200" />
@@ -495,8 +533,14 @@ export function StartScreen({
               <small>{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</small>
             </button>
           </div>
+          )}
         </motion.section>
 
+        {language === 'tr' ? (
+          <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')} className="relative mt-3 block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f6c9ed] text-left shadow-[0_12px_25px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 hover:brightness-[1.03] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
+            <img src="/game-cards/approved-league.webp" width={862} height={116} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
+          </motion.button>
+        ) : (
         <motion.button {...entrance(4)} type="button"
           onClick={() => onViewWeekly('mixed')}
           className="aa-league globriva-league-art mt-3 flex w-full items-center gap-3 text-left">
@@ -507,6 +551,7 @@ export function StartScreen({
           </span>
           <ChevronRight className="h-5 w-5 shrink-0" />
         </motion.button>
+        )}
 
         {leaderboardError && (
           <p className="mt-2 text-center text-[11px] text-blue-200/70">
