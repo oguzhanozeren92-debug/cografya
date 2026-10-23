@@ -22,8 +22,8 @@ export const HISTORY_DETAIL_PHOTOS = [
     "artist": "Michael Gunther",
     "license": "CC BY-SA 4.0",
     "caption": {
-      "tr": "Yayoi dönemi yükseltilmiş ambar rekonstrüksiyonu",
-      "en": "Reconstruction of a raised Yayoi storehouse"
+      "tr": "Ahşap yapı ve yükseltilmiş depolama alanı",
+      "en": "Raised wooden storage structure"
     },
     "source": "https://commons.wikimedia.org/wiki/File:Yoshinogari_Yayoi_Village_a003.jpg"
   },
@@ -35,8 +35,8 @@ export const HISTORY_DETAIL_PHOTOS = [
     "artist": "Mattana",
     "license": "Public domain",
     "caption": {
-      "tr": "Gotik mimarinin gül penceresi",
-      "en": "A Gothic rose window"
+      "tr": "Dairesel pencere ve taş işçiliği",
+      "en": "Circular window and stonework"
     },
     "source": "https://commons.wikimedia.org/wiki/File:Soissons_cathedral_117.JPG"
   },
@@ -48,8 +48,8 @@ export const HISTORY_DETAIL_PHOTOS = [
     "artist": "Thierry Bézecourt",
     "license": "CC BY-SA 2.5",
     "caption": {
-      "tr": "Katedralin dış cephesi",
-      "en": "The cathedral facade"
+      "tr": "Yüksek taş cephe ve giriş bölümü",
+      "en": "Tall stone facade and entrance"
     },
     "source": "https://commons.wikimedia.org/wiki/File:Soissons-cathedrale-facade.jpg"
   },
@@ -74,8 +74,8 @@ export const HISTORY_DETAIL_PHOTOS = [
     "artist": "Josef Moser",
     "license": "CC BY-SA 3.0",
     "caption": {
-      "tr": "Kale mazgalları ve savunma detayları",
-      "en": "Castle battlements and defensive details"
+      "tr": "Taş duvarlar ve açıklıklar",
+      "en": "Stone walls and openings"
     },
     "source": "https://commons.wikimedia.org/wiki/File:Burg-LiechtensteinS.jpg"
   },
@@ -100,8 +100,8 @@ export const HISTORY_DETAIL_PHOTOS = [
     "artist": "Andreas Praefcke",
     "license": "CC BY 3.0",
     "caption": {
-      "tr": "Galeri içindeki merdivenler",
-      "en": "Staircase inside the gallery"
+      "tr": "Geniş merdivenler ve iç mekân",
+      "en": "Large staircase and interior"
     },
     "source": "https://commons.wikimedia.org/wiki/File:Alte_Nationalgalerie_Berlin_Treppenhaus.jpg"
   },
@@ -113,8 +113,8 @@ export const HISTORY_DETAIL_PHOTOS = [
     "artist": "Kober",
     "license": "Public domain",
     "caption": {
-      "tr": "İbadet mekânının iç mimarisi",
-      "en": "Interior architecture of the church"
+      "tr": "Kubbeli iç mekân ve duvar süslemeleri",
+      "en": "Domed interior and wall decorations"
     },
     "source": "https://commons.wikimedia.org/wiki/File:Kashueti_church_interior.jpg"
   },
@@ -126,8 +126,8 @@ export const HISTORY_DETAIL_PHOTOS = [
     "artist": "Andrew Milligan sumo",
     "license": "CC BY 2.0",
     "caption": {
-      "tr": "Kilisenin mimari ayrıntıları",
-      "en": "Architectural details of the church"
+      "tr": "Taş işçiliği ve cephe ayrıntıları",
+      "en": "Stonework and facade details"
     },
     "source": "https://commons.wikimedia.org/wiki/File:Kashueti_St._George_Church%2C_Tbilisi_(50502603198).jpg"
   }
