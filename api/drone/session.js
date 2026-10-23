@@ -110,7 +110,8 @@ function validGalleryCollection(row) {
       new Set(row.choices).size !== 4 || !row.choices.includes(row.country)) return false;
   if (!Array.isArray(row.images) || row.images.length < 3 || row.images.length > 4) return false;
   return row.images.every(photo => photo && safeText(photo.artist,300) &&
-      safeText(photo.license,60) && isCc(photo.licenseUrl) && isCommons(photo.source));
+      safeText(photo.license,60) && isCc(photo.licenseUrl) && isCommons(photo.source) &&
+      (photo.format === undefined || photo.format === 'jpg' || photo.format === 'webp'));
 }
 
 async function photoGallery(base) {
@@ -143,7 +144,7 @@ async function photoGallery(base) {
       })),
       media:collections.map(row => ({
         id:row.id,media:{mode:'gallery',images:row.images.map((pic,i)=>({
-          url:base+'/drone-gallery/photos/'+row.id+'/'+(i+1)+'.jpg',
+          url:base+'/drone-gallery/photos/'+row.id+'/'+(i+1)+'.'+(pic.format === 'webp' ? 'webp' : 'jpg'),
           credit:{artist:pic.artist,license:pic.license,licenseUrl:pic.licenseUrl,source:pic.source},
         }))},
       })),
