@@ -4,12 +4,16 @@ import handler from '../api/drone/session.js';
 
 const originalFetch=globalThis.fetch;
 const originalUrl=process.env.STREET_R2_PUBLIC_BASE_URL;
+const originalFallback=process.env.GLOBRIVA_R2_FALLBACK;
 process.env.STREET_R2_PUBLIC_BASE_URL='https://static.example.org';
+process.env.GLOBRIVA_R2_FALLBACK='1'; // Legacy R2 tests deliberately opt in.
 
 after(()=>{
   globalThis.fetch=originalFetch;
   if(originalUrl===undefined)delete process.env.STREET_R2_PUBLIC_BASE_URL;
   else process.env.STREET_R2_PUBLIC_BASE_URL=originalUrl;
+  if(originalFallback===undefined)delete process.env.GLOBRIVA_R2_FALLBACK;
+  else process.env.GLOBRIVA_R2_FALLBACK=originalFallback;
 });
 function response() {
   const headers={};
@@ -101,7 +105,7 @@ test('thirteen four-image albums create a live 52-image library',async()=>{
   globalThis.fetch=async()=>galleryResponse(Array.from({length:13},(_,i)=>galleryCollection(i)));
   const res=response();await handler(v2request,res);
   assert.equal(res.statusCode,200);
-  assert.equal(res.body.origin,'live-gallery');
+  assert.equal(res.body.origin,'github-gallery');
   assert.equal(res.body.imageCount,52);
   assert.equal(res.body.rows.length,13);
   assert.equal(res.body.media[0].media.mode,'gallery');
@@ -118,6 +122,22 @@ test('duplicate or uncredited gallery image rejects activation',async()=>{
   assert.equal(res.body.origin,'pilot');
 });
 
+test('default GitHub mode skips R2 endpoints while no approved gallery is deployed',async()=>{
+  delete process.env.GLOBRIVA_R2_FALLBACK;
+  const called=[];
+  globalThis.fetch=async url=>{
+    called.push(url);
+    return galleryResponse(Array.from({length:12},(_,i)=>galleryCollection(i)));
+  };
+  try{
+    const res=response();await handler(v2request,res);
+    assert.equal(res.statusCode,200);
+    assert.equal(res.body.origin,'pilot');
+    assert.equal(called.length,1);
+    assert.ok(called[0].startsWith('https://atlas-arena-tau.vercel.app/drone-gallery/catalog-v2.json'));
+  }finally{process.env.GLOBRIVA_R2_FALLBACK='1';}
+});
+
 test('old versions without v=2 never receive unrecognized gallery media',async()=>{
   globalThis.fetch=async()=>galleryResponse(Array.from({length:13},(_,i)=>galleryCollection(i)));
   const res=response();await handler(request,res);
@@ -132,7 +152,7 @@ test('exactly 50 distinct photos across 13 albums activates gallery',async()=>{
   assert.equal(albums.reduce((n,a)=>n+a.images.length,0),50);
   globalThis.fetch=async()=>galleryResponse(albums);
   const res=response();await handler(v2request,res);
-  assert.equal(res.body.origin,'live-gallery');
+  assert.equal(res.body.origin,'github-gallery');
   assert.equal(res.body.imageCount,50);
   assert.equal(res.body.media[11].media.images.length,3);
 });
