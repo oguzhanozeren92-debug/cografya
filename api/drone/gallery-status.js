@@ -1,10 +1,10 @@
 import { allowAtlasNativeCors } from '../../server/street/core.mjs';
 
-// Lightweight read-only check for manually uploaded R2 photo albums.
+// Lightweight read-only check for GitHub-uploaded albums deployed by Vercel.
 // No user-provided hostnames or arbitrary keys can be fetched.
 const albumPattern = /^album-0(?:0[1-9]|1[0-9]|20)$/;
 const photoCountForAlbum = id => Number(id.slice(-3)) <= 3 ? 4 : 3;
-const basePattern = /^https:\/\/[a-z0-9.-]+(?::443)?$/i;
+const base = 'https://atlas-arena-tau.vercel.app';
 
 export default async function handler(req, res) {
   if (allowAtlasNativeCors(req, res)) return;
@@ -14,9 +14,6 @@ export default async function handler(req, res) {
   const id = String(req.query?.album ?? 'album-001');
   if (!albumPattern.test(id)) return res.status(400).json({ error: 'Invalid album ID' });
 
-  const base = (process.env.STREET_R2_PUBLIC_BASE_URL || '').replace(/\/+$/, '');
-  if (!basePattern.test(base)) return res.status(503).json({ error: 'R2 public URL is not configured' });
-
   const results = await Promise.all(Array.from({ length: photoCountForAlbum(id) }, (_, i) => i + 1).map(async (n) => {
     const key = 'drone-gallery/photos/' + id + '/' + n + '.webp';
     try {
@@ -25,7 +22,7 @@ export default async function handler(req, res) {
       });
       const mime = response.headers.get('content-type') || '';
       const bytes = Number(response.headers.get('content-length') || 0);
-      return { number: n, key, exists: response.ok, status: response.status, mime, bytes };
+      return { number: n, key, exists: response.ok && /^image\/webp\b/i.test(mime), status: response.status, mime, bytes };
     } catch {
       return { number: n, key, exists: false, status: 0, mime: '', bytes: 0 };
     }
@@ -37,6 +34,6 @@ export default async function handler(req, res) {
     reachable: results.filter(x => x.exists).length,
     allReachable: results.every(x => x.exists),
     results,
-    note: 'HEAD checks prove public reachability, not visual correctness or license approval.',
+    note: 'GitHub/Vercel HEAD image/webp checks prove deploy/reachability only; visual, place and license review is still required.',
   });
 }
