@@ -1,0 +1,988 @@
+{
+  "version": 2,
+  "storage": "github-vercel",
+  "updated": "2026-10-23",
+  "collections": [
+    {
+      "id": "album-001",
+      "country": "Birleşik Krallık",
+      "city": "Londra",
+      "lat": 51.5055,
+      "lng": -0.087,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Londra'da Thames kıyısındaki tarihi köprü, Westminster bölgesi ve anıtsal yapılar öne çıkar.",
+      "hint": {
+        "tr": "Avrupa'da geniş bir nehir çevresine yayılmış tarihî başkent.",
+        "en": "A historic European capital built along a wide river."
+      },
+      "photoFocus": {
+        "tr": "Nehre, köprülere ve tarihî kulelere bak.",
+        "en": "Look for the river, bridges and historic towers."
+      },
+      "choices": [
+        "Birleşik Krallık",
+        "İrlanda",
+        "Fransa",
+        "Hollanda"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Historywriter",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Tower_Bridge_from_London_Tower.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Boaventuravinicius",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:London_Tower_Bridge_2026.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Steven Lek",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Westminster_Palace_London.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Taha Osman",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:BigBen_London.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-002",
+      "country": "Türkiye",
+      "city": "İstanbul",
+      "lat": 41.012,
+      "lng": 28.976,
+      "regionCode": "142",
+      "difficulty": "easy",
+      "fact": "İstanbul, Boğaz'ın iki kıyısında tarihi kule, cami ve kıyı manzaralarıyla tanınır.",
+      "hint": {
+        "tr": "İki kıtayı birbirine bağlayan bir boğazın çevresindeki tarihî şehir.",
+        "en": "A historic city around a strait connecting two continents."
+      },
+      "photoFocus": {
+        "tr": "Su yolunu, kubbeleri ve taş kuleleri incele.",
+        "en": "Look for a waterway, domes and stone towers."
+      },
+      "choices": [
+        "Türkiye",
+        "Yunanistan",
+        "Gürcistan",
+        "İtalya"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Adnane Chahboun",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Hagia_Sophia_Istanbul_4.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Dudva",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Galata_Tower%2C_Istanbul_2022.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Matti Blume",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Bosphorus%2C_Istanbul_(P1100297).jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Sami Mlouhi",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Bosphorus_-_%D8%A7%D9%84%D8%A8%D9%88%D8%B3%D9%81%D9%88%D8%B1_-_Bosphore_-_%C4%B0stanbul_Bo%C4%9Faz%C4%B1.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-003",
+      "country": "İtalya",
+      "city": "Roma",
+      "lat": 41.899,
+      "lng": 12.482,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Roma, Kolezyum, Pantheon, Trevi Çeşmesi ve İspanyol Merdivenleri gibi çok sayıda tarihî yapıya ev sahipliği yapar.",
+      "hint": {
+        "tr": "Akdeniz bölgesinde antik kalıntılar ve barok meydanlarıyla tanınan başkent.",
+        "en": "A Mediterranean capital known for ancient ruins and Baroque squares."
+      },
+      "photoFocus": {
+        "tr": "Antik taş mimariye, çeşmelere ve geniş meydanlara bak.",
+        "en": "Look for ancient stone architecture, fountains and large squares."
+      },
+      "choices": [
+        "İtalya",
+        "Yunanistan",
+        "İspanya",
+        "Fransa"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Wknight94",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Colosseum_(Rome).jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Gracchus Tiberius",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Trevi_fountain_Rome.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Tomáš Novotný",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Pantheon._Rome.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Alexander Popkov (engineerontour.com)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Spanish_steps%2C_Rome.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-004",
+      "country": "Fransa",
+      "city": "Paris",
+      "lat": 48.861,
+      "lng": 2.335,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Paris, nehir kıyısındaki müzeleri, bulvarları ve anıtsal yapılarıyla ünlüdür.",
+      "hint": {
+        "tr": "Batı Avrupa'da nehir çevresinde geniş bulvarlara sahip sanat ve kültür şehri.",
+        "en": "A western European arts capital with wide boulevards beside a river."
+      },
+      "photoFocus": {
+        "tr": "Yüksek metal kuleyi, kemerli anıtı ve müzeyi incele.",
+        "en": "Notice a tall iron tower, an arch and a museum."
+      },
+      "choices": [
+        "Fransa",
+        "Belçika",
+        "İtalya",
+        "Almanya"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Kate",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Eiffel_Tower%2C_Paris.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Gerda Arendt",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Arc_de_Triomphe%2C_Paris.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Jonaseckerbom",
+          "license": "CC0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Louvre_Paris.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-005",
+      "country": "Almanya",
+      "city": "Berlin",
+      "lat": 52.518,
+      "lng": 13.401,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Berlin, Brandenburg Kapısı, tarihî duvar sanatı ve televizyon kulesiyle tanınır.",
+      "hint": {
+        "tr": "Orta Avrupa'da yakın tarihle ve bölünmüşlük geçmişiyle tanınan başkent.",
+        "en": "A Central European capital known for twentieth-century division."
+      },
+      "photoFocus": {
+        "tr": "Zafer kapısı benzeri yapıya ve sokak sanatına bak.",
+        "en": "Look for a monumental gate and extensive street art."
+      },
+      "choices": [
+        "Almanya",
+        "Polonya",
+        "Avusturya",
+        "Çekya"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "KK nationsonline",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Brandenburg-Gate-Berlin.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Youssefbhy",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:East_side_gallery_Berlin.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Jonaseckerbom",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Berlin%2C_fernsehturm..jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-006",
+      "country": "Avustralya",
+      "city": "Sidney",
+      "lat": -33.863,
+      "lng": 151.21,
+      "regionCode": "009",
+      "difficulty": "easy",
+      "fact": "Sidney'in liman bölgesinde yelken biçimli opera binası, demir kemerli köprü ve körfez manzaraları bulunur.",
+      "hint": {
+        "tr": "Okyanusya'da büyük bir doğal liman etrafına kurulmuş kıyı kenti.",
+        "en": "A major Oceanian coastal city built around a natural harbour."
+      },
+      "photoFocus": {
+        "tr": "Yelken şeklindeki çatıyı, büyük köprüyü ve limanı incele.",
+        "en": "Notice the sail-shaped roof, large bridge and harbour."
+      },
+      "choices": [
+        "Avustralya",
+        "Yeni Zelanda",
+        "Kanada",
+        "Güney Afrika"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Bjarte Sorensen",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:SydneyOperaHouse.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Codex",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Sydney_-_Harbour_Bridge.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Mindtravelfitness",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Sydney_city_skyline.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-007",
+      "country": "Japonya",
+      "city": "Tokyo",
+      "lat": 35.685,
+      "lng": 139.76,
+      "regionCode": "030",
+      "difficulty": "easy",
+      "fact": "Tokyo'da Tokyo Skytree, çok katlı kent dokusu ve tarihî merkez tren istasyonu bulunur.",
+      "hint": {
+        "tr": "Doğu Asya'da teknolojisi ve çok kalabalık kent dokusuyla tanınan ülkenin başkenti.",
+        "en": "An East Asian capital known for high technology and dense urban districts."
+      },
+      "photoFocus": {
+        "tr": "Yüksek yayın kulesine ve çok katlı sokaklara bak.",
+        "en": "Look for a tall broadcast tower and dense city streets."
+      },
+      "choices": [
+        "Japonya",
+        "Güney Kore",
+        "Çin",
+        "Tayvan"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "adn_tl",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Tokyo_SkyTree.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Funasan",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Tokyo_station.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Svetlana Davidova",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:City_you_see_from_Tokyo_Skytree.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-008",
+      "country": "İspanya",
+      "city": "Barselona",
+      "lat": 41.39,
+      "lng": 2.17,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Barselona, Gaudí'nin alışılmadık mimarisi ve renkli parklarıyla tanınır.",
+      "hint": {
+        "tr": "Akdeniz kıyısında sıradışı Art Nouveau mimarili Avrupa kenti.",
+        "en": "A Mediterranean European city famous for imaginative Art Nouveau architecture."
+      },
+      "photoFocus": {
+        "tr": "Yüksek kilise kulelerine, mozaiklere ve kıvrımlı cephelere dikkat et.",
+        "en": "Look for cathedral spires, mosaics and flowing façades."
+      },
+      "choices": [
+        "İspanya",
+        "Portekiz",
+        "İtalya",
+        "Fransa"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Xilvitar",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Sagrada_Familia_Barcelona.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Oh-Barcelona.com",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Park_G%C3%BCell_Barcelona.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Ecmarlak",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Casa_Batllo_Barcelona.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-009",
+      "country": "Amerika Birleşik Devletleri",
+      "city": "New York",
+      "lat": 40.722,
+      "lng": -73.988,
+      "regionCode": "021",
+      "difficulty": "easy",
+      "fact": "New York; Özgürlük Heykeli, Brooklyn Köprüsü ve Times Square gibi simgeleriyle tanınır.",
+      "hint": {
+        "tr": "Kuzey Amerika'da yüksek gökdelenleri ve çok uluslu yaşamıyla ünlü kent.",
+        "en": "A North American city known for skyscrapers and global cultural influence."
+      },
+      "photoFocus": {
+        "tr": "Özgürlük heykelini, asma köprüyü ve ışıklı meydanları incele.",
+        "en": "Look for a famous statue, suspension bridge and brightly lit square."
+      },
+      "choices": [
+        "Amerika Birleşik Devletleri",
+        "Kanada",
+        "Meksika",
+        "Birleşik Krallık"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Kong of Lasers",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Statue_of_Liberty_New_York.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Yair Haklai",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Brooklyn_Bridge-New_York.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Macieklew",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Times_Square%2C_NYC.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-010",
+      "country": "Brezilya",
+      "city": "Rio de Janeiro",
+      "lat": -22.94,
+      "lng": -43.19,
+      "regionCode": "005",
+      "difficulty": "easy",
+      "fact": "Rio de Janeiro, deniz kıyısındaki Copacabana, Sugarloaf Dağı ve Kurtarıcı İsa heykeliyle bilinir.",
+      "hint": {
+        "tr": "Güney Amerika'da dağlarla çevrili kıyı manzaralarıyla tanınan bir kent.",
+        "en": "A South American coastal city famous for mountains near the ocean."
+      },
+      "photoFocus": {
+        "tr": "Deniz kıyısına, yüksek kayalık tepelere ve tepedeki heykele bak.",
+        "en": "Look for the beach, steep rocky peaks and a hilltop statue."
+      },
+      "choices": [
+        "Brezilya",
+        "Arjantin",
+        "Kolombiya",
+        "Portekiz"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "acediscovery",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Christ-Redeemer-Rio-de-Janeiro.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Luca Gebara",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Copacabana_beach.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Tlrmedia",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Sugarloaf_Mountain_-_Rio_de_Janeiro.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-011",
+      "country": "Yunanistan",
+      "city": "Atina",
+      "lat": 37.974,
+      "lng": 23.726,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Atina'nın Akropolis tepesi ve Parthenon yapısı şehrin en bilinen tarihî simgeleridir.",
+      "hint": {
+        "tr": "Güney Avrupa'da antik tapınaklar ve tepe üzerindeki kalıntılarla tanınan başkent.",
+        "en": "A Southern European capital known for ancient temples on a hill."
+      },
+      "photoFocus": {
+        "tr": "Antik sütunları, tepedeki taş yapıları ve çevredeki kenti incele.",
+        "en": "Examine ancient columns, hilltop stone buildings and the surrounding city."
+      },
+      "choices": [
+        "Yunanistan",
+        "İtalya",
+        "Türkiye",
+        "İspanya"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "MegAlexandrou",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Athens_Acropolis_with_the_Parthenon%2C_viewed_from_Philopappou_Hill.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "George E. Koronaios",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:The_Acropolis_of_Athens_as_seen_from_Dionysiou_Areopagitou_Pedestrian_Street_on_December_21%2C_2020.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "DanielValahul",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:View_of_Acropolis_of_Athens.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-012",
+      "country": "Hollanda",
+      "city": "Amsterdam",
+      "lat": 52.371,
+      "lng": 4.897,
+      "regionCode": "150",
+      "difficulty": "easy",
+      "fact": "Amsterdam, kanalları, tarihi cepheli evleri ve Dam Meydanı'yla tanınan bir Avrupa başkentidir.",
+      "hint": {
+        "tr": "Batı Avrupa'da yoğun kanalları ve bisiklet kültürüyle tanınan başkent.",
+        "en": "A Western European capital famous for canals and bicycles."
+      },
+      "photoFocus": {
+        "tr": "Kanalları, dar ev cephelerini ve meydan çevresini incele.",
+        "en": "Look for canals, narrow house façades and the main square."
+      },
+      "choices": [
+        "Hollanda",
+        "Belçika",
+        "Danimarka",
+        "Almanya"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Ank Kumar",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_Canals_(Ank_Kumar)_04.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Txllxt TxllxT",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_-_Dam_Square_-_View_on_Damrak%2C_Beurs_van_Berlage_%26_Bijenkorf.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Elekes Andor",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_Centraal_-.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-013",
+      "country": "Kanada",
+      "city": "Toronto",
+      "lat": 43.65,
+      "lng": -79.38,
+      "regionCode": "021",
+      "difficulty": "easy",
+      "fact": "Toronto, Ontario Gölü kenarındaki gökdelenleri, CN Tower ve belediye binasıyla tanınır.",
+      "hint": {
+        "tr": "Kuzey Amerika'da büyük göl kıyısında yükselen çok kültürlü bir şehir.",
+        "en": "A multicultural North American city with skyscrapers beside a large lake."
+      },
+      "photoFocus": {
+        "tr": "İnce kuleye, yüksek binalara ve meydandaki modern mimariye bak.",
+        "en": "Look for a slender tower, skyline and modern civic buildings."
+      },
+      "choices": [
+        "Kanada",
+        "Amerika Birleşik Devletleri",
+        "Birleşik Krallık",
+        "Avustralya"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Daynarama",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Toronto-skyline.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Shawn M. Kent",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Toronto_City_Hall%2C_Toronto_ON.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Joe Carr",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Toronto_City_Hall_and_Nathan_Phillips_Square_(55401075630).jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-014",
+      "country": "Mısır",
+      "city": "Gize",
+      "lat": 29.98,
+      "lng": 31.13,
+      "regionCode": "015",
+      "difficulty": "easy",
+      "fact": "Gize, Kahire yakınlarında piramitler ve Büyük Sfenks'i içeren tarihî nekropolüyle tanınır.",
+      "hint": {
+        "tr": "Kuzey Afrika'da çöl çevresinde antik anıtlar ve taş piramitler.",
+        "en": "Ancient monumental stone pyramids in the desert of North Africa."
+      },
+      "photoFocus": {
+        "tr": "Çöldeki piramitlere ve taş aslan-insan heykeline dikkat et.",
+        "en": "Look at the desert pyramids and the stone lion-human sculpture."
+      },
+      "choices": [
+        "Mısır",
+        "Fas",
+        "Ürdün",
+        "Tunus"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Ireneusz Jerzy Borysiewicz",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Pyramids_of_Giza.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Abir Kamel abdel rahman",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Sphinx_giza.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Bilal Detailz",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:The_Pyramids_of_GIZA.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-015",
+      "country": "Hindistan",
+      "city": "Agra",
+      "lat": 27.17,
+      "lng": 78.04,
+      "regionCode": "034",
+      "difficulty": "easy",
+      "fact": "Agra, Tac Mahal, Kızıl Kale ve Yamuna Nehri kıyısındaki mimari yapılarıyla tanınır.",
+      "hint": {
+        "tr": "Güney Asya'da nehir kenarındaki anıtsal mozole ve tarihi kalelerle ünlü şehir.",
+        "en": "A South Asian city famous for a monumental mausoleum and riverside forts."
+      },
+      "photoFocus": {
+        "tr": "Beyaz mermer anıta, kırmızı taş kaleye ve nehir kıyısına bak.",
+        "en": "Look for a white marble monument, red sandstone fort and riverside."
+      },
+      "choices": [
+        "Hindistan",
+        "Pakistan",
+        "Bangladeş",
+        "Nepal"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Rohangpt70",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Taj_Mahal_view_from_Mehtab_Bagh.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "StonesThatRemember",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Agra_Fort_in_Agra%2C_Uttar_Pradesh.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Rameezm raza",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Mehtab_Bagh_on_the_river_bank%2C_facing_Taj.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-016",
+      "country": "Meksika",
+      "city": "Mexico City",
+      "lat": 19.43,
+      "lng": -99.14,
+      "regionCode": "013",
+      "difficulty": "easy",
+      "fact": "Mexico City, tarihi Zócalo Meydanı, Bağımsızlık Meleği ve Bellas Artes Sarayı gibi simgelere ev sahipliği yapar.",
+      "hint": {
+        "tr": "Kuzey Amerika'da Aztek mirası ve büyük meydanlarıyla tanınan yüksek rakımlı başkent.",
+        "en": "A high-altitude North American capital known for Aztec heritage and grand plazas."
+      },
+      "photoFocus": {
+        "tr": "Geniş meydanları, kubbeli sanat sarayını ve sütun üzerindeki heykeli incele.",
+        "en": "Look for grand squares, a domed arts palace and a statue atop a column."
+      },
+      "choices": [
+        "Meksika",
+        "Guatemala",
+        "Kolombiya",
+        "Amerika Birleşik Devletleri"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Jpesch95",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Angel_of_Independence_Mexico_City.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Timothy Neesam",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Palacio_de_Bellas_Artes%2C_Mexico_City%2C_MX.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Fabiola Pelaez",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:ZOCALO_MEXICO_CITY.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-017",
+      "country": "Çekya",
+      "city": "Prag",
+      "lat": 50.087,
+      "lng": 14.42,
+      "regionCode": "150",
+      "difficulty": "medium",
+      "fact": "Prag, Vltava Nehri, Karl Köprüsü ve tarihî eski şehir meydanıyla tanınır.",
+      "hint": {
+        "tr": "Tarihî köprüler ve taş kulelerle çevrili Orta Avrupa şehri.",
+        "en": "A Central European city known for old stone bridges and towers."
+      },
+      "photoFocus": {
+        "tr": "Köprüleri, nehir kıyısını ve kuleleri incele.",
+        "en": "Look for bridges, riverfronts and towers."
+      },
+      "choices": [
+        "Çekya",
+        "Avusturya",
+        "Slovakya",
+        "Macaristan"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Jiří Tondl",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:PRAGUE.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Carlos Delgado",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:OldTownSquarePraha.JPG"
+        },
+        {
+          "format": "webp",
+          "artist": "P. Hughes",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Prague_-_Prague_Castle.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-018",
+      "country": "İtalya",
+      "city": "Venedik",
+      "lat": 45.438,
+      "lng": 12.338,
+      "regionCode": "150",
+      "difficulty": "medium",
+      "fact": "Venedik, lagün üzerine kurulu kanalları ve San Marco çevresindeki tarihî mimarisiyle tanınır.",
+      "hint": {
+        "tr": "Suyollarının şehrin sokaklarıyla iç içe geçtiği bir Avrupa kenti.",
+        "en": "A European city where waterways meet the streets."
+      },
+      "photoFocus": {
+        "tr": "Kanal, taş köprü ve su üzerindeki taşıtlara bak.",
+        "en": "Look for canals, stone bridges and boats."
+      },
+      "choices": [
+        "İtalya",
+        "Fransa",
+        "Hırvatistan",
+        "Yunanistan"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "aconcagua",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Grand_Canal_from_Rialto_Bridge.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Yair Haklai",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Facade_of_St._Mark's_Basilica-Venice.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Pixar",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Gondola_venice.JPG"
+        }
+      ]
+    },
+    {
+      "id": "album-019",
+      "country": "Avusturya",
+      "city": "Viyana",
+      "lat": 48.208,
+      "lng": 16.373,
+      "regionCode": "150",
+      "difficulty": "medium",
+      "fact": "Viyana, Avusturya'nın başkentidir; Schönbrunn, Aziz Stefan Katedrali ve Hofburg gibi tarihî yapılara ev sahipliği yapar.",
+      "hint": {
+        "tr": "Geniş caddeleri ve görkemli saraylarıyla bilinen bir Avrupa başkenti.",
+        "en": "A European capital with broad avenues and grand palaces."
+      },
+      "photoFocus": {
+        "tr": "Saray cephelerini, meydanları ve kuleleri incele.",
+        "en": "Inspect palace facades, squares and towers."
+      },
+      "choices": [
+        "Avusturya",
+        "Almanya",
+        "Çekya",
+        "Macaristan"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Vitold Muratov",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Sch%C3%B6nbrunn_Palace._in_Vienna.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "SchiDD",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Wien-Stephansdom.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Inkey",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Hofburg_Vienne.jpg"
+        }
+      ]
+    },
+    {
+      "id": "album-020",
+      "country": "Portekiz",
+      "city": "Lizbon",
+      "lat": 38.723,
+      "lng": -9.139,
+      "regionCode": "150",
+      "difficulty": "medium",
+      "fact": "Lizbon, Tejo Nehri kıyısında, Belém Kulesi ve tarihî meydanlarıyla bilinen Portekiz başkentidir.",
+      "hint": {
+        "tr": "Atlantik'e yakın, yokuşlu sokakları ve tarihî kıyısıyla tanınan şehir.",
+        "en": "A city near the Atlantic with steep streets and a historic waterfront."
+      },
+      "photoFocus": {
+        "tr": "Tarihî kuleleri, geniş meydanları ve dik sokakları incele.",
+        "en": "Look for historic towers, grand squares and steep streets."
+      },
+      "choices": [
+        "Portekiz",
+        "İspanya",
+        "İtalya",
+        "Fransa"
+      ],
+      "approved": false,
+      "images": [
+        {
+          "format": "webp",
+          "artist": "Lisbon Photoshoots",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Bel%C3%A9m_Tower_in_Lisbon.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Yelkrokoyade",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Pra%C3%A7a_do_Com%C3%A9rcio_Lisboa.jpg"
+        },
+        {
+          "format": "webp",
+          "artist": "Votpuske",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source": "https://commons.wikimedia.org/wiki/File:Santa_Justa_Lift%2C_Lisbon.jpg"
+        }
+      ]
+    }
+  ]
+}
