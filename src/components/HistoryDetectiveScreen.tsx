@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Compass, Landmark,
   RefreshCcw, ShieldCheck, Trophy, XCircle } from 'lucide-react';
-import { StreetPanorama, type PanoramaMedia, type StreetRound } from '@/components/StreetPanorama';
+import type { PanoramaMedia, StreetRound } from '@/components/StreetPanorama';
+import { HistoryCubePanorama } from '@/components/HistoryCubePanorama';
 import { StreetPhoto } from '@/components/StreetPhoto';
 import { atlasApi } from '@/lib/atlasApi';
 import { useLanguage } from '@/lib/i18n';
@@ -282,9 +283,8 @@ export function HistoryDetectiveScreen({
                 <section className="street-card overflow-hidden p-2">
                   <div className="relative h-[min(48dvh,400px)] min-h-[245px]">
                     {!useStatic&&active.media.mode==='multires'?(
-                      <StreetPanorama key={active.id+'-'+run} round={round}
-                        onReady={photoReady} onError={photoFailed}
-                        onSkip={()=>setUseStatic(true)}/>
+                      <HistoryCubePanorama key={active.id+'-'+run} id={active.id} media={active.media}
+                        onReady={photoReady} onError={photoFailed}/>
                     ):(
                       <StreetPhoto key={active.id+'-static-'+run} round={round}
                         onReady={photoReady} onError={message=>{
