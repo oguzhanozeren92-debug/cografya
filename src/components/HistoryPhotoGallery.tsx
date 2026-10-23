@@ -14,6 +14,10 @@ export function HistoryPhotoGallery({images,caseId}:{
 }){
   const {language}=useLanguage();
   const tr=language==='tr';
+  // The gallery must never disclose the civilization, period, building purpose,
+  // or architecture answer before the player completes the questions.
+  // Captions in the content engine are retained for editorial metadata only.
+  const neutralLabel=(position:number)=>tr?'Görsel '+(position+1):'Photo '+(position+1);
   const [index,setIndex]=useState<number|null>(null);
   const [broken,setBroken]=useState<Record<string,boolean>>({});
 
@@ -43,11 +47,11 @@ export function HistoryPhotoGallery({images,caseId}:{
           <div>
             <h2 className="flex items-center gap-2 text-sm font-black text-amber-100">
               <Images className="h-4 w-4 text-amber-200"/>
-              {tr?'Görsel İpuçları':'Visual clues'}
+              {tr?'Benzer Görüntüler':'Related images'}
             </h2>
             <p className="mt-1 text-[11px] leading-4 text-blue-100/70">
-              {tr?'Panoramadan farklı detayları incele. Fotoğrafa dokunup büyüt.':
-                'Examine details beyond the panorama. Tap a photo to enlarge it.'}
+              {tr?'Fotoğrafları incele, ayrıntıları kendin keşfet. Görsele dokunup büyüt.':
+                'Explore the photos and find the details yourself. Tap to enlarge.'}
             </p>
           </div>
           <span className="rounded-full border border-white/15 bg-white/10 px-2 py-1 text-[10px] font-extrabold tabular-nums text-white">
@@ -60,7 +64,7 @@ export function HistoryPhotoGallery({images,caseId}:{
               className="group min-w-0 overflow-hidden rounded-xl border border-amber-200/20 bg-[#0b2137] text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300">
               <div className="relative aspect-[4/3] overflow-hidden bg-[#102d46]">
                 {!broken[item.id]?(
-                  <img src={item.url} alt={item.caption[tr?'tr':'en']}
+                  <img src={item.url} alt={neutralLabel(i)}
                     loading="lazy" decoding="async"
                     onError={()=>setBroken(v=>({...v,[item.id]:true}))}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"/>
@@ -73,7 +77,7 @@ export function HistoryPhotoGallery({images,caseId}:{
               </div>
               <div className="px-2 py-2">
                 <p className="min-h-8 text-[11px] font-bold leading-4 text-white">
-                  {item.caption[tr?'tr':'en']}
+                  {neutralLabel(i)}
                 </p>
                 <p className="mt-1 truncate text-[9px] text-amber-100/75">
                   {item.credit.artist} · {item.credit.license}
@@ -95,7 +99,7 @@ export function HistoryPhotoGallery({images,caseId}:{
             </button>
           </div>
           <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-auto p-3">
-            <img src={current.url} alt={current.caption[tr?'tr':'en']}
+            <img src={current.url} alt={neutralLabel(index)}
               className="max-h-full max-w-full select-none object-contain"
               draggable={false}/>
             {clean.length>1&&(
@@ -114,7 +118,7 @@ export function HistoryPhotoGallery({images,caseId}:{
             )}
           </div>
           <div className="space-y-1 border-t border-white/10 bg-[#0a2138] px-4 pb-[max(18px,env(safe-area-inset-bottom))] pt-3">
-            <p className="text-sm font-black">{current.caption[tr?'tr':'en']}</p>
+            <p className="text-sm font-black">{neutralLabel(index)}</p>
             <p className="text-[11px] text-blue-100/80">
               {current.credit.artist} · {current.credit.license}
             </p>
