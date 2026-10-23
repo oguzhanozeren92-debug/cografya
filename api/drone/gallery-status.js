@@ -2,7 +2,7 @@ import { allowAtlasNativeCors } from '../../server/street/core.mjs';
 
 // Lightweight read-only check for manually uploaded R2 photo albums.
 // No user-provided hostnames or arbitrary keys can be fetched.
-const albumPattern = /^album-0(?:0[1-9]|1[0-6])$/;
+const albumPattern = /^album-0(?:0[1-9]|1[0-9]|20)$/;
 const photoCountForAlbum = id => Number(id.slice(-3)) <= 3 ? 4 : 3;
 const basePattern = /^https:\/\/[a-z0-9.-]+(?::443)?$/i;
 
