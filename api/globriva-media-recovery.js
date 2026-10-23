@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         return res.status(404).json({error:'Commons JPEG source missing',key,missing:page?.missing??false});
       sourceUrl=info.thumburl || info.url;
       if(!sourceUrl?.startsWith('https://upload.wikimedia.org/wikipedia/commons/'))
-        return res.status(422).json({error:'Unexpected Wikimedia host',key});
+        return res.status(422).json({error:'Unexpected Wikimedia host',key,sourcePreview:String(sourceUrl).slice(0,250)});
     }
     const response = await fetch(sourceUrl,{signal:AbortSignal.timeout(10000),cache:'no-store'});
     if(!response.ok)return res.status(404).json({error:'Public R2 source unavailable',sourceStatus:response.status,key});
