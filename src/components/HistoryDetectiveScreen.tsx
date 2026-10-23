@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Compass, Landmar
   RefreshCcw, ShieldCheck, Trophy, XCircle } from 'lucide-react';
 import type { PanoramaMedia, StreetRound } from '@/components/StreetPanorama';
 import { HistoryCubePanorama } from '@/components/HistoryCubePanorama';
+import { HistoryPhotoGallery, type HistoryGalleryImage } from '@/components/HistoryPhotoGallery';
 import { StreetPhoto } from '@/components/StreetPhoto';
 import { atlasApi } from '@/lib/atlasApi';
 import { useLanguage } from '@/lib/i18n';
@@ -25,6 +26,7 @@ type HistoryCase = {
   fact:Localized;
   sourceUrl:string;
   questions:Question[];
+  gallery?:HistoryGalleryImage[];
   media:PanoramaMedia;
   credit:{artist:string;license:string;licenseUrl:string;source:string};
 };
@@ -313,6 +315,7 @@ export function HistoryDetectiveScreen({
                   </p>
                   <p className="text-[13px] leading-5 text-blue-50">{localized(active.clue)}</p>
                 </section>
+                <HistoryPhotoGallery key={active.id} caseId={active.id} images={active.gallery??[]}/>
                 <button type="button" disabled={!ready}
                   onClick={()=>setStage('quiz')} className="street-primary w-full disabled:cursor-not-allowed disabled:opacity-45">
                   {text('Üç soruyu çöz','Solve three questions')} <ArrowRight className="h-5 w-5"/>
