@@ -2,7 +2,8 @@ import { allowAtlasNativeCors } from '../../server/street/core.mjs';
 
 // Lightweight read-only check for manually uploaded R2 photo albums.
 // No user-provided hostnames or arbitrary keys can be fetched.
-const albumPattern = /^album-[0-9]{3}$/;
+const albumPattern = /^album-0(?:0[1-9]|1[0-6])$/;
+const photoCountForAlbum = id => Number(id.slice(-3)) <= 3 ? 4 : 3;
 const basePattern = /^https:\/\/[a-z0-9.-]+(?::443)?$/i;
 
 export default async function handler(req, res) {
@@ -16,7 +17,7 @@ export default async function handler(req, res) {
   const base = (process.env.STREET_R2_PUBLIC_BASE_URL || '').replace(/\/+$/, '');
   if (!basePattern.test(base)) return res.status(503).json({ error: 'R2 public URL is not configured' });
 
-  const results = await Promise.all([1, 2, 3, 4].map(async (n) => {
+  const results = await Promise.all(Array.from({ length: photoCountForAlbum(id) }, (_, i) => i + 1).map(async (n) => {
     const key = 'drone-gallery/photos/' + id + '/' + n + '.webp';
     try {
       const response = await fetch(base + '/' + key, {
