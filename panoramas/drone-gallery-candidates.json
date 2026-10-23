@@ -1,5 +1,5 @@
 {
-  "description": "51 individually sourced JPG CANDIDATES grouped into 16 country-identifying city albums, representing 16 countries. Unverified/unpublished until per-photo editorial review, licensing confirmation, live media import and R2 verification; do not claim these are uploaded.",
+  "description": "63 individually sourced JPG photo CANDIDATES grouped into 20 city albums representing 20 countries. Sources and claimed CC licenses researched, editorial visual/location review and R2 publishing still required. No auto-approval.",
   "collections": [
     {
       "id": "album-001",
@@ -974,6 +974,242 @@
       "reviewedLocation": false,
       "reviewedQuality": false,
       "editorialStatus": "commons_metadata_license_checked_pending_visual_and_place_review"
+    },
+    {
+      "id": "album-017",
+      "country": "Çekya",
+      "city": "Prag",
+      "lat": 50.087,
+      "lng": 14.42,
+      "regionCode": "150",
+      "difficulty": "medium",
+      "fact": "Prag, Vltava Nehri, Karl Köprüsü ve tarihî eski şehir meydanıyla tanınır.",
+      "hint": {
+        "tr": "Tarihî köprüler ve taş kulelerle çevrili Orta Avrupa şehri.",
+        "en": "A Central European city known for old stone bridges and towers."
+      },
+      "photoFocus": {
+        "tr": "Köprüleri, nehir kıyısını ve kuleleri incele.",
+        "en": "Look for bridges, riverfronts and towers."
+      },
+      "choices": [
+        "Çekya",
+        "Avusturya",
+        "Slovakya",
+        "Macaristan"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:PRAGUE.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:PRAGUE.jpg",
+          "artist": "Jiří Tondl",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:OldTownSquarePraha.JPG",
+          "source": "https://commons.wikimedia.org/wiki/File:OldTownSquarePraha.JPG",
+          "artist": "Carlos Delgado",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Prague - Prague Castle.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Prague_-_Prague_Castle.jpg",
+          "artist": "P. Hughes",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "commons_license_source_checked_pending_visual_place_review_and_r2_upload"
+    },
+    {
+      "id": "album-018",
+      "country": "İtalya",
+      "city": "Venedik",
+      "lat": 45.438,
+      "lng": 12.338,
+      "regionCode": "150",
+      "difficulty": "medium",
+      "fact": "Venedik, lagün üzerine kurulu kanalları ve San Marco çevresindeki tarihî mimarisiyle tanınır.",
+      "hint": {
+        "tr": "Suyollarının şehrin sokaklarıyla iç içe geçtiği bir Avrupa kenti.",
+        "en": "A European city where waterways meet the streets."
+      },
+      "photoFocus": {
+        "tr": "Kanal, taş köprü ve su üzerindeki taşıtlara bak.",
+        "en": "Look for canals, stone bridges and boats."
+      },
+      "choices": [
+        "İtalya",
+        "Fransa",
+        "Hırvatistan",
+        "Yunanistan"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Grand Canal from Rialto Bridge.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Grand_Canal_from_Rialto_Bridge.jpg",
+          "artist": "acconcagua",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Facade of St. Mark's Basilica-Venice.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Facade_of_St._Mark's_Basilica-Venice.jpg",
+          "artist": "Yair Haklai",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Gondola venice.JPG",
+          "source": "https://commons.wikimedia.org/wiki/File:Gondola_venice.JPG",
+          "artist": "Pixar",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "commons_license_source_checked_pending_visual_place_review_and_r2_upload"
+    },
+    {
+      "id": "album-019",
+      "country": "Avusturya",
+      "city": "Viyana",
+      "lat": 48.208,
+      "lng": 16.373,
+      "regionCode": "150",
+      "difficulty": "medium",
+      "fact": "Viyana, Avusturya'nın başkentidir; Schönbrunn, Aziz Stefan Katedrali ve Hofburg gibi tarihî yapılara ev sahipliği yapar.",
+      "hint": {
+        "tr": "Geniş caddeleri ve görkemli saraylarıyla bilinen bir Avrupa başkenti.",
+        "en": "A European capital with broad avenues and grand palaces."
+      },
+      "photoFocus": {
+        "tr": "Saray cephelerini, meydanları ve kuleleri incele.",
+        "en": "Inspect palace facades, squares and towers."
+      },
+      "choices": [
+        "Avusturya",
+        "Almanya",
+        "Çekya",
+        "Macaristan"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Schönbrunn Palace. in Vienna.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Sch%C3%B6nbrunn_Palace._in_Vienna.jpg",
+          "artist": "Vitold Muratov",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Wien-Stephansdom.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Wien-Stephansdom.jpg",
+          "artist": "SchiDD",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Hofburg Vienne.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Hofburg_Vienne.jpg",
+          "artist": "Inkey",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "commons_license_source_checked_pending_visual_place_review_and_r2_upload"
+    },
+    {
+      "id": "album-020",
+      "country": "Portekiz",
+      "city": "Lizbon",
+      "lat": 38.723,
+      "lng": -9.139,
+      "regionCode": "150",
+      "difficulty": "medium",
+      "fact": "Lizbon, Tejo Nehri kıyısında, Belém Kulesi ve tarihî meydanlarıyla bilinen Portekiz başkentidir.",
+      "hint": {
+        "tr": "Atlantik'e yakın, yokuşlu sokakları ve tarihî kıyısıyla tanınan şehir.",
+        "en": "A city near the Atlantic with steep streets and a historic waterfront."
+      },
+      "photoFocus": {
+        "tr": "Tarihî kuleleri, geniş meydanları ve dik sokakları incele.",
+        "en": "Look for historic towers, grand squares and steep streets."
+      },
+      "choices": [
+        "Portekiz",
+        "İspanya",
+        "İtalya",
+        "Fransa"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Belém Tower in Lisbon.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Bel%C3%A9m_Tower_in_Lisbon.jpg",
+          "artist": "Lisbon Photoshoots",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Praça do Comércio Lisboa.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Pra%C3%A7a_do_Com%C3%A9rcio_Lisboa.jpg",
+          "artist": "Yelkrokoyade",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Santa Justa Lift, Lisbon.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Santa_Justa_Lift%2C_Lisbon.jpg",
+          "artist": "Votpuske",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "commons_license_source_checked_pending_visual_place_review_and_r2_upload"
     }
   ]
 }
