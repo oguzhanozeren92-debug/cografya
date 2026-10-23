@@ -7,7 +7,7 @@ const MAX_LIVE_PHOTOS = 2000;
 const ID_RE = /^[a-z0-9][a-z0-9-]{3,60}$/;
 
 // App-store binaries continue to work with the existing five verified photos
-// until the remote collection contains at least fifty complete, approved rounds.
+// until GitHub's reviewed collection contains enough complete rounds.
 function fallback() {
   const ready = new Set(readyDronePhotoIds);
   return approvedDroneMedia.filter(row => ready.has(row.id)).map(row => ({
@@ -159,13 +159,24 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({error: 'Method not allowed'});
   // v=2 opt-in prevents older App Store binaries from seeing a new media type.
   const galleryCapable = String(req.query?.v ?? '') === '2';
-  const cdn = process.env.STREET_R2_PUBLIC_BASE_URL?.replace(/\/+$/,'');
-  if (galleryCapable && cdn && /^https:\/\/[a-z0-9.-]+(?::443)?$/i.test(cdn)) {
-    const gallery = await photoGallery(cdn);
-    if (gallery) return res.status(200).json(gallery);
+  // This fixed project origin serves static assets from the GitHub repository's public/
+  // directory via Vercel. No Cloudflare account, R2 secret or app update is required.
+  const githubStaticOrigin = 'https://atlas-arena-tau.vercel.app';
+  if (galleryCapable) {
+    const local = await photoGallery(githubStaticOrigin);
+    if (local) return res.status(200).json({...local, origin: 'github-gallery'});
   }
-  const live = await liveGallery();
-  if (live) return res.status(200).json({...live, origin: 'live'});
+  // Keep the old R2 integration as an explicit optional rollback only. Missing R2
+  // never slows GitHub-backed v2 clients or breaks the built-in five-photo pilot.
+  if (process.env.GLOBRIVA_R2_FALLBACK === '1') {
+    const cdn = process.env.STREET_R2_PUBLIC_BASE_URL?.replace(/\/+$/,'');
+    if (galleryCapable && cdn && /^https:\/\/[a-z0-9.-]+(?::443)?$/i.test(cdn)) {
+      const gallery = await photoGallery(cdn);
+      if (gallery) return res.status(200).json(gallery);
+    }
+    const live = await liveGallery();
+    if (live) return res.status(200).json({...live, origin: 'live'});
+  }
   const media = fallback();
   if (media.length < 5) return res.status(503).json({
     error: 'Dron görüntülerinin güvenli kopyaları hazırlanıyor. Biraz sonra tekrar dene.',
