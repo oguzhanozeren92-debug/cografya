@@ -1,0 +1,38 @@
+name: Globriva — import previously uploaded R2 WebP into GitHub
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-r2-to-github.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: globriva-github-media-migration
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Recover existing public WebPs without Cloudflare credentials
+        run: python3 -u scripts/panoramas/import_r2_to_github.py
+      - name: Commit retrieved photos to GitHub
+        shell: bash
+        run: |
+          git config user.name "globriva-media-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/drone-gallery/photos/
+          if git diff --staged --quiet; then
+            echo "No new media recovered from R2; leaving GitHub unchanged."
+            exit 0
+          fi
+          git commit -m "assets(globriva): recover existing WebP photo bytes from R2 into GitHub"
+          git pull --rebase origin main
+          git push origin HEAD:main
