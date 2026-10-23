@@ -26,7 +26,7 @@ const trustedPhoto=file=>typeof file==='string'&&
 const validCommonsSource=url=>typeof url==='string' &&
   /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/i.test(url);
 const photoUrl=file=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+
-  encodeURIComponent(file.replaceAll(' ','_'))+'?width=1100';
+  encodeURIComponent(file.replaceAll(' ','_'))+'?width=960';
 const credit=(artist,license,source)=>({
   artist,license,source,licenseUrl:LICENSE_URL[license]||'',
 });
