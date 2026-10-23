@@ -1,0 +1,60 @@
+{
+  "id": "album-001",
+  "country": "Birleşik Krallık",
+  "city": "Londra",
+  "lat": 51.5055,
+  "lng": -0.087,
+  "regionCode": "150",
+  "difficulty": "easy",
+  "fact": "Londra'da Thames kıyısındaki tarihi köprü, Westminster bölgesi ve anıtsal yapılar öne çıkar.",
+  "hint": {
+    "tr": "Avrupa'da geniş bir nehir çevresine yayılmış tarihî başkent.",
+    "en": "A historic European capital built along a wide river."
+  },
+  "photoFocus": {
+    "tr": "Nehre, köprülere ve tarihî kulelere bak.",
+    "en": "Look for the river, bridges and historic towers."
+  },
+  "choices": [
+    "Birleşik Krallık",
+    "İrlanda",
+    "Fransa",
+    "Hollanda"
+  ],
+  "approved": false,
+  "reviewStatus": "r2_webp_uploaded_by_user_awaiting_media_verification",
+  "images": [
+    {
+      "r2Key": "drone-gallery/photos/album-001/1.webp",
+      "format": "webp",
+      "artist": "Historywriter",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Tower_Bridge_from_London_Tower.jpg"
+    },
+    {
+      "r2Key": "drone-gallery/photos/album-001/2.webp",
+      "format": "webp",
+      "artist": "Boaventuravinicius",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:London_Tower_Bridge_2026.jpg"
+    },
+    {
+      "r2Key": "drone-gallery/photos/album-001/3.webp",
+      "format": "webp",
+      "artist": "Steven Lek",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Westminster_Palace_London.jpg"
+    },
+    {
+      "r2Key": "drone-gallery/photos/album-001/4.webp",
+      "format": "webp",
+      "artist": "Taha Osman",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:BigBen_London.jpg"
+    }
+  ]
+}
