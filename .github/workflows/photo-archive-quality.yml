@@ -39,6 +39,9 @@ jobs:
       - name: Audit existing Commons licenses and playable archive
         continue-on-error: true
         run: node scripts/panoramas/audit-archive.mjs --live --out=reports/photo-archive-audit.json
+      - name: Research open-license historical monuments and architectural detail photos
+        continue-on-error: true
+        run: node scripts/panoramas/discover-history.mjs --out=reports/history-photo-candidates.json
       - name: Identify reviewed Street photos awaiting release
         id: street_probe
         run: |
@@ -85,6 +88,7 @@ jobs:
           const d=read('panoramas/daily-discovery/latest.json');
           const drone=read('panoramas/daily-discovery/drone-publish-status.json');
           const street=read('panoramas/daily-discovery/street-publish-status.json');
+          const heritage=read('reports/history-photo-candidates.json');
           const lines=[
             '# Globriva Daily Archive',
             'Date: '+(d.date??'not run'),
@@ -93,6 +97,7 @@ jobs:
             '- New panoramic candidates: '+(d.new360Candidates??0),
             '- New Drone gallery photo candidates: '+(d.newGalleryCandidates??0),
             '- In editorial queue: '+(d.pendingReview??'unknown'),
+            '- Historical landmark candidates found (pending editorial review): '+(heritage.candidateCount??0),
             '- Drone gallery albums actually published today: '+(drone.publishedTodayAlbums??0),
             '- Drone gallery photos actually uploaded today: '+(drone.publishedTodayPhotos??0),
             '- Street panorama sets uploaded today: '+(street.publishedTodayPanoramas??0),
@@ -127,5 +132,6 @@ jobs:
             panoramas/daily-discovery/drone-publish-status.json
             panoramas/daily-discovery/street-publish-status.json
             reports/photo-archive-audit.json
+            reports/history-photo-candidates.json
           if-no-files-found: warn
           retention-days: 30
