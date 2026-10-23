@@ -16,7 +16,6 @@ export function HistoryPhotoGallery({images,caseId}:{
   const tr=language==='tr';
   const [index,setIndex]=useState<number|null>(null);
   const [broken,setBroken]=useState<Record<string,boolean>>({});
-  const current=index===null?null:images[index]??null;
 
   useEffect(()=>{setIndex(null);setBroken({});},[caseId]);
   useEffect(()=>{
@@ -34,6 +33,7 @@ export function HistoryPhotoGallery({images,caseId}:{
   const clean=images.filter(x=>x?.url?.startsWith('https://commons.wikimedia.org/')||
     x?.url?.startsWith('https://upload.wikimedia.org/')||
     x?.url?.startsWith('https://thumb.wikimedia.org/'));
+  const current=index===null?null:clean[index]??null;
   if(clean.length===0)return null;
 
   return (
