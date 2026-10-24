@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "lastChecked": "2026-10-24",
+  "purpose": "Tracked source metadata research; must not infer original photograph bytes or licensing compliance from a catalog entry. Editorial approval stays false.",
+  "reviewedSourceRecords": 14,
+  "reviewedStoredSourceRecords": 13,
+  "records": [
+    {
+      "album": "album-001",
+      "photoIndex": 1,
+      "city": "Londra",
+      "source": "https://commons.wikimedia.org/wiki/File:Tower_Bridge_from_London_Tower.jpg",
+      "listedArtist": "Historywriter",
+      "listedLicense": "CC BY 3.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-001",
+      "photoIndex": 2,
+      "city": "Londra",
+      "source": "https://commons.wikimedia.org/wiki/File:London_Tower_Bridge_2026.jpg",
+      "listedArtist": "Boaventuravinicius",
+      "listedLicense": "CC BY-SA 3.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-002",
+      "photoIndex": 1,
+      "city": "İstanbul",
+      "source": "https://commons.wikimedia.org/wiki/File:Hagia_Sophia_Istanbul_4.jpg",
+      "listedArtist": "Adnane Chahboun",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-002",
+      "photoIndex": 3,
+      "city": "İstanbul",
+      "source": "https://commons.wikimedia.org/wiki/File:Bosphorus%2C_Istanbul_(P1100297).jpg",
+      "listedArtist": "Matti Blume",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-003",
+      "photoIndex": 1,
+      "city": "Roma",
+      "source": "https://commons.wikimedia.org/wiki/File:Colosseum_(Rome).jpg",
+      "listedArtist": "Wknight94",
+      "listedLicense": "CC BY-SA 3.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-004",
+      "photoIndex": 1,
+      "city": "Paris",
+      "source": "https://commons.wikimedia.org/wiki/File:Eiffel_Tower%2C_Paris.jpg",
+      "listedArtist": "Kate",
+      "listedLicense": "CC BY-SA 3.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-005",
+      "photoIndex": 1,
+      "city": "Berlin",
+      "source": "https://commons.wikimedia.org/wiki/File:Brandenburg-Gate-Berlin.jpg",
+      "listedArtist": "KK nationsonline",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-006",
+      "photoIndex": 1,
+      "city": "Sidney",
+      "source": "https://commons.wikimedia.org/wiki/File:SydneyOperaHouse.jpg",
+      "listedArtist": "Bjarte Sorensen",
+      "listedLicense": "CC BY-SA 3.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-007",
+      "photoIndex": 2,
+      "city": "Tokyo",
+      "source": "https://commons.wikimedia.org/wiki/File:Tokyo_station.jpg",
+      "listedArtist": "Funasan",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-008",
+      "photoIndex": 1,
+      "city": "Barselona",
+      "source": "https://commons.wikimedia.org/wiki/File:Sagrada_Familia_Barcelona.jpg",
+      "listedArtist": "Xilvitar",
+      "listedLicense": "CC BY-SA 3.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-009",
+      "photoIndex": 1,
+      "city": "New York",
+      "source": "https://commons.wikimedia.org/wiki/File:Statue_of_Liberty_New_York.jpg",
+      "listedArtist": "Kong of Lasers",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-014",
+      "photoIndex": 1,
+      "city": "Gize",
+      "source": "https://commons.wikimedia.org/wiki/File:Pyramids_of_Giza.jpg",
+      "listedArtist": "Ireneusz Jerzy Borysiewicz",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-015",
+      "photoIndex": 1,
+      "city": "Agra",
+      "source": "https://commons.wikimedia.org/wiki/File:Taj_Mahal_view_from_Mehtab_Bagh.jpg",
+      "listedArtist": "Rohangpt70",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-017",
+      "photoIndex": 1,
+      "city": "Prag",
+      "source": "https://commons.wikimedia.org/wiki/File:PRAGUE.jpg",
+      "listedArtist": "Jiří Tondl",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    }
+  ]
+}
