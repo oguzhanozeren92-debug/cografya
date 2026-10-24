@@ -8,7 +8,6 @@ const doc=JSON.parse(fs.readFileSync(catalogFile,'utf8'));
 const albums=Array.isArray(doc.collections)?doc.collections:[];
 const issues=[],seenSource=new Set(),albumStats=[];
 let stored=0, approvedStored=0, approvedCount=0, invalidApproved=0;
-const MIME={jpg:'image/jpeg',webp:'image/webp'};
 const commons=/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/i;
 const license=/^https:\/\/creativecommons\.org\/(?:licenses|publicdomain)\//i;
 function looksLikeImage(buffer,format){
@@ -26,7 +25,21 @@ for(const row of albums){
  const photos=Array.isArray(row.images)?row.images:[];
  let present=0,invalid=0;
  if(photos.length<3||photos.length>4){err(row.id,'photo_count','Each album must have 3 or 4 photos',isApproved);invalid++}
- if(!row.city||!row.country||!row.lat||!row.lng){err(row.id,'metadata','Missing location metadata',isApproved);invalid++}
+ const goodText=(value,max)=>typeof value==='string'&&value.trim().length>0&&value.length<=max;
+ if(!/^album-0(?:0[1-9]|1[0-9]|20)$/.test(row.id||'') ||
+  !goodText(row.city,140)||!goodText(row.country,100)||!goodText(row.fact,700)||
+  !Number.isFinite(row.lat)||Math.abs(row.lat)>90||!Number.isFinite(row.lng)||Math.abs(row.lng)>180||
+  !/^\\d{3}$/.test(row.regionCode||'')||!['easy','medium','hard'].includes(row.difficulty)){
+  err(row.id,'metadata','Invalid location, difficulty, or fact fields',isApproved);invalid++;
+ }
+ if(!Array.isArray(row.choices)||row.choices.length!==4||new Set(row.choices).size!==4||
+  !row.choices.every(x=>goodText(x,100))||!row.choices.includes(row.country)){
+  err(row.id,'quiz_choices','Four unique options must contain the correct country',isApproved);invalid++;
+ }
+ if(!row.hint||!goodText(row.hint.tr,220)||!goodText(row.hint.en,220)||
+  !row.photoFocus||!goodText(row.photoFocus.tr,220)||!goodText(row.photoFocus.en,220)){
+  err(row.id,'hint','Missing or invalid multilingual hint fields',isApproved);invalid++;
+ }
  photos.forEach((photo,index)=>{
   const fmt=photo?.format;
   const base=path.join(root,'public','drone-gallery','photos',row.id,String(index+1));
@@ -36,7 +49,7 @@ for(const row of albums){
   const actual=variants[0],bytes=fs.readFileSync(base+'.'+actual);
   if(fmt!==actual){err(row.id,'wrong_format',String(index+1)+' catalogue='+fmt+' actual='+actual,isApproved);invalid++;return}
   if(bytes.length<8000||!looksLikeImage(bytes,actual)){err(row.id,'bad_image_bytes',String(index+1),isApproved);invalid++;return}
-  if(!photo.artist||!photo.license||!commons.test(photo.source||'')||!license.test(photo.licenseUrl||'')){
+  if(!goodText(photo.artist,300)||!goodText(photo.license,60)||!commons.test(photo.source||'')||!license.test(photo.licenseUrl||'')){
     err(row.id,'source_metadata',String(index+1),isApproved);invalid++;return
   }
   if(seenSource.has(photo.source)){err(row.id,'duplicate_source',String(index+1),isApproved);invalid++;return}
