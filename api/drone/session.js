@@ -162,12 +162,21 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({error: 'Method not allowed'});
   // v=2 opt-in prevents older App Store binaries from seeing a new media type.
   const galleryCapable = String(req.query?.v ?? '') === '2';
-  // This fixed project origin serves static assets from the GitHub repository's public/
-  // directory via Vercel. No Cloudflare account, R2 secret or app update is required.
-  const githubStaticOrigin = 'https://atlas-arena-tau.vercel.app';
+  // Read assets from this exact deployment first. This lets preview/staging
+  // builds validate their own gallery instead of accidentally fetching an
+  // outdated catalog from the production alias. Fall back to the canonical
+  // production host when VERCEL_URL is unavailable (e.g. local development).
+  const productionGalleryOrigin = 'https://atlas-arena-tau.vercel.app';
+  const vercelHost = process.env.VERCEL_URL || '';
+  const deployedGalleryOrigin =
+    /^[a-z0-9-]+(?:\\.[a-z0-9-]+)*\\.vercel\\.app$/i.test(vercelHost)
+      ? 'https://' + vercelHost : '';
+  const galleryOrigins = [...new Set([deployedGalleryOrigin,productionGalleryOrigin].filter(Boolean))];
   if (galleryCapable) {
-    const local = await photoGallery(githubStaticOrigin);
-    if (local) return res.status(200).json({...local, origin: 'github-gallery'});
+    for (const origin of galleryOrigins) {
+      const local = await photoGallery(origin);
+      if (local) return res.status(200).json({...local, origin: 'github-gallery'});
+    }
   }
   // Keep the old R2 integration as an explicit optional rollback only. Missing R2
   // never slows GitHub-backed v2 clients or breaks the built-in five-photo pilot.
