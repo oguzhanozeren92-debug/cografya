@@ -1,0 +1,70 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101b27"><title>Globriva · Dünya Fotoğraf Taraması</title>
+<style>
+:root{background:#101b27;color:#f5eddf;font-family:system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#263e4d,#101b27 55%);min-height:100dvh}
+main{width:min(920px,100%);padding:17px 15px 50px;margin:auto}
+h1{font:700 clamp(30px,5vw,45px) Georgia,serif;margin:13px 0 8px}h2{font:700 20px Georgia,serif}
+a{color:#ffda99}button{font:inherit;border:1px solid #c49c64;background:#e5bb7e;color:#271c15;padding:9px 13px;border-radius:10px;font-weight:800;cursor:pointer}
+button:disabled{opacity:.45;cursor:default}.secondary{background:#1a3442;color:#ffdb9c}
+p{line-height:1.48}.note{color:#b6c8d1;font-size:13px}.eyebrow{font-weight:900;font-size:11px;letter-spacing:1.3px;color:#f5ca83}
+.card{border:1px solid #5e7480;background:#182c38;border-radius:15px;padding:15px;margin:13px 0;overflow:hidden}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.bar>*{flex-shrink:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}.stat{border:1px solid #60727c;border-radius:11px;padding:12px;background:#1a303c}.stat strong{font-size:23px;color:#f0c478;display:block}.stat span{font-size:11px;color:#b3c4cc}
+.album{display:flex;justify-content:space-between;gap:14px;align-items:center}
+.album .desc{min-width:0}.album strong{display:block;font-size:17px}.album small{display:block;color:#afc3ce;margin-top:4px}
+.result{border-top:1px solid #556975;margin-top:12px;padding-top:8px}
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px}
+.photo{border-radius:11px;border:1px solid #567585;background:#0b202d;overflow:hidden}
+.photo img{width:100%;height:130px;object-fit:cover;display:block}.photo div{padding:8px}.photo a{display:block;font-size:11px;overflow-wrap:anywhere}.photo p{font-size:11px;margin:4px 0}
+.status{font-size:12px;color:#e5b86a}.error{color:#ffaba3}.legend{font-size:12px;color:#bac8cb;background:#293b44;padding:13px;border-radius:12px}
+@media(max-width:460px){.stats{grid-template-columns:repeat(3,1fr)}.stat strong{font-size:19px}.photos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head><body><main>
+<div class="eyebrow">GLOBRIVA · DÜNYA KAPSAMA</div>
+<h1>Dünya Fotoğraf Taraması 🌍</h1>
+<p class="note">Avrupa dışındaki eksik bölgeler için Wikimedia Commons üzerinden gerçek coğrafi konumlu, lisans bilgisi olan fotoğraf adaylarını arar. Bu sayfa görselleri oyuna otomatik eklemez.</p>
+<div class="stats"><div class="stat"><strong>20</strong><span>Hedef konum</span></div><div class="stat"><strong>7</strong><span>Öncelikli bölge</span></div><div class="stat"><strong id="scanned">0</strong><span>Taranan şehir</span></div></div>
+<div class="bar"><button id="scanAll">20 Şehri Sırayla Tara</button><button class="secondary" id="copy" disabled>Raporu Kopyala</button><span class="status" id="progress" aria-live="polite">Taramaya hazır</span></div>
+<p class="legend">Aramalar Wikimedia Commons'ın kaynak verilerine dayanır. Bir fotoğrafın gerçekten doğru şehre ait olduğunun, kullanım koşullarının ve görüntü içeriğinin ayrıca doğrulanması gerekir. Her aday editör incelemesi bekler.</p>
+<div id="list"></div>
+</main>
+<script>
+const CITIES=[{"id":"01","region":"Africa","city":"Cape Town","country":"Güney Afrika"},{"id":"02","region":"Africa","city":"Marakeş","country":"Fas"},{"id":"03","region":"Africa","city":"Zanzibar (Stone Town)","country":"Tanzanya"},{"id":"04","region":"Africa","city":"Nairobi","country":"Kenya"},{"id":"05","region":"Africa","city":"Dakar","country":"Senegal"},{"id":"06","region":"South America","city":"Buenos Aires","country":"Arjantin"},{"id":"07","region":"South America","city":"Cusco","country":"Peru"},{"id":"08","region":"South America","city":"Cartagena","country":"Kolombiya"},{"id":"09","region":"South America","city":"Santiago","country":"Şili"},{"id":"10","region":"South America","city":"La Paz","country":"Bolivya"},{"id":"11","region":"East Asia","city":"Seul","country":"Güney Kore"},{"id":"12","region":"East Asia","city":"Kyoto","country":"Japonya"},{"id":"13","region":"East Asia","city":"Pekin","country":"Çin"},{"id":"14","region":"East Asia","city":"Hong Kong","country":"Çin"},{"id":"15","region":"Southeast Asia","city":"Bangkok","country":"Tayland"},{"id":"16","region":"Southeast Asia","city":"Hanoi","country":"Vietnam"},{"id":"17","region":"Southeast Asia","city":"Singapur","country":"Singapur"},{"id":"18","region":"South Asia","city":"Katmandu","country":"Nepal"},{"id":"19","region":"West Asia","city":"Petra (Wadi Musa)","country":"Ürdün"},{"id":"20","region":"Oceania","city":"Wellington","country":"Yeni Zelanda"}];
+const NAMES={Africa:"Afrika","South America":"Güney Amerika","East Asia":"Doğu Asya","Southeast Asia":"Güneydoğu Asya","South Asia":"Güney Asya","West Asia":"Orta Doğu",Oceania:"Okyanusya"};
+const state=new Map();
+const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const list=document.querySelector("#list");
+list.innerHTML=CITIES.map(c=>'<section class="card" data-id="'+c.id+'"><div class="album"><div class="desc"><strong>'+esc(c.city)+'</strong><small>'+esc(c.country)+' · '+esc(NAMES[c.region])+'</small></div><button data-scan="'+c.id+'">Fotoğraf Ara</button></div><div class="result" id="r'+c.id+'"><span class="status">Henüz taranmadı</span></div></section>').join("");
+async function scan(c){
+ const panel=document.getElementById('r'+c.id);
+ panel.innerHTML='<span class="status">Wikimedia kaynakları taranıyor…</span>';
+ const btn=document.querySelector('[data-scan="'+c.id+'"]');btn.disabled=true;
+ try{
+  const resp=await fetch('/api/world/scan?id='+encodeURIComponent(c.id),{cache:"no-store"});
+  const data=await resp.json();if(!resp.ok||!data.ok)throw Error(data.reason||data.error||"Arama başarısız");
+  state.set(c.id,{city:c.city,country:c.country,...data});
+  panel.innerHTML='<p class="status">'+data.found+' lisanslı, konum etiketli aday · İlk '+data.candidates.length+' gösteriliyor</p>'+
+  (data.candidates.length?'<div class="photos">'+data.candidates.slice(0,6).map(x=>
+   '<article class="photo">'+(x.thumbnail?'<img loading="lazy" src="'+esc(x.thumbnail)+'" alt="Commons fotoğraf adayı">':'')+
+   '<div><a href="'+esc(x.source)+'" target="_blank" rel="noopener noreferrer">'+esc(x.title.replace(/^File:/,''))+'</a><p>'+esc(x.photographer)+' · '+esc(x.license)+' · '+x.distanceKm+' km</p></div></article>'
+  ).join('')+'</div>':'<p class="note">Bu aramada uygun fotoğraf bulunamadı; farklı konum veya kaynak araştırması gerekiyor.</p>');
+ }catch(e){
+  state.set(c.id,{city:c.city,country:c.country,error:String(e.message||e)});
+  panel.innerHTML='<p class="error">Taranamadı: '+esc(e.message||e)+'. Daha sonra yeniden denenebilir.</p>';
+ }finally{btn.disabled=false;document.querySelector('#scanned').textContent=state.size;
+  document.querySelector("#copy").disabled=!state.size;
+ }
+}
+document.querySelectorAll('[data-scan]').forEach(el=>el.onclick=()=>scan(CITIES.find(x=>x.id===el.dataset.scan)));
+document.querySelector('#scanAll').onclick=async()=>{
+ const b=document.querySelector("#scanAll");b.disabled=true;
+ for(let i=0;i<CITIES.length;i++){
+  document.querySelector("#progress").textContent=(i+1)+"/"+CITIES.length+" şehir taranıyor";
+  await scan(CITIES[i]);
+ }
+ b.disabled=false;document.querySelector("#progress").textContent="Dünya taraması tamamlandı";
+};
+document.querySelector('#copy').onclick=()=>{
+ const data=JSON.stringify({kind:"Globriva World Scan",date:new Date().toISOString(),results:[...state.values()]},null,2);
+ navigator.clipboard?.writeText(data).then(()=>{document.querySelector("#progress").textContent="Rapor kopyalandı"}).catch(()=>{document.querySelector("#progress").textContent="Kopyalama kullanılamıyor"});
+};
+</script></body></html>
