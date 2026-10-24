@@ -1,0 +1,1168 @@
+{
+  "version": 1,
+  "lastVerified": "2026-10-25",
+  "source": "Wikimedia Commons; 1280px image thumb URLs; 60 of 60 HEAD HTTP 200 image/jpeg",
+  "note": "Metadata and source/artist/license screened; full visual and location QA plus mirroring into owned hosting is still required before mass production use.",
+  "cities": [
+    {
+      "city_id": "01",
+      "city": "Cape Town",
+      "country": "Güney Afrika",
+      "region": "Africa",
+      "question": "Bu fotoğraf dizisindeki şehir hangi ülkededir?",
+      "choices": [
+        "Güney Afrika",
+        "Fas",
+        "Tanzanya",
+        "Kenya"
+      ],
+      "correct_index": 0,
+      "photos": [
+        {
+          "city_id": "01",
+          "commons_title": "File:CT - Lion's Head and Table Mountain from Signal Hill, Cape Town, South Africa, 2017.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/CT_-_Lion%27s_Head_and_Table_Mountain_from_Signal_Hill%2C_Cape_Town%2C_South_Africa%2C_2017.jpg/1280px-CT_-_Lion%27s_Head_and_Table_Mountain_from_Signal_Hill%2C_Cape_Town%2C_South_Africa%2C_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/CT_-_Lion%27s_Head_and_Table_Mountain_from_Signal_Hill%2C_Cape_Town%2C_South_Africa%2C_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:CT_-_Lion%27s_Head_and_Table_Mountain_from_Signal_Hill,_Cape_Town,_South_Africa,_2017.jpg",
+          "artist": "Josep M. Gracia",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 4288,
+          "height": 2848,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "01",
+          "commons_title": "File:CT - Long Street in Cape Town, South Africa, 2017.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/CT_-_Long_Street_in_Cape_Town%2C_South_Africa%2C_2017.jpg/1280px-CT_-_Long_Street_in_Cape_Town%2C_South_Africa%2C_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/CT_-_Long_Street_in_Cape_Town%2C_South_Africa%2C_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:CT_-_Long_Street_in_Cape_Town,_South_Africa,_2017.jpg",
+          "artist": "Josep M. Gracia",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 4288,
+          "height": 2848,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "01",
+          "commons_title": "File:CT - Table Mountain and Cape Town cityscape, South Africa, 2017.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/CT_-_Table_Mountain_and_Cape_Town_cityscape%2C_South_Africa%2C_2017.jpg/1280px-CT_-_Table_Mountain_and_Cape_Town_cityscape%2C_South_Africa%2C_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/85/CT_-_Table_Mountain_and_Cape_Town_cityscape%2C_South_Africa%2C_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:CT_-_Table_Mountain_and_Cape_Town_cityscape,_South_Africa,_2017.jpg",
+          "artist": "Josep M. Gracia",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 4288,
+          "height": 2848,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "02",
+      "city": "Marakeş",
+      "country": "Fas",
+      "region": "Africa",
+      "question": "Bu meydan ve mimari hangi ülkededir?",
+      "choices": [
+        "Güney Afrika",
+        "Fas",
+        "Tanzanya",
+        "Kenya"
+      ],
+      "correct_index": 1,
+      "photos": [
+        {
+          "city_id": "02",
+          "commons_title": "File:2010-06-18 Marrakesch - In den Souks - panoramio.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/2010-06-18_Marrakesch_-_In_den_Souks_-_panoramio.jpg/1280px-2010-06-18_Marrakesch_-_In_den_Souks_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/85/2010-06-18_Marrakesch_-_In_den_Souks_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2010-06-18_Marrakesch_-_In_den_Souks_-_panoramio.jpg",
+          "artist": "giggel",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 3456,
+          "height": 2592,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "02",
+          "commons_title": "File:El Ksour, Marrakech, Morocco - panoramio (16).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/El_Ksour%2C_Marrakech%2C_Morocco_-_panoramio_%2816%29.jpg/1280px-El_Ksour%2C_Marrakech%2C_Morocco_-_panoramio_%2816%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/El_Ksour%2C_Marrakech%2C_Morocco_-_panoramio_%2816%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:El_Ksour,_Marrakech,_Morocco_-_panoramio_(16).jpg",
+          "artist": "karel291",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 4608,
+          "height": 2592,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "02",
+          "commons_title": "File:Rahba Kedima, Marrakesh, Morocco - panoramio (10).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Rahba_Kedima%2C_Marrakesh%2C_Morocco_-_panoramio_%2810%29.jpg/1280px-Rahba_Kedima%2C_Marrakesh%2C_Morocco_-_panoramio_%2810%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Rahba_Kedima%2C_Marrakesh%2C_Morocco_-_panoramio_%2810%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Rahba_Kedima,_Marrakesh,_Morocco_-_panoramio_(10).jpg",
+          "artist": "karel291",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 4608,
+          "height": 3456,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "03",
+      "city": "Zanzibar (Stone Town)",
+      "country": "Tanzanya",
+      "region": "Africa",
+      "question": "Bu tarihî kıyı yerleşimi hangi ülkededir?",
+      "choices": [
+        "Güney Afrika",
+        "Fas",
+        "Tanzanya",
+        "Kenya"
+      ],
+      "correct_index": 2,
+      "photos": [
+        {
+          "city_id": "03",
+          "commons_title": "File:Detail Coral Rag Stone Stone Town Oct26 A7CR 14670.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Detail_Coral_Rag_Stone_Stone_Town_Oct26_A7CR_14670.jpg/1280px-Detail_Coral_Rag_Stone_Stone_Town_Oct26_A7CR_14670.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Detail_Coral_Rag_Stone_Stone_Town_Oct26_A7CR_14670.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Detail_Coral_Rag_Stone_Stone_Town_Oct26_A7CR_14670.jpg",
+          "artist": "\n\n  \n  This Photo  was taken by    Timothy A. Gonsalves   .  Feel free to use my photos, but please mention me as the author.  I would much appreciate if you send me an email  tagooty@yahoo.com  or write on  my talk page , for my information.  Please contact me before commercial use.\n    \n \n         \n   Please do not upload an edited image here without consulting me.  I would like to make corrections only at my own source to ensure that the changes improve the image and are preserved. Otherwise you may upload an edited image with a new name. Please use one of the templates  derivative  or  extract . \n",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 5211,
+          "height": 3908,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "03",
+          "commons_title": "File:Impressions of Zanzibar (28).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Impressions_of_Zanzibar_%2828%29.jpg/1280px-Impressions_of_Zanzibar_%2828%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Impressions_of_Zanzibar_%2828%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Impressions_of_Zanzibar_(28).jpg",
+          "artist": "Zenith4237",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 6720,
+          "height": 4480,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "03",
+          "commons_title": "File:Stone Town, Zanzibar, Tanzania - panoramio.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Stone_Town%2C_Zanzibar%2C_Tanzania_-_panoramio.jpg/1280px-Stone_Town%2C_Zanzibar%2C_Tanzania_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Stone_Town%2C_Zanzibar%2C_Tanzania_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Stone_Town,_Zanzibar,_Tanzania_-_panoramio.jpg",
+          "artist": "The Erica Chang",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 3456,
+          "height": 2304,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "04",
+      "city": "Nairobi",
+      "country": "Kenya",
+      "region": "Africa",
+      "question": "Bu kent silüeti hangi ülkenin başkentindedir?",
+      "choices": [
+        "Güney Afrika",
+        "Fas",
+        "Tanzanya",
+        "Kenya"
+      ],
+      "correct_index": 3,
+      "photos": [
+        {
+          "city_id": "04",
+          "commons_title": "File:Kenyatta International Convention Centre.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Kenyatta_International_Convention_Centre.jpg/1280px-Kenyatta_International_Convention_Centre.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Kenyatta_International_Convention_Centre.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Kenyatta_International_Convention_Centre.jpg",
+          "artist": "Francis Akuka for the Wikimedia Foundation",
+          "licence": "CC0",
+          "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "width": 6000,
+          "height": 4000,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "04",
+          "commons_title": "File:Nairobi skyline from Uhuru Park.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Nairobi_skyline_from_Uhuru_Park.jpg/1280px-Nairobi_skyline_from_Uhuru_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Nairobi_skyline_from_Uhuru_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Nairobi_skyline_from_Uhuru_Park.jpg",
+          "artist": "Ephymbaya",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 4608,
+          "height": 3456,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "04",
+          "commons_title": "File:Skyline of Nairobi city as seen from Uhuru Park.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Skyline_of_Nairobi_city_as_seen_from_Uhuru_Park.jpg/1280px-Skyline_of_Nairobi_city_as_seen_from_Uhuru_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Skyline_of_Nairobi_city_as_seen_from_Uhuru_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Skyline_of_Nairobi_city_as_seen_from_Uhuru_Park.jpg",
+          "artist": "DesiBoy101",
+          "licence": "CC BY 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0",
+          "width": 4000,
+          "height": 3000,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "05",
+      "city": "Dakar",
+      "country": "Senegal",
+      "region": "Africa",
+      "question": "Bu Atlantik kıyısındaki şehir hangi ülkededir?",
+      "choices": [
+        "Senegal",
+        "Güney Afrika",
+        "Fas",
+        "Tanzanya"
+      ],
+      "correct_index": 0,
+      "photos": [
+        {
+          "city_id": "05",
+          "commons_title": "File:African Renaissance Monument Dakar 2025.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/African_Renaissance_Monument_Dakar_2025.jpg/1280px-African_Renaissance_Monument_Dakar_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/African_Renaissance_Monument_Dakar_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:African_Renaissance_Monument_Dakar_2025.jpg",
+          "artist": "Gromane",
+          "licence": "CC0",
+          "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "width": 3000,
+          "height": 4000,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "05",
+          "commons_title": "File:African Renaissance Monument.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/African_Renaissance_Monument.jpg/1280px-African_Renaissance_Monument.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/African_Renaissance_Monument.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:African_Renaissance_Monument.jpg",
+          "artist": "Shutterframestheworld",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 1440,
+          "height": 1920,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "05",
+          "commons_title": "File:SN-dakar-goree.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/SN-dakar-goree.jpg/1280px-SN-dakar-goree.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/SN-dakar-goree.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:SN-dakar-goree.jpg",
+          "artist": "Balou46",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 4928,
+          "height": 3264,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "06",
+      "city": "Buenos Aires",
+      "country": "Arjantin",
+      "region": "South America",
+      "question": "Bu şehir simgeleri hangi ülkeye aittir?",
+      "choices": [
+        "Peru",
+        "Arjantin",
+        "Kolombiya",
+        "Şili"
+      ],
+      "correct_index": 1,
+      "photos": [
+        {
+          "city_id": "06",
+          "commons_title": "File:Buenos Aires city.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Buenos_Aires_city.jpg/1280px-Buenos_Aires_city.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Buenos_Aires_city.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Buenos_Aires_city.jpg",
+          "artist": "Valu Solange",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 1362,
+          "height": 2048,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "06",
+          "commons_title": "File:Caminito, La Boca, CABA.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/Caminito%2C_La_Boca%2C_CABA.jpg/1280px-Caminito%2C_La_Boca%2C_CABA.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Caminito%2C_La_Boca%2C_CABA.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Caminito,_La_Boca,_CABA.jpg",
+          "artist": "Ketchup23",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 1500,
+          "height": 2000,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "06",
+          "commons_title": "File:Obelisk in Buenos Aires.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Obelisk_in_Buenos_Aires.jpg/1280px-Obelisk_in_Buenos_Aires.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Obelisk_in_Buenos_Aires.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Obelisk_in_Buenos_Aires.jpg",
+          "artist": "Iurii Volkov",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 3094,
+          "height": 4671,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "07",
+      "city": "Cusco",
+      "country": "Peru",
+      "region": "South America",
+      "question": "Bu tarihî And şehri hangi ülkededir?",
+      "choices": [
+        "Arjantin",
+        "Kolombiya",
+        "Peru",
+        "Şili"
+      ],
+      "correct_index": 2,
+      "photos": [
+        {
+          "city_id": "07",
+          "commons_title": "File:Dia San Miguel arcángel, Plaza de armas Cusco 02.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Dia_San_Miguel_arc%C3%A1ngel%2C_Plaza_de_armas_Cusco_02.jpg/1280px-Dia_San_Miguel_arc%C3%A1ngel%2C_Plaza_de_armas_Cusco_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Dia_San_Miguel_arc%C3%A1ngel%2C_Plaza_de_armas_Cusco_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Dia_San_Miguel_arc%C3%A1ngel,_Plaza_de_armas_Cusco_02.jpg",
+          "artist": "Ordzonhyd Rudyard Tarco Palomino",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 4080,
+          "height": 3072,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "07",
+          "commons_title": "File:Plaza de armas del Cusco, vista 360.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Plaza_de_armas_del_Cusco%2C_vista_360.jpg/1280px-Plaza_de_armas_del_Cusco%2C_vista_360.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Plaza_de_armas_del_Cusco%2C_vista_360.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Plaza_de_armas_del_Cusco,_vista_360.jpg",
+          "artist": "Johnattan Rupire",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 5660,
+          "height": 2830,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "07",
+          "commons_title": "File:Vista 360 plaza del Cusco, Iglesia.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Vista_360_plaza_del_Cusco%2C_Iglesia.jpg/1280px-Vista_360_plaza_del_Cusco%2C_Iglesia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Vista_360_plaza_del_Cusco%2C_Iglesia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Vista_360_plaza_del_Cusco,_Iglesia.jpg",
+          "artist": "Johnattan Rupire",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 5660,
+          "height": 2830,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "08",
+      "city": "Cartagena",
+      "country": "Kolombiya",
+      "region": "South America",
+      "question": "Bu surlarla çevrili Karayip şehri hangi ülkededir?",
+      "choices": [
+        "Arjantin",
+        "Peru",
+        "Şili",
+        "Kolombiya"
+      ],
+      "correct_index": 3,
+      "photos": [
+        {
+          "city_id": "08",
+          "commons_title": "File:Church - panoramio (172).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Church_-_panoramio_%28172%29.jpg/1280px-Church_-_panoramio_%28172%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Church_-_panoramio_%28172%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Church_-_panoramio_(172).jpg",
+          "artist": "---=XEON=---",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 4320,
+          "height": 3240,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "08",
+          "commons_title": "File:Nice Building - panoramio (1).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Nice_Building_-_panoramio_%281%29.jpg/1280px-Nice_Building_-_panoramio_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Nice_Building_-_panoramio_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Nice_Building_-_panoramio_(1).jpg",
+          "artist": "---=XEON=---",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 4320,
+          "height": 3240,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "08",
+          "commons_title": "File:Street Of Cartagena City - panoramio.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Street_Of_Cartagena_City_-_panoramio.jpg/1280px-Street_Of_Cartagena_City_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Street_Of_Cartagena_City_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Street_Of_Cartagena_City_-_panoramio.jpg",
+          "artist": "---=XEON=---",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 4320,
+          "height": 3240,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "09",
+      "city": "Santiago",
+      "country": "Şili",
+      "region": "South America",
+      "question": "Bu And Dağları'nın eteklerindeki başkent hangi ülkededir?",
+      "choices": [
+        "Şili",
+        "Arjantin",
+        "Peru",
+        "Kolombiya"
+      ],
+      "correct_index": 0,
+      "photos": [
+        {
+          "city_id": "09",
+          "commons_title": "File:Santiago de Chile (14369683393).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Santiago_de_Chile_%2814369683393%29.jpg/1280px-Santiago_de_Chile_%2814369683393%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Santiago_de_Chile_%2814369683393%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Santiago_de_Chile_(14369683393).jpg",
+          "artist": "► Cristofer",
+          "licence": "CC BY 2.0",
+          "licence_url": "https://creativecommons.org/licenses/by/2.0",
+          "width": 3264,
+          "height": 1836,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "09",
+          "commons_title": "File:Santiago, Chile (Unsplash IlmkIB-7qoU).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Santiago%2C_Chile_%28Unsplash_IlmkIB-7qoU%29.jpg/1280px-Santiago%2C_Chile_%28Unsplash_IlmkIB-7qoU%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Santiago%2C_Chile_%28Unsplash_IlmkIB-7qoU%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Santiago,_Chile_(Unsplash_IlmkIB-7qoU).jpg",
+          "artist": "Vero Photoart  verophotoart",
+          "licence": "CC0",
+          "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "width": 3600,
+          "height": 2400,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "09",
+          "commons_title": "File:Santiago, Chile (Unsplash xZjS1PxZE1Q).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Santiago%2C_Chile_%28Unsplash_xZjS1PxZE1Q%29.jpg/1280px-Santiago%2C_Chile_%28Unsplash_xZjS1PxZE1Q%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Santiago%2C_Chile_%28Unsplash_xZjS1PxZE1Q%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Santiago,_Chile_(Unsplash_xZjS1PxZE1Q).jpg",
+          "artist": "Pablo Garcia Saldaña  pagsa_",
+          "licence": "CC0",
+          "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "width": 5573,
+          "height": 3482,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "10",
+      "city": "La Paz",
+      "country": "Bolivya",
+      "region": "South America",
+      "question": "Bu yüksek rakımlı And şehri hangi ülkededir?",
+      "choices": [
+        "Arjantin",
+        "Bolivya",
+        "Peru",
+        "Kolombiya"
+      ],
+      "correct_index": 1,
+      "photos": [
+        {
+          "city_id": "10",
+          "commons_title": "File:La Paz - panoramio (7).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/La_Paz_-_panoramio_%287%29.jpg/1280px-La_Paz_-_panoramio_%287%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/La_Paz_-_panoramio_%287%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:La_Paz_-_panoramio_(7).jpg",
+          "artist": "Pavel Špindler",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 4109,
+          "height": 1313,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "10",
+          "commons_title": "File:Street Outside La Paz, Bolivia (8429084849).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Street_Outside_La_Paz%2C_Bolivia_%288429084849%29.jpg/1280px-Street_Outside_La_Paz%2C_Bolivia_%288429084849%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Street_Outside_La_Paz%2C_Bolivia_%288429084849%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Street_Outside_La_Paz,_Bolivia_(8429084849).jpg",
+          "artist": "Alex Proimos  from Sydney, Australia",
+          "licence": "CC BY 2.0",
+          "licence_url": "https://creativecommons.org/licenses/by/2.0",
+          "width": 4133,
+          "height": 2755,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "10",
+          "commons_title": "File:Streets of La Paz - panoramio.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Streets_of_La_Paz_-_panoramio.jpg/1280px-Streets_of_La_Paz_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Streets_of_La_Paz_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Streets_of_La_Paz_-_panoramio.jpg",
+          "artist": "BlackNose",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 2816,
+          "height": 2112,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "11",
+      "city": "Seul",
+      "country": "Güney Kore",
+      "region": "East Asia",
+      "question": "Bu saray ve modern şehir manzaraları hangi ülkededir?",
+      "choices": [
+        "Japonya",
+        "Çin",
+        "Güney Kore",
+        "Güney Afrika"
+      ],
+      "correct_index": 2,
+      "photos": [
+        {
+          "city_id": "11",
+          "commons_title": "File:Bukchon Hanok Village in Seoul.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Bukchon_Hanok_Village_in_Seoul.jpg/1280px-Bukchon_Hanok_Village_in_Seoul.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Bukchon_Hanok_Village_in_Seoul.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bukchon_Hanok_Village_in_Seoul.jpg",
+          "artist": "Stevenliuyi",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 8291,
+          "height": 2656,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "11",
+          "commons_title": "File:Bukchon Hanok Village.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/Bukchon_Hanok_Village.jpg/1280px-Bukchon_Hanok_Village.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Bukchon_Hanok_Village.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bukchon_Hanok_Village.jpg",
+          "artist": "Penmerahpenbiru",
+          "licence": "CC BY-SA 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+          "width": 2304,
+          "height": 1536,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "11",
+          "commons_title": "File:City of Seoul View From N Seoul Tower.JPG",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/City_of_Seoul_View_From_N_Seoul_Tower.JPG/1280px-City_of_Seoul_View_From_N_Seoul_Tower.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/City_of_Seoul_View_From_N_Seoul_Tower.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:City_of_Seoul_View_From_N_Seoul_Tower.JPG",
+          "artist": "Penmerahpenbiru",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 4752,
+          "height": 3168,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "12",
+      "city": "Kyoto",
+      "country": "Japonya",
+      "region": "East Asia",
+      "question": "Bu tapınakların bulunduğu şehir hangi ülkededir?",
+      "choices": [
+        "Güney Kore",
+        "Çin",
+        "Güney Afrika",
+        "Japonya"
+      ],
+      "correct_index": 3,
+      "photos": [
+        {
+          "city_id": "12",
+          "commons_title": "File:Japanese Garden Kyoto (237710485).jpeg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Japanese_Garden_Kyoto_%28237710485%29.jpeg/1280px-Japanese_Garden_Kyoto_%28237710485%29.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Japanese_Garden_Kyoto_%28237710485%29.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Japanese_Garden_Kyoto_(237710485).jpeg",
+          "artist": "\n Ggpen",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 2048,
+          "height": 1360,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "12",
+          "commons_title": "File:Kyoto Tower (225774315).jpeg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Kyoto_Tower_%28225774315%29.jpeg/1280px-Kyoto_Tower_%28225774315%29.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Kyoto_Tower_%28225774315%29.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Kyoto_Tower_(225774315).jpeg",
+          "artist": "\n Andrew Currie",
+          "licence": "CC BY-SA 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+          "width": 2048,
+          "height": 1536,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "12",
+          "commons_title": "File:京都市役所 Kyoto city hall - panoramio.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/%E4%BA%AC%E9%83%BD%E5%B8%82%E5%BD%B9%E6%89%80_Kyoto_city_hall_-_panoramio.jpg/1280px-%E4%BA%AC%E9%83%BD%E5%B8%82%E5%BD%B9%E6%89%80_Kyoto_city_hall_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/40/%E4%BA%AC%E9%83%BD%E5%B8%82%E5%BD%B9%E6%89%80_Kyoto_city_hall_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:%E4%BA%AC%E9%83%BD%E5%B8%82%E5%BD%B9%E6%89%80_Kyoto_city_hall_-_panoramio.jpg",
+          "artist": "iloverjoa",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 2592,
+          "height": 1944,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "13",
+      "city": "Pekin",
+      "country": "Çin",
+      "region": "East Asia",
+      "question": "Bu anıtsal saray kompleksi hangi ülkededir?",
+      "choices": [
+        "Çin",
+        "Güney Kore",
+        "Japonya",
+        "Güney Afrika"
+      ],
+      "correct_index": 0,
+      "photos": [
+        {
+          "city_id": "13",
+          "commons_title": "File:Beijing (Unsplash).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Beijing_%28Unsplash%29.jpg/1280px-Beijing_%28Unsplash%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Beijing_%28Unsplash%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Beijing_(Unsplash).jpg",
+          "artist": "Tony Bertolino  tonybert89",
+          "licence": "CC0",
+          "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "width": 6000,
+          "height": 3982,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "13",
+          "commons_title": "File:Beijing, China (Unsplash V89ZSyrExxs).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Beijing%2C_China_%28Unsplash_V89ZSyrExxs%29.jpg/1280px-Beijing%2C_China_%28Unsplash_V89ZSyrExxs%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Beijing%2C_China_%28Unsplash_V89ZSyrExxs%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Beijing,_China_(Unsplash_V89ZSyrExxs).jpg",
+          "artist": "Nico Villanueva  nicovillanueva",
+          "licence": "CC0",
+          "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "width": 5239,
+          "height": 2949,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "13",
+          "commons_title": "File:China (Beijing) Aerial view of Forbidden City (38884882275).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/China_%28Beijing%29_Aerial_view_of_Forbidden_City_%2838884882275%29.jpg/1280px-China_%28Beijing%29_Aerial_view_of_Forbidden_City_%2838884882275%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/China_%28Beijing%29_Aerial_view_of_Forbidden_City_%2838884882275%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:China_(Beijing)_Aerial_view_of_Forbidden_City_(38884882275).jpg",
+          "artist": "Güldem Üstün  from Istanbul, TURKEY",
+          "licence": "CC BY 2.0",
+          "licence_url": "https://creativecommons.org/licenses/by/2.0",
+          "width": 3737,
+          "height": 2349,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "14",
+      "city": "Hong Kong",
+      "country": "Çin",
+      "region": "East Asia",
+      "question": "Bu liman ve yüksek binalarla tanınan şehir nerededir?",
+      "choices": [
+        "Güney Kore",
+        "Çin",
+        "Japonya",
+        "Güney Afrika"
+      ],
+      "correct_index": 1,
+      "photos": [
+        {
+          "city_id": "14",
+          "commons_title": "File:Hong Kong skyline at night.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Hong_Kong_skyline_at_night.jpg/1280px-Hong_Kong_skyline_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Hong_Kong_skyline_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Hong_Kong_skyline_at_night.jpg",
+          "artist": "DestinationFearFan",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 3264,
+          "height": 2448,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "14",
+          "commons_title": "File:Hong Kong, Part 1 - HongKong8675.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Hong_Kong%2C_Part_1_-_HongKong8675.jpg/1280px-Hong_Kong%2C_Part_1_-_HongKong8675.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Hong_Kong%2C_Part_1_-_HongKong8675.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Hong_Kong,_Part_1_-_HongKong8675.jpg",
+          "artist": "lumoplank",
+          "licence": "CC0",
+          "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "width": 4983,
+          "height": 3322,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "14",
+          "commons_title": "File:Victoria Harbour at night.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Victoria_Harbour_at_night.jpg/1280px-Victoria_Harbour_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Victoria_Harbour_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Victoria_Harbour_at_night.jpg",
+          "artist": "ImMrDrake",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 2592,
+          "height": 1944,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "15",
+      "city": "Bangkok",
+      "country": "Tayland",
+      "region": "Southeast Asia",
+      "question": "Bu nehir kıyısındaki tapınaklar hangi ülkededir?",
+      "choices": [
+        "Vietnam",
+        "Singapur",
+        "Tayland",
+        "Güney Afrika"
+      ],
+      "correct_index": 2,
+      "photos": [
+        {
+          "city_id": "15",
+          "commons_title": "File:Grand Palace Bangkok, Thailand.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/Grand_Palace_Bangkok%2C_Thailand.jpg/1280px-Grand_Palace_Bangkok%2C_Thailand.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Grand_Palace_Bangkok%2C_Thailand.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Grand_Palace_Bangkok,_Thailand.jpg",
+          "artist": "Andy Marchand",
+          "licence": "CC BY-SA 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+          "width": 6158,
+          "height": 3464,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "15",
+          "commons_title": "File:Outer view of the Grand Palace in Bangkok.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Outer_view_of_the_Grand_Palace_in_Bangkok.jpg/1280px-Outer_view_of_the_Grand_Palace_in_Bangkok.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Outer_view_of_the_Grand_Palace_in_Bangkok.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Outer_view_of_the_Grand_Palace_in_Bangkok.jpg",
+          "artist": "Christophe95",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 5158,
+          "height": 3380,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "15",
+          "commons_title": "File:The Grand Palace @ Bangkok.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/The_Grand_Palace_%40_Bangkok.jpg/1280px-The_Grand_Palace_%40_Bangkok.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/The_Grand_Palace_%40_Bangkok.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:The_Grand_Palace_@_Bangkok.jpg",
+          "artist": "Kevin Poh",
+          "licence": "CC BY 2.0",
+          "licence_url": "https://creativecommons.org/licenses/by/2.0",
+          "width": 5411,
+          "height": 2988,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "16",
+      "city": "Hanoi",
+      "country": "Vietnam",
+      "region": "Southeast Asia",
+      "question": "Bu göl ve eski mahalle hangi ülkenin başkentindedir?",
+      "choices": [
+        "Tayland",
+        "Singapur",
+        "Güney Afrika",
+        "Vietnam"
+      ],
+      "correct_index": 3,
+      "photos": [
+        {
+          "city_id": "16",
+          "commons_title": "File:Chi Linh Park Hanoi market (62066).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Chi_Linh_Park_Hanoi_market_%2862066%29.jpg/1280px-Chi_Linh_Park_Hanoi_market_%2862066%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Chi_Linh_Park_Hanoi_market_%2862066%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Chi_Linh_Park_Hanoi_market_(62066).jpg",
+          "artist": "JakobHosp",
+          "licence": "CC BY 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0",
+          "width": 4608,
+          "height": 2240,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "16",
+          "commons_title": "File:Chi Linh Park Hanoi market (83520).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Chi_Linh_Park_Hanoi_market_%2883520%29.jpg/1280px-Chi_Linh_Park_Hanoi_market_%2883520%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/98/Chi_Linh_Park_Hanoi_market_%2883520%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Chi_Linh_Park_Hanoi_market_(83520).jpg",
+          "artist": "JakobHosp",
+          "licence": "CC BY 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0",
+          "width": 4608,
+          "height": 2240,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "16",
+          "commons_title": "File:Hanoi, Vietnam, Hoan Kiem Lake.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Hanoi%2C_Vietnam%2C_Hoan_Kiem_Lake.jpg/1280px-Hanoi%2C_Vietnam%2C_Hoan_Kiem_Lake.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Hanoi%2C_Vietnam%2C_Hoan_Kiem_Lake.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Hanoi,_Vietnam,_Hoan_Kiem_Lake.jpg",
+          "artist": "Vyacheslav Argenberg",
+          "licence": "CC BY 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0",
+          "width": 3984,
+          "height": 2656,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "17",
+      "city": "Singapur",
+      "country": "Singapur",
+      "region": "Southeast Asia",
+      "question": "Bu körfez ve modern bahçeler hangi ülkededir?",
+      "choices": [
+        "Singapur",
+        "Tayland",
+        "Vietnam",
+        "Güney Afrika"
+      ],
+      "correct_index": 0,
+      "photos": [
+        {
+          "city_id": "17",
+          "commons_title": "File:Boat passing under Elgin Bridge during blue hour (2023)-L1003785.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Boat_passing_under_Elgin_Bridge_during_blue_hour_%282023%29-L1003785.jpg/1280px-Boat_passing_under_Elgin_Bridge_during_blue_hour_%282023%29-L1003785.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Boat_passing_under_Elgin_Bridge_during_blue_hour_%282023%29-L1003785.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Boat_passing_under_Elgin_Bridge_during_blue_hour_(2023)-L1003785.jpg",
+          "artist": "Frank Schulenburg",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 9332,
+          "height": 6198,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "17",
+          "commons_title": "File:Elgin Bridge during blue hour (2023)-L1003788.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Elgin_Bridge_during_blue_hour_%282023%29-L1003788.jpg/1280px-Elgin_Bridge_during_blue_hour_%282023%29-L1003788.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Elgin_Bridge_during_blue_hour_%282023%29-L1003788.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Elgin_Bridge_during_blue_hour_(2023)-L1003788.jpg",
+          "artist": "Frank Schulenburg",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 9528,
+          "height": 6328,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "17",
+          "commons_title": "File:Raffles Place MRT Station, Singapore - panoramio.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Raffles_Place_MRT_Station%2C_Singapore_-_panoramio.jpg/1280px-Raffles_Place_MRT_Station%2C_Singapore_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Raffles_Place_MRT_Station%2C_Singapore_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Raffles_Place_MRT_Station,_Singapore_-_panoramio.jpg",
+          "artist": "The Erica Chang",
+          "licence": "CC BY 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by/3.0",
+          "width": 5184,
+          "height": 3456,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "18",
+      "city": "Katmandu",
+      "country": "Nepal",
+      "region": "South Asia",
+      "question": "Bu tarihî meydan ve tapınaklar hangi ülkededir?",
+      "choices": [
+        "Güney Afrika",
+        "Nepal",
+        "Fas",
+        "Tanzanya"
+      ],
+      "correct_index": 1,
+      "photos": [
+        {
+          "city_id": "18",
+          "commons_title": "File:Bankali Temple Deupatan Pasupati Kathmandu Nepal Rajesh Dhungana (10).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Bankali_Temple_Deupatan_Pasupati_Kathmandu_Nepal_Rajesh_Dhungana_%2810%29.jpg/1280px-Bankali_Temple_Deupatan_Pasupati_Kathmandu_Nepal_Rajesh_Dhungana_%2810%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Bankali_Temple_Deupatan_Pasupati_Kathmandu_Nepal_Rajesh_Dhungana_%2810%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bankali_Temple_Deupatan_Pasupati_Kathmandu_Nepal_Rajesh_Dhungana_(10).jpg",
+          "artist": "Rajesh Dhungana",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 7360,
+          "height": 4912,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "18",
+          "commons_title": "File:Bhasmeshwor Mahadev Temple Pashupati Area Pashupatinath Temple Kathmandu Nepal Rajesh Dhungana (11).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Bhasmeshwor_Mahadev_Temple_Pashupati_Area_Pashupatinath_Temple_Kathmandu_Nepal_Rajesh_Dhungana_%2811%29.jpg/1280px-Bhasmeshwor_Mahadev_Temple_Pashupati_Area_Pashupatinath_Temple_Kathmandu_Nepal_Rajesh_Dhungana_%2811%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Bhasmeshwor_Mahadev_Temple_Pashupati_Area_Pashupatinath_Temple_Kathmandu_Nepal_Rajesh_Dhungana_%2811%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bhasmeshwor_Mahadev_Temple_Pashupati_Area_Pashupatinath_Temple_Kathmandu_Nepal_Rajesh_Dhungana_(11).jpg",
+          "artist": "Rajesh Dhungana",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 7360,
+          "height": 4912,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        },
+        {
+          "city_id": "18",
+          "commons_title": "File:Bhuwaneshwori Temple Pashupatinath Temple Kathmandu Nepal Rajesh Dhungana 2.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Bhuwaneshwori_Temple_Pashupatinath_Temple_Kathmandu_Nepal_Rajesh_Dhungana_2.jpg/1280px-Bhuwaneshwori_Temple_Pashupatinath_Temple_Kathmandu_Nepal_Rajesh_Dhungana_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Bhuwaneshwori_Temple_Pashupatinath_Temple_Kathmandu_Nepal_Rajesh_Dhungana_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bhuwaneshwori_Temple_Pashupatinath_Temple_Kathmandu_Nepal_Rajesh_Dhungana_2.jpg",
+          "artist": "Rajesh Dhungana",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 6877,
+          "height": 4469,
+          "location_basis": "source_geotagged",
+          "review_status": "metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "19",
+      "city": "Petra (Wadi Musa)",
+      "country": "Ürdün",
+      "region": "West Asia",
+      "question": "Bu kayalara oyulmuş antik kent hangi ülkededir?",
+      "choices": [
+        "Güney Afrika",
+        "Fas",
+        "Ürdün",
+        "Tanzanya"
+      ],
+      "correct_index": 2,
+      "photos": [
+        {
+          "city_id": "19",
+          "commons_title": "File:Ad Deir, Petra.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Ad_Deir%2C_Petra.jpg/1280px-Ad_Deir%2C_Petra.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/67/Ad_Deir%2C_Petra.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ad_Deir,_Petra.jpg",
+          "artist": "Bernard Gagnon",
+          "licence": "CC BY-SA 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+          "width": 3456,
+          "height": 2548,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "19",
+          "commons_title": "File:Petra - The Treasury.JPG",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Petra_-_The_Treasury.JPG/1280px-Petra_-_The_Treasury.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Petra_-_The_Treasury.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Petra_-_The_Treasury.JPG",
+          "artist": "LiAnna Davis",
+          "licence": "CC BY-SA 3.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+          "width": 4000,
+          "height": 3000,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "19",
+          "commons_title": "File:Treasury from Siq, Petra, Jordan (16044613195).jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Treasury_from_Siq%2C_Petra%2C_Jordan_%2816044613195%29.jpg/1280px-Treasury_from_Siq%2C_Petra%2C_Jordan_%2816044613195%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Treasury_from_Siq%2C_Petra%2C_Jordan_%2816044613195%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Treasury_from_Siq,_Petra,_Jordan_(16044613195).jpg",
+          "artist": "Esin Üstün  from Istanbul, Turkey",
+          "licence": "CC BY 2.0",
+          "licence_url": "https://creativecommons.org/licenses/by/2.0",
+          "width": 5524,
+          "height": 3683,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    },
+    {
+      "city_id": "20",
+      "city": "Wellington",
+      "country": "Yeni Zelanda",
+      "region": "Oceania",
+      "question": "Bu liman çevresindeki başkent hangi ülkededir?",
+      "choices": [
+        "Güney Afrika",
+        "Fas",
+        "Tanzanya",
+        "Yeni Zelanda"
+      ],
+      "correct_index": 3,
+      "photos": [
+        {
+          "city_id": "20",
+          "commons_title": "File:Wellington - Te Whanganui-a-Tara, Part III - Wellington9221.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Wellington_-_Te_Whanganui-a-Tara%2C_Part_III_-_Wellington9221.jpg/1280px-Wellington_-_Te_Whanganui-a-Tara%2C_Part_III_-_Wellington9221.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Wellington_-_Te_Whanganui-a-Tara%2C_Part_III_-_Wellington9221.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Wellington_-_Te_Whanganui-a-Tara,_Part_III_-_Wellington9221.jpg",
+          "artist": "lumoplank",
+          "licence": "CC0",
+          "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "width": 5303,
+          "height": 3535,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "20",
+          "commons_title": "File:Wellington Cable Car Cityscape.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Wellington_Cable_Car_Cityscape.jpg/1280px-Wellington_Cable_Car_Cityscape.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Wellington_Cable_Car_Cityscape.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Wellington_Cable_Car_Cityscape.jpg",
+          "artist": "Panamitsu",
+          "licence": "CC BY-SA 4.0",
+          "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "width": 4608,
+          "height": 3456,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        },
+        {
+          "city_id": "20",
+          "commons_title": "File:Wellington city panorama from Cable Car.jpg",
+          "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Wellington_city_panorama_from_Cable_Car.jpg/1280px-Wellington_city_panorama_from_Cable_Car.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Wellington_city_panorama_from_Cable_Car.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Wellington_city_panorama_from_Cable_Car.jpg",
+          "artist": "Clilly4",
+          "licence": "CC0",
+          "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "width": 6040,
+          "height": 1440,
+          "location_basis": "verified_commons_page_caption",
+          "review_status": "curated_source_metadata_checked"
+        }
+      ]
+    }
+  ]
+}
