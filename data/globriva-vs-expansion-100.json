@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "date": "2026-10-24",
   "description": "100 unique four-choice geography questions; 45 checked against the Globriva country metadata and 55 editorially written topics. Existing 25 VS questions are preserved.",
   "targetExisting": 25,
@@ -9,14 +9,15 @@
       "topic": "Başkent",
       "question": "Avusturya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Brüksel",
         "Prag",
-        "Yeni Delhi",
+        "Budapeşte",
+        "Bratislava",
         "Viyana"
       ],
       "correctIndex": 3,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_056",
@@ -24,55 +25,59 @@
       "question": "Belçika ülkesinin başkenti hangisidir?",
       "choices": [
         "Brüksel",
-        "Budapeşte",
-        "Roma",
-        "Riyad"
+        "Amsterdam",
+        "Lüksemburg",
+        "Paris"
       ],
       "correctIndex": 0,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_152",
       "topic": "Başkent",
       "question": "Şili ülkesinin başkenti hangisidir?",
       "choices": [
-        "Atina",
+        "Lima",
         "Santiago",
-        "Bükreş",
-        "Bogota"
+        "Buenos Aires",
+        "Montevideo"
       ],
       "correctIndex": 1,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_156",
       "topic": "Başkent",
       "question": "Çin ülkesinin başkenti hangisidir?",
       "choices": [
-        "Bağdat",
-        "Lizbon",
+        "Seul",
+        "Tokyo",
         "Pekin",
-        "Berlin"
+        "Hanoi"
       ],
       "correctIndex": 2,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_170",
       "topic": "Başkent",
       "question": "Kolombiya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Varşova",
-        "Brüksel",
-        "Paris",
+        "Quito",
+        "Lima",
+        "Caracas",
         "Bogota"
       ],
       "correctIndex": 3,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_191",
@@ -80,55 +85,59 @@
       "question": "Hırvatistan ülkesinin başkenti hangisidir?",
       "choices": [
         "Zagreb",
-        "Helsinki",
-        "Yeni Delhi",
-        "Lima"
+        "Ljubljana",
+        "Belgrad",
+        "Saraybosna"
       ],
       "correctIndex": 0,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_203",
       "topic": "Başkent",
       "question": "Çekya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Kopenhag",
+        "Bratislava",
         "Prag",
-        "Wellington",
-        "Riyad"
+        "Viyana",
+        "Budapeşte"
       ],
       "correctIndex": 1,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_208",
       "topic": "Başkent",
       "question": "Danimarka ülkesinin başkenti hangisidir?",
       "choices": [
-        "Atina",
-        "Meksiko",
+        "Oslo",
+        "Stockholm",
         "Kopenhag",
-        "Zagreb"
+        "Helsinki"
       ],
       "correctIndex": 2,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_218",
       "topic": "Başkent",
       "question": "Ekvador ülkesinin başkenti hangisidir?",
       "choices": [
-        "Rabat",
-        "Hanoi",
-        "Kingston",
+        "Bogota",
+        "Lima",
+        "Caracas",
         "Quito"
       ],
       "correctIndex": 3,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_231",
@@ -136,55 +145,59 @@
       "question": "Etiyopya ülkesinin başkenti hangisidir?",
       "choices": [
         "Addis Ababa",
-        "Reykjavik",
-        "Riga",
-        "Bratislava"
+        "Nairobi",
+        "Hartum",
+        "Kampala"
       ],
       "correctIndex": 0,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_233",
       "topic": "Başkent",
       "question": "Estonya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Beyrut",
+        "Riga",
         "Tallinn",
-        "Manila",
-        "Addis Ababa"
+        "Vilnius",
+        "Helsinki"
       ],
       "correctIndex": 1,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_246",
       "topic": "Başkent",
       "question": "Finlandiya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Prag",
-        "Tahran",
+        "Tallinn",
+        "Stockholm",
         "Helsinki",
-        "Brüksel"
+        "Oslo"
       ],
       "correctIndex": 2,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_250",
       "topic": "Başkent",
       "question": "Fransa ülkesinin başkenti hangisidir?",
       "choices": [
-        "Yeni Delhi",
-        "Meksiko",
-        "Viyana",
+        "Roma",
+        "Madrid",
+        "Brüksel",
         "Paris"
       ],
       "correctIndex": 3,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_268",
@@ -192,55 +205,59 @@
       "question": "Gürcistan ülkesinin başkenti hangisidir?",
       "choices": [
         "Tiflis",
-        "Vilnius",
-        "Manila",
-        "Accra"
+        "Erivan",
+        "Bakü",
+        "Ankara"
       ],
       "correctIndex": 0,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_276",
       "topic": "Başkent",
       "question": "Almanya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Bükreş",
+        "Viyana",
         "Berlin",
-        "Atina",
-        "Dublin"
+        "Varşova",
+        "Prag"
       ],
       "correctIndex": 1,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_288",
       "topic": "Başkent",
       "question": "Gana ülkesinin başkenti hangisidir?",
       "choices": [
-        "Ljubljana",
-        "Astana",
+        "Abuja",
+        "Lomé",
         "Accra",
-        "Katmandu"
+        "Abidjan"
       ],
       "correctIndex": 2,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_300",
       "topic": "Başkent",
       "question": "Yunanistan ülkesinin başkenti hangisidir?",
       "choices": [
-        "Helsinki",
-        "Tahran",
-        "Varşova",
+        "Roma",
+        "Sofya",
+        "Lefkoşa",
         "Atina"
       ],
       "correctIndex": 3,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_348",
@@ -248,55 +265,59 @@
       "question": "Macaristan ülkesinin başkenti hangisidir?",
       "choices": [
         "Budapeşte",
-        "Lima",
         "Viyana",
-        "Kopenhag"
+        "Prag",
+        "Bratislava"
       ],
       "correctIndex": 0,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_352",
       "topic": "Başkent",
       "question": "İzlanda ülkesinin başkenti hangisidir?",
       "choices": [
-        "Addis Ababa",
+        "Oslo",
         "Reykjavik",
-        "Beyrut",
-        "Katmandu"
+        "Helsinki",
+        "Kopenhag"
       ],
       "correctIndex": 1,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_356",
       "topic": "Başkent",
       "question": "Hindistan ülkesinin başkenti hangisidir?",
       "choices": [
-        "Bükreş",
-        "Zagreb",
+        "Katmandu",
+        "İslamabad",
         "Yeni Delhi",
-        "Meksiko"
+        "Dakka"
       ],
       "correctIndex": 2,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_364",
       "topic": "Başkent",
       "question": "İran ülkesinin başkenti hangisidir?",
       "choices": [
-        "Bogota",
-        "Paris",
-        "Roma",
+        "Bağdat",
+        "Kabil",
+        "İslamabad",
         "Tahran"
       ],
       "correctIndex": 3,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_368",
@@ -304,55 +325,59 @@
       "question": "Irak ülkesinin başkenti hangisidir?",
       "choices": [
         "Bağdat",
-        "Dublin",
-        "Varşova",
-        "Pekin"
+        "Tahran",
+        "Şam",
+        "Amman"
       ],
       "correctIndex": 0,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_372",
       "topic": "Başkent",
       "question": "İrlanda ülkesinin başkenti hangisidir?",
       "choices": [
-        "Tahran",
+        "Londra",
         "Dublin",
-        "Santiago",
-        "Kopenhag"
+        "Edinburgh",
+        "Belfast"
       ],
       "correctIndex": 1,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_380",
       "topic": "Başkent",
       "question": "İtalya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Wellington",
-        "Brüksel",
+        "Paris",
+        "Madrid",
         "Roma",
-        "Yeni Delhi"
+        "Atina"
       ],
       "correctIndex": 2,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_388",
       "topic": "Başkent",
       "question": "Jamaika ülkesinin başkenti hangisidir?",
       "choices": [
-        "Hanoi",
-        "Tiflis",
-        "Vilnius",
+        "Nassau",
+        "Havana",
+        "Port-au-Prince",
         "Kingston"
       ],
       "correctIndex": 3,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_398",
@@ -360,55 +385,59 @@
       "question": "Kazakistan ülkesinin başkenti hangisidir?",
       "choices": [
         "Astana",
-        "Riga",
-        "Abuja",
-        "Tallinn"
+        "Bişkek",
+        "Taşkent",
+        "Almatı"
       ],
       "correctIndex": 0,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_400",
       "topic": "Başkent",
       "question": "Ürdün ülkesinin başkenti hangisidir?",
       "choices": [
-        "Katmandu",
+        "Beyrut",
         "Amman",
-        "Addis Ababa",
-        "Kingston"
+        "Şam",
+        "Bağdat"
       ],
       "correctIndex": 1,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_422",
       "topic": "Başkent",
       "question": "Lübnan ülkesinin başkenti hangisidir?",
       "choices": [
-        "Hanoi",
-        "Reykjavik",
+        "Amman",
+        "Şam",
         "Beyrut",
-        "Rabat"
+        "Ankara"
       ],
       "correctIndex": 2,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_428",
       "topic": "Başkent",
       "question": "Letonya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Accra",
-        "Beyrut",
-        "Bratislava",
+        "Tallinn",
+        "Vilnius",
+        "Helsinki",
         "Riga"
       ],
       "correctIndex": 3,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_440",
@@ -416,55 +445,59 @@
       "question": "Litvanya ülkesinin başkenti hangisidir?",
       "choices": [
         "Vilnius",
-        "Manila",
-        "Addis Ababa",
-        "Amman"
+        "Riga",
+        "Tallinn",
+        "Varşova"
       ],
       "correctIndex": 0,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_484",
       "topic": "Başkent",
       "question": "Meksika ülkesinin başkenti hangisidir?",
       "choices": [
-        "Prag",
+        "Guadalajara",
         "Meksiko",
-        "Wellington",
-        "Riyad"
+        "Monterrey",
+        "Puebla"
       ],
       "correctIndex": 1,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_496",
       "topic": "Başkent",
       "question": "Moğolistan ülkesinin başkenti hangisidir?",
       "choices": [
-        "Accra",
-        "Vilnius",
+        "Astana",
+        "Bişkek",
         "Ulan Batur",
-        "Ljubljana"
+        "Taşkent"
       ],
       "correctIndex": 2,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_504",
       "topic": "Başkent",
       "question": "Fas ülkesinin başkenti hangisidir?",
       "choices": [
-        "Riga",
-        "Manila",
-        "Tiflis",
+        "Kazablanka",
+        "Marakeş",
+        "Fes",
         "Rabat"
       ],
       "correctIndex": 3,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_524",
@@ -472,55 +505,59 @@
       "question": "Nepal ülkesinin başkenti hangisidir?",
       "choices": [
         "Katmandu",
-        "Tallinn",
-        "Astana",
-        "Abuja"
+        "Thimphu",
+        "Dakka",
+        "Yeni Delhi"
       ],
       "correctIndex": 0,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_554",
       "topic": "Başkent",
       "question": "Yeni Zelanda ülkesinin başkenti hangisidir?",
       "choices": [
-        "Santiago",
+        "Auckland",
         "Wellington",
-        "Tahran",
-        "Lima"
+        "Christchurch",
+        "Hamilton"
       ],
       "correctIndex": 1,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_566",
       "topic": "Başkent",
       "question": "Nijerya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Riga",
-        "Hanoi",
+        "Lagos",
+        "Kano",
         "Abuja",
-        "Reykjavik"
+        "Ibadan"
       ],
       "correctIndex": 2,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_604",
       "topic": "Başkent",
       "question": "Peru ülkesinin başkenti hangisidir?",
       "choices": [
-        "Budapeşte",
-        "Roma",
-        "Viyana",
+        "Quito",
+        "Santiago",
+        "Bogota",
         "Lima"
       ],
       "correctIndex": 3,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_608",
@@ -528,55 +565,59 @@
       "question": "Filipinler ülkesinin başkenti hangisidir?",
       "choices": [
         "Manila",
-        "Amman",
-        "Rabat",
-        "Addis Ababa"
+        "Cebu",
+        "Davao",
+        "Quezon City"
       ],
       "correctIndex": 0,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_616",
       "topic": "Başkent",
       "question": "Polonya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Bükreş",
+        "Prag",
         "Varşova",
-        "Berlin",
-        "Bağdat"
+        "Vilnius",
+        "Budapeşte"
       ],
       "correctIndex": 1,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_620",
       "topic": "Başkent",
       "question": "Portekiz ülkesinin başkenti hangisidir?",
       "choices": [
-        "Santiago",
-        "Paris",
+        "Porto",
+        "Madrid",
         "Lizbon",
-        "Varşova"
+        "Sevilla"
       ],
       "correctIndex": 2,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_642",
       "topic": "Başkent",
       "question": "Romanya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Helsinki",
-        "Yeni Delhi",
-        "Lima",
+        "Sofya",
+        "Budapeşte",
+        "Belgrad",
         "Bükreş"
       ],
       "correctIndex": 3,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_682",
@@ -584,55 +625,59 @@
       "question": "Suudi Arabistan ülkesinin başkenti hangisidir?",
       "choices": [
         "Riyad",
-        "Wellington",
-        "Viyana",
-        "Kopenhag"
+        "Cidde",
+        "Mekke",
+        "Medine"
       ],
       "correctIndex": 0,
       "difficulty": 1,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_703",
       "topic": "Başkent",
       "question": "Slovakya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Ljubljana",
+        "Prag",
         "Bratislava",
-        "Kingston",
-        "Vilnius"
+        "Budapeşte",
+        "Viyana"
       ],
       "correctIndex": 1,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_704",
       "topic": "Başkent",
       "question": "Vietnam ülkesinin başkenti hangisidir?",
       "choices": [
-        "Tiflis",
-        "Riga",
+        "Ho Chi Minh",
+        "Phnom Penh",
         "Hanoi",
-        "Bratislava"
+        "Vientiane"
       ],
       "correctIndex": 2,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_cap_705",
       "topic": "Başkent",
       "question": "Slovenya ülkesinin başkenti hangisidir?",
       "choices": [
-        "Beyrut",
-        "Katmandu",
-        "Tallinn",
+        "Zagreb",
+        "Viyana",
+        "Bratislava",
         "Ljubljana"
       ],
       "correctIndex": 3,
       "difficulty": 2,
-      "source": "src/data/countries.ts"
+      "source": "src/data/countries.ts",
+      "distractorMethod": "nearby_capitals_or_plausible_major_cities"
     },
     {
       "id": "gv2026_geo_001",
@@ -1404,5 +1449,6 @@
       "difficulty": 1,
       "source": "editorial_curated_general_geography"
     }
-  ]
+  ],
+  "qualityNotes": "45 capital distractor sets reviewed for plausible nearby capital cities/major cities; correct answer and index preserved. 55 noncapital topics remain distinct."
 }
