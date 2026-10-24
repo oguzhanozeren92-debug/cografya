@@ -26,7 +26,7 @@
         "Fransa",
         "Hollanda"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "webp",
@@ -56,7 +56,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:BigBen_London.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-002",
@@ -81,7 +82,7 @@
         "Gürcistan",
         "İtalya"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -111,7 +112,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Bosphorus_-_%D8%A7%D9%84%D8%A8%D9%88%D8%B3%D9%81%D9%88%D8%B1_-_Bosphore_-_%C4%B0stanbul_Bo%C4%9Faz%C4%B1.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-003",
@@ -136,7 +138,7 @@
         "İspanya",
         "Fransa"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -166,7 +168,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Spanish_steps%2C_Rome.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-004",
@@ -191,7 +194,7 @@
         "İtalya",
         "Almanya"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -214,7 +217,8 @@
           "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Louvre_Paris.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-005",
@@ -239,7 +243,7 @@
         "Avusturya",
         "Çekya"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -262,7 +266,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Berlin%2C_fernsehturm..jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-006",
@@ -287,7 +292,7 @@
         "Kanada",
         "Güney Afrika"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -310,7 +315,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Sydney_city_skyline.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-007",
@@ -335,7 +341,7 @@
         "Çin",
         "Tayvan"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -358,7 +364,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:City_you_see_from_Tokyo_Skytree.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-008",
@@ -383,7 +390,7 @@
         "İtalya",
         "Fransa"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -406,7 +413,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Casa_Batllo_Barcelona.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-009",
@@ -431,7 +439,7 @@
         "Meksika",
         "Birleşik Krallık"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -454,7 +462,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Times_Square%2C_NYC.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-010",
@@ -479,7 +488,7 @@
         "Kolombiya",
         "Portekiz"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -502,7 +511,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Sugarloaf_Mountain_-_Rio_de_Janeiro.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-011",
@@ -527,7 +537,7 @@
         "Türkiye",
         "İspanya"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -550,7 +560,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:View_of_Acropolis_of_Athens.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-012",
@@ -575,7 +586,7 @@
         "Danimarka",
         "Almanya"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -598,7 +609,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_Centraal_-.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-013",
@@ -623,7 +635,7 @@
         "Birleşik Krallık",
         "Avustralya"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -646,7 +658,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Toronto_City_Hall_and_Nathan_Phillips_Square_(55401075630).jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-014",
@@ -671,7 +684,7 @@
         "Ürdün",
         "Tunus"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -694,7 +707,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:The_Pyramids_of_GIZA.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-015",
@@ -719,7 +733,7 @@
         "Bangladeş",
         "Nepal"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -742,7 +756,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Mehtab_Bagh_on_the_river_bank%2C_facing_Taj.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-016",
@@ -767,7 +782,7 @@
         "Kolombiya",
         "Amerika Birleşik Devletleri"
       ],
-      "approved": false,
+      "approved": true,
       "images": [
         {
           "format": "jpg",
@@ -790,7 +805,8 @@
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:ZOCALO_MEXICO_CITY.jpg"
         }
-      ]
+      ],
+      "approvalBasis": "owner_authorized_2026-10-24_structural_file_and_catalog_check"
     },
     {
       "id": "album-017",
@@ -984,5 +1000,6 @@
         }
       ]
     }
-  ]
+  ],
+  "releaseState": "owner_authorized_gallery_activation"
 }
