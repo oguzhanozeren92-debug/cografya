@@ -509,6 +509,21 @@ export function StartScreen({
                 <img src="/game-cards/approved-drone.webp" width={865} height={329} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
                 
               </button>
+              <a
+                href="/world-play.html"
+                aria-label="Dünya Keşfi: 20 yeni şehir ve 60 gerçek fotoğraf"
+                className="group mt-3 flex w-full items-center justify-between gap-4 rounded-[22px] border border-amber-200/65 bg-gradient-to-r from-[#163a4c] via-[#1a4a56] to-[#3a4d53] px-5 py-4 text-left text-white shadow-[0_12px_24px_rgba(0,5,25,.26)] transition-transform active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-200"
+              >
+                <span className="flex min-w-0 items-center gap-3">
+                  <span className="text-3xl" aria-hidden="true">🌍</span>
+                  <span className="min-w-0">
+                    <small className="block text-[10px] font-extrabold tracking-[.12em] text-amber-200">YENİ · DÜNYA TURU</small>
+                    <strong className="mt-1 block text-lg font-black leading-tight">Dünyanın Neresindesin?</strong>
+                    <small className="mt-1 block text-xs font-semibold text-white/80">20 şehir · 60 gerçek fotoğraf · 7 bölge</small>
+                  </span>
+                </span>
+                <ChevronRight className="h-6 w-6 shrink-0 text-amber-200"/>
+              </a>
               <div className="relative mt-3 w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#142c4d] shadow-[0_14px_28px_rgba(0,7,26,.27)]">
                 <img src="/game-cards/approved-street.webp" width={863} height={389} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
                 <button type="button" onClick={startStreet} aria-label={t('Sokak Dedektifi oyununa başla')} className="absolute inset-x-0 top-0 z-10 h-[79%] touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-amber-200">
