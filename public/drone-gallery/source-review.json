@@ -2,8 +2,8 @@
   "version": 1,
   "lastChecked": "2026-10-24",
   "purpose": "Tracked source metadata research; must not infer original photograph bytes or licensing compliance from a catalog entry. Editorial approval stays false.",
-  "reviewedSourceRecords": 14,
-  "reviewedStoredSourceRecords": 13,
+  "reviewedSourceRecords": 21,
+  "reviewedStoredSourceRecords": 20,
   "records": [
     {
       "album": "album-001",
@@ -40,6 +40,17 @@
     },
     {
       "album": "album-002",
+      "photoIndex": 2,
+      "city": "İstanbul",
+      "source": "https://commons.wikimedia.org/wiki/File:Galata_Tower%2C_Istanbul_2022.jpg",
+      "listedArtist": "Dudva",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-002",
       "photoIndex": 3,
       "city": "İstanbul",
       "source": "https://commons.wikimedia.org/wiki/File:Bosphorus%2C_Istanbul_(P1100297).jpg",
@@ -56,6 +67,17 @@
       "source": "https://commons.wikimedia.org/wiki/File:Colosseum_(Rome).jpg",
       "listedArtist": "Wknight94",
       "listedLicense": "CC BY-SA 3.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-003",
+      "photoIndex": 2,
+      "city": "Roma",
+      "source": "https://commons.wikimedia.org/wiki/File:Trevi_fountain_Rome.jpg",
+      "listedArtist": "Gracchus Tiberius",
+      "listedLicense": "CC BY 4.0",
       "sourceCheck": "commons_page_subject_author_and_license_match",
       "localFileContentCheck": "not_verified",
       "status": "source_record_only_not_approved"
@@ -83,12 +105,34 @@
       "status": "source_record_only_not_approved"
     },
     {
+      "album": "album-005",
+      "photoIndex": 2,
+      "city": "Berlin",
+      "source": "https://commons.wikimedia.org/wiki/File:East_side_gallery_Berlin.jpg",
+      "listedArtist": "Youssefbhy",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
       "album": "album-006",
       "photoIndex": 1,
       "city": "Sidney",
       "source": "https://commons.wikimedia.org/wiki/File:SydneyOperaHouse.jpg",
       "listedArtist": "Bjarte Sorensen",
       "listedLicense": "CC BY-SA 3.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-006",
+      "photoIndex": 2,
+      "city": "Sidney",
+      "source": "https://commons.wikimedia.org/wiki/File:Sydney_-_Harbour_Bridge.jpg",
+      "listedArtist": "Codex",
+      "listedLicense": "CC BY-SA 4.0",
       "sourceCheck": "commons_page_subject_author_and_license_match",
       "localFileContentCheck": "not_verified",
       "status": "source_record_only_not_approved"
@@ -116,11 +160,44 @@
       "status": "source_record_only_not_approved"
     },
     {
+      "album": "album-008",
+      "photoIndex": 2,
+      "city": "Barselona",
+      "source": "https://commons.wikimedia.org/wiki/File:Park_G%C3%BCell_Barcelona.jpg",
+      "listedArtist": "Oh-Barcelona.com",
+      "listedLicense": "CC BY-SA 3.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
       "album": "album-009",
       "photoIndex": 1,
       "city": "New York",
       "source": "https://commons.wikimedia.org/wiki/File:Statue_of_Liberty_New_York.jpg",
       "listedArtist": "Kong of Lasers",
+      "listedLicense": "CC BY-SA 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-010",
+      "photoIndex": 1,
+      "city": "Rio de Janeiro",
+      "source": "https://commons.wikimedia.org/wiki/File:Christ-Redeemer-Rio-de-Janeiro.jpg",
+      "listedArtist": "acediscovery",
+      "listedLicense": "CC BY 4.0",
+      "sourceCheck": "commons_page_subject_author_and_license_match",
+      "localFileContentCheck": "not_verified",
+      "status": "source_record_only_not_approved"
+    },
+    {
+      "album": "album-012",
+      "photoIndex": 1,
+      "city": "Amsterdam",
+      "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_Canals_(Ank_Kumar)_04.jpg",
+      "listedArtist": "Ank Kumar",
       "listedLicense": "CC BY-SA 4.0",
       "sourceCheck": "commons_page_subject_author_and_license_match",
       "localFileContentCheck": "not_verified",
