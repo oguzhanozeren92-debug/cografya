@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/photo-archive-quality.yml'
+      - 'scripts/panoramas/daily-discover.mjs'
+      - 'data/globriva-world-coverage-plan.json'
   schedule:
     # Daily 08:00 Istanbul, ahead of the 09:00 ChatGPT user report
     - cron: '0 5 * * *'
