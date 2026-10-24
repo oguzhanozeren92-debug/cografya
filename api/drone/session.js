@@ -169,7 +169,7 @@ export default async function handler(req, res) {
   const productionGalleryOrigin = 'https://atlas-arena-tau.vercel.app';
   const vercelHost = process.env.VERCEL_URL || '';
   const deployedGalleryOrigin =
-    /^[a-z0-9-]+(?:\\.[a-z0-9-]+)*\\.vercel\\.app$/i.test(vercelHost)
+    /^[a-z0-9-]+(?:\.[a-z0-9-]+)*\.vercel\.app$/i.test(vercelHost)
       ? 'https://' + vercelHost : '';
   const galleryOrigins = [...new Set([deployedGalleryOrigin,productionGalleryOrigin].filter(Boolean))];
   if (galleryCapable) {
