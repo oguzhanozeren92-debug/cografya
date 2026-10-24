@@ -124,8 +124,11 @@ async function photoGallery(base) {
     const manifest = JSON.parse(raw);
     if (manifest.version !== 2 || !Array.isArray(manifest.collections) ||
         manifest.collections.length < 5 || manifest.collections.length > 600) return null;
-    const collections = manifest.collections.filter(x => x.approved === true && validGalleryCollection(x));
-    if (collections.length !== manifest.collections.length ||
+    // Only editor-approved albums are eligible. Pending albums are intentionally
+    // excluded: 16 complete albums can supply 50+ photos while four remain under review.
+    const approved = manifest.collections.filter(x => x.approved === true);
+    const collections = approved.filter(validGalleryCollection);
+    if (collections.length < 5 || collections.length !== approved.length ||
         new Set(collections.map(x => x.id)).size !== collections.length ||
         new Set(collections.map(x => x.country)).size < GALLERY_MIN_COUNTRIES ||
         new Set(collections.flatMap(x => x.images.map(image => image.source))).size !==
