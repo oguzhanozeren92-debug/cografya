@@ -1,0 +1,1408 @@
+{
+  "version": 1,
+  "date": "2026-10-24",
+  "description": "100 unique four-choice geography questions; 45 checked against the Globriva country metadata and 55 editorially written topics. Existing 25 VS questions are preserved.",
+  "targetExisting": 25,
+  "questions": [
+    {
+      "id": "gv2026_cap_040",
+      "topic": "Başkent",
+      "question": "Avusturya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Brüksel",
+        "Prag",
+        "Yeni Delhi",
+        "Viyana"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_056",
+      "topic": "Başkent",
+      "question": "Belçika ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Brüksel",
+        "Budapeşte",
+        "Roma",
+        "Riyad"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_152",
+      "topic": "Başkent",
+      "question": "Şili ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Atina",
+        "Santiago",
+        "Bükreş",
+        "Bogota"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_156",
+      "topic": "Başkent",
+      "question": "Çin ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Bağdat",
+        "Lizbon",
+        "Pekin",
+        "Berlin"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_170",
+      "topic": "Başkent",
+      "question": "Kolombiya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Varşova",
+        "Brüksel",
+        "Paris",
+        "Bogota"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_191",
+      "topic": "Başkent",
+      "question": "Hırvatistan ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Zagreb",
+        "Helsinki",
+        "Yeni Delhi",
+        "Lima"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_203",
+      "topic": "Başkent",
+      "question": "Çekya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Kopenhag",
+        "Prag",
+        "Wellington",
+        "Riyad"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_208",
+      "topic": "Başkent",
+      "question": "Danimarka ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Atina",
+        "Meksiko",
+        "Kopenhag",
+        "Zagreb"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_218",
+      "topic": "Başkent",
+      "question": "Ekvador ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Rabat",
+        "Hanoi",
+        "Kingston",
+        "Quito"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_231",
+      "topic": "Başkent",
+      "question": "Etiyopya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Addis Ababa",
+        "Reykjavik",
+        "Riga",
+        "Bratislava"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_233",
+      "topic": "Başkent",
+      "question": "Estonya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Beyrut",
+        "Tallinn",
+        "Manila",
+        "Addis Ababa"
+      ],
+      "correctIndex": 1,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_246",
+      "topic": "Başkent",
+      "question": "Finlandiya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Prag",
+        "Tahran",
+        "Helsinki",
+        "Brüksel"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_250",
+      "topic": "Başkent",
+      "question": "Fransa ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Yeni Delhi",
+        "Meksiko",
+        "Viyana",
+        "Paris"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_268",
+      "topic": "Başkent",
+      "question": "Gürcistan ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Tiflis",
+        "Vilnius",
+        "Manila",
+        "Accra"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_276",
+      "topic": "Başkent",
+      "question": "Almanya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Bükreş",
+        "Berlin",
+        "Atina",
+        "Dublin"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_288",
+      "topic": "Başkent",
+      "question": "Gana ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Ljubljana",
+        "Astana",
+        "Accra",
+        "Katmandu"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_300",
+      "topic": "Başkent",
+      "question": "Yunanistan ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Helsinki",
+        "Tahran",
+        "Varşova",
+        "Atina"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_348",
+      "topic": "Başkent",
+      "question": "Macaristan ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Budapeşte",
+        "Lima",
+        "Viyana",
+        "Kopenhag"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_352",
+      "topic": "Başkent",
+      "question": "İzlanda ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Addis Ababa",
+        "Reykjavik",
+        "Beyrut",
+        "Katmandu"
+      ],
+      "correctIndex": 1,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_356",
+      "topic": "Başkent",
+      "question": "Hindistan ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Bükreş",
+        "Zagreb",
+        "Yeni Delhi",
+        "Meksiko"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_364",
+      "topic": "Başkent",
+      "question": "İran ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Bogota",
+        "Paris",
+        "Roma",
+        "Tahran"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_368",
+      "topic": "Başkent",
+      "question": "Irak ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Bağdat",
+        "Dublin",
+        "Varşova",
+        "Pekin"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_372",
+      "topic": "Başkent",
+      "question": "İrlanda ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Tahran",
+        "Dublin",
+        "Santiago",
+        "Kopenhag"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_380",
+      "topic": "Başkent",
+      "question": "İtalya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Wellington",
+        "Brüksel",
+        "Roma",
+        "Yeni Delhi"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_388",
+      "topic": "Başkent",
+      "question": "Jamaika ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Hanoi",
+        "Tiflis",
+        "Vilnius",
+        "Kingston"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_398",
+      "topic": "Başkent",
+      "question": "Kazakistan ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Astana",
+        "Riga",
+        "Abuja",
+        "Tallinn"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_400",
+      "topic": "Başkent",
+      "question": "Ürdün ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Katmandu",
+        "Amman",
+        "Addis Ababa",
+        "Kingston"
+      ],
+      "correctIndex": 1,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_422",
+      "topic": "Başkent",
+      "question": "Lübnan ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Hanoi",
+        "Reykjavik",
+        "Beyrut",
+        "Rabat"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_428",
+      "topic": "Başkent",
+      "question": "Letonya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Accra",
+        "Beyrut",
+        "Bratislava",
+        "Riga"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_440",
+      "topic": "Başkent",
+      "question": "Litvanya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Vilnius",
+        "Manila",
+        "Addis Ababa",
+        "Amman"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_484",
+      "topic": "Başkent",
+      "question": "Meksika ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Prag",
+        "Meksiko",
+        "Wellington",
+        "Riyad"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_496",
+      "topic": "Başkent",
+      "question": "Moğolistan ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Accra",
+        "Vilnius",
+        "Ulan Batur",
+        "Ljubljana"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_504",
+      "topic": "Başkent",
+      "question": "Fas ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Riga",
+        "Manila",
+        "Tiflis",
+        "Rabat"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_524",
+      "topic": "Başkent",
+      "question": "Nepal ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Katmandu",
+        "Tallinn",
+        "Astana",
+        "Abuja"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_554",
+      "topic": "Başkent",
+      "question": "Yeni Zelanda ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Santiago",
+        "Wellington",
+        "Tahran",
+        "Lima"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_566",
+      "topic": "Başkent",
+      "question": "Nijerya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Riga",
+        "Hanoi",
+        "Abuja",
+        "Reykjavik"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_604",
+      "topic": "Başkent",
+      "question": "Peru ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Budapeşte",
+        "Roma",
+        "Viyana",
+        "Lima"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_608",
+      "topic": "Başkent",
+      "question": "Filipinler ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Manila",
+        "Amman",
+        "Rabat",
+        "Addis Ababa"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_616",
+      "topic": "Başkent",
+      "question": "Polonya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Bükreş",
+        "Varşova",
+        "Berlin",
+        "Bağdat"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_620",
+      "topic": "Başkent",
+      "question": "Portekiz ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Santiago",
+        "Paris",
+        "Lizbon",
+        "Varşova"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_642",
+      "topic": "Başkent",
+      "question": "Romanya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Helsinki",
+        "Yeni Delhi",
+        "Lima",
+        "Bükreş"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_682",
+      "topic": "Başkent",
+      "question": "Suudi Arabistan ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Riyad",
+        "Wellington",
+        "Viyana",
+        "Kopenhag"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_703",
+      "topic": "Başkent",
+      "question": "Slovakya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Ljubljana",
+        "Bratislava",
+        "Kingston",
+        "Vilnius"
+      ],
+      "correctIndex": 1,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_704",
+      "topic": "Başkent",
+      "question": "Vietnam ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Tiflis",
+        "Riga",
+        "Hanoi",
+        "Bratislava"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_cap_705",
+      "topic": "Başkent",
+      "question": "Slovenya ülkesinin başkenti hangisidir?",
+      "choices": [
+        "Beyrut",
+        "Katmandu",
+        "Tallinn",
+        "Ljubljana"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "src/data/countries.ts"
+    },
+    {
+      "id": "gv2026_geo_001",
+      "topic": "Doğa",
+      "question": "Kilimanjaro Dağı hangi ülkededir?",
+      "choices": [
+        "Uganda",
+        "Etiyopya",
+        "Tanzanya",
+        "Kenya"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_002",
+      "topic": "Doğa",
+      "question": "Fuji Dağı hangi ülkededir?",
+      "choices": [
+        "Çin",
+        "Güney Kore",
+        "Vietnam",
+        "Japonya"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_003",
+      "topic": "Doğa",
+      "question": "Aconcagua Dağı hangi ülkededir?",
+      "choices": [
+        "Arjantin",
+        "Şili",
+        "Peru",
+        "Bolivya"
+      ],
+      "correctIndex": 0,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_004",
+      "topic": "Doğa",
+      "question": "Denali Dağı hangi ABD eyaletindedir?",
+      "choices": [
+        "Montana",
+        "Alaska",
+        "Colorado",
+        "Washington"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_005",
+      "topic": "Doğa",
+      "question": "Atacama Çölü ağırlıklı olarak hangi ülkededir?",
+      "choices": [
+        "Fas",
+        "Moğolistan",
+        "Şili",
+        "Peru"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_006",
+      "topic": "Doğa",
+      "question": "Namib Çölü adını hangi ülkeden alır?",
+      "choices": [
+        "Nijerya",
+        "Nijer",
+        "Botsvana",
+        "Namibya"
+      ],
+      "correctIndex": 3,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_007",
+      "topic": "Doğa",
+      "question": "Tuna Nehri hangi denize dökülür?",
+      "choices": [
+        "Karadeniz",
+        "Baltık Denizi",
+        "Akdeniz",
+        "Hazar Denizi"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_008",
+      "topic": "Doğa",
+      "question": "Volga Nehri büyük ölçüde hangi ülkenin sınırları içinden akar?",
+      "choices": [
+        "Polonya",
+        "Rusya",
+        "Ukrayna",
+        "Belarus"
+      ],
+      "correctIndex": 1,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_009",
+      "topic": "Doğa",
+      "question": "Dünyanın en derin tatlı su gölü olan Baykal Gölü hangi ülkededir?",
+      "choices": [
+        "Finlandiya",
+        "Kazakistan",
+        "Rusya",
+        "Kanada"
+      ],
+      "correctIndex": 2,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_010",
+      "topic": "Doğa",
+      "question": "Titicaca Gölü hangi iki ülke arasında yer alır?",
+      "choices": [
+        "Şili ve Arjantin",
+        "Kolombiya ve Ekvador",
+        "Brezilya ve Uruguay",
+        "Peru ve Bolivya"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_011",
+      "topic": "Doğa",
+      "question": "Büyük Set Resifi (Great Barrier Reef) hangi ülkenin kıyısındadır?",
+      "choices": [
+        "Avustralya",
+        "Endonezya",
+        "Yeni Zelanda",
+        "Filipinler"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_012",
+      "topic": "Doğa",
+      "question": "Angel Şelalesi hangi ülkededir?",
+      "choices": [
+        "Ekvador",
+        "Venezuela",
+        "Brezilya",
+        "Kolombiya"
+      ],
+      "correctIndex": 1,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_013",
+      "topic": "Doğa",
+      "question": "Victoria Şelalesi hangi iki ülkenin sınırındadır?",
+      "choices": [
+        "Güney Afrika ve Namibya",
+        "Uganda ve Ruanda",
+        "Zambiya ve Zimbabve",
+        "Kenya ve Tanzanya"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_014",
+      "topic": "Doğa",
+      "question": "Dünyanın en büyük tuz düzlüklerinden Salar de Uyuni nerededir?",
+      "choices": [
+        "Peru",
+        "Meksika",
+        "Şili",
+        "Bolivya"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_015",
+      "topic": "Doğa",
+      "question": "Okavango Deltası hangi ülkededir?",
+      "choices": [
+        "Botsvana",
+        "Namibya",
+        "Güney Afrika",
+        "Zambiya"
+      ],
+      "correctIndex": 0,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_016",
+      "topic": "Harita",
+      "question": "Bering Boğazı hangi iki ülkenin arasında bulunur?",
+      "choices": [
+        "Norveç ve İzlanda",
+        "Rusya ve ABD",
+        "Kanada ve Grönland",
+        "Japonya ve Çin"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_017",
+      "topic": "Harita",
+      "question": "Süveyş Kanalı hangi iki denizi birbirine bağlar?",
+      "choices": [
+        "Baltık Denizi ve Kuzey Denizi",
+        "Adriyatik ve İyon Denizi",
+        "Akdeniz ve Kızıldeniz",
+        "Karadeniz ve Marmara"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_018",
+      "topic": "Harita",
+      "question": "Panama Kanalı hangi iki okyanusu birbirine bağlar?",
+      "choices": [
+        "Atlas ve Hint Okyanusu",
+        "Büyük ve Hint Okyanusu",
+        "Arktik ve Atlas Okyanusu",
+        "Atlas ve Büyük Okyanus"
+      ],
+      "correctIndex": 3,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_019",
+      "topic": "Harita",
+      "question": "Manş Denizi hangi iki ülkeyi birbirinden ayırır?",
+      "choices": [
+        "Birleşik Krallık ve Fransa",
+        "İspanya ve Portekiz",
+        "İtalya ve Hırvatistan",
+        "Danimarka ve İsveç"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_020",
+      "topic": "Harita",
+      "question": "Adriyatik Denizi İtalya ile hangi ülkenin kıyıları arasında uzanır?",
+      "choices": [
+        "Tunus",
+        "Hırvatistan",
+        "Portekiz",
+        "Norveç"
+      ],
+      "correctIndex": 1,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_021",
+      "topic": "Harita",
+      "question": "Kızıldeniz hangi iki kıta arasında uzanır?",
+      "choices": [
+        "Afrika ve Güney Amerika",
+        "Asya ve Okyanusya",
+        "Afrika ve Asya",
+        "Avrupa ve Asya"
+      ],
+      "correctIndex": 2,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_022",
+      "topic": "Harita",
+      "question": "Sicilya Adası hangi ülkeye bağlıdır?",
+      "choices": [
+        "Yunanistan",
+        "İspanya",
+        "Fransa",
+        "İtalya"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_023",
+      "topic": "Harita",
+      "question": "Korsika Adası hangi ülkeye bağlıdır?",
+      "choices": [
+        "Fransa",
+        "İtalya",
+        "Malta",
+        "Hırvatistan"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_024",
+      "topic": "Harita",
+      "question": "Borneo Adası'nın topraklarını paylaşan üç ülke hangileridir?",
+      "choices": [
+        "Brunei, Myanmar ve Kamboçya",
+        "Endonezya, Malezya ve Brunei",
+        "Endonezya, Filipinler ve Tayland",
+        "Malezya, Vietnam ve Laos"
+      ],
+      "correctIndex": 1,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_025",
+      "topic": "Harita",
+      "question": "Tazmanya Adası hangi ülkeye bağlıdır?",
+      "choices": [
+        "Endonezya",
+        "Papua Yeni Gine",
+        "Avustralya",
+        "Yeni Zelanda"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_026",
+      "topic": "Harita",
+      "question": "İber Yarımadası'nın büyük bölümünü hangi iki ülke paylaşır?",
+      "choices": [
+        "Fransa ve İtalya",
+        "Yunanistan ve Bulgaristan",
+        "Almanya ve Polonya",
+        "İspanya ve Portekiz"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_027",
+      "topic": "Harita",
+      "question": "Macellan Boğazı hangi ülkenin güneyinde yer alır?",
+      "choices": [
+        "Şili",
+        "Peru",
+        "Güney Afrika",
+        "Avustralya"
+      ],
+      "correctIndex": 0,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_028",
+      "topic": "Harita",
+      "question": "Ümit Burnu hangi ülkededir?",
+      "choices": [
+        "Madagaskar",
+        "Güney Afrika",
+        "Namibya",
+        "Mozambik"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_029",
+      "topic": "Harita",
+      "question": "Hürmüz Boğazı hangi körfezin Hint Okyanusu'na çıkışındadır?",
+      "choices": [
+        "Bengal Körfezi",
+        "Gine Körfezi",
+        "Basra Körfezi",
+        "Meksika Körfezi"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_030",
+      "topic": "Harita",
+      "question": "Bengal Körfezi hangi okyanusun bir parçasıdır?",
+      "choices": [
+        "Atlas Okyanusu",
+        "Büyük Okyanus",
+        "Arktik Okyanusu",
+        "Hint Okyanusu"
+      ],
+      "correctIndex": 3,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_031",
+      "topic": "Yapılar",
+      "question": "Machu Picchu tarihî alanı hangi ülkededir?",
+      "choices": [
+        "Peru",
+        "Meksika",
+        "Şili",
+        "Kolombiya"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_032",
+      "topic": "Yapılar",
+      "question": "Petra Antik Kenti hangi ülkededir?",
+      "choices": [
+        "İtalya",
+        "Ürdün",
+        "Mısır",
+        "Yunanistan"
+      ],
+      "correctIndex": 1,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_033",
+      "topic": "Yapılar",
+      "question": "Angkor Wat tapınak kompleksi hangi ülkededir?",
+      "choices": [
+        "Vietnam",
+        "Laos",
+        "Kamboçya",
+        "Tayland"
+      ],
+      "correctIndex": 2,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_034",
+      "topic": "Yapılar",
+      "question": "Tac Mahal hangi ülkededir?",
+      "choices": [
+        "Pakistan",
+        "Nepal",
+        "Bangladeş",
+        "Hindistan"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_035",
+      "topic": "Yapılar",
+      "question": "Chichén Itzá hangi ülkededir?",
+      "choices": [
+        "Meksika",
+        "Guatemala",
+        "Peru",
+        "Küba"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_036",
+      "topic": "Yapılar",
+      "question": "Kurtarıcı İsa Heykeli (Cristo Redentor) hangi şehirdedir?",
+      "choices": [
+        "Lima",
+        "Rio de Janeiro",
+        "São Paulo",
+        "Buenos Aires"
+      ],
+      "correctIndex": 1,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_037",
+      "topic": "Yapılar",
+      "question": "Sidney Opera Binası hangi ülkededir?",
+      "choices": [
+        "Kanada",
+        "Birleşik Krallık",
+        "Avustralya",
+        "Yeni Zelanda"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_038",
+      "topic": "Yapılar",
+      "question": "Kolezyum (Colosseum) hangi şehirdedir?",
+      "choices": [
+        "Atina",
+        "Napoli",
+        "İstanbul",
+        "Roma"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_039",
+      "topic": "Yapılar",
+      "question": "Akropolis ve Parthenon hangi şehirdedir?",
+      "choices": [
+        "Atina",
+        "Roma",
+        "Kahire",
+        "İskenderiye"
+      ],
+      "correctIndex": 0,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_040",
+      "topic": "Yapılar",
+      "question": "Stonehenge anıtı hangi ülkededir?",
+      "choices": [
+        "Almanya",
+        "Birleşik Krallık",
+        "İrlanda",
+        "Fransa"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_041",
+      "topic": "Yapılar",
+      "question": "El Hamra Sarayı (Alhambra) hangi ülkededir?",
+      "choices": [
+        "Portekiz",
+        "İtalya",
+        "İspanya",
+        "Fas"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_042",
+      "topic": "Yapılar",
+      "question": "Borobudur Budist tapınağı hangi ülkededir?",
+      "choices": [
+        "Hindistan",
+        "Sri Lanka",
+        "Nepal",
+        "Endonezya"
+      ],
+      "correctIndex": 3,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_043",
+      "topic": "Yapılar",
+      "question": "Gize Piramitleri hangi ülkededir?",
+      "choices": [
+        "Mısır",
+        "Sudan",
+        "Ürdün",
+        "Libya"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_044",
+      "topic": "Yapılar",
+      "question": "Sagrada Família bazilikası hangi şehirdedir?",
+      "choices": [
+        "Lizbon",
+        "Barselona",
+        "Madrid",
+        "Roma"
+      ],
+      "correctIndex": 1,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_045",
+      "topic": "Yapılar",
+      "question": "Burç Halife (Burj Khalifa) hangi şehirdedir?",
+      "choices": [
+        "Riyad",
+        "Abu Dabi",
+        "Dubai",
+        "Doha"
+      ],
+      "correctIndex": 2,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_046",
+      "topic": "Kıtalar",
+      "question": "Guyana hangi kıtada yer alır?",
+      "choices": [
+        "Afrika",
+        "Avrupa",
+        "Asya",
+        "Güney Amerika"
+      ],
+      "correctIndex": 3,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_047",
+      "topic": "Kıtalar",
+      "question": "Lesotho hangi kıtada yer alır?",
+      "choices": [
+        "Afrika",
+        "Avrupa",
+        "Asya",
+        "Güney Amerika"
+      ],
+      "correctIndex": 0,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_048",
+      "topic": "Kıtalar",
+      "question": "Belize hangi kıtada yer alır?",
+      "choices": [
+        "Avrupa",
+        "Kuzey Amerika",
+        "Güney Amerika",
+        "Asya"
+      ],
+      "correctIndex": 1,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_049",
+      "topic": "Kıtalar",
+      "question": "Laos hangi kıtada yer alır?",
+      "choices": [
+        "Okyanusya",
+        "Avrupa",
+        "Asya",
+        "Afrika"
+      ],
+      "correctIndex": 2,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_050",
+      "topic": "Kıtalar",
+      "question": "Solomon Adaları hangi coğrafi bölgede yer alır?",
+      "choices": [
+        "Avrupa",
+        "Güney Amerika",
+        "Afrika",
+        "Okyanusya"
+      ],
+      "correctIndex": 3,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_051",
+      "topic": "Kıtalar",
+      "question": "Surinam hangi kıtada yer alır?",
+      "choices": [
+        "Güney Amerika",
+        "Afrika",
+        "Asya",
+        "Avrupa"
+      ],
+      "correctIndex": 0,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_052",
+      "topic": "Kıtalar",
+      "question": "Madagaskar hangi kıtanın doğu kıyısına yakındır?",
+      "choices": [
+        "Avrupa",
+        "Afrika",
+        "Güney Amerika",
+        "Okyanusya"
+      ],
+      "correctIndex": 1,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_053",
+      "topic": "Kıtalar",
+      "question": "Umman hangi kıtada yer alır?",
+      "choices": [
+        "Afrika",
+        "Okyanusya",
+        "Asya",
+        "Avrupa"
+      ],
+      "correctIndex": 2,
+      "difficulty": 2,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_054",
+      "topic": "Kıtalar",
+      "question": "Papua Yeni Gine hangi coğrafi bölgede yer alır?",
+      "choices": [
+        "Afrika",
+        "Avrupa",
+        "Güney Amerika",
+        "Okyanusya"
+      ],
+      "correctIndex": 3,
+      "difficulty": 3,
+      "source": "editorial_curated_general_geography"
+    },
+    {
+      "id": "gv2026_geo_055",
+      "topic": "Kıtalar",
+      "question": "Uruguay hangi kıtada yer alır?",
+      "choices": [
+        "Güney Amerika",
+        "Kuzey Amerika",
+        "Avrupa",
+        "Afrika"
+      ],
+      "correctIndex": 0,
+      "difficulty": 1,
+      "source": "editorial_curated_general_geography"
+    }
+  ]
+}
