@@ -1,7 +1,7 @@
 {
   "version": 2,
   "storage": "github-vercel",
-  "updated": "2026-10-23",
+  "updated": "2026-10-24",
   "collections": [
     {
       "id": "album-001",
@@ -84,28 +84,28 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Adnane Chahboun",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Hagia_Sophia_Istanbul_4.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Dudva",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Galata_Tower%2C_Istanbul_2022.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Matti Blume",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Bosphorus%2C_Istanbul_(P1100297).jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Sami Mlouhi",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -139,28 +139,28 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Wknight94",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Colosseum_(Rome).jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Gracchus Tiberius",
           "license": "CC BY 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Trevi_fountain_Rome.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Tomáš Novotný",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Pantheon._Rome.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Alexander Popkov (engineerontour.com)",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -194,21 +194,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Kate",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Eiffel_Tower%2C_Paris.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Gerda Arendt",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Arc_de_Triomphe%2C_Paris.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Jonaseckerbom",
           "license": "CC0",
           "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
@@ -242,21 +242,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "KK nationsonline",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Brandenburg-Gate-Berlin.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Youssefbhy",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:East_side_gallery_Berlin.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Jonaseckerbom",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -290,21 +290,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Bjarte Sorensen",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "source": "https://commons.wikimedia.org/wiki/File:SydneyOperaHouse.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Codex",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Sydney_-_Harbour_Bridge.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Mindtravelfitness",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -338,21 +338,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "adn_tl",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Tokyo_SkyTree.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Funasan",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Tokyo_station.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Svetlana Davidova",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -386,21 +386,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Xilvitar",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Sagrada_Familia_Barcelona.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Oh-Barcelona.com",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Park_G%C3%BCell_Barcelona.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Ecmarlak",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -434,21 +434,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Kong of Lasers",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Statue_of_Liberty_New_York.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Yair Haklai",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Brooklyn_Bridge-New_York.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Macieklew",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -482,21 +482,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "acediscovery",
           "license": "CC BY 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Christ-Redeemer-Rio-de-Janeiro.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Luca Gebara",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Copacabana_beach.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Tlrmedia",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -530,21 +530,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "MegAlexandrou",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Athens_Acropolis_with_the_Parthenon%2C_viewed_from_Philopappou_Hill.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "George E. Koronaios",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:The_Acropolis_of_Athens_as_seen_from_Dionysiou_Areopagitou_Pedestrian_Street_on_December_21%2C_2020.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "DanielValahul",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -578,21 +578,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Ank Kumar",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_Canals_(Ank_Kumar)_04.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Txllxt TxllxT",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Amsterdam_-_Dam_Square_-_View_on_Damrak%2C_Beurs_van_Berlage_%26_Bijenkorf.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Elekes Andor",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -626,21 +626,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Daynarama",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Toronto-skyline.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Shawn M. Kent",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Toronto_City_Hall%2C_Toronto_ON.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Joe Carr",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -674,21 +674,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Ireneusz Jerzy Borysiewicz",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Pyramids_of_Giza.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Abir Kamel abdel rahman",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Sphinx_giza.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Bilal Detailz",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -722,21 +722,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Rohangpt70",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Taj_Mahal_view_from_Mehtab_Bagh.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "StonesThatRemember",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Agra_Fort_in_Agra%2C_Uttar_Pradesh.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Rameezm raza",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -770,21 +770,21 @@
       "approved": false,
       "images": [
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Jpesch95",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Angel_of_Independence_Mexico_City.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Timothy Neesam",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "source": "https://commons.wikimedia.org/wiki/File:Palacio_de_Bellas_Artes%2C_Mexico_City%2C_MX.jpg"
         },
         {
-          "format": "webp",
+          "format": "jpg",
           "artist": "Fabiola Pelaez",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
