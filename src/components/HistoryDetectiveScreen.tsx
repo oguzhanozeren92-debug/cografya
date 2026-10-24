@@ -31,14 +31,23 @@ type HistoryCase = {
   credit:{artist:string;license:string;licenseUrl:string;source:string};
 };
 type Stage='inspect'|'quiz'|'reveal'|'finish';
+type Difficulty='easy'|'medium';
 type Result={id:string;name:string;points:number;correct:number};
 const POINTS=[400,350,250];
 const BEST_KEY='globriva-history-best-five-v1';
-function localBest(){
+const MEDIUM_BEST_KEY='globriva-history-medium-best-five-v1';
+const MEDIUM_UNLOCK_KEY='globriva-history-medium-unlocked-v1';
+const PASS_SCORE=3000; // 60% of 5,000 points on the easy tier.
+function localBest(level:Difficulty){
   try{
-    const value=Number(localStorage.getItem(BEST_KEY)||0);
+    const value=Number(localStorage.getItem(level==='easy'?BEST_KEY:MEDIUM_BEST_KEY)||0);
     return Number.isFinite(value)?Math.max(0,value):0;
   }catch{return 0;}
+}
+function localMediumUnlocked(){
+  try{
+    return localStorage.getItem(MEDIUM_UNLOCK_KEY)==='1'||localBest('easy')>=PASS_SCORE;
+  }catch{return false;}
 }
 const format=(n:number)=>n.toLocaleString('tr-TR');
 
@@ -56,6 +65,8 @@ export function HistoryDetectiveScreen({
   const [loading,setLoading]=useState(true);
   const [error,setError]=useState('');
   const [retry,setRetry]=useState(0);
+  const [level,setLevel]=useState<Difficulty>('easy');
+  const [mediumUnlocked,setMediumUnlocked]=useState(localMediumUnlocked);
   const [index,setIndex]=useState(0);
   const [stage,setStage]=useState<Stage>('inspect');
   const [ready,setReady]=useState(false);
@@ -67,7 +78,7 @@ export function HistoryDetectiveScreen({
   const [correctCount,setCorrectCount]=useState(0);
   const [results,setResults]=useState<Result[]>([]);
   const [seconds,setSeconds]=useState(0);
-  const [best,setBest]=useState(localBest);
+  const [best,setBest]=useState(()=>localBest('easy'));
   const [run,setRun]=useState(0);
   const completedRef=useRef(false);
 
@@ -77,7 +88,7 @@ export function HistoryDetectiveScreen({
     setError('');
     void (async()=>{
       try{
-        const response=await fetch(atlasApi('/api/history/session'),{
+        const response=await fetch(atlasApi('/api/history/session?difficulty='+level),{
           signal:controller.signal,cache:'no-store',
         });
         const json=await response.json() as {cases?:HistoryCase[];error?:string};
@@ -97,7 +108,7 @@ export function HistoryDetectiveScreen({
       }
     })();
     return()=>controller.abort();
-  },[retry]);
+  },[retry,level]);
 
   useEffect(()=>{
     if(stage!=='quiz')return;
@@ -164,7 +175,13 @@ export function HistoryDetectiveScreen({
       const total=next.reduce((sum,item)=>sum+item.points,0);
       const nextBest=Math.max(best,total);
       setBest(nextBest);
-      try{localStorage.setItem(BEST_KEY,String(nextBest));}catch{/* optional */}
+      try{
+        localStorage.setItem(level==='easy'?BEST_KEY:MEDIUM_BEST_KEY,String(nextBest));
+        if(level==='easy'&&total>=PASS_SCORE){
+          localStorage.setItem(MEDIUM_UNLOCK_KEY,'1');
+        }
+      }catch{/* optional */}
+      if(level==='easy'&&total>=PASS_SCORE)setMediumUnlocked(true);
       setRoundPoints(0);
       setStage('finish');
       if(!completedRef.current){
@@ -182,6 +199,25 @@ export function HistoryDetectiveScreen({
     setPicked(null);
     setRoundPoints(0);
     setCorrectCount(0);
+    setSeconds(0);
+  };
+  const switchLevel=(nextLevel:Difficulty)=>{
+    if(nextLevel==='medium'&&!mediumUnlocked)return;
+    setLevel(nextLevel);
+    setBest(localBest(nextLevel));
+    setRetry(v=>v+1);
+    completedRef.current=false;
+    setRun(v=>v+1);
+    setIndex(0);
+    setStage('inspect');
+    setReady(false);
+    setUseStatic(false);
+    setPhotoError('');
+    setQuestionIndex(0);
+    setPicked(null);
+    setRoundPoints(0);
+    setCorrectCount(0);
+    setResults([]);
     setSeconds(0);
   };
   const restart=()=>{
@@ -221,6 +257,18 @@ export function HistoryDetectiveScreen({
             {format(score)} / 5.000
           </span>
         </header>
+        <div className="mb-3 flex items-center justify-between gap-2 rounded-xl border border-amber-200/20 bg-white/5 px-3 py-2 text-xs font-black">
+          <span className="text-amber-100">
+            {level==='easy'?text('1. Aşama · Kolay','Stage 1 · Easy'):text('2. Aşama · Orta','Stage 2 · Medium')}
+          </span>
+          {mediumUnlocked&&stage!=='finish'&&(
+            <button type="button" onClick={()=>switchLevel(level==='easy'?'medium':'easy')}
+              className="rounded-lg border border-amber-200/40 bg-amber-200/10 px-3 py-1.5 text-amber-100">
+              {level==='easy'?text('Orta seviyeye geç','Go to medium'):text('Kolaya dön','Return to easy')}
+            </button>
+          )}
+          {!mediumUnlocked&&<span className="text-blue-100/65">{text('Orta seviye: 3.000 puan','Medium unlocks at 3,000')}</span>}
+        </div>
 
         {loading?(
           <div className="street-card p-8 text-center text-blue-100" role="status">
@@ -239,7 +287,7 @@ export function HistoryDetectiveScreen({
             <div className="street-card space-y-3 p-6 text-center">
               <Trophy className="mx-auto h-14 w-14 text-amber-300"/>
               <p className="text-xs font-extrabold uppercase tracking-widest text-amber-100/80">
-                {text('Beş tarihî dosya tamamlandı','Five history cases completed')}
+                {level==='easy'?text('Kolay aşama tamamlandı','Easy stage completed'):text('Orta aşama tamamlandı','Medium stage completed')}
               </p>
               <h2 className="text-4xl font-black tabular-nums text-amber-200">{format(score)}</h2>
               <p className="text-sm text-blue-100/80">
@@ -248,6 +296,18 @@ export function HistoryDetectiveScreen({
               <p className="text-sm font-extrabold text-emerald-200">
                 {text('Cihaz rekorun','Device best')}: {format(best)}
               </p>
+              {level==='easy'&&(
+                <p className={'rounded-xl px-3 py-2 text-sm font-bold '+(score>=PASS_SCORE?'bg-emerald-300/15 text-emerald-100':'bg-amber-300/10 text-amber-100')}>
+                  {score>=PASS_SCORE
+                    ?text('Başardın! Orta Zorluk açıldı.','Success! Medium difficulty unlocked.')
+                    :text('Orta seviyeyi açmak için 3.000 puana ulaş.','Reach 3,000 points to unlock medium difficulty.')}
+                </p>
+              )}
+              {level==='medium'&&(
+                <p className="text-sm font-bold text-emerald-100">
+                  {text('Orta zorluktaki beş yeni tarihî mekânı tamamladın.','You completed five new medium-level historical sites.')}
+                </p>
+              )}
             </div>
             <div className="street-card space-y-2 p-4">
               {results.map((row,i)=>(
@@ -261,9 +321,20 @@ export function HistoryDetectiveScreen({
                 </div>
               ))}
             </div>
-            <button type="button" className="street-primary w-full" onClick={restart}>
-              <RefreshCcw className="h-4 w-4"/>{text('Tekrar oyna','Play again')}
+            {level==='easy'&&score>=PASS_SCORE&&(
+              <button type="button" className="street-primary w-full" onClick={()=>switchLevel('medium')}>
+                {text('Orta Zorluk aşamasına geç','Continue to medium difficulty')}
+                <ArrowRight className="h-4 w-4"/>
+              </button>
+            )}
+            <button type="button" className={level==='easy'&&score>=PASS_SCORE?'street-secondary w-full':'street-primary w-full'} onClick={restart}>
+              <RefreshCcw className="h-4 w-4"/>{text('Bu aşamayı tekrar oyna','Replay this stage')}
             </button>
+            {level==='medium'&&(
+              <button type="button" className="street-secondary w-full" onClick={()=>switchLevel('easy')}>
+                {text('Kolay aşamaya dön','Return to easy stage')}
+              </button>
+            )}
             <button type="button" className="street-secondary w-full" onClick={onClose}>
               {text('Ana menü','Main menu')}
             </button>
@@ -426,8 +497,11 @@ export function HistoryDetectiveScreen({
           </div>
         ):null}
         <p className="mt-5 text-center text-[10px] leading-5 text-blue-100/50">
-          {text('Gerçek lisanslı tarihî panoramalar · 5 mekân · 15 soru · Öğrenme modu',
-            'Authentic licensed historical panoramas · 5 sites · 15 questions · Learning mode')}
+          {level==='easy'
+            ?text('Kolay · 5 mekân · 15 soru · Orta seviye için en az 3.000 puan',
+              'Easy · 5 sites · 15 questions · 3,000 points to unlock medium')
+            :text('Orta · 5 farklı mekân · 15 yeni soru',
+              'Medium · 5 different sites · 15 new questions')}
         </p>
       </main>
     </div>
