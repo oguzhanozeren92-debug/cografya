@@ -135,19 +135,28 @@ async function photoGallery(base) {
           collections.reduce((sum,x)=>sum+x.images.length,0) ||
         collections.reduce((sum,x)=>sum+x.images.length,0) < GALLERY_MIN_IMAGES) return null;
 
+    // Serve every verified image but vary the opening angle per session.
+    // Retain original file indices: rotating cards must never fabricate 1.jpg/1.webp.
+    // The app still sees one location per album, not three near-identical rounds.
+    const imageCount=collections.reduce((sum,x)=>sum+x.images.length,0);
+    const rounds=collections.map(row=>{
+      const indexed=row.images.map((pic,index)=>({pic,fileIndex:index+1}));
+      const start=Math.floor(Math.random()*indexed.length);
+      return {row,images:indexed.slice(start).concat(indexed.slice(0,start))};
+    });
     return {
       origin:'live-gallery',
-      imageCount:collections.reduce((sum,x)=>sum+x.images.length,0),
-      rows:collections.map(row => ({
+      imageCount,
+      rows:rounds.map(({row,images}) => ({
         id:row.id,city:row.city,country:row.country,lat:row.lat,lng:row.lng,
-        artist:row.images[0].artist,license:row.images[0].license,
-        licenseUrl:row.images[0].licenseUrl,source:row.images[0].source,
+        artist:images[0].pic.artist,license:images[0].pic.license,
+        licenseUrl:images[0].pic.licenseUrl,source:images[0].pic.source,
         fact:row.fact,difficulty:row.difficulty,regionCode:row.regionCode,
         hint:row.hint,photoFocus:row.photoFocus,choices:row.choices,
       })),
-      media:collections.map(row => ({
-        id:row.id,media:{mode:'gallery',images:row.images.map((pic,i)=>({
-          url:base+'/drone-gallery/photos/'+row.id+'/'+(i+1)+'.'+(pic.format === 'webp' ? 'webp' : 'jpg'),
+      media:rounds.map(({row,images}) => ({
+        id:row.id,media:{mode:'gallery',images:images.map(({pic,fileIndex})=>({
+          url:base+'/drone-gallery/photos/'+row.id+'/'+fileIndex+'.'+(pic.format === 'webp' ? 'webp' : 'jpg'),
           credit:{artist:pic.artist,license:pic.license,licenseUrl:pic.licenseUrl,source:pic.source},
         }))},
       })),
