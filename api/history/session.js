@@ -2,6 +2,7 @@ import { allowAtlasNativeCors } from '../../server/street/core.mjs';
 import { approvedPanoramas } from '../../server/street/approved.mjs';
 import { approvedPhotoIds } from '../../server/street/photo-ready.mjs';
 import { HISTORY_CASES, HISTORY_QUESTION_POINTS } from '../../server/history/curated.mjs';
+import { HISTORY_MEDIUM_CASES } from '../../server/history/curated-medium.mjs';
 import { HISTORY_DETAIL_PHOTOS } from '../../server/history/detail-photos.mjs';
 
 const PATTERN=/^panoramas\/[a-zA-Z0-9_-]{8,80}$/;
@@ -68,7 +69,7 @@ const approved360=(panoramaId,panoramaPath)=>{
 };
 
 function curatedCases(){
-  return HISTORY_CASES.map(row=>{
+  return [...HISTORY_CASES,...HISTORY_MEDIUM_CASES].map(row=>{
     const pano=approved360(row.panoramaId);
     if(!pano)return null;
     const author=credit(pano.artist,pano.license,pano.source);
@@ -165,19 +166,25 @@ export default async function handler(req,res){
   if(allowAtlasNativeCors(req,res))return;
   res.setHeader('Cache-Control','no-store');
   if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});
+  const difficulty=req.query?.difficulty==='medium'?'medium':'easy';
   let cases=null,origin='curated';
   try{
-    cases=await getDatabaseCases();
-    if(cases)origin='supabase';
+    const database=await getDatabaseCases();
+    if(database){
+      const matching=database.filter(item=>difficulty==='medium'
+        ? item.difficulty===2||item.difficulty==='medium'
+        : item.difficulty===1||item.difficulty==='easy'||item.difficulty==null);
+      if(matching.length>=5){cases=matching;origin='supabase';}
+    }
   }catch(error){
     console.warn('[history] published DB content unreachable; keeping curated pilot',
       error instanceof Error?error.message:String(error));
   }
-  if(!cases)cases=curatedCases();
+  if(!cases)cases=curatedCases().filter(item=>difficulty==='medium'?item.difficulty==='medium':item.difficulty!=='medium');
   if(cases.length<5)return res.status(503).json({error:'Tarihî panoramalar henüz hazır değil.'});
   const chosen=chooseFive(cases);
   res.status(200).json({
-    version:2,origin,questionsPerCase:3,
+    version:3,origin,difficulty,questionsPerCase:3,
     totalPublished:cases.length,
     maxPoints:5*HISTORY_QUESTION_POINTS.reduce((a,b)=>a+b,0),
     cases:chosen,
