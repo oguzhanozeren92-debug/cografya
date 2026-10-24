@@ -77,7 +77,22 @@ const date=process.env.GLOBRIVA_DISCOVERY_DATE || new Date().toISOString().slice
 if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
 const days=Math.floor(Date.parse(date+'T00:00:00Z')/86400000);
 const offset=((days%7)+7)%7;
-const targets=all.filter((_,i)=>i%7===offset);
+// Rotate research through underserved world regions instead of Europe's index-heavy list.
+const coveragePlan=JSON.parse(readFileSync(resolve(ROOT,'data/globriva-world-coverage-plan.json'),'utf8'));
+if(coveragePlan.version!==1||coveragePlan.candidates?.length!==20)throw new Error('Missing 20-location world coverage plan');
+const continentByRegion={'Africa':'Africa','South America':'America','East Asia':'Asia',
+ 'Southeast Asia':'Asia','South Asia':'Asia','West Asia':'Asia','Oceania':'Oceania'};
+const priorities=coveragePlan.policy.regionsPriority.map((region,index)=>{
+ const group=coveragePlan.candidates.filter(x=>x.region===region);
+ if(!group.length)throw new Error('Empty region: '+region);
+ const row=group[(days+index*13)%group.length];
+ return [row.country,row.city,row.lat,row.lng,continentByRegion[region],region];
+});
+const europe=all.filter(row=>row[4]==='Europe');
+const northAmerica=all.filter(row=>row[4]==='America'&&['ABD','Kanada','Meksika'].includes(row[0]));
+const targets=[...priorities,europe[days%europe.length],northAmerica[(days+3)%northAmerica.length]];
+// Nine searches/day: seven underserved regions + Europe + North America.
+if(targets.length!==9||new Set(targets.map(x=>x[1])).size!==9)throw new Error('World scan target collision');
 const baseState=existsSync(STATE)?JSON.parse(readFileSync(STATE,'utf8')):{version:1,seen:[],totalNew:0};
 const seen=new Set(baseState.seen??[]);
 const back=existsSync(QUEUE)?JSON.parse(readFileSync(QUEUE,'utf8')):{version:1,pending:[]};
@@ -94,7 +109,7 @@ function kmBetween(lat1,lon1,lat2,lon2){
  return 12742*Math.asin(Math.sqrt(Math.max(0,Math.min(1,a))));
 }
 async function search(target){
- const [country,city,lat,lng,continent]=target;
+ const [country,city,lat,lng,continent,priorityRegion]=target;
  const params=new URLSearchParams({
   action:'query',format:'json',generator:'geosearch',ggscoord:lat+'|'+lng,
   ggsradius:'10000',ggsnamespace:'6',ggslimit:'50',
@@ -123,7 +138,7 @@ async function search(target){
   const item={
    key:hash(page.title),title:page.title,source:info.descriptionurl,
    originalUrl:info.url,thumbnailUrl:info.thumburl??null,
-   countrySearchHint:country,citySearchHint:city,continent,
+   countrySearchHint:country,citySearchHint:city,continent,priorityRegion:priorityRegion||continent,
    sourceCoordinates:{lat:co.lat,lng:co.lon},sourceDistanceKm:Math.round(kmBetween(lat,lng,co.lat,co.lon)*10)/10,
    photographer:author,license,licenseUrl:info.extmetadata?.LicenseUrl?.value?.replace(/<[^>]*>/g,'')??null,
    width:w,height:h,aspect:+(w/h).toFixed(3),
@@ -149,7 +164,7 @@ for(const target of targets){
    newRows.push(entry);
    added++;
   }
-  stats.push({country:target[0],city:target[1],eligible:list.length,new:added});
+  stats.push({country:target[0],city:target[1],region:target[5]||target[4],eligible:list.length,new:added});
  }catch(e){
   warnings.push(target[0]+': '+String(e instanceof Error?e.message:e));
  }
@@ -159,7 +174,7 @@ const unique=new Map();
 for(const p of [...newRows,...pending])if(!unique.has(p.key))unique.set(p.key,p);
 const backlog=[...unique.values()].filter(p=>p.status!=='published').slice(0,2000);
 const report={
- date,generatedAt:now,targets:stats,regionsSearched:targets.length,
+ date,generatedAt:now,targets:stats,regionsSearched:targets.length,rotation:'7 underserved regions + Europe + North America',
  newUniqueCandidates:newRows.length,
  new360Candidates:newRows.filter(x=>x.suggestedMode==='street-panorama').length,
  newGalleryCandidates:newRows.filter(x=>x.suggestedMode==='drone-gallery-photo').length,
