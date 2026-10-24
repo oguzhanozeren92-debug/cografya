@@ -25,6 +25,7 @@ a{color:#fbd69a}a:focus-visible,button:focus-visible{outline:3px solid var(--gol
 .photo{border:1px solid #4e606b;border-radius:11px;background:#0c1b24;overflow:hidden}
 .photo img{width:100%;aspect-ratio:1.25;object-fit:cover;background:#132430;display:block}
 .metadata{padding:8px}.metadata b{font-size:11px;display:block;color:#f7d195}.metadata span{display:block;font-size:10px;color:#d1d6d8;overflow-wrap:anywhere;margin:4px 0}.metadata a{font-size:10px}
+.sourceReviewed{display:block;color:#a6dcb4!important;padding:4px 0}
 .photo.missing{border-color:#c66a5b}.photo.missing img{opacity:.25}.photo.missing .metadata b{color:#ff9c8f}.photo.ok{border-color:#4a826d}.photo.ok .metadata b{color:#a4e2bb}
 @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
 </style>
@@ -39,6 +40,7 @@ a{color:#fbd69a}a:focus-visible,button:focus-visible{outline:3px solid var(--gol
 <div class="stat"><strong id="target">—</strong><span>Katalogdaki dosya</span></div>
 <div class="stat"><strong id="albums">—</strong><span>Tamamı ulaşılabilir albüm</span></div>
 <div class="stat"><strong id="approved">—</strong><span>Editör onaylı albüm</span></div>
+<div class="stat"><strong id="sourcechecked">—</strong><span>Commons kaynak kaydı incelendi</span></div>
 </div>
 <div class="notice" id="notice">Katalog okunuyor ve fotoğrafların erişimi kontrol ediliyor…</div>
 <div class="controls"><button class="selected" data-filter="all">Tüm Albümler</button><button data-filter="complete">Dosyası Tamam</button><button data-filter="missing">Eksik Dosyalı</button></div>
@@ -50,7 +52,7 @@ a{color:#fbd69a}a:focus-visible,button:focus-visible{outline:3px solid var(--gol
 'use strict';
 const el=id=>document.getElementById(id);
 const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let entries=[],state=new Map(),filter='all',done=false;
+let entries=[],state=new Map(),reviewed=new Map(),filter='all',done=false;
 const key=(id,n)=>id+':'+n;
 async function probe(url){
  try{const ctrl=new AbortController();const timeout=setTimeout(()=>ctrl.abort(),7000);
@@ -71,13 +73,14 @@ function render(){
  el('target').textContent=entries.reduce((s,a)=>s+a.images.length,0);
  el('albums').textContent=done?full+' / '+entries.length:'…';
  el('approved').textContent=entries.filter(a=>a.approved===true).length;
+ el('sourcechecked').textContent=reviewed.size+' / '+entries.reduce((n,a)=>n+a.images.length,0);
  el('notice').textContent=done?
   'Denetim tamamlandı: '+online+' dosya erişilebilir; '+(entries.length-full)+' albümde eksik veya erişilemeyen fotoğraf var. Editör onayı olmadan oyuna aktarım yapılmaz.':
   'Fotoğrafların erişimi kontrol ediliyor. Tamamlama durumu tüm HEAD isteklerinden sonra kesinleşir.';
  el('gallery').innerHTML=entries.filter(a=>filter==='all'||(done&&(filter==='complete'?a.complete:!a.complete))).map(a=>
   '<section class="album"><div class="albumhead"><div><h2>'+esc(a.city)+' · '+esc(a.country)+'</h2><small>'+esc(a.id)+' · '+a.images.length+' fotoğraf</small></div><span class="tag">'+(a.approved?'ONAYLI':'İNCELEME BEKLİYOR')+'</span></div>'+
-  '<div class="photos">'+a.images.map((im,i)=>{const k=key(a.id,i+1),present=state.get(k),ext=im.format==='jpg'?'jpg':'webp',url='/drone-gallery/photos/'+a.id+'/'+(i+1)+'.'+ext,cls=present===true?'ok':present===false?'missing':'';
-    return '<div class="photo '+cls+'"><img loading="lazy" src="'+url+'" alt="'+esc(a.city)+' arşiv fotoğrafı '+(i+1)+'"><div class="metadata"><b>'+(present===true?'✓ Dosya açılıyor':present===false?'✕ Bulunamadı':'⏳ Kontrol ediliyor')+'</b><span>'+esc(im.artist)+' · '+esc(im.license)+' · '+ext.toUpperCase()+'</span><a href="'+esc(im.source)+'" target="_blank" rel="noopener noreferrer">Kaynak & lisans ↗</a></div></div>'
+  '<div class="photos">'+a.images.map((im,i)=>{const k=key(a.id,i+1),present=state.get(k),ext=im.format==='jpg'?'jpg':'webp',url='/drone-gallery/photos/'+a.id+'/'+(i+1)+'.'+ext,cls=present===true?'ok':present===false?'missing':'',sourceReviewed=reviewed.get(k)===im.source;
+    return '<div class="photo '+cls+'"><img loading="lazy" src="'+url+'" alt="'+esc(a.city)+' arşiv fotoğrafı '+(i+1)+'"><div class="metadata"><b>'+(present===true?'✓ Dosya açılıyor':present===false?'✕ Bulunamadı':'⏳ Kontrol ediliyor')+'</b><span>'+esc(im.artist)+' · '+esc(im.license)+' · '+ext.toUpperCase()+'</span>'+(sourceReviewed?'<span class="sourceReviewed">✓ Commons kayıt bilgisi incelendi · dosya eşleşmesi henüz doğrulanmadı</span>':'')+'<a href="'+esc(im.source)+'" target="_blank" rel="noopener noreferrer">Kaynak & lisans ↗</a></div></div>'
   }).join('')+'</div></section>').join('');
 }
 async function init(){
@@ -85,6 +88,12 @@ async function init(){
   const r=await fetch('/drone-gallery/catalog-v2.json',{cache:'no-store'});
   if(!r.ok)throw Error('Katalog okunamadı (HTTP '+r.status+')');
   const data=await r.json();entries=data.collections||[];
+  try{
+   const rr=await fetch('/drone-gallery/source-review.json',{cache:'no-store'});
+   if(rr.ok){const audit=await rr.json();if(audit.version===1&&Array.isArray(audit.records)){
+    reviewed=new Map(audit.records.filter(x=>x.sourceCheck==='commons_page_subject_author_and_license_match').map(x=>[key(x.album,x.photoIndex),x.source]));
+   }}
+  }catch{ /* Source review list is supplementary; do not change album approvals. */ }
   if(data.version!==2||!Array.isArray(entries))throw Error('Katalog sürümü geçersiz');
   render();
   const queue=entries.flatMap(a=>a.images.map((im,i)=>({id:a.id,n:i+1,ext:im.format})));
