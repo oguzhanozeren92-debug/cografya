@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111d26">
+<title>Globriva — Fotoğraf Arşivi Kontrolü</title>
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#ecf0f2;background:#0d171f;--card:#172833;--edge:#3e515d;--gold:#ffd495;--muted:#b7c2c9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#243c49,#0d171f 55%);min-height:100vh}
+main{width:min(1140px,100%);padding:18px 16px 70px;margin:auto}
+h1{font:700 clamp(29px,4vw,43px) Georgia,serif;margin:12px 0}.strap{font-size:11px;letter-spacing:1.8px;font-weight:850;color:var(--gold)}
+p{line-height:1.55}.muted{color:var(--muted);font-size:14px}
+a{color:#fbd69a}a:focus-visible,button:focus-visible{outline:3px solid var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:22px 0}.stat{background:#192d39;border:1px solid var(--edge);border-radius:13px;padding:14px 12px;min-width:0}
+.stat strong{font-size:clamp(20px,3vw,29px);display:block;color:var(--gold)}.stat span{font-size:12px;color:var(--muted)}
+.notice{border:1px solid #a78653;background:#342c22;padding:13px;border-radius:12px;font-size:13px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.controls button{border-radius:20px;padding:10px 16px;background:#263d49;color:#fff0de;border:1px solid #6d7780;font-weight:700;cursor:pointer}
+.controls button.selected{background:#f1cc8e;color:#241a12;border-color:#f1cc8e}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.album{border:1px solid #56616d;border-radius:16px;background:var(--card);padding:13px;overflow:hidden}
+.album h2{font-size:18px;margin:2px 0 7px}.album small{color:var(--muted)}.albumhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.tag{font-size:11px;border:1px solid #bc9660;color:#ffe0ae;border-radius:20px;padding:5px 8px;white-space:nowrap}
+.photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.photo{border:1px solid #4e606b;border-radius:11px;background:#0c1b24;overflow:hidden}
+.photo img{width:100%;aspect-ratio:1.25;object-fit:cover;background:#132430;display:block}
+.metadata{padding:8px}.metadata b{font-size:11px;display:block;color:#f7d195}.metadata span{display:block;font-size:10px;color:#d1d6d8;overflow-wrap:anywhere;margin:4px 0}.metadata a{font-size:10px}
+.photo.missing{border-color:#c66a5b}.photo.missing img{opacity:.25}.photo.missing .metadata b{color:#ff9c8f}.photo.ok{border-color:#4a826d}.photo.ok .metadata b{color:#a4e2bb}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<div class="strap">GLOBRIVA · KAYNAK VE DOSYA DENETİMİ</div>
+<h1>Fotoğraf Arşivi</h1>
+<p class="muted">Bu ekran GitHub/Vercel fotoğraf dosyalarını denetlemek ve eserlerin kaynaklarını incelemek içindir. Fotoğrafların açılması; doğru yeri gösterdiklerini, kullanım izinlerinin doğrulandığını veya oyuna alınabileceklerini tek başına kanıtlamaz.</p>
+<div class="stats">
+<div class="stat"><strong id="stored">—</strong><span>Ulaşılabilen dosya</span></div>
+<div class="stat"><strong id="target">—</strong><span>Katalogdaki dosya</span></div>
+<div class="stat"><strong id="albums">—</strong><span>Tamamı ulaşılabilir albüm</span></div>
+<div class="stat"><strong id="approved">—</strong><span>Editör onaylı albüm</span></div>
+</div>
+<div class="notice" id="notice">Katalog okunuyor ve fotoğrafların erişimi kontrol ediliyor…</div>
+<div class="controls"><button class="selected" data-filter="all">Tüm Albümler</button><button data-filter="complete">Dosyası Tamam</button><button data-filter="missing">Eksik Dosyalı</button></div>
+<div class="grid" id="gallery"></div>
+<p class="muted">Lisans ve atıf koşulları için her fotoğrafın Wikimedia Commons sayfası incelenmelidir. Tamamen onaylanmamış bir albüm canlı oyun havuzuna eklenmez.</p>
+</main>
+<script>
+(function(){
+'use strict';
+const el=id=>document.getElementById(id);
+const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let entries=[],state=new Map(),filter='all',done=false;
+const key=(id,n)=>id+':'+n;
+async function probe(url){
+ try{const ctrl=new AbortController();const timeout=setTimeout(()=>ctrl.abort(),7000);
+  try{const r=await fetch(url,{method:'HEAD',cache:'no-store',signal:ctrl.signal});
+   return r.ok&&/^image\/(webp|jpeg)(;|$)/i.test(r.headers.get('content-type')||'');
+  }finally{clearTimeout(timeout)}
+ }catch{return false}
+}
+function render(){
+ let known=0,online=0,full=0;
+ entries.forEach(a=>{
+  let n=0;
+  a.images.forEach((im,i)=>{const v=state.get(key(a.id,i+1));if(typeof v==='boolean'){known++;if(v){online++;n++}}});
+  a.complete=!!done&&n===a.images.length;
+  if(a.complete)full++;
+ });
+ el('stored').textContent=done?online:online+' / '+known+' kontrol';
+ el('target').textContent=entries.reduce((s,a)=>s+a.images.length,0);
+ el('albums').textContent=done?full+' / '+entries.length:'…';
+ el('approved').textContent=entries.filter(a=>a.approved===true).length;
+ el('notice').textContent=done?
+  'Denetim tamamlandı: '+online+' dosya erişilebilir; '+(entries.length-full)+' albümde eksik veya erişilemeyen fotoğraf var. Editör onayı olmadan oyuna aktarım yapılmaz.':
+  'Fotoğrafların erişimi kontrol ediliyor. Tamamlama durumu tüm HEAD isteklerinden sonra kesinleşir.';
+ el('gallery').innerHTML=entries.filter(a=>filter==='all'||(done&&(filter==='complete'?a.complete:!a.complete))).map(a=>
+  '<section class="album"><div class="albumhead"><div><h2>'+esc(a.city)+' · '+esc(a.country)+'</h2><small>'+esc(a.id)+' · '+a.images.length+' fotoğraf</small></div><span class="tag">'+(a.approved?'ONAYLI':'İNCELEME BEKLİYOR')+'</span></div>'+
+  '<div class="photos">'+a.images.map((im,i)=>{const k=key(a.id,i+1),present=state.get(k),ext=im.format==='jpg'?'jpg':'webp',url='/drone-gallery/photos/'+a.id+'/'+(i+1)+'.'+ext,cls=present===true?'ok':present===false?'missing':'';
+    return '<div class="photo '+cls+'"><img loading="lazy" src="'+url+'" alt="'+esc(a.city)+' arşiv fotoğrafı '+(i+1)+'"><div class="metadata"><b>'+(present===true?'✓ Dosya açılıyor':present===false?'✕ Bulunamadı':'⏳ Kontrol ediliyor')+'</b><span>'+esc(im.artist)+' · '+esc(im.license)+' · '+ext.toUpperCase()+'</span><a href="'+esc(im.source)+'" target="_blank" rel="noopener noreferrer">Kaynak & lisans ↗</a></div></div>'
+  }).join('')+'</div></section>').join('');
+}
+async function init(){
+ try{
+  const r=await fetch('/drone-gallery/catalog-v2.json',{cache:'no-store'});
+  if(!r.ok)throw Error('Katalog okunamadı (HTTP '+r.status+')');
+  const data=await r.json();entries=data.collections||[];
+  if(data.version!==2||!Array.isArray(entries))throw Error('Katalog sürümü geçersiz');
+  render();
+  const queue=entries.flatMap(a=>a.images.map((im,i)=>({id:a.id,n:i+1,ext:im.format})));
+  let next=0;
+  await Promise.all(Array.from({length:6},async()=>{while(next<queue.length){
+   const item=queue[next++],ext=item.ext;
+   const exists=(ext==='jpg'||ext==='webp')&&await probe('/drone-gallery/photos/'+item.id+'/'+item.n+'.'+ext);
+   state.set(key(item.id,item.n),!!exists);render();
+  }}));
+  done=true;render();
+ }catch(e){el('notice').textContent='Katalog denetimi yapılamadı: '+(e.message||e)}
+}
+document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{
+ filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('selected',x===b));render();
+});
+init();
+})();
+</script></body></html>
