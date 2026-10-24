@@ -1,0 +1,195 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-24",
+  "purpose": "Manual visual spot checks of a representative single photograph per approved album. Observed landmark matches the asserted city. This is not an assessment of every photo, original-source identity or legal reuse.",
+  "approvedAlbumCount": 16,
+  "sampledAlbums": 16,
+  "sampledPhotographs": 16,
+  "totalApprovedPhotographs": 51,
+  "issues": [
+    {
+      "album": "album-011",
+      "photoNumber": 1,
+      "issue": "Image contains overlaid English explanatory title. Prefer clean photo when replacing.",
+      "severity": "visual_quality_only"
+    }
+  ],
+  "records": [
+    {
+      "album": "album-001",
+      "photoNumber": 1,
+      "filename": "1.webp",
+      "city": "Londra",
+      "landmark": "Tower Bridge",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-002",
+      "photoNumber": 3,
+      "filename": "3.jpg",
+      "city": "İstanbul",
+      "landmark": "Boğaz vapuru ve İstanbul kıyısı",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-003",
+      "photoNumber": 2,
+      "filename": "2.jpg",
+      "city": "Roma",
+      "landmark": "Trevi Çeşmesi",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-004",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Paris",
+      "landmark": "Eyfel Kulesi",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-005",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Berlin",
+      "landmark": "Brandenburg Kapısı",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-006",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Sidney",
+      "landmark": "Sidney Opera Binası",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-007",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Tokyo",
+      "landmark": "Tokyo Skytree",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-008",
+      "photoNumber": 2,
+      "filename": "2.jpg",
+      "city": "Barselona",
+      "landmark": "Park Güell",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-009",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "New York",
+      "landmark": "Özgürlük Heykeli",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-010",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Rio de Janeiro",
+      "landmark": "Kurtarıcı İsa heykeli",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-011",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Atina",
+      "landmark": "Parthenon / Akropolis",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": "embedded_English_description_in_image"
+    },
+    {
+      "album": "album-012",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Amsterdam",
+      "landmark": "Amsterdam kanalları",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-013",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Toronto",
+      "landmark": "CN Tower ve Toronto silüeti",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-014",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Gize",
+      "landmark": "Gize piramitleri",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-015",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Agra",
+      "landmark": "Tac Mahal",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    },
+    {
+      "album": "album-016",
+      "photoNumber": 1,
+      "filename": "1.jpg",
+      "city": "Mexico City",
+      "landmark": "Bağımsızlık Meleği anıtı",
+      "visualLocationPlausible": true,
+      "sourceIdentityConfirmed": false,
+      "licenceStillRequiresFullReview": true,
+      "qualityFlag": null
+    }
+  ]
+}
