@@ -1,0 +1,513 @@
+{
+  "version": 1,
+  "created": "2026-10-24",
+  "title": "Globriva - Dünya Kapsama Planı",
+  "status": "research_priorities_not_published",
+  "countingNotes": "Drone = 16 approved photo albums, Street = 18 playable entries; locations can repeat across modes. Türkiye and Caucasus listed as transcontinental/West Asian bridge for audit consistency.",
+  "baseline": {
+    "droneLocations": 16,
+    "dronePhotos": 51,
+    "streetPlayableEntries": 18,
+    "droneByRegion": {
+      "Europe": 7,
+      "Türkiye/Kafkasya/Orta Doğu": 1,
+      "East Asia": 1,
+      "Southeast Asia": 0,
+      "South Asia": 1,
+      "Africa": 1,
+      "North America": 3,
+      "South America": 1,
+      "Oceania": 1
+    },
+    "streetByRegion": {
+      "Europe": 7,
+      "Türkiye/Kafkasya/Orta Doğu": 2,
+      "East Asia": 0,
+      "Southeast Asia": 3,
+      "South Asia": 0,
+      "Africa": 0,
+      "North America": 4,
+      "South America": 2,
+      "Oceania": 0
+    }
+  },
+  "goal": {
+    "newCountriesOrCities": 20,
+    "newPhotoAlbums": 20,
+    "newPhotosMinimum": 60,
+    "droneLocationsIfAllVerified": 36,
+    "dronePhotosIfAllVerified": 111,
+    "minPhotosPerAlbum": 3,
+    "notes": "Planning target only; actual Commons sources, rights, downloaded bytes and image/location editorial verification required."
+  },
+  "policy": {
+    "continentFirst": true,
+    "regionsPriority": [
+      "Africa",
+      "South America",
+      "East Asia",
+      "Southeast Asia",
+      "South Asia",
+      "West Asia",
+      "Oceania"
+    ],
+    "newEuropeUntilBalanced": 0,
+    "zeroGuessing": true,
+    "noPlaceholderImages": true,
+    "sourceRule": "Independently verify original file, credit, licence, geolocation, and visual clues. Approve only completed 3-4-image albums."
+  },
+  "referenceSources": [
+    {
+      "city": "Cape Town",
+      "file": "https://commons.wikimedia.org/wiki/File:Cape_Town_Table_Mountain.jpg",
+      "status": "page_identified_not_album_approved"
+    },
+    {
+      "city": "Cusco",
+      "file": "https://commons.wikimedia.org/wiki/File:Plaza_de_armas_de_Cusco.jpg",
+      "status": "page_identified_not_album_approved"
+    }
+  ],
+  "candidates": [
+    {
+      "rank": 1,
+      "region": "Africa",
+      "country": "Güney Afrika",
+      "city": "Cape Town",
+      "lat": -33.925,
+      "lng": 18.424,
+      "photoSubjects": [
+        "Masa Dağı silüeti",
+        "Bo-Kaap renkli sokakları",
+        "Victoria & Alfred sahili"
+      ],
+      "questionType": "şehir ve ülke",
+      "questionExample": {
+        "tr": "Bu fotoğraf dizisindeki şehir hangi ülkededir?",
+        "answer": "Güney Afrika"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 2,
+      "region": "Africa",
+      "country": "Fas",
+      "city": "Marakeş",
+      "lat": 31.629,
+      "lng": -7.989,
+      "photoSubjects": [
+        "Koutoubia minaresi",
+        "Jemaa el-Fnaa meydanı",
+        "medina ve geleneksel avlular"
+      ],
+      "questionType": "mimari ve şehir",
+      "questionExample": {
+        "tr": "Bu meydan ve mimari hangi ülkededir?",
+        "answer": "Fas"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 3,
+      "region": "Africa",
+      "country": "Tanzanya",
+      "city": "Zanzibar (Stone Town)",
+      "lat": -6.163,
+      "lng": 39.189,
+      "photoSubjects": [
+        "Stone Town oymalı kapılar",
+        "Hint Okyanusu kıyısı",
+        "tarihî sokaklar"
+      ],
+      "questionType": "bölge ve kültür",
+      "questionExample": {
+        "tr": "Bu tarihî kıyı yerleşimi hangi ülkededir?",
+        "answer": "Tanzanya"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 4,
+      "region": "Africa",
+      "country": "Kenya",
+      "city": "Nairobi",
+      "lat": -1.286,
+      "lng": 36.817,
+      "photoSubjects": [
+        "şehir merkezi silüeti",
+        "Nairobi National Park çevresi",
+        "KICC binası"
+      ],
+      "questionType": "şehir ve ülke",
+      "questionExample": {
+        "tr": "Bu kent silüeti hangi ülkenin başkentindedir?",
+        "answer": "Kenya"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 5,
+      "region": "Africa",
+      "country": "Senegal",
+      "city": "Dakar",
+      "lat": 14.692,
+      "lng": -17.447,
+      "photoSubjects": [
+        "Afrika Rönesans Anıtı",
+        "Atlantik sahili",
+        "tarihî liman sokakları"
+      ],
+      "questionType": "ülke ve sahil",
+      "questionExample": {
+        "tr": "Bu Atlantik kıyısındaki şehir hangi ülkededir?",
+        "answer": "Senegal"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 6,
+      "region": "South America",
+      "country": "Arjantin",
+      "city": "Buenos Aires",
+      "lat": -34.603,
+      "lng": -58.381,
+      "photoSubjects": [
+        "Obelisco",
+        "Caminito renkli binalar",
+        "Plaza de Mayo"
+      ],
+      "questionType": "şehir simgesi",
+      "questionExample": {
+        "tr": "Bu şehir simgeleri hangi ülkeye aittir?",
+        "answer": "Arjantin"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 7,
+      "region": "South America",
+      "country": "Peru",
+      "city": "Cusco",
+      "lat": -13.516,
+      "lng": -71.978,
+      "photoSubjects": [
+        "Plaza de Armas",
+        "İnka taş duvarları",
+        "And dağları çevresi"
+      ],
+      "questionType": "tarih ve ülke",
+      "questionExample": {
+        "tr": "Bu tarihî And şehri hangi ülkededir?",
+        "answer": "Peru"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 8,
+      "region": "South America",
+      "country": "Kolombiya",
+      "city": "Cartagena",
+      "lat": 10.424,
+      "lng": -75.551,
+      "photoSubjects": [
+        "tarihî surlu merkez",
+        "renkli kolonyal sokaklar",
+        "Karayip kıyısı"
+      ],
+      "questionType": "şehir ve bölge",
+      "questionExample": {
+        "tr": "Bu surlarla çevrili Karayip şehri hangi ülkededir?",
+        "answer": "Kolombiya"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 9,
+      "region": "South America",
+      "country": "Şili",
+      "city": "Santiago",
+      "lat": -33.448,
+      "lng": -70.669,
+      "photoSubjects": [
+        "And Dağları manzarası",
+        "Plaza de Armas",
+        "Cerro San Cristóbal"
+      ],
+      "questionType": "coğrafi konum",
+      "questionExample": {
+        "tr": "Bu And Dağları'nın eteklerindeki başkent hangi ülkededir?",
+        "answer": "Şili"
+      },
+      "priority": 2,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 10,
+      "region": "South America",
+      "country": "Bolivya",
+      "city": "La Paz",
+      "lat": -16.5,
+      "lng": -68.15,
+      "photoSubjects": [
+        "And vadisinde kent",
+        "Teleférico teleferikleri",
+        "yüksek rakımlı sokaklar"
+      ],
+      "questionType": "şehir ve coğrafya",
+      "questionExample": {
+        "tr": "Bu yüksek rakımlı And şehri hangi ülkededir?",
+        "answer": "Bolivya"
+      },
+      "priority": 2,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 11,
+      "region": "East Asia",
+      "country": "Güney Kore",
+      "city": "Seul",
+      "lat": 37.566,
+      "lng": 126.978,
+      "photoSubjects": [
+        "Gyeongbokgung Sarayı",
+        "N Seoul Tower",
+        "Bukchon sokakları"
+      ],
+      "questionType": "mimari ve ülke",
+      "questionExample": {
+        "tr": "Bu saray ve modern şehir manzaraları hangi ülkededir?",
+        "answer": "Güney Kore"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 12,
+      "region": "East Asia",
+      "country": "Japonya",
+      "city": "Kyoto",
+      "lat": 35.011,
+      "lng": 135.768,
+      "photoSubjects": [
+        "Kiyomizu-dera tapınağı",
+        "Fushimi Inari geçitleri",
+        "Gion tarihî sokakları"
+      ],
+      "questionType": "tarihî şehir",
+      "questionExample": {
+        "tr": "Bu tapınakların bulunduğu şehir hangi ülkededir?",
+        "answer": "Japonya"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 13,
+      "region": "East Asia",
+      "country": "Çin",
+      "city": "Pekin",
+      "lat": 39.904,
+      "lng": 116.407,
+      "photoSubjects": [
+        "Yasak Şehir",
+        "Cennet Tapınağı",
+        "eski hutong sokakları"
+      ],
+      "questionType": "tarihî yapı",
+      "questionExample": {
+        "tr": "Bu anıtsal saray kompleksi hangi ülkededir?",
+        "answer": "Çin"
+      },
+      "priority": 2,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 14,
+      "region": "East Asia",
+      "country": "Çin",
+      "city": "Hong Kong",
+      "lat": 22.319,
+      "lng": 114.169,
+      "photoSubjects": [
+        "Victoria Harbour",
+        "yoğun yüksek binalar",
+        "Star Ferry ve kıyı"
+      ],
+      "questionType": "şehir silüeti",
+      "questionExample": {
+        "tr": "Bu liman ve yüksek binalarla tanınan şehir nerededir?",
+        "answer": "Çin (Hong Kong)"
+      },
+      "priority": 2,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 15,
+      "region": "Southeast Asia",
+      "country": "Tayland",
+      "city": "Bangkok",
+      "lat": 13.752,
+      "lng": 100.502,
+      "photoSubjects": [
+        "Wat Arun",
+        "Chao Phraya Nehri",
+        "tapınak avluları"
+      ],
+      "questionType": "kültürel mimari",
+      "questionExample": {
+        "tr": "Bu nehir kıyısındaki tapınaklar hangi ülkededir?",
+        "answer": "Tayland"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 16,
+      "region": "Southeast Asia",
+      "country": "Vietnam",
+      "city": "Hanoi",
+      "lat": 21.028,
+      "lng": 105.854,
+      "photoSubjects": [
+        "Hoan Kiem Gölü",
+        "eski mahalle sokakları",
+        "Temple of Literature"
+      ],
+      "questionType": "şehir ve ülke",
+      "questionExample": {
+        "tr": "Bu göl ve eski mahalle hangi ülkenin başkentindedir?",
+        "answer": "Vietnam"
+      },
+      "priority": 1,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 17,
+      "region": "Southeast Asia",
+      "country": "Singapur",
+      "city": "Singapur",
+      "lat": 1.289,
+      "lng": 103.85,
+      "photoSubjects": [
+        "Marina Bay",
+        "Gardens by the Bay",
+        "eski şehir mahalleleri"
+      ],
+      "questionType": "modern şehir",
+      "questionExample": {
+        "tr": "Bu körfez ve modern bahçeler hangi ülkededir?",
+        "answer": "Singapur"
+      },
+      "priority": 2,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 18,
+      "region": "South Asia",
+      "country": "Nepal",
+      "city": "Katmandu",
+      "lat": 27.717,
+      "lng": 85.324,
+      "photoSubjects": [
+        "Durbar Meydanı",
+        "Swayambhunath çevresi",
+        "tapınaklı kent dokusu"
+      ],
+      "questionType": "mimari ve ülke",
+      "questionExample": {
+        "tr": "Bu tarihî meydan ve tapınaklar hangi ülkededir?",
+        "answer": "Nepal"
+      },
+      "priority": 2,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 19,
+      "region": "West Asia",
+      "country": "Ürdün",
+      "city": "Petra (Wadi Musa)",
+      "lat": 30.322,
+      "lng": 35.478,
+      "photoSubjects": [
+        "El-Hazne kaya cephesi",
+        "Siq geçidi",
+        "oyma kaya yapıları"
+      ],
+      "questionType": "antik yapı",
+      "questionExample": {
+        "tr": "Bu kayalara oyulmuş antik kent hangi ülkededir?",
+        "answer": "Ürdün"
+      },
+      "priority": 2,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    },
+    {
+      "rank": 20,
+      "region": "Oceania",
+      "country": "Yeni Zelanda",
+      "city": "Wellington",
+      "lat": -41.286,
+      "lng": 174.776,
+      "photoSubjects": [
+        "liman kıyısı",
+        "Cable Car ve kent yamaçları",
+        "parlamento çevresi"
+      ],
+      "questionType": "başkent ve ülke",
+      "questionExample": {
+        "tr": "Bu liman çevresindeki başkent hangi ülkededir?",
+        "answer": "Yeni Zelanda"
+      },
+      "priority": 2,
+      "requiredPhotos": 3,
+      "status": "source_and_license_research_pending",
+      "sourcesVerified": 0
+    }
+  ]
+}
