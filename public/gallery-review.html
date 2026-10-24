@@ -92,7 +92,7 @@ async function init(){
   await Promise.all(Array.from({length:6},async()=>{while(next<queue.length){
    const item=queue[next++],ext=item.ext;
    const exists=(ext==='jpg'||ext==='webp')&&await probe('/drone-gallery/photos/'+item.id+'/'+item.n+'.'+ext);
-   state.set(key(item.id,item.n),!!exists);render();
+   state.set(key(item.id,item.n),!!exists);if(state.size%8===0){el('stored').textContent=state.size+' / '+queue.length+' kontrol';}
   }}));
   done=true;render();
  }catch(e){el('notice').textContent='Katalog denetimi yapılamadı: '+(e.message||e)}
