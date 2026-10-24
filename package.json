@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/panoramas/check-local-gallery.mjs --strict > /dev/null && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
@@ -14,7 +14,9 @@
     "native:sync": "npm run build && npx cap sync",
     "native:configure": "node scripts/configure-admob-native.mjs && node scripts/configure-push-ios.mjs",
     "native:release:check": "node scripts/validate-admob-release.mjs",
-    "native:ios:sync": "npm run build && npx cap sync ios && npm run native:configure"
+    "native:ios:sync": "npm run build && npx cap sync ios && npm run native:configure",
+    "gallery:audit": "node scripts/panoramas/check-local-gallery.mjs",
+    "gallery:release-check": "node scripts/panoramas/check-local-gallery.mjs --release"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
