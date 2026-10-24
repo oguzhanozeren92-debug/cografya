@@ -66,6 +66,26 @@
       "city": "Cusco",
       "file": "https://commons.wikimedia.org/wiki/File:Plaza_de_armas_de_Cusco.jpg",
       "status": "page_identified_not_album_approved"
+    },
+    {
+      "city": "Marakeş",
+      "file": "https://commons.wikimedia.org/wiki/File:Jemaa_El_Fnaa.jpg",
+      "status": "commons_file_page_checked_not_approved"
+    },
+    {
+      "city": "Buenos Aires",
+      "file": "https://commons.wikimedia.org/wiki/File:Obelisco_en_Buenos_Aires.JPG",
+      "status": "commons_file_page_checked_not_approved"
+    },
+    {
+      "city": "Seul",
+      "file": "https://commons.wikimedia.org/wiki/File:Gyeongbokgung_Mar_2025_113.jpg",
+      "status": "commons_file_page_checked_not_approved"
+    },
+    {
+      "city": "Bangkok",
+      "file": "https://commons.wikimedia.org/wiki/File:Wat_Arun_in_Bangkok_(1).jpg",
+      "status": "commons_file_page_checked_not_approved"
     }
   ],
   "candidates": [
