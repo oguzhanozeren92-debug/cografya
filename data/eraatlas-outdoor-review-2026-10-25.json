@@ -1,20 +1,21 @@
 {
-  "version": 1,
+  "version": 2,
   "date": "2026-10-25",
   "project": "Globriva",
   "sourceProject": "EraAtlas",
   "sourceRepository": "oguzhanozeren92-debug/eraatlas",
   "sourceManifest": "data/panorama-adaylari-2026-10-25.json",
   "targetExperience": "Sokak Dedektifi; true aerial footage may later suit Drone Dedektifi",
-  "currentState": "EDITORIAL_REVIEW_ONLY",
-  "description": "EraAtlas outdoor historical panoramas for geography guessing. Shared SOURCE references, not media files. This JSON is not imported by any playable game. Geo coordinates and file download/render are intentionally unverified.",
+  "currentState": "OUTDOOR_CANDIDATES_ONLY_NOT_PLAYABLE",
+  "description": "Yalnızca dış mekân kaynaklarına işaret eden Globriva adayları. İç mekân panoramaları ve dış mekân durumu veya kalite kontrolü belirsiz kayıtlar adaylardan ayrılmıştır. Hiçbiri oynanabilir değildir.",
   "releaseGate": [
-    "Inspect the actual panorama visually; confirm outdoors, correct landmark and no unacceptable watermark/black areas.",
-    "Verify each Commons file is reachable and carries the recorded commercial reuse license; retain attribution and CC BY-SA share-alike obligations.",
-    "Verify the real camera position coordinates, not merely the monument or city center, using reputable geodata.",
-    "Convert/cache one licensed image in Globriva's verified delivery pipeline; verify 360 rendering and mobile/iOS performance.",
-    "Exclude already live source images and duplicate landmarks; keep exact media credit in the result screen.",
-    "Only add to the server-side session catalogue and scoring after all gates pass; do not leak answers in the client catalogue."
+    "Kaynak fotoğrafın açık havada çekildiğini görüntüyü açarak doğrula; indoor/kule içi/kapalı salon görüntülerini kesinlikle reddet.",
+    "Dış mekân görüntüsünde filigran ve eksik gökyüzü/siyah alan sorunlarını denetle.",
+    "Orijinal görüntünün ticari kullanıma açık lisansını, yazarını ve erişimini yeniden doğrula.",
+    "Panoramanın gerçek kamera konumunu koordinatlarla teyit et; bina merkezini kamera konumu diye kaydetme.",
+    "Görseli Globriva'nın doğrulanmış medya dağıtımına ekle ve mobil 360 açılış testini geçir.",
+    "Aynı fotoğraf veya yeri tekrar ekleme; kaynak ve lisans atfını koru.",
+    "Sadece bütün koşulları geçen dış mekânları sunucu oturumu havuzuna al."
   ],
   "candidates": [
     {
@@ -42,34 +43,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
-    },
-    {
-      "id": "eraatlas-bydlin-castle",
-      "eraAtlasId": "bydlin-castle",
-      "landmark": "Bydlin Kalesi",
-      "country": "Polonya",
-      "subjectType": "kale",
-      "expectedScene": "outdoor_to_verify",
-      "expectedGeographyMode": "street",
-      "file": "Bydlin castle panorama.jpg",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bydlin_castle_panorama.jpg",
-      "artist": "Q'bot",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "reportedDimensions": {
-        "width": 12996,
-        "height": 6498
-      },
-      "cameraLocation": null,
-      "coordinatesVerified": false,
-      "sceneVerified": false,
-      "fileDownloadVerified": false,
-      "renderTestPassed": false,
-      "qaStatus": "review_required",
-      "playable": false,
-      "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-teotihuacan-mexico-360",
@@ -96,7 +73,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-gateway-india-mumbai-360",
@@ -123,34 +103,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
-    },
-    {
-      "id": "eraatlas-jelgava-palace-360",
-      "eraAtlasId": "jelgava-palace-360",
-      "landmark": "Jelgava Sarayı",
-      "country": "Letonya",
-      "subjectType": "saray",
-      "expectedScene": "outdoor_to_verify",
-      "expectedGeographyMode": "street",
-      "file": "Jelgava Palace.jpg",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jelgava_Palace.jpg",
-      "artist": "U.Bardins",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "reportedDimensions": {
-        "width": 8000,
-        "height": 4000
-      },
-      "cameraLocation": null,
-      "coordinatesVerified": false,
-      "sceneVerified": false,
-      "fileDownloadVerified": false,
-      "renderTestPassed": false,
-      "qaStatus": "quality_hold",
-      "playable": false,
-      "approved": false,
-      "qaNotes": "Wikimedia dosyasında filigran kategorisi var; görüntü değerlendirilmeden kullanılmasın."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-royal-saltworks-arc-360",
@@ -177,7 +133,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-befreiungshalle-kelheim-360",
@@ -204,34 +163,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
-    },
-    {
-      "id": "eraatlas-dun-an-sticir-360",
-      "eraAtlasId": "dun-an-sticir-360",
-      "landmark": "Dun an Sticir Adacık Kalesi",
-      "country": "Birleşik Krallık",
-      "subjectType": "kale",
-      "expectedScene": "outdoor_to_verify",
-      "expectedGeographyMode": "drone",
-      "file": "Dun an Sticir Aerial Pan360.jpg",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dun_an_Sticir_Aerial_Pan360.jpg",
-      "artist": "PaulT (Gunther Tschuch)",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "reportedDimensions": {
-        "width": 13452,
-        "height": 6726
-      },
-      "cameraLocation": null,
-      "coordinatesVerified": false,
-      "sceneVerified": false,
-      "fileDownloadVerified": false,
-      "renderTestPassed": false,
-      "qaStatus": "quality_hold",
-      "playable": false,
-      "approved": false,
-      "qaNotes": "Havadan çekimde zenit siyah; oynanış kalite kontrolü gerekli."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-place-vendome-paris-360",
@@ -258,7 +193,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-pont-bir-hakeim-paris-360",
@@ -285,7 +223,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-braunschweig-burgplatz-360",
@@ -312,7 +253,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-emden-kesselschleuse-360",
@@ -339,7 +283,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-tokiwa-so-memorial-360",
@@ -366,7 +313,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-westminster-bridge-panosphere-360",
@@ -393,34 +343,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
-    },
-    {
-      "id": "eraatlas-mutianyu-great-wall-360",
-      "eraAtlasId": "mutianyu-great-wall-360",
-      "landmark": "Mutianyu Çin Seddi",
-      "country": "Çin",
-      "subjectType": "sur",
-      "expectedScene": "outdoor_to_verify",
-      "expectedGeographyMode": "street",
-      "file": "Mutianyu – Panorama (Greg Zaal via Poly Haven).jpg",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mutianyu_%E2%80%93_Panorama_(Greg_Zaal_via_Poly_Haven).jpg",
-      "artist": "Greg Zaal",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-      "reportedDimensions": {
-        "width": 8192,
-        "height": 4096
-      },
-      "cameraLocation": null,
-      "coordinatesVerified": false,
-      "sceneVerified": false,
-      "fileDownloadVerified": false,
-      "renderTestPassed": false,
-      "qaStatus": "review_required",
-      "playable": false,
-      "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-nijo-ninomaru-garden-360",
@@ -447,7 +373,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-gyoda-futagoyama-kofun-360",
@@ -474,34 +403,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
-    },
-    {
-      "id": "eraatlas-hououzuka-kofun-360",
-      "eraAtlasId": "hououzuka-kofun-360",
-      "landmark": "Hōōzuka Kofunu",
-      "country": "Japonya",
-      "subjectType": "antik-mezar",
-      "expectedScene": "outdoor_to_verify",
-      "expectedGeographyMode": "street",
-      "file": "Hououzuka Kofun, East 360-degree.jpg",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hououzuka_Kofun%2C_East_360-degree.jpg",
-      "artist": "AsPJT",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-      "reportedDimensions": {
-        "width": 6080,
-        "height": 3040
-      },
-      "cameraLocation": null,
-      "coordinatesVerified": false,
-      "sceneVerified": false,
-      "fileDownloadVerified": false,
-      "renderTestPassed": false,
-      "qaStatus": "review_required",
-      "playable": false,
-      "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-castel-sant-angelo-roof-360",
@@ -528,7 +433,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-circus-maximus-rome-360",
@@ -555,7 +463,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-zavelstein-castle-ruins-360",
@@ -582,7 +493,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-schoenbrunn-palace-2024-360",
@@ -609,34 +523,10 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
-    },
-    {
-      "id": "eraatlas-belfort-castle-spherical-360",
-      "eraAtlasId": "belfort-castle-spherical-360",
-      "landmark": "Belfort Kalesi",
-      "country": "İsviçre",
-      "subjectType": "kale",
-      "expectedScene": "outdoor_to_verify",
-      "expectedGeographyMode": "street",
-      "file": "Belfort Castle Spherical Panorama.jpg",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Belfort_Castle_Spherical_Panorama.jpg",
-      "artist": "Capricorn4049",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "reportedDimensions": {
-        "width": 23040,
-        "height": 11520
-      },
-      "cameraLocation": null,
-      "coordinatesVerified": false,
-      "sceneVerified": false,
-      "fileDownloadVerified": false,
-      "renderTestPassed": false,
-      "qaStatus": "review_required",
-      "playable": false,
-      "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     },
     {
       "id": "eraatlas-ksiaz-castle-2024-360",
@@ -663,7 +553,196 @@
       "qaStatus": "review_required",
       "playable": false,
       "approved": false,
-      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play."
+      "qaNotes": "Yalnızca açık alandaki panorama adayı. Açık hava çekimi, ticari kullanım, dosya erişimi, kamera konumu ve oyun ekranı son kalite kontrolleri tamamlanmadan aktif edilmez. Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "outdoor_candidate",
+      "outdoorEvidenceLevel": "source_description_or_landmark_context",
+      "outdoorVisualVerified": false
     }
-  ]
+  ],
+  "deferredCandidates": [
+    {
+      "id": "eraatlas-bydlin-castle",
+      "eraAtlasId": "bydlin-castle",
+      "landmark": "Bydlin Kalesi",
+      "country": "Polonya",
+      "subjectType": "kale",
+      "expectedScene": "outdoor_to_verify",
+      "expectedGeographyMode": "street",
+      "file": "Bydlin castle panorama.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bydlin_castle_panorama.jpg",
+      "artist": "Q'bot",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "reportedDimensions": {
+        "width": 12996,
+        "height": 6498
+      },
+      "cameraLocation": null,
+      "coordinatesVerified": false,
+      "sceneVerified": false,
+      "fileDownloadVerified": false,
+      "renderTestPassed": false,
+      "qaStatus": "excluded_pending_review",
+      "playable": false,
+      "approved": false,
+      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "unverified",
+      "exclusionReason": "Sferik kale panoramasının fotoğraf makinesinin açık havada konumlandığı yeterince açık kanıtlanmadı; yeniden görüntü kontrolüne alındı."
+    },
+    {
+      "id": "eraatlas-jelgava-palace-360",
+      "eraAtlasId": "jelgava-palace-360",
+      "landmark": "Jelgava Sarayı",
+      "country": "Letonya",
+      "subjectType": "saray",
+      "expectedScene": "outdoor_to_verify",
+      "expectedGeographyMode": "street",
+      "file": "Jelgava Palace.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jelgava_Palace.jpg",
+      "artist": "U.Bardins",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "reportedDimensions": {
+        "width": 8000,
+        "height": 4000
+      },
+      "cameraLocation": null,
+      "coordinatesVerified": false,
+      "sceneVerified": false,
+      "fileDownloadVerified": false,
+      "renderTestPassed": false,
+      "qaStatus": "excluded_pending_review",
+      "playable": false,
+      "approved": false,
+      "qaNotes": "Wikimedia dosyasında filigran kategorisi var; görüntü değerlendirilmeden kullanılmasın.",
+      "captureEnvironment": "unverified",
+      "exclusionReason": "Dış avlu görüntüsü, ancak dosyada görünür filigran uyarısı var; kalite kontrolüne kadar Globriva aday listesinden çıkarıldı."
+    },
+    {
+      "id": "eraatlas-dun-an-sticir-360",
+      "eraAtlasId": "dun-an-sticir-360",
+      "landmark": "Dun an Sticir Adacık Kalesi",
+      "country": "Birleşik Krallık",
+      "subjectType": "kale",
+      "expectedScene": "outdoor_to_verify",
+      "expectedGeographyMode": "drone",
+      "file": "Dun an Sticir Aerial Pan360.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dun_an_Sticir_Aerial_Pan360.jpg",
+      "artist": "PaulT (Gunther Tschuch)",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "reportedDimensions": {
+        "width": 13452,
+        "height": 6726
+      },
+      "cameraLocation": null,
+      "coordinatesVerified": false,
+      "sceneVerified": false,
+      "fileDownloadVerified": false,
+      "renderTestPassed": false,
+      "qaStatus": "excluded_pending_review",
+      "playable": false,
+      "approved": false,
+      "qaNotes": "Havadan çekimde zenit siyah; oynanış kalite kontrolü gerekli.",
+      "captureEnvironment": "unverified",
+      "exclusionReason": "Açık havada drone çekimi olsa da üst yönde zorunlu siyah bölge bulunuyor; Globriva kalite incelemesine alındı."
+    },
+    {
+      "id": "eraatlas-mutianyu-great-wall-360",
+      "eraAtlasId": "mutianyu-great-wall-360",
+      "landmark": "Mutianyu Çin Seddi",
+      "country": "Çin",
+      "subjectType": "sur",
+      "expectedScene": "outdoor_to_verify",
+      "expectedGeographyMode": "street",
+      "file": "Mutianyu – Panorama (Greg Zaal via Poly Haven).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mutianyu_%E2%80%93_Panorama_(Greg_Zaal_via_Poly_Haven).jpg",
+      "artist": "Greg Zaal",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "reportedDimensions": {
+        "width": 8192,
+        "height": 4096
+      },
+      "cameraLocation": null,
+      "coordinatesVerified": false,
+      "sceneVerified": false,
+      "fileDownloadVerified": false,
+      "renderTestPassed": false,
+      "qaStatus": "excluded_indoor",
+      "playable": false,
+      "approved": false,
+      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "indoor",
+      "exclusionReason": "DIŞ MEKÂN DEĞİL: Poly Haven/Wikimedia dosyası çekimi açıkça indoor olarak sınıflandırıyor; görüntü kule içinden."
+    },
+    {
+      "id": "eraatlas-hououzuka-kofun-360",
+      "eraAtlasId": "hououzuka-kofun-360",
+      "landmark": "Hōōzuka Kofunu",
+      "country": "Japonya",
+      "subjectType": "antik-mezar",
+      "expectedScene": "outdoor_to_verify",
+      "expectedGeographyMode": "street",
+      "file": "Hououzuka Kofun, East 360-degree.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hououzuka_Kofun%2C_East_360-degree.jpg",
+      "artist": "AsPJT",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "reportedDimensions": {
+        "width": 6080,
+        "height": 3040
+      },
+      "cameraLocation": null,
+      "coordinatesVerified": false,
+      "sceneVerified": false,
+      "fileDownloadVerified": false,
+      "renderTestPassed": false,
+      "qaStatus": "excluded_pending_review",
+      "playable": false,
+      "approved": false,
+      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "unverified",
+      "exclusionReason": "Kaynak sayfasının erişimi bu turda doğrulanamadı; dış mekân görüntü incelemesi yeniden yapılmalı."
+    },
+    {
+      "id": "eraatlas-belfort-castle-spherical-360",
+      "eraAtlasId": "belfort-castle-spherical-360",
+      "landmark": "Belfort Kalesi",
+      "country": "İsviçre",
+      "subjectType": "kale",
+      "expectedScene": "outdoor_to_verify",
+      "expectedGeographyMode": "street",
+      "file": "Belfort Castle Spherical Panorama.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Belfort_Castle_Spherical_Panorama.jpg",
+      "artist": "Capricorn4049",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "reportedDimensions": {
+        "width": 23040,
+        "height": 11520
+      },
+      "cameraLocation": null,
+      "coordinatesVerified": false,
+      "sceneVerified": false,
+      "fileDownloadVerified": false,
+      "renderTestPassed": false,
+      "qaStatus": "excluded_pending_review",
+      "playable": false,
+      "approved": false,
+      "qaNotes": "Actual scene, commercial rights exceptions, media URL, and exact coordinates must be manually verified before play.",
+      "captureEnvironment": "unverified",
+      "exclusionReason": "Kale panoramasının açık alandan olup olmadığı kaynak açıklamasında kesin ifade edilmiyor; daha ayrıntılı inceleme gerekiyor."
+    }
+  ],
+  "screeningSummary": {
+    "reviewedBefore": 24,
+    "keptOutdoorCandidate": 18,
+    "excludedOrDeferred": 6,
+    "knownIndoorRemoved": 1,
+    "qualityIssuesHeld": 2,
+    "uncertainExteriorEvidenceHeld": 3,
+    "addedToPlayable": 0,
+    "reviewDate": "2026-10-25"
+  }
 }
