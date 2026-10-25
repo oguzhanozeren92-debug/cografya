@@ -142,10 +142,10 @@ async function getDatabaseCases(){
   return playable.length>=CASES_PER_SESSION?playable:null;
 }
 
-function chooseCases(items){
-  // Same 8 cases per tier during a UTC week; newly published
-  // articles join the weekly rotation automatically, no app store update.
-  if(items.length<=CASES_PER_SESSION)return items.slice(0,CASES_PER_SESSION);
+function chooseCases(items,wanted,rotation){
+  // Same seeded global bank per UTC week. Rotating by the turn size on replay
+  // makes all ten sites reachable without repeating an identical eight-case run.
+  if(items.length<=wanted)return items.slice(0,wanted);
   const date=new Date(), day=date.getUTCDay();
   const monday=new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),
     date.getUTCDate()-((day+6)%7)));
@@ -161,7 +161,8 @@ function chooseCases(items){
     const j=Math.floor(v*(i+1));
     [choices[i],choices[j]]=[choices[j],choices[i]];
   }
-  return choices.slice(0,CASES_PER_SESSION);
+  const start=rotation%choices.length;
+  return Array.from({length:wanted},(_,i)=>choices[(start+i)%choices.length]);
 }
 
 export default async function handler(req,res){
@@ -169,6 +170,12 @@ export default async function handler(req,res){
   res.setHeader('Cache-Control','no-store');
   if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});
   const difficulty=req.query?.difficulty==='medium'?'medium':'easy';
+  // Legacy iOS TestFlight binaries expect exactly five cases, so never send
+  // eight to clients that do not explicitly request the upgraded protocol.
+  const v2=String(req.query?.v||'')==='2';
+  const wanted=v2?CASES_PER_SESSION:5;
+  const value=Number(req.query?.rotation||0);
+  const rotation=v2&&Number.isSafeInteger(value)&&value>=0&&value<=1000000?value:0;
   let cases=null,origin='curated';
   try{
     const database=await getDatabaseCases();
@@ -183,10 +190,10 @@ export default async function handler(req,res){
       error instanceof Error?error.message:String(error));
   }
   if(!cases)cases=curatedCases().filter(item=>difficulty==='medium'?item.difficulty==='medium':item.difficulty!=='medium');
-  if(cases.length<CASES_PER_SESSION)return res.status(503).json({error:'Tarihî panoramalar henüz hazır değil.'});
-  const chosen=chooseCases(cases);
+  if(cases.length<wanted)return res.status(503).json({error:'Tarihî panoramalar henüz hazır değil.'});
+  const chosen=chooseCases(cases,wanted,rotation);
   res.status(200).json({
-    version:4,origin,difficulty,questionsPerCase:3,
+    version:v2?4:3,origin,difficulty,questionsPerCase:3,
     totalPublished:cases.length,
     maxPoints:chosen.length*HISTORY_QUESTION_POINTS.reduce((a,b)=>a+b,0),
     cases:chosen,
