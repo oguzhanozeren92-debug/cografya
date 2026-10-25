@@ -20,6 +20,16 @@ workflows:
           node --experimental-strip-types --test tests/drone/hints.test.mjs
           npm run typecheck
           npm run build
+          npm run gallery:release-check
+      - name: Check Apple SDK and required review assets
+        script: |
+          xcodebuild -version
+          XCODE_MAJOR="$(xcodebuild -version | awk '/^Xcode /{print $2}' | cut -d. -f1)"
+          test -n "$XCODE_MAJOR" && test "$XCODE_MAJOR" -ge 26 || {
+            echo "App Store Connect requires Xcode 26+ and the iOS 26 SDK."
+            exit 1
+          }
+          node scripts/app-store-preflight.mjs
       - name: Generate native iOS project and bundle icon
         script: |
           npx cap add ios --packagemanager SPM
@@ -80,6 +90,16 @@ workflows:
           node --experimental-strip-types --test tests/drone/hints.test.mjs
           npm run typecheck
           npm run build
+          npm run gallery:release-check
+      - name: Check Apple SDK and required review assets
+        script: |
+          xcodebuild -version
+          XCODE_MAJOR="$(xcodebuild -version | awk '/^Xcode /{print $2}' | cut -d. -f1)"
+          test -n "$XCODE_MAJOR" && test "$XCODE_MAJOR" -ge 26 || {
+            echo "App Store Connect requires Xcode 26+ and the iOS 26 SDK."
+            exit 1
+          }
+          node scripts/app-store-preflight.mjs
       - name: Generate Capacitor iOS project and approved application icon
         script: |
           npx cap add ios --packagemanager SPM
