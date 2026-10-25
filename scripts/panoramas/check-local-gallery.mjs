@@ -8,6 +8,8 @@ const doc=JSON.parse(fs.readFileSync(catalogFile,'utf8'));
 const albums=Array.isArray(doc.collections)?doc.collections:[];
 const issues=[],seenSource=new Set(),albumStats=[];
 let stored=0, approvedStored=0, approvedCount=0, invalidApproved=0;
+let editoriallyReviewedApprovedAlbums=0, editoriallyReviewedApprovedPhotos=0;
+const editorialPending=[];
 const commons=/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/i;
 const license=/^https:\/\/creativecommons\.org\/(?:licenses|publicdomain)\//i;
 function looksLikeImage(buffer,format){
@@ -23,6 +25,15 @@ for(const row of albums){
  const isApproved=row.approved===true;
  if(isApproved)approvedCount++;
  const photos=Array.isArray(row.images)?row.images:[];
+ // Approved label alone does not establish independent location, source and image review.
+ // Keep normal build checks separate from the stronger gallery release gate.
+ const editorialReady=row.reviewedLocation===true&&row.reviewedQuality===true&&
+   photos.length>=3&&photos.length<=4&&photos.every(photo=>
+     photo.reviewedVisual===true&&photo.reviewedLicense===true&&photo.reviewedPlace===true);
+ if(isApproved){
+  if(editorialReady)editoriallyReviewedApprovedAlbums++;
+  else editorialPending.push(row.id);
+ }
  let present=0,invalid=0;
  if(photos.length<3||photos.length>4){err(row.id,'photo_count','Each album must have 3 or 4 photos',isApproved);invalid++}
  const goodText=(value,max)=>typeof value==='string'&&value.trim().length>0&&value.length<=max;
@@ -56,17 +67,26 @@ for(const row of albums){
   seenSource.add(photo.source);
   stored++;present++;if(isApproved)approvedStored++;
  });
- albumStats.push({id:row.id,city:row.city,country:row.country,approved:isApproved,present,expected:photos.length,locallyComplete:invalid===0&&present===photos.length});
+ if(isApproved&&editorialReady&&invalid===0&&present===photos.length)
+  editoriallyReviewedApprovedPhotos+=present;
+ albumStats.push({id:row.id,city:row.city,country:row.country,approved:isApproved,
+   editoriallyReviewed:editorialReady,present,expected:photos.length,
+   locallyComplete:invalid===0&&present===photos.length});
 }
 const readyAlbums=albumStats.filter(x=>x.locallyComplete);
 const approvedAlbums=albumStats.filter(x=>x.approved);
 const countries=new Set(approvedAlbums.filter(x=>x.locallyComplete).map(x=>x.country)).size;
-const releaseCandidate=invalidApproved===0&&approvedStored>=50&&countries>=10;
+const editorialCountries=new Set(albumStats.filter(x=>
+  x.approved&&x.editoriallyReviewed&&x.locallyComplete).map(x=>x.country)).size;
+const releaseCandidate=invalidApproved===0&&approvedStored>=50&&countries>=10&&
+  editoriallyReviewedApprovedPhotos>=50&&editorialCountries>=10;
 const output={
  version:1,date:new Date().toISOString(),catalogAlbums:albums.length,catalogPhotos:albums.reduce((n,x)=>n+(x.images?.length||0),0),
  localValidPhotos:stored,completeLocalAlbums:readyAlbums.length,completeLocalPhotos:readyAlbums.reduce((n,x)=>n+x.present,0),
  approvedAlbums:approvedCount,approvedValidPhotos:approvedStored,approvedCountries:countries,
- releaseCandidate,releaseCandidateNote:'Only local structure and editor approval flags. Live CDN accessibility, correct place/subject, licence/attribution and mobile QA still need human verification.',
+ editoriallyReviewedApprovedAlbums,editoriallyReviewedApprovedPhotos,editorialCountries,
+ editorialPendingAlbums:editorialPending,
+ releaseCandidate,releaseCandidateNote:'Release requires 50 locally valid photos across 10 countries AND explicit editorial review of each album/photo. Flags alone do not verify live CDN, correct place, licence attribution or mobile UX.',
  issues,albums:albumStats
 };
 console.log(JSON.stringify(output,null,2));
