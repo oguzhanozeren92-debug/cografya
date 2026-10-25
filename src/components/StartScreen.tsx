@@ -602,8 +602,8 @@ export function StartScreen({
                 {language === 'tr' ? 'Medeniyet Dedektifi' : 'Civilization Detective'}
               </strong>
               <span className="mt-1 block max-w-[250px] text-[11px] font-semibold leading-4 text-white/90">
-                {language === 'tr' ? '5 tarihî mekân · 15 soru · Uygarlığı, dönemi ve amacı çöz!'
-                  : '5 historical sites · 15 questions · Discover cultures, eras and purpose!'}
+                {language === 'tr' ? '8 tarihî mekân · 24 soru · 20 mekânlık tarih arşivi!'
+                  : '8 historical sites · 24 questions · 20-site heritage library!'}
               </span>
             </span>
             <ChevronRight className="ml-1 h-6 w-6 shrink-0 text-amber-100"/>
