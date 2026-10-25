@@ -3,8 +3,10 @@ import { approvedPanoramas } from '../../server/street/approved.mjs';
 import { approvedPhotoIds } from '../../server/street/photo-ready.mjs';
 import { HISTORY_CASES, HISTORY_QUESTION_POINTS } from '../../server/history/curated.mjs';
 import { HISTORY_MEDIUM_CASES } from '../../server/history/curated-medium.mjs';
+import { HISTORY_EXPANDED_CASES } from '../../server/history/curated-expanded.mjs';
 import { HISTORY_DETAIL_PHOTOS } from '../../server/history/detail-photos.mjs';
 
+const CASES_PER_SESSION=8;
 const PATTERN=/^panoramas\/[a-zA-Z0-9_-]{8,80}$/;
 const LICENSE_URL={
   'CC0':'https://creativecommons.org/publicdomain/zero/1.0/',
@@ -69,7 +71,7 @@ const approved360=(panoramaId,panoramaPath)=>{
 };
 
 function curatedCases(){
-  return [...HISTORY_CASES,...HISTORY_MEDIUM_CASES].map(row=>{
+  return [...HISTORY_CASES,...HISTORY_MEDIUM_CASES,...HISTORY_EXPANDED_CASES].map(row=>{
     const pano=approved360(row.panoramaId);
     if(!pano)return null;
     const author=credit(pano.artist,pano.license,pano.source);
@@ -137,13 +139,13 @@ async function getDatabaseCases(){
       })),
     });
   }
-  return playable.length>=5?playable:null;
+  return playable.length>=CASES_PER_SESSION?playable:null;
 }
 
-function chooseFive(items){
-  // Same 5 cases for everyone during a given UTC week; newly published
+function chooseCases(items){
+  // Same 8 cases per tier during a UTC week; newly published
   // articles join the weekly rotation automatically, no app store update.
-  if(items.length<=5)return items.slice(0,5);
+  if(items.length<=CASES_PER_SESSION)return items.slice(0,CASES_PER_SESSION);
   const date=new Date(), day=date.getUTCDay();
   const monday=new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),
     date.getUTCDate()-((day+6)%7)));
@@ -159,7 +161,7 @@ function chooseFive(items){
     const j=Math.floor(v*(i+1));
     [choices[i],choices[j]]=[choices[j],choices[i]];
   }
-  return choices.slice(0,5);
+  return choices.slice(0,CASES_PER_SESSION);
 }
 
 export default async function handler(req,res){
@@ -174,19 +176,19 @@ export default async function handler(req,res){
       const matching=database.filter(item=>difficulty==='medium'
         ? item.difficulty===2||item.difficulty==='medium'
         : item.difficulty===1||item.difficulty==='easy'||item.difficulty==null);
-      if(matching.length>=5){cases=matching;origin='supabase';}
+      if(matching.length>=CASES_PER_SESSION){cases=matching;origin='supabase';}
     }
   }catch(error){
     console.warn('[history] published DB content unreachable; keeping curated pilot',
       error instanceof Error?error.message:String(error));
   }
   if(!cases)cases=curatedCases().filter(item=>difficulty==='medium'?item.difficulty==='medium':item.difficulty!=='medium');
-  if(cases.length<5)return res.status(503).json({error:'Tarihî panoramalar henüz hazır değil.'});
-  const chosen=chooseFive(cases);
+  if(cases.length<CASES_PER_SESSION)return res.status(503).json({error:'Tarihî panoramalar henüz hazır değil.'});
+  const chosen=chooseCases(cases);
   res.status(200).json({
-    version:3,origin,difficulty,questionsPerCase:3,
+    version:4,origin,difficulty,questionsPerCase:3,
     totalPublished:cases.length,
-    maxPoints:5*HISTORY_QUESTION_POINTS.reduce((a,b)=>a+b,0),
+    maxPoints:chosen.length*HISTORY_QUESTION_POINTS.reduce((a,b)=>a+b,0),
     cases:chosen,
   });
 }
