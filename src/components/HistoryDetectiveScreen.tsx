@@ -92,7 +92,7 @@ export function HistoryDetectiveScreen({
     setError('');
     void (async()=>{
       try{
-        const response=await fetch(atlasApi('/api/history/session?difficulty='+level),{
+        const response=await fetch(atlasApi('/api/history/session?difficulty='+level+'&v=2&rotation='+(run*CASES_PER_SESSION)),{
           signal:controller.signal,cache:'no-store',
         });
         const json=await response.json() as {cases?:HistoryCase[];error?:string};
@@ -112,7 +112,7 @@ export function HistoryDetectiveScreen({
       }
     })();
     return()=>controller.abort();
-  },[retry,level]);
+  },[retry,level,run]);
 
   useEffect(()=>{
     if(stage!=='quiz')return;
