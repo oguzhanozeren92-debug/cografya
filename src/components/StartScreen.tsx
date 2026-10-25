@@ -662,11 +662,11 @@ export function StartScreen({
           </p>
         )}
         <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-300">
-          <a href="https://atlas-arena-tau.vercel.app/privacy.html" target="_blank" rel="noopener noreferrer"
+          <a href="/privacy.html"
             className="inline-flex min-h-[44px] items-center gap-1.5 px-2 py-2 underline underline-offset-4">
             <ShieldCheck className="h-4 w-4" /> {language === 'tr' ? 'Gizlilik Politikası' : 'Privacy Policy'}
           </a>
-          <a href="https://atlas-arena-tau.vercel.app/support.html" target="_blank" rel="noopener noreferrer"
+          <a href="/support.html"
             className="inline-flex min-h-[44px] items-center px-2 py-2 underline underline-offset-4">
             {language === 'tr' ? 'Destek ve Veri Silme' : 'Support & Data Deletion'}
           </a>
