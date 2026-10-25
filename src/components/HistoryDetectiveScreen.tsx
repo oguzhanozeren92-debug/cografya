@@ -504,8 +504,8 @@ export function HistoryDetectiveScreen({
           {level==='easy'
             ?text('Kolay · 8 mekân · 24 soru · Orta seviye için en az 4.800 puan',
               'Easy · 8 sites · 24 questions · 4,800 points to unlock medium')
-            :text('Orta · 5 farklı mekân · 15 yeni soru',
-              'Medium · 5 different sites · 15 new questions')}
+            :text('Orta · 8 farklı mekân · 24 yeni soru',
+              'Medium · 8 different sites · 24 new questions')}
         </p>
       </main>
     </div>
