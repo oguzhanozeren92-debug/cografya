@@ -10,6 +10,7 @@ import { DAILY_TOTAL, getDailyDate, loadDailyProgress } from '@/lib/dailyChallen
 import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
 import { AtlasHomeBackdrop } from '@/components/AtlasHomeBackdrop';
+import { GeoDiscoveryArt } from '@/components/GeoDiscoveryArt';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 import { isIosPushSupported } from '@/lib/iosPush';
 import type { GameMode, LeaderboardEntry } from '@/types';
@@ -627,26 +628,41 @@ export function StartScreen({
         </motion.section>
 
         <motion.section {...entrance(4)} className="mt-4">
-          <h2 className="aa-section-heading">{language==='tr'?'Yeni Coğrafya Oyunları':'New Geography Games'}</h2>
-          <p className="mt-1 text-xs font-semibold text-slate-300">{language==='tr'?'Dünyayı yeni gözlerle keşfet!':'Discover the world in new ways!'}</p>
-          <div className="mt-3 grid grid-cols-2 gap-3">
+          <h2 className="aa-section-heading">{language === 'tr' ? 'Yeni Coğrafya Oyunları' : 'New Geography Games'}</h2>
+          <p className="mt-1 text-xs font-semibold text-slate-300">
+            {language === 'tr' ? 'Dünyayı yeni gözlerle keşfet!' : 'Discover the world in new ways!'}
+          </p>
+          <div className="mt-3 grid grid-cols-1 gap-3">
             {([
-              {id:'nature',emoji:'🏞️',tr:'Doğa Dedektifi',en:'Nature Detective',subTr:'Dağ, nehir ve göller',subEn:'Mountains, rivers, lakes',photo:'/game-cards/approved-drone.webp',tone:'bg-[#9ce6d8]',glow:'from-[#fff7d7] via-[#edfff2]'},
-              {id:'islands',emoji:'🏝️',tr:'Ada Avcısı',en:'Island Hunter',subTr:'Siluetlerden ada bul',subEn:'Find islands by shape',photo:'/game-cards/approved-explore.webp',tone:'bg-[#99e9ec]',glow:'from-[#e5faff] via-[#fff4cc]'},
-              {id:'borders',emoji:'🌐',tr:'Sınır Dedektifi',en:'Border Detective',subTr:'Komşuları keşfet',subEn:'Discover the neighbors',photo:'/game-cards/bayrak-oyunu.webp',tone:'bg-[#f6d5a1]',glow:'from-[#fff5df] via-[#f6faff]'},
-            ] as const).map(item=><button key={item.id} type="button" onClick={()=>startGeoDiscovery(item.id)}
-              aria-label={language==='tr'?item.tr:item.en}
-              className={'group relative isolate flex min-h-[180px] flex-col overflow-hidden rounded-[22px] border-[1.5px] border-white/90 text-left shadow-[0_12px_27px_rgba(0,12,30,.22)] transition-all duration-200 hover:brightness-[1.03] active:scale-[.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 '+item.tone}>
-              <img src={item.photo} draggable={false} loading="lazy" alt=""
-                className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none object-cover object-center" aria-hidden="true"/>
-              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-white/100 via-white/75 to-white/0"/>
-              <span className="relative ml-3 mt-3 grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-white/80 bg-white/75 text-2xl shadow-md backdrop-blur-sm" aria-hidden="true">{item.emoji}</span>
-              <span className="relative mt-auto w-full px-3 pb-4 pt-8">
-                <strong className="block text-[clamp(13px,3.7vw,17px)] font-black leading-[1.15] text-[#123d54]">{language==='tr'?item.tr:item.en}</strong>
-                <small className="mt-1.5 block text-[10px] font-bold leading-4 text-[#436278]">{language==='tr'?item.subTr:item.subEn}</small>
-              </span>
-              <ChevronRight className="absolute bottom-4 right-2.5 h-4 w-4 text-[#346887]" aria-hidden="true"/>
-            </button>)}
+              {id:'nature',tr:'Doğa Dedektifi',en:'Nature Detective',subTr:'Dağları, nehirleri ve gölleri tanı',subEn:'Explore mountains, rivers and lakes',labelTr:'DOĞA KEŞFİ',labelEn:'NATURE EXPLORER',Icon:Mountain,bg:'bg-gradient-to-br from-[#0c4b5a] via-[#155c67] to-[#163753]',accent:'text-[#b0f1df]'},
+              {id:'islands',tr:'Ada Avcısı',en:'Island Hunter',subTr:'Adaları silüetlerinden bul',subEn:'Recognize islands by their outline',labelTr:'ADA KEŞFİ',labelEn:'ISLAND EXPLORER',Icon:MapPinned,bg:'bg-gradient-to-br from-[#065374] via-[#11658b] to-[#152e5e]',accent:'text-[#aeeefa]'},
+              {id:'borders',tr:'Sınır Dedektifi',en:'Border Detective',subTr:'Ülkeleri komşularından tanı',subEn:'Discover countries and neighbors',labelTr:'HARİTA KEŞFİ',labelEn:'MAP EXPLORER',Icon:Globe2,bg:'bg-gradient-to-br from-[#404575] via-[#344c7e] to-[#233a64]',accent:'text-[#ffe3b3]'},
+            ] as const).map(item=>(
+              <button key={item.id} type="button" onClick={()=>startGeoDiscovery(item.id)}
+                aria-label={language==='tr'?item.tr:item.en}
+                className={`group relative isolate flex min-h-[134px] w-full items-center overflow-hidden rounded-[23px] border border-white/40 ${item.bg} px-4 py-4 text-left text-white shadow-[0_12px_25px_rgba(0,8,31,.25)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_17px_30px_rgba(0,8,31,.32)] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200`}>
+                <GeoDiscoveryArt mode={item.id}/>
+                <span aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-[#092438]/95 from-[8%] via-[#102c42]/80 via-[52%] to-transparent"/>
+                <span aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 rounded-[inherit] ring-1 ring-inset ring-white/10"/>
+                <span className="relative z-10 block max-w-[78%] min-w-0 py-0.5">
+                  <span className={`mb-2 flex items-center gap-1.5 text-[10px] font-extrabold tracking-[.09em] ${item.accent}`}>
+                    <span className="grid h-7 w-7 place-items-center rounded-[10px] border border-white/25 bg-white/10">
+                      <item.Icon size={16} strokeWidth={2} aria-hidden="true"/>
+                    </span>
+                    {language==='tr'?item.labelTr:item.labelEn}
+                  </span>
+                  <strong className="block text-[19px] font-black leading-tight tracking-[-.02em] drop-shadow-[0_2px_8px_rgba(0,0,0,.35)]">
+                    {language==='tr'?item.tr:item.en}
+                  </strong>
+                  <small className="mt-1.5 block text-[11px] font-semibold leading-[1.4] text-white/90">
+                    {language==='tr'?item.subTr:item.subEn}
+                  </small>
+                </span>
+                <span aria-hidden="true" className="absolute bottom-3.5 right-3.5 z-10 grid h-8 w-8 place-items-center rounded-full border border-white/55 bg-[#092b48]/65 text-white shadow-lg backdrop-blur-sm transition-transform group-hover:translate-x-0.5">
+                  <ChevronRight size={18}/>
+                </span>
+              </button>
+            ))}
           </div>
         </motion.section>
 
