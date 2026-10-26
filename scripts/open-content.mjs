@@ -78,7 +78,7 @@ const drafts=read(DIR+"/question-drafts.json",{schemaVersion:1,project:APP,quest
 const seen=new Set(state.seen||[]);
 for(const c of output.candidates||[])seen.add(c.id);
 const hashes=new Set((output.candidates||[]).map(c=>c.sha256).filter(Boolean));
-const questionTexts=new Set((drafts.questions||[]).map(q=>norm(q.question?.tr)).filter(Boolean));
+const questionKeys=new Set((drafts.questions||[]).flatMap(q=>[q.imageCandidateId,q.id,q.image?.sourcePage].filter(Boolean)));
 const fresh=[],newQuestions=[];
 function options(answer, pool, salt) {
  const other=[...new Set(pool)].filter(x=>x!==answer);
@@ -99,10 +99,10 @@ async function archive(candidate,url,q) {
    archiveVerifiedAt:stamp,rightsStatus:"source_metadata_checked",visualReview:false,locationReview:false,
    questionReview:false,published:false,playable:false};
  fresh.push(complete);seen.add(candidate.id);hashes.add(checksum);
- if(q && !questionTexts.has(norm(q.question.tr))) {
+ if(q && !questionKeys.has(candidate.id) && !questionKeys.has(q.id)) {
    newQuestions.push({...q,imageCandidateId:candidate.id,assetPath:location,
      status:"review_required_not_playable",playable:false});
-   questionTexts.add(norm(q.question.tr));
+   questionKeys.add(candidate.id);questionKeys.add(q.id);
  }
  return true;
 }
