@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-26",
-  "status": "candidate_only_not_published",
+  "status": "first_playable_games_coded_and_home_linked_build_verification_pending",
   "qualityGates": {
     "perDifficultyTarget": 40,
     "difficulties": [
@@ -36,7 +36,15 @@
         "medium": 0,
         "hard": 0
       },
-      "live": false
+      "live": true,
+      "visible": true,
+      "questionPool": {
+        "easy": 6,
+        "medium": 6,
+        "hard": 6
+      },
+      "playableImplementation": "src/components/GeoDiscoveryScreen.tsx#nature",
+      "qaStatus": "18 authored natural landmark points with source citations"
     },
     {
       "id": "ada-avcisi",
@@ -52,7 +60,15 @@
         "medium": 0,
         "hard": 0
       },
-      "live": false
+      "live": true,
+      "visible": true,
+      "questionPool": {
+        "easy": 4,
+        "medium": 4,
+        "hard": 4
+      },
+      "playableImplementation": "src/components/GeoDiscoveryScreen.tsx#islands",
+      "qaStatus": "candidate entries; actual playable count depends on bundled Natural Earth geometry and adjacency"
     },
     {
       "id": "sinir-dedektifi",
@@ -68,7 +84,15 @@
         "medium": 0,
         "hard": 0
       },
-      "live": false
+      "live": true,
+      "visible": true,
+      "questionPool": {
+        "easy": 14,
+        "medium": 15,
+        "hard": 11
+      },
+      "playableImplementation": "src/components/GeoDiscoveryScreen.tsx#borders",
+      "qaStatus": "candidate entries; actual playable count depends on bundled Natural Earth geometry and adjacency"
     }
   ]
 }
