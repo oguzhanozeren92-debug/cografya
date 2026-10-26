@@ -626,23 +626,26 @@ export function StartScreen({
           </button>
         </motion.section>
 
-        <motion.section {...entrance(4)} className="mt-5">
+        <motion.section {...entrance(4)} className="mt-4">
           <h2 className="aa-section-heading">{language==='tr'?'Yeni Coğrafya Oyunları':'New Geography Games'}</h2>
-          <p className="mt-1 text-xs font-semibold text-slate-300">{language==='tr'?'Gerçek haritalar, yeni meydan okumalar.':'Real maps and fresh challenges.'}</p>
+          <p className="mt-1 text-xs font-semibold text-slate-300">{language==='tr'?'Dünyayı yeni gözlerle keşfet!':'Discover the world in new ways!'}</p>
           <div className="mt-3 grid grid-cols-2 gap-3">
             {([
-              {id:'nature',emoji:'🏞️',tr:'Doğa Dedektifi',en:'Nature Detective',subTr:'Nehirleri, gölleri, dağları bul',subEn:'Find rivers, lakes and peaks',style:'from-[#17636a] via-[#204f6b] to-[#153459]'},
-              {id:'islands',emoji:'🏝️',tr:'Ada Avcısı',en:'Island Hunter',subTr:'Siluetten adayı tanı',subEn:'Guess by the silhouette',style:'from-[#336e82] via-[#187c88] to-[#155066]'},
-              {id:'borders',emoji:'🌍',tr:'Sınır Dedektifi',en:'Border Detective',subTr:'Hangi ülkeler komşu?',subEn:'Which countries share borders?',style:'from-[#594876] via-[#344c7d] to-[#173654]'},
+              {id:'nature',emoji:'🏞️',tr:'Doğa Dedektifi',en:'Nature Detective',subTr:'Dağ, nehir ve göller',subEn:'Mountains, rivers, lakes',photo:'/game-cards/approved-drone.webp',tone:'bg-[#9ce6d8]',glow:'from-[#fff7d7] via-[#edfff2]'},
+              {id:'islands',emoji:'🏝️',tr:'Ada Avcısı',en:'Island Hunter',subTr:'Siluetlerden ada bul',subEn:'Find islands by shape',photo:'/game-cards/approved-explore.webp',tone:'bg-[#99e9ec]',glow:'from-[#e5faff] via-[#fff4cc]'},
+              {id:'borders',emoji:'🌐',tr:'Sınır Dedektifi',en:'Border Detective',subTr:'Komşuları keşfet',subEn:'Discover the neighbors',photo:'/game-cards/bayrak-oyunu.webp',tone:'bg-[#f6d5a1]',glow:'from-[#fff5df] via-[#f6faff]'},
             ] as const).map(item=><button key={item.id} type="button" onClick={()=>startGeoDiscovery(item.id)}
-              className={'group relative flex min-h-[138px] flex-col justify-between overflow-hidden rounded-[23px] border border-white/35 bg-gradient-to-br p-4 text-left text-white shadow-[0_12px_28px_rgba(0,7,30,.25)] transition-transform active:scale-[.98] '+item.style}>
-              <span className="absolute -right-4 -top-5 h-24 w-24 rounded-full bg-white/10 blur-md" aria-hidden="true"/>
-              <span className="relative text-4xl drop-shadow-lg" aria-hidden="true">{item.emoji}</span>
-              <span className="relative mt-3">
-                <strong className="block text-[16px] font-black">{language==='tr'?item.tr:item.en}</strong>
-                <small className="mt-1 block text-[11px] font-semibold text-white/85">{language==='tr'?item.subTr:item.subEn}</small>
+              aria-label={language==='tr'?item.tr:item.en}
+              className={'group relative isolate flex min-h-[180px] flex-col overflow-hidden rounded-[22px] border-[1.5px] border-white/90 text-left shadow-[0_12px_27px_rgba(0,12,30,.22)] transition-all duration-200 hover:brightness-[1.03] active:scale-[.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 '+item.tone}>
+              <img src={item.photo} draggable={false} loading="lazy" alt=""
+                className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none object-cover object-center" aria-hidden="true"/>
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-white/100 via-white/75 to-white/0"/>
+              <span className="relative ml-3 mt-3 grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-white/80 bg-white/75 text-2xl shadow-md backdrop-blur-sm" aria-hidden="true">{item.emoji}</span>
+              <span className="relative mt-auto w-full px-3 pb-4 pt-8">
+                <strong className="block text-[clamp(13px,3.7vw,17px)] font-black leading-[1.15] text-[#123d54]">{language==='tr'?item.tr:item.en}</strong>
+                <small className="mt-1.5 block text-[10px] font-bold leading-4 text-[#436278]">{language==='tr'?item.subTr:item.subEn}</small>
               </span>
-              <ChevronRight className="absolute bottom-4 right-3 h-4 w-4 text-white/80"/>
+              <ChevronRight className="absolute bottom-4 right-2.5 h-4 w-4 text-[#346887]" aria-hidden="true"/>
             </button>)}
           </div>
         </motion.section>
