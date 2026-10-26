@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef, useState } from 'react';
 import {
-  ArrowRight, Bell, Camera, CalendarCheck, ChevronDown, ChevronRight, Compass, Flag, Globe2, Landmark, Mountain,
+  ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Globe2, Landmark,
   Lightbulb, MapPinned, Pencil, Play, ShieldCheck, Sparkles,
   Trophy, UserRound, Volume2, VolumeX, Swords,
 } from 'lucide-react';
@@ -53,7 +53,6 @@ export function StartScreen({
   const [queuedDrone, setQueuedDrone] = useState(false);
   const [queuedHistory, setQueuedHistory] = useState(false);
   const [queuedGeoMode,setQueuedGeoMode] = useState<'nature'|'islands'|'borders'|null>(null);
-  const [moreGamesOpen,setMoreGamesOpen] = useState(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const completed = loadDailyProgress(getDailyDate()).answers.length;
   const found = getDiscoveredCountries().length;
@@ -337,7 +336,7 @@ export function StartScreen({
           .atlas-home-illustrated .globriva-art-crop { border-radius: 19px !important; }
         }
       `}</style>
-      <main className="globriva-content atlas-home-inner aa-page mx-auto w-full max-w-[490px] px-4 pb-[calc(124px+env(safe-area-inset-bottom))] sm:px-5">
+      <main className="globriva-content atlas-home-inner aa-page mx-auto w-full max-w-[490px] px-4 sm:px-5">
         <header className="atlas-home-topbar flex items-center justify-between gap-2">
           <div className="atlas-home-brand flex min-w-0 items-center gap-2.5">
             <span className="atlas-home-brand-icon overflow-hidden" aria-hidden="true">
@@ -453,52 +452,6 @@ export function StartScreen({
           <ChevronRight className="h-7 w-7 shrink-0" strokeWidth={3} />
         </motion.button>
 
-        <motion.section {...entrance(4)} className="mt-5">
-          <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
-          {language === 'tr' ? (
-            <div className="mt-2 grid grid-cols-2 gap-3">
-              <button type="button" onClick={onDaily} aria-label={t('Günlük 10 soru')} className="globriva-art-crop globriva-art-crop-daily relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f9dda6] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
-                <img src="/game-cards/approved-daily.webp" width={431} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
-                {completed > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#ffe7bb] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#687782]">{completed}/{DAILY_TOTAL} {t('tamamlandı')}</span>}
-              </button>
-              <button type="button" onClick={onExplore} aria-label={t('Keşif haritası')} className="globriva-art-crop globriva-art-crop-explore relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#b0eee4] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
-                <img src="/game-cards/approved-explore.webp" width={419} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
-                {found > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#c6f3e9] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#647787]">{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</span>}
-              </button>
-            </div>
-          ) : (
-          <div className="aa-quick-grid mt-2 grid grid-cols-2 gap-3">
-            <button type="button" onClick={onDaily} className="aa-quick aa-daily globriva-daily-art">
-              <CalendarCheck className="h-6 w-6 text-amber-200" />
-              <strong>{t('Günlük 10 soru')}</strong>
-              <small>{completed}/{DAILY_TOTAL} {t('tamamlandı')}</small>
-            </button>
-            <button type="button" onClick={onExplore} className="aa-quick aa-map globriva-explore-art">
-              <MapPinned className="h-6 w-6 text-cyan-200" />
-              <strong>{t('Keşif haritası')}</strong>
-              <small>{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</small>
-            </button>
-          </div>
-          )}
-        </motion.section>
-
-        {language === 'tr' ? (
-          <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')} className="globriva-art-crop globriva-art-crop-league relative mt-3 block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f6c9ed] text-left shadow-[0_12px_25px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 hover:brightness-[1.03] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
-            <img src="/game-cards/approved-league.webp" width={862} height={116} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
-          </motion.button>
-        ) : (
-        <motion.button {...entrance(4)} type="button"
-          onClick={() => onViewWeekly('mixed')}
-          className="aa-league globriva-league-art mt-3 flex w-full items-center gap-3 text-left">
-          <span className="aa-league-icon"><Trophy className="h-6 w-6" /></span>
-          <span className="min-w-0 flex-1">
-            <strong>{t('Haftalık sıralama')}</strong>
-            <small>{leaderboard.length ? t('Zirvedeki oyuncuları gör') : t('Arkadaşlarınla yarış, zirveye çık')}</small>
-          </span>
-          <ChevronRight className="h-5 w-5 shrink-0" />
-        </motion.button>
-        )}
-
         <motion.section {...entrance(2)} className="mt-5">
           <h2 className="aa-section-heading">{t('Başka ne oynayalım?')}</h2>
           <div className="mt-2 grid grid-cols-2 gap-3">
@@ -560,24 +513,7 @@ export function StartScreen({
               </span>
             </button>
           </div>
-        </motion.section>
 
-        <motion.section {...entrance(3)} className="mt-4">
-          <button type="button" onClick={() => setMoreGamesOpen(value => !value)}
-            aria-expanded={moreGamesOpen} aria-controls="globriva-extra-games"
-            className="group relative flex min-h-[76px] w-full items-center gap-3 overflow-hidden rounded-[22px] border border-[#a9d4dc]/60 bg-[#18384e] px-4 py-3 text-left text-white shadow-[0_12px_26px_rgba(0,10,35,.24)] active:scale-[.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
-            <img src="/globriva-hero-atmosphere.webp" alt="" draggable={false} loading="lazy"
-              className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-50" aria-hidden="true"/>
-            <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#091d35]/90 via-[#113a58]/78 to-[#163d52]/65" aria-hidden="true"/>
-            <Compass className="relative h-8 w-8 shrink-0 text-[#f6dca7]"/>
-            <span className="relative min-w-0 flex-1">
-              <strong className="block text-[16px] font-black">{language === 'tr' ? 'Daha Fazla Oyun' : 'More Games'}</strong>
-              <small className="mt-1 block text-[11px] font-semibold text-white/80">{language === 'tr' ? 'Drone, Sokak, Medeniyet ve harita oyunları' : 'Drone, Street, Civilization and map games'}</small>
-            </span>
-            <ChevronDown aria-hidden="true" className={'relative h-5 w-5 shrink-0 text-[#ffdea2] transition-transform '+(moreGamesOpen?'rotate-180':'')}/>
-          </button>
-          {moreGamesOpen && (
-            <div id="globriva-extra-games" className="mt-3">
 
           {language === 'tr' ? (
             <>
@@ -589,6 +525,21 @@ export function StartScreen({
                 <img src="/game-cards/approved-drone.webp" width={865} height={329} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
                 
               </button>
+              <a
+                href="/world-play.html"
+                aria-label="Dünya Keşfi: 20 yeni şehir ve 60 gerçek fotoğraf"
+                className="group mt-3 flex w-full items-center justify-between gap-4 rounded-[22px] border border-amber-200/65 bg-gradient-to-r from-[#163a4c] via-[#1a4a56] to-[#3a4d53] px-5 py-4 text-left text-white shadow-[0_12px_24px_rgba(0,5,25,.26)] transition-transform active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-200"
+              >
+                <span className="flex min-w-0 items-center gap-3">
+                  <span className="text-3xl" aria-hidden="true">🌍</span>
+                  <span className="min-w-0">
+                    <small className="block text-[10px] font-extrabold tracking-[.12em] text-amber-200">YENİ · DÜNYA TURU</small>
+                    <strong className="mt-1 block text-lg font-black leading-tight">Dünyanın Neresindesin?</strong>
+                    <small className="mt-1 block text-xs font-semibold text-white/80">20 şehir · 60 gerçek fotoğraf · 7 bölge</small>
+                  </span>
+                </span>
+                <ChevronRight className="h-6 w-6 shrink-0 text-amber-200"/>
+              </a>
               <div className="relative mt-3 w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#142c4d] shadow-[0_14px_28px_rgba(0,7,26,.27)]">
                 <img src="/game-cards/approved-street.webp" width={863} height={389} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
                 <button type="button" onClick={startStreet} aria-label={t('Sokak Dedektifi oyununa başla')} className="absolute inset-x-0 top-0 z-10 h-[79%] touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-amber-200">
@@ -644,11 +595,8 @@ export function StartScreen({
           </div>
             </>
           )}
-            </div>
-          )}
         </motion.section>
 
-        {moreGamesOpen && (<>
         <motion.section {...entrance(3)} className="mt-3">
           <button type="button" onClick={startHistory}
             aria-label={language === 'tr' ? 'Medeniyet Dedektifi oyununu başlat' : 'Play Civilization Detective'}
@@ -678,32 +626,75 @@ export function StartScreen({
           </button>
         </motion.section>
 
-        <motion.section {...entrance(4)} className="mt-3">
-          <h2 className="aa-section-heading">{language === 'tr' ? 'Coğrafya Dedektifleri' : 'Geography Detectives'}</h2>
-          <p className="mb-3 mt-1 text-xs font-semibold text-slate-300">{language === 'tr' ? 'Tek bölümden üç farklı harita macerası' : 'Three map challenges in one place'}</p>
-          <div className="grid grid-cols-1 gap-2.5">
+        <motion.section {...entrance(4)} className="mt-4">
+          <h2 className="aa-section-heading">{language==='tr'?'Yeni Coğrafya Oyunları':'New Geography Games'}</h2>
+          <p className="mt-1 text-xs font-semibold text-slate-300">{language==='tr'?'Dünyayı yeni gözlerle keşfet!':'Discover the world in new ways!'}</p>
+          <div className="mt-3 grid grid-cols-2 gap-3">
             {([
-              {id:'nature',tr:'Doğa Dedektifi',en:'Nature Detective',trSub:'Nehirler, göller ve dağlar',enSub:'Rivers, lakes and mountains',Icon:Mountain},
-              {id:'islands',tr:'Ada Avcısı',en:'Island Hunter',trSub:'Kıyı çizgisini tanı',enSub:'Guess the coastline',Icon:MapPinned},
-              {id:'borders',tr:'Sınır Dedektifi',en:'Border Detective',trSub:'Ülkelerin komşularını keşfet',enSub:'Discover neighboring countries',Icon:Globe2},
-            ] as const).map(item => <button key={item.id} type="button" onClick={() => startGeoDiscovery(item.id)}
-              aria-label={language === 'tr' ? item.tr : item.en}
-              className="group relative isolate flex min-h-[90px] w-full items-center gap-3 overflow-hidden rounded-[19px] border border-[#b7d0d5]/55 bg-[#122a45] px-3 py-3 text-left text-white shadow-[0_10px_24px_rgba(0,7,27,.2)] transition-transform active:scale-[.985] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
-              <img src="/globriva-hero-atmosphere.webp" draggable={false} loading="lazy" alt="" aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-center opacity-60"/>
-              <span className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#0c243a]/95 via-[#0e344a]/75 to-[#102f44]/70" aria-hidden="true"/>
-              <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-[15px] border border-[#f5dcab]/35 bg-[#e8ce9d]/15 text-[#f8ddb3] backdrop-blur-sm">
-                <item.Icon size={25} strokeWidth={1.75} aria-hidden="true"/>
+              {id:'nature',emoji:'🏞️',tr:'Doğa Dedektifi',en:'Nature Detective',subTr:'Dağ, nehir ve göller',subEn:'Mountains, rivers, lakes',photo:'/game-cards/approved-drone.webp',tone:'bg-[#9ce6d8]',glow:'from-[#fff7d7] via-[#edfff2]'},
+              {id:'islands',emoji:'🏝️',tr:'Ada Avcısı',en:'Island Hunter',subTr:'Siluetlerden ada bul',subEn:'Find islands by shape',photo:'/game-cards/approved-explore.webp',tone:'bg-[#99e9ec]',glow:'from-[#e5faff] via-[#fff4cc]'},
+              {id:'borders',emoji:'🌐',tr:'Sınır Dedektifi',en:'Border Detective',subTr:'Komşuları keşfet',subEn:'Discover the neighbors',photo:'/game-cards/bayrak-oyunu.webp',tone:'bg-[#f6d5a1]',glow:'from-[#fff5df] via-[#f6faff]'},
+            ] as const).map(item=><button key={item.id} type="button" onClick={()=>startGeoDiscovery(item.id)}
+              aria-label={language==='tr'?item.tr:item.en}
+              className={'group relative isolate flex min-h-[180px] flex-col overflow-hidden rounded-[22px] border-[1.5px] border-white/90 text-left shadow-[0_12px_27px_rgba(0,12,30,.22)] transition-all duration-200 hover:brightness-[1.03] active:scale-[.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 '+item.tone}>
+              <img src={item.photo} draggable={false} loading="lazy" alt=""
+                className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none object-cover object-center" aria-hidden="true"/>
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-white/100 via-white/75 to-white/0"/>
+              <span className="relative ml-3 mt-3 grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-white/80 bg-white/75 text-2xl shadow-md backdrop-blur-sm" aria-hidden="true">{item.emoji}</span>
+              <span className="relative mt-auto w-full px-3 pb-4 pt-8">
+                <strong className="block text-[clamp(13px,3.7vw,17px)] font-black leading-[1.15] text-[#123d54]">{language==='tr'?item.tr:item.en}</strong>
+                <small className="mt-1.5 block text-[10px] font-bold leading-4 text-[#436278]">{language==='tr'?item.subTr:item.subEn}</small>
               </span>
-              <span className="relative min-w-0 flex-1">
-                <strong className="block text-[15px] font-black">{language === 'tr' ? item.tr : item.en}</strong>
-                <small className="mt-1 block text-[11px] font-semibold text-white/75">{language === 'tr' ? item.trSub : item.enSub}</small>
-              </span>
-              <ChevronRight className="relative h-5 w-5 shrink-0 text-[#ffdea2]" aria-hidden="true"/>
+              <ChevronRight className="absolute bottom-4 right-2.5 h-4 w-4 text-[#346887]" aria-hidden="true"/>
             </button>)}
           </div>
         </motion.section>
-        </>)}
+
+        <motion.section {...entrance(4)} className="mt-5">
+          <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
+          {language === 'tr' ? (
+            <div className="mt-2 grid grid-cols-2 gap-3">
+              <button type="button" onClick={onDaily} aria-label={t('Günlük 10 soru')} className="globriva-art-crop globriva-art-crop-daily relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f9dda6] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
+                <img src="/game-cards/approved-daily.webp" width={431} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
+                {completed > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#ffe7bb] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#687782]">{completed}/{DAILY_TOTAL} {t('tamamlandı')}</span>}
+              </button>
+              <button type="button" onClick={onExplore} aria-label={t('Keşif haritası')} className="globriva-art-crop globriva-art-crop-explore relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#b0eee4] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
+                <img src="/game-cards/approved-explore.webp" width={419} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
+                {found > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#c6f3e9] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#647787]">{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</span>}
+              </button>
+            </div>
+          ) : (
+          <div className="aa-quick-grid mt-2 grid grid-cols-2 gap-3">
+            <button type="button" onClick={onDaily} className="aa-quick aa-daily globriva-daily-art">
+              <CalendarCheck className="h-6 w-6 text-amber-200" />
+              <strong>{t('Günlük 10 soru')}</strong>
+              <small>{completed}/{DAILY_TOTAL} {t('tamamlandı')}</small>
+            </button>
+            <button type="button" onClick={onExplore} className="aa-quick aa-map globriva-explore-art">
+              <MapPinned className="h-6 w-6 text-cyan-200" />
+              <strong>{t('Keşif haritası')}</strong>
+              <small>{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</small>
+            </button>
+          </div>
+          )}
+        </motion.section>
+
+        {language === 'tr' ? (
+          <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')} className="globriva-art-crop globriva-art-crop-league relative mt-3 block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f6c9ed] text-left shadow-[0_12px_25px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 hover:brightness-[1.03] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
+            <img src="/game-cards/approved-league.webp" width={862} height={116} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
+          </motion.button>
+        ) : (
+        <motion.button {...entrance(4)} type="button"
+          onClick={() => onViewWeekly('mixed')}
+          className="aa-league globriva-league-art mt-3 flex w-full items-center gap-3 text-left">
+          <span className="aa-league-icon"><Trophy className="h-6 w-6" /></span>
+          <span className="min-w-0 flex-1">
+            <strong>{t('Haftalık sıralama')}</strong>
+            <small>{leaderboard.length ? t('Zirvedeki oyuncuları gör') : t('Arkadaşlarınla yarış, zirveye çık')}</small>
+          </span>
+          <ChevronRight className="h-5 w-5 shrink-0" />
+        </motion.button>
+        )}
 
         {leaderboardError && (
           <p className="mt-2 text-center text-[11px] text-blue-200/70">
