@@ -336,7 +336,7 @@ export function StartScreen({
           .atlas-home-illustrated .globriva-art-crop { border-radius: 19px !important; }
         }
       `}</style>
-      <main className="globriva-content atlas-home-inner aa-page mx-auto w-full max-w-[490px] px-4 sm:px-5">
+      <main className="globriva-content atlas-home-inner aa-page mx-auto w-full max-w-[490px] px-4 pb-[calc(124px+env(safe-area-inset-bottom))] sm:px-5">
         <header className="atlas-home-topbar flex items-center justify-between gap-2">
           <div className="atlas-home-brand flex min-w-0 items-center gap-2.5">
             <span className="atlas-home-brand-icon overflow-hidden" aria-hidden="true">
