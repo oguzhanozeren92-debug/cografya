@@ -11,8 +11,9 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root=path.resolve(import.meta.dirname ?? path.dirname(new URL(import.meta.url).pathname),'../..');
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const args=process.argv.slice(2);
 function arg(flag,fallback=''){const i=args.indexOf(flag);return i>=0?args[i+1]??fallback:fallback;}
 const term=arg('--term').trim();
