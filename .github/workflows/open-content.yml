@@ -1,0 +1,58 @@
+name: Open Content - licensed images and source-backed question drafts
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/open-content.mjs'
+      - '.github/workflows/open-content.yml'
+  schedule:
+    - cron: '20 4 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate collector syntax
+        run: node --check scripts/open-content.mjs
+      - name: Run offline quality assertions
+        env:
+          CONTENT_APP: globriva
+        run: node scripts/open-content.mjs --self-test
+      - name: Pull licensed media and build non-playable question drafts
+        env:
+          CONTENT_APP: __APP__
+        run: node scripts/open-content.mjs
+      - name: Commit only collected assets and draft metadata
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/open-content/
+          if [ -d public/open-content/photos ]; then git add public/open-content/photos/; fi
+          if [ -d media/open-content ]; then git add media/open-content/; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "data: collect licensed source media and review-only questions"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: open-content-report
+          path: data/open-content/latest.json
+          if-no-files-found: warn
+          retention-days: 30
