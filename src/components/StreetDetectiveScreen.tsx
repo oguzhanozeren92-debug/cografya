@@ -49,6 +49,8 @@ export function StreetDetectiveScreen({
   const [hintBusy,setHintBusy]=useState(false);
   const [hintError,setHintError]=useState('');
   const [reveal,setReveal]=useState<Reveal|null>(null);
+  const [factOpen,setFactOpen]=useState(false);
+  const [factRead,setFactRead]=useState(false);
   const [completed,setCompleted]=useState<Completed[]>([]);
   const [ready,setReady]=useState(false);
   const [busy,setBusy]=useState(false);
@@ -69,7 +71,7 @@ export function StreetDetectiveScreen({
     completionNotified.current=false;
     trackPlayEvent({mode:'street',event_type:'mode_start'});
     setLoading(true);setError('');setRounds([]);setIdx(0);setCompleted([]);
-    setGuess(null);setReveal(null);setClues([]);setHintCount(0);
+    setGuess(null);setReveal(null);setFactOpen(false);setFactRead(false);setClues([]);setHintCount(0);
     setEarnedHintLevel(null);setHintBusy(false);setHintError('');
     setReady(false);setShowRank(false);setSaveNote('');setPhase('view');
     setSaveState('idle');setLastFinalScore(0);setSaveError('');
@@ -170,12 +172,19 @@ export function StreetDetectiveScreen({
   const resetForNext=()=>{
     setIdx(i=>i+1);setGuess(null);setClues([]);setHintCount(0);
     setEarnedHintLevel(null);setHintBusy(false);setHintError('');
-    setReveal(null);setReady(false);setError('');setPhase('view');
+    setReveal(null);setFactOpen(false);setFactRead(false);setReady(false);setError('');setPhase('view');
   };
   const advance=()=>{
     if(completed.length>=STREET_ROUNDS)finishGame(completed);
     else resetForNext();
   };
+  // Do not force reading: advance after four seconds, or after the fact card
+  // is dismissed. Leaving/restarting invalidates the pending timeout.
+  useEffect(()=>{
+    if(phase!=='result'||!reveal||factOpen)return;
+    const timer=window.setTimeout(()=>advance(),factRead?1700:4400);
+    return ()=>window.clearTimeout(timer);
+  },[phase,idx,reveal,factOpen,factRead,completed.length]);
   const skipBroken=()=>{
     if(!current||(phase!=='view'&&phase!=='guess'))return;
     trackPlayEvent({mode:'street',event_type:'panorama_skipped',question_id:current.id});
@@ -392,18 +401,26 @@ export function StreetDetectiveScreen({
                 </p>
                 <p className="text-xs text-blue-100/75">{reveal.city} · {t(reveal.title)}</p>
                 <StreetWorldMap guess={guess} actual={reveal.actual} onGuess={()=>{}} locked/>
-                <p className="text-sm leading-6 text-blue-100/80">{t(reveal.fact)}</p>
+                <button type="button" onClick={()=>{setFactOpen(true);setFactRead(true)}} aria-haspopup="dialog" className="mx-auto inline-flex min-h-10 items-center gap-2 rounded-full border border-cyan-200/50 bg-white/10 px-4 text-sm font-black text-cyan-100"><span className="text-lg" aria-hidden="true">ⓘ</span>{t('Ülke ve konum hakkında bilgi')}</button>
                 <p className="text-[11px] leading-5 text-blue-100/65">
                   {t('Görüntü:')} {reveal.credit.artist} · {reveal.credit.license} ·{' '}
                   <a href={reveal.credit.source} target="_blank" rel="noopener noreferrer"
                     className="underline underline-offset-2">{t('Kaynak / lisans')}</a>
                 </p>
-                <button type="button" onClick={advance} className="street-primary w-full">
-                  {completed.length===STREET_ROUNDS?t('Sonuçlarımı gör'):t('Sonraki konum')}
-                  <ArrowRight className="h-4 w-4"/>
-                </button>
+                <p className="text-xs text-blue-100/65">{t('Oyun otomatik devam edecek.')}</p>
               </section>
             )}
+          </div>
+        )}
+        {phase==='result'&&reveal&&factOpen&&(
+          <div className="fixed inset-0 z-[180] flex items-center justify-center bg-[#071328]/90 p-4 backdrop-blur-sm" role="presentation" onClick={()=>setFactOpen(false)}>
+            <section role="dialog" aria-modal="true" aria-labelledby="streetFactTitle" onClick={e=>e.stopPropagation()} className="w-full max-w-md rounded-[23px] border border-amber-200/35 bg-gradient-to-b from-[#22445b] to-[#0b2037] p-5 shadow-2xl">
+              <div className="mb-3 flex items-center justify-between text-xs font-black uppercase tracking-wider text-amber-200"><span>✦ Globriva · {t('Keşif notu')}</span><button autoFocus type="button" aria-label={t('Kapat')} onClick={()=>setFactOpen(false)} className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-xl">×</button></div>
+              <h3 id="streetFactTitle" className="text-xl font-black">{localizedCountryName(reveal.country,language)}</h3>
+              <p className="mt-1 text-sm font-semibold text-cyan-200">{reveal.city} · {t(reveal.title)}</p>
+              <p className="mt-4 text-sm leading-6 text-blue-50">{t(reveal.fact)}</p>
+              <a href={reveal.credit.source} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-xs font-bold text-amber-200 underline">{t('Fotoğraf kaynağı ve lisansı')}</a>
+            </section>
           </div>
         )}
         <p className="mt-5 text-center text-[11px] text-blue-200/65">
