@@ -63,6 +63,8 @@ export function useGame() {
   const [currentOptions, setCurrentOptions] = useState<string[]>([]);
   const [currentAnswer, setCurrentAnswer] = useState('');
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [answerInfoOpen, setAnswerInfoOpen] = useState(false);
+  const [answerInfoRead, setAnswerInfoRead] = useState(false);
   const [roundResults, setRoundResults] = useState<RoundResult[]>([]);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [leaderboardError, setLeaderboardError] = useState('');
@@ -105,6 +107,8 @@ export function useGame() {
     setCurrentOptions(options);
     setCurrentAnswer(answer);
     setSelectedAnswer(null);
+    setAnswerInfoOpen(false);
+    setAnswerInfoRead(false);
     setRevealedClues(1);
     // Flag and clue challenges do not expose the target country on a globe.
     setPhase(questionType === 'flag' || questionType === 'clue' ? 'question' : 'spinning');
@@ -190,11 +194,18 @@ export function useGame() {
     startRound(nextRound, mode);
   }, [lives, round, mode, startRound]);
 
+  const onAnswerInfoOpenChange = useCallback((open: boolean) => {
+    setAnswerInfoOpen(open);
+    if (open) setAnswerInfoRead(true);
+  }, []);
+
+  // Keep the correct answer visible for four seconds; reading a fact pauses
+  // the countdown. Closing the fact card leaves time to orient before moving on.
   useEffect(() => {
-    if (phase !== 'feedback') return;
-    const timeout = window.setTimeout(onContinue, 1250);
+    if (phase !== 'feedback' || answerInfoOpen) return;
+    const timeout = window.setTimeout(onContinue, answerInfoRead ? 1700 : 4400);
     return () => window.clearTimeout(timeout);
-  }, [phase, onContinue]);
+  }, [phase, onContinue, answerInfoOpen, answerInfoRead]);
 
   // This function is called only after the native rewarded SDK has confirmed the reward.
   // The run token and a synchronous ref prevent delayed/double reward callbacks from
@@ -238,6 +249,7 @@ export function useGame() {
     revealedClues, revealNextClue,
     rewardedHeartsUsed, gameRunId: gameRunRef.current, grantRewardedHeart, abandonRun,
     currentOptions, currentAnswer, selectedAnswer, roundResults, leaderboard,
+    answerInfoOpen, onAnswerInfoOpenChange,
     leaderboardError, refreshLeaderboard,
     correctCount: roundResults.filter(r => r.isCorrect).length,
     start, onSpinEnd, onAnswer, onContinue, restart, saveScore,
