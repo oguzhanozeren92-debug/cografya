@@ -3,6 +3,8 @@ import { useGame } from '@/hooks/useGame';
 import { Stars } from '@/components/Stars';
 import { Globe } from '@/components/Globe';
 import { StartScreen } from '@/components/StartScreen';
+import { GlobrivaAwardsScreen, GlobrivaBottomNav, GlobrivaProfileScreen, type GlobrivaHomeTab } from '@/components/GlobrivaRewardsUI';
+import { awardGeoStars, type GeoRewardLevel } from '@/lib/geoRewards';
 import { GlobrivaVersusScreen } from '@/components/GlobrivaVersusScreen';
 import { inviteCodeFromUrl, inviteCodeFromAnyUrl } from '@/lib/versus';
 import { App as NativeApp } from '@capacitor/app';
@@ -31,6 +33,8 @@ import { backend, getSavedName, changePlayerName, getPlayerId, setSavedName } fr
 function App() {
   const game = useGame();
   const [playerName, setPlayerName] = useState(getSavedName);
+  const [homeTab, setHomeTab] = useState<GlobrivaHomeTab>('home');
+  const [rewardToast, setRewardToast] = useState<{ gained:number; stars:number; level:GeoRewardLevel }|null>(null);
   const [weeklyOpen, setWeeklyOpen] = useState(false);
   const [activeInviteCode, setActiveInviteCode] = useState(inviteCodeFromUrl);
   const [versusOpen, setVersusOpen] = useState(() => Boolean(inviteCodeFromUrl()));
@@ -131,7 +135,7 @@ function App() {
     }).catch(error => console.warn('Atlas push initialization:', error));
     return () => { active = false; dispose?.(); };
   }, []);
-  const startGame = (mode: GameMode) => { playGameSound('select'); setAdError(''); game.start(mode); };
+  const startGame = (mode: GameMode) => { setHomeTab('home'); setRewardToast(null); playGameSound('select'); setAdError(''); game.start(mode); };
   const toggleSound = () => {
     const next = !soundEnabled;
     saveSoundEnabled(next);
@@ -165,6 +169,23 @@ function App() {
   const expandingMapQuestion = showQuestion && isMapQuestion;
   const showStart = game.phase === 'idle';
   const showGameOver = game.phase === 'gameover';
+  // Endless arena modes earn a stage grade only after a complete 10-question block.
+  // This does not change existing lives, scores or weekly ranking rules.
+  useEffect(() => {
+    const n = game.roundResults.length;
+    if (!n || n > 30 || n % 10 !== 0) return;
+    const level: GeoRewardLevel = n === 10 ? 'easy' : n === 20 ? 'medium' : 'hard';
+    const answers = game.roundResults.slice(-10);
+    const award = awardGeoStars(game.mode, level, answers.filter(q => q.isCorrect).length, 10, true);
+    if (award.gained > 0) setRewardToast({ gained: award.gained, stars: award.current, level });
+  }, [game.roundResults, game.mode]);
+  useEffect(() => {
+    if (!rewardToast) return;
+    const timeout = window.setTimeout(() => setRewardToast(null), 3400);
+    return () => window.clearTimeout(timeout);
+  }, [rewardToast]);
+  const navVisible = showStart && !weeklyOpen && !dailyOpen && !exploreOpen && !streetOpen &&
+    !droneOpen && !historyOpen && !geoDiscoveryOpen && !notificationsOpen && !versusOpen;
   useEffect(() => {
     if (game.phase !== 'gameover' || game.gameRunId === 0 ||
         lastCountedGameRun.current === game.gameRunId) return;
@@ -242,8 +263,16 @@ function App() {
         )}
       </div>
 
-      {showStart && (
+      {showStart && homeTab === 'home' && (
         <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} onNotifications={() => setNotificationsOpen(true)} onStreet={() => setStreetOpen('play')} onStreetLeaderboard={() => setStreetOpen('ranking')} onDrone={() => setDroneOpen(true)} onHistory={() => setHistoryOpen(true)} onGeoDiscovery={mode => setGeoDiscoveryOpen(mode)} onVersus={() => setVersusOpen(true)} />
+      )}
+
+      {showStart && homeTab === 'awards' && <GlobrivaAwardsScreen />}
+      {showStart && homeTab === 'profile' && (
+        <GlobrivaProfileScreen playerName={playerName} onNameChange={updateName}
+          soundEnabled={soundEnabled} onToggleSound={toggleSound}
+          onNotifications={isIosPushSupported()?()=>setNotificationsOpen(true):undefined}
+          onAdPrivacy={()=>{ void showAdPrivacy(); }} />
       )}
 
       {versusOpen && (
@@ -308,6 +337,19 @@ function App() {
 
       {weeklyOpen && (
         <WeeklyLeaderboardScreen initialMode={weeklyMode} playerName={playerName} onClose={() => setWeeklyOpen(false)} onPlay={(mode) => { setWeeklyOpen(false); startGame(mode); }} />
+      )}
+
+      {rewardToast && !showStart && (
+        <div className="geo-reward-toast fixed left-1/2 top-[calc(78px+env(safe-area-inset-top))] z-[90] w-[min(92vw,380px)] -translate-x-1/2 rounded-2xl border border-amber-300/50 bg-[#123d55]/95 px-4 py-3 text-center text-sm font-black text-amber-100 shadow-2xl backdrop-blur-xl" role="status">
+          <div className="text-2xl tracking-[.20em] text-amber-300" aria-hidden="true">{'★'.repeat(rewardToast.stars)}{'☆'.repeat(3-rewardToast.stars)}</div>
+          +{rewardToast.gained} yeni keşif yıldızı! · {rewardToast.level==='easy'?'İlk Rota':rewardToast.level==='medium'?'Kıtalar Arası':'Dünya Turu'}
+        </div>
+      )}
+      {navVisible && (
+        <GlobrivaBottomNav active={homeTab} onHome={()=>setHomeTab('home')}
+          onExplore={()=>setExploreOpen(true)}
+          onPlay={()=>{ if (!playerName.trim()) { setHomeTab('profile'); return; } startGame('mixed'); }}
+          onAwards={()=>setHomeTab('awards')} onProfile={()=>setHomeTab('profile')}/>
       )}
     </div>
   );
