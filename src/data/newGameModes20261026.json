@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "status": "candidate_only_not_published",
+  "qualityGates": {
+    "perDifficultyTarget": 40,
+    "difficulties": [
+      "easy",
+      "medium",
+      "hard"
+    ],
+    "roundLength": 10,
+    "requiresReviewedQuestions": true,
+    "requiresVerifiedSource": true,
+    "requiresLicensedWorkingMedia": true,
+    "noAnswerLeak": true,
+    "avoidRepeatInRound": true
+  },
+  "project": "Globriva",
+  "locales": [
+    "tr",
+    "en"
+  ],
+  "modes": [
+    {
+      "id": "doga-dedektifi",
+      "title": {
+        "tr": "Doğa Dedektifi",
+        "en": "Nature Detective"
+      },
+      "source": "https://www.naturalearthdata.com/downloads/",
+      "license": "Public Domain",
+      "mechanic": "Locate natural features using unlabeled map markers",
+      "qa": {
+        "easy": 0,
+        "medium": 0,
+        "hard": 0
+      },
+      "live": false
+    },
+    {
+      "id": "ada-avcisi",
+      "title": {
+        "tr": "Ada Avcısı",
+        "en": "Island Hunter"
+      },
+      "source": "https://www.naturalearthdata.com/downloads/",
+      "license": "Public Domain; aerial photos require separate review",
+      "mechanic": "Recognize islands using real silhouettes and eligible satellite imagery",
+      "qa": {
+        "easy": 0,
+        "medium": 0,
+        "hard": 0
+      },
+      "live": false
+    },
+    {
+      "id": "sinir-dedektifi",
+      "title": {
+        "tr": "Sınır Dedektifi",
+        "en": "Border Detective"
+      },
+      "source": "https://www.naturalearthdata.com/downloads/",
+      "license": "Public Domain",
+      "mechanic": "Identify neighbors and international borders on interactive map",
+      "qa": {
+        "easy": 0,
+        "medium": 0,
+        "hard": 0
+      },
+      "live": false
+    }
+  ]
+}
