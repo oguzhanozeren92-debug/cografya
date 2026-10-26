@@ -526,21 +526,6 @@ export function StartScreen({
                 <img src="/game-cards/approved-drone.webp" width={865} height={329} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
                 
               </button>
-              <a
-                href="/world-play.html"
-                aria-label="Dünya Keşfi: 20 yeni şehir ve 60 gerçek fotoğraf"
-                className="group mt-3 flex w-full items-center justify-between gap-4 rounded-[22px] border border-amber-200/65 bg-gradient-to-r from-[#163a4c] via-[#1a4a56] to-[#3a4d53] px-5 py-4 text-left text-white shadow-[0_12px_24px_rgba(0,5,25,.26)] transition-transform active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-200"
-              >
-                <span className="flex min-w-0 items-center gap-3">
-                  <span className="text-3xl" aria-hidden="true">🌍</span>
-                  <span className="min-w-0">
-                    <small className="block text-[10px] font-extrabold tracking-[.12em] text-amber-200">YENİ · DÜNYA TURU</small>
-                    <strong className="mt-1 block text-lg font-black leading-tight">Dünyanın Neresindesin?</strong>
-                    <small className="mt-1 block text-xs font-semibold text-white/80">20 şehir · 60 gerçek fotoğraf · 7 bölge</small>
-                  </span>
-                </span>
-                <ChevronRight className="h-6 w-6 shrink-0 text-amber-200"/>
-              </a>
               <div className="relative mt-3 w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#142c4d] shadow-[0_14px_28px_rgba(0,7,26,.27)]">
                 <img src="/game-cards/approved-street.webp" width={863} height={389} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
                 <button type="button" onClick={startStreet} aria-label={t('Sokak Dedektifi oyununa başla')} className="absolute inset-x-0 top-0 z-10 h-[79%] touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-amber-200">
@@ -634,15 +619,15 @@ export function StartScreen({
           </p>
           <div className="mt-3 grid grid-cols-1 gap-3">
             {([
-              {id:'nature',tr:'Doğa Dedektifi',en:'Nature Detective',subTr:'Dağları, nehirleri ve gölleri tanı',subEn:'Explore mountains, rivers and lakes',labelTr:'DOĞA KEŞFİ',labelEn:'NATURE EXPLORER',Icon:Mountain,bg:'bg-gradient-to-br from-[#0c4b5a] via-[#155c67] to-[#163753]',accent:'text-[#b0f1df]'},
-              {id:'islands',tr:'Ada Avcısı',en:'Island Hunter',subTr:'Adaları silüetlerinden bul',subEn:'Recognize islands by their outline',labelTr:'ADA KEŞFİ',labelEn:'ISLAND EXPLORER',Icon:MapPinned,bg:'bg-gradient-to-br from-[#065374] via-[#11658b] to-[#152e5e]',accent:'text-[#aeeefa]'},
-              {id:'borders',tr:'Sınır Dedektifi',en:'Border Detective',subTr:'Ülkeleri komşularından tanı',subEn:'Discover countries and neighbors',labelTr:'HARİTA KEŞFİ',labelEn:'MAP EXPLORER',Icon:Globe2,bg:'bg-gradient-to-br from-[#404575] via-[#344c7e] to-[#233a64]',accent:'text-[#ffe3b3]'},
+              {id:'nature',tr:'Doğa Dedektifi',en:'Nature Detective',subTr:'Dağları, nehirleri ve gölleri tanı',subEn:'Explore mountains, rivers and lakes',labelTr:'DOĞA KEŞFİ',labelEn:'NATURE EXPLORER',Icon:Mountain,bg:'bg-gradient-to-br from-[#074452] via-[#1a766d] to-[#11465b]',shade:'from-[#072f34]/95 via-[#07555b]/62 to-[#1c8e85]/5',accent:'text-[#b0f1df]'},
+              {id:'islands',tr:'Ada Avcısı',en:'Island Hunter',subTr:'Adaları silüetlerinden bul',subEn:'Recognize islands by their outline',labelTr:'ADA KEŞFİ',labelEn:'ISLAND EXPLORER',Icon:MapPinned,bg:'bg-gradient-to-br from-[#04607a] via-[#1290a4] to-[#114777]',shade:'from-[#06344c]/95 via-[#08637a]/62 to-[#17b6b5]/5',accent:'text-[#aeeefa]'},
+              {id:'borders',tr:'Sınır Dedektifi',en:'Border Detective',subTr:'Ülkeleri komşularından tanı',subEn:'Discover countries and neighbors',labelTr:'HARİTA KEŞFİ',labelEn:'MAP EXPLORER',Icon:Globe2,bg:'bg-gradient-to-br from-[#292d60] via-[#555187] to-[#192e53]',shade:'from-[#191e39]/96 via-[#363e72]/64 to-[#7b6b9c]/7',accent:'text-[#ffe3b3]'},
             ] as const).map(item=>(
               <button key={item.id} type="button" onClick={()=>startGeoDiscovery(item.id)}
                 aria-label={language==='tr'?item.tr:item.en}
                 className={`group relative isolate flex min-h-[134px] w-full items-center overflow-hidden rounded-[23px] border border-white/40 ${item.bg} px-4 py-4 text-left text-white shadow-[0_12px_25px_rgba(0,8,31,.25)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_17px_30px_rgba(0,8,31,.32)] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200`}>
                 <GeoDiscoveryArt mode={item.id}/>
-                <span aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-[#092438]/95 from-[8%] via-[#102c42]/80 via-[52%] to-transparent"/>
+                <span aria-hidden="true" className={`pointer-events-none absolute inset-0 z-0 bg-gradient-to-r ${item.shade}`}/>
                 <span aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 rounded-[inherit] ring-1 ring-inset ring-white/10"/>
                 <span className="relative z-10 block max-w-[78%] min-w-0 py-0.5">
                   <span className={`mb-2 flex items-center gap-1.5 text-[10px] font-extrabold tracking-[.09em] ${item.accent}`}>
