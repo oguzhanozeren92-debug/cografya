@@ -1,6 +1,6 @@
 // Reviewed first-run coordinates for the interactive Natural Earth basemap.
 // Point coordinates are approximate play markers, not survey-grade measurements.
-export type NaturePoint={id:string;name:string;clue:string;lat:number;lon:number;level:1|2|3;region:string};
+export type NaturePoint={id:string;name:string;clue:string;clueEn:string;lat:number;lon:number;level:1|2|3;region:string};
 export const NATURE_POINTS:NaturePoint[]=[
   {
     "id": "nile",
@@ -9,7 +9,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 31.1,
     "lon": 31.4,
     "level": 1,
-    "region": "Mısır ve Akdeniz"
+    "region": "Mısır ve Akdeniz",
+    "clueEn": "Find the Mediterranean delta of the river that sustained ancient Egyptian agriculture."
   },
   {
     "id": "amazon",
@@ -18,7 +19,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": -0.5,
     "lon": -50.4,
     "level": 1,
-    "region": "Brezilya"
+    "region": "Brezilya",
+    "clueEn": "Find where South America's great river, known for its huge discharge, reaches the Atlantic Ocean."
   },
   {
     "id": "victoria",
@@ -27,7 +29,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": -1,
     "lon": 33,
     "level": 1,
-    "region": "Uganda, Kenya ve Tanzanya"
+    "region": "Uganda, Kenya ve Tanzanya",
+    "clueEn": "Locate the largest African lake by surface area, bordered by three East African countries."
   },
   {
     "id": "everest",
@@ -36,7 +39,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 27.99,
     "lon": 86.93,
     "level": 1,
-    "region": "Himalayalar"
+    "region": "Himalayalar",
+    "clueEn": "Locate the world's highest summit, on the Nepal–China border in the Himalayas."
   },
   {
     "id": "sahara",
@@ -45,7 +49,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 23,
     "lon": 10,
     "level": 1,
-    "region": "Kuzey Afrika"
+    "region": "Kuzey Afrika",
+    "clueEn": "Find the central portion of the enormous hot desert spanning North Africa."
   },
   {
     "id": "fuji",
@@ -54,7 +59,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 35.36,
     "lon": 138.73,
     "level": 1,
-    "region": "Japonya"
+    "region": "Japonya",
+    "clueEn": "Locate the iconic volcano on Japan's island of Honshu."
   },
   {
     "id": "mississippi",
@@ -63,7 +69,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 29.2,
     "lon": -89.2,
     "level": 2,
-    "region": "ABD, Louisiana"
+    "region": "ABD, Louisiana",
+    "clueEn": "Find the delta of North America's major river on the Gulf of Mexico."
   },
   {
     "id": "danube",
@@ -72,7 +79,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 45.2,
     "lon": 29.6,
     "level": 2,
-    "region": "Karadeniz"
+    "region": "Karadeniz",
+    "clueEn": "Find the famous wetland delta along the Black Sea coast of Romania and Ukraine."
   },
   {
     "id": "baikal",
@@ -81,7 +89,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 53.5,
     "lon": 108.2,
     "level": 2,
-    "region": "Rusya"
+    "region": "Rusya",
+    "clueEn": "Locate the world's deepest freshwater lake in Siberia."
   },
   {
     "id": "titicaca",
@@ -90,7 +99,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": -15.8,
     "lon": -69.3,
     "level": 2,
-    "region": "And Dağları"
+    "region": "And Dağları",
+    "clueEn": "Find the high-altitude Andean lake shared by Peru and Bolivia."
   },
   {
     "id": "kilimanjaro",
@@ -99,7 +109,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": -3.07,
     "lon": 37.35,
     "level": 2,
-    "region": "Doğu Afrika"
+    "region": "Doğu Afrika",
+    "clueEn": "Find Africa's highest mountain in Tanzania."
   },
   {
     "id": "ganges",
@@ -108,7 +119,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 22,
     "lon": 89,
     "level": 2,
-    "region": "Bangladeş ve Hindistan"
+    "region": "Bangladeş ve Hindistan",
+    "clueEn": "Find the huge South Asian river delta opening into the Bay of Bengal."
   },
   {
     "id": "congo",
@@ -117,7 +129,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": -6,
     "lon": 12.3,
     "level": 3,
-    "region": "Orta Afrika kıyısı"
+    "region": "Orta Afrika kıyısı",
+    "clueEn": "Locate where the powerful central African river meets the Atlantic Ocean."
   },
   {
     "id": "aconcagua",
@@ -126,7 +139,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": -32.65,
     "lon": -70.01,
     "level": 3,
-    "region": "Arjantin"
+    "region": "Arjantin",
+    "clueEn": "Find the highest peak outside Asia, in the Andes."
   },
   {
     "id": "malawi",
@@ -135,7 +149,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": -12,
     "lon": 34.7,
     "level": 3,
-    "region": "Doğu Afrika"
+    "region": "Doğu Afrika",
+    "clueEn": "Locate the long, narrow East African lake within the Great Rift Valley."
   },
   {
     "id": "yangtze",
@@ -144,7 +159,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 31.5,
     "lon": 121.9,
     "level": 3,
-    "region": "Çin, Doğu Çin Denizi"
+    "region": "Çin, Doğu Çin Denizi",
+    "clueEn": "Find the delta of the major river on China's eastern coast."
   },
   {
     "id": "reef",
@@ -153,7 +169,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": -18,
     "lon": 146.8,
     "level": 3,
-    "region": "Mercan Denizi"
+    "region": "Mercan Denizi",
+    "clueEn": "Locate the vast coral reef system off northeastern Australia."
   },
   {
     "id": "rhine",
@@ -162,7 +179,8 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lat": 51.95,
     "lon": 4.1,
     "level": 3,
-    "region": "Hollanda, Kuzey Denizi"
+    "region": "Hollanda, Kuzey Denizi",
+    "clueEn": "Locate the river delta reaching the North Sea in the Netherlands."
   }
 ];
 export const NATURE_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
@@ -178,7 +196,10 @@ export const ISLAND_COUNTRIES=[
 {id:"388",name:"Jamaika",en:"Jamaica",level:3},
 {id:"242",name:"Fiji",en:"Fiji",level:3},
 {id:"480",name:"Mauritius",en:"Mauritius",level:3},
-{id:"196",name:"Kıbrıs",en:"Cyprus",level:3}
+{id:"196",name:"Kıbrıs",en:"Cyprus",level:3},
+{id:"826",name:"Birleşik Krallık",en:"United Kingdom",level:3},
+{id:"372",name:"İrlanda",en:"Ireland",level:3},
+{id:"598",name:"Papua Yeni Gine",en:"Papua New Guinea",level:3}
 ] as const;
 export const BORDER_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
 // The playable border questions are derived, never hand-guessed, from the
