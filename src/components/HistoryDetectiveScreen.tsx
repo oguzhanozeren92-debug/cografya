@@ -7,6 +7,8 @@ import { HistoryPhotoGallery, type HistoryGalleryImage } from '@/components/Hist
 import { StreetPhoto } from '@/components/StreetPhoto';
 import { atlasApi } from '@/lib/atlasApi';
 import { useLanguage } from '@/lib/i18n';
+import { awardGeoStars, getGeoStars, type GeoAward } from '@/lib/geoRewards';
+import { GeoStarRow } from '@/components/GeoStarRow';
 
 type Localized = {tr:string;en:string};
 type Question = {
@@ -85,6 +87,7 @@ export function HistoryDetectiveScreen({
   const [results,setResults]=useState<Result[]>([]);
   const [seconds,setSeconds]=useState(0);
   const [best,setBest]=useState(()=>localBest('easy'));
+  const [stageAward,setStageAward]=useState<GeoAward|null>(null);
   const [run,setRun]=useState(0);
   const completedRef=useRef(false);
 
@@ -181,6 +184,7 @@ export function HistoryDetectiveScreen({
     setResults(next);
     if(next.length===cases.length){
       const total=next.reduce((sum,item)=>sum+item.points,0);
+      setStageAward(awardGeoStars('heritage',level,next.reduce((sum,item)=>sum+item.correct,0),next.length*3,next.length===CASES_PER_SESSION));
       const nextBest=Math.max(best,total);
       setBest(nextBest);
       try{
@@ -223,6 +227,7 @@ export function HistoryDetectiveScreen({
   },[stage,picked,questionIndex,index,infoOpen,infoRead,active?.id]);
   const switchLevel=(nextLevel:Difficulty)=>{
     if(nextLevel==='medium'&&!mediumUnlocked)return;
+    setStageAward(null);
     setLevel(nextLevel);
     setBest(localBest(nextLevel));
     setRetry(v=>v+1);
@@ -241,6 +246,7 @@ export function HistoryDetectiveScreen({
     setSeconds(0);
   };
   const restart=()=>{
+    setStageAward(null);
     completedRef.current=false;
     setRun(v=>v+1);
     setIndex(0);
@@ -310,6 +316,12 @@ export function HistoryDetectiveScreen({
                 {level==='easy'?text('Kolay aşama tamamlandı','Easy stage completed'):text('Orta aşama tamamlandı','Medium stage completed')}
               </p>
               <h2 className="text-4xl font-black tabular-nums text-amber-200">{format(score)}</h2>
+              <div className="mt-4 rounded-2xl border border-amber-300/30 bg-amber-300/10 px-3 py-3" aria-live="polite">
+                <div className="text-xs font-extrabold tracking-widest text-amber-200">{text('MEDENİYET İZLERİ · YILDIZLAR','CIVILIZATION TRACES · STARS')}</div>
+                <div className="mt-2"><GeoStarRow count={stageAward?.current ?? getGeoStars('heritage',level)} large animated={Boolean(stageAward?.gained)}/></div>
+                <p className="mt-2 text-[11px] text-slate-200">{text('24 soruda %70/%80/%90 doğrulukla yıldız kazan; en iyi derecen korunur.','Earn stars at 70/80/90% across 24 questions; your best grade is saved.')}</p>
+                {stageAward?.newBadges.map(b=><p key={b.id} className="mt-2 rounded-lg bg-amber-300/10 p-2 text-xs font-bold text-amber-100">{b.icon} {text('Yeni rozet: ','New badge: ')}{tr?b.tr:b.en}</p>)}
+              </div>
               <p className="text-sm text-blue-100/80">
                 {text('8.000 üzerinden tur puanın','Your score out of 8,000')}
               </p>
