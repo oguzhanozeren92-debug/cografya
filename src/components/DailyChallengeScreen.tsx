@@ -9,6 +9,8 @@ import { useLanguage } from '@/lib/i18n';
 import { localizedCountryById, localizedAnswer } from '@/lib/countryLanguage';
 import { getCountryFlag } from '@/data/flags';
 import { discoverCountry } from '@/lib/discovery';
+import { awardGeoStars, geoStarGrade, getGeoStars, type GeoAward } from '@/lib/geoRewards';
+import { GeoStarRow } from '@/components/GeoStarRow';
 import { analyticsQuestionId, trackPlayEvent } from '@/lib/atlasTelemetry';
 import {
   DAILY_TOTAL, getDailyDate, getDailyQuestions, getStreakForDay,
@@ -23,6 +25,7 @@ export function DailyChallengeScreen({ onClose, onExplore, onGameComplete }: Pro
   const day = useMemo(getDailyDate, []);
   const questions = useMemo(() => getDailyQuestions(day), [day]);
   const [progress, setProgress] = useState(() => loadDailyProgress(day));
+  const [starAward,setStarAward] = useState<GeoAward|null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [dateExpired, setDateExpired] = useState(false);
   const busy = useRef(false);
@@ -33,6 +36,11 @@ export function DailyChallengeScreen({ onClose, onExplore, onGameComplete }: Pro
   const correct = progress.answers.filter((answer, i) => answer === questions[i].answer).length;
   const streak = getStreakForDay(day);
   const flag = getCountryFlag(question.countryId);
+
+  useEffect(() => {
+    if (!complete) return;
+    setStarAward(awardGeoStars('daily','daily',correct,DAILY_TOTAL,true,day));
+  }, [complete,correct,day]);
 
   useEffect(()=>{ trackPlayEvent({mode:'daily',event_type:'mode_start'}); },[]);
   useEffect(()=>{
@@ -104,8 +112,11 @@ export function DailyChallengeScreen({ onClose, onExplore, onGameComplete }: Pro
             <div className="text-xs font-black tracking-[.25em] text-amber-300">{t('GÜNLÜK GÖREV TAMAMLANDI')}</div>
             <h2 className="mt-2 text-3xl font-black">{correct} / {DAILY_TOTAL}</h2>
             <p className="mt-2 text-sm text-slate-300">{correct === DAILY_TOTAL ? t('Mükemmel! Bütün cevapların doğru.') : t('Görev bitti! Yeni sorular yarın UTC 00.00’da açılacak.')}</p>
-            <div className="my-5 flex justify-center gap-3 text-3xl" aria-label="Başarı yıldızları">
-              {[0, 1, 2].map(i => <span key={i} className={correct >= [4, 7, 10][i] ? 'text-amber-300' : 'text-slate-600'}>★</span>)}
+            <div className="my-5 rounded-2xl border border-amber-300/30 bg-amber-300/5 px-3 py-4 text-center" aria-live="polite">
+              <div className="mb-2 text-[10px] font-black tracking-widest text-amber-200">{language==='tr'?'GÜNLÜK KEŞİF YILDIZLARI':'DAILY EXPLORER STARS'}</div>
+              <GeoStarRow large animated={Boolean(starAward?.gained)} count={starAward?.current ?? Math.max(getGeoStars('daily','daily'),geoStarGrade(correct,DAILY_TOTAL,true))}/>
+              <p className="mt-2 text-xs text-slate-200">{starAward?.gained ? (language==='tr'?'+ '+starAward.gained+' yeni yıldız!':'+ '+starAward.gained+' new stars!') : (language==='tr'?'%70 / %80 / %90 · En iyi yıldızların korunur':'70 / 80 / 90% · Best stars are saved')}</p>
+              {starAward?.newBadges.map(b=><p key={b.id} className="mt-2 rounded-lg bg-amber-300/10 px-2 py-2 text-xs font-bold text-amber-200">{b.icon} {language==='tr'?'Yeni rozet: ':'New badge: '}{language==='tr'?b.tr:b.en}</p>)}
             </div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-xl bg-orange-400/10 px-4 py-2 font-bold text-orange-200"><Flame className="h-5 w-5" /> {streak} {t('günlük seri')}</div>
             <button onClick={onExplore} className="weekly-play-button flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 font-black"><Compass className="h-5 w-5" /> {t('Keşif Haritamı Aç')}</button>
