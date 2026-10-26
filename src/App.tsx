@@ -4,7 +4,8 @@ import { Stars } from '@/components/Stars';
 import { Globe } from '@/components/Globe';
 import { StartScreen } from '@/components/StartScreen';
 import { GlobrivaAwardsScreen, GlobrivaBottomNav, GlobrivaProfileScreen, type GlobrivaHomeTab } from '@/components/GlobrivaRewardsUI';
-import { awardGeoStars, type GeoRewardLevel } from '@/lib/geoRewards';
+import { awardGeoStars, type GeoBadge, type GeoRewardLevel } from '@/lib/geoRewards';
+import { useLanguage } from '@/lib/i18n';
 import { GlobrivaVersusScreen } from '@/components/GlobrivaVersusScreen';
 import { inviteCodeFromUrl, inviteCodeFromAnyUrl } from '@/lib/versus';
 import { App as NativeApp } from '@capacitor/app';
@@ -32,9 +33,10 @@ import { backend, getSavedName, changePlayerName, getPlayerId, setSavedName } fr
 
 function App() {
   const game = useGame();
+  const { language } = useLanguage();
   const [playerName, setPlayerName] = useState(getSavedName);
   const [homeTab, setHomeTab] = useState<GlobrivaHomeTab>('home');
-  const [rewardToast, setRewardToast] = useState<{ gained:number; stars:number; level:GeoRewardLevel }|null>(null);
+  const [rewardToast, setRewardToast] = useState<{ gained:number; stars:number; level:GeoRewardLevel; badges:GeoBadge[] }|null>(null);
   const [weeklyOpen, setWeeklyOpen] = useState(false);
   const [activeInviteCode, setActiveInviteCode] = useState(inviteCodeFromUrl);
   const [versusOpen, setVersusOpen] = useState(() => Boolean(inviteCodeFromUrl()));
@@ -177,7 +179,7 @@ function App() {
     const level: GeoRewardLevel = n === 10 ? 'easy' : n === 20 ? 'medium' : 'hard';
     const answers = game.roundResults.slice(-10);
     const award = awardGeoStars(game.mode, level, answers.filter(q => q.isCorrect).length, 10, true);
-    if (award.gained > 0) setRewardToast({ gained: award.gained, stars: award.current, level });
+    if (award.gained > 0 || award.newBadges.length) setRewardToast({ gained: award.gained, stars: award.current, level, badges: award.newBadges });
   }, [game.roundResults, game.mode]);
   useEffect(() => {
     if (!rewardToast) return;
@@ -272,7 +274,7 @@ function App() {
         <GlobrivaProfileScreen playerName={playerName} onNameChange={updateName}
           soundEnabled={soundEnabled} onToggleSound={toggleSound}
           onNotifications={isIosPushSupported()?()=>setNotificationsOpen(true):undefined}
-          onAdPrivacy={()=>{ void showAdPrivacy(); }} />
+          onAdPrivacy={Capacitor.isNativePlatform()?()=>{ void showAdPrivacy(); }:undefined} />
       )}
 
       {versusOpen && (
@@ -342,7 +344,8 @@ function App() {
       {rewardToast && !showStart && (
         <div className="geo-reward-toast fixed left-1/2 top-[calc(78px+env(safe-area-inset-top))] z-[90] w-[min(92vw,380px)] -translate-x-1/2 rounded-2xl border border-amber-300/50 bg-[#123d55]/95 px-4 py-3 text-center text-sm font-black text-amber-100 shadow-2xl backdrop-blur-xl" role="status">
           <div className="text-2xl tracking-[.20em] text-amber-300" aria-hidden="true">{'★'.repeat(rewardToast.stars)}{'☆'.repeat(3-rewardToast.stars)}</div>
-          +{rewardToast.gained} yeni keşif yıldızı! · {rewardToast.level==='easy'?'İlk Rota':rewardToast.level==='medium'?'Kıtalar Arası':'Dünya Turu'}
+          {rewardToast.gained>0 && <span>+{rewardToast.gained} {language==='tr'?'yeni keşif yıldızı!':'new explorer stars!'} · {rewardToast.level==='easy'?(language==='tr'?'İlk Rota':'First Route'):rewardToast.level==='medium'?(language==='tr'?'Kıtalar Arası':'Across Continents'):(language==='tr'?'Dünya Turu':'World Tour')}</span>}
+          {rewardToast.badges.map(b=><div key={b.id} className="mt-1 text-xs text-cyan-100">{b.icon} {language==='tr'?'Yeni rozet: ':'New badge: '}{language==='tr'?b.tr:b.en}</div>)}
         </div>
       )}
       {navVisible && (
