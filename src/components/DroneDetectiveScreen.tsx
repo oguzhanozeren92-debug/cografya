@@ -9,6 +9,8 @@ import { Capacitor } from '@capacitor/core';
 import { watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { haversineKm, locationPoints, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
+import { awardGeoStars, getGeoStars, type GeoAward } from '@/lib/geoRewards';
+import { GeoStarRow } from '@/components/GeoStarRow';
 import { submitDroneScore } from '@/lib/droneLeaderboard';
 import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
 import { backend } from '@/lib/leaderboard';
@@ -125,6 +127,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   const [distance, setDistance] = useState<number | null>(null);
   const [roundPoints, setRoundPoints] = useState(0);
   const [best, setBest] = useState(getBest);
+  const [stageAward,setStageAward]=useState<GeoAward|null>(null);
   const [showRank,setShowRank]=useState(false);
   const [saveState,setSaveState]=useState<'idle'|'saving'|'saved'|'error'|'offline'>('idle');
   const [saveError,setSaveError]=useState('');
@@ -157,6 +160,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   };
   const finishDrone=(allAnswers:Answer[])=>{
     const points=allAnswers.reduce((sum,row)=>sum+row.points,0);
+    setStageAward(awardGeoStars('drone','tour',points,rows.length*5000,allAnswers.length===rows.length));
     setBest(saveBest(points));
     setFinalScore(points);
     setPhase('finish');
@@ -171,7 +175,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
     completionNotified.current=false;
     setRows(shuffled(catalog)); setIndex(0); setPhase('view'); setReady(false);
     setGuess(null); setAnswered([]); setDistance(null); setRoundPoints(0);setHintCount(0);
-    setSaveState('idle');setSaveError('');setFinalScore(0);setShowRank(false);
+    setSaveState('idle');setSaveError('');setFinalScore(0);setShowRank(false);setStageAward(null);
   };
   const confirm = () => {
     if (!guess || hintBusyRef.current || phase !== 'guess') return;
@@ -338,6 +342,12 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
               <p className="text-sm font-bold text-blue-100/80">Drone turunu bitirdin!</p>
               <h2 className="my-3 text-[42px] font-black text-[#ffda96] tabular-nums">{score.toLocaleString('tr-TR')}</h2>
               <p className="font-bold">/ {rows.length * 5000} {t('puan')}</p>
+              <div className="mt-4 rounded-2xl border border-amber-300/30 bg-amber-300/10 px-3 py-3" aria-live="polite">
+                <div className="text-xs font-extrabold tracking-widest text-amber-200">{language==='tr'?'GÖKYÜZÜ ROTASI · YILDIZLAR':'SKY ROUTE · STARS'}</div>
+                <div className="mt-2"><GeoStarRow count={stageAward?.current ?? getGeoStars('drone','tour')} large animated={Boolean(stageAward?.gained)}/></div>
+                <p className="mt-2 text-[11px] text-slate-200">{language==='tr'?'Tur puanının %70/%80/%90’ıyla 1/2/3 yıldız.':'Earn 1/2/3 stars at 70/80/90% of tour points.'}</p>
+                {stageAward?.newBadges.map(b=><p key={b.id} className="mt-2 rounded-lg bg-amber-300/10 p-2 text-xs font-bold text-amber-100">{b.icon} {language==='tr'?'Yeni rozet: ':'New badge: '}{language==='tr'?b.tr:b.en}</p>)}
+              </div>
               <p className="mt-3 text-sm text-emerald-200">{t('Cihaz rekoru:')} {best.toLocaleString(language)}</p>
               <div aria-live="polite" className="mt-3 rounded-xl bg-white/5 px-3 py-3 text-xs text-blue-100">
                 {saveState==='saving'?t('Skorun dünya ligine kaydediliyor...'):saveState==='saved'?t('Dünya ve haftalık lige kaydedildi!'):
