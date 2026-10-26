@@ -1,7 +1,7 @@
 import { getDiscoveredCountries } from '@/lib/discovery';
 
-export type GeoRewardMode = 'mixed' | 'flags' | 'clues' | 'nature' | 'islands' | 'borders' | 'daily';
-export type GeoRewardLevel = 'easy' | 'medium' | 'hard' | 'daily';
+export type GeoRewardMode = 'mixed' | 'flags' | 'clues' | 'nature' | 'islands' | 'borders' | 'street' | 'drone' | 'heritage' | 'daily';
+export type GeoRewardLevel = 'easy' | 'medium' | 'hard' | 'tour' | 'daily';
 
 export const GEO_REWARDS_CHANGED = 'globriva-rewards-changed';
 const STORAGE_KEY = 'globriva-stage-stars-v1';
@@ -11,21 +11,24 @@ export type GeoAward = { previous: number; earned: number; current: number; gain
 export type GeoBadge = { id: string; tr: string; en: string; detailTr: string; detailEn: string; icon: string; unlocked: boolean };
 
 export const GEO_REWARD_SECTIONS: ReadonlyArray<{
-  id: GeoRewardMode; tr: string; en: string; icon: string;
+  id: GeoRewardMode; tr: string; en: string; icon: string; levels: readonly GeoRewardLevel[];
 }> = [
-  { id: 'mixed', tr: 'Dünya Arenası', en: 'World Arena', icon: '🌍' },
-  { id: 'flags', tr: 'Bayrak Arenası', en: 'Flag Arena', icon: '🚩' },
-  { id: 'clues', tr: 'İpucu Arenası', en: 'Clue Arena', icon: '🧩' },
-  { id: 'nature', tr: 'Doğa Dedektifi', en: 'Nature Detective', icon: '🏞️' },
-  { id: 'islands', tr: 'Ada Avcısı', en: 'Island Hunter', icon: '🏝️' },
-  { id: 'borders', tr: 'Sınır Dedektifi', en: 'Border Detective', icon: '🧭' },
-  { id: 'daily', tr: 'Günlük Dünya Görevi', en: 'Daily World Quest', icon: '☀️' },
+  { id: 'mixed', tr: 'Dünya Arenası', en: 'World Arena', icon: '🌍', levels: ['easy','medium','hard'] },
+  { id: 'flags', tr: 'Bayrak Arenası', en: 'Flag Arena', icon: '🚩', levels: ['easy','medium','hard'] },
+  { id: 'clues', tr: 'İpucu Arenası', en: 'Clue Arena', icon: '🧩', levels: ['easy','medium','hard'] },
+  { id: 'nature', tr: 'Doğa Dedektifi', en: 'Nature Detective', icon: '🏞️', levels: ['easy','medium','hard'] },
+  { id: 'islands', tr: 'Ada Avcısı', en: 'Island Hunter', icon: '🏝️', levels: ['easy','medium','hard'] },
+  { id: 'borders', tr: 'Sınır Dedektifi', en: 'Border Detective', icon: '🧭', levels: ['easy','medium','hard'] },
+  { id: 'street', tr: 'Sokak Dedektifi', en: 'Street Detective', icon: '📍', levels: ['tour'] },
+  { id: 'drone', tr: 'Drone Dedektifi', en: 'Drone Detective', icon: '🛩️', levels: ['tour'] },
+  { id: 'heritage', tr: 'Medeniyet Dedektifi', en: 'Civilization Detective', icon: '🏛️', levels: ['easy','medium'] },
+  { id: 'daily', tr: 'Günlük Dünya Görevi', en: 'Daily World Quest', icon: '☀️', levels: ['daily'] },
 ];
 
 export const GEO_REWARD_LEVELS: ReadonlyArray<GeoRewardLevel> = ['easy', 'medium', 'hard'];
 const allModes = new Set<GeoRewardMode>(GEO_REWARD_SECTIONS.map(x => x.id));
 function valid(mode: GeoRewardMode, level: GeoRewardLevel): boolean {
-  return allModes.has(mode) && (mode === 'daily' ? level === 'daily' : GEO_REWARD_LEVELS.includes(level));
+  return allModes.has(mode) && Boolean(GEO_REWARD_SECTIONS.find(x=>x.id===mode)?.levels.includes(level));
 }
 function normalized(n: unknown): number {
   return typeof n === 'number' && Number.isFinite(n) ? Math.max(0, Math.min(3, Math.trunc(n))) : 0;
@@ -75,10 +78,10 @@ export function awardGeoStars(
   const current = Math.max(previous, earned);
   const dateValid = mode === 'daily' && completed && total >= 5
     && typeof dailyDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dailyDate);
-  const newDay = dateValid && !saved.dailyDates.includes(dailyDate);
+  const newDay = dateValid && typeof dailyDate === 'string' && !saved.dailyDates.includes(dailyDate);
   if (current > previous || newDay) {
     saved.stars[key] = current;
-    if (newDay) saved.dailyDates = [...saved.dailyDates, dailyDate].slice(-366);
+    if (newDay && dailyDate) saved.dailyDates = [...saved.dailyDates, dailyDate].slice(-366);
     write(saved);
   }
   return {
@@ -88,9 +91,8 @@ export function awardGeoStars(
 }
 export function getGeoRewardOverview() {
   const saved = read();
-  const stages = GEO_REWARD_SECTIONS.flatMap(section =>
-    (section.id === 'daily' ? ['daily'] as const : GEO_REWARD_LEVELS)
-      .map(level => ({ mode: section.id, level, stars: normalized(saved.stars[section.id + ':' + level]) })));
+  const stages = GEO_REWARD_SECTIONS.flatMap(section => section.levels
+    .map(level => ({ mode: section.id, level, stars: normalized(saved.stars[section.id + ':' + level]) })));
   return {
     stars: stages.reduce((sum, stage) => sum + stage.stars, 0),
     threeStars: stages.filter(x => x.stars === 3).length,
@@ -120,6 +122,9 @@ export function getGeoBadges(): GeoBadge[] {
     b('islands', 'Ada Gezgini', 'Island Traveler', 'Ada Avcısı’nda yıldız kazan', 'Earn a star in Island Hunter', '🏝️', has('islands')),
     b('borders', 'Sınır Uzmanı', 'Border Expert', 'Sınır Dedektifi’nde yıldız kazan', 'Earn a star in Border Detective', '🧩', has('borders')),
     b('all-map', 'Üç Kıtanın İzi', 'Three Paths', 'Üç yeni coğrafya oyununda yıldız kazan', 'Earn stars in all three new geography games', '🗺️', modes.every(has)),
+    b('street', 'Sokak İzleri', 'Street Trails', 'Sokak Dedektifi turunda yıldız kazan', 'Earn a star in a Street Detective tour', '🚶', has('street')),
+    b('drone', 'Gökyüzü Gözcüsü', 'Sky Scout', 'Drone Dedektifi turunda yıldız kazan', 'Earn a star in a Drone Detective tour', '🛩️', has('drone')),
+    b('heritage', 'Medeniyet İzleri', 'Civilization Traces', 'Medeniyet Dedektifi’nde yıldız kazan', 'Earn a star in Civilization Detective', '🏛️', has('heritage')),
     b('daily', 'Güneşin Peşinde', 'Chasing the Sun', 'İlk günlük görevi bitir', 'Finish your first daily quest', '☀️', s.dailyDays >= 1),
     b('daily7', 'Yedi Günlük Yolcu', 'Seven-Day Traveler', 'Yedi ayrı günlük görevi bitir', 'Finish seven different daily quests', '🎒', s.dailyDays >= 7),
   ];
