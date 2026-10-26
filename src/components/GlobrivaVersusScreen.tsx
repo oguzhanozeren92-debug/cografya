@@ -8,6 +8,7 @@ import {
   makeVsLink, normalizeVsCode, sendVsAnswer, userFriendlyVsError,
   type VsRoom,
 } from '@/lib/versus';
+import { COUNTRY_DATA } from '@/data/countries';
 
 interface Props {
   playerName: string;
@@ -26,6 +27,8 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
   const [error, setError] = useState('');
   const [choice, setChoice] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [answerInfoOpen, setAnswerInfoOpen] = useState(false);
+  const [answerInfoRead, setAnswerInfoRead] = useState(false);
   const [copied, setCopied] = useState(false);
   const autoJoined = useRef(false);
 
@@ -76,7 +79,7 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
       setRoomCode(result);
       setRoom(await fetchVsRoom(result));
       setChoice(null);
-      setShowFeedback(false);
+      setShowFeedback(false);setAnswerInfoOpen(false);setAnswerInfoRead(false);
     } catch (cause) {
       setError(userFriendlyVsError(cause));
     } finally {
@@ -142,12 +145,20 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
     try {
       await sendVsAnswer(roomCode, room.myAnswers.length, choice);
       await refresh(roomCode);
-      setShowFeedback(true);
+      setShowFeedback(true);setAnswerInfoOpen(false);setAnswerInfoRead(false);
     } catch (cause) {
       setError(userFriendlyVsError(cause));
       await refresh(roomCode).catch(() => undefined);
     } finally { setSending(false); }
   };
+
+  useEffect(() => {
+    if(!showFeedback||answerInfoOpen)return;
+    const timer=window.setTimeout(()=>{
+      setShowFeedback(false);setChoice(null);setAnswerInfoRead(false);
+    },answerInfoRead?1700:4400);
+    return ()=>window.clearTimeout(timer);
+  },[showFeedback,answerInfoOpen,answerInfoRead]);
 
   const leave = () => {
     if (inviteCodeFromUrl()) {
@@ -167,6 +178,10 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
   const myName = room?.isHost ? room.hostName : room?.guestName;
   const winning = room && room.myScore > room.otherScore;
   const draw = room && room.myScore === room.otherScore;
+  const previousQuestion = room?.questions[currentIndex - 1];
+  const correctLabel = previousQuestion?.choices[previousAnswer?.correctIndex ?? -1] || '';
+  const countryInfo = Object.values(COUNTRY_DATA).find(c =>
+    c.nameTr.toLocaleLowerCase('tr-TR') === correctLabel.toLocaleLowerCase('tr-TR')) || null;
 
   return (
     <div className="fixed inset-0 z-[100] overflow-y-auto bg-[#07152d] text-white">
@@ -286,12 +301,24 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
               <div className="fixed inset-x-4 bottom-5 z-10 mx-auto max-w-lg rounded-2xl border border-white/20 bg-[#0e2744] p-4 shadow-2xl">
                 <div className="flex items-center gap-2 font-black">{previousAnswer.correct ? <CheckCircle2 className="text-emerald-300" /> : <XCircle className="text-rose-300" />}{previousAnswer.correct ? 'Doğru! +100 puan' : 'Yanlış cevap'}</div>
                 <p className="mt-1 text-xs text-blue-200">Doğru cevap: {room.questions[currentIndex - 1]?.choices[previousAnswer.correctIndex]}</p>
-                <button type="button" onClick={() => { setShowFeedback(false); setChoice(null); }} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-white/15 p-3 text-sm font-black">Sonraki soru <ArrowRight className="h-4 w-4" /></button>
+                <button type="button" onClick={() => { setAnswerInfoOpen(true);setAnswerInfoRead(true); }} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-300/35 bg-cyan-300/10 p-3 text-sm font-black text-cyan-100" aria-haspopup="dialog"><span className="text-lg">ⓘ</span> Doğru cevap hakkında bilgi</button>
+                <p className="mt-2 text-center text-[11px] text-blue-200/70">Sıradaki soru otomatik açılacak.</p>
               </div>
             )}
           </>
         )}
 
+        {showFeedback&&answerInfoOpen&&previousQuestion&&(
+          <div className="fixed inset-0 z-[200] flex items-center justify-center bg-[#051228]/90 p-4 backdrop-blur-sm" onClick={()=>setAnswerInfoOpen(false)} role="presentation">
+            <section onClick={event=>event.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="vsFactTitle" className="w-full max-w-md rounded-[23px] border border-cyan-200/35 bg-gradient-to-b from-[#1e3d53] to-[#0b213c] p-5 shadow-2xl">
+              <div className="mb-3 flex items-center justify-between gap-3 text-xs font-black tracking-wider text-cyan-200"><span>✦ GLOBRIVA · BİLGİ KARTI</span><button type="button" autoFocus aria-label="Kapat" className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-xl" onClick={()=>setAnswerInfoOpen(false)}>×</button></div>
+              <h3 id="vsFactTitle" className="text-xl font-black">{correctLabel}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-200">{previousQuestion.question}</p>
+              {countryInfo?<p className="mt-3 rounded-xl border border-amber-200/20 bg-amber-200/5 p-3 text-sm text-amber-100">Bu ülkenin başkenti: <strong>{countryInfo.capitalTr}</strong>.</p>:<p className="mt-3 rounded-xl bg-white/5 p-3 text-sm text-slate-100"><span className="font-bold text-amber-200">Konu: </span>{previousQuestion.topic}</p>}
+              <p className="mt-4 text-xs text-blue-100/65">Kapatınca oyun otomatik devam eder.</p>
+            </section>
+          </div>
+        )}
         {error && (
           <div role="alert" className="mt-4 rounded-2xl border border-rose-300/40 bg-rose-400/10 p-4 text-sm leading-6 text-rose-100">
             {error}
