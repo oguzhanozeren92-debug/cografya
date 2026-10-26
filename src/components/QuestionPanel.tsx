@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Check, X, Info, MapPin, Building2, Flag, Sparkles, Lightbulb, LockKeyhole, BookOpen, Search } from 'lucide-react';
 import { getCountryFlag } from '@/data/flags';
 import { COUNTRY_DATA } from '@/data/countries';
+import { EXTRA_COUNTRY_KNOWLEDGE } from '@/data/countryKnowledge';
 import { getCountryClue } from '@/data/countryClues';
 import { motion, useReducedMotion } from 'motion/react';
 import { playGameSound } from '@/lib/gameFx';
@@ -45,7 +46,7 @@ export function QuestionPanel({
   const flag = countryId ? getCountryFlag(countryId) : null;
   const country = countryId ? COUNTRY_DATA[countryId] : null;
   const learningCard = countryId ? getCountryClue(countryId) : null;
-  const learningFact = learningCard ? localizedClueCard(learningCard, language).fact : null;
+  const learningFact = learningCard ? localizedClueCard(learningCard, language).fact : countryId ? EXTRA_COUNTRY_KNOWLEDGE[countryId] : null;
   useEffect(() => {
     if (!answerInfoOpen) return;
     const onEscape = (event: KeyboardEvent) => {
