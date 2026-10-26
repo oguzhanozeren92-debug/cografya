@@ -78,6 +78,8 @@ export function HistoryDetectiveScreen({
   const [photoError,setPhotoError]=useState('');
   const [questionIndex,setQuestionIndex]=useState(0);
   const [picked,setPicked]=useState<number|null>(null);
+  const [infoOpen,setInfoOpen]=useState(false);
+  const [infoRead,setInfoRead]=useState(false);
   const [roundPoints,setRoundPoints]=useState(0);
   const [correctCount,setCorrectCount]=useState(0);
   const [results,setResults]=useState<Result[]>([]);
@@ -156,10 +158,11 @@ export function HistoryDetectiveScreen({
   const nextQuestion=()=>{
     if(picked===null)return;
     if(questionIndex===2){
+      setInfoOpen(false);setInfoRead(false);
       setStage('reveal');
     }else{
       setQuestionIndex(v=>v+1);
-      setPicked(null);
+      setPicked(null);setInfoOpen(false);setInfoRead(false);
     }
   };
   const skip=()=>{
@@ -167,6 +170,7 @@ export function HistoryDetectiveScreen({
     // complete the set without inventing historical answers or points.
     setRoundPoints(0);
     setCorrectCount(0);
+    setInfoOpen(false);setInfoRead(false);
     setStage('reveal');
   };
   const advance=()=>{
@@ -195,6 +199,7 @@ export function HistoryDetectiveScreen({
       return;
     }
     setIndex(v=>v+1);
+    setInfoOpen(false);setInfoRead(false);
     setStage('inspect');
     setReady(false);
     setUseStatic(false);
@@ -205,6 +210,17 @@ export function HistoryDetectiveScreen({
     setCorrectCount(0);
     setSeconds(0);
   };
+  useEffect(()=>{
+    if(infoOpen||!active)return;
+    if(stage==='quiz'&&picked!==null){
+      const timer=window.setTimeout(()=>nextQuestion(),infoRead?1700:4400);
+      return ()=>window.clearTimeout(timer);
+    }
+    if(stage==='reveal'){
+      const timer=window.setTimeout(()=>advance(),infoRead?1700:4400);
+      return ()=>window.clearTimeout(timer);
+    }
+  },[stage,picked,questionIndex,index,infoOpen,infoRead,active?.id]);
   const switchLevel=(nextLevel:Difficulty)=>{
     if(nextLevel==='medium'&&!mediumUnlocked)return;
     setLevel(nextLevel);
@@ -423,7 +439,8 @@ export function HistoryDetectiveScreen({
                     const correct=optionIndex===question.correct;
                     const selected=picked===optionIndex;
                     return (
-                      <button key={optionIndex} type="button" disabled={answered} onClick={()=>answer(optionIndex)}
+                      <div key={optionIndex} className="relative">
+                      <button type="button" disabled={answered} onClick={()=>answer(optionIndex)}
                         className={'flex min-h-[49px] w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left text-sm font-bold transition '+
                           (answered&&correct?'border-emerald-300/80 bg-emerald-300/20 text-emerald-50':
                             answered&&selected?'border-rose-300/70 bg-rose-300/15 text-rose-100':
@@ -433,6 +450,8 @@ export function HistoryDetectiveScreen({
                         {answered&&correct&&<CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-300"/>}
                         {answered&&selected&&!correct&&<XCircle className="h-5 w-5 shrink-0 text-rose-300"/>}
                       </button>
+                      {answered&&correct&&<button type="button" onClick={()=>{setInfoOpen(true);setInfoRead(true)}} aria-label={text('Doğru cevap hakkında bilgi','About the correct answer')} aria-haspopup="dialog" className="absolute right-2 top-1/2 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full border border-amber-200/70 bg-[#364a50] text-lg font-black text-amber-100">ⓘ</button>}
+                      </div>
                     );
                   })}
                 </div>
@@ -442,12 +461,9 @@ export function HistoryDetectiveScreen({
                       <p className={'mb-1 text-sm font-black '+(picked===question.correct?'text-emerald-200':'text-orange-200')}>
                         {picked===question.correct?text('Doğru!','Correct!'):text('Yanlış cevap','Wrong answer')}
                       </p>
-                      <p className="text-xs leading-5 text-blue-100/90">{localized(question.explanation)}</p>
+                      <p className="text-xs leading-5 text-blue-100/90">{text('Açıklama için doğru cevabın yanındaki ⓘ simgesine dokun. Soru otomatik değişecek.','Tap ⓘ beside the correct answer to learn more. The next question loads automatically.')}</p>
                     </div>
-                    <button type="button" className="street-primary w-full" onClick={nextQuestion}>
-                      {questionIndex===2?text('Tarihî bilgiyi keşfet','Reveal the history'):text('Sonraki soru','Next question')}
-                      <ArrowRight className="h-4 w-4"/>
-                    </button>
+
                   </>
                 )}
                 <button type="button" className="street-secondary w-full" onClick={()=>{
@@ -492,14 +508,33 @@ export function HistoryDetectiveScreen({
                       className="font-semibold underline underline-offset-2">{text('Tarihî bilgi kaynağı','History reference')}</a>
                   </p>
                 </div>
-                <button type="button" className="street-primary w-full" onClick={advance}>
-                  {index===cases.length-1?text('Sonuçlarımı gör','View my results'):text('Sonraki tarihî mekân','Next historical landmark')}
-                  <ArrowRight className="h-4 w-4"/>
-                </button>
+                <button type="button" aria-haspopup="dialog" className="street-secondary w-full" onClick={()=>{setInfoOpen(true);setInfoRead(true)}}><span className="text-lg">ⓘ</span> {text('Mekânı daha yakından tanı','Learn about this historic place')}</button>
+                <p className="text-center text-xs text-blue-100/65">{text('Birazdan otomatik devam edecek.','Moving on automatically.')}</p>
               </section>
             )}
           </div>
         ):null}
+        {infoOpen&&active&&(
+          <div className="fixed inset-0 z-[160] flex items-center justify-center bg-[#050e1b]/90 p-4 backdrop-blur-sm" role="presentation" onClick={()=>setInfoOpen(false)}>
+            <section role="dialog" aria-modal="true" aria-labelledby="historyKnowledgeTitle" onClick={e=>e.stopPropagation()} className="w-full max-w-md overflow-y-auto rounded-[23px] border border-amber-200/40 bg-gradient-to-b from-[#284550] to-[#0b2034] p-5 text-blue-50 shadow-2xl" style={{maxHeight:'82dvh'}}>
+              <div className="mb-4 flex items-center justify-between gap-3 text-xs font-black tracking-wider text-amber-200">
+                <span>✦ GLOBRIVA · {text('TARİH NOTU','HISTORY NOTE')}</span>
+                <button type="button" autoFocus onClick={()=>setInfoOpen(false)} aria-label={text('Kapat','Close')} className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-xl">×</button>
+              </div>
+              <h3 id="historyKnowledgeTitle" className="mb-3 text-xl font-black">{stage==='quiz'&&question?localized(question.options[question.correct]):localized(active.monument)}</h3>
+              {stage==='quiz'&&question?<p className="text-sm leading-6">{localized(question.explanation)}</p>:<>
+                <p className="text-sm leading-6">{localized(active.fact)}</p>
+                <dl className="mt-3 space-y-2 rounded-xl border border-white/15 bg-white/5 p-3 text-sm">
+                  <div><dt className="font-bold text-amber-200">{text('Dönem','Period')}</dt><dd>{localized(active.era)}</dd></div>
+                  <div><dt className="font-bold text-amber-200">{text('Kültür','Culture')}</dt><dd>{localized(active.tradition)}</dd></div>
+                  <div><dt className="font-bold text-amber-200">{text('Yapılış amacı','Original purpose')}</dt><dd>{localized(active.purpose)}</dd></div>
+                </dl>
+                <a href={active.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-xs font-bold text-cyan-200 underline">{text('Tarihî bilgi kaynağı','History reference')}</a>
+              </>}
+              <p className="mt-4 text-xs text-blue-100/65">{text('Kapatınca oyun otomatik devam eder.','The game resumes automatically after closing.')}</p>
+            </section>
+          </div>
+        )}
         <p className="mt-5 text-center text-[10px] leading-5 text-blue-100/50">
           {level==='easy'
             ?text('Kolay · 8 mekân · 24 soru · Orta seviye için en az 4.800 puan',
