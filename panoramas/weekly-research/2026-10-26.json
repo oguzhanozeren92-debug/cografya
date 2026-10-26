@@ -1,0 +1,525 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-26",
+  "status": "research_and_release_queue_only",
+  "notAnApprovalOrPublish": true,
+  "summary": {
+    "commonsPanoramaCandidatesReviewed": 14,
+    "countries": [
+      "Brezilya",
+      "Ermenistan",
+      "Özbekistan",
+      "Finlandiya",
+      "Kanada",
+      "İzlanda",
+      "Danimarka",
+      "Avustralya",
+      "Birleşik Krallık",
+      "Güney Afrika",
+      "Peru"
+    ],
+    "countriesCount": 11,
+    "metadataChecked": 14,
+    "previewVisuallyScreened": 9,
+    "queuedExistingPublisher": 5,
+    "pendingOrDeferred": 9,
+    "newPublishedThisRun": 0,
+    "streetExistingPublished": 37,
+    "streetStaticFacesHeadOk": 148,
+    "streetCommonsLicenseMatches": 37,
+    "droneExistingPublishedAlbums": 16,
+    "droneExistingPublishedPhotos": 51,
+    "droneLiveAssetsHeadOk": 51,
+    "droneCommonsLicenseAndArtistMatches": 51,
+    "dronePendingAlbums": 4,
+    "dronePendingPhotos": 12,
+    "drone360ExistingPilot": 5,
+    "drone360PendingCandidates": 5,
+    "droneExistingPhotosGeotagged": 14,
+    "streetExistingPanoramasGeotagged": 21
+  },
+  "candidateRecords": [
+    {
+      "country": "Brezilya",
+      "city": "Nova Odessa",
+      "source": "https://commons.wikimedia.org/wiki/File:Jardim_Botanico_Plantarum_360_graus.jpg",
+      "sourceTitle": "File:Jardim Botanico Plantarum 360 graus.jpg",
+      "artist": "Ricardo de Sampaio Dagnino",
+      "license": "CC BY-SA 4.0",
+      "width": 6656,
+      "height": 3328,
+      "lat": -22.7803127,
+      "lng": -47.3136936,
+      "mode": "street",
+      "existingReviewedId": "br-plantarum-garden-002",
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": true,
+        "status": "deferred_low_gameplay_distinctiveness",
+        "note": "Bahçe manzarası coğrafya tahmini için ayırt edici değil."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Ermenistan",
+      "city": "Erivan",
+      "source": "https://commons.wikimedia.org/wiki/File:360_Panorama_-_New_Year_decorations_in_front_of_National_Gallery_Building_of_Armenia%2C_Yeravan_2022.jpg",
+      "sourceTitle": "File:360 Panorama - New Year decorations in front of National Gallery Building of Armenia, Yeravan 2022.jpg",
+      "artist": "Aleksey Chalabyan a.k.a Xelgen",
+      "license": "CC BY-SA 4.0",
+      "width": 6528,
+      "height": 3264,
+      "lat": 40.178417,
+      "lng": 44.513639,
+      "mode": "street",
+      "existingReviewedId": "am-yerevan-gallery-night-002",
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": true,
+        "status": "queued_for_existing_authorized_publisher",
+        "note": "Işıklandırılmış meydan/galeri girişi, konum doğrulandı; yayın R2 testine bağlı."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Özbekistan",
+      "city": "Taşkent",
+      "source": "https://commons.wikimedia.org/wiki/File:360_panorama_near_State_Museum_of_History_of_Uzbekistan.jpg",
+      "sourceTitle": "File:360 panorama near State Museum of History of Uzbekistan.jpg",
+      "artist": "Aleksey Chalabyan a.k.a Xelgen",
+      "license": "CC BY-SA 4.0",
+      "width": 6528,
+      "height": 3264,
+      "lat": 41.312167,
+      "lng": 69.269611,
+      "mode": "street",
+      "existingReviewedId": "uz-tashkent-museum-outside-002",
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": true,
+        "status": "queued_for_existing_authorized_publisher",
+        "note": "Müze dış cephesi ve meydan, gerçek Insta360 çekimi, konum doğrulandı."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Finlandiya",
+      "city": "Oulu",
+      "source": "https://commons.wikimedia.org/wiki/File:Oulu_Kirkkokatu_3.jpg",
+      "sourceTitle": "File:Oulu Kirkkokatu 3.jpg",
+      "artist": "Arto häkkilä",
+      "license": "CC BY-SA 4.0",
+      "width": 6080,
+      "height": 3040,
+      "lat": 65.014934,
+      "lng": 25.47475,
+      "mode": "street",
+      "existingReviewedId": "fi-oulu-winter-street-002",
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": true,
+        "status": "deferred_low_light",
+        "note": "Gece görüntüsü fazla karanlık, oyun kalitesi için bekletildi."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Kanada",
+      "city": "Niagara Falls",
+      "source": "https://commons.wikimedia.org/wiki/File:360_photo_between_Horseshoe_and_American_Falls_Niagara_Falls_Canada_2025-09-06_19-12-46_1.jpg",
+      "sourceTitle": "File:360 photo between Horseshoe and American Falls Niagara Falls Canada 2025-09-06 19-12-46 1.jpg",
+      "artist": "G. Edward Johnson",
+      "license": "CC BY 4.0",
+      "width": 5760,
+      "height": 2880,
+      "lat": 43.079599,
+      "lng": -79.078247,
+      "mode": "street",
+      "existingReviewedId": "ca-niagara-falls-002",
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": true,
+        "status": "queued_for_existing_authorized_publisher",
+        "note": "Horseshoe Şelalesi belirgin, gündüz, güçlü oyun ipucu."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "İzlanda",
+      "city": "Gullfoss",
+      "source": "https://commons.wikimedia.org/wiki/File:Gullfoss_Waterfall_Iceland_360_degree_panorama_2026-02-06_09-25-21_1.jpg",
+      "sourceTitle": "File:Gullfoss Waterfall Iceland 360 degree panorama 2026-02-06 09-25-21 1.jpg",
+      "artist": "G. Edward Johnson",
+      "license": "CC BY 4.0",
+      "width": 5760,
+      "height": 2880,
+      "lat": 64.326179,
+      "lng": -20.124309,
+      "mode": "street",
+      "existingReviewedId": "is-gullfoss-waterfall-002",
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": true,
+        "status": "queued_for_existing_authorized_publisher",
+        "note": "Gullfoss şelalesi, 360° GoPro, güçlü oyun ipucu."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Danimarka",
+      "city": "Kopenhag",
+      "source": "https://commons.wikimedia.org/wiki/File:Vor_Frelsers_Kirke_(Kopenhagen)_%E2%80%93_360%C2%B0_panorama_from_the_top.jpg",
+      "sourceTitle": "File:Vor Frelsers Kirke (Kopenhagen) – 360° panorama from the top.jpg",
+      "artist": "Maximilian Schönherr",
+      "license": "CC BY-SA 4.0",
+      "width": 5376,
+      "height": 2688,
+      "lat": 55.67291667,
+      "lng": 12.59402778,
+      "mode": "street",
+      "existingReviewedId": "dk-copenhagen-tower-002",
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": true,
+        "status": "queued_for_existing_authorized_publisher",
+        "note": "Kule tepesinden mimari şehir panoraması, güçlü şehir ipuçları."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Avustralya",
+      "city": "Wagga Wagga",
+      "source": "https://commons.wikimedia.org/wiki/File:360%C2%B0_aerial_panorama_of_Wagga_Wagga_over_the_Murrumbidgee_River.jpg",
+      "sourceTitle": "File:360° aerial panorama of Wagga Wagga over the Murrumbidgee River.jpg",
+      "artist": "Bidgee",
+      "license": "CC BY-SA 3.0 au",
+      "width": 12000,
+      "height": 6000,
+      "lat": -35.104591,
+      "lng": 147.372898,
+      "mode": "drone_360",
+      "existingReviewedId": "air-008",
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": false,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": true,
+        "status": "deferred_license_variant_not_in_publisher_allowlist",
+        "note": "Ticari kullanıma açık CC BY-SA 3.0 AU ancak mevcut yayıncının allowlist'inde değil; uyarlama ve atıf kontrolü gerek."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Birleşik Krallık",
+      "city": "Bexhill-on-Sea",
+      "source": "https://commons.wikimedia.org/wiki/File:De_La_Warr_Pavilion%2C_Bexhill_(360_aerial_panorama).jpg",
+      "sourceTitle": "File:De La Warr Pavilion, Bexhill (360 aerial panorama).jpg",
+      "artist": "Alexis Markwick",
+      "license": "CC BY-SA 4.0",
+      "width": 10240,
+      "height": 5120,
+      "lat": 50.836989,
+      "lng": 0.471848,
+      "mode": "drone_360",
+      "existingReviewedId": "air-007",
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": true,
+        "status": "pending_drone_tile_and_editorial_gate",
+        "note": "360° aerial panorama; konum ve lisans doğrulandı, drone adayının editoryal bayrakları ve R2 tile testi eksik."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Güney Afrika",
+      "city": "Cape Town",
+      "source": "https://commons.wikimedia.org/wiki/File:Table_mountain_2_%E2%80%93_HDR-Panorama_(Greg_Zaal_and_Rico_Cilliers_via_Poly_Haven).jpg",
+      "sourceTitle": "File:Table mountain 2 – HDR-Panorama (Greg Zaal and Rico Cilliers via Poly Haven).jpg",
+      "artist": "Greg Zaal; Rico Cilliers (backplates)",
+      "license": "CC0",
+      "width": 16384,
+      "height": 8192,
+      "lat": -33.958997,
+      "lng": 18.404364,
+      "mode": "street_hdri",
+      "existingReviewedId": null,
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": false,
+        "status": "pending_visual_review",
+        "note": "Poly Haven API GPS, 16K HDRI ve CC0 doğrulandı; 360 oyun kompozisyonu ayrıca incelenmeli."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Güney Afrika",
+      "city": "Cape Town",
+      "source": "https://commons.wikimedia.org/wiki/File:Signal_hill_sunrise_%E2%80%93_Panorama_(Greg_Zaal_and_Rico_Cilliers_via_Poly_Haven).jpg",
+      "sourceTitle": "File:Signal hill sunrise – Panorama (Greg Zaal and Rico Cilliers via Poly Haven).jpg",
+      "artist": "Greg Zaal; Rico Cilliers (backplates)",
+      "license": "CC0",
+      "width": 8192,
+      "height": 4096,
+      "lat": -33.916445,
+      "lng": 18.404682,
+      "mode": "street_hdri",
+      "existingReviewedId": null,
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": false,
+        "status": "pending_visual_review",
+        "note": "Poly Haven API GPS ve CC0 doğrulandı; düşük güneş/pozlama oyun görünürlüğü kontrolü bekliyor."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Güney Afrika",
+      "city": "Cape Town",
+      "source": "https://commons.wikimedia.org/wiki/File:Victoria_sunset_%E2%80%93_Panorama_(Greg_Zaal_via_Poly_Haven).jpg",
+      "sourceTitle": "File:Victoria sunset – Panorama (Greg Zaal via Poly Haven).jpg",
+      "artist": "Greg Zaal",
+      "license": "CC0",
+      "width": 24576,
+      "height": 12288,
+      "lat": -33.977824,
+      "lng": 18.367055,
+      "mode": "street_hdri",
+      "existingReviewedId": null,
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": false,
+        "status": "pending_visual_review",
+        "note": "Poly Haven API GPS ve CC0 doğrulandı; çok büyük orijinalin işleme maliyeti ve görsel kalite kontrolü bekliyor."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Peru",
+      "city": "Cusco",
+      "source": "https://commons.wikimedia.org/wiki/File:Plaza_de_armas_del_Cusco%2C_vista_360.jpg",
+      "sourceTitle": "File:Plaza de armas del Cusco, vista 360.jpg",
+      "artist": "Johnattan Rupire",
+      "license": "CC BY-SA 4.0",
+      "width": 5660,
+      "height": 2830,
+      "lat": -13.51604,
+      "lng": -71.978438,
+      "mode": "street",
+      "existingReviewedId": null,
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": false,
+        "status": "pending_visual_review",
+        "note": "Gerçek Plaza de Armas 360° fotoğrafı; konum, kaynak, lisans doğrulandı; önizleme QA bekliyor."
+      },
+      "publishedThisRun": false
+    },
+    {
+      "country": "Peru",
+      "city": "Cusco",
+      "source": "https://commons.wikimedia.org/wiki/File:Vista_360_plaza_del_Cusco%2C_Iglesia.jpg",
+      "sourceTitle": "File:Vista 360 plaza del Cusco, Iglesia.jpg",
+      "artist": "Johnattan Rupire",
+      "license": "CC BY-SA 4.0",
+      "width": 5660,
+      "height": 2830,
+      "lat": -13.51625,
+      "lng": -71.978198,
+      "mode": "street",
+      "existingReviewedId": null,
+      "metadata": {
+        "commonsFileFound": true,
+        "licenseMatched": true,
+        "authorChecked": true,
+        "geotagPresent": true,
+        "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
+        "aspectRatio2to1": true,
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+      },
+      "visual": {
+        "checked": false,
+        "status": "pending_visual_review",
+        "note": "Cusco katedral çevresi; 360°, konum ve lisans doğrulandı; önizleme QA bekliyor."
+      },
+      "publishedThisRun": false
+    }
+  ],
+  "supplementarySources": [
+    {
+      "provider": "Poly Haven",
+      "asset": "urban_street_01",
+      "url": "https://polyhaven.com/a/urban_street_01",
+      "author": "Andreas Mischok",
+      "license": "CC0",
+      "coords": [
+        51.528295,
+        -0.053879
+      ],
+      "size": [
+        16384,
+        8192
+      ],
+      "status": "not_selected_generic_street_cues"
+    },
+    {
+      "provider": "Poly Haven",
+      "asset": "urban_street_02",
+      "url": "https://polyhaven.com/a/urban_street_02",
+      "author": "Andreas Mischok",
+      "license": "CC0",
+      "coords": [
+        51.526655,
+        -0.056465
+      ],
+      "size": [
+        19310,
+        9655
+      ],
+      "status": "not_selected_generic_street_cues"
+    },
+    {
+      "provider": "Poly Haven",
+      "asset": "urban_street_04",
+      "url": "https://polyhaven.com/a/urban_street_04",
+      "author": "Andreas Mischok",
+      "license": "CC0",
+      "coords": [
+        51.511786,
+        -0.201884
+      ],
+      "size": [
+        20840,
+        10420
+      ],
+      "status": "not_selected_generic_street_cues"
+    }
+  ],
+  "flickr": {
+    "searchedTermsAndConditions": true,
+    "photoImported": 0,
+    "reason": "Commercial API use requires prior permission; no authorization/individual photo source verified in this run. No scraping."
+  },
+  "otherSources": {
+    "unsplash": 0,
+    "pexels": 0,
+    "pixabay": 0,
+    "reason": "No CC0 presumption; no unlicensed import."
+  },
+  "publicationRule": "Only reviewed source, correct attribution/license, geolocation, genuine equirectangular 360 photo, distinctive image, authorized publisher R2 tiles/static faces and HEAD verification; until upload, report newPublished=0."
+}
