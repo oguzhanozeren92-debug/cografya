@@ -60,7 +60,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": true,
@@ -90,7 +91,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": true,
@@ -120,7 +122,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": true,
@@ -150,7 +153,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": true,
@@ -180,7 +184,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": true,
@@ -210,7 +215,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": true,
@@ -240,7 +246,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": true,
@@ -269,13 +276,14 @@
         "geotagPresent": true,
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
-        "commercialUseEligible": false,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "commercialUseEligible": true,
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": false
       },
       "visual": {
         "checked": true,
         "status": "deferred_license_variant_not_in_publisher_allowlist",
-        "note": "Ticari kullanıma açık CC BY-SA 3.0 AU ancak mevcut yayıncının allowlist'inde değil; uyarlama ve atıf kontrolü gerek."
+        "note": "CC BY-SA 3.0 AU ticari kullanıma izin verir; mevcut otomatik yayıncının sürüm/atıf kontrol listesinde desteklenmediği için bekletildi."
       },
       "publishedThisRun": false
     },
@@ -300,7 +308,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": true,
@@ -330,7 +339,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": false,
@@ -360,7 +370,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": false,
@@ -390,7 +401,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": false,
@@ -420,7 +432,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": false,
@@ -450,7 +463,8 @@
         "realPhotoEvidence": "Commons own-work/credited source, location metadata and 360 viewer; 2:1 original",
         "aspectRatio2to1": true,
         "commercialUseEligible": true,
-        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified"
+        "projectionEvidence": "2:1 + 360° source/viewer; final R2 cubemap must be verified",
+        "publisherLicenseAllowlistMatch": true
       },
       "visual": {
         "checked": false,
