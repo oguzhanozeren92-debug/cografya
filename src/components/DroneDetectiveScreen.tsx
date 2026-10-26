@@ -105,6 +105,8 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
   },[assetsRetry]);
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('view');
+  const [factOpen,setFactOpen]=useState(false);
+  const [factRead,setFactRead]=useState(false);
   const [hintCount, setHintCount] = useState(0);
   const [hintBusy,setHintBusy]=useState(false);
   const [hintError,setHintError]=useState('');
@@ -214,8 +216,14 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
     } else {
       setIndex(n => n + 1); setPhase('view'); setGuess(null);
       setDistance(null); setRoundPoints(0); setReady(false); setHintCount(0);
+      setFactOpen(false);setFactRead(false);
     }
   };
+  useEffect(()=>{
+    if(phase!=='result'||factOpen)return;
+    const timeout=window.setTimeout(()=>next(),factRead?1700:4400);
+    return ()=>window.clearTimeout(timeout);
+  },[phase,index,factOpen,factRead,answered.length]);
   const unlockHint = async () => {
     if (!ready || hintBusyRef.current ||
       (phase !== 'view' && phase !== 'guess') || hintCount >= DRONE_HINT_TOTAL) return;
@@ -408,7 +416,7 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                         {guessedCorrectCountry(guess,current.country)?t('Ülkeyi doğru buldun!'):t('Ülke tahminin farklı çıktı.')}
                       </p>
                     )}
-                    <p className="text-xs leading-5 text-blue-100/75">{t(current.fact)}</p>
+                    <button type="button" onClick={()=>{setFactOpen(true);setFactRead(true)}} aria-haspopup="dialog" className="inline-flex min-h-10 items-center gap-2 rounded-full border border-cyan-200/50 bg-cyan-200/10 px-4 text-xs font-black text-cyan-100"><span className="text-lg" aria-hidden="true">ⓘ</span>{t('Bu konum hakkında bilgi')}</button>
                     {panorama.media.mode==='gallery' ? (
                       <div className="pt-3 space-y-1 text-[11px] leading-5 text-blue-100/70">
                         {panorama.media.images.map((photo,i)=>(
@@ -442,13 +450,21 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
                       </button>
                     </>
                   ) : (
-                    <button type="button" onClick={next} className="street-primary w-full">
-                      {index === rows.length - 1 ? t('Sonuçları gör') : t('Sonraki drone konumu')} <ArrowRight className="h-4 w-4" />
-                    </button>
+                    <p className="text-center text-xs font-semibold text-blue-100/70">{t('Konum otomatik değişecek.')}</p>
                   )}
                 </section>
               </div>
             )}
+          </div>
+        )}
+        {phase==='result'&&factOpen&&(
+          <div role="presentation" onClick={()=>setFactOpen(false)} className="fixed inset-0 z-[180] flex items-center justify-center bg-[#061323]/90 p-4 backdrop-blur-sm">
+            <section role="dialog" aria-modal="true" aria-labelledby="droneFactTitle" onClick={e=>e.stopPropagation()} className="w-full max-w-md rounded-[23px] border border-amber-200/35 bg-gradient-to-b from-[#26475a] to-[#092238] p-5 shadow-2xl">
+              <div className="mb-3 flex items-center justify-between text-xs font-black uppercase tracking-wider text-amber-200"><span>✦ Globriva · {t('Keşif notu')}</span><button autoFocus type="button" onClick={()=>setFactOpen(false)} aria-label={t('Kapat')} className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-xl">×</button></div>
+              <h3 id="droneFactTitle" className="text-xl font-black">{t(current.city)} · {localizedCountryName(current.country,language)}</h3>
+              <p className="mt-4 text-sm leading-6 text-blue-50">{t(current.fact)}</p>
+              <a href={current.source} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-xs font-semibold text-amber-200 underline">{t('Görüntü kaynağı')}</a>
+            </section>
           </div>
         )}
         <p className="mt-5 text-center text-[11px] leading-5 text-blue-200/65">
