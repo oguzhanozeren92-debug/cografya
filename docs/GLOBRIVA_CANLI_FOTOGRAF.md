@@ -10,15 +10,16 @@
 
 `panoramas/drone-gallery-candidates.json` — yeni fotoğraf albümlerinin kaynakları, eser sahipleri, lisans bağlantıları, konumları, ipuçları ve onay durumları.
 
-Şu anda burada **16 albümde, 16 farklı ülkeden 51 kaynak adayı** var:
+Güncel dosyada **22 albümde, 21 farklı ülkeden 69 kaynak fotoğrafı adayı** var (27 Ekim 2026).
 
 - Londra — 4, İstanbul — 4, Roma — 4, Paris — 3
 - Berlin, Sidney, Tokyo, Barselona, New York — üçer fotoğraf
-- Rio de Janeiro, Atina, Amsterdam, Toronto, Gize, Agra, Mexico City — üçer fotoğraf
+- Rio de Janeiro, Atina, Amsterdam, Toronto, Gize, Agra, Mexico City, Prag, Venedik, Viyana, Lizbon — üçer fotoğraf
+- Katmandu (Nepal) ve Cape Town (Güney Afrika) — üçer fotoğraf; son altı görüntünün sanatçı/CC BY-SA 4.0 bağlantıları kontrol edildi, görsel ve yer incelemesi bekleniyor
 
 **51 aday ≠ 51 yayımlanmış fotoğraf.** Bu seçkide her fotoğrafın kaynak URL'si, bildirilen eser sahibi ve Creative Commons lisans bağlantısı saklıdır. Kaynak URL'sinin varlığı fotoğrafın görsel olarak uygun veya R2'ye yüklenmiş olduğu anlamına gelmez. Albümlerdeki inceleme işaretleri bilerek `false` tutuluyor.
 
-Bu 51 kayıt **araştırılmış adaydır**. Fotoğrafların son görsel doğrulaması ve R2'ye yüklenmesi yapılmadan bunları aktif sayma. Her albümde `reviewedLocation` ve `reviewedQuality`, ayrıca her fotoğrafta `reviewedVisual`, `reviewedLicense` ve `reviewedPlace` doğrulanıp `true` yapılmalıdır. Sadece dosya adlarına dayanarak onay verme.
+Bu 69 kayıt **araştırılmış adaydır**. Fotoğrafların son görsel doğrulaması ve R2'ye yüklenmesi yapılmadan bunları aktif sayma. Her albümde `reviewedLocation` ve `reviewedQuality`, ayrıca her fotoğrafta `reviewedVisual`, `reviewedLicense` ve `reviewedPlace` doğrulanıp `true` yapılmalıdır. Sadece dosya adlarına dayanarak onay verme.
 
 ## Yayınlama
 
@@ -48,3 +49,11 @@ Bu galeri görüntüleyiciyi destekleyen uygulama kodu bir kez App Store / Googl
 ### Eski 360° arşivi
 
 `panoramas/drone-live-candidates.json`, `scripts/panoramas/publish_drone_live.py` ve `drone-live/catalog-v1.json` önceki 360° sistemidir. Yeni 50 fotoğraf hedefini burada arama; yeni işler için `drone-gallery-candidates.json` kullan.
+
+## Yeni kaynak tarama aracı (güvenli aday üretimi)
+
+Komut: `npm run gallery:discover -- --term "Kathmandu skyline" --limit 30`
+
+`scripts/panoramas/discover-commons.mjs` Commons API'den fotoğraf meta verilerini alır; mevcut kaynakları yinelenen olarak eler ve JPEG, lisans ve asgari fotoğraf ölçülerini süzer. Yalnızca JSON **önerileri** yazdırır. Otomatik albüm eklemez, onay kutularını işaretlemez, R2'ye yüklemez. Lisans sayfasındaki sanatçı adını ve konumun gerçekten doğru olduğunu editör yeniden denetlemelidir. Tekrar eden, tarihi şehir adını başlıktan ele veren veya düşük kaliteli görüntüler eklenmemelidir.
+
+2026-10-27 kaynak çeşitliliği notu: Yalnız Commons CC BY/CC BY-SA/CC0/PD fotoğrafları mevcut yayın motorunun doğrudan desteklediği türlerdir. NASA, Smithsonian, Pexels, Unsplash gibi başka sağlayıcılardan içerik seçilirse önce ayrı hak/teknik yayın politikası hazırlanmalıdır; tüm ücretsiz görselleri Creative Commons sanmayın.
