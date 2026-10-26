@@ -17,7 +17,8 @@
     "native:ios:sync": "npm run build && npx cap sync ios && npm run native:configure",
     "gallery:audit": "node scripts/panoramas/check-local-gallery.mjs",
     "outdoor:audit": "node scripts/panoramas/check-eraatlas-outdoors.mjs",
-    "gallery:release-check": "node scripts/panoramas/check-local-gallery.mjs --release"
+    "gallery:release-check": "node scripts/panoramas/check-local-gallery.mjs --release",
+    "gallery:discover": "node scripts/panoramas/discover-commons.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
