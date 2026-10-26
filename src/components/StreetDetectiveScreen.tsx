@@ -17,6 +17,8 @@ import { localizedCountryName } from '@/lib/countryLanguage';
 import { streetLandmarkLabel, streetRegionLabel } from '@/lib/streetHintLocale';
 import { STREET_ROUNDS, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
+import { awardGeoStars, getGeoStars, type GeoAward } from '@/lib/geoRewards';
+import { GeoStarRow } from '@/components/GeoStarRow';
 
 type Phase = 'view'|'guess'|'result'|'finish'|'ranking';
 type Clue = {level:number;kind:'region'|'landmark'|'choices';value?:string;options?:string[]};
@@ -60,6 +62,7 @@ export function StreetDetectiveScreen({
   const [saveNote,setSaveNote]=useState('');
   const [saveState,setSaveState]=useState<'idle'|'saving'|'saved'|'error'|'offline'>('idle');
   const [lastFinalScore,setLastFinalScore]=useState(0);
+  const [stageAward,setStageAward]=useState<GeoAward|null>(null);
   const [saveError,setSaveError]=useState('');
   const current=rounds[idx];
   const openedAt=useRef(0);
@@ -74,7 +77,7 @@ export function StreetDetectiveScreen({
     setGuess(null);setReveal(null);setFactOpen(false);setFactRead(false);setClues([]);setHintCount(0);
     setEarnedHintLevel(null);setHintBusy(false);setHintError('');
     setReady(false);setShowRank(false);setSaveNote('');setPhase('view');
-    setSaveState('idle');setLastFinalScore(0);setSaveError('');
+    setSaveState('idle');setLastFinalScore(0);setSaveError('');setStageAward(null);
     try{
       const response=await fetch(atlasApi('/api/street/session'),{cache:'no-store'});
       const data=await response.json() as {rounds?:StreetRound[];error?:string};
@@ -159,6 +162,7 @@ export function StreetDetectiveScreen({
   };
   const finishGame=(rows:Completed[])=>{
     const points=rows.reduce((total,row)=>total+row.points,0);
+    setStageAward(awardGeoStars('street','tour',points,STREET_ROUNDS*5000,rows.length===STREET_ROUNDS));
     const best=rememberLocalStreetBest(points);
     setLastFinalScore(points);
     setSaveNote(t('Cihaz rekorun:')+' '+best.toLocaleString(language)+' '+t('puan')+'.');
@@ -286,6 +290,12 @@ export function StreetDetectiveScreen({
               <p className="text-sm font-bold text-blue-100/80">{t('Ülke turunu tamamladın!')}</p>
               <h2 className="my-3 text-[42px] font-black text-[#ffda96] tabular-nums">{score.toLocaleString(language)}</h2>
               <p className="font-bold">/ 25.000 {t('puan')}</p>
+              <div className="mt-4 rounded-2xl border border-amber-300/30 bg-amber-300/10 px-3 py-3" aria-live="polite">
+                <div className="text-xs font-extrabold tracking-widest text-amber-200">{language==='tr'?'SOKAK İZLERİ · YILDIZLAR':'STREET TRAILS · STARS'}</div>
+                <div className="mt-2"><GeoStarRow count={stageAward?.current ?? getGeoStars('street','tour')} large animated={Boolean(stageAward?.gained)}/></div>
+                <p className="mt-2 text-[11px] text-slate-200">{language==='tr'?'Puanın %70/%80/%90 eşiklerini geçtikçe yıldız kazanırsın.':'Earn stars at 70/80/90% of the possible points.'}</p>
+                {stageAward?.newBadges.map(b=><p key={b.id} className="mt-2 rounded-lg bg-amber-300/10 p-2 text-xs font-bold text-amber-100">{b.icon} {language==='tr'?'Yeni rozet: ':'New badge: '}{language==='tr'?b.tr:b.en}</p>)}
+              </div>
               <p className="mt-3 rounded-xl bg-white/5 px-3 py-2 text-xs leading-5 text-blue-100">{saveNote}</p>
               <div aria-live="polite" className="mt-2 rounded-xl bg-white/5 p-3 text-xs text-blue-100">
                 {saveState==='saving'?t('Skorun dünya ligine kaydediliyor...'):saveState==='saved'?t('Dünya ve haftalık lige kaydedildi!'):
