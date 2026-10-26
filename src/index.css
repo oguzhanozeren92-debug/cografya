@@ -1381,3 +1381,15 @@
  .atlas-home-illustrated .globriva-drone-button > span:first-child,.atlas-home-illustrated .globriva-street-stage .street-entry-art{width:54px!important;flex-basis:54px!important}
  .atlas-home-illustrated .globriva-drone-button strong,.atlas-home-illustrated .globriva-street-stage .street-entry-main strong{font-size:17px!important}
 }
+
+/* Globriva: persistent illustrated-game navigation and geography star ceremony. */
+.globriva-bottom-nav { padding-bottom: max(9px, env(safe-area-inset-bottom, 0px)); }
+.geo-star-pop { transform-origin: center; animation: geoStarPop .68s cubic-bezier(.15,.85,.25,1.25) both; }
+@keyframes geoStarPop {
+  0% { opacity:.2; transform:scale(.18) rotate(-28deg); filter:blur(5px); }
+  60% { opacity:1; transform:scale(1.28) rotate(7deg); filter:drop-shadow(0 0 12px #ffdd9b); }
+  100% { opacity:1; transform:scale(1) rotate(0); filter:none; }
+}
+.geo-reward-toast { animation: geoRewardReveal .42s ease-out both; }
+@keyframes geoRewardReveal { from { opacity:0; transform:translate(-50%,-14px) scale(.9); } to { opacity:1; transform:translate(-50%,0) scale(1); } }
+@media (prefers-reduced-motion:reduce) { .geo-star-pop,.geo-reward-toast { animation:none; } }
