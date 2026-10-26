@@ -5,12 +5,13 @@ import worldData from 'world-atlas/countries-110m.json';
 import { ArrowLeft, Compass, Mountain, MapPin, Sparkles, Trophy, RotateCcw } from 'lucide-react';
 import { COUNTRY_DATA } from '@/data/countries';
 import { BORDER_FOCUS, BORDER_SOURCE, ISLAND_COUNTRIES, NATURE_POINTS, NATURE_SOURCE, type NaturePoint } from '@/data/geoDiscoveryModes';
-import { useLanguage } from '@/lib/i18n';
+import { useLanguage, type Language } from '@/lib/i18n';
+import { localizedCountryById } from '@/lib/countryLanguage';
 
 export type GeoDiscoveryMode = 'nature'|'islands'|'borders';
 type Level = 1|2|3;
 type Option = {id:string; label:string;lat?:number;lon?:number};
-type Round = {id:string;prompt:string;options:Option[];answer:string;region:string;source:string;target?:string;featureId?:string;level:Level};
+type Round = {id:string;prompt:string;promptEn?:string;options:Option[];answer:string;region:string;source:string;target?:string;featureId?:string;level:Level};
 type Shape = {id?:string|number;type:string;geometry:unknown;properties?:Record<string,unknown>};
 const topo=worldData as unknown as {objects:{countries:{geometries:Array<{id?:string|number}>}}};
 const allShapes=(feature(topo as never,topo.objects.countries as never) as unknown as {features:Shape[]}).features;
@@ -32,26 +33,26 @@ const shuffle=<T,>(data:readonly T[])=>{
  const x=[...data];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}
  return x;
 };
-const nameOf=(id:string)=>COUNTRY_DATA[id]?.nameTr||id;
+const nameOf=(id:string,lang:Language)=>localizedCountryById(id,lang)||COUNTRY_DATA[id]?.nameTr||id;
 function buildNature(level:Level):Round[]{
  const candidate=NATURE_POINTS.filter(x=>x.level===level);
  return shuffle(candidate).map(item=>{
   const distract=shuffle(NATURE_POINTS.filter(p=>p.id!==item.id)).slice(0,3);
-  return {id:item.id,prompt:item.clue,options:shuffle([item,...distract]).map(x=>({id:x.id,label:x.name,lat:x.lat,lon:x.lon})),
+  return {id:item.id,prompt:item.clue,promptEn:item.clueEn,options:shuffle([item,...distract]).map(x=>({id:x.id,label:x.name,lat:x.lat,lon:x.lon})),
    answer:item.id,region:item.region,source:NATURE_SOURCE,level};
  });
 }
-function buildIsland(level:Level):Round[]{
+function buildIsland(level:Level,tr:boolean):Round[]{
  const bank=ISLAND_COUNTRIES.filter(x=>shapeById.has(x.id));
  const active=bank.filter(x=>x.level===level);
  return shuffle(active).map(item=>{
   const other=shuffle(bank.filter(x=>x.id!==item.id)).slice(0,3);
-  return {id:item.id,prompt:'Bu ülke veya takımadayı harita siluetinden tanıyabilir misin?',
-   options:shuffle([item,...other]).map(c=>({id:c.id,label:c.name})),
+  return {id:item.id,prompt:'Bu ülke veya takımadayı harita siluetinden tanıyabilir misin?',promptEn:'Can you recognize this island country or archipelago from its outline?',
+   options:shuffle([item,...other]).map(c=>({id:c.id,label:tr?c.name:c.en})),
    answer:item.id,region:'Gerçek kara silueti · Natural Earth verisi',source:NATURE_SOURCE,featureId:item.id,level};
  });
 }
-function buildBorders(level:Level):Round[]{
+function buildBorders(level:Level,language:Language):Round[]{
  const focus=BORDER_FOCUS.filter(id=>shapeById.has(id)&&COUNTRY_DATA[id]&&adj.get(id)?.size);
  const chunks=level===1?focus.slice(0,14):level===2?focus.slice(14,29):focus.slice(29);
  const pool=focus.filter(x=>shapeById.has(x)&&COUNTRY_DATA[x]);
@@ -66,8 +67,10 @@ function buildBorders(level:Level):Round[]{
   return [{id:target,prompt:wrongChoice
     ?'Haritadaki ülkeyle hangisi kara sınırı paylaşmaz?'
     :'Haritada vurgulanan ülkeyle hangisi kara sınırı paylaşır?',
-   options:shuffle([answer,...others]).map(id=>({id,label:nameOf(id)})),
-   answer,region:nameOf(target),source:BORDER_SOURCE,featureId:target,level}];
+   promptEn:wrongChoice?'Which country does NOT share a land border with the highlighted country?'
+    :'Which country shares a land border with the highlighted country?',
+   options:shuffle([answer,...others]).map(id=>({id,label:nameOf(id,language)})),
+   answer,region:nameOf(target,language),source:BORDER_SOURCE,featureId:target,level}];
  });
 }
 const storageKey='globriva_geo_new_games_v1';
@@ -114,7 +117,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
  const [score,setScore]=useState(0);
  const [finished,setFinished]=useState(false);
  const [best,setBest]=useState(loadBest);
- const rounds=useMemo(()=>!level?[]:mode==='nature'?buildNature(level):mode==='islands'?buildIsland(level):buildBorders(level),[level,mode,run]);
+ const rounds=useMemo(()=>!level?[]:mode==='nature'?buildNature(level):mode==='islands'?buildIsland(level,tr):buildBorders(level,language),[level,mode,run,language,tr]);
  const round=rounds[index];
  const correct=picked!==null&&picked===round?.answer;
  const key=mode+':'+level;
@@ -151,7 +154,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
        {([1,2,3] as const).map(l=>{
          const available=mode==='nature'?NATURE_POINTS.filter(x=>x.level===l).length:mode==='islands'
            ?ISLAND_COUNTRIES.filter(x=>x.level===l&&shapeById.has(x.id)).length
-           :buildBorders(l).length;
+           :buildBorders(l,language).length;
          return <button key={l} type="button" disabled={available===0} onClick={()=>start(l)}
            className="min-h-[105px] rounded-2xl border border-amber-200/30 bg-gradient-to-br from-[#584530] to-[#202e41] px-2 py-3 text-center disabled:opacity-40">
            <span className="block text-lg font-black">{(tr?['','Kolay','Orta','Zor']:['','Easy','Medium','Hard'])[l]}</span>
@@ -171,7 +174,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
       </section>:round?<section>
        <div className="flex items-center justify-between gap-3 text-xs font-bold text-slate-300"><span>{(tr?['','Kolay','Orta','Zor']:['','Easy','Medium','Hard'])[level]} · {index+1}/{rounds.length}</span><span>{score} {tr?'puan':'points'}</span></div>
        <div className="my-3 h-1.5 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-amber-300" style={{width:(index/rounds.length*100)+'%'}}/></div>
-       <h2 className="my-4 text-lg font-black leading-7">{round.prompt}</h2>
+       <h2 className="my-4 text-lg font-black leading-7">{tr?round.prompt:(round.promptEn||round.prompt)}</h2>
        {mode==='islands'?<div className="relative my-4 h-[230px] overflow-hidden rounded-[22px] border border-cyan-300/35 bg-[radial-gradient(ellipse_at_center,#1d5e79,#0a284b_75%)] sm:h-[300px]">
          <svg viewBox="0 0 800 420" className="h-full w-full" role="img" aria-label="Natural Earth gerçek ülke silueti">
            <path d={currentShapePath(round.featureId)} fill="#8bd2bd" stroke="#d7fff0" strokeWidth={2}/>
