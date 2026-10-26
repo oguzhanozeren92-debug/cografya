@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Check, X, MapPin, Building2, Flag, Sparkles, Lightbulb, LockKeyhole, BookOpen, Search } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { Check, X, Info, MapPin, Building2, Flag, Sparkles, Lightbulb, LockKeyhole, BookOpen, Search } from 'lucide-react';
 import { getCountryFlag } from '@/data/flags';
+import { COUNTRY_DATA } from '@/data/countries';
 import { getCountryClue } from '@/data/countryClues';
 import { motion, useReducedMotion } from 'motion/react';
 import { playGameSound } from '@/lib/gameFx';
@@ -20,12 +22,15 @@ interface QuestionPanelProps {
   correctAnswer: string;
   phase: GamePhase;
   onAnswer: (answer: string) => void;
+  answerInfoOpen: boolean;
+  onAnswerInfoOpenChange: (open: boolean) => void;
 }
 
 const difficulty = (round: number) => round <= 5 ? 'KOLAY' : round <= 12 ? 'ORTA' : 'ZOR';
 
 export function QuestionPanel({
   questionType, countryId, round, revealedClues, onRevealClue, options, selectedAnswer, correctAnswer, phase, onAnswer,
+  answerInfoOpen, onAnswerInfoOpenChange,
 }: QuestionPanelProps) {
   const reduceMotion = useReducedMotion();
   const {language,t}=useLanguage();
@@ -38,6 +43,17 @@ export function QuestionPanel({
   const originalClue = isClue ? getCountryClue(countryId) : null;
   const clue = originalClue ? localizedClueCard(originalClue,language) : null;
   const flag = countryId ? getCountryFlag(countryId) : null;
+  const country = countryId ? COUNTRY_DATA[countryId] : null;
+  const learningCard = countryId ? getCountryClue(countryId) : null;
+  const learningFact = learningCard ? localizedClueCard(learningCard, language).fact : null;
+  useEffect(() => {
+    if (!answerInfoOpen) return;
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onAnswerInfoOpenChange(false);
+    };
+    window.addEventListener('keydown', onEscape);
+    return () => window.removeEventListener('keydown', onEscape);
+  }, [answerInfoOpen, onAnswerInfoOpenChange]);
 
   return (
     <div className={'relative z-10 mx-auto w-full min-w-0 animate-slide-up ' + (isClue ? 'clue-compact-shell max-w-xl px-3 pb-3' : 'px-4 pb-5 ' + (isFlag ? 'max-w-xl' : ''))}>
@@ -110,13 +126,20 @@ export function QuestionPanel({
             let classes = 'option-btn';
             if (isFeedback) classes += correct ? (selected ? ' option-btn-correct option-btn-correct-picked' : ' option-btn-correct') : selected ? ' option-btn-wrong' : ' option-btn-disabled';
             return (
-              <motion.button key={option} type="button" initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, x: isFeedback && selected && !correct ? [0, -8, 7, -4, 0] : 0, scale: isFeedback && correct ? [1, 1.035, 1] : 1 }} transition={{ duration: isFeedback ? .32 : .24, delay: isFeedback ? 0 : index * .045 }} whileTap={reduceMotion || isFeedback ? undefined : { scale: .97 }} onClick={() => !isFeedback && onAnswer(option)} disabled={isFeedback} className={classes + (isClue ? ' clue-option-btn' : '')}>
+              <div key={option} className="relative min-w-0">
+              <motion.button type="button" initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, x: isFeedback && selected && !correct ? [0, -8, 7, -4, 0] : 0, scale: isFeedback && correct ? [1, 1.035, 1] : 1 }} transition={{ duration: isFeedback ? .32 : .24, delay: isFeedback ? 0 : index * .045 }} whileTap={reduceMotion || isFeedback ? undefined : { scale: .97 }} onClick={() => !isFeedback && onAnswer(option)} disabled={isFeedback} className={classes + (isClue ? ' clue-option-btn' : '') + (isFeedback && correct ? ' pr-12' : '')}>
                 <div className="flex items-center justify-between gap-3">
                   <span className="font-medium">{localizedAnswer(option,questionType,language)}</span>
-                  {isFeedback && correct && <span className="answer-correct-badge" aria-label={t("Doğru cevap")}><Check className="h-4 w-4" strokeWidth={3.5} /></span>}
+                  {isFeedback && correct && <span className="answer-correct-badge mr-9" aria-label={t("Doğru cevap")}><Check className="h-4 w-4" strokeWidth={3.5} /></span>}
                   {isFeedback && selected && !correct && <X className="h-5 w-5 shrink-0 text-red-400" />}
                 </div>
               </motion.button>
+              {isFeedback && correct && (
+                <button type="button" onClick={() => onAnswerInfoOpenChange(true)} aria-label={t('Doğru cevap hakkında bilgi')} title={t('Bilgi kartını aç')} className="absolute right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/60 bg-[#143744] text-cyan-100 shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300">
+                  <Info className="h-[19px] w-[19px]" strokeWidth={2.4} />
+                </button>
+              )}
+              </div>
             );
           })}
         </div>
@@ -124,6 +147,26 @@ export function QuestionPanel({
           {selectedAnswer === correctAnswer ? <><Check className="h-5 w-5 text-emerald-400" /><span className="text-emerald-400" >{t('Doğru! Harika gidiyorsun.')}</span></> : <><X className="h-5 w-5 text-red-400" /><span className="text-rose-300" >{t('Yanlış! Doğru cevap:')} {localizedAnswer(correctAnswer,questionType,language)}</span></>}
         </div>}
       </motion.div>
+      {isFeedback && answerInfoOpen && country && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#04101b]/85 p-4 backdrop-blur-sm" role="presentation" onClick={() => onAnswerInfoOpenChange(false)}>
+          <section role="dialog" aria-modal="true" aria-labelledby="globriva-answer-fact-title" onClick={event => event.stopPropagation()} className="w-full max-w-md overflow-hidden rounded-[24px] border border-cyan-300/30 bg-gradient-to-b from-[#173547] to-[#081926] p-5 text-slate-100 shadow-[0_24px_80px_rgba(0,0,0,.8)]">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <p className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[.16em] text-cyan-200"><BookOpen className="h-4 w-4" /> {t('KEŞİF NOTU')}</p>
+              <button type="button" autoFocus onClick={() => onAnswerInfoOpenChange(false)} aria-label={t('Kapat')} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white"><X className="h-5 w-5" /></button>
+            </div>
+            <div className="mb-4 flex items-center gap-3">
+              <span className="text-4xl" aria-hidden="true">{flag?.emoji ?? '🌍'}</span>
+              <h3 id="globriva-answer-fact-title" className="text-2xl font-black leading-tight text-white">{localizedAnswer(country.nameTr, 'country', language)}</h3>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-cyan-200">{t('Başkent')}</p>
+              <p className="mt-1 text-lg font-bold text-white">{localizedAnswer(country.capitalTr, 'capital', language)}</p>
+            </div>
+            {learningFact && <p className="mt-4 rounded-2xl border border-amber-200/20 bg-amber-200/5 p-4 text-sm leading-relaxed text-slate-100"><span className="mb-1 block text-[11px] font-black uppercase tracking-wider text-amber-200">{t('BİLİYOR MUYDUN?')}</span>{learningFact}</p>}
+            <p className="mt-4 text-center text-xs text-slate-400">{t('Kapatınca sorular otomatik devam eder.')}</p>
+          </section>
+        </div>, document.body
+      )}
     </div>
   );
 }
