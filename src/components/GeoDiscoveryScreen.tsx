@@ -6,6 +6,8 @@ import { ArrowLeft, Compass, Mountain, MapPin, Sparkles, Trophy, RotateCcw } fro
 import { COUNTRY_DATA } from '@/data/countries';
 import { BORDER_FOCUS, BORDER_SOURCE, ISLAND_COUNTRIES, NATURE_POINTS, NATURE_SOURCE, type NaturePoint } from '@/data/geoDiscoveryModes';
 import { useLanguage, type Language } from '@/lib/i18n';
+import { awardGeoStars, getGeoStars, type GeoAward, type GeoRewardLevel } from '@/lib/geoRewards';
+import { GeoStarRow } from '@/components/GeoStarRow';
 import { localizedCountryById } from '@/lib/countryLanguage';
 
 export type GeoDiscoveryMode = 'nature'|'islands'|'borders';
@@ -117,23 +119,26 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
  const [score,setScore]=useState(0);
  const [finished,setFinished]=useState(false);
  const [best,setBest]=useState(loadBest);
+ const [stageAward,setStageAward]=useState<GeoAward|null>(null);
+ const stageName=(num:Level):GeoRewardLevel=>({1:'easy',2:'medium',3:'hard'} as const)[num];
  const rounds=useMemo(()=>!level?[]:mode==='nature'?buildNature(level):mode==='islands'?buildIsland(level,tr):buildBorders(level,language),[level,mode,run,language,tr]);
  const round=rounds[index];
  const correct=picked!==null&&picked===round?.answer;
  const key=mode+':'+level;
  const start=(newLevel:Level)=>{
-  setLevel(newLevel);setRun(x=>x+1);setIndex(0);setPicked(null);setScore(0);setFinished(false);
+  setLevel(newLevel);setRun(x=>x+1);setIndex(0);setPicked(null);setScore(0);setFinished(false);setStageAward(null);
  };
  const answer=(id:string)=>{
   if(picked!==null||!round)return;
   setPicked(id);if(id===round.answer)setScore(n=>n+100);
  };
  const next=()=>{
-  if(!round)return;
+  if(!round||!level)return;
   if(index+1<rounds.length){setIndex(n=>n+1);setPicked(null);return}
   const finalScore=score;
   const updated={...best,[key]:Math.max(best[key]||0,finalScore)};
   setBest(updated);try{localStorage.setItem(storageKey,JSON.stringify(updated))}catch{}
+  setStageAward(awardGeoStars(mode,stageName(level),Math.round(finalScore/100),rounds.length,true));
   setFinished(true);onGameComplete?.();
  };
  const source=round?.source||NATURE_SOURCE;
@@ -159,6 +164,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
            className="min-h-[105px] rounded-2xl border border-amber-200/30 bg-gradient-to-br from-[#584530] to-[#202e41] px-2 py-3 text-center disabled:opacity-40">
            <span className="block text-lg font-black">{(tr?['','Kolay','Orta','Zor']:['','Easy','Medium','Hard'])[l]}</span>
            <span className="mt-2 block text-xs font-semibold text-amber-100">{available} {tr?'soru':'questions'}</span>
+            <span className="mt-2 block"><GeoStarRow count={getGeoStars(mode,stageName(l))}/></span>
          </button>;
        })}
       </div>
@@ -169,6 +175,12 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
        <h2 className="text-2xl font-black">{tr?'Tur tamamlandı!':'Round complete!'}</h2>
        <p className="mt-4 text-4xl font-black text-amber-200">{score} / {rounds.length*100}</p>
        <p className="mt-2 text-xs text-slate-300">{tr?'En iyi':'Best'}: {best[key]||0}</p>
+        <div className="mt-4 rounded-2xl border border-amber-300/30 bg-[#152d43] p-4" aria-live="polite">
+          <div className="text-[10px] font-black uppercase tracking-[.15em] text-amber-200">{tr?'KEŞİF YILDIZLARI':'EXPLORER STARS'}</div>
+          <div className="mt-2"><GeoStarRow large animated={Boolean(stageAward?.gained)} count={stageAward?.current ?? getGeoStars(mode,stageName(level))}/></div>
+          <p className="mt-2 text-xs text-slate-200">{stageAward?.gained ? (tr?'+ '+stageAward.gained+' yeni yıldız kazandın!':'+ '+stageAward.gained+' new stars earned!') : (tr?'En iyi yıldızların korunur · %70/%80/%90':'Best stars are saved · 70/80/90% threshold')}</p>
+          {stageAward?.newBadges.map(b=><div key={b.id} className="mt-2 rounded-lg bg-amber-300/15 px-2 py-2 text-xs font-bold text-amber-100">{b.icon} {tr?'Yeni rozet: ':'New badge: '}{tr?b.tr:b.en}</div>)}
+        </div>
        <button type="button" onClick={()=>start(level)} className="mt-6 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-300 font-black text-[#132438]"><RotateCcw size={16}/>{tr?'Yeniden oyna':'Play again'}</button>
        <button type="button" onClick={()=>setLevel(null)} className="mt-3 min-h-12 w-full rounded-xl border border-white/20 bg-white/10 font-bold">{tr?'Seviye seç':'Choose level'}</button>
       </section>:round?<section>
