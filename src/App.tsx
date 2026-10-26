@@ -214,6 +214,10 @@ function App() {
                   correctAnswer={game.currentAnswer}
                   phase={game.phase}
                   onAnswer={handleAnswer}
+              answerInfoOpen={game.answerInfoOpen}
+              onAnswerInfoOpenChange={game.onAnswerInfoOpenChange}
+                  answerInfoOpen={game.answerInfoOpen}
+                  onAnswerInfoOpenChange={game.onAnswerInfoOpenChange}
                 />
               </div>
             )}
@@ -233,6 +237,8 @@ function App() {
               correctAnswer={game.currentAnswer}
               phase={game.phase}
               onAnswer={handleAnswer}
+              answerInfoOpen={game.answerInfoOpen}
+              onAnswerInfoOpenChange={game.onAnswerInfoOpenChange}
             />
           </div>
         )}
