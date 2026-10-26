@@ -17,14 +17,16 @@ APPROVED=ROOT/'server/street/approved.mjs'
 READY=ROOT/'server/street/photo-ready.mjs'
 REVIEWED=ROOT/'panoramas/reviewed.json'
 OUT=ROOT/'panoramas/daily-discovery/street-publish-status.json'
-# Individually reviewed outdoors; no interiors or featureless forest scenes.
+# 2026-10-26 Commons/API + thumbnail-reviewed, five DIFFERENT countries.
+# Do not include Dresden tram (interior), Oulu night (too dark), or generic
+# garden imagery. Publisher still checks source license and uploads tiles
+# before updating the approved catalog. One set/day max.
 SELECTED=[
-    'de-dresden-tram-002',
-    'fi-oulu-winter-street-002',
-    'is-rainbow-street-002',
-    'dk-copenhagen-tower-002',
-    'ca-niagara-falls-002',
-    'is-gullfoss-waterfall-002',
+    'ca-niagara-falls-002',             # Canada — iconic falls
+    'uz-tashkent-museum-outside-002',   # Uzbekistan — museum exterior
+    'is-gullfoss-waterfall-002',        # Iceland — distinctive waterfall
+    'dk-copenhagen-tower-002',          # Denmark — city from tower
+    'am-yerevan-gallery-night-002',     # Armenia — illuminated monument
 ]
 
 def read_catalog():
