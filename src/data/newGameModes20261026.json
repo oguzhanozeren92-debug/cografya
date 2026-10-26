@@ -65,10 +65,10 @@
       "questionPool": {
         "easy": 4,
         "medium": 4,
-        "hard": 4
+        "hard": 7
       },
       "playableImplementation": "src/components/GeoDiscoveryScreen.tsx#islands",
-      "qaStatus": "candidate entries; actual playable count depends on bundled Natural Earth geometry and adjacency"
+      "qaStatus": "7 hard island-country silhouette candidates; the rendered Natural Earth 110m features determine live count"
     },
     {
       "id": "sinir-dedektifi",
@@ -92,7 +92,7 @@
         "hard": 11
       },
       "playableImplementation": "src/components/GeoDiscoveryScreen.tsx#borders",
-      "qaStatus": "candidate entries; actual playable count depends on bundled Natural Earth geometry and adjacency"
+      "qaStatus": "Candidate target count only: generated options come from shared-arc TopoJSON neighbors; unavailable geometry targets are skipped"
     }
   ]
 }
