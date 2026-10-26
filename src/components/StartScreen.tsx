@@ -32,6 +32,7 @@ interface StartScreenProps {
   onStreetLeaderboard: () => void;
   onDrone: () => void;
   onHistory: () => void;
+  onGeoDiscovery: (mode: 'nature'|'islands'|'borders') => void;
   onVersus: () => void;
 }
 
@@ -39,7 +40,7 @@ const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
 
 export function StartScreen({
   onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly,
-  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onDrone, onHistory, onVersus,
+  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onDrone, onHistory, onGeoDiscovery, onVersus,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
   const { language, setLanguage, t } = useLanguage();
@@ -51,6 +52,7 @@ export function StartScreen({
   const [queuedStreet, setQueuedStreet] = useState(false);
   const [queuedDrone, setQueuedDrone] = useState(false);
   const [queuedHistory, setQueuedHistory] = useState(false);
+  const [queuedGeoMode,setQueuedGeoMode] = useState<'nature'|'islands'|'borders'|null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const completed = loadDailyProgress(getDailyDate()).answers.length;
   const found = getDiscoveredCountries().length;
@@ -96,6 +98,16 @@ export function StartScreen({
     onHistory();
   };
 
+  const startGeoDiscovery = (mode: 'nature'|'islands'|'borders') => {
+    if (!canPlay) {
+      setQueuedGeoMode(mode);
+      setEditing(true);
+      nameInputRef.current?.focus();
+      return;
+    }
+    onGeoDiscovery(mode);
+  };
+
   const save = async () => {
     if (!name.trim() || busy) return;
     setBusy(true);
@@ -118,6 +130,10 @@ export function StartScreen({
       if (queuedHistory) {
         setQueuedHistory(false);
         onHistory();
+      }
+      if (queuedGeoMode) {
+        onGeoDiscovery(queuedGeoMode);
+        setQueuedGeoMode(null);
       }
       setError('');
     } catch {
@@ -608,6 +624,27 @@ export function StartScreen({
             </span>
             <ChevronRight className="ml-1 h-6 w-6 shrink-0 text-amber-100"/>
           </button>
+        </motion.section>
+
+        <motion.section {...entrance(4)} className="mt-5">
+          <h2 className="aa-section-heading">{language==='tr'?'Yeni Coğrafya Oyunları':'New Geography Games'}</h2>
+          <p className="mt-1 text-xs font-semibold text-slate-300">{language==='tr'?'Gerçek haritalar, yeni meydan okumalar.':'Real maps and fresh challenges.'}</p>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {([
+              {id:'nature',emoji:'🏞️',tr:'Doğa Dedektifi',en:'Nature Detective',subTr:'Nehirleri, gölleri, dağları bul',subEn:'Find rivers, lakes and peaks',style:'from-[#17636a] via-[#204f6b] to-[#153459]'},
+              {id:'islands',emoji:'🏝️',tr:'Ada Avcısı',en:'Island Hunter',subTr:'Siluetten adayı tanı',subEn:'Guess by the silhouette',style:'from-[#336e82] via-[#187c88] to-[#155066]'},
+              {id:'borders',emoji:'🌍',tr:'Sınır Dedektifi',en:'Border Detective',subTr:'Hangi ülkeler komşu?',subEn:'Which countries share borders?',style:'from-[#594876] via-[#344c7d] to-[#173654]'},
+            ] as const).map(item=><button key={item.id} type="button" onClick={()=>startGeoDiscovery(item.id)}
+              className={'group relative flex min-h-[138px] flex-col justify-between overflow-hidden rounded-[23px] border border-white/35 bg-gradient-to-br p-4 text-left text-white shadow-[0_12px_28px_rgba(0,7,30,.25)] transition-transform active:scale-[.98] '+item.style}>
+              <span className="absolute -right-4 -top-5 h-24 w-24 rounded-full bg-white/10 blur-md" aria-hidden="true"/>
+              <span className="relative text-4xl drop-shadow-lg" aria-hidden="true">{item.emoji}</span>
+              <span className="relative mt-3">
+                <strong className="block text-[16px] font-black">{language==='tr'?item.tr:item.en}</strong>
+                <small className="mt-1 block text-[11px] font-semibold text-white/85">{language==='tr'?item.subTr:item.subEn}</small>
+              </span>
+              <ChevronRight className="absolute bottom-4 right-3 h-4 w-4 text-white/80"/>
+            </button>)}
+          </div>
         </motion.section>
 
         <motion.section {...entrance(4)} className="mt-5">
