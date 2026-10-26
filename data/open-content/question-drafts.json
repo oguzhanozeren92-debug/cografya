@@ -1,0 +1,328 @@
+{
+  "schemaVersion": 1,
+  "project": "globriva",
+  "createdAt": "2026-10-27",
+  "note": "10 new image-assisted geography drafts prepared from existing license-screened gallery photos. Must verify depiction and rights before gameplay.",
+  "questions": [
+    {
+      "id": "GLO-OPEN-20261027-01",
+      "category": "visual-geography",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Görseldeki şehrin bulunduğu kıta hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Afrika",
+          "Güney Amerika",
+          "Asya",
+          "Okyanusya"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Cape Town; ülke: Güney Afrika; bölge: Africa. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:CT_-_Long_Street_in_Cape_Town,_South_Africa,_2017.jpg",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:CT_-_Long_Street_in_Cape_Town,_South_Africa,_2017.jpg",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/CT_-_Long_Street_in_Cape_Town%2C_South_Africa%2C_2017.jpg/1280px-CT_-_Long_Street_in_Cape_Town%2C_South_Africa%2C_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "Josep M. Gracia",
+        "license": "CC BY-SA 4.0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GLO-OPEN-20261027-02",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğraftaki şehrin dünya haritasındaki kıtası hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Asya",
+          "Okyanusya",
+          "Avrupa",
+          "Afrika"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Zanzibar (Stone Town); ülke: Tanzanya; bölge: Africa. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Stone_Town,_Zanzibar,_Tanzania_-_panoramio.jpg",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Stone_Town,_Zanzibar,_Tanzania_-_panoramio.jpg",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Stone_Town%2C_Zanzibar%2C_Tanzania_-_panoramio.jpg/1280px-Stone_Town%2C_Zanzibar%2C_Tanzania_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "The Erica Chang",
+        "license": "CC BY 3.0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GLO-OPEN-20261027-03",
+      "category": "visual-geography",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Fotoğrafın ait olduğu şehri hangi kıtada aramalıyız?"
+      },
+      "choices": {
+        "tr": [
+          "Avrupa",
+          "Kuzey Amerika",
+          "Güney Amerika",
+          "Okyanusya"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Buenos Aires; ülke: Arjantin; bölge: South America. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Buenos_Aires_city.jpg",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Buenos_Aires_city.jpg",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Buenos_Aires_city.jpg/1280px-Buenos_Aires_city.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "Valu Solange",
+        "license": "CC BY-SA 4.0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GLO-OPEN-20261027-04",
+      "category": "visual-geography",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Görseldeki şehrin bulunduğu kıta hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Okyanusya",
+          "Güney Amerika",
+          "Afrika",
+          "Asya"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Cartagena; ülke: Kolombiya; bölge: South America. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Nice_Building_-_panoramio_(1).jpg",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Nice_Building_-_panoramio_(1).jpg",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Nice_Building_-_panoramio_%281%29.jpg/1280px-Nice_Building_-_panoramio_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "---=XEON=---",
+        "license": "CC BY 3.0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GLO-OPEN-20261027-05",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğraftaki şehrin dünya haritasındaki kıtası hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Asya",
+          "Güney Amerika",
+          "Okyanusya",
+          "Avrupa"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Seul; ülke: Güney Kore; bölge: East Asia. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:City_of_Seoul_View_From_N_Seoul_Tower.JPG",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:City_of_Seoul_View_From_N_Seoul_Tower.JPG",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/City_of_Seoul_View_From_N_Seoul_Tower.JPG/1280px-City_of_Seoul_View_From_N_Seoul_Tower.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "Penmerahpenbiru",
+        "license": "CC BY 3.0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GLO-OPEN-20261027-06",
+      "category": "visual-geography",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Fotoğrafın ait olduğu şehri hangi kıtada aramalıyız?"
+      },
+      "choices": {
+        "tr": [
+          "Okyanusya",
+          "Avrupa",
+          "Kuzey Amerika",
+          "Asya"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Pekin; ülke: Çin; bölge: East Asia. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Beijing_(Unsplash).jpg",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Beijing_(Unsplash).jpg",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Beijing_%28Unsplash%29.jpg/1280px-Beijing_%28Unsplash%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "Tony Bertolino  tonybert89",
+        "license": "CC0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GLO-OPEN-20261027-07",
+      "category": "visual-geography",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Görseldeki şehrin bulunduğu kıta hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Güney Amerika",
+          "Okyanusya",
+          "Asya",
+          "Afrika"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Bangkok; ülke: Tayland; bölge: Southeast Asia. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Outer_view_of_the_Grand_Palace_in_Bangkok.jpg",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Outer_view_of_the_Grand_Palace_in_Bangkok.jpg",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Outer_view_of_the_Grand_Palace_in_Bangkok.jpg/1280px-Outer_view_of_the_Grand_Palace_in_Bangkok.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "Christophe95",
+        "license": "CC BY-SA 4.0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GLO-OPEN-20261027-08",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğraftaki şehrin dünya haritasındaki kıtası hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Avrupa",
+          "Asya",
+          "Güney Amerika",
+          "Okyanusya"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Singapur; ülke: Singapur; bölge: Southeast Asia. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Raffles_Place_MRT_Station,_Singapore_-_panoramio.jpg",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Raffles_Place_MRT_Station,_Singapore_-_panoramio.jpg",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Raffles_Place_MRT_Station%2C_Singapore_-_panoramio.jpg/1280px-Raffles_Place_MRT_Station%2C_Singapore_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "The Erica Chang",
+        "license": "CC BY 3.0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GLO-OPEN-20261027-09",
+      "category": "visual-geography",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Fotoğrafın ait olduğu şehri hangi kıtada aramalıyız?"
+      },
+      "choices": {
+        "tr": [
+          "Asya",
+          "Okyanusya",
+          "Avrupa",
+          "Kuzey Amerika"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Katmandu; ülke: Nepal; bölge: South Asia. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Bankali_Temple_Deupatan_Pasupati_Kathmandu_Nepal_Rajesh_Dhungana_(10).jpg",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Bankali_Temple_Deupatan_Pasupati_Kathmandu_Nepal_Rajesh_Dhungana_(10).jpg",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Bankali_Temple_Deupatan_Pasupati_Kathmandu_Nepal_Rajesh_Dhungana_%2810%29.jpg/1280px-Bankali_Temple_Deupatan_Pasupati_Kathmandu_Nepal_Rajesh_Dhungana_%2810%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "Rajesh Dhungana",
+        "license": "CC BY-SA 4.0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GLO-OPEN-20261027-10",
+      "category": "visual-geography",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Görseldeki şehrin bulunduğu kıta hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Afrika",
+          "Güney Amerika",
+          "Asya",
+          "Okyanusya"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak galeri kaydına göre şehir: Wellington; ülke: Yeni Zelanda; bölge: Oceania. Görseldeki yer editör tarafından ayrıca doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Wellington_Cable_Car_Cityscape.jpg",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Wellington_Cable_Car_Cityscape.jpg",
+        "previewUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Wellington_Cable_Car_Cityscape.jpg/1280px-Wellington_Cable_Car_Cityscape.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "credit": "Panamitsu",
+        "license": "CC BY-SA 4.0",
+        "geoReview": false,
+        "visualReview": false
+      },
+      "status": "review_required_not_playable",
+      "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    }
+  ]
+}
