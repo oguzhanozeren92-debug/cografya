@@ -3,6 +3,8 @@ const VictoryBadge = lazy(() => import('@/components/VictoryBadge'));
 import { Trophy, RotateCcw, CheckCircle2, MapPinned } from 'lucide-react';
 import type { LeaderboardEntry, GameMode } from '@/types';
 import { backend } from '@/lib/leaderboard';
+import { getGeoStars } from '@/lib/geoRewards';
+import { GeoStarRow } from '@/components/GeoStarRow';
 import { useLanguage } from '@/lib/i18n';
 import { motion, useReducedMotion } from 'motion/react';
 import { celebrateGame, playGameSound } from '@/lib/gameFx';
@@ -83,6 +85,15 @@ export function GameOverScreen({
           </div>
         </div>
 
+        <section className="mb-4 rounded-2xl border border-amber-300/30 bg-amber-300/5 p-3">
+          <h3 className="mb-2 flex items-center gap-2 text-sm font-black text-amber-200">★ {language==='tr'?'Keşif Yıldızlarım':'My Explorer Stars'}</h3>
+          {(['easy','medium','hard'] as const).map((level,i)=>
+            <div key={level} className="flex items-center justify-between gap-2 py-1">
+              <span className="text-xs font-semibold text-slate-200">{language==='tr'?['İlk Rota','Kıtalar Arası','Dünya Turu'][i]:['First Route','Across Continents','World Tour'][i]}</span>
+              <GeoStarRow count={getGeoStars(mode,level)} />
+            </div>)}
+          <p className="mt-2 text-[10px] leading-4 text-slate-300">{language==='tr'?'Her 10 soruluk tam rotada %70/%80/%90 başarının karşılığı 1/2/3 yıldız.':'Each complete 10-question route earns 1/2/3 stars at 70/80/90%.'}</p>
+        </section>
         <div className="mb-4 rounded-lg bg-white/5 px-3 py-3 text-center text-sm text-slate-200">
           <span className="font-semibold text-blue-300">{playerName}</span>
           {saveState === 'saving' && <p className="mt-1 text-slate-400">{t('Skorun dünya sıralamasına gönderiliyor...')}</p>}
