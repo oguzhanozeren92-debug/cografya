@@ -1,5 +1,5 @@
 {
-  "description": "63 individually sourced JPG photo CANDIDATES grouped into 20 city albums representing 20 countries. Sources and claimed CC licenses researched, editorial visual/location review and R2 publishing still required. No auto-approval.",
+  "description": "69 individually sourced JPG photo CANDIDATES grouped into 22 city albums across 21 countries. Source pages, authors, claimed CC licenses researched; final visual/location check and R2 publishing required. No automatic approval.",
   "collections": [
     {
       "id": "album-001",
@@ -1210,6 +1210,124 @@
       "reviewedLocation": false,
       "reviewedQuality": false,
       "editorialStatus": "commons_license_source_checked_pending_visual_place_review_and_r2_upload"
+    },
+    {
+      "id": "album-021",
+      "country": "Nepal",
+      "city": "Katmandu",
+      "lat": 27.704,
+      "lng": 85.318,
+      "regionCode": "142",
+      "difficulty": "medium",
+      "fact": "Katmandu Vadisi, tarihî Durbar meydanları ve Swayambhunath Stupası gibi önemli kültür mirası alanlarıyla tanınır.",
+      "hint": {
+        "tr": "Himalayalar'ın güney eteklerinde, tarihî stupaları ve saray meydanlarıyla tanınan Asya başkenti.",
+        "en": "An Asian capital near the southern Himalayas, known for its stupas and palace squares."
+      },
+      "photoFocus": {
+        "tr": "Budist stupalarının mimarisine, vadideki şehir manzarasına ve saray meydanına bak.",
+        "en": "Look at the Buddhist stupa, valley cityscape and historic palace square."
+      },
+      "choices": [
+        "Nepal",
+        "Bhutan",
+        "Hindistan",
+        "Bangladeş"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Durbar Square Kathmandu.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Durbar_Square_Kathmandu.jpg",
+          "artist": "Rene Heise",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:View from Swayambhunath on Kathmandu.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:View_from_Swayambhunath_on_Kathmandu.jpg",
+          "artist": "Kondephy",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Swayambhunath Temple- Kathmandu.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Swayambhunath_Temple-_Kathmandu.jpg",
+          "artist": "Safalphotos",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "commons_author_and_cc_license_checked_pending_visual_and_place_review"
+    },
+    {
+      "id": "album-022",
+      "country": "Güney Afrika",
+      "city": "Cape Town",
+      "lat": -33.9249,
+      "lng": 18.4241,
+      "regionCode": "002",
+      "difficulty": "medium",
+      "fact": "Cape Town, Masa Dağı'nın eteklerinde ve Atlantik kıyısında kurulmuş bir Güney Afrika kentidir.",
+      "hint": {
+        "tr": "Afrika'nın güney ucuna yakın, geniş tepeli bir dağın çevresindeki okyanus kıyısı şehri.",
+        "en": "An oceanfront city near Africa's southern tip, beneath a distinctive flat-topped mountain."
+      },
+      "photoFocus": {
+        "tr": "Düz zirveli dağa, kent merkezine ve okyanus kıyısındaki yerleşime bak.",
+        "en": "Look for the flat-topped mountain, city centre and coastal setting."
+      },
+      "choices": [
+        "Güney Afrika",
+        "Namibya",
+        "Kenya",
+        "Mozambik"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Cape Town City Aerial.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Cape_Town_City_Aerial.jpg",
+          "artist": "AerialcamSA",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Table Mountain, Cape Town (MP) 2018 241.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Table_Mountain%2C_Cape_Town_(MP)_2018_241.jpg",
+          "artist": "Mike Peel",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Table mountain in Cape Town.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Table_mountain_in_Cape_Town.jpg",
+          "artist": "Shoodho",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": true,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "commons_author_and_cc_license_checked_pending_visual_and_place_review"
     }
   ]
 }
