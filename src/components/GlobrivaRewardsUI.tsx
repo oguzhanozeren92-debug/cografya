@@ -3,7 +3,7 @@ import { Award, Bell, Compass, Globe2, House, Play, ShieldCheck, Trophy, UserRou
 import { useLanguage } from '@/lib/i18n';
 import { GeoStarRow } from '@/components/GeoStarRow';
 import { DISCOVERY_EVENT } from '@/lib/discovery';
-import { GEO_REWARDS_CHANGED, GEO_REWARD_LEVELS, GEO_REWARD_SECTIONS, getGeoBadges, getGeoRewardOverview, type GeoRewardLevel } from '@/lib/geoRewards';
+import { GEO_REWARDS_CHANGED, GEO_REWARD_SECTIONS, getGeoBadges, getGeoRewardOverview, type GeoRewardLevel } from '@/lib/geoRewards';
 
 export type GlobrivaHomeTab = 'home' | 'awards' | 'profile';
 
@@ -59,6 +59,7 @@ const LEVEL_LABELS: Record<GeoRewardLevel,{tr:string;en:string}> = {
   easy:{tr:'İlk Rota / Kolay',en:'First Route / Easy'},
   medium:{tr:'Kıtalar Arası / Orta',en:'Across Continents / Medium'},
   hard:{tr:'Dünya Turu / Zor',en:'World Tour / Hard'},
+  tour:{tr:'Dünya Turu',en:'World Tour'},
   daily:{tr:'Günlük Rota',en:'Daily Route'},
 };
 
@@ -105,10 +106,10 @@ export function GlobrivaAwardsScreen() {
           {GEO_REWARD_SECTIONS.map(section=><article key={section.id} className="overflow-hidden rounded-[21px] border border-white/10 bg-[#102942]">
             <div className="flex items-center gap-3 border-b border-white/10 bg-white/[.035] px-4 py-3">
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/15 bg-[#1b4b69] text-xl" aria-hidden="true">{section.icon}</span>
-              <div className="min-w-0 flex-1"><h3 className="truncate text-sm font-black">{tr?section.tr:section.en}</h3><small className="text-[10px] font-semibold text-slate-300">{section.id==='daily'?(tr?'Her gün bir tur':'One route every day'):(['nature','islands','borders'].includes(section.id)?(tr?'Kolay · Orta · Zor':'Easy · Medium · Hard'):(tr?'Her 10 soruda yeni rota':'New route every 10 questions'))}</small></div>
+              <div className="min-w-0 flex-1"><h3 className="truncate text-sm font-black">{tr?section.tr:section.en}</h3><small className="text-[10px] font-semibold text-slate-300">{section.id==='daily'?(tr?'Her gün bir tur':'One route every day'):section.id==='street'||section.id==='drone'?(tr?'5 konumlu tur':'5-location tour'):section.id==='heritage'?(tr?'Kolay · Orta':'Easy · Medium'):['nature','islands','borders'].includes(section.id)?(tr?'Kolay · Orta · Zor':'Easy · Medium · Hard'):(tr?'Her 10 soruda yeni rota':'New route every 10 questions')}</small></div>
             </div>
             <div className="space-y-1 px-3 py-2">
-              {(section.id==='daily'?['daily'] as const:GEO_REWARD_LEVELS).map(level=>{
+              {section.levels.map(level=>{
                 const star=overview.stages.find(x=>x.mode===section.id&&x.level===level)?.stars||0;
                 return <div key={level} className="flex min-h-9 items-center justify-between gap-2 rounded-xl px-2 py-1">
                   <span className="text-[11px] font-semibold text-slate-200">{tr?LEVEL_LABELS[level].tr:LEVEL_LABELS[level].en}</span>
