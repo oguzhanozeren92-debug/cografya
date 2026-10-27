@@ -22,7 +22,9 @@ workflows:
           npm run build
           node scripts/panoramas/export-appstore-review.mjs
           node scripts/panoramas/verify-commons-licenses.mjs
-          npm run gallery:release-check
+          # Device/TestFlight QA can proceed while the photo review is unfinished.
+          # Strict final App Store gate runs only in atlas-ios-store-readiness.
+          npm run gallery:audit
       - name: Check Apple SDK and required review assets
         script: |
           xcodebuild -version
@@ -65,8 +67,10 @@ workflows:
       - appstore-review/release-report.json
       - appstore-review/commons-source-audit.json
 
+  # Internal TestFlight builds are for finding mobile issues; they do NOT
+  # certify editorial asset review or grant permission to submit to App Review.
   atlas-ios-testflight:
-    name: Globriva — signed iOS IPA to TestFlight
+    name: Globriva — internal QA IPA to TestFlight
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:
@@ -97,7 +101,9 @@ workflows:
           npm run build
           node scripts/panoramas/export-appstore-review.mjs
           node scripts/panoramas/verify-commons-licenses.mjs
-          npm run gallery:release-check
+          # Device/TestFlight QA can proceed while the photo review is unfinished.
+          # Strict final App Store gate runs only in atlas-ios-store-readiness.
+          npm run gallery:audit
       - name: Check Apple SDK and required review assets
         script: |
           xcodebuild -version
@@ -150,3 +156,29 @@ workflows:
         # do not require it, and App Store review is initiated manually.
         submit_to_testflight: false
         submit_to_app_store: false
+
+  # Deliberately separate the strict App Store media gate from installation,
+  # simulator smoke tests and INTERNAL TestFlight test builds.
+  # It is expected to FAIL until all approved media are independently reviewed.
+  atlas-ios-store-readiness:
+    name: Globriva — App Store media release gate (strict)
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      node: 22
+    scripts:
+      - name: Generate complete photo and licensing evidence
+        script: |
+          npm ci --no-audit --no-fund
+          npm run gallery:photo-review
+          npm run gallery:commons-audit
+      - name: Enforce independently verified gallery before App Review
+        script: |
+          npm run gallery:release-check
+          node scripts/app-store-preflight.mjs
+          echo "Static editorial and app preflight passed; device and App Store metadata checks are still required."
+    artifacts:
+      - appstore-review/photo-audit.csv
+      - appstore-review/release-report.json
+      - appstore-review/commons-source-audit.json
+    # No publishing: green here is still NOT Apple review approval.
