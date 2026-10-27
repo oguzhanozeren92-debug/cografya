@@ -905,71 +905,58 @@ export function StartScreen({
           </div>
 
 
-          {language === 'tr' ? (
-            <>
-              <button type="button" onClick={onVersus} aria-label={t('Arkadaşlarınla yarış')} className="relative mt-3 block w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#132947] text-left shadow-[0_12px_25px_rgba(0,5,25,.25)] transition-[transform,filter] duration-150 hover:brightness-[1.04] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
-                <img src="/game-cards/approved-vs.webp" width={865} height={209} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
-                
-              </button>
-              <button type="button" onClick={startDrone} aria-label={t("Drone'dan Konumu Bul")} className="relative mt-3 block w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#132947] text-left shadow-[0_12px_25px_rgba(0,5,25,.25)] transition-[transform,filter] duration-150 hover:brightness-[1.04] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
-                <img src="/game-cards/approved-drone.webp" width={865} height={329} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
-                
-              </button>
-              <div className="relative mt-3 w-full overflow-hidden rounded-[24px] border border-white/25 bg-[#142c4d] shadow-[0_14px_28px_rgba(0,7,26,.27)]">
-                <img src="/game-cards/approved-street.webp" width={863} height={389} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
-                <button type="button" onClick={startStreet} aria-label={t('Sokak Dedektifi oyununa başla')} className="absolute inset-x-0 top-0 z-10 h-[79%] touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-amber-200">
-                  <span className="sr-only">{t('Sokak Dedektifi')}</span>
-                </button>
-                <button type="button" onClick={onStreetLeaderboard} aria-label={t('Sokak Dedektifi dünya sıralaması')} className="absolute inset-x-0 bottom-0 z-10 h-[21%] touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-amber-200">
-                  <span className="sr-only">{t('Sokak Dedektifi dünya sıralaması')}</span>
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
 
-
-          <button type="button" onClick={onVersus}
-            className="mt-3 flex w-full items-center gap-4 overflow-hidden rounded-[23px] border border-rose-200/40 bg-gradient-to-r from-[#ffbd89] via-[#ff9697] to-[#d8a8ff] px-4 py-4 text-left text-[#202742] shadow-[0_14px_35px_rgba(220,108,183,.22)] transition hover:brightness-105 active:scale-[0.99]">
-            <span aria-hidden="true" className="grid h-14 w-14 shrink-0 place-items-center rounded-[18px] bg-white/35 shadow-inner"><Swords className="h-9 w-9" /></span>
-            <span className="min-w-0 flex-1"><small className="block text-[10px] font-black tracking-[.11em]">YENİ · 1'E 1 MEYDAN OKUMA</small><strong className="mt-1 block text-xl font-black leading-tight">Arkadaşınla VS At!</strong><span className="mt-1 block text-xs font-semibold leading-4">Davet et, aynı 10 soruda karşılaş, kazananı gör.</span></span>
-            <ChevronRight className="h-6 w-6 shrink-0" />
+          {/* One shared illustrated layout for every language; imagery and interaction never change with locale. */}
+          <button type="button" onClick={onVersus} aria-label={t('Arkadaşlarınla yarış')}
+            className="group relative mt-3 flex min-h-[112px] w-full items-center gap-3 overflow-hidden rounded-[24px] border border-white/60 bg-gradient-to-r from-[#ffbb89] via-[#fa9097] to-[#dbaaf8] px-4 py-4 text-left text-[#202742] shadow-[0_12px_25px_rgba(0,5,25,.25)] transition-transform active:scale-[.985]">
+            <img src="/game-cards/approved-vs.webp" alt="" draggable={false} loading="lazy"
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[.12] blur-[3px]" />
+            <span aria-hidden="true" className="relative grid h-14 w-14 shrink-0 place-items-center rounded-[18px] border border-white/40 bg-white/35 shadow-inner"><Swords className="h-8 w-8" /></span>
+            <span className="relative min-w-0 flex-1">
+              <small className="block text-[10px] font-black tracking-[.12em]">{t('YENİ · 1’E 1 MEYDAN OKUMA')}</small>
+              <strong className="mt-1 block text-[clamp(17px,4.5vw,22px)] font-black leading-tight">{t('Arkadaşınla VS At!')}</strong>
+              <span className="mt-1 block text-xs font-semibold leading-4">{t('Davet et, aynı 10 soruda karşılaş, kazananı gör.')}</span>
+            </span>
+            <ChevronRight className="relative h-6 w-6 shrink-0" />
           </button>
 
-          <div className="globriva-drone-stage mt-3 overflow-hidden rounded-[23px] border border-emerald-200/40 bg-gradient-to-br from-[#176c7c] via-[#174b69] to-[#172e53] shadow-[0_12px_26px_rgba(0,7,27,.24)]">
-            <button type="button" onClick={startDrone}
-              className="globriva-drone-button flex min-h-[116px] w-full items-center gap-3 px-3 py-4 text-left text-white">
-              <span aria-hidden="true" className="grid h-[72px] w-[72px] shrink-0 place-items-center rounded-[18px] border border-white/20 bg-emerald-200/20 text-[32px] shadow-inner">🚁</span>
-              <span className="min-w-0 flex-1">
-                <small className="block text-[10px] font-black tracking-[.08em] text-emerald-200">
-                  {t('ÜCRETSİZ DENEME · 5 HAVA PANORAMASI')}
-                </small>
-                <strong className="mt-1 block text-lg font-black leading-tight">{t("Drone'dan Konumu Bul")}</strong>
-                <span className="mt-1 block text-[11px] font-semibold leading-4 text-blue-100">
-                  {t('Havadan 360° bak, haritada tahmin et, kilometreyi öğren!')}
-                </span>
-              </span>
-              <ChevronRight className="h-6 w-6 shrink-0" />
+          <section className="relative mt-3 overflow-hidden rounded-[24px] border border-cyan-200/55 bg-gradient-to-br from-[#092a48] via-[#154668] to-[#123a56] p-3.5 text-white shadow-[0_14px_30px_rgba(2,10,30,.3)]"
+            aria-label={t('Konum Dedektifi')}>
+            <div className="pointer-events-none absolute inset-0 opacity-35" style={{background:'radial-gradient(circle at 80% 20%,#43e8de77,transparent 48%),linear-gradient(145deg,transparent,#09214d)'}} />
+            <div className="relative mb-3 flex items-center gap-3">
+              <span aria-hidden="true" className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-cyan-200/40 bg-cyan-200/15"><MapPinned className="h-6 w-6 text-cyan-200" /></span>
+              <div className="min-w-0 flex-1">
+                <strong className="block text-lg font-black">{t('Konum Dedektifi')}</strong>
+                <span className="block text-xs font-medium leading-4 text-cyan-100/85">{t('Sokaktan veya havadan dünyayı keşfet.')}</span>
+              </div>
+              <span className="shrink-0 rounded-full border border-amber-300/40 bg-amber-200/15 px-2.5 py-1 text-[10px] font-black text-amber-100">{t('İKİ OYUN')}</span>
+            </div>
+            <div className="relative grid grid-cols-2 gap-2.5">
+              <button type="button" onClick={startStreet} aria-label={t('Sokak Dedektifi oyununa başla')}
+                className="group relative flex min-h-[135px] min-w-0 flex-col justify-end overflow-hidden rounded-[17px] border border-white/25 bg-[#10496c] p-3 text-left transition-transform active:scale-[.98]">
+                <img src="/game-cards/approved-street.webp" alt="" loading="lazy" draggable={false}
+                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-right opacity-35 blur-[2px]" />
+                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#081b37] via-[#0c2944]/75 to-transparent" />
+                <Camera className="relative mb-auto h-7 w-7 text-cyan-100" aria-hidden="true"/>
+                <strong className="relative mt-4 block text-[clamp(15px,3.8vw,19px)] font-black leading-tight">{t('Sokak Dedektifi')}</strong>
+                <span className="relative mt-1 block text-[11px] font-semibold text-blue-100">{t('Sokaktan keşfet')}</span>
+              </button>
+              <button type="button" onClick={startDrone} aria-label={t("Drone'dan Konumu Bul")}
+                className="group relative flex min-h-[135px] min-w-0 flex-col justify-end overflow-hidden rounded-[17px] border border-white/25 bg-[#135766] p-3 text-left transition-transform active:scale-[.98]">
+                <img src="/game-cards/approved-drone.webp" alt="" loading="lazy" draggable={false}
+                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-right opacity-35 blur-[2px]" />
+                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#081b37] via-[#0c2944]/75 to-transparent" />
+                <span className="relative mb-auto text-[26px]" aria-hidden="true">🚁</span>
+                <strong className="relative mt-4 block text-[clamp(15px,3.8vw,19px)] font-black leading-tight">{t('Drone Dedektifi')}</strong>
+                <span className="relative mt-1 block text-[11px] font-semibold text-blue-100">{t('Havadan keşfet')}</span>
+              </button>
+            </div>
+            <button type="button" onClick={onStreetLeaderboard}
+              className="relative mt-2.5 flex min-h-11 w-full items-center justify-between rounded-xl border border-cyan-200/20 bg-[#071b37]/85 px-3 py-2 text-xs font-bold text-cyan-100">
+              <span className="flex min-w-0 items-center gap-2"><Trophy className="h-4 w-4 shrink-0 text-amber-300" />{t('Sokak Dedektifi dünya sıralaması')}</span>
+              <ArrowRight className="h-4 w-4 shrink-0" />
             </button>
-          </div>
-
-          <div className="street-entry globriva-street-stage mt-3 overflow-hidden rounded-[23px]">
-            <button type="button" onClick={startStreet} className="street-entry-main flex w-full items-center gap-3 text-left">
-              <span className="street-entry-art" aria-hidden="true"><Camera className="h-9 w-9" strokeWidth={1.7}/><span>📍</span></span>
-              <span className="min-w-0 flex-1">
-                <small className="street-entry-kicker">{t('360° PANORAMA · ARŞİV HAZIRLANIYOR')}</small>
-                <strong className="mt-1 block text-lg font-black leading-tight">{t('Sokak Dedektifi')}</strong>
-                <span className="mt-1 block text-[11px] font-semibold leading-4">{t('Lisanslı panoramalar geliyor; dünyada yerini bul!')}</span>
-              </span>
-              <ChevronRight className="h-6 w-6 shrink-0 text-white"/>
-            </button>
-            <button type="button" onClick={onStreetLeaderboard} className="street-entry-league flex w-full items-center justify-between gap-2 px-4 py-2.5 text-xs font-bold">
-              <span className="flex items-center gap-2"><Trophy className="h-4 w-4"/> {t('Sokak Dedektifi dünya sıralaması')}</span>
-              <ArrowRight className="h-4 w-4"/>
-            </button>
-          </div>
-            </>
-          )}
+          </section>
         </motion.section>
 
         <motion.section {...entrance(3)} className="mt-3">
@@ -1004,49 +991,32 @@ export function StartScreen({
 
         <motion.section {...entrance(4)} className="mt-5">
           <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
-          {language === 'tr' ? (
-            <div className="mt-2 grid grid-cols-2 gap-3">
-              <button type="button" onClick={onDaily} aria-label={t('Günlük 10 soru')} className="globriva-art-crop globriva-art-crop-daily relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f9dda6] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
-                <img src="/game-cards/approved-daily.webp" width={431} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
-                {completed > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#ffe7bb] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#687782]">{completed}/{DAILY_TOTAL} {t('tamamlandı')}</span>}
-              </button>
-              <button type="button" onClick={onExplore} aria-label={t('Keşif haritası')} className="globriva-art-crop globriva-art-crop-explore relative block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#b0eee4] text-left shadow-[0_10px_22px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 active:scale-[.98] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200">
-                <img src="/game-cards/approved-explore.webp" width={419} height={184} alt="" draggable={false} loading="lazy" className="pointer-events-none block h-auto w-full select-none" />
-                {found > 0 && <span className="absolute bottom-[4%] left-[7%] rounded-md bg-[#c6f3e9] px-1 py-[1px] text-[clamp(9px,2.5vw,12px)] font-semibold text-[#647787]">{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</span>}
-              </button>
-            </div>
-          ) : (
-          <div className="aa-quick-grid mt-2 grid grid-cols-2 gap-3">
-            <button type="button" onClick={onDaily} className="aa-quick aa-daily globriva-daily-art">
-              <CalendarCheck className="h-6 w-6 text-amber-200" />
-              <strong>{t('Günlük 10 soru')}</strong>
-              <small>{completed}/{DAILY_TOTAL} {t('tamamlandı')}</small>
+
+          <div className="mt-2 grid grid-cols-2 gap-3">
+            <button type="button" onClick={onDaily} aria-label={t('Günlük 10 soru')}
+              className="relative flex aspect-[431/162] min-w-0 items-end overflow-hidden rounded-[22px] border border-white/50 bg-[#f7d99d] p-2 text-left text-[#153850] shadow-[0_10px_22px_rgba(0,8,30,.24)] active:scale-[.98]">
+              <img src="/game-cards/approved-daily.webp" alt="" width={431} height={184} draggable={false} loading="lazy"
+                className={'pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom ' + (language==='tr'?'':'opacity-30 blur-[3px]')} />
+              {language!=='tr' && <span className="relative z-10 rounded-lg bg-[#fff0ce]/95 px-2 py-1.5 text-xs font-black leading-tight text-[#334c65]">{t('Günlük 10 soru')}</span>}
+              {completed > 0 && <span className="absolute bottom-1 right-1 z-10 rounded-md bg-[#ffe7bb] px-1.5 py-1 text-[10px] font-semibold text-[#647787]">{completed}/{DAILY_TOTAL}</span>}
             </button>
-            <button type="button" onClick={onExplore} className="aa-quick aa-map globriva-explore-art">
-              <MapPinned className="h-6 w-6 text-cyan-200" />
-              <strong>{t('Keşif haritası')}</strong>
-              <small>{found}/{VALID_COUNTRY_IDS.length} {t('ülke keşfedildi')}</small>
+            <button type="button" onClick={onExplore} aria-label={t('Keşif haritası')}
+              className="relative flex aspect-[419/162] min-w-0 items-end overflow-hidden rounded-[22px] border border-white/50 bg-[#a4e7dc] p-2 text-left text-[#153850] shadow-[0_10px_22px_rgba(0,8,30,.24)] active:scale-[.98]">
+              <img src="/game-cards/approved-explore.webp" alt="" width={419} height={184} draggable={false} loading="lazy"
+                className={'pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom ' + (language==='tr'?'':'opacity-30 blur-[3px]')} />
+              {language!=='tr' && <span className="relative z-10 rounded-lg bg-[#d8fff5]/95 px-2 py-1.5 text-xs font-black leading-tight text-[#334c65]">{t('Keşif haritası')}</span>}
+              {found > 0 && <span className="absolute bottom-1 right-1 z-10 rounded-md bg-[#c6f3e9] px-1.5 py-1 text-[10px] font-semibold text-[#647787]">{found}/{VALID_COUNTRY_IDS.length}</span>}
             </button>
           </div>
-          )}
         </motion.section>
 
-        {language === 'tr' ? (
-          <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')} className="globriva-art-crop globriva-art-crop-league relative mt-3 block w-full overflow-hidden rounded-[22px] border border-white/25 bg-[#f6c9ed] text-left shadow-[0_12px_25px_rgba(0,8,30,.24)] transition-[transform,filter] duration-150 hover:brightness-[1.03] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
-            <img src="/game-cards/approved-league.webp" width={862} height={116} alt="" loading="lazy" draggable={false} className="pointer-events-none block h-auto w-full select-none" />
-          </motion.button>
-        ) : (
-        <motion.button {...entrance(4)} type="button"
-          onClick={() => onViewWeekly('mixed')}
-          className="aa-league globriva-league-art mt-3 flex w-full items-center gap-3 text-left">
-          <span className="aa-league-icon"><Trophy className="h-6 w-6" /></span>
-          <span className="min-w-0 flex-1">
-            <strong>{t('Haftalık sıralama')}</strong>
-            <small>{leaderboard.length ? t('Zirvedeki oyuncuları gör') : t('Arkadaşlarınla yarış, zirveye çık')}</small>
-          </span>
-          <ChevronRight className="h-5 w-5 shrink-0" />
+
+        <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')}
+          className="relative mt-3 flex aspect-[862/116] w-full items-center overflow-hidden rounded-[22px] border border-white/50 bg-[#f2c6df] px-4 text-left text-[#28445d] shadow-[0_12px_25px_rgba(0,8,30,.24)] active:scale-[.985]">
+          <img src="/game-cards/approved-league.webp" alt="" width={862} height={116} draggable={false} loading="lazy"
+            className={'pointer-events-none absolute inset-0 h-full w-full object-cover ' + (language==='tr'?'':'opacity-30 blur-[3px]')} />
+          {language!=='tr' && <span className="relative z-10 flex items-center gap-3 rounded-xl bg-[#fff0f7]/95 px-3 py-2 text-sm font-black"><Trophy className="h-5 w-5" />{t('Haftalık sıralama')}</span>}
         </motion.button>
-        )}
 
         {leaderboardError && (
           <p className="mt-2 text-center text-[11px] text-blue-200/70">
