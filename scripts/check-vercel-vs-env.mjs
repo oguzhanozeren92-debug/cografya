@@ -6,7 +6,7 @@ if (process.env.VERCEL_ENV === 'production') {
   let projectRef = '';
   try {
     const url = new URL(rawUrl);
-    if (url.protocol !== 'https:' || !/^[a-z0-9-]+\\.supabase\\.(co|in)$/.test(url.hostname)) {
+    if (url.protocol !== 'https:' || !/^[a-z0-9-]+\.supabase\.(co|in)$/.test(url.hostname)) {
       throw new Error('not a Supabase HTTPS API endpoint');
     }
     projectRef = url.hostname.split('.')[0];
