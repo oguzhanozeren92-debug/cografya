@@ -20,6 +20,7 @@ workflows:
           node --experimental-strip-types --test tests/drone/hints.test.mjs
           npm run typecheck
           npm run build
+          node scripts/panoramas/export-appstore-review.mjs
           npm run gallery:release-check
       - name: Check Apple SDK and required review assets
         script: |
@@ -59,6 +60,8 @@ workflows:
     artifacts:
       - ios-simulator-build/Build/Products/Debug-iphonesimulator/*.app
       - /tmp/atlas-ios-smoke.log
+      - appstore-review/photo-audit.csv
+      - appstore-review/release-report.json
 
   atlas-ios-testflight:
     name: Globriva — signed iOS IPA to TestFlight
@@ -90,6 +93,7 @@ workflows:
           node --experimental-strip-types --test tests/drone/hints.test.mjs
           npm run typecheck
           npm run build
+          node scripts/panoramas/export-appstore-review.mjs
           npm run gallery:release-check
       - name: Check Apple SDK and required review assets
         script: |
@@ -128,6 +132,8 @@ workflows:
       - ios/App/build/ios/ipa/*.ipa
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
+      - appstore-review/photo-audit.csv
+      - appstore-review/release-report.json
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
       app_store_connect:
