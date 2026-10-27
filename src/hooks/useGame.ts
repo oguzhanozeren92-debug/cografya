@@ -229,6 +229,14 @@ export function useGame() {
     setPhase(current => current === 'revive' ? 'gameover' : current);
   }, [mode]);
 
+  // Exit a live round without recording it as a finished game or granting rewards.
+  const quit = useCallback(() => {
+    trackPlayEvent({mode,event_type:'mode_exit',detail:'back_to_menu'});
+    gameRunRef.current += 1;
+    setAnswerInfoOpen(false);
+    setPhase('idle');
+  }, [mode]);
+
   const restart = useCallback(() => {
     void refreshLeaderboard();
     trackPlayEvent({mode,event_type:'mode_exit',detail:'restart'});
@@ -252,6 +260,6 @@ export function useGame() {
     answerInfoOpen, onAnswerInfoOpenChange,
     leaderboardError, refreshLeaderboard,
     correctCount: roundResults.filter(r => r.isCorrect).length,
-    start, onSpinEnd, onAnswer, onContinue, restart, saveScore,
+    start, onSpinEnd, onAnswer, onContinue, restart, quit, saveScore,
   };
 }
