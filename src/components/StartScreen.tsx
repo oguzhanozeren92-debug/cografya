@@ -648,7 +648,14 @@ export function StartScreen({
             </span>
             <span className="atlas-home-brand-name">Glo<strong>briva</strong></span>
           </div>
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex min-w-0 shrink-0 items-center gap-1.5 sm:gap-2">
+            <label className="atlas-home-language-picker flex h-9 shrink-0 items-center gap-1 rounded-xl border border-white/25 bg-[#102f4b]/80 px-1.5 text-[11px] font-extrabold text-white" title={t('Dil')}>
+              <Globe2 className="h-4 w-4 shrink-0 text-cyan-200" aria-hidden="true" />
+              <select value={language} onChange={event=>setLanguage(event.target.value as Language)}
+                aria-label={t('Dil')} className="w-[35px] min-w-0 bg-transparent text-[11px] font-extrabold uppercase text-white outline-none">
+                {availableLanguages.map(([code,label])=><option key={code} value={code} className="bg-[#0c2946] text-white">{code.toUpperCase()} · {label}</option>)}
+              </select>
+            </label>
             {isIosPushSupported() && onNotifications && (
               <button type="button" onClick={onNotifications}
                 aria-label={t('Bildirim ayarları')} className="atlas-home-topbutton">
@@ -783,15 +790,6 @@ export function StartScreen({
               </button>
             </div>
             </div>
-          </div>
-          <div className="absolute right-3 top-3 z-30">
-            <label className="relative flex h-9 max-w-[65px] shrink-0 items-center gap-1 rounded-xl border border-white/20 bg-[#0c2946]/75 px-1.5 text-[10px] font-extrabold text-white" title={t('Dil')}>
-              <Globe2 className="h-3.5 w-3.5 shrink-0 text-cyan-200"/>
-              <select value={language} onChange={event=>setLanguage(event.target.value as Language)}
-                aria-label={t('Dil')} className="w-[34px] min-w-0 appearance-none bg-transparent font-extrabold uppercase text-white outline-none">
-                {availableLanguages.map(([code,label])=><option key={code} value={code} className="bg-[#0c2946] text-white">{code.toUpperCase()} · {label}</option>)}
-              </select>
-            </label>
           </div>
           <div className="globriva-mode-picker-caption">
             <span><Gamepad2 size={13}/>{language === 'tr' ? 'Her kart ayrı bir oyun · Dokun, hemen oyna' : 'Every card is a playable game · Tap to start'}</span>
