@@ -419,6 +419,104 @@ export function StartScreen({
         }
         @media(prefers-reduced-motion:reduce) {.globriva-hero-track{transition:none;will-change:auto;}}
 
+        /* Globriva premium geography covers — real scenic photo with an in-app
+           SVG fallback, so slow/offline image requests never leave a blank tile. */
+        .globriva-feature-slide .feature-art {
+          transform: none; opacity: 1; overflow: hidden;
+        }
+        .globriva-feature-slide .feature-art svg { z-index: 0; }
+        .globriva-feature-slide .feature-photo {
+          display: block; position: absolute; inset: 0; z-index: 1;
+          width: 100%; height: 100%; object-fit: cover;
+          filter: saturate(1.25) contrast(1.12) brightness(.95);
+        }
+        .globriva-feature-slide .feature-photo-nature { object-position: 57% 47%; }
+        .globriva-feature-slide .feature-photo-islands { object-position: 53% 58%; }
+        .globriva-feature-slide .feature-photo-borders {
+          object-position: 58% 52%;
+          filter: saturate(.90) contrast(1.10) brightness(.91);
+        }
+        .globriva-feature-slide::after {
+          background:
+            linear-gradient(0deg, rgba(4,17,33,.65), transparent 42%),
+            linear-gradient(90deg, rgba(3,17,32,.97) 0%,rgba(4,25,43,.92) 31%,rgba(5,29,47,.60) 57%,rgba(4,29,47,.12) 100%);
+        }
+        .globriva-feature-slide .feature-copy {
+          max-width: 83%; padding-bottom: 21px;
+        }
+        .globriva-feature-slide .feature-copy strong {
+          text-shadow: 0 3px 15px rgba(0,0,0,.72),0 1px 3px rgba(0,0,0,.5);
+        }
+        .globriva-feature-slide .feature-copy small {
+          max-width: 258px; text-shadow: 0 2px 7px rgba(0,0,0,.7);
+        }
+        .globriva-feature-slide .feature-label {
+          border-color: rgba(255,241,199,.78);
+          background: rgba(4,24,45,.78); color:#fff3d5;
+        }
+        .globriva-feature-slide .feature-cta {
+          background: linear-gradient(135deg,#fff2d3,#ffd887);
+          box-shadow:0 5px 18px rgba(0,0,0,.24), inset 0 1px rgba(255,255,255,.88);
+        }
+        .globriva-feature-slide .feature-new {
+          background: linear-gradient(135deg,#fff1b9,#ffcd71);
+          box-shadow: 0 4px 16px rgba(0,0,0,.33);
+        }
+        /* A world-adventure banner rather than a generic orange CTA. The
+           picture is already bundled locally for dependable mobile display. */
+        .atlas-home-illustrated .aa-play {
+          position:relative; isolation:isolate; overflow:hidden;
+          border:1.5px solid rgba(255,227,166,.84);
+          background:
+            linear-gradient(94deg,rgba(7,29,55,.97) 0%,rgba(10,46,73,.94) 43%,rgba(16,74,100,.67) 100%),
+            url('/globriva-hero-atmosphere.webp') 66% 46% / cover no-repeat,
+            #102f4c;
+          box-shadow:0 13px 31px rgba(2,16,44,.37),inset 0 1px rgba(255,255,255,.23);
+          color: #fff8e8; padding:13px 16px; min-height:83px; gap:14px;
+        }
+        .atlas-home-illustrated .aa-play::after {
+          content:''; position:absolute; pointer-events:none; z-index:-1;
+          width:162px; height:162px; right:-26px; top:-49px;
+          border:1px solid rgba(255,238,182,.19); border-radius:50%;
+          box-shadow:0 0 0 20px rgba(255,255,255,.035),0 0 0 53px rgba(255,255,255,.025);
+        }
+        .atlas-home-illustrated .aa-play-icon {
+          width:52px;height:52px;border-radius:16px;
+          color:#193858; background:linear-gradient(145deg,#fff4c9,#ffc56d);
+          border:1px solid rgba(255,255,255,.81);
+          box-shadow:0 7px 19px rgba(3,12,28,.25);
+        }
+        .atlas-home-illustrated .aa-play strong {
+          font-size:clamp(21px,5.3vw,27px);letter-spacing:-.015em;
+        }
+        .atlas-home-illustrated .aa-play small { color:#c9e7ed;font-size:11px; }
+        .atlas-home-illustrated .aa-play .aa-play-kicker {
+          display:block;color:#ffdd9a;font-size:9px;font-weight:900;
+          letter-spacing:.13em;margin-bottom:5px;
+        }
+        .atlas-home-illustrated .aa-section-heading {
+          color:#fff8e9;font-size:clamp(17px,4.7vw,21px);
+          font-weight:950;letter-spacing:-.02em;
+          text-shadow:0 2px 13px rgba(0,0,0,.23);
+        }
+        .atlas-home-illustrated .globriva-game-tile {
+          border-color:rgba(255,255,255,.61);
+          box-shadow:0 15px 31px rgba(0,9,32,.31),inset 0 1px rgba(255,255,255,.2);
+        }
+        .atlas-home-illustrated .globriva-game-tile .globriva-game-tile-photo {
+          filter:saturate(1.12) contrast(1.04);
+        }
+        .atlas-home-illustrated .globriva-game-tile strong {
+          text-shadow:0 3px 10px rgba(0,0,0,.75);
+        }
+        @media(max-width:380px) {
+          .globriva-feature-slide .feature-copy {max-width:84%;padding-bottom:17px;}
+          .atlas-home-illustrated .aa-play {padding:11px 12px;gap:10px;}
+          .atlas-home-illustrated .aa-play-icon {width:46px;height:46px;}
+          .atlas-home-illustrated .aa-play .aa-play-kicker {font-size:8px;}
+        }
+
+
         /* The approved PNG/WebP screenshots carried a 22px strip of dark
            page background at their top. Crop that strip inside the real
            interactive button (no replacement artwork or duplicate buttons). */
@@ -543,7 +641,13 @@ export function StartScreen({
             </div>
 
             <div className="globriva-hero-slide globriva-feature-slide globriva-feature-nature">
-              <div className="feature-art" aria-hidden="true"><GeoDiscoveryArt mode="nature" /></div>
+              <div className="feature-art" aria-hidden="true">
+                <GeoDiscoveryArt mode="nature" />
+                <img className="feature-photo feature-photo-nature"
+                  src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1150&q=85"
+                  alt="" loading="eager" decoding="async"
+                  onError={event => { event.currentTarget.style.display = 'none'; }} />
+              </div>
               <span className="feature-new">{language==='tr'?'YENİ':'NEW'}</span>
               <button type="button" className="relative z-[3] block h-full w-full cursor-pointer text-left touch-manipulation"
                 aria-label={language==='tr'?'Doğa Dedektifi oyununu aç':'Play Nature Detective'}
@@ -557,7 +661,13 @@ export function StartScreen({
               </button>
             </div>
             <div className="globriva-hero-slide globriva-feature-slide globriva-feature-islands">
-              <div className="feature-art" aria-hidden="true"><GeoDiscoveryArt mode="islands" /></div>
+              <div className="feature-art" aria-hidden="true">
+                <GeoDiscoveryArt mode="islands" />
+                <img className="feature-photo feature-photo-islands"
+                  src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1150&q=85"
+                  alt="" loading="eager" decoding="async"
+                  onError={event => { event.currentTarget.style.display = 'none'; }} />
+              </div>
               <span className="feature-new">{language==='tr'?'YENİ':'NEW'}</span>
               <button type="button" className="relative z-[3] block h-full w-full cursor-pointer text-left touch-manipulation"
                 aria-label={language==='tr'?'Ada Avcısı oyununu aç':'Play Island Hunter'}
@@ -571,7 +681,13 @@ export function StartScreen({
               </button>
             </div>
             <div className="globriva-hero-slide globriva-feature-slide globriva-feature-borders">
-              <div className="feature-art" aria-hidden="true"><GeoDiscoveryArt mode="borders" /></div>
+              <div className="feature-art" aria-hidden="true">
+                <GeoDiscoveryArt mode="borders" />
+                <img className="feature-photo feature-photo-borders"
+                  src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1150&q=85"
+                  alt="" loading="eager" decoding="async"
+                  onError={event => { event.currentTarget.style.display = 'none'; }} />
+              </div>
               <span className="feature-new">{language==='tr'?'YENİ':'NEW'}</span>
               <button type="button" className="relative z-[3] block h-full w-full cursor-pointer text-left touch-manipulation"
                 aria-label={language==='tr'?'Sınır Dedektifi oyununu aç':'Play Border Detective'}
@@ -631,6 +747,7 @@ export function StartScreen({
           className="aa-play mt-3 flex w-full items-center gap-3 text-left">
           <span className="aa-play-icon"><Play className="h-6 w-6 fill-current" /></span>
           <span className="min-w-0 flex-1">
+            <span className="aa-play-kicker">{language === 'tr' ? 'DÜNYA TURU · KEŞİF ARENASI' : 'WORLD TOUR · DISCOVERY ARENA'}</span>
             <strong>{t('Oyuna başla!')}</strong>
             <small>{canPlay ? t('Karışık dünya turu seni bekliyor') : t('Bir takma ad seç, macera başlasın')}</small>
           </span>
@@ -644,14 +761,14 @@ export function StartScreen({
               type="button"
               onClick={() => startOrAskName('flags')}
               aria-label={t('Bayrak oyunu')}
-              className="group relative isolate flex min-h-[218px] flex-col overflow-hidden rounded-[27px] border border-[#ffd6a9]/70 bg-[#e6a66d] p-3 text-left text-white shadow-[0_12px_28px_rgba(15,16,54,.28)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(245,151,93,.32)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 sm:min-h-[236px] sm:p-4"
+              className="globriva-game-tile group relative isolate flex min-h-[218px] flex-col overflow-hidden rounded-[27px] border border-[#ffd6a9]/70 bg-[#e6a66d] p-3 text-left text-white shadow-[0_12px_28px_rgba(15,16,54,.28)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(245,151,93,.32)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 sm:min-h-[236px] sm:p-4"
             >
               <img
                 src="/game-cards/bayrak-oyunu.webp"
                 alt=""
                 loading="lazy"
                 draggable={false}
-                className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+                className="globriva-game-tile-photo pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
               />
               <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#3b231d]/15 via-transparent to-[#071c31]/55" />
               <span className="flex w-full items-start justify-between gap-1.5">
@@ -673,14 +790,14 @@ export function StartScreen({
               type="button"
               onClick={() => startOrAskName('clues')}
               aria-label={t('Gizemli ülke')}
-              className="group relative isolate flex min-h-[218px] flex-col overflow-hidden rounded-[27px] border border-[#d9c5ff]/80 bg-[#7162d8] p-3 text-left text-white shadow-[0_12px_28px_rgba(15,16,54,.28)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(128,109,250,.30)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-200 sm:min-h-[236px] sm:p-4"
+              className="globriva-game-tile group relative isolate flex min-h-[218px] flex-col overflow-hidden rounded-[27px] border border-[#d9c5ff]/80 bg-[#7162d8] p-3 text-left text-white shadow-[0_12px_28px_rgba(15,16,54,.28)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(128,109,250,.30)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-200 sm:min-h-[236px] sm:p-4"
             >
               <img
                 src="/game-cards/gizemli-ulke.webp"
                 alt=""
                 loading="lazy"
                 draggable={false}
-                className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+                className="globriva-game-tile-photo pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
               />
               <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#251d64]/15 via-transparent to-[#0d1145]/65" />
               <span className="flex w-full items-start justify-between gap-1.5">
