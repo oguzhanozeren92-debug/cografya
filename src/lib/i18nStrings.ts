@@ -6,6 +6,9 @@ export const languageNames: Record<Language,string> = {
 };
 export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> = {
   "en": {
+    "Oyundan çıkılsın mı?": "Leave the game?",
+    "Bu turdaki ilerlemen kaybolacak.": "Your progress in this run will be lost.",
+    "Oyuna devam et": "Keep playing",
     "Bildirim ayarları": "Notification settings",
     "Oyun sesini kapat": "Mute game sound",
     "Oyun sesini aç": "Unmute game sound",
@@ -392,6 +395,9 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Gizlilik Politikası": "Privacy Policy"
   },
   "es": {
+    "Oyundan çıkılsın mı?": "¿Salir de la partida?",
+    "Bu turdaki ilerlemen kaybolacak.": "Perderás el progreso de esta partida.",
+    "Oyuna devam et": "Seguir jugando",
     "Dil": "Idioma",
     "Hadi,": "¡Vamos a",
     "keşfe çık!": "explorar!",
@@ -778,6 +784,9 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Gizlilik Politikası": "Política de privacidad"
   },
   "de": {
+    "Oyundan çıkılsın mı?": "Spiel verlassen?",
+    "Bu turdaki ilerlemen kaybolacak.": "Dein Fortschritt in dieser Runde geht verloren.",
+    "Oyuna devam et": "Weiterspielen",
     "Dil": "Sprache",
     "Hadi,": "Auf geht's,",
     "keşfe çık!": "entdecke die Welt!",
@@ -1164,6 +1173,9 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Gizlilik Politikası": "Datenschutzerklärung"
   },
   "fr": {
+    "Oyundan çıkılsın mı?": "Quitter la partie ?",
+    "Bu turdaki ilerlemen kaybolacak.": "Ta progression dans cette partie sera perdue.",
+    "Oyuna devam et": "Continuer à jouer",
     "Dil": "Langue",
     "Hadi,": "Prêt à",
     "keşfe çık!": "explorer !",
@@ -1550,6 +1562,9 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Gizlilik Politikası": "Politique de confidentialité"
   },
   "pt": {
+    "Oyundan çıkılsın mı?": "Sair do jogo?",
+    "Bu turdaki ilerlemen kaybolacak.": "O progresso desta partida será perdido.",
+    "Oyuna devam et": "Continuar jogando",
     "Dil": "Idioma",
     "Hadi,": "Vamos",
     "keşfe çık!": "explorar!",
@@ -1936,6 +1951,9 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Gizlilik Politikası": "Política de privacidade"
   },
   "ru": {
+    "Oyundan çıkılsın mı?": "Выйти из игры?",
+    "Bu turdaki ilerlemen kaybolacak.": "Прогресс в текущей игре будет потерян.",
+    "Oyuna devam et": "Продолжить игру",
     "Dil": "Язык",
     "Hadi,": "Пора",
     "keşfe çık!": "исследовать!",
@@ -2322,6 +2340,9 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Gizlilik Politikası": "Политика конфиденциальности"
   },
   "zh": {
+    "Oyundan çıkılsın mı?": "退出游戏？",
+    "Bu turdaki ilerlemen kaybolacak.": "本局游戏的进度将会丢失。",
+    "Oyuna devam et": "继续游戏",
     "Dil": "语言",
     "Hadi,": "一起",
     "keşfe çık!": "探索世界！",
@@ -2708,6 +2729,9 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Gizlilik Politikası": "隐私政策"
   },
   "ja": {
+    "Oyundan çıkılsın mı?": "ゲームを終了しますか？",
+    "Bu turdaki ilerlemen kaybolacak.": "このプレイの進行状況は失われます。",
+    "Oyuna devam et": "プレイを続ける",
     "Dil": "言語",
     "Hadi,": "さあ、",
     "keşfe çık!": "探検しよう！",
