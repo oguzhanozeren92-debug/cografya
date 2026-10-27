@@ -993,17 +993,19 @@ export function StartScreen({
           <div className="mt-2 grid grid-cols-2 gap-3">
             <button type="button" onClick={onDaily} aria-label={t('Günlük 10 soru')}
               className="relative flex aspect-[431/162] min-w-0 items-end overflow-hidden rounded-[22px] border border-white/50 bg-[#f7d99d] p-2 text-left text-[#153850] shadow-[0_10px_22px_rgba(0,8,30,.24)] active:scale-[.98]">
-              <img src="/game-cards/approved-daily.webp" alt="" width={431} height={184} draggable={false} loading="lazy"
-                className={'pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom ' + (language==='tr'?'':'opacity-30 blur-[3px]')} />
-              {language!=='tr' && <span className="relative z-10 rounded-lg bg-[#fff0ce]/95 px-2 py-1.5 text-xs font-black leading-tight text-[#334c65]">{t('Günlük 10 soru')}</span>}
-              {completed > 0 && <span className="absolute bottom-1 right-1 z-10 rounded-md bg-[#ffe7bb] px-1.5 py-1 text-[10px] font-semibold text-[#647787]">{completed}/{DAILY_TOTAL}</span>}
+              <img src={language==='tr'?'/game-cards/approved-daily.webp':'/game-cards/daily-cinematic.svg'}
+                alt="" width={431} height={184} draggable={false} loading="lazy"
+                className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom" />
+              {language!=='tr' && <span className="relative z-10 max-w-[83%] rounded-lg border border-[#fffdf0]/70 bg-[#fff1cf]/95 px-2.5 py-1.5 text-[clamp(11px,2.55vw,15px)] font-black leading-tight text-[#334c65] shadow-[0_2px_7px_rgba(81,57,35,.12)]">{t('Günlük 10 soru')}</span>}
+              {completed > 0 && <span className="absolute right-1.5 top-1.5 z-10 rounded-md border border-[#faf6e9]/70 bg-[#ffe7bb]/95 px-1.5 py-1 text-[10px] font-bold text-[#647787] shadow-sm">{completed}/{DAILY_TOTAL}</span>}
             </button>
             <button type="button" onClick={onExplore} aria-label={t('Keşif haritası')}
               className="relative flex aspect-[419/162] min-w-0 items-end overflow-hidden rounded-[22px] border border-white/50 bg-[#a4e7dc] p-2 text-left text-[#153850] shadow-[0_10px_22px_rgba(0,8,30,.24)] active:scale-[.98]">
-              <img src="/game-cards/approved-explore.webp" alt="" width={419} height={184} draggable={false} loading="lazy"
-                className={'pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom ' + (language==='tr'?'':'opacity-30 blur-[3px]')} />
-              {language!=='tr' && <span className="relative z-10 rounded-lg bg-[#d8fff5]/95 px-2 py-1.5 text-xs font-black leading-tight text-[#334c65]">{t('Keşif haritası')}</span>}
-              {found > 0 && <span className="absolute bottom-1 right-1 z-10 rounded-md bg-[#c6f3e9] px-1.5 py-1 text-[10px] font-semibold text-[#647787]">{found}/{VALID_COUNTRY_IDS.length}</span>}
+              <img src={language==='tr'?'/game-cards/approved-explore.webp':'/game-cards/explore-cinematic.svg'}
+                alt="" width={419} height={184} draggable={false} loading="lazy"
+                className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom" />
+              {language!=='tr' && <span className="relative z-10 max-w-[85%] rounded-lg border border-[#ebfff8]/80 bg-[#d9fff5]/95 px-2.5 py-1.5 text-[clamp(11px,2.55vw,15px)] font-black leading-tight text-[#334c65] shadow-[0_2px_7px_rgba(25,84,71,.12)]">{t('Keşif haritası')}</span>}
+              {found > 0 && <span className="absolute right-1.5 top-1.5 z-10 rounded-md border border-[#ebfff8]/70 bg-[#c6f3e9]/95 px-1.5 py-1 text-[10px] font-bold text-[#647787] shadow-sm">{found}/{VALID_COUNTRY_IDS.length}</span>}
             </button>
           </div>
         </motion.section>
@@ -1011,9 +1013,10 @@ export function StartScreen({
 
         <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')}
           className="relative mt-3 flex aspect-[862/116] w-full items-center overflow-hidden rounded-[22px] border border-white/50 bg-[#f2c6df] px-4 text-left text-[#28445d] shadow-[0_12px_25px_rgba(0,8,30,.24)] active:scale-[.985]">
-          <img src="/game-cards/approved-league.webp" alt="" width={862} height={116} draggable={false} loading="lazy"
-            className={'pointer-events-none absolute inset-0 h-full w-full object-cover ' + (language==='tr'?'':'opacity-30 blur-[3px]')} />
-          {language!=='tr' && <span className="relative z-10 flex items-center gap-3 rounded-xl bg-[#fff0f7]/95 px-3 py-2 text-sm font-black"><Trophy className="h-5 w-5" />{t('Haftalık sıralama')}</span>}
+          <img src={language==='tr'?'/game-cards/approved-league.webp':'/game-cards/league-cinematic.svg'}
+            alt="" width={862} height={116} draggable={false} loading="lazy"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center" />
+          {language!=='tr' && <span className="relative z-10 flex max-w-[78%] items-center gap-2.5 rounded-xl border border-[#fffaf8]/70 bg-[#fff0f7]/95 px-3 py-2 text-[clamp(13px,3.2vw,18px)] font-black leading-tight text-[#28445d] shadow-[0_2px_8px_rgba(98,62,95,.12)]"><Trophy className="h-5 w-5 shrink-0" />{t('Haftalık sıralama')}</span>}
         </motion.button>
 
         {leaderboardError && (
