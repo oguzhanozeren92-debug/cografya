@@ -99,6 +99,11 @@ workflows:
           node scripts/sync-public-vs-config.mjs
       - name: Install and verify game
         script: |
+          # Explicitly load validated public settings into the build process,
+          # even if a stale partial variable exists in the Codemagic group.
+          set -a
+          . ./.env.production.local
+          set +a
           npm ci --no-audit --no-fund
           node scripts/check-i18n.mjs
           node --test tests/street/country-mode.test.mjs
