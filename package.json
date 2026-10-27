@@ -18,7 +18,9 @@
     "gallery:audit": "node scripts/panoramas/check-local-gallery.mjs",
     "outdoor:audit": "node scripts/panoramas/check-eraatlas-outdoors.mjs",
     "gallery:release-check": "node scripts/panoramas/check-local-gallery.mjs --release",
-    "gallery:discover": "node scripts/panoramas/discover-commons.mjs"
+    "gallery:discover": "node scripts/panoramas/discover-commons.mjs",
+    "gallery:photo-review": "node scripts/panoramas/export-appstore-review.mjs",
+    "gallery:commons-audit": "node scripts/panoramas/verify-commons-licenses.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
