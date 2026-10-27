@@ -120,7 +120,7 @@ export function QuestionPanel({
           </div>
         )}
 
-        <div className={'grid grid-cols-1 sm:grid-cols-2 ' + (isClue ? 'gap-1.5' : 'gap-2.5')}>
+        <div className={'game-answer-grid grid ' + (isClue ? 'game-answer-grid-clue grid-cols-1 gap-1.5 sm:grid-cols-2' : 'grid-cols-2 gap-2.5')}>
           {options.map((option, index) => {
             const selected = selectedAnswer === option;
             const correct = option === correctAnswer;
@@ -128,7 +128,7 @@ export function QuestionPanel({
             if (isFeedback) classes += correct ? (selected ? ' option-btn-correct option-btn-correct-picked' : ' option-btn-correct') : selected ? ' option-btn-wrong' : ' option-btn-disabled';
             return (
               <div key={option} className="relative min-w-0">
-              <motion.button type="button" initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, x: isFeedback && selected && !correct ? [0, -8, 7, -4, 0] : 0, scale: isFeedback && correct ? [1, 1.035, 1] : 1 }} transition={{ duration: isFeedback ? .32 : .24, delay: isFeedback ? 0 : index * .045 }} whileTap={reduceMotion || isFeedback ? undefined : { scale: .97 }} onClick={() => !isFeedback && onAnswer(option)} disabled={isFeedback} className={classes + (isClue ? ' clue-option-btn' : '') + (isFeedback && correct ? ' pr-12' : '')}>
+              <motion.button type="button" initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, x: isFeedback && selected && !correct ? [0, -8, 7, -4, 0] : 0, scale: isFeedback && correct ? [1, 1.035, 1] : 1 }} transition={{ duration: isFeedback ? .32 : .24, delay: isFeedback ? 0 : index * .045 }} whileTap={reduceMotion || isFeedback ? undefined : { scale: .97 }} onClick={() => !isFeedback && onAnswer(option)} disabled={isFeedback} className={classes + ' game-answer-tile' + (isClue ? ' clue-option-btn' : '') + (isFeedback && correct ? ' pr-12' : '')}>
                 <div className="flex items-center justify-between gap-3">
                   <span className="font-medium">{localizedAnswer(option,questionType,language)}</span>
                   {isFeedback && correct && <span className="answer-correct-badge mr-9" aria-label={t("Doğru cevap")}><Check className="h-4 w-4" strokeWidth={3.5} /></span>}
