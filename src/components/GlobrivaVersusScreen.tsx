@@ -9,6 +9,8 @@ import {
   type VsRoom,
 } from '@/lib/versus';
 import { COUNTRY_DATA } from '@/data/countries';
+import { useLanguage } from '@/lib/i18n';
+import { Capacitor } from '@capacitor/core';
 
 interface Props {
   playerName: string;
@@ -18,6 +20,7 @@ interface Props {
 }
 
 export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNameChange, onClose }: Props) {
+  const {t}=useLanguage();
   const [name, setName] = useState(playerName);
   const [inviteInput, setInviteInput] = useState(() => normalizeVsCode(initialInviteCode || inviteCodeFromUrl()));
   const [roomCode, setRoomCode] = useState('');
@@ -186,13 +189,13 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
   return (
     <div className="fixed inset-0 z-[100] overflow-y-auto bg-[#07152d] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_5%,rgba(47,201,217,.20),transparent_42%),radial-gradient(circle_at_95%_30%,rgba(146,85,249,.24),transparent_43%)]" />
-      <main className="relative mx-auto w-full max-w-xl px-4 pb-12 pt-5 sm:px-6">
-        <header className="mb-5 flex items-center justify-between gap-3">
-          <button type="button" onClick={leave} className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-sm font-bold">
-            <ArrowLeft className="h-4 w-4" /> Geri dön
+      <main className="relative mx-auto w-full max-w-xl px-4 pb-12 sm:px-6" style={{paddingTop:Capacitor.isNativePlatform()?'calc(max(env(safe-area-inset-top, 0px), 48px) + 16px)':'calc(env(safe-area-inset-top, 0px) + 20px)'}}>
+        <header className="mb-5 flex min-w-0 items-center justify-between gap-2.5">
+          <button type="button" onClick={leave} className="inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-xs font-bold sm:text-sm">
+            <ArrowLeft className="h-4 w-4 shrink-0" /> {t("Geri dön")}
           </button>
-          <span className="inline-flex items-center gap-2 rounded-full border border-rose-300/35 bg-rose-300/10 px-4 py-2 text-sm font-black text-rose-200">
-            <Swords className="h-5 w-5" /> GL<span className="text-rose-400">O</span>BRIVA VS
+          <span className="inline-flex min-w-0 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-rose-300/35 bg-rose-300/10 px-3 py-2 text-[11px] font-black text-rose-200 sm:text-sm">
+            <Swords className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" /> <span>GLOBRIVA <span className="text-rose-300">VS</span></span>
           </span>
         </header>
 
@@ -202,34 +205,34 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
               <div className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-[#ffac85] to-[#ed6895] shadow-lg">
                 <Swords className="h-9 w-9 text-[#142748]" />
               </div>
-              <h1 className="mt-4 text-3xl font-black">Arkadaşınla VS at!</h1>
-              <p className="mt-2 max-w-sm text-sm leading-6 text-blue-200">İki kişi, aynı sırayla 10 soru. Her doğru cevap 100 puan. En yüksek puanı alan kazanır.</p>
+              <h1 className="mt-4 text-3xl font-black">{t("Arkadaşınla VS at!")}</h1>
+              <p className="mt-2 max-w-sm text-sm leading-6 text-blue-200">{t("İki kişi, aynı sırayla 10 soru. Her doğru cevap 100 puan. En yüksek puanı alan kazanır.")}</p>
             </div>
-            <label className="mb-1.5 block text-xs font-bold text-blue-200" htmlFor="vs-player">Takma adın</label>
+            <label className="mb-1.5 block text-xs font-bold text-blue-200" htmlFor="vs-player">{t("Takma adın")}</label>
             <input id="vs-player" value={name} onChange={event => setName(event.target.value.slice(0, 20))}
-              maxLength={20} placeholder="Gezgin adını yaz" autoComplete="nickname"
+              maxLength={20} placeholder={t("Gezgin adını yaz")} autoComplete="nickname"
               className="mb-4 w-full rounded-2xl border border-white/20 bg-[#0b1932] px-4 py-3.5 text-white outline-none focus:border-cyan-300" />
             <button type="button" disabled={busy} onClick={() => { void enterRoom(true); }}
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#ffb17d] to-[#ff7e92] px-5 py-4 text-base font-black text-[#18223e] disabled:opacity-50">
               {busy ? <Loader2 className="h-5 w-5 animate-spin" /> : <Swords className="h-5 w-5" />} Yeni VS odası oluştur
             </button>
             <div className="my-5 flex items-center gap-3 text-xs text-blue-300/70"><div className="h-px flex-1 bg-white/15" />veya davete katıl<div className="h-px flex-1 bg-white/15" /></div>
-            <label className="mb-1.5 block text-xs font-bold text-blue-200" htmlFor="vs-code">Davet kodu</label>
+            <label className="mb-1.5 block text-xs font-bold text-blue-200" htmlFor="vs-code">{t("Davet kodu")}</label>
             <input id="vs-code" value={inviteInput} maxLength={12}
               onChange={event => setInviteInput(normalizeVsCode(event.target.value))}
-              placeholder="12 karakterli kod" autoCapitalize="characters"
+              placeholder={t("12 karakterli kod")} autoCapitalize="characters"
               className="w-full rounded-2xl border border-white/20 bg-[#0b1932] px-4 py-3.5 font-mono text-lg tracking-[0.16em] text-white outline-none focus:border-cyan-300" />
             <button type="button" disabled={busy || inviteInput.length !== 12}
               onClick={() => { void enterRoom(false); }}
               className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-cyan-200/40 bg-cyan-200/10 px-5 py-3.5 font-black text-cyan-100 disabled:opacity-50">
               <Link2 className="h-5 w-5" /> Davete katıl
             </button>
-            <p className="mt-5 flex gap-2 text-xs leading-5 text-blue-300/80"><ShieldCheck className="h-4 w-4 shrink-0" /> Rakibinle yalnızca takma adın, soru sayın ve puanın paylaşılır.</p>
+            <p className="mt-5 flex gap-2 text-xs leading-5 text-blue-300/80"><ShieldCheck className="h-4 w-4 shrink-0" /> {t("Rakibinle yalnızca takma adın, soru sayın ve puanın paylaşılır.")}</p>
           </section>
         ) : !room ? (
-          <div className="flex h-64 flex-col items-center justify-center gap-3 text-blue-200"><Loader2 className="h-9 w-9 animate-spin" />Oda yükleniyor...</div>
+          <div className="flex h-64 flex-col items-center justify-center gap-3 text-blue-200"><Loader2 className="h-9 w-9 animate-spin" />{t("Oda yükleniyor...")}</div>
         ) : room.expired ? (
-          <div className="rounded-3xl border border-amber-200/25 bg-[#142748] p-8 text-center"><Clock3 className="mx-auto mb-3 h-12 w-12 text-amber-300" /><h2 className="text-xl font-black">Davet süresi dolmuş</h2><p className="mt-2 text-sm text-blue-200">Yeni bir VS maçı başlatabilirsin.</p></div>
+          <div className="rounded-3xl border border-amber-200/25 bg-[#142748] p-8 text-center"><Clock3 className="mx-auto mb-3 h-12 w-12 text-amber-300" /><h2 className="text-xl font-black">{t("Davet süresi dolmuş")}</h2><p className="mt-2 text-sm text-blue-200">{t("Yeni bir VS maçı başlatabilirsin.")}</p></div>
         ) : (
           <>
             <div className="mb-5 rounded-[26px] border border-white/15 bg-[#132747] p-4 sm:p-5">
@@ -240,15 +243,15 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
               <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-center">
                 <div className="rounded-2xl bg-cyan-300/10 p-3"><div className="truncate text-xs font-bold text-cyan-200">{myName}</div><div className="mt-1 text-3xl font-black">{room.myScore}</div><small className="text-[11px] text-cyan-100/70">{room.myAnswers.length}/10</small></div>
                 <span className="text-xl font-black text-rose-300">VS</span>
-                <div className="rounded-2xl bg-rose-300/10 p-3"><div className="truncate text-xs font-bold text-rose-200">{otherName || 'Rakip bekleniyor'}</div><div className="mt-1 text-3xl font-black">{room.otherScore}</div><small className="text-[11px] text-rose-100/70">{room.otherCount}/10</small></div>
+                <div className="rounded-2xl bg-rose-300/10 p-3"><div className="truncate text-xs font-bold text-rose-200">{otherName || t('Rakip bekleniyor')}</div><div className="mt-1 text-3xl font-black">{room.otherScore}</div><small className="text-[11px] text-rose-100/70">{room.otherCount}/10</small></div>
               </div>
             </div>
 
             {room.status === 'waiting' ? (
               <section className="rounded-[28px] border border-amber-300/25 bg-[#142748] p-5 text-center sm:p-7">
                 <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-amber-300/10"><Clock3 className="h-8 w-8 text-amber-300" /></div>
-                <h2 className="mt-4 text-2xl font-black">Rakibini bekliyorsun!</h2>
-                <p className="mt-2 text-sm leading-6 text-blue-200">Bu bağlantıyı WhatsApp’tan arkadaşına gönder. Katıldığında maç ikiniz için başlayacak.</p>
+                <h2 className="mt-4 text-2xl font-black">{t("Rakibini bekliyorsun!")}</h2>
+                <p className="mt-2 text-sm leading-6 text-blue-200">{t("Bu bağlantıyı WhatsApp’tan arkadaşına gönder. Katıldığında maç ikiniz için başlayacak.")}</p>
                 <button type="button" onClick={whatsappInvite}
                   className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-5 py-4 font-black text-[#062817] shadow-lg shadow-[#25D366]/10 active:scale-[0.99]">
                   <MessageCircle className="h-5 w-5" /> WhatsApp’tan davet gönder
@@ -257,7 +260,7 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
                   <button type="button" onClick={() => { void copyInvite(); }}
                     className="flex items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/10 px-3 py-3 text-sm font-black">
                     {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                    {copied ? 'Kopyalandı' : 'Linki kopyala'}
+                    {copied ? t('Kopyalandı') : t('Linki kopyala')}
                   </button>
                   <button type="button" onClick={() => { void share(); }}
                     className="flex items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/10 px-3 py-3 text-sm font-black">
@@ -270,15 +273,15 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
             ) : finishedMine ? (
               <section className="rounded-[28px] border border-amber-300/25 bg-[#142748] p-7 text-center">
                 <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-amber-300/10"><Trophy className="h-9 w-9 text-amber-300" /></div>
-                <h2 className="mt-4 text-2xl font-black">{finishedBoth ? (draw ? 'Berabere!' : winning ? 'Kazandın! 🏆' : 'Bu kez rakibin kazandı') : 'Soruları bitirdin!'}</h2>
+                <h2 className="mt-4 text-2xl font-black">{finishedBoth ? (draw ? t('Berabere!') : winning ? t('Kazandın! 🏆') : t('Bu kez rakibin kazandı')) : 'Soruları bitirdin!'}</h2>
                 <p className="mt-2 text-sm leading-6 text-blue-200">{finishedBoth ? `Skor: ${room.myScore} - ${room.otherScore}` : `Rakibin ${room.otherCount}/10 soruda. Sonuç için bekleniyor.`}</p>
                 {!finishedBoth && <Loader2 className="mx-auto mt-5 h-5 w-5 animate-spin text-cyan-300" />}
-                {finishedBoth && <div className="mt-5 flex items-center justify-center gap-2 text-sm font-semibold text-amber-200"><Crown className="h-5 w-5" /> Dostça rekabetin kazananı belli!</div>}
-                <button type="button" onClick={leave} className="mt-6 w-full rounded-xl bg-white/10 px-4 py-3 font-bold">Ana menüye dön</button>
+                {finishedBoth && <div className="mt-5 flex items-center justify-center gap-2 text-sm font-semibold text-amber-200"><Crown className="h-5 w-5" /> {t("Dostça rekabetin kazananı belli!")}</div>}
+                <button type="button" onClick={leave} className="mt-6 w-full rounded-xl bg-white/10 px-4 py-3 font-bold">{t("Ana menüye dön")}</button>
               </section>
             ) : question ? (
               <section className="rounded-[28px] border border-white/15 bg-[#142748] p-5 sm:p-7">
-                <div className="flex items-center justify-between gap-3 text-xs font-black text-cyan-200"><span>{question.topic}</span><span>SORU {currentIndex + 1}/10</span></div>
+                <div className="flex items-center justify-between gap-3 text-xs font-black text-cyan-200"><span>{question.topic}</span><span>{t('SORU')} {currentIndex + 1}/10</span></div>
                 <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-purple-400 transition-all" style={{ width: `${currentIndex * 10}%` }} /></div>
                 <h2 className="my-6 text-xl font-black leading-relaxed sm:text-2xl">{question.question}</h2>
                 <div className="space-y-3">
@@ -299,10 +302,10 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
 
             {showFeedback && previousAnswer && !finishedMine && (
               <div className="fixed inset-x-4 bottom-5 z-10 mx-auto max-w-lg rounded-2xl border border-white/20 bg-[#0e2744] p-4 shadow-2xl">
-                <div className="flex items-center gap-2 font-black">{previousAnswer.correct ? <CheckCircle2 className="text-emerald-300" /> : <XCircle className="text-rose-300" />}{previousAnswer.correct ? 'Doğru! +100 puan' : 'Yanlış cevap'}</div>
+                <div className="flex items-center gap-2 font-black">{previousAnswer.correct ? <CheckCircle2 className="text-emerald-300" /> : <XCircle className="text-rose-300" />}{previousAnswer.correct ? t('Doğru! +100 puan') : t('Yanlış cevap')}</div>
                 <p className="mt-1 text-xs text-blue-200">Doğru cevap: {room.questions[currentIndex - 1]?.choices[previousAnswer.correctIndex]}</p>
-                <button type="button" onClick={() => { setAnswerInfoOpen(true);setAnswerInfoRead(true); }} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-300/35 bg-cyan-300/10 p-3 text-sm font-black text-cyan-100" aria-haspopup="dialog"><span className="text-lg">ⓘ</span> Doğru cevap hakkında bilgi</button>
-                <p className="mt-2 text-center text-[11px] text-blue-200/70">Sıradaki soru otomatik açılacak.</p>
+                <button type="button" onClick={() => { setAnswerInfoOpen(true);setAnswerInfoRead(true); }} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-300/35 bg-cyan-300/10 p-3 text-sm font-black text-cyan-100" aria-haspopup="dialog"><span className="text-lg">ⓘ</span> {t("Doğru cevap hakkında bilgi")}</button>
+                <p className="mt-2 text-center text-[11px] text-blue-200/70">{t("Sıradaki soru otomatik açılacak.")}</p>
               </div>
             )}
           </>
@@ -311,11 +314,11 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
         {showFeedback&&answerInfoOpen&&previousQuestion&&(
           <div className="fixed inset-0 z-[200] flex items-center justify-center bg-[#051228]/90 p-4 backdrop-blur-sm" onClick={()=>setAnswerInfoOpen(false)} role="presentation">
             <section onClick={event=>event.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="vsFactTitle" className="w-full max-w-md rounded-[23px] border border-cyan-200/35 bg-gradient-to-b from-[#1e3d53] to-[#0b213c] p-5 shadow-2xl">
-              <div className="mb-3 flex items-center justify-between gap-3 text-xs font-black tracking-wider text-cyan-200"><span>✦ GLOBRIVA · BİLGİ KARTI</span><button type="button" autoFocus aria-label="Kapat" className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-xl" onClick={()=>setAnswerInfoOpen(false)}>×</button></div>
+              <div className="mb-3 flex items-center justify-between gap-3 text-xs font-black tracking-wider text-cyan-200"><span>✦ GLOBRIVA · {t('BİLGİ KARTI')}</span><button type="button" autoFocus aria-label={t("Kapat")} className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-xl" onClick={()=>setAnswerInfoOpen(false)}>×</button></div>
               <h3 id="vsFactTitle" className="text-xl font-black">{correctLabel}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-200">{previousQuestion.question}</p>
-              {countryInfo?<p className="mt-3 rounded-xl border border-amber-200/20 bg-amber-200/5 p-3 text-sm text-amber-100">Bu ülkenin başkenti: <strong>{countryInfo.capitalTr}</strong>.</p>:<p className="mt-3 rounded-xl bg-white/5 p-3 text-sm text-slate-100"><span className="font-bold text-amber-200">Konu: </span>{previousQuestion.topic}</p>}
-              <p className="mt-4 text-xs text-blue-100/65">Kapatınca oyun otomatik devam eder.</p>
+              {countryInfo?<p className="mt-3 rounded-xl border border-amber-200/20 bg-amber-200/5 p-3 text-sm text-amber-100">{t('Bu ülkenin başkenti')}: <strong>{countryInfo.capitalTr}</strong>.</p>:<p className="mt-3 rounded-xl bg-white/5 p-3 text-sm text-slate-100"><span className="font-bold text-amber-200">{t('Konu')}: </span>{previousQuestion.topic}</p>}
+              <p className="mt-4 text-xs text-blue-100/65">{t("Kapatınca oyun otomatik devam eder.")}</p>
             </section>
           </div>
         )}
