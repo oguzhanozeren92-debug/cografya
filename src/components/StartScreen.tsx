@@ -1,7 +1,7 @@
 import { lazy, Suspense, useRef, useState } from 'react';
 import {
   ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Globe2, Landmark,
-  Lightbulb, MapPinned, Pencil, Play, ShieldCheck, Sparkles,
+  Lightbulb, MapPinned, Mountain, Pencil, Play, ShieldCheck, Sparkles,
   Trophy, UserRound, Volume2, VolumeX, Swords,
 } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
