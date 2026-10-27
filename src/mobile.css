@@ -162,3 +162,74 @@ body {
 /* Respect comfortable minimum controls. Never scale the entire page to fit. */
 .globriva-screen button,
 .globriva-modal button { touch-action: manipulation; }
+
+
+/* Quiz map stage uses the free viewport instead of squeezing the globe into a 170-235px preview. */
+.globriva-game-shell .atlas-geo-flow-quiz {
+  width:100%;
+  height:100%;
+  min-height:0;
+  padding-bottom: max(8px, var(--gl-safe-bottom));
+  overflow-x:hidden;
+  overflow-y:auto;
+}
+.globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-world-stage {
+  flex:1 1 0;
+  width:100%;
+  height:auto;
+  min-height:min(270px,39dvh);
+  max-height:none;
+  padding:8px 6px 0;
+  transition:none;
+}
+.globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-world-frame {
+  flex:0 1 auto;
+  width:min(96vw,520px,calc(var(--gl-viewport-height) - 328px));
+  height:auto;
+  max-width:100%;
+  max-height:100%;
+  aspect-ratio:1;
+  transition:none;
+}
+.globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-questions {
+  flex:0 0 auto;
+  width:100%;
+  max-width:680px;
+  margin-top:auto;
+}
+.globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-questions > div { padding-bottom:4px; }
+.globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-questions .glass-panel {
+  padding:12px 14px;
+  border-radius:21px;
+  box-shadow:0 -8px 35px rgba(0,0,0,.23);
+}
+.globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-questions .game-answer-tile {
+  min-height:60px;
+}
+@media (max-height:680px) {
+  .globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-world-stage {min-height:185px;}
+  .globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-world-frame {
+    width:min(93vw,400px,calc(var(--gl-viewport-height) - 280px));
+  }
+}
+@media (orientation: landscape) and (max-height:520px) {
+  .globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-world-stage {min-height:154px;}
+  .globriva-game-shell .atlas-geo-flow-quiz .atlas-geo-world-frame {width:min(40vh,280px);}
+}
+/* Keep locale control with the logo and system buttons, not over the game art. */
+.atlas-home-topbar .atlas-home-language-picker { min-width:0; }
+@media (max-width:430px) {
+  .atlas-home-topbar {gap:6px;}
+  .atlas-home-topbar .atlas-home-brand {gap:5px;flex:1 1 auto;min-width:0;}
+  .atlas-home-topbar .atlas-home-brand-name {font-size:clamp(14px,4.1vw,17px);}
+  .atlas-home-topbar .atlas-home-profile {width:35px;min-width:35px;max-width:35px;padding:0;justify-content:center;}
+  .atlas-home-topbar .atlas-home-profile span,
+  .atlas-home-topbar .atlas-home-profile svg:last-child {display:none;}
+  .atlas-home-topbar .atlas-home-topbutton {width:35px;min-width:35px;height:35px;}
+}
+@media (max-width:355px) {
+  .atlas-home-topbar .atlas-home-brand-name {font-size:13px;}
+  .atlas-home-topbar .atlas-home-brand-icon {width:30px;height:30px;}
+  .atlas-home-topbar .atlas-home-language-picker {padding:0 3px;}
+  .atlas-home-topbar .atlas-home-language-picker select {width:31px;font-size:10px;}
+}
