@@ -54,6 +54,8 @@
 }
 .game-answer-grid .game-answer-tile > div { width:100%; min-width:0; }
 .game-answer-grid .game-answer-tile .font-medium { min-width:0; }
+/* Reserve room for the answer-information icon after the correct answer is revealed. */
+.game-answer-grid .game-answer-tile.option-btn-correct { padding-right:48px; }
 .game-answer-grid-clue .game-answer-tile { min-height:47px; }
 @media (max-width:340px) {
   .game-answer-grid:not(.game-answer-grid-clue) { grid-template-columns:minmax(0,1fr); }
