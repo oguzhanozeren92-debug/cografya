@@ -35,6 +35,30 @@
   }
 }
 
+
+/* Balanced, tap-friendly quiz answers on phones: two equal columns instead of text-width pills. */
+.game-answer-grid { width:100%; align-items:stretch; }
+.game-answer-grid > div { display:flex; min-width:0; }
+.game-answer-grid .game-answer-tile {
+  display:flex;
+  align-items:center;
+  width:100%;
+  min-width:0;
+  min-height:64px;
+  padding:12px;
+  font-size:clamp(13px,3.9vw,16px);
+  line-height:1.32;
+  text-align:left;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+.game-answer-grid .game-answer-tile > div { width:100%; min-width:0; }
+.game-answer-grid .game-answer-tile .font-medium { min-width:0; }
+.game-answer-grid-clue .game-answer-tile { min-height:47px; }
+@media (max-width:340px) {
+  .game-answer-grid:not(.game-answer-grid-clue) { grid-template-columns:minmax(0,1fr); }
+}
+
 .highlighted-country {
   animation: countryPulse 2s ease-in-out infinite;
   filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5));
