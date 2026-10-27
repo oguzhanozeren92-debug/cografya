@@ -21,6 +21,7 @@ workflows:
           npm run typecheck
           npm run build
           node scripts/panoramas/export-appstore-review.mjs
+          node scripts/panoramas/verify-commons-licenses.mjs
           npm run gallery:release-check
       - name: Check Apple SDK and required review assets
         script: |
@@ -62,6 +63,7 @@ workflows:
       - /tmp/atlas-ios-smoke.log
       - appstore-review/photo-audit.csv
       - appstore-review/release-report.json
+      - appstore-review/commons-source-audit.json
 
   atlas-ios-testflight:
     name: Globriva — signed iOS IPA to TestFlight
@@ -94,6 +96,7 @@ workflows:
           npm run typecheck
           npm run build
           node scripts/panoramas/export-appstore-review.mjs
+          node scripts/panoramas/verify-commons-licenses.mjs
           npm run gallery:release-check
       - name: Check Apple SDK and required review assets
         script: |
@@ -134,6 +137,7 @@ workflows:
       - /tmp/xcodebuild_logs/*.log
       - appstore-review/photo-audit.csv
       - appstore-review/release-report.json
+      - appstore-review/commons-source-audit.json
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
       app_store_connect:
