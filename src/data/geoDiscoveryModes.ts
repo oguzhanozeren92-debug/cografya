@@ -189,17 +189,23 @@ export const ISLAND_COUNTRIES=[
 {id:"450",name:"Madagaskar",en:"Madagascar",level:1},
 {id:"392",name:"Japonya",en:"Japan",level:1},
 {id:"554",name:"Yeni Zelanda",en:"New Zealand",level:1},
+{id:"826",name:"Birleşik Krallık",en:"United Kingdom",level:1},
+{id:"044",name:"Bahamalar",en:"Bahamas",level:1},
 {id:"192",name:"Küba",en:"Cuba",level:2},
 {id:"144",name:"Sri Lanka",en:"Sri Lanka",level:2},
 {id:"608",name:"Filipinler",en:"Philippines",level:2},
 {id:"360",name:"Endonezya",en:"Indonesia",level:2},
+{id:"372",name:"İrlanda",en:"Ireland",level:2},
+{id:"332",name:"Haiti",en:"Haiti",level:2},
+{id:"214",name:"Dominik Cumhuriyeti",en:"Dominican Republic",level:2},
 {id:"388",name:"Jamaika",en:"Jamaica",level:3},
 {id:"242",name:"Fiji",en:"Fiji",level:3},
 {id:"480",name:"Mauritius",en:"Mauritius",level:3},
 {id:"196",name:"Kıbrıs",en:"Cyprus",level:3},
-{id:"826",name:"Birleşik Krallık",en:"United Kingdom",level:3},
-{id:"372",name:"İrlanda",en:"Ireland",level:3},
-{id:"598",name:"Papua Yeni Gine",en:"Papua New Guinea",level:3}
+{id:"598",name:"Papua Yeni Gine",en:"Papua New Guinea",level:3},
+{id:"548",name:"Vanuatu",en:"Vanuatu",level:3},
+{id:"090",name:"Solomon Adaları",en:"Solomon Islands",level:3},
+{id:"626",name:"Doğu Timor",en:"Timor-Leste",level:3}
 ] as const;
 export const BORDER_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
 // The playable border questions are derived, never hand-guessed, from the
