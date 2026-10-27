@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { geoEqualEarth, geoMercator, geoPath } from 'd3-geo';
 import { feature, neighbors } from 'topojson-client';
 import worldData from 'world-atlas/countries-110m.json';
-import { ArrowLeft, Compass, Mountain, MapPin, Sparkles, Trophy, RotateCcw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Compass, LockKeyhole, Mountain, MapPin, Play, Sparkles, Trophy, RotateCcw } from 'lucide-react';
 import { COUNTRY_DATA } from '@/data/countries';
 import { BORDER_FOCUS, BORDER_SOURCE, ISLAND_COUNTRIES, NATURE_POINTS, NATURE_SOURCE, type NaturePoint } from '@/data/geoDiscoveryModes';
 import { useLanguage, type Language } from '@/lib/i18n';
@@ -128,7 +128,17 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
  const round=rounds[index];
  const correct=picked!==null&&picked===round?.answer;
  const key=mode+':'+level;
+ const stageCount=(l:Level)=>mode==='nature'
+   ?NATURE_POINTS.filter(x=>x.level===l).length
+   :mode==='islands'
+     ?ISLAND_COUNTRIES.filter(x=>x.level===l&&shapeById.has(x.id)).length
+     :BORDER_FOCUS.slice(l===1?0:l===2?14:29,l===1?14:l===2?29:undefined)
+       .filter(id=>shapeById.has(id)&&COUNTRY_DATA[id]&&adj.get(id)?.size).length;
+ const hasUnlocked=(l:Level)=>l===1||getGeoStars(mode,stageName((l-1) as Level))>0;
  const start=(newLevel:Level)=>{
+  // Eligibility is checked in the handler as well as the buttons, so
+  // locked tiers cannot be entered through stale render state.
+  if(!hasUnlocked(newLevel)||stageCount(newLevel)<5)return;
   setLevel(newLevel);setRun(x=>x+1);setIndex(0);setPicked(null);setScore(0);setFinished(false);setStageAward(null);setInfoOpen(false);setInfoRead(false);
  };
  const answer=(id:string)=>{
@@ -155,7 +165,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
  return <div className="fixed inset-0 z-[100] overflow-y-auto overscroll-contain bg-[#061325] text-white" role="dialog" aria-modal="true" aria-label={tr?config.tr:config.en}>
   <div className="mx-auto min-h-[100dvh] w-full max-w-[650px] px-4 pb-[calc(28px+env(safe-area-inset-bottom))] pt-[calc(16px+env(safe-area-inset-top))] sm:px-6">
    <header className="mb-5 flex items-center justify-between gap-3">
-     <button type="button" onClick={onClose} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-3 text-xs font-bold"><ArrowLeft size={16}/>{tr?'GERİ':'BACK'}</button>
+     <button type="button" onClick={()=>{if(level!==null){setLevel(null);setPicked(null);setInfoOpen(false)}else onClose()}} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-3 text-xs font-bold"><ArrowLeft size={16}/>{tr?'GERİ':'BACK'}</button>
      <span className="text-sm font-black tracking-tight text-amber-200">Glo<span className="text-white">briva</span></span>
      <span className="rounded-full border border-amber-300/25 bg-amber-200/10 px-3 py-2 text-[10px] font-black text-amber-100">{tr?'YENİ KEŞİF':'NEW DISCOVERY'}</span>
    </header>
@@ -164,21 +174,60 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
      <div><p className="text-[10px] font-extrabold uppercase tracking-[.18em] text-amber-300">ATLAS / {tr?'HARİTA OYUNU':'MAP GAME'}</p>
        <h1 className="text-2xl font-black tracking-tight sm:text-3xl">{tr?config.tr:config.en}</h1></div>
    </div>
-   {!level?<><p className="mb-6 text-sm leading-6 text-slate-300">{tr?config.subTr:config.subEn}</p>
-      <div className="grid grid-cols-3 gap-2">
-       {([1,2,3] as const).map(l=>{
-         const available=mode==='nature'?NATURE_POINTS.filter(x=>x.level===l).length:mode==='islands'
-           ?ISLAND_COUNTRIES.filter(x=>x.level===l&&shapeById.has(x.id)).length
-           :buildBorders(l,language).length;
-         return <button key={l} type="button" disabled={available===0} onClick={()=>start(l)}
-           className="min-h-[105px] rounded-2xl border border-amber-200/30 bg-gradient-to-br from-[#584530] to-[#202e41] px-2 py-3 text-center disabled:opacity-40">
-           <span className="block text-lg font-black">{(tr?['','Kolay','Orta','Zor']:['','Easy','Medium','Hard'])[l]}</span>
-           <span className="mt-2 block text-xs font-semibold text-amber-100">{available} {tr?'soru':'questions'}</span>
-            <span className="mt-2 block"><GeoStarRow count={getGeoStars(mode,stageName(l))}/></span>
-         </button>;
-       })}
-      </div>
-      <p className="mt-6 text-xs leading-5 text-slate-400">{tr?'Her turda doğrulanmış veri ve gerçek harita geometrisi kullanılır. Kaynak oyunda gösterilir.':'Each round uses curated facts and real map geometry; references are provided.'}</p>
+   {!level?<><p className="mb-3 text-sm leading-6 text-slate-300">{tr?config.subTr:config.subEn}</p>
+      <section className="rounded-[24px] border border-[#f4d697]/30 bg-gradient-to-b from-[#173854] to-[#0c233e] px-4 py-5 shadow-[0_16px_33px_rgba(0,0,0,.25)] sm:px-5">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="inline-flex items-center gap-2 text-base font-black text-[#ffe3a0]">
+            <Trophy size={19} aria-hidden="true"/>{tr?'AŞAMA YOLCULUĞU':'STAGE JOURNEY'}
+          </h2>
+          <span className="rounded-full border border-amber-200/30 bg-amber-100/10 px-2.5 py-1 text-[10px] font-extrabold text-amber-100">
+            {[1,2,3].reduce((sum,l)=>sum+getGeoStars(mode,stageName(l as Level)),0)} / 9 ★
+          </span>
+        </div>
+        <p className="mt-2 mb-5 text-[11px] leading-5 text-slate-200/90">
+          {tr?'En az %70 doğru cevapla yıldız kazan ve sonraki aşamanın kilidini aç. %80 iki, %90 üç yıldız getirir.':'Score at least 70% to unlock the next stage. Earn 2 stars at 80% or 3 at 90%.'}
+        </p>
+        <div className="flex flex-col">
+          {([1,2,3] as const).map((l,position)=>{
+            const available=stageCount(l);
+            const stars=getGeoStars(mode,stageName(l));
+            const locked=!hasUnlocked(l);
+            const unavailable=available<5;
+            const disabled=locked||unavailable;
+            const maxScore=Math.max(0,best[mode+':'+l]||0);
+            const bestPct=available>0?Math.min(100,Math.round(maxScore/(available*100)*100)):0;
+            const title=(tr?['','Kolay','Orta','Zor']:['','Easy','Medium','Hard'])[l];
+            return <div key={l}>
+              {position>0&&<div aria-hidden="true" className={'ml-[31px] h-5 w-[2px] '+(locked?'bg-white/15':'bg-amber-300/60')}/>}
+              <button type="button" disabled={disabled} onClick={()=>start(l)}
+                aria-label={title+' · '+(locked?(tr?'Kilitli':'Locked'):unavailable?(tr?'Veri hazırlanıyor':'Not enough questions'):(tr?'Oyna':'Play'))}
+                className={'group flex min-h-[119px] w-full items-center gap-3 rounded-[19px] border px-3 py-3.5 text-left transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 sm:px-4 '+(disabled?'cursor-not-allowed border-white/10 bg-[#0a1b31]/85 text-slate-400':'border-[#e7bd72]/55 bg-gradient-to-r from-[#334e58] via-[#233f53] to-[#13304c] text-white shadow-[0_7px_18px_rgba(0,0,0,.22)] active:scale-[.985]')}>
+                <span className={'grid h-[57px] w-[57px] shrink-0 place-items-center rounded-[16px] border text-[23px] font-black tabular-nums '+(disabled?'border-white/10 bg-white/5 text-slate-400':stars?'border-amber-200/60 bg-amber-300/20 text-amber-100':'border-cyan-200/30 bg-cyan-200/10 text-white')}>
+                  {locked?<LockKeyhole size={24}/>:stars?<CheckCircle2 size={28}/>:l.toString().padStart(2,'0')}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-center gap-1.5">
+                    <strong className="text-base font-black tracking-tight">{title}</strong>
+                    {stars>0&&<span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-[9px] font-black text-emerald-200">{tr?'GEÇİLDİ':'CLEARED'}</span>}
+                    {locked&&<span className="rounded-full bg-white/10 px-2 py-0.5 text-[9px] font-black text-slate-300">{tr?'KİLİTLİ':'LOCKED'}</span>}
+                  </span>
+                  <span className="mt-1 block text-[10px] font-semibold text-slate-300">
+                    {locked?(tr?'Önce önceki aşamayı %70 ile geç.':'Clear the previous stage with 70%.')
+                      :unavailable?(tr?'Bu aşama için yeterli soru yok.':'Not enough questions for this level.')
+                      :available+' '+(tr?'soru':'questions')+' · '+(stars?(tr?'En iyi %':'Best ')+(bestPct||70)+(tr?'':'%'):(tr?'Oynanmaya hazır':'Ready to play'))}
+                  </span>
+                  <span className="mt-1 flex items-center gap-2"><GeoStarRow count={stars}/></span>
+                  {!disabled&&<span className="mt-2 block h-1.5 w-full overflow-hidden rounded-full bg-black/25"><span className="block h-full rounded-full bg-[#ffcf68] transition-[width]" style={{width:bestPct+'%'}}/></span>}
+                </span>
+                <span aria-hidden="true" className={'grid h-9 w-9 shrink-0 place-items-center rounded-full '+(disabled?'bg-white/5 text-slate-500':'bg-[#ffdc91] text-[#18364c]')}>
+                  {disabled?<LockKeyhole size={16}/>:<Play size={17} fill="currentColor"/>}
+                </span>
+              </button>
+            </div>;
+          })}
+        </div>
+      </section>
+      <p className="mt-5 text-xs leading-5 text-slate-400">{tr?'Kazanılan yıldızlar Başarılar sekmesine eklenir; tekrar oynarken en yüksek yıldızın silinmez. Harita kaynağı her soruda gösterilir.':'Stars count toward Awards, and replays never erase your best stars. Each question shows its map source.'}</p>
       <a href={NATURE_SOURCE} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs font-bold text-cyan-200 underline">Natural Earth · Public Domain</a>
      </>:finished?<section className="rounded-[25px] border border-amber-300/30 bg-gradient-to-br from-[#243e4f] to-[#121b32] p-7 text-center">
        <Trophy className="mx-auto mb-3 h-12 w-12 text-amber-300"/>
@@ -191,7 +240,17 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
           <p className="mt-2 text-xs text-slate-200">{stageAward?.gained ? (tr?'+ '+stageAward.gained+' yeni yıldız kazandın!':'+ '+stageAward.gained+' new stars earned!') : (tr?'En iyi yıldızların korunur · %70/%80/%90':'Best stars are saved · 70/80/90% threshold')}</p>
           {stageAward?.newBadges.map(b=><div key={b.id} className="mt-2 rounded-lg bg-amber-300/15 px-2 py-2 text-xs font-bold text-amber-100">{b.icon} {tr?'Yeni rozet: ':'New badge: '}{tr?b.tr:b.en}</div>)}
         </div>
-       <button type="button" onClick={()=>start(level)} className="mt-6 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-300 font-black text-[#132438]"><RotateCcw size={16}/>{tr?'Yeniden oyna':'Play again'}</button>
+       <p className="mt-4 text-sm font-bold text-amber-100">
+         {(stageAward?.current??0)>0
+           ?(level<3?(tr?'✓ Sonraki aşama açıldı!':'✓ Next stage unlocked!'):(tr?'✓ Üç aşamalı keşif tamamlandı!':'✓ All stages complete!'))
+           :(tr?'Sonraki aşamanın açılması için en az %70 başarı gerekiyor.':'Earn at least 70% to unlock the next stage.')}
+       </p>
+       {level<3&&(stageAward?.current??0)>0&&stageCount((level+1) as Level)>=5&&
+         <button type="button" onClick={()=>start((level+1) as Level)}
+           className="mt-5 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-amber-200/80 bg-gradient-to-r from-[#ffe5aa] to-[#ffc76c] px-3 font-black text-[#18334a] shadow-lg">
+           {tr?'Sıradaki aşamaya geç':'Play next stage'} <ArrowRight size={17}/>
+         </button>}
+       <button type="button" onClick={()=>start(level)} className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-300 font-black text-[#132438]"><RotateCcw size={16}/>{tr?'Yeniden oyna':'Play again'}</button>
        <button type="button" onClick={()=>setLevel(null)} className="mt-3 min-h-12 w-full rounded-xl border border-white/20 bg-white/10 font-bold">{tr?'Seviye seç':'Choose level'}</button>
       </section>:round?<section>
        <div className="flex items-center justify-between gap-3 text-xs font-bold text-slate-300"><span>{(tr?['','Kolay','Orta','Zor']:['','Easy','Medium','Hard'])[level]} · {index+1}/{rounds.length}</span><span>{score} {tr?'puan':'points'}</span></div>
