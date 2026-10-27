@@ -1,4 +1,4 @@
-import { Heart, Flame, Star, Clapperboard, Plus } from 'lucide-react';
+import { ArrowLeft, Heart, Flame, Star, Clapperboard, Plus } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 interface HUDProps {
@@ -9,15 +9,20 @@ interface HUDProps {
   canEarnHeart: boolean;
   adBusy: boolean;
   onWatchHeart: () => void;
+  onExit: () => void;
   compact?: boolean;
 }
 
-export function HUD({ score, lives, streak, round, canEarnHeart, adBusy, onWatchHeart, compact=false }: HUDProps) {
+export function HUD({ score, lives, streak, round, canEarnHeart, adBusy, onWatchHeart, onExit, compact=false }: HUDProps) {
   const {language,t}=useLanguage();
   return (
     <div className={'game-hud relative z-10 flex min-w-0 items-center justify-between ' + (compact ? 'gap-1.5 px-3 py-1.5' : 'gap-2 px-4 py-3 sm:px-6 sm:py-4')}>
       <div className={'glass-panel flex items-center gap-1.5 ' + (compact?'px-2.5 py-1.5':'gap-2 px-4 py-2')}>
-        <Star className="h-4 w-4 text-amber-400" />
+        <button type="button" onClick={onExit} aria-label={t('Ana menüye dön')} title={t('Ana menüye dön')} className="game-hud-back flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-slate-100 transition-colors hover:bg-white/15 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300">
+          <ArrowLeft className="h-4 w-4" strokeWidth={2.6} />
+        </button>
+        <span className="h-5 w-px shrink-0 bg-white/15" aria-hidden="true" />
+        <Star className="h-4 w-4 shrink-0 text-amber-400" />
         <span className="text-lg font-bold text-white tabular-nums">{score.toLocaleString(language)}</span>
       </div>
 
