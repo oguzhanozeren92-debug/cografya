@@ -29,7 +29,7 @@ export interface VsRoom {
 }
 
 const assertBackend = () => {
-  if (!backend) throw new Error('Supabase bağlantısı eksik. .env dosyasını kontrol et.');
+  if (!backend) throw new Error('VS sunucusu bu sürümde bağlanamadı. Sayfayı yenileyip tekrar dene.');
   return backend;
 };
 
