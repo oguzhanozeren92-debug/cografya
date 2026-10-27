@@ -22,11 +22,11 @@ interface CountryFeature {
 const SIZE = 800;
 const BASE_SCALE = 280;
 const MIN_SCALE = 180;
-const MAX_SCALE = 800;
+const MAX_SCALE = 2400;
 const SPIN_DURATION = 5550;
 const ZOOM_START = 0.79;
 const ZOOM_MIN = 340;
-const ZOOM_MAX = 565;
+const ZOOM_MAX = 2200;
 const FULL_TURNS = 3;
 const CENTER: [number, number] = [SIZE / 2, SIZE / 2];
 
