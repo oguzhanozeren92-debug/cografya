@@ -84,26 +84,19 @@ workflows:
         distribution_type: app_store
         # Confirm this identifier exists in YOUR Apple Developer account.
         bundle_identifier: com.oguzhanozeren.cografya
-      # Create the group in Codemagic. Add Atlas-only Supabase credentials
-      # when its separate project is ready; never put secrets in Git.
+      # Existing app-signing/release variable group. Public VS config is
+      # fetched automatically from Globriva Vercel (no duplicate VS variables).
       groups:
         - atlas_arena_release
       vars:
         VITE_ATLAS_API_ORIGIN: "https://atlas-arena-tau.vercel.app"
     scripts:
-      - name: Verify multiplayer credentials are present for TestFlight
+      - name: Load public multiplayer settings from Globriva Vercel
         script: |
-          # Vercel variables are NOT inherited by Codemagic's native Vite build.
-          # Supply these two public client settings in the atlas_arena_release group.
-          if [ -z "${VITE_SUPABASE_URL:-}" ] || [ -z "${VITE_SUPABASE_ANON_KEY:-}" ]; then
-            echo "Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY in the Codemagic atlas_arena_release environment group."
-            echo "The 1v1 VS mode cannot work in an IPA without both variables."
-            exit 1
-          fi
-          case "$VITE_SUPABASE_URL" in
-            https://*.supabase.co|https://*.supabase.in) ;;
-            *) echo "VITE_SUPABASE_URL must be a valid HTTPS Supabase API origin."; exit 1 ;;
-          esac
+          # Codemagic is independent of Vercel. Fetch only the public anon key
+          # and project URL, validate both, then create gitignored .env.production.local.
+          # No copy/paste or Codemagic VS secret/group variables needed.
+          node scripts/sync-public-vs-config.mjs
       - name: Install and verify game
         script: |
           npm ci --no-audit --no-fund
