@@ -120,7 +120,7 @@ export function QuestionPanel({
           </div>
         )}
 
-        <div className={'game-answer-grid grid ' + (isClue ? 'game-answer-grid-clue grid-cols-1 gap-1.5 sm:grid-cols-2' : 'grid-cols-2 gap-2.5')}>
+        <div className={'game-answer-grid grid ' + (isClue ? 'game-answer-grid-clue grid-cols-2 gap-2' : 'grid-cols-2 gap-2.5')}>
           {options.map((option, index) => {
             const selected = selectedAnswer === option;
             const correct = option === correctAnswer;
