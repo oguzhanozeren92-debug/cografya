@@ -9,6 +9,7 @@ import { useLanguage, type Language } from '@/lib/i18n';
 import { awardGeoStars, getGeoStars, type GeoAward, type GeoRewardLevel } from '@/lib/geoRewards';
 import { GeoStarRow } from '@/components/GeoStarRow';
 import { localizedCountryById } from '@/lib/countryLanguage';
+import { getGeoDiscoveryNote } from '@/data/geoDiscoveryFacts';
 
 export type GeoDiscoveryMode = 'nature'|'islands'|'borders';
 type Level = 1|2|3;
@@ -150,6 +151,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
   return ()=>window.clearTimeout(timer);
  },[picked,infoOpen,infoRead,index,finished,round,score,best,key]);
  const source=round?.source||NATURE_SOURCE;
+ const learningNote = round ? getGeoDiscoveryNote(mode,round.answer,round.featureId,language) : null;
  return <div className="fixed inset-0 z-[100] overflow-y-auto overscroll-contain bg-[#061325] text-white" role="dialog" aria-modal="true" aria-label={tr?config.tr:config.en}>
   <div className="mx-auto min-h-[100dvh] w-full max-w-[650px] px-4 pb-[calc(28px+env(safe-area-inset-bottom))] pt-[calc(16px+env(safe-area-inset-top))] sm:px-6">
    <header className="mb-5 flex items-center justify-between gap-3">
@@ -221,14 +223,26 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
       </div>}
    </div>
  {picked!==null && infoOpen && round && <div className="fixed inset-0 z-[150] flex items-center justify-center bg-[#040e1c]/90 p-4 backdrop-blur-sm" onClick={()=>setInfoOpen(false)} role="presentation">
-     <section role="dialog" aria-modal="true" aria-labelledby="geoFactTitle" onClick={e=>e.stopPropagation()} className="w-full max-w-md rounded-[23px] border border-amber-300/40 bg-gradient-to-b from-[#234252] to-[#0c1b31] p-5 shadow-2xl">
+     <section role="dialog" aria-modal="true" aria-labelledby="geoFactTitle" onClick={e=>e.stopPropagation()} className="max-h-[calc(100dvh-90px)] w-full max-w-md overflow-y-auto rounded-[23px] border border-amber-300/40 bg-gradient-to-b from-[#234252] to-[#0c1b31] p-5 shadow-2xl">
        <div className="mb-3 flex items-center justify-between gap-3"><span className="text-xs font-black uppercase tracking-wider text-amber-200">{tr?'✦ KEŞİF NOTU':'✦ DISCOVERY NOTE'}</span><button autoFocus type="button" aria-label={tr?'Kapat':'Close'} onClick={()=>setInfoOpen(false)} className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-xl">×</button></div>
        <h3 id="geoFactTitle" className="text-xl font-black">{round.options.find(o=>o.id===round.answer)?.label}</h3>
-       <p className="mt-3 text-sm leading-6 text-slate-200">{tr?round.prompt:(round.promptEn||round.prompt)}</p>
-       {mode==='borders'&&<p className="mt-3 rounded-xl bg-white/5 p-3 text-sm">{tr?'Haritadaki ülke: ':'Highlighted country: '}{round.region}</p>}
-       {mode==='islands'&&COUNTRY_DATA[round.answer]&&<p className="mt-3 rounded-xl bg-white/5 p-3 text-sm">{tr?'Başkent: ':'Capital: '}{COUNTRY_DATA[round.answer].capitalTr}</p>}
-       {mode==='nature'&&<p className="mt-3 rounded-xl bg-white/5 p-3 text-sm">{tr?'Bölge: ':'Region: '}{round.region}</p>}
-       <a href={source} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-xs font-semibold text-cyan-200 underline">{tr?'Bilginin harita kaynağı':'Map data source'}</a>
+       <p className="mt-1 text-[11px] font-bold tracking-wide text-cyan-200">
+         {mode==='borders'
+           ? (tr?'SINIRIN ÖTESİNDE':'BEYOND THE BORDER')
+           : mode==='islands'
+             ? (tr?'ADANIN HİKÂYESİ':'ISLAND STORY')
+             : (tr?'DOĞANIN SIRRI':'NATURE INSIGHT')}
+       </p>
+       {learningNote
+         ? <p className="mt-4 rounded-2xl border border-white/15 bg-white/10 p-4 text-sm leading-[1.65] text-white">{learningNote.text}</p>
+         : <p className="mt-4 text-sm leading-6 text-slate-200">{tr?'Bu konu için doğrulanmış ek bilgi henüz eklenmedi.':'No additional reviewed learning note yet.'}</p>}
+       {mode==='borders'&&<p className="mt-3 text-xs text-slate-300">{tr?'Haritadaki ülke: ':'Highlighted country: '}{round.region}</p>}
+       {mode==='islands'&&COUNTRY_DATA[round.answer]&&<p className="mt-3 text-xs text-slate-300">{tr?'Başkent: ':'Capital: '}{COUNTRY_DATA[round.answer].capitalTr}</p>}
+       {mode==='nature'&&<p className="mt-3 text-xs text-slate-300">{tr?'Bölge: ':'Region: '}{round.region}</p>}
+       <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs">
+         {learningNote?.sourceUrl && <a href={learningNote.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-bold text-amber-200 underline underline-offset-2">{tr?'Bilgi kaynağını incele':'Read fact source'}</a>}
+         <a href={source} target="_blank" rel="noopener noreferrer" className="font-semibold text-cyan-200 underline underline-offset-2">{tr?'Harita verisi · Natural Earth':'Map data · Natural Earth'}</a>
+       </div>
      </section>
    </div>}
  </div>;
