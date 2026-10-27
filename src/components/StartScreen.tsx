@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import {
   ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Globe2, Landmark,
   Lightbulb, MapPinned, Mountain, Pencil, Play, ShieldCheck, Sparkles,
@@ -55,6 +55,44 @@ export function StartScreen({
   const [queuedHistory, setQueuedHistory] = useState(false);
   const [queuedGeoMode,setQueuedGeoMode] = useState<'nature'|'islands'|'borders'|null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [heroInteracted, setHeroInteracted] = useState(false);
+  const heroTouchStart = useRef<{ x: number; y: number } | null>(null);
+  const suppressHeroTap = useRef(false);
+  const heroTapReset = useRef<number | null>(null);
+  const heroSlides = [
+    { id: 'welcome', tr: 'Dünya Turu', en: 'World Tour' },
+    { id: 'nature', tr: 'Doğa Dedektifi', en: 'Nature Detective' },
+    { id: 'islands', tr: 'Ada Avcısı', en: 'Island Hunter' },
+    { id: 'borders', tr: 'Sınır Dedektifi', en: 'Border Detective' },
+  ] as const;
+  useEffect(() => {
+    if (heroInteracted || reduceMotion) return;
+    const timer = window.setInterval(() => setHeroIndex(previous => (previous + 1) % heroSlides.length), 6500);
+    return () => window.clearInterval(timer);
+  }, [heroInteracted, reduceMotion]);
+  useEffect(() => () => { if (heroTapReset.current !== null) window.clearTimeout(heroTapReset.current); }, []);
+  const chooseHero = (next: number) => {
+    setHeroInteracted(true);
+    setHeroIndex((next + heroSlides.length) % heroSlides.length);
+  };
+  const onHeroTouchStart = (event: import('react').TouchEvent<HTMLDivElement>) => {
+    const point = event.touches[0];
+    if (point) heroTouchStart.current = { x: point.clientX, y: point.clientY };
+  };
+  const onHeroTouchEnd = (event: import('react').TouchEvent<HTMLDivElement>) => {
+    const start = heroTouchStart.current;
+    heroTouchStart.current = null;
+    const point = event.changedTouches[0];
+    if (!start || !point) return;
+    const dx = point.clientX - start.x;
+    const dy = point.clientY - start.y;
+    if (Math.abs(dx) < 38 || Math.abs(dx) <= Math.abs(dy) * 1.25) return;
+    suppressHeroTap.current = true;
+    if (heroTapReset.current !== null) window.clearTimeout(heroTapReset.current);
+    heroTapReset.current = window.setTimeout(() => { suppressHeroTap.current = false; }, 500);
+    chooseHero(heroIndex + (dx < 0 ? 1 : -1));
+  };
   const completed = loadDailyProgress(getDailyDate()).answers.length;
   const found = getDiscoveredCountries().length;
   const canPlay = Boolean(playerName) && !editing;
@@ -294,6 +332,93 @@ export function StartScreen({
           .globriva-explore-hero .globriva-hero-action {transition:none;}
         }
 
+        /* The same top hero behaves as EraAtlas: a swipeable, timed visual showcase. */
+        .globriva-hero-viewport {
+          width: 100%;
+          min-width: 0;
+          height: 290px;
+          overflow: hidden;
+          border-radius: 29px;
+          touch-action: pan-y;
+          box-shadow: 0 17px 35px rgba(0,11,38,.25);
+        }
+        .globriva-hero-track {
+          display: flex;
+          flex-wrap: nowrap;
+          height: 100%;
+          width: 100%;
+          transition: transform .43s cubic-bezier(.22,.72,.22,1);
+          will-change: transform;
+        }
+        .globriva-hero-slide {
+          position: relative;
+          flex: 0 0 100%;
+          width: 100%;
+          min-width: 0;
+          height: 100%;
+          overflow: hidden;
+          border-radius: 29px;
+        }
+        .atlas-home-illustrated .globriva-explore-hero.globriva-hero-slide { min-height: 0; height: 100%; }
+        .globriva-feature-slide {
+          position: relative;
+          isolation: isolate;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          border: 1.5px solid rgba(255,255,255,.8);
+          color: white;
+          background: #0b3446;
+        }
+        .globriva-feature-nature { background: radial-gradient(ellipse at 85% 20%,#82e7b780,transparent 53%),linear-gradient(120deg,#063b43,#135f5a 55%,#55b3a0); }
+        .globriva-feature-islands { background: radial-gradient(ellipse at 85% 25%,#c5f3de68,transparent 60%),linear-gradient(120deg,#073c5a,#126e8b 56%,#41b7bd); }
+        .globriva-feature-borders { background: radial-gradient(ellipse at 85% 20%,#dfb5e45b,transparent 55%),linear-gradient(120deg,#19213d,#414b88 60%,#8c78ac); }
+        .globriva-feature-slide .feature-art {
+          position: absolute; z-index: 0; inset: 0; pointer-events: none;
+          transform: scale(1.22) translateX(9%); opacity: .9;
+        }
+        .globriva-feature-slide .feature-art svg { display: block; }
+        .globriva-feature-slide::after {
+          content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+          background: linear-gradient(90deg,rgba(4,22,34,.94) 0%,rgba(6,32,45,.85) 32%,rgba(6,29,47,.20) 87%);
+        }
+        .globriva-feature-slide .feature-copy {
+          position: relative; z-index: 4; display: flex; flex-direction: column;
+          align-items: flex-start; justify-content: flex-end; gap: 9px;
+          height: 100%; max-width: 76%; padding: 28px 18px 24px;
+        }
+        .globriva-feature-slide .feature-copy strong {font-size:clamp(26px,7vw,35px);font-weight:1000;line-height:1.05;letter-spacing:-.04em;text-shadow:0 3px 12px #001c2a;}
+        .globriva-feature-slide .feature-copy small {max-width:250px;font-size:12px;line-height:1.45;font-weight:700;color:#e8fbfb;}
+        .globriva-feature-slide .feature-label {
+          border:1px solid #fff7; border-radius:999px; padding:6px 10px;
+          background:#05283799; color:#e3f5fb; font-size:10px;
+          letter-spacing:.08em; font-weight:900; backdrop-filter:blur(6px);
+        }
+        .globriva-feature-slide .feature-cta {
+          display: inline-flex; align-items: center; gap: 7px; min-height: 37px;
+          padding: 8px 13px; border-radius: 999px; background: #fff0d3;
+          color:#15394a; font-size:12px; font-weight:900;
+        }
+        .globriva-feature-slide .feature-new {
+          position:absolute;right:13px;top:55px;z-index:5;
+          padding:6px 12px; border-radius:999px; transform:rotate(5deg);
+          color:#15303e;background:#ffe08c;border:1px solid #fff9c5;
+          font-size:10px;font-weight:1000;letter-spacing:.09em;
+          box-shadow:0 6px 15px #001d3566;
+        }
+        .globriva-hero-pagination {display:flex;align-items:center;justify-content:center;gap:10px;margin-top:9px;min-height:24px;}
+        .globriva-hero-pagination button {width:9px;height:9px;padding:0;border:0;border-radius:99px;background:#6e7f93;transition:width .2s,background .2s;}
+        .globriva-hero-pagination button[aria-current="true"] {width:27px;background:#f8d27e;}
+        .globriva-hero-pagination .hero-hint {font-size:10px;color:#bcd4e8;font-weight:800;letter-spacing:.02em;}
+        @media(max-width:380px) {
+          .globriva-hero-viewport {height:274px;border-radius:25px;}
+          .globriva-hero-slide {border-radius:25px;}
+          .globriva-feature-slide .feature-copy {padding:28px 13px 18px;max-width:81%;}
+          .globriva-feature-slide .feature-copy strong {font-size:27px;}
+          .globriva-feature-slide .feature-copy small {font-size:11px;}
+        }
+        @media(prefers-reduced-motion:reduce) {.globriva-hero-track{transition:none;will-change:auto;}}
+
         /* The approved PNG/WebP screenshots carried a 22px strip of dark
            page background at their top. Crop that strip inside the real
            interactive button (no replacement artwork or duplicate buttons). */
@@ -374,16 +499,13 @@ export function StartScreen({
           </div>
         </header>
 
-        <motion.section {...entrance(0)} className="aa-hero globriva-explore-hero relative isolate overflow-hidden">
-          <div className="absolute right-3 top-3 z-30">
-            <label className="relative flex h-9 max-w-[65px] shrink-0 items-center gap-1 rounded-xl border border-white/20 bg-white/10 px-1.5 text-[10px] font-extrabold text-white" title={t('Dil')}>
-              <Globe2 className="h-3.5 w-3.5 shrink-0 text-cyan-200"/>
-              <select value={language} onChange={event=>setLanguage(event.target.value as Language)}
-                aria-label={t('Dil')} className="w-[34px] min-w-0 appearance-none bg-transparent font-extrabold uppercase text-white outline-none">
-                {availableLanguages.map(([code,label])=><option key={code} value={code} className="bg-[#0c2946] text-white">{code.toUpperCase()} · {label}</option>)}
-              </select>
-            </label>
-          </div>
+        <motion.section {...entrance(0)} className="relative min-w-0">
+          <div className="globriva-hero-viewport"
+            aria-label={language==='tr'?'Kaydırılabilir yeni oyunlar':'Swipeable new games'}
+            onTouchStart={onHeroTouchStart} onTouchEnd={onHeroTouchEnd} onTouchCancel={() => { heroTouchStart.current = null; }}>
+            <div className="globriva-hero-track" style={{transform:`translateX(-${heroIndex * 100}%)`}}>
+            <div className="aa-hero globriva-explore-hero globriva-hero-slide relative isolate overflow-hidden">
+
           <div className="aa-hero-stars" aria-hidden="true" />
           <span className="globriva-hero-float" aria-hidden="true"><Sparkles className="h-6 w-6" /></span>
           {!reduceMotion && (
@@ -418,6 +540,68 @@ export function StartScreen({
               <ArrowRight className="h-4 w-4 text-[#d99736]" aria-hidden="true" />
             </button>
           </div>
+            </div>
+
+            <div className="globriva-hero-slide globriva-feature-slide globriva-feature-nature">
+              <div className="feature-art" aria-hidden="true"><GeoDiscoveryArt mode="nature" /></div>
+              <span className="feature-new">{language==='tr'?'YENİ':'NEW'}</span>
+              <button type="button" className="relative z-[3] block h-full w-full cursor-pointer text-left touch-manipulation"
+                aria-label={language==='tr'?'Doğa Dedektifi oyununu aç':'Play Nature Detective'}
+                onClick={() => { if (!suppressHeroTap.current) startGeoDiscovery('nature'); }}>
+                <span className="feature-copy">
+                  <span className="feature-label">{language==='tr'?'DOĞA KEŞFİ':'NATURE DISCOVERY'}</span>
+                  <strong>{language==='tr'?'Doğa Dedektifi':'Nature Detective'}</strong>
+                  <small>{language==='tr'?'Dağlar, nehirler ve dünya doğasının sırlarını keşfet.':'Explore mountains, rivers and the wonders of nature.'}</small>
+                  <span className="feature-cta">{language==='tr'?'Keşfe başla':'Start exploring'} <ArrowRight size={16}/></span>
+                </span>
+              </button>
+            </div>
+            <div className="globriva-hero-slide globriva-feature-slide globriva-feature-islands">
+              <div className="feature-art" aria-hidden="true"><GeoDiscoveryArt mode="islands" /></div>
+              <span className="feature-new">{language==='tr'?'YENİ':'NEW'}</span>
+              <button type="button" className="relative z-[3] block h-full w-full cursor-pointer text-left touch-manipulation"
+                aria-label={language==='tr'?'Ada Avcısı oyununu aç':'Play Island Hunter'}
+                onClick={() => { if (!suppressHeroTap.current) startGeoDiscovery('islands'); }}>
+                <span className="feature-copy">
+                  <span className="feature-label">{language==='tr'?'ADA KEŞFİ':'ISLAND DISCOVERY'}</span>
+                  <strong>{language==='tr'?'Ada Avcısı':'Island Hunter'}</strong>
+                  <small>{language==='tr'?'Gerçek ada silüetlerinden konumları tahmin et.':'Guess locations from real island silhouettes.'}</small>
+                  <span className="feature-cta">{language==='tr'?'Keşfe başla':'Start exploring'} <ArrowRight size={16}/></span>
+                </span>
+              </button>
+            </div>
+            <div className="globriva-hero-slide globriva-feature-slide globriva-feature-borders">
+              <div className="feature-art" aria-hidden="true"><GeoDiscoveryArt mode="borders" /></div>
+              <span className="feature-new">{language==='tr'?'YENİ':'NEW'}</span>
+              <button type="button" className="relative z-[3] block h-full w-full cursor-pointer text-left touch-manipulation"
+                aria-label={language==='tr'?'Sınır Dedektifi oyununu aç':'Play Border Detective'}
+                onClick={() => { if (!suppressHeroTap.current) startGeoDiscovery('borders'); }}>
+                <span className="feature-copy">
+                  <span className="feature-label">{language==='tr'?'SINIR KEŞFİ':'BORDER DISCOVERY'}</span>
+                  <strong>{language==='tr'?'Sınır Dedektifi':'Border Detective'}</strong>
+                  <small>{language==='tr'?'Haritada komşu ülkeleri keşfet, sınırları çöz.':'Follow the map and solve neighboring countries.'}</small>
+                  <span className="feature-cta">{language==='tr'?'Keşfe başla':'Start exploring'} <ArrowRight size={16}/></span>
+                </span>
+              </button>
+            </div>
+            </div>
+          </div>
+          <div className="absolute right-3 top-3 z-30">
+            <label className="relative flex h-9 max-w-[65px] shrink-0 items-center gap-1 rounded-xl border border-white/20 bg-[#0c2946]/75 px-1.5 text-[10px] font-extrabold text-white" title={t('Dil')}>
+              <Globe2 className="h-3.5 w-3.5 shrink-0 text-cyan-200"/>
+              <select value={language} onChange={event=>setLanguage(event.target.value as Language)}
+                aria-label={t('Dil')} className="w-[34px] min-w-0 appearance-none bg-transparent font-extrabold uppercase text-white outline-none">
+                {availableLanguages.map(([code,label])=><option key={code} value={code} className="bg-[#0c2946] text-white">{code.toUpperCase()} · {label}</option>)}
+              </select>
+            </label>
+          </div>
+          <nav className="globriva-hero-pagination" aria-label={language==='tr'?'Tanıtım slaytları':'Feature slides'}>
+            <span className="hero-hint">{language==='tr'?'Kaydır · Keşfet':'Swipe · Explore'}</span>
+            {heroSlides.map((slide,index)=>(
+              <button key={slide.id} type="button" onClick={()=>chooseHero(index)} aria-current={heroIndex===index}
+                aria-label={`${index+1}/${heroSlides.length}: ${language==='tr'?slide.tr:slide.en}`}/>
+            ))}
+          </nav>
         </motion.section>
 
         {editing && (
@@ -612,44 +796,6 @@ export function StartScreen({
           </button>
         </motion.section>
 
-        <motion.section {...entrance(4)} className="mt-4">
-          <h2 className="aa-section-heading">{language === 'tr' ? 'Yeni Coğrafya Oyunları' : 'New Geography Games'}</h2>
-          <p className="mt-1 text-xs font-semibold text-slate-300">
-            {language === 'tr' ? 'Dünyayı yeni gözlerle keşfet!' : 'Discover the world in new ways!'}
-          </p>
-          <div className="mt-3 grid grid-cols-1 gap-3">
-            {([
-              {id:'nature',tr:'Doğa Dedektifi',en:'Nature Detective',subTr:'Dağları, nehirleri ve gölleri tanı',subEn:'Explore mountains, rivers and lakes',labelTr:'DOĞA KEŞFİ',labelEn:'NATURE EXPLORER',Icon:Mountain,bg:'bg-gradient-to-br from-[#074452] via-[#1a766d] to-[#11465b]',shade:'from-[#072f34]/95 via-[#07555b]/62 to-[#1c8e85]/5',accent:'text-[#b0f1df]'},
-              {id:'islands',tr:'Ada Avcısı',en:'Island Hunter',subTr:'Adaları silüetlerinden bul',subEn:'Recognize islands by their outline',labelTr:'ADA KEŞFİ',labelEn:'ISLAND EXPLORER',Icon:MapPinned,bg:'bg-gradient-to-br from-[#04607a] via-[#1290a4] to-[#114777]',shade:'from-[#06344c]/95 via-[#08637a]/62 to-[#17b6b5]/5',accent:'text-[#aeeefa]'},
-              {id:'borders',tr:'Sınır Dedektifi',en:'Border Detective',subTr:'Ülkeleri komşularından tanı',subEn:'Discover countries and neighbors',labelTr:'HARİTA KEŞFİ',labelEn:'MAP EXPLORER',Icon:Globe2,bg:'bg-gradient-to-br from-[#292d60] via-[#555187] to-[#192e53]',shade:'from-[#191e39]/96 via-[#363e72]/64 to-[#7b6b9c]/7',accent:'text-[#ffe3b3]'},
-            ] as const).map(item=>(
-              <button key={item.id} type="button" onClick={()=>startGeoDiscovery(item.id)}
-                aria-label={language==='tr'?item.tr:item.en}
-                className={`group relative isolate flex min-h-[134px] w-full items-center overflow-hidden rounded-[23px] border border-white/40 ${item.bg} px-4 py-4 text-left text-white shadow-[0_12px_25px_rgba(0,8,31,.25)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_17px_30px_rgba(0,8,31,.32)] active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200`}>
-                <GeoDiscoveryArt mode={item.id}/>
-                <span aria-hidden="true" className={`pointer-events-none absolute inset-0 z-0 bg-gradient-to-r ${item.shade}`}/>
-                <span aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 rounded-[inherit] ring-1 ring-inset ring-white/10"/>
-                <span className="relative z-10 block max-w-[78%] min-w-0 py-0.5">
-                  <span className={`mb-2 flex items-center gap-1.5 text-[10px] font-extrabold tracking-[.09em] ${item.accent}`}>
-                    <span className="grid h-7 w-7 place-items-center rounded-[10px] border border-white/25 bg-white/10">
-                      <item.Icon size={16} strokeWidth={2} aria-hidden="true"/>
-                    </span>
-                    {language==='tr'?item.labelTr:item.labelEn}
-                  </span>
-                  <strong className="block text-[19px] font-black leading-tight tracking-[-.02em] drop-shadow-[0_2px_8px_rgba(0,0,0,.35)]">
-                    {language==='tr'?item.tr:item.en}
-                  </strong>
-                  <small className="mt-1.5 block text-[11px] font-semibold leading-[1.4] text-white/90">
-                    {language==='tr'?item.subTr:item.subEn}
-                  </small>
-                </span>
-                <span aria-hidden="true" className="absolute bottom-3.5 right-3.5 z-10 grid h-8 w-8 place-items-center rounded-full border border-white/55 bg-[#092b48]/65 text-white shadow-lg backdrop-blur-sm transition-transform group-hover:translate-x-0.5">
-                  <ChevronRight size={18}/>
-                </span>
-              </button>
-            ))}
-          </div>
-        </motion.section>
 
         <motion.section {...entrance(4)} className="mt-5">
           <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
