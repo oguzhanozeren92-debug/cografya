@@ -33,9 +33,10 @@ import { backend, getSavedName, changePlayerName, getPlayerId, setSavedName } fr
 
 function App() {
   const game = useGame();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const [playerName, setPlayerName] = useState(getSavedName);
   const [homeTab, setHomeTab] = useState<GlobrivaHomeTab>('home');
+  const [exitConfirmOpen, setExitConfirmOpen] = useState(false);
   const [rewardToast, setRewardToast] = useState<{ gained:number; stars:number; level:GeoRewardLevel; badges:GeoBadge[] }|null>(null);
   const [weeklyOpen, setWeeklyOpen] = useState(false);
   const [activeInviteCode, setActiveInviteCode] = useState(inviteCodeFromUrl);
@@ -137,7 +138,7 @@ function App() {
     }).catch(error => console.warn('Atlas push initialization:', error));
     return () => { active = false; dispose?.(); };
   }, []);
-  const startGame = (mode: GameMode) => { setHomeTab('home'); setRewardToast(null); playGameSound('select'); setAdError(''); game.start(mode); };
+  const startGame = (mode: GameMode) => { setExitConfirmOpen(false); setHomeTab('home'); setRewardToast(null); playGameSound('select'); setAdError(''); game.start(mode); };
   const toggleSound = () => {
     const next = !soundEnabled;
     saveSoundEnabled(next);
@@ -203,7 +204,8 @@ function App() {
         {showHUD && (
           <HUD score={game.score} lives={game.lives} streak={game.streak} round={game.round}
             canEarnHeart={rewardedAvailable && !adBusy && game.phase === 'question' && game.lives < 3 && game.rewardedHeartsUsed === 0}
-            adBusy={adBusy} compact={game.currentQuestionType === 'clue'} onWatchHeart={() => { void watchForHeart(); }} />
+            adBusy={adBusy} compact={game.currentQuestionType === 'clue'} onWatchHeart={() => { void watchForHeart(); }}
+            onExit={() => setExitConfirmOpen(true)} />
         )}
 
         {showGlobe && (
@@ -264,6 +266,28 @@ function App() {
           </div>
         )}
       </div>
+
+      {exitConfirmOpen && showHUD && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center bg-[#030817]/85 p-5 backdrop-blur-md"
+          role="presentation" onClick={() => setExitConfirmOpen(false)}>
+          <section role="dialog" aria-modal="true" aria-labelledby="globriva-exit-title"
+            className="w-full max-w-sm rounded-[24px] border border-amber-200/30 bg-gradient-to-b from-[#1b2946] to-[#0b1229] p-6 text-center text-white shadow-[0_20px_70px_rgba(0,0,0,.7)]"
+            onClick={event => event.stopPropagation()}>
+            <h2 id="globriva-exit-title" className="text-xl font-black">{t('Oyundan çıkılsın mı?')}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-300">{t('Bu turdaki ilerlemen kaybolacak.')}</p>
+            <div className="mt-6 grid grid-cols-1 gap-2.5">
+              <button type="button" autoFocus onClick={() => setExitConfirmOpen(false)}
+                className="min-h-12 rounded-xl bg-amber-400 px-4 py-3 font-extrabold text-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                {t('Oyuna devam et')}
+              </button>
+              <button type="button" onClick={() => { game.quit(); setExitConfirmOpen(false); setRewardToast(null); setHomeTab('home'); }}
+                className="min-h-12 rounded-xl border border-white/20 bg-white/5 px-4 py-3 font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                {t('Ana menüye dön')}
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
 
       {showStart && homeTab === 'home' && (
         <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} onNotifications={() => setNotificationsOpen(true)} onStreet={() => setStreetOpen('play')} onStreetLeaderboard={() => setStreetOpen('ranking')} onDrone={() => setDroneOpen(true)} onHistory={() => setHistoryOpen(true)} onGeoDiscovery={mode => setGeoDiscoveryOpen(mode)} onVersus={() => setVersusOpen(true)} />
