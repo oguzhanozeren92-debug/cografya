@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import {
-  ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Globe2, Landmark,
+  ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Gamepad2, Globe2, Landmark,
   Lightbulb, MapPinned, Mountain, Pencil, Play, ShieldCheck, Sparkles,
   Trophy, UserRound, Volume2, VolumeX, Swords,
 } from 'lucide-react';
@@ -61,10 +61,10 @@ export function StartScreen({
   const suppressHeroTap = useRef(false);
   const heroTapReset = useRef<number | null>(null);
   const heroSlides = [
-    { id: 'welcome', tr: 'Dünya Turu', en: 'World Tour' },
-    { id: 'nature', tr: 'Doğa Dedektifi', en: 'Nature Detective' },
-    { id: 'islands', tr: 'Ada Avcısı', en: 'Island Hunter' },
-    { id: 'borders', tr: 'Sınır Dedektifi', en: 'Border Detective' },
+    { id: 'welcome', tr: 'Dünya Turu', en: 'World Tour', shortTr: 'Dünya', shortEn: 'Tour' },
+    { id: 'nature', tr: 'Doğa Dedektifi', en: 'Nature Detective', shortTr: 'Doğa', shortEn: 'Nature' },
+    { id: 'islands', tr: 'Ada Avcısı', en: 'Island Hunter', shortTr: 'Ada', shortEn: 'Islands' },
+    { id: 'borders', tr: 'Sınır Dedektifi', en: 'Border Detective', shortTr: 'Sınır', shortEn: 'Borders' },
   ] as const;
   useEffect(() => {
     if (heroInteracted || reduceMotion) return;
@@ -462,6 +462,79 @@ export function StartScreen({
           background: linear-gradient(135deg,#fff1b9,#ffcd71);
           box-shadow: 0 4px 16px rgba(0,0,0,.33);
         }
+
+        /* Game-mode launcher: unmistakably four playable entries, not a promo slider. */
+        .globriva-game-selector-head {
+          display:flex;align-items:center;justify-content:space-between;gap:8px;
+          margin:0 2px 10px;min-width:0;
+        }
+        .globriva-game-selector-heading {
+          display:inline-flex;align-items:center;gap:7px;min-width:0;
+          color:#ffecbb;font-weight:950;font-size:clamp(13px,3.5vw,16px);
+          letter-spacing:.015em;text-shadow:0 2px 10px rgba(0,0,0,.32);
+        }
+        .globriva-game-selector-count {
+          display:inline-flex;align-items:center;flex-shrink:0;
+          padding:6px 8px;border:1px solid rgba(248,212,129,.55);
+          border-radius:999px;background:rgba(12,38,68,.86);
+          color:#fce3aa;font-weight:900;font-size:9px;letter-spacing:.02em;
+        }
+        .globriva-feature-slide .feature-label {
+          display:inline-flex;align-items:center;gap:6px;
+          color:#ffe3a1;
+        }
+        .globriva-feature-slide .feature-cta {
+          min-height:43px;padding:9px 14px;font-weight:1000;
+          font-size:12px;letter-spacing:.035em;
+          border:1px solid rgba(255,255,255,.78);
+          transition:transform .18s ease,box-shadow .18s ease;
+        }
+        .globriva-feature-slide button:active .feature-cta {transform:scale(.97);}
+        .globriva-mode-picker-caption {
+          display:flex;align-items:center;justify-content:space-between;
+          gap:8px;margin:10px 2px 6px;font-size:10px;
+          font-weight:800;color:#e2eeff;letter-spacing:.006em;
+        }
+        .globriva-mode-picker-caption > span:first-child {
+          display:inline-flex;align-items:center;gap:5px;min-width:0;
+        }
+        .globriva-mode-picker-caption > span:last-child {font-variant-numeric:tabular-nums;color:#ffe5a5;}
+        .globriva-hero-mode-list {
+          display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+          align-items:stretch;gap:7px;
+        }
+        .globriva-hero-mode-list button {
+          position:relative;display:flex;align-items:center;justify-content:center;gap:4px;
+          min-width:0;min-height:35px;padding:7px 3px;
+          background:rgba(12,37,66,.93);
+          border:1px solid rgba(167,207,233,.42);
+          border-radius:11px;color:#dceaf8;
+          font-size:clamp(9px,2.5vw,11px);font-weight:900;
+          cursor:pointer;transition:background .2s,border-color .2s,transform .15s;
+          white-space:nowrap;
+        }
+        .globriva-hero-mode-list button[aria-current="true"] {
+          border-color:#fff0b8;background:linear-gradient(130deg,#ffe9a6,#ffbf66);
+          color:#1a3350;box-shadow:0 5px 18px rgba(255,193,91,.19);
+        }
+        .globriva-hero-mode-list button:active {transform:scale(.95);}
+        .globriva-hero-mode-list button:focus-visible {outline:2px solid #fff4ca;outline-offset:2px;}
+        .globriva-mode-new-dot {
+          display:inline-block;flex-shrink:0;width:5px;height:5px;
+          background:#ffdc86;border-radius:50%;
+        }
+        .globriva-hero-mode-list button[aria-current="true"] .globriva-mode-new-dot {background:#704916;}
+        @media(max-width:380px){
+          .globriva-game-selector-heading {font-size:12px;}
+          .globriva-game-selector-count {font-size:8px;padding:5px 7px;}
+          .globriva-mode-picker-caption {font-size:9px;}
+          .globriva-hero-mode-list {gap:5px;}
+          .globriva-hero-mode-list button {min-height:33px;}
+          .globriva-feature-slide .feature-cta {padding:8px 11px;}
+        }
+        @media(prefers-reduced-motion:reduce){
+          .globriva-feature-slide .feature-cta,.globriva-hero-mode-list button {transition:none;}
+        }
         /* A world-adventure banner rather than a generic orange CTA. The
            picture is already bundled locally for dependable mobile display. */
         .atlas-home-illustrated .aa-play {
@@ -598,6 +671,15 @@ export function StartScreen({
         </header>
 
         <motion.section {...entrance(0)} className="relative min-w-0">
+          <div className="globriva-game-selector-head">
+            <span className="globriva-game-selector-heading">
+              <Gamepad2 size={18} strokeWidth={2.5}/>
+              {language === 'tr' ? 'OYUN MODUNU SEÇ' : 'CHOOSE YOUR GAME'}
+            </span>
+            <span className="globriva-game-selector-count">
+              {language === 'tr' ? '4 AYRI OYUN' : '4 PLAYABLE GAMES'}
+            </span>
+          </div>
           <div className="globriva-hero-viewport"
             aria-label={language==='tr'?'Kaydırılabilir yeni oyunlar':'Swipeable new games'}
             onTouchStart={onHeroTouchStart} onTouchEnd={onHeroTouchEnd} onTouchCancel={() => { heroTouchStart.current = null; }}>
@@ -612,9 +694,9 @@ export function StartScreen({
             </FxErrorBoundary>
           )}
           <div className="aa-hero-copy relative z-10">
-            <span className="aa-kicker"><Sparkles className="h-3.5 w-3.5" /> {t('Bir dünya macera!')}</span>
-            <h1>{t('Hadi,')}<br /><span>{t('keşfe çık!')}</span></h1>
-            <p>{t('Dünyayı döndür, durdur,')}<br />{t('ülkeyi bul, puanı kap!')}</p>
+            <span className="aa-kicker"><Gamepad2 className="h-3.5 w-3.5" /> {language === 'tr' ? 'OYUN MODU · 01' : 'GAME MODE · 01'}</span>
+            <h1>{language === 'tr' ? 'Dünya' : 'World'}<br /><span>{language === 'tr' ? 'Turu' : 'Tour'}</span></h1>
+            <p>{language === 'tr' ? 'Karışık coğrafya sorularında yarış.' : 'Challenge yourself with mixed geography questions.'}</p>
           </div>
           <div className="aa-hero-bottom">
             <button
@@ -623,8 +705,8 @@ export function StartScreen({
               aria-label={t('Dünya turu')}
               className="globriva-hero-action touch-manipulation"
             >
-              <span aria-hidden="true">🌍</span>
-              <span>{t('Dünya turu')}</span>
+              <Play size={17} fill="currentColor" aria-hidden="true" />
+              <span>{language === 'tr' ? 'OYUNU BAŞLAT' : 'PLAY NOW'}</span>
               <ArrowRight className="h-4 w-4 text-[#3686b7]" aria-hidden="true" />
             </button>
             <button
@@ -653,10 +735,10 @@ export function StartScreen({
                 aria-label={language==='tr'?'Doğa Dedektifi oyununu aç':'Play Nature Detective'}
                 onClick={() => { if (!suppressHeroTap.current) startGeoDiscovery('nature'); }}>
                 <span className="feature-copy">
-                  <span className="feature-label">{language==='tr'?'DOĞA KEŞFİ':'NATURE DISCOVERY'}</span>
+                  <span className="feature-label"><Gamepad2 size={13}/>{language==='tr'?'OYUN MODU · 02':'GAME MODE · 02'}</span>
                   <strong>{language==='tr'?'Doğa Dedektifi':'Nature Detective'}</strong>
                   <small>{language==='tr'?'Dağlar, nehirler ve dünya doğasının sırlarını keşfet.':'Explore mountains, rivers and the wonders of nature.'}</small>
-                  <span className="feature-cta">{language==='tr'?'Keşfe başla':'Start exploring'} <ArrowRight size={16}/></span>
+                  <span className="feature-cta"><Play size={16} fill="currentColor" />{language==='tr'?'OYUNU BAŞLAT':'PLAY NOW'}<ArrowRight size={16}/></span>
                 </span>
               </button>
             </div>
@@ -673,10 +755,10 @@ export function StartScreen({
                 aria-label={language==='tr'?'Ada Avcısı oyununu aç':'Play Island Hunter'}
                 onClick={() => { if (!suppressHeroTap.current) startGeoDiscovery('islands'); }}>
                 <span className="feature-copy">
-                  <span className="feature-label">{language==='tr'?'ADA KEŞFİ':'ISLAND DISCOVERY'}</span>
+                  <span className="feature-label"><Gamepad2 size={13}/>{language==='tr'?'OYUN MODU · 03':'GAME MODE · 03'}</span>
                   <strong>{language==='tr'?'Ada Avcısı':'Island Hunter'}</strong>
                   <small>{language==='tr'?'Gerçek ada silüetlerinden konumları tahmin et.':'Guess locations from real island silhouettes.'}</small>
-                  <span className="feature-cta">{language==='tr'?'Keşfe başla':'Start exploring'} <ArrowRight size={16}/></span>
+                  <span className="feature-cta"><Play size={16} fill="currentColor" />{language==='tr'?'OYUNU BAŞLAT':'PLAY NOW'}<ArrowRight size={16}/></span>
                 </span>
               </button>
             </div>
@@ -693,10 +775,10 @@ export function StartScreen({
                 aria-label={language==='tr'?'Sınır Dedektifi oyununu aç':'Play Border Detective'}
                 onClick={() => { if (!suppressHeroTap.current) startGeoDiscovery('borders'); }}>
                 <span className="feature-copy">
-                  <span className="feature-label">{language==='tr'?'SINIR KEŞFİ':'BORDER DISCOVERY'}</span>
+                  <span className="feature-label"><Gamepad2 size={13}/>{language==='tr'?'OYUN MODU · 04':'GAME MODE · 04'}</span>
                   <strong>{language==='tr'?'Sınır Dedektifi':'Border Detective'}</strong>
                   <small>{language==='tr'?'Haritada komşu ülkeleri keşfet, sınırları çöz.':'Follow the map and solve neighboring countries.'}</small>
-                  <span className="feature-cta">{language==='tr'?'Keşfe başla':'Start exploring'} <ArrowRight size={16}/></span>
+                  <span className="feature-cta"><Play size={16} fill="currentColor" />{language==='tr'?'OYUNU BAŞLAT':'PLAY NOW'}<ArrowRight size={16}/></span>
                 </span>
               </button>
             </div>
@@ -711,11 +793,17 @@ export function StartScreen({
               </select>
             </label>
           </div>
-          <nav className="globriva-hero-pagination" aria-label={language==='tr'?'Tanıtım slaytları':'Feature slides'}>
-            <span className="hero-hint">{language==='tr'?'Kaydır · Keşfet':'Swipe · Explore'}</span>
+          <div className="globriva-mode-picker-caption">
+            <span><Gamepad2 size={13}/>{language === 'tr' ? 'Her kart ayrı bir oyun · Dokun, hemen oyna' : 'Every card is a playable game · Tap to start'}</span>
+            <span>{heroIndex + 1}/{heroSlides.length}</span>
+          </div>
+          <nav className="globriva-hero-mode-list" aria-label={language==='tr'?'Oyun modunu seç':'Choose a playable game'}>
             {heroSlides.map((slide,index)=>(
               <button key={slide.id} type="button" onClick={()=>chooseHero(index)} aria-current={heroIndex===index}
-                aria-label={`${index+1}/${heroSlides.length}: ${language==='tr'?slide.tr:slide.en}`}/>
+                aria-label={`${language==='tr'?slide.tr:slide.en} · ${index+1}/${heroSlides.length}`}>
+                {language==='tr' ? slide.shortTr : slide.shortEn}
+                {index > 0 && <span className="globriva-mode-new-dot" aria-hidden="true"/>}
+              </button>
             ))}
           </nav>
         </motion.section>
