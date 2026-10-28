@@ -1,0 +1,41 @@
+name: Globriva Content and Media QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/**'
+      - 'src/components/GeoDiscoveryScreen.tsx'
+      - 'src/components/HistoryDetectiveScreen.tsx'
+      - 'server/history/**'
+      - 'server/street/**'
+      - 'server/drone/**'
+      - 'public/drone-gallery/catalog-v2.json'
+      - 'tests/geo-content.test.mjs'
+      - 'scripts/audit-playable-content.mjs'
+      - '.github/workflows/globriva-content-ci.yml'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Check gameplay, hint safety and existing location tests
+        run: node --test tests/geo-content.test.mjs tests/drone-live.test.mjs tests/drone/hints.test.mjs tests/street/country-mode.test.mjs
+      - name: Report loader-linked playable inventory
+        run: node scripts/audit-playable-content.mjs --strict
+      - name: Verify live URLs and Commons metadata (external service may be unavailable)
+        continue-on-error: true
+        run: node scripts/panoramas/audit-archive.mjs --live --strict
+      - name: Type check
+        run: npm run typecheck
+      - name: Build release bundle
+        run: npm run build
