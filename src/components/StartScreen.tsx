@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import {
   ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Gamepad2, Globe2, Landmark,
-  Lightbulb, MapPinned, Mountain, Pencil, Play, ShieldCheck, Sparkles,
+  Lightbulb, Mountain, Pencil, Play, ShieldCheck, Sparkles,
   Trophy, UserRound, Volume2, VolumeX, Swords,
 } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
@@ -31,7 +31,6 @@ interface StartScreenProps {
   onNotifications?: () => void;
   onStreet: () => void;
   onStreetLeaderboard: () => void;
-  onDrone: () => void;
   onHistory: () => void;
   onGeoDiscovery: (mode: 'nature'|'islands'|'borders') => void;
   onVersus: () => void;
@@ -41,7 +40,7 @@ const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
 
 export function StartScreen({
   onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly,
-  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onDrone, onHistory, onGeoDiscovery, onVersus,
+  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onHistory, onGeoDiscovery, onVersus,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
   const { language, setLanguage, t } = useLanguage();
@@ -51,7 +50,6 @@ export function StartScreen({
   const [busy, setBusy] = useState(false);
   const [queuedMode, setQueuedMode] = useState<GameMode | null>(null);
   const [queuedStreet, setQueuedStreet] = useState(false);
-  const [queuedDrone, setQueuedDrone] = useState(false);
   const [queuedHistory, setQueuedHistory] = useState(false);
   const [queuedGeoMode,setQueuedGeoMode] = useState<'nature'|'islands'|'borders'|null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -117,16 +115,6 @@ export function StartScreen({
     onStreet();
   };
 
-  const startDrone = () => {
-    if (!canPlay) {
-      setQueuedDrone(true);
-      setEditing(true);
-      nameInputRef.current?.focus();
-      return;
-    }
-    onDrone();
-  };
-
   const startHistory = () => {
     if (!canPlay) {
       setQueuedHistory(true);
@@ -161,10 +149,6 @@ export function StartScreen({
       if (queuedStreet) {
         setQueuedStreet(false);
         onStreet();
-      }
-      if (queuedDrone) {
-        setQueuedDrone(false);
-        onDrone();
       }
       if (queuedHistory) {
         setQueuedHistory(false);
@@ -948,40 +932,46 @@ export function StartScreen({
             <ChevronRight className="relative h-6 w-6 shrink-0" />
           </button>
 
-          <section className="relative mt-3 overflow-hidden rounded-[24px] border border-cyan-200/55 bg-gradient-to-br from-[#092a48] via-[#154668] to-[#123a56] p-3.5 text-white shadow-[0_14px_30px_rgba(2,10,30,.3)]"
-            aria-label={t('Konum Dedektifi')}>
-            <div className="pointer-events-none absolute inset-0 opacity-35" style={{background:'radial-gradient(circle at 80% 20%,#43e8de77,transparent 48%),linear-gradient(145deg,transparent,#09214d)'}} />
-            <div className="relative mb-3 flex items-center gap-3">
-              <span aria-hidden="true" className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-cyan-200/40 bg-cyan-200/15"><MapPinned className="h-6 w-6 text-cyan-200" /></span>
-              <div className="min-w-0 flex-1">
-                <strong className="block text-lg font-black">{t('Konum Dedektifi')}</strong>
-                <span className="block text-xs font-medium leading-4 text-cyan-100/85">{t('Sokaktan veya havadan dünyayı keşfet.')}</span>
-              </div>
-              <span className="shrink-0 rounded-full border border-amber-300/40 bg-amber-200/15 px-2.5 py-1 text-[10px] font-black text-amber-100">{t('İKİ OYUN')}</span>
-            </div>
-            <div className="relative grid grid-cols-2 gap-2.5">
-              <button type="button" onClick={startStreet} aria-label={t('Sokak Dedektifi oyununa başla')}
-                className="group relative flex min-h-[135px] min-w-0 flex-col justify-end overflow-hidden rounded-[17px] border border-white/25 bg-[#10496c] p-3 text-left transition-transform active:scale-[.98]">
+          {/* One shared game: street photography and aerial panoramas alternate in a five-round tour. */}
+          <section className="relative mt-3 space-y-2" aria-label={t('Sokak Dedektifi')}>
+            <button type="button" onClick={startStreet}
+              aria-label={t('Sokak Dedektifi oyununa başla')}
+              className="group relative flex min-h-[192px] w-full items-end overflow-hidden rounded-[24px] border border-cyan-200/60 bg-[#123d5c] px-4 pb-5 pt-4 text-left text-white shadow-[0_14px_30px_rgba(2,10,30,.35)] transition-transform active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-100">
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 grid grid-cols-2">
                 <img src="/game-cards/approved-street.webp" alt="" loading="lazy" draggable={false}
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-right opacity-35 blur-[2px]" />
-                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#081b37] via-[#0c2944]/75 to-transparent" />
-                <Camera className="relative mb-auto h-7 w-7 text-cyan-100" aria-hidden="true"/>
-                <strong className="relative mt-4 block text-[clamp(15px,3.8vw,19px)] font-black leading-tight">{t('Sokak Dedektifi')}</strong>
-                <span className="relative mt-1 block text-[11px] font-semibold text-blue-100">{t('Sokaktan keşfet')}</span>
-              </button>
-              <button type="button" onClick={startDrone} aria-label={t("Drone'dan Konumu Bul")}
-                className="group relative flex min-h-[135px] min-w-0 flex-col justify-end overflow-hidden rounded-[17px] border border-white/25 bg-[#135766] p-3 text-left transition-transform active:scale-[.98]">
+                  className="h-full w-full object-cover object-center" />
                 <img src="/game-cards/approved-drone.webp" alt="" loading="lazy" draggable={false}
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-right opacity-35 blur-[2px]" />
-                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#081b37] via-[#0c2944]/75 to-transparent" />
-                <span className="relative mb-auto text-[26px]" aria-hidden="true">🚁</span>
-                <strong className="relative mt-4 block text-[clamp(15px,3.8vw,19px)] font-black leading-tight">{t('Drone Dedektifi')}</strong>
-                <span className="relative mt-1 block text-[11px] font-semibold text-blue-100">{t('Havadan keşfet')}</span>
-              </button>
-            </div>
+                  className="h-full w-full object-cover object-center" />
+              </span>
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06152e]/95 via-[#081e38]/75 to-[#102b4d]/10" />
+              <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-3 h-[52%] w-px bg-white/20" />
+              <span className="relative z-10 min-w-0 flex-1">
+                <span className="mb-2 inline-flex items-center gap-2 rounded-full border border-cyan-100/40 bg-[#06304c]/80 px-3 py-1.5 text-[10px] font-black text-cyan-100">
+                  <Camera className="h-3.5 w-3.5 shrink-0" />
+                  {language==='tr'?'TEK OYUN · SOKAK + HAVADAN':language==='es'?'UN JUEGO · CALLE + AIRE':language==='de'?'EIN SPIEL · STRASSE + LUFT':language==='fr'?'UN JEU · RUE + CIEL':language==='pt'?'UM JOGO · RUA + AR':language==='ru'?'ОДНА ИГРА · УЛИЦА + ВОЗДУХ':language==='zh'?'一个游戏 · 街景 + 航拍':language==='ja'?'1つのゲーム · 街と空':'ONE GAME · STREET + AERIAL'}
+                </span>
+                <strong className="block text-[clamp(21px,5.5vw,28px)] font-black leading-tight">{t('Sokak Dedektifi')}</strong>
+                <span className="mt-1 block max-w-[300px] text-[12px] font-semibold leading-5 text-blue-100">
+                  {language==='tr'?'5 turda sokak ve drone görüntülerinden konum tahmin et.':
+                   language==='es'?'Adivina lugares a pie de calle y desde el aire en 5 rondas.':
+                   language==='de'?'Rate Orte aus Straßen- und Luftbildern in 5 Runden.':
+                   language==='fr'?'Devine les lieux depuis la rue et le ciel en 5 manches.':
+                   language==='pt'?'Adivinhe locais vistos da rua e do ar em 5 rodadas.':
+                   language==='ru'?'Угадывай места по фото улиц и с воздуха за 5 раундов.':
+                   language==='zh'?'在5轮中通过街景和航拍猜测地点。':
+                   language==='ja'?'全5ラウンドで街と空から場所を当てよう。':
+                   'Guess places from street and aerial photos across 5 rounds.'}
+                </span>
+              </span>
+              <span aria-hidden="true" className="relative z-10 ml-2 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-cyan-100/50 bg-[#0a3c5b]/70">
+                <ArrowRight className="h-5 w-5 text-cyan-100" />
+              </span>
+            </button>
             <button type="button" onClick={onStreetLeaderboard}
-              className="relative mt-2.5 flex min-h-11 w-full items-center justify-between rounded-xl border border-cyan-200/20 bg-[#071b37]/85 px-3 py-2 text-xs font-bold text-cyan-100">
-              <span className="flex min-w-0 items-center gap-2"><Trophy className="h-4 w-4 shrink-0 text-amber-300" />{t('Sokak Dedektifi dünya sıralaması')}</span>
+              className="relative flex min-h-12 w-full items-center justify-between gap-3 rounded-[16px] border border-cyan-200/25 bg-[#071b37]/90 px-3 py-2 text-xs font-bold text-cyan-100">
+              <span className="flex min-w-0 items-center gap-2">
+                <Trophy className="h-4 w-4 shrink-0 text-amber-300" />{t('Sokak Dedektifi dünya sıralaması')}
+              </span>
               <ArrowRight className="h-4 w-4 shrink-0" />
             </button>
           </section>
