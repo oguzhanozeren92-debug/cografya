@@ -590,28 +590,45 @@ export function StartScreen({
         }
 
 
-        /* The approved PNG/WebP screenshots carried a 22px strip of dark
-           page background at their top. Crop that strip inside the real
-           interactive button (no replacement artwork or duplicate buttons). */
+        /* Each approved WebP contains its own dark screenshot strip above
+           the illustrated tile. Crop it *inside* one consistent button frame.
+           Use the same geometry for every locale and keep readable overlays. */
         .atlas-home-illustrated .globriva-art-crop {
           position: relative;
-          display: block;
+          display: flex;
           box-sizing: border-box;
           width: 100%;
           min-width: 0;
           height: auto;
-          padding: 0 !important;
+          padding: 8px !important;
           overflow: hidden;
           isolation: isolate;
-          border: 1.5px solid rgba(255,255,255,.94) !important;
+          border: 0 !important;
           border-radius: 22px !important;
           background-clip: padding-box;
-          line-height: 0;
+          box-shadow: 0 10px 22px rgba(0,8,30,.24) !important;
           -webkit-mask-image: -webkit-radial-gradient(white, black);
+        }
+        /* A painted outline avoids the extra 1.5px layout inset and the
+           hairline seam between a rounded frame and a rasterized image. */
+        .atlas-home-illustrated .globriva-art-crop::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          z-index: 5;
+          border: 1.5px solid rgba(255,255,255,.92);
+          border-radius: inherit;
+          pointer-events: none;
         }
         .atlas-home-illustrated .globriva-art-crop-daily { aspect-ratio: 431 / 162; }
         .atlas-home-illustrated .globriva-art-crop-explore { aspect-ratio: 419 / 162; }
-        .atlas-home-illustrated .globriva-art-crop-league { aspect-ratio: 862 / 94; }
+        .atlas-home-illustrated .globriva-art-crop-league {
+          aspect-ratio: 862 / 116;
+          padding: 0 16px !important;
+        }
+        /* The Turkish approved league image has a baked-in ~20px dark top
+           strip. Other-language illustration does not: crop only the former. */
+        .atlas-home-illustrated .globriva-art-crop-league-approved { aspect-ratio: 862 / 94; }
         .atlas-home-illustrated .globriva-art-crop > img {
           position: absolute !important;
           inset: 0 !important;
@@ -624,13 +641,26 @@ export function StartScreen({
           border: 0 !important;
           object-fit: cover !important;
           object-position: center bottom !important;
+          pointer-events: none;
+        }
+        .atlas-home-illustrated .globriva-art-crop-league:not(.globriva-art-crop-league-approved) > img {
+          object-position: center center !important;
         }
         .atlas-home-illustrated .globriva-art-crop > span {
+          position: relative;
           z-index: 2;
+          min-width: 0;
+          max-height: 100%;
           line-height: 1.15;
+          white-space: normal;
+          overflow-wrap: anywhere;
+        }
+        .atlas-home-illustrated .globriva-art-crop > span.absolute {
+          position: absolute;
         }
         @media (max-width: 380px) {
-          .atlas-home-illustrated .globriva-art-crop { border-radius: 19px !important; }
+          .atlas-home-illustrated .globriva-art-crop { border-radius: 19px !important; padding: 6px !important; }
+          .atlas-home-illustrated .globriva-art-crop-league { padding: 0 10px !important; }
         }
       `}</style>
       <main className="globriva-content atlas-home-inner aa-page mx-auto w-full max-w-[490px] px-4 sm:px-5">
@@ -992,7 +1022,7 @@ export function StartScreen({
 
           <div className="mt-2 grid grid-cols-2 gap-3">
             <button type="button" onClick={onDaily} aria-label={t('Günlük 10 soru')}
-              className="relative flex aspect-[431/162] min-w-0 items-end overflow-hidden rounded-[22px] border border-white/50 bg-[#f7d99d] p-2 text-left text-[#153850] shadow-[0_10px_22px_rgba(0,8,30,.24)] active:scale-[.98]">
+              className="globriva-art-crop globriva-art-crop-daily relative flex min-w-0 items-end bg-[#f7d99d] text-left text-[#153850] active:scale-[.98]">
               <img src={language==='tr'?'/game-cards/approved-daily.webp':'/game-cards/daily-cinematic.svg'}
                 alt="" width={431} height={184} draggable={false} loading="lazy"
                 className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom" />
@@ -1000,7 +1030,7 @@ export function StartScreen({
               {completed > 0 && <span className="absolute right-1.5 top-1.5 z-10 rounded-md border border-[#faf6e9]/70 bg-[#ffe7bb]/95 px-1.5 py-1 text-[10px] font-bold text-[#647787] shadow-sm">{completed}/{DAILY_TOTAL}</span>}
             </button>
             <button type="button" onClick={onExplore} aria-label={t('Keşif haritası')}
-              className="relative flex aspect-[419/162] min-w-0 items-end overflow-hidden rounded-[22px] border border-white/50 bg-[#a4e7dc] p-2 text-left text-[#153850] shadow-[0_10px_22px_rgba(0,8,30,.24)] active:scale-[.98]">
+              className="globriva-art-crop globriva-art-crop-explore relative flex min-w-0 items-end bg-[#a4e7dc] text-left text-[#153850] active:scale-[.98]">
               <img src={language==='tr'?'/game-cards/approved-explore.webp':'/game-cards/explore-cinematic.svg'}
                 alt="" width={419} height={184} draggable={false} loading="lazy"
                 className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom" />
@@ -1012,7 +1042,7 @@ export function StartScreen({
 
 
         <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')}
-          className="relative mt-3 flex aspect-[862/116] w-full items-center overflow-hidden rounded-[22px] border border-white/50 bg-[#f2c6df] px-4 text-left text-[#28445d] shadow-[0_12px_25px_rgba(0,8,30,.24)] active:scale-[.985]">
+          className={`globriva-art-crop globriva-art-crop-league relative mt-3 flex w-full items-center bg-[#f2c6df] text-left text-[#28445d] active:scale-[.985] ${language==='tr'?'globriva-art-crop-league-approved':''}`}>
           <img src={language==='tr'?'/game-cards/approved-league.webp':'/game-cards/league-cinematic.svg'}
             alt="" width={862} height={116} draggable={false} loading="lazy"
             className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center" />
