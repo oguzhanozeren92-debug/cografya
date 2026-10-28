@@ -194,7 +194,15 @@ export function StreetDetectiveScreen({
           if(options.length!==4)throw new Error('İpucu şu anda yüklenemedi.');
           data={level,kind:'choices',options};
         }else{
-          const value=droneHintText(aerial.id,level,language);
+          // Use curated locale-specific hints for the original aerial set, and
+          // verified editorial metadata when the aerial library grows.
+          let value=droneHintText(aerial.id,level,language);
+          if(!value&&level===1&&aerial.regionCode){
+            try{value=new Intl.DisplayNames([language],{type:'region'}).of(aerial.regionCode)??'';}
+            catch{value='';}
+          }
+          if(!value&&level===2)value=aerial.hint?.[language]||aerial.hint?.en||
+            aerial.photoFocus?.[language]||aerial.photoFocus?.en||'';
           if(!value)throw new Error('İpucu şu anda yüklenemedi.');
           data={level,kind:'drone',value};
         }
