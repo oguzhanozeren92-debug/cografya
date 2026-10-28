@@ -931,31 +931,35 @@ export function StartScreen({
             <ChevronRight className="relative h-6 w-6 shrink-0" />
           </button>
 
-          {/* One shared game: street photography and aerial panoramas alternate in a five-round tour. */}
+          {/* A single playable Street Detective — photography and aerial scenes share one game.
+              The artwork is language-neutral; all descriptions stay in live localized text. */}
           <section className="relative mt-3 space-y-2" aria-label={t('Sokak Dedektifi')}>
             <button type="button" onClick={startStreet}
               aria-label={t('Sokak Dedektifi oyununa başla')}
-              className="group relative flex min-h-[192px] w-full items-end overflow-hidden rounded-[24px] border border-cyan-200/60 bg-[#123d5c] px-4 pb-5 pt-4 text-left text-white shadow-[0_14px_30px_rgba(2,10,30,.35)] transition-transform active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-100">
-              <span aria-hidden="true" className="pointer-events-none absolute inset-0 grid grid-cols-2">
-                <img src="/game-cards/street-cinematic.svg" alt="" loading="lazy" draggable={false}
-                  className="h-full w-full object-cover object-center" />
-                <img src="/game-cards/drone-cinematic.svg" alt="" loading="lazy" draggable={false}
-                  className="h-full w-full object-cover object-center" />
-              </span>
-              <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06152e]/95 via-[#081e38]/75 to-[#102b4d]/10" />
-              <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-3 h-[52%] w-px bg-white/20" />
-              <span className="relative z-10 min-w-0 flex-1">
-                <span className="mb-2 inline-flex items-center gap-2 rounded-full border border-cyan-100/40 bg-[#06304c]/80 px-3 py-1.5 text-[10px] font-black text-cyan-100">
-                  <Camera className="h-3.5 w-3.5 shrink-0" />
+              className="group relative isolate flex min-h-[222px] w-full flex-col justify-between overflow-hidden rounded-[26px] border-[1.5px] border-cyan-100/70 bg-[#0a3558] p-4 text-left text-white shadow-[0_16px_34px_rgba(2,10,30,.35)] transition-transform duration-200 hover:brightness-110 active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-100">
+              <img src="/globriva-hero-atmosphere.webp" alt="" aria-hidden="true" loading="lazy" draggable={false}
+                className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-[63%_46%] saturate-[1.25] contrast-[1.04] transition-transform duration-500 group-hover:scale-[1.035]" />
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#041b35]/95 via-[#061b35]/55 to-[#0a2546]/10" />
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-[#03152b]/95 via-[#061b35]/20 to-transparent" />
+              <span className="relative z-10 flex w-full items-start justify-between gap-2">
+                <span className="inline-flex min-w-0 items-center gap-2 rounded-full border border-cyan-100/60 bg-[#08263f]/85 px-3 py-2 text-[clamp(9px,2.7vw,11px)] font-black tracking-[.025em] text-cyan-50 shadow-lg backdrop-blur-sm">
+                  <Camera className="h-4 w-4 shrink-0 text-cyan-200" />
                   {t('TEK OYUN · SOKAK + HAVADAN')}
                 </span>
-                <strong className="block text-[clamp(21px,5.5vw,28px)] font-black leading-tight">{t('Sokak Dedektifi')}</strong>
-                <span className="mt-1 block max-w-[300px] text-[12px] font-semibold leading-5 text-blue-100">
-                  {t('5 turda sokak ve drone görüntülerinden konum tahmin et.')}
+                <span aria-hidden="true" className="flex shrink-0 items-center gap-1 rounded-full border border-white/35 bg-[#0a2948]/65 px-2 py-1.5 text-[13px] shadow-lg backdrop-blur-sm">
+                  <Camera className="h-4 w-4 text-[#c3f4ff]" /> <span>+</span> <span>🚁</span>
                 </span>
               </span>
-              <span aria-hidden="true" className="relative z-10 ml-2 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-cyan-100/50 bg-[#0a3c5b]/70">
-                <ArrowRight className="h-5 w-5 text-cyan-100" />
+              <span className="relative z-10 flex w-full items-end justify-between gap-2">
+                <span className="min-w-0 flex-1">
+                  <strong className="block text-[clamp(22px,5.6vw,30px)] font-black leading-tight tracking-[-.02em] text-white drop-shadow-[0_2px_9px_rgba(0,0,0,.65)]">{t('Sokak Dedektifi')}</strong>
+                  <span className="mt-1.5 block max-w-[285px] text-[clamp(11px,3.1vw,13px)] font-bold leading-[1.5] text-cyan-50 drop-shadow-[0_2px_5px_rgba(0,0,0,.85)]">
+                    {t('5 turda sokak ve drone görüntülerinden konum tahmin et.')}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-cyan-100/75 bg-[#0a4164]/75 shadow-[0_4px_16px_rgba(1,15,36,.55)] backdrop-blur-sm transition-transform group-hover:translate-x-1">
+                  <ArrowRight className="h-6 w-6 text-cyan-50" />
+                </span>
               </span>
             </button>
             <button type="button" onClick={onStreetLeaderboard}
@@ -1021,12 +1025,31 @@ export function StartScreen({
         </motion.section>
 
 
+        {/* Taller, language-neutral weekly podium. Numbers are real UI elements,
+            never baked into a clipped image: 2 / 1 / 3 remain visible at all sizes. */}
         <motion.button {...entrance(4)} type="button" onClick={() => onViewWeekly('mixed')} aria-label={t('Haftalık sıralama')}
-          className={`globriva-art-crop globriva-art-crop-league relative mt-3 flex w-full items-center bg-[#f2c6df] text-left text-[#28445d] active:scale-[.985] ${language==='tr'?'globriva-art-crop-league-approved':''}`}>
-          <img src={language==='tr'?'/game-cards/approved-league.webp':'/game-cards/league-cinematic.svg'}
-            alt="" width={862} height={116} draggable={false} loading="lazy"
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center" />
-          {language!=='tr' && <span className="relative z-10 flex max-w-[78%] items-center gap-2.5 rounded-xl border border-[#fffaf8]/70 bg-[#fff0f7]/95 px-3 py-2 text-[clamp(13px,3.2vw,18px)] font-black leading-tight text-[#28445d] shadow-[0_2px_8px_rgba(98,62,95,.12)]"><Trophy className="h-5 w-5 shrink-0" />{t('Haftalık sıralama')}</span>}
+          className="group relative isolate mt-3 flex min-h-[138px] w-full items-center justify-between gap-2 overflow-hidden rounded-[25px] border-[1.5px] border-[#ffeafa] bg-gradient-to-r from-[#ffe6c7] via-[#f8d6ed] to-[#d4b9f3] px-3.5 py-4 text-left text-[#2b3655] shadow-[0_12px_27px_rgba(0,8,30,.25)] transition-transform active:scale-[.985] sm:min-h-[150px] sm:px-5">
+          <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_75%_8%,rgba(255,255,255,.8),transparent_40%)]" />
+          <span aria-hidden="true" className="pointer-events-none absolute right-[13%] top-[10%] text-[22px] text-white/80">✦</span>
+          <span aria-hidden="true" className="pointer-events-none absolute right-[35%] bottom-[9%] text-[15px] text-[#eeac73]">✦</span>
+          <span className="relative z-10 flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+            <span aria-hidden="true" className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-white/80 bg-[#fff3d7]/85 shadow-[0_3px_12px_rgba(125,76,56,.13)] sm:h-14 sm:w-14">
+              <Trophy className="h-6 w-6 text-[#b97919] sm:h-8 sm:w-8"/>
+            </span>
+            <span className="min-w-0">
+              <strong className="block text-[clamp(14px,3.6vw,19px)] font-black leading-[1.15] tracking-[-.025em]">{t('Haftalık sıralama')}</strong>
+              <small className="mt-1 block text-[clamp(10px,2.6vw,12px)] font-semibold leading-[1.35] text-[#67617b]">{t('Zirvedeki oyuncuları gör')}</small>
+            </span>
+          </span>
+          <span aria-hidden="true" className="relative z-10 flex h-[90px] w-[132px] shrink-0 items-end justify-center gap-1 pr-3 sm:h-[100px] sm:w-[150px]">
+            <span className="flex h-[47px] w-[35px] items-center justify-center rounded-t-[10px] border border-[#b8a6df] bg-gradient-to-b from-[#d8d4ea] to-[#857ba9] text-[23px] font-black text-white shadow-[inset_0_2px_5px_rgba(255,255,255,.45),0_4px_7px_rgba(41,25,61,.2)]">2</span>
+            <span className="relative flex h-[63px] w-[43px] items-center justify-center rounded-t-[10px] border border-[#f4c663] bg-gradient-to-b from-[#ffe890] via-[#f4bc43] to-[#ce861c] text-[27px] font-black text-[#704015] shadow-[inset_0_2px_6px_rgba(255,255,255,.6),0_5px_10px_rgba(136,77,13,.26)]">
+              <Trophy className="absolute -top-[31px] h-8 w-8 text-[#c48722] drop-shadow-[0_1px_2px_rgba(255,255,255,.75)]"/>
+              1
+            </span>
+            <span className="flex h-[39px] w-[35px] items-center justify-center rounded-t-[10px] border border-[#d9a28e] bg-gradient-to-b from-[#e8af9c] to-[#a46b64] text-[23px] font-black text-white shadow-[inset_0_2px_5px_rgba(255,255,255,.4),0_4px_7px_rgba(65,29,34,.2)]">3</span>
+            <ChevronRight className="absolute -right-2 top-1/2 h-5 w-5 -translate-y-1/2 text-[#34405b]"/>
+          </span>
         </motion.button>
 
         {leaderboardError && (
