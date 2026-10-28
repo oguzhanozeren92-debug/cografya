@@ -643,7 +643,97 @@ const cards: CountryClueCard[] = [
       "Başkentinin adı Port of Spain'dir."
     ],
     "fact": "Karayipler'in güney ucundaki ada devletidir."
-  }
+  },
+{
+  "countryId": "152",
+  "difficulty": 1,
+  "clues": [
+    "Güney Amerika'nın batı kıyısında kuzeyden güneye çok uzun uzanır.",
+    "Kuzeyinde dünyanın en kurak çöllerinden biri bulunur.",
+    "Başkentinin adı Santiago'dur."
+  ],
+  "fact": "And Dağları ülkenin doğu sınırı boyunca uzanırken Pasifik Okyanusu batısında yer alır."
+},
+{
+  "countryId": "170",
+  "difficulty": 1,
+  "clues": [
+    "Güney Amerika'da hem Pasifik Okyanusu'na hem Karayip Denizi'ne kıyısı vardır.",
+    "Kahve yetiştirilen dağlık bölgeleri ve zengin kuş çeşitliliğiyle tanınır.",
+    "Başkentinin adı Bogota'dır."
+  ],
+  "fact": "And Dağları ülke içinde üç ana sıradağ koluna ayrılır."
+},
+{
+  "countryId": "192",
+  "difficulty": 1,
+  "clues": [
+    "Karayipler'deki en büyük adanın büyük bölümünü kaplar.",
+    "Sierra Maestra Dağları ve tarihî puro üretimiyle tanınır.",
+    "Başkentinin adı Havana'dır."
+  ],
+  "fact": "Ada, Karayip Denizi ile Atlas Okyanusu arasında uzanan Büyük Antiller zincirindedir."
+},
+{
+  "countryId": "218",
+  "difficulty": 2,
+  "clues": [
+    "Güney Amerika'da hem And Dağları'na hem Pasifik kıyısına sahiptir.",
+    "Açıklarındaki volkanik adalar, dev kaplumbağalarıyla ünlüdür.",
+    "Başkentinin adı Quito'dur."
+  ],
+  "fact": "Ekvator çizgisi ülkenin kuzeyinden geçer; Galápagos Adaları biyolojik çeşitlilik açısından önemlidir."
+},
+{
+  "countryId": "050",
+  "difficulty": 2,
+  "clues": [
+    "Güney Asya'da çok geniş ve alçak bir nehir deltası üzerinde bulunur.",
+    "Mangrov ormanlarıyla tanınan Sundarbans'ın bir bölümüne ev sahipliği yapar.",
+    "Başkentinin adı Dakka'dır."
+  ],
+  "fact": "Ganj, Brahmaputra ve Meghna nehir sistemlerinin oluşturduğu deltada muson taşkınları önemlidir."
+},
+{
+  "countryId": "450",
+  "difficulty": 2,
+  "clues": [
+    "Afrika'nın güneydoğu kıyılarının açığında büyük bir adadır.",
+    "Lemurların doğal yaşam alanı olması ve baobab ağaçlarıyla tanınır.",
+    "Başkentinin adı Antananarivo'dur."
+  ],
+  "fact": "Uzun coğrafi yalıtım nedeniyle çok sayıda bitki ve hayvan türü burada endemiktir."
+},
+{
+  "countryId": "834",
+  "difficulty": 3,
+  "clues": [
+    "Doğu Afrika'da Hint Okyanusu kıyısında yer alır.",
+    "Afrika'nın en yüksek dağı ve Zanzibar adaları bu ülkeyle ilişkilidir.",
+    "Başkentinin adı Dodoma'dır."
+  ],
+  "fact": "Serengeti düzlükleri ve Ngorongoro koruma alanı geniş savan ekosistemlerine sahiptir."
+},
+{
+  "countryId": "418",
+  "difficulty": 3,
+  "clues": [
+    "Güneydoğu Asya'da denize kıyısı olmayan bir ülkedir.",
+    "Mekong Nehri önemli ulaşım ve tarım yollarından biridir.",
+    "Başkentinin adı Vientiane'dir."
+  ],
+  "fact": "Luang Prabang'ın tarihî merkezi geleneksel ve sömürge dönemi mimarisini bir arada gösterir."
+},
+{
+  "countryId": "242",
+  "difficulty": 3,
+  "clues": [
+    "Güney Pasifik'te yüzlerce adadan oluşan bir devlettir.",
+    "Mercan resifleri ve Viti Levu ile Vanua Levu adlı iki büyük adasıyla bilinir.",
+    "Başkentinin adı Suva'dır."
+  ],
+  "fact": "Ada grubunun bir bölümü volkanik kökenlidir ve çevresindeki resifler zengin deniz yaşamı barındırır."
+}
 ];
 
 export const COUNTRY_CLUES: Readonly<Record<string, CountryClueCard>> =
