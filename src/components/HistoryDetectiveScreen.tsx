@@ -63,10 +63,20 @@ export function HistoryDetectiveScreen({
   onClose:()=>void;
   onGameComplete?:()=>void;
 }){
-  const {language}=useLanguage();
+  const {language,t}=useLanguage();
   const tr=language==='tr';
-  const text=(trText:string,enText:string)=>tr?trText:enText;
-  const localized=(value:Localized)=>value[tr?'tr':'en'];
+  // Prefer the selected language; use English only for archival source text
+  // that has not yet received a reviewed translation.
+  const text=(trText:string,enText:string)=>{
+    if(tr)return trText;
+    const translated=t(trText);
+    return translated===trText?enText:translated;
+  };
+  const localized=(value:Localized)=>{
+    if(tr)return value.tr;
+    const translated=t(value.tr);
+    return translated===value.tr?value.en:translated;
+  };
   const [cases,setCases]=useState<HistoryCase[]>([]);
   const [loading,setLoading]=useState(true);
   const [error,setError]=useState('');
@@ -320,7 +330,7 @@ export function HistoryDetectiveScreen({
                 <div className="text-xs font-extrabold tracking-widest text-amber-200">{text('MEDENİYET İZLERİ · YILDIZLAR','CIVILIZATION TRACES · STARS')}</div>
                 <div className="mt-2"><GeoStarRow count={stageAward?.current ?? getGeoStars('heritage',level)} large animated={Boolean(stageAward?.gained)}/></div>
                 <p className="mt-2 text-[11px] text-slate-200">{text('24 soruda %70/%80/%90 doğrulukla yıldız kazan; en iyi derecen korunur.','Earn stars at 70/80/90% across 24 questions; your best grade is saved.')}</p>
-                {stageAward?.newBadges.map(b=><p key={b.id} className="mt-2 rounded-lg bg-amber-300/10 p-2 text-xs font-bold text-amber-100">{b.icon} {text('Yeni rozet: ','New badge: ')}{tr?b.tr:b.en}</p>)}
+                {stageAward?.newBadges.map(b=><p key={b.id} className="mt-2 rounded-lg bg-amber-300/10 p-2 text-xs font-bold text-amber-100">{b.icon} {t('Yeni rozet:')} {t(b.tr)}</p>)}
               </div>
               <p className="text-sm text-blue-100/80">
                 {text('8.000 üzerinden tur puanın','Your score out of 8,000')}
