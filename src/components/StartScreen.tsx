@@ -695,14 +695,14 @@ export function StartScreen({
           <div className="globriva-game-selector-head">
             <span className="globriva-game-selector-heading">
               <Gamepad2 size={18} strokeWidth={2.5}/>
-              {language === 'tr' ? 'OYUN MODUNU SEÇ' : 'CHOOSE YOUR GAME'}
+              {t('OYUN MODUNU SEÇ')}
             </span>
             <span className="globriva-game-selector-count">
-              {language === 'tr' ? '4 AYRI OYUN' : '4 PLAYABLE GAMES'}
+              {t('4 AYRI OYUN')}
             </span>
           </div>
           <div className="globriva-hero-viewport"
-            aria-label={language==='tr'?'Kaydırılabilir yeni oyunlar':'Swipeable new games'}
+            aria-label={t('Kaydırılabilir yeni oyunlar')}
             onTouchStart={onHeroTouchStart} onTouchEnd={onHeroTouchEnd} onTouchCancel={() => { heroTouchStart.current = null; }}>
             <div className="globriva-hero-track" style={{transform:`translateX(-${heroIndex * 100}%)`}}>
             <div className="aa-hero globriva-explore-hero globriva-hero-slide relative isolate overflow-hidden">
@@ -715,9 +715,9 @@ export function StartScreen({
             </FxErrorBoundary>
           )}
           <div className="aa-hero-copy relative z-10">
-            <span className="aa-kicker"><Gamepad2 className="h-3.5 w-3.5" /> {language === 'tr' ? 'OYUN MODU · 01' : 'GAME MODE · 01'}</span>
-            <h1>{language === 'tr' ? 'Dünya' : 'World'}<br /><span>{language === 'tr' ? 'Turu' : 'Tour'}</span></h1>
-            <p>{language === 'tr' ? 'Karışık coğrafya sorularında yarış.' : 'Challenge yourself with mixed geography questions.'}</p>
+            <span className="aa-kicker"><Gamepad2 className="h-3.5 w-3.5" /> {`${t('OYUN MODU')} · 01`}</span>
+            <h1>{t('Dünya')}<br /><span>{t('Turu')}</span></h1>
+            <p>{t('Karışık coğrafya sorularında yarış.')}</p>
           </div>
           <div className="aa-hero-bottom">
             <button
@@ -727,7 +727,7 @@ export function StartScreen({
               className="globriva-hero-action touch-manipulation"
             >
               <Play size={17} fill="currentColor" aria-hidden="true" />
-              <span>{language === 'tr' ? 'OYUNU BAŞLAT' : 'PLAY NOW'}</span>
+              <span>{t('OYUNU BAŞLAT')}</span>
               <ArrowRight className="h-4 w-4 text-[#3686b7]" aria-hidden="true" />
             </button>
             <button
@@ -751,14 +751,14 @@ export function StartScreen({
                   alt="" loading="eager" decoding="async"
                   onError={event => { event.currentTarget.style.display = 'none'; }} />
               </div>
-              <span className="feature-new">{language==='tr'?'YENİ':'NEW'}</span>
+              <span className="feature-new">{t('YENİ')}</span>
               <button type="button" className="relative z-[3] block h-full w-full cursor-pointer text-left touch-manipulation"
-                aria-label={language==='tr'?'Doğa Dedektifi oyununu aç':'Play Nature Detective'}
+                aria-label={`${t('Doğa Dedektifi')} · ${t('OYUNU BAŞLAT')}`}
                 onClick={() => { if (!suppressHeroTap.current) startGeoDiscovery('nature'); }}>
                 <span className="feature-copy">
-                  <span className="feature-label"><Gamepad2 size={13}/>{language==='tr'?'OYUN MODU · 02':'GAME MODE · 02'}</span>
-                  <strong>{language==='tr'?'Doğa Dedektifi':'Nature Detective'}</strong>
-                  <small>{language==='tr'?'Dağlar, nehirler ve dünya doğasının sırlarını keşfet.':'Explore mountains, rivers and the wonders of nature.'}</small>
+                  <span className="feature-label"><Gamepad2 size={13}/>{`${t('OYUN MODU')} · 02`}</span>
+                  <strong>{t('Doğa Dedektifi')}</strong>
+                  <small>{t('Dağlar, nehirler ve dünya doğasının sırlarını keşfet.')}</small>
                   <span className="feature-cta"><Play size={16} fill="currentColor" />{language==='tr'?'OYUNU BAŞLAT':'PLAY NOW'}<ArrowRight size={16}/></span>
                 </span>
               </button>
@@ -771,14 +771,14 @@ export function StartScreen({
                   alt="" loading="eager" decoding="async"
                   onError={event => { event.currentTarget.style.display = 'none'; }} />
               </div>
-              <span className="feature-new">{language==='tr'?'YENİ':'NEW'}</span>
+              <span className="feature-new">{t('YENİ')}</span>
               <button type="button" className="relative z-[3] block h-full w-full cursor-pointer text-left touch-manipulation"
-                aria-label={language==='tr'?'Ada Avcısı oyununu aç':'Play Island Hunter'}
+                aria-label={`${t('Ada Avcısı')} · ${t('OYUNU BAŞLAT')}`}
                 onClick={() => { if (!suppressHeroTap.current) startGeoDiscovery('islands'); }}>
                 <span className="feature-copy">
-                  <span className="feature-label"><Gamepad2 size={13}/>{language==='tr'?'OYUN MODU · 03':'GAME MODE · 03'}</span>
-                  <strong>{language==='tr'?'Ada Avcısı':'Island Hunter'}</strong>
-                  <small>{language==='tr'?'Gerçek ada silüetlerinden konumları tahmin et.':'Guess locations from real island silhouettes.'}</small>
+                  <span className="feature-label"><Gamepad2 size={13}/>{`${t('OYUN MODU')} · 03`}</span>
+                  <strong>{t('Ada Avcısı')}</strong>
+                  <small>{t('Gerçek ada silüetlerinden konumları tahmin et.')}</small>
                   <span className="feature-cta"><Play size={16} fill="currentColor" />{language==='tr'?'OYUNU BAŞLAT':'PLAY NOW'}<ArrowRight size={16}/></span>
                 </span>
               </button>
@@ -791,14 +791,14 @@ export function StartScreen({
                   alt="" loading="eager" decoding="async"
                   onError={event => { event.currentTarget.style.display = 'none'; }} />
               </div>
-              <span className="feature-new">{language==='tr'?'YENİ':'NEW'}</span>
+              <span className="feature-new">{t('YENİ')}</span>
               <button type="button" className="relative z-[3] block h-full w-full cursor-pointer text-left touch-manipulation"
-                aria-label={language==='tr'?'Sınır Dedektifi oyununu aç':'Play Border Detective'}
+                aria-label={`${t('Sınır Dedektifi')} · ${t('OYUNU BAŞLAT')}`}
                 onClick={() => { if (!suppressHeroTap.current) startGeoDiscovery('borders'); }}>
                 <span className="feature-copy">
-                  <span className="feature-label"><Gamepad2 size={13}/>{language==='tr'?'OYUN MODU · 04':'GAME MODE · 04'}</span>
-                  <strong>{language==='tr'?'Sınır Dedektifi':'Border Detective'}</strong>
-                  <small>{language==='tr'?'Haritada komşu ülkeleri keşfet, sınırları çöz.':'Follow the map and solve neighboring countries.'}</small>
+                  <span className="feature-label"><Gamepad2 size={13}/>{`${t('OYUN MODU')} · 04`}</span>
+                  <strong>{t('Sınır Dedektifi')}</strong>
+                  <small>{t('Haritada komşu ülkeleri keşfet, sınırları çöz.')}</small>
                   <span className="feature-cta"><Play size={16} fill="currentColor" />{language==='tr'?'OYUNU BAŞLAT':'PLAY NOW'}<ArrowRight size={16}/></span>
                 </span>
               </button>
@@ -806,14 +806,14 @@ export function StartScreen({
             </div>
           </div>
           <div className="globriva-mode-picker-caption">
-            <span><Gamepad2 size={13}/>{language === 'tr' ? 'Her kart ayrı bir oyun · Dokun, hemen oyna' : 'Every card is a playable game · Tap to start'}</span>
+            <span><Gamepad2 size={13}/>{t('Her kart ayrı bir oyun · Dokun, hemen oyna')}</span>
             <span>{heroIndex + 1}/{heroSlides.length}</span>
           </div>
-          <nav className="globriva-hero-mode-list" aria-label={language==='tr'?'Oyun modunu seç':'Choose a playable game'}>
+          <nav className="globriva-hero-mode-list" aria-label={t('Oyun modunu seç')}>
             {heroSlides.map((slide,index)=>(
               <button key={slide.id} type="button" onClick={()=>chooseHero(index)} aria-current={heroIndex===index}
-                aria-label={`${language==='tr'?slide.tr:slide.en} · ${index+1}/${heroSlides.length}`}>
-                {language==='tr' ? slide.shortTr : slide.shortEn}
+                aria-label={`${t(slide.tr)} · ${index+1}/${heroSlides.length}`}>
+                {t(slide.shortTr)}
                 {index > 0 && <span className="globriva-mode-new-dot" aria-hidden="true"/>}
               </button>
             ))}
@@ -847,7 +847,7 @@ export function StartScreen({
           className="aa-play mt-3 flex w-full items-center gap-3 text-left">
           <span className="aa-play-icon"><Play className="h-6 w-6 fill-current" /></span>
           <span className="min-w-0 flex-1">
-            <span className="aa-play-kicker">{language === 'tr' ? 'DÜNYA TURU · KEŞİF ARENASI' : 'WORLD TOUR · DISCOVERY ARENA'}</span>
+            <span className="aa-play-kicker">{t('DÜNYA TURU · KEŞİF ARENASI')}</span>
             <strong>{t('Oyuna başla!')}</strong>
             <small>{canPlay ? t('Karışık dünya turu seni bekliyor') : t('Bir takma ad seç, macera başlasın')}</small>
           </span>
@@ -948,19 +948,11 @@ export function StartScreen({
               <span className="relative z-10 min-w-0 flex-1">
                 <span className="mb-2 inline-flex items-center gap-2 rounded-full border border-cyan-100/40 bg-[#06304c]/80 px-3 py-1.5 text-[10px] font-black text-cyan-100">
                   <Camera className="h-3.5 w-3.5 shrink-0" />
-                  {language==='tr'?'TEK OYUN · SOKAK + HAVADAN':language==='es'?'UN JUEGO · CALLE + AIRE':language==='de'?'EIN SPIEL · STRASSE + LUFT':language==='fr'?'UN JEU · RUE + CIEL':language==='pt'?'UM JOGO · RUA + AR':language==='ru'?'ОДНА ИГРА · УЛИЦА + ВОЗДУХ':language==='zh'?'一个游戏 · 街景 + 航拍':language==='ja'?'1つのゲーム · 街と空':'ONE GAME · STREET + AERIAL'}
+                  {t('TEK OYUN · SOKAK + HAVADAN')}
                 </span>
                 <strong className="block text-[clamp(21px,5.5vw,28px)] font-black leading-tight">{t('Sokak Dedektifi')}</strong>
                 <span className="mt-1 block max-w-[300px] text-[12px] font-semibold leading-5 text-blue-100">
-                  {language==='tr'?'5 turda sokak ve drone görüntülerinden konum tahmin et.':
-                   language==='es'?'Adivina lugares a pie de calle y desde el aire en 5 rondas.':
-                   language==='de'?'Rate Orte aus Straßen- und Luftbildern in 5 Runden.':
-                   language==='fr'?'Devine les lieux depuis la rue et le ciel en 5 manches.':
-                   language==='pt'?'Adivinhe locais vistos da rua e do ar em 5 rodadas.':
-                   language==='ru'?'Угадывай места по фото улиц и с воздуха за 5 раундов.':
-                   language==='zh'?'在5轮中通过街景和航拍猜测地点。':
-                   language==='ja'?'全5ラウンドで街と空から場所を当てよう。':
-                   'Guess places from street and aerial photos across 5 rounds.'}
+                  {t('5 turda sokak ve drone görüntülerinden konum tahmin et.')}
                 </span>
               </span>
               <span aria-hidden="true" className="relative z-10 ml-2 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-cyan-100/50 bg-[#0a3c5b]/70">
@@ -979,7 +971,7 @@ export function StartScreen({
 
         <motion.section {...entrance(3)} className="mt-3">
           <button type="button" onClick={startHistory}
-            aria-label={language === 'tr' ? 'Medeniyet Dedektifi oyununu başlat' : 'Play Civilization Detective'}
+            aria-label={t('Medeniyet Dedektifi')}
             className="group relative isolate flex min-h-[137px] w-full items-center overflow-hidden rounded-[24px] border border-amber-200/70 bg-[#4c3e4f] px-4 py-4 text-left text-white shadow-[0_14px_30px_rgba(2,10,30,.3)] transition-all duration-200 hover:brightness-110 active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200">
             <img src="/street-photos/p19737b3c805ad373c5e91276/f.jpg"
               alt="" aria-hidden="true" draggable={false} loading="lazy"
@@ -992,14 +984,13 @@ export function StartScreen({
             </span>
             <span className="min-w-0 flex-1">
               <small className="mb-1 block text-[10px] font-black tracking-[.10em] text-amber-200">
-                {language === 'tr' ? 'YENİ · 360° TARİH MACERASI' : 'NEW · 360° HISTORY ADVENTURE'}
+                {t('YENİ · 360° TARİH MACERASI')}
               </small>
               <strong className="block text-[clamp(17px,4.5vw,23px)] font-black leading-tight">
-                {language === 'tr' ? 'Medeniyet Dedektifi' : 'Civilization Detective'}
+                {t('Medeniyet Dedektifi')}
               </strong>
               <span className="mt-1 block max-w-[250px] text-[11px] font-semibold leading-4 text-white/90">
-                {language === 'tr' ? '8 tarihî mekân · 24 soru · 20 mekânlık tarih arşivi!'
-                  : '8 historical sites · 24 questions · 20-site heritage library!'}
+                {t('8 tarihî mekân · 24 soru · 20 mekânlık tarih arşivi!')}
               </span>
             </span>
             <ChevronRight className="ml-1 h-6 w-6 shrink-0 text-amber-100"/>
