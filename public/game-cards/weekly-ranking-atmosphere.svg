@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="260" viewBox="0 0 1100 260" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="back" x1="0" y1=".2" x2="1" y2=".8"><stop stop-color="#ffdfba"/><stop offset=".38" stop-color="#f9cfcc"/><stop offset=".7" stop-color="#e4c3ef"/><stop offset="1" stop-color="#bfaee8"/></linearGradient>
+<radialGradient id="aurora" cx=".77" cy=".30" r=".58"><stop stop-color="#fffbda" stop-opacity=".9"/><stop offset=".5" stop-color="#efb4d5" stop-opacity=".53"/><stop offset="1" stop-color="#b698ed" stop-opacity="0"/></radialGradient>
+<linearGradient id="waves" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d79ac7"/><stop offset="1" stop-color="#9d9bd6"/></linearGradient>
+</defs>
+<rect width="1100" height="260" fill="url(#back)"/><rect width="1100" height="260" fill="url(#aurora)"/>
+<path d="M0 198C195 176 273 235 443 221C624 203 796 136 1100 174V260H0Z" fill="#f8e2eb" opacity=".48"/>
+<path d="M0 230C212 181 367 268 562 230C742 201 937 203 1100 184V260H0Z" fill="url(#waves)" opacity=".24"/>
+<g fill="none" stroke="#ffffff" stroke-width="2" opacity=".24"><path d="M-25 74C150 31 280 135 433 93S773 42 1134 90"/><path d="M-38 115C185 73 340 184 537 127S916 79 1150 137"/></g>
+<g fill="#fff9e9" opacity=".67">
+ <circle cx="102" cy="47" r="3"/><circle cx="282" cy="175" r="3"/><circle cx="473" cy="52" r="4"/><circle cx="556" cy="111" r="3"/><circle cx="732" cy="34" r="4"/><circle cx="980" cy="48" r="4"/><circle cx="1037" cy="195" r="4"/>
+</g>
+<g fill="#fff9eb" opacity=".86"><path d="M600 35l5 13 14 5-14 5-5 13-5-13-14-5 14-5Z"/><path d="M863 31l4 12 12 4-12 4-4 12-4-12-12-4 12-4Z"/><path d="M987 141l4 10 10 4-10 4-4 10-4-10-10-4 10-4Z"/><path d="M421 192l4 9 9 4-9 4-4 9-4-9-9-4 9-4Z"/></g>
+<g opacity=".14" fill="none" stroke="#ac77b5" stroke-width="10" stroke-linecap="round">
+ <path d="M774 98C731 54 724 27 738 9M771 103C730 77 709 65 693 65M778 103C789 58 796 40 818 18M780 108C804 91 835 88 853 87"/>
+ <path d="M952 96C990 54 998 29 981 10M954 103C998 75 1023 68 1038 63M953 103C939 59 935 43 919 18M948 109C922 91 902 86 881 83"/>
+</g>
+</svg>
