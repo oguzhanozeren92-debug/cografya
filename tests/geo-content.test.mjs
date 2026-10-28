@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import ts from 'typescript';
 import { neighbors } from 'topojson-client';
@@ -12,7 +13,7 @@ import { HISTORY_DETAIL_PHOTOS } from '../server/history/detail-photos.mjs';
 import { approvedPanoramas } from '../server/street/approved.mjs';
 import { approvedPhotoIds } from '../server/street/photo-ready.mjs';
 
-const root=resolve(import.meta.dirname||new URL('..',import.meta.url).pathname,'..');
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const require=createRequire(import.meta.url);
 const world=require('world-atlas/countries-110m.json');
 const load=async(path)=>{
@@ -122,8 +123,9 @@ test('border and island targets are backed by the actual Natural Earth geometry'
   const geos=world.objects.countries.geometries;
   const id=x=>String(x).padStart(3,'0');
   const shapeIds=new Set(geos.map(x=>id(x.id)));
+  const neighborLists=neighbors(geos);
   const adj=new Map(geos.map((g,i)=>[id(g.id),
-    new Set((neighbors(geos)[i]||[]).map(j=>id(geos[j].id)))]));
+    new Set((neighborLists[i]||[]).map(j=>id(geos[j].id)))]));
   const playableIslands=geo.ISLAND_COUNTRIES.filter(x=>shapeIds.has(x.id));
   assert.ok(playableIslands.length>=12,'insufficient playable silhouettes');
   const focus=geo.BORDER_FOCUS.filter(x=>shapeIds.has(x)&&countries.COUNTRY_DATA[x]&&adj.get(x)?.size);
