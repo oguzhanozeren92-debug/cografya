@@ -936,17 +936,17 @@ export function StartScreen({
           <section className="relative mt-3 space-y-2" aria-label={t('Sokak Dedektifi')}>
             <button type="button" onClick={startStreet}
               aria-label={t('Sokak Dedektifi oyununa başla')}
-              className="group relative isolate flex min-h-[220px] w-full flex-col justify-between overflow-hidden rounded-[26px] border-[1.5px] border-cyan-100/75 bg-[#0a3558] p-4 text-left text-white shadow-[0_16px_34px_rgba(2,10,30,.35)] transition-transform duration-200 hover:brightness-110 active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-100">
+              className="group relative isolate flex min-h-[220px] w-full flex-col justify-between overflow-hidden rounded-[26px] border-[1.5px] border-[#8db4d8]/80 bg-[#081b34] p-4 text-left text-white shadow-[0_16px_34px_rgba(2,10,30,.38)] transition-transform duration-200 hover:brightness-110 active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-100">
               <img src="/game-cards/street-detective-panorama.svg" alt="" aria-hidden="true" loading="eager" draggable={false}
-                className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-center saturate-[1.12] transition-transform duration-500 group-hover:scale-[1.035]" />
-              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#041b35]/35 via-[#061b35]/10 to-transparent" />
-              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-[#04182f]/95 via-[#061b35]/10 to-transparent" />
+                className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]" />
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#05162e]/55 via-[#05162e]/25 to-transparent" />
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-[#040e23]/55 via-transparent to-transparent" />
               <span className="relative z-10 flex w-full items-start justify-between gap-2">
-                <span className="inline-flex min-w-0 items-center gap-2 rounded-full border border-cyan-100/60 bg-[#08263f]/85 px-3 py-2 text-[clamp(9px,2.7vw,11px)] font-black tracking-[.025em] text-cyan-50 shadow-lg backdrop-blur-sm">
+                <span className="inline-flex min-w-0 items-center gap-2 rounded-full border border-cyan-100/55 bg-[#08223b]/90 px-3 py-2 text-[clamp(9px,2.7vw,11px)] font-black tracking-[.025em] text-cyan-50 shadow-lg backdrop-blur-sm">
                   <Camera className="h-4 w-4 shrink-0 text-cyan-200" />
                   {t('TEK OYUN · SOKAK + HAVADAN')}
                 </span>
-                <span aria-hidden="true" className="flex shrink-0 items-center gap-1 rounded-full border border-white/35 bg-[#0a2948]/65 px-2 py-1.5 text-[13px] shadow-lg backdrop-blur-sm">
+                <span aria-hidden="true" className="flex shrink-0 items-center gap-1 rounded-full border border-[#8ebcd5]/45 bg-[#0a2948]/65 px-2 py-1.5 text-[13px] shadow-lg backdrop-blur-sm">
                   <Camera className="h-4 w-4 text-[#c3f4ff]" /> <span>+</span> <span>🚁</span>
                 </span>
               </span>
