@@ -20,7 +20,6 @@ export const GEO_REWARD_SECTIONS: ReadonlyArray<{
   { id: 'islands', tr: 'Ada Avcısı', en: 'Island Hunter', icon: '🏝️', levels: ['easy','medium','hard'] },
   { id: 'borders', tr: 'Sınır Dedektifi', en: 'Border Detective', icon: '🧭', levels: ['easy','medium','hard'] },
   { id: 'street', tr: 'Sokak Dedektifi', en: 'Street Detective', icon: '📍', levels: ['tour'] },
-  { id: 'drone', tr: 'Drone Dedektifi', en: 'Drone Detective', icon: '🛩️', levels: ['tour'] },
   { id: 'heritage', tr: 'Medeniyet Dedektifi', en: 'Civilization Detective', icon: '🏛️', levels: ['easy','medium'] },
   { id: 'daily', tr: 'Günlük Dünya Görevi', en: 'Daily World Quest', icon: '☀️', levels: ['daily'] },
 ];
@@ -62,7 +61,11 @@ export function geoStarGrade(right: number, total: number, completed: boolean): 
   return 0;
 }
 export function getGeoStars(mode: GeoRewardMode, level: GeoRewardLevel): number {
-  return valid(mode, level) ? normalized(read().stars[mode + ':' + level]) : 0;
+  if (!valid(mode, level)) return 0;
+  const stars = read().stars;
+  return mode === 'street' && level === 'tour'
+    ? Math.max(normalized(stars['street:tour']), normalized(stars['drone:tour']))
+    : normalized(stars[mode + ':' + level]);
 }
 /** Replays can improve their best stars but can never erase previously earned stars. */
 export function awardGeoStars(
@@ -74,7 +77,9 @@ export function awardGeoStars(
   const beforeBadges = new Set(getGeoBadges().filter(x => x.unlocked).map(x => x.id));
   const saved = read();
   const key = mode + ':' + level;
-  const previous = normalized(saved.stars[key]);
+  const previous = mode === 'street' && level === 'tour'
+    ? Math.max(normalized(saved.stars[key]), normalized(saved.stars['drone:tour']))
+    : normalized(saved.stars[key]);
   const current = Math.max(previous, earned);
   const dateValid = mode === 'daily' && completed && total >= 5
     && typeof dailyDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dailyDate);
@@ -92,7 +97,9 @@ export function awardGeoStars(
 export function getGeoRewardOverview() {
   const saved = read();
   const stages = GEO_REWARD_SECTIONS.flatMap(section => section.levels
-    .map(level => ({ mode: section.id, level, stars: normalized(saved.stars[section.id + ':' + level]) })));
+    .map(level => ({ mode: section.id, level, stars: section.id === 'street' && level === 'tour'
+      ? Math.max(normalized(saved.stars['street:tour']),normalized(saved.stars['drone:tour']))
+      : normalized(saved.stars[section.id + ':' + level]) })));
   return {
     stars: stages.reduce((sum, stage) => sum + stage.stars, 0),
     threeStars: stages.filter(x => x.stars === 3).length,
@@ -123,7 +130,7 @@ export function getGeoBadges(): GeoBadge[] {
     b('borders', 'Sınır Uzmanı', 'Border Expert', 'Sınır Dedektifi’nde yıldız kazan', 'Earn a star in Border Detective', '🧩', has('borders')),
     b('all-map', 'Üç Kıtanın İzi', 'Three Paths', 'Üç yeni coğrafya oyununda yıldız kazan', 'Earn stars in all three new geography games', '🗺️', modes.every(has)),
     b('street', 'Sokak İzleri', 'Street Trails', 'Sokak Dedektifi turunda yıldız kazan', 'Earn a star in a Street Detective tour', '🚶', has('street')),
-    b('drone', 'Gökyüzü Gözcüsü', 'Sky Scout', 'Drone Dedektifi turunda yıldız kazan', 'Earn a star in a Drone Detective tour', '🛩️', has('drone')),
+    b('drone', 'Gökyüzü Gözcüsü', 'Sky Scout', 'Önceki hava turlarından kazanılan rozet', 'Badge earned from earlier aerial tours', '🛩️', normalized(read().stars['drone:tour'])>0),
     b('heritage', 'Medeniyet İzleri', 'Civilization Traces', 'Medeniyet Dedektifi’nde yıldız kazan', 'Earn a star in Civilization Detective', '🏛️', has('heritage')),
     b('daily', 'Güneşin Peşinde', 'Chasing the Sun', 'İlk günlük görevi bitir', 'Finish your first daily quest', '☀️', s.dailyDays >= 1),
     b('daily7', 'Yedi Günlük Yolcu', 'Seven-Day Traveler', 'Yedi ayrı günlük görevi bitir', 'Finish seven different daily quests', '🎒', s.dailyDays >= 7),
