@@ -938,9 +938,9 @@ export function StartScreen({
               aria-label={t('Sokak Dedektifi oyununa başla')}
               className="group relative flex min-h-[192px] w-full items-end overflow-hidden rounded-[24px] border border-cyan-200/60 bg-[#123d5c] px-4 pb-5 pt-4 text-left text-white shadow-[0_14px_30px_rgba(2,10,30,.35)] transition-transform active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-100">
               <span aria-hidden="true" className="pointer-events-none absolute inset-0 grid grid-cols-2">
-                <img src="/game-cards/approved-street.webp" alt="" loading="lazy" draggable={false}
+                <img src="/game-cards/street-cinematic.svg" alt="" loading="lazy" draggable={false}
                   className="h-full w-full object-cover object-center" />
-                <img src="/game-cards/approved-drone.webp" alt="" loading="lazy" draggable={false}
+                <img src="/game-cards/drone-cinematic.svg" alt="" loading="lazy" draggable={false}
                   className="h-full w-full object-cover object-center" />
               </span>
               <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06152e]/95 via-[#081e38]/75 to-[#102b4d]/10" />
