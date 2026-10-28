@@ -759,7 +759,7 @@ export function StartScreen({
                   <span className="feature-label"><Gamepad2 size={13}/>{`${t('OYUN MODU')} · 02`}</span>
                   <strong>{t('Doğa Dedektifi')}</strong>
                   <small>{t('Dağlar, nehirler ve dünya doğasının sırlarını keşfet.')}</small>
-                  <span className="feature-cta"><Play size={16} fill="currentColor" />{language==='tr'?'OYUNU BAŞLAT':'PLAY NOW'}<ArrowRight size={16}/></span>
+                  <span className="feature-cta"><Play size={16} fill="currentColor" />{t('OYUNU BAŞLAT')}<ArrowRight size={16}/></span>
                 </span>
               </button>
             </div>
@@ -779,7 +779,7 @@ export function StartScreen({
                   <span className="feature-label"><Gamepad2 size={13}/>{`${t('OYUN MODU')} · 03`}</span>
                   <strong>{t('Ada Avcısı')}</strong>
                   <small>{t('Gerçek ada silüetlerinden konumları tahmin et.')}</small>
-                  <span className="feature-cta"><Play size={16} fill="currentColor" />{language==='tr'?'OYUNU BAŞLAT':'PLAY NOW'}<ArrowRight size={16}/></span>
+                  <span className="feature-cta"><Play size={16} fill="currentColor" />{t('OYUNU BAŞLAT')}<ArrowRight size={16}/></span>
                 </span>
               </button>
             </div>
@@ -799,7 +799,7 @@ export function StartScreen({
                   <span className="feature-label"><Gamepad2 size={13}/>{`${t('OYUN MODU')} · 04`}</span>
                   <strong>{t('Sınır Dedektifi')}</strong>
                   <small>{t('Haritada komşu ülkeleri keşfet, sınırları çöz.')}</small>
-                  <span className="feature-cta"><Play size={16} fill="currentColor" />{language==='tr'?'OYUNU BAŞLAT':'PLAY NOW'}<ArrowRight size={16}/></span>
+                  <span className="feature-cta"><Play size={16} fill="currentColor" />{t('OYUNU BAŞLAT')}<ArrowRight size={16}/></span>
                 </span>
               </button>
             </div>
@@ -921,8 +921,7 @@ export function StartScreen({
           {/* One shared illustrated layout for every language; imagery and interaction never change with locale. */}
           <button type="button" onClick={onVersus} aria-label={t('Arkadaşlarınla yarış')}
             className="group relative mt-3 flex min-h-[112px] w-full items-center gap-3 overflow-hidden rounded-[24px] border border-white/60 bg-gradient-to-r from-[#ffbb89] via-[#fa9097] to-[#dbaaf8] px-4 py-4 text-left text-[#202742] shadow-[0_12px_25px_rgba(0,5,25,.25)] transition-transform active:scale-[.985]">
-            <img src="/game-cards/approved-vs.webp" alt="" draggable={false} loading="lazy"
-              className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[.12] blur-[3px]" />
+            <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-violet-300/20" />
             <span aria-hidden="true" className="relative grid h-14 w-14 shrink-0 place-items-center rounded-[18px] border border-white/40 bg-white/35 shadow-inner"><Swords className="h-8 w-8" /></span>
             <span className="relative min-w-0 flex-1">
               <small className="block text-[10px] font-black tracking-[.12em]">{t('YENİ · 1’E 1 MEYDAN OKUMA')}</small>
@@ -1038,11 +1037,11 @@ export function StartScreen({
         <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-300">
           <a href="/privacy.html"
             className="inline-flex min-h-[44px] items-center gap-1.5 px-2 py-2 underline underline-offset-4">
-            <ShieldCheck className="h-4 w-4" /> {language === 'tr' ? 'Gizlilik Politikası' : 'Privacy Policy'}
+            <ShieldCheck className="h-4 w-4" /> {t('Gizlilik Politikası')}
           </a>
           <a href="/support.html"
             className="inline-flex min-h-[44px] items-center px-2 py-2 underline underline-offset-4">
-            {language === 'tr' ? 'Destek ve Veri Silme' : 'Support & Data Deletion'}
+            {t('Destek ve Veri Silme')}
           </a>
         </div>
         {Capacitor.isNativePlatform() && onAdPrivacy && (
