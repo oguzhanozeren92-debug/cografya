@@ -88,6 +88,66 @@ const NATURE_NOTES: Readonly<Record<string,Note>> = {
     tr: 'Ren, Kuzey Denizi’ne ulaşırken Hollanda’daki geniş nehir-kol ve delta sistemiyle birleşir. Rotterdam çevresindeki limanlar bu su yolu ağından yararlanır.',
     en: 'Before reaching the North Sea, the Rhine joins the extensive river-and-delta network of the Netherlands. Ports around Rotterdam use this waterway system.',
   },
+  iguazu: {
+    tr: "Şelaleler, bazalt kayaçlardan oluşan bir eşik boyunca çok sayıda kola ayrılır. Sürekli yükselen su buharı, çevredeki yağmur ormanının nemli mikroiklimini destekler.",
+    en: "The falls spread across a basalt rock escarpment into many cascades. Constant spray helps sustain a humid rainforest microclimate.",
+    sourceUrl: "https://whc.unesco.org/en/list/303/",
+  },
+  ngorongoro: {
+    tr: "Bu dev kaldera, eski bir volkanın çökmesiyle oluşmuştur. Çukurun tabanındaki otlaklar ve su kaynakları birçok büyük memeli türünü bir arada barındırır.",
+    en: "This huge caldera formed when an ancient volcano collapsed. Grasslands and water sources on its floor support many large mammal species.",
+    sourceUrl: "https://whc.unesco.org/en/list/39/",
+  },
+  halong: {
+    tr: "Kireç taşı kuleleri uzun süreli karst aşınması ve deniz seviyesindeki değişimlerle şekillenmiştir. Mağaralar ve adacıklar zengin kıyı ekosistemleri oluşturur.",
+    en: "Limestone towers were shaped by long-term karst erosion and sea-level changes. Caves and islets form varied coastal ecosystems.",
+    sourceUrl: "https://whc.unesco.org/en/list/672/",
+  },
+  atitlan: {
+    tr: "Göl, büyük bir volkanik çöküntü olan kalderayı doldurur. Kıyı köylerinde Kaqchikel ve Tz’utujil Maya kültürleri yaşamaya devam eder.",
+    en: "The lake fills a large volcanic caldera. Kaqchikel and Tz’utujil Maya communities maintain living cultural traditions around its shores.",
+    sourceUrl: "https://www.britannica.com/place/Lake-Atitlan",
+  },
+  uyuni: {
+    tr: "Beyaz yüzeyin altında eski göllerin buharlaşmasıyla biriken tuz katmanları bulunur. Düz ve parlak zemin, uydu sensörlerinin kalibrasyonunda da kullanılır.",
+    en: "Salt layers accumulated as ancient lakes evaporated. The exceptionally flat, bright surface is also used to calibrate satellite sensors.",
+    sourceUrl: "https://calval.cr.usgs.gov/apps/uyuni-salt-flats",
+  },
+  roraima: {
+    tr: "Tepui adı verilen düz tepeli dağlar, çevrelerindeki alçak arazilerden uzun süre yalıtılmıştır. Bu durum, kendilerine özgü canlı topluluklarının gelişmesine katkıda bulunmuştur.",
+    en: "Flat-topped tepuis have long been isolated above surrounding lowlands. This isolation has helped distinct plant and animal communities develop.",
+    sourceUrl: "https://whc.unesco.org/en/list/701/",
+  },
+  okavango: {
+    tr: "Bu iç delta denize dökülmez; suları Kalahari Havzası'na yayılıp buharlaşır ve toprağa sızar. Mevsimsel taşkınlar kurak dönemde bile yaban hayatına su sağlar.",
+    en: "This inland delta has no outlet to the sea: its waters spread into the Kalahari Basin and evaporate or soak away. Seasonal floods sustain wildlife even in dry months.",
+    sourceUrl: "https://whc.unesco.org/en/list/1432/",
+  },
+  wulingyuan: {
+    tr: "Bölgedeki binlerce dar kumtaşı sütunu, uzun süreli aşınma ve kaya çatlaklarının genişlemesiyle şekillenmiştir. Sisli vadiler ve doğal taş köprüler manzarayı tamamlar.",
+    en: "Thousands of narrow sandstone pillars formed through erosion and widening fractures. Misty valleys and natural stone bridges complete the landscape.",
+    sourceUrl: "https://whc.unesco.org/en/list/640/",
+  },
+  turkana: {
+    tr: "Çevresindeki Koobi Fora tortulları erken insan atalarına ait önemli fosiller barındırır. Gölün çevresi bugün kurak olsa da geçmişte çok farklı iklimler yaşamıştır.",
+    en: "Sediments at nearby Koobi Fora preserve important fossils of early human relatives. The now-arid lake basin experienced very different climates in the past.",
+    sourceUrl: "https://whc.unesco.org/en/list/801/",
+  },
+  socotra: {
+    tr: "Bu takımadalardaki bitkilerin önemli bir bölümü dünyada başka yerde doğal olarak bulunmaz. Uzun coğrafi yalıtım, sıra dışı bitki biçimlerinin gelişmesine katkı sağlamıştır.",
+    en: "A large share of the archipelago's plants occur naturally nowhere else. Long geographic isolation helped produce its unusual plant forms.",
+    sourceUrl: "https://whc.unesco.org/en/list/1263/",
+  },
+  tsingy: {
+    tr: "Keskin kireç taşı kuleleri yağmur suyunun kayaçları çözmesiyle oluşan karst şekilleridir. Aralarındaki yarıklar ve orman parçaları çok sayıda endemik türe yaşam alanı sunar.",
+    en: "The sharp limestone pinnacles are karst forms carved by dissolving rainwater. Crevices and forest patches shelter many endemic species.",
+    sourceUrl: "https://whc.unesco.org/en/list/494/",
+  },
+  namib: {
+    tr: "Atlantik'ten gelen sis, çok az yağış alan kum denizinde bazı canlılar için hayati nem kaynağıdır. Rüzgârlar, dev kum tepelerinin biçimini sürekli değiştirir.",
+    en: "Fog drifting in from the Atlantic provides vital moisture in this very dry sand sea. Winds continuously reshape its enormous dunes.",
+    sourceUrl: "https://whc.unesco.org/en/list/1430/",
+  },
 };
 
 const ISLAND_NOTES: Readonly<Record<string,Note>> = {
