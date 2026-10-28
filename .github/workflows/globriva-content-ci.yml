@@ -1,18 +1,7 @@
 name: Globriva Content and Media QA
+# Hosted Actions jobs are not being assigned runners on this account.
+# Keep the QA job available for manual runs until Actions capacity is restored.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/data/**'
-      - 'src/components/GeoDiscoveryScreen.tsx'
-      - 'src/components/HistoryDetectiveScreen.tsx'
-      - 'server/history/**'
-      - 'server/street/**'
-      - 'server/drone/**'
-      - 'public/drone-gallery/catalog-v2.json'
-      - 'tests/geo-content.test.mjs'
-      - 'scripts/audit-playable-content.mjs'
-      - '.github/workflows/globriva-content-ci.yml'
   workflow_dispatch: {}
 permissions:
   contents: read
