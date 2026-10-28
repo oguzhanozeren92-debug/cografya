@@ -224,7 +224,7 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lon": -91.2,
     "level": 1,
     "region": "Guatemala",
-    "sourceUrl": "https://www.britannica.com/place/Lake-Atitlan"
+    "sourceUrl": "https://www.visitcentroamerica.com/en/visit/lake-atitlan-and-sorrounding-towns/"
   },
   {
     "id": "uyuni",
@@ -235,7 +235,7 @@ export const NATURE_POINTS:NaturePoint[]=[
     "lon": -67.4891,
     "level": 2,
     "region": "Bolivya",
-    "sourceUrl": "https://science.nasa.gov/earth/earth-observatory/salar-de-uyuni-bolivia-6096/"
+    "sourceUrl": "https://calval.cr.usgs.gov/apps/uyuni-salt-flats"
   },
   {
     "id": "roraima",
