@@ -106,7 +106,7 @@ const NATURE_NOTES: Readonly<Record<string,Note>> = {
   atitlan: {
     tr: "Göl, büyük bir volkanik çöküntü olan kalderayı doldurur. Kıyı köylerinde Kaqchikel ve Tz’utujil Maya kültürleri yaşamaya devam eder.",
     en: "The lake fills a large volcanic caldera. Kaqchikel and Tz’utujil Maya communities maintain living cultural traditions around its shores.",
-    sourceUrl: "https://www.britannica.com/place/Lake-Atitlan",
+    sourceUrl: "https://www.visitcentroamerica.com/en/visit/lake-atitlan-and-sorrounding-towns/",
   },
   uyuni: {
     tr: "Beyaz yüzeyin altında eski göllerin buharlaşmasıyla biriken tuz katmanları bulunur. Düz ve parlak zemin, uydu sensörlerinin kalibrasyonunda da kullanılır.",
