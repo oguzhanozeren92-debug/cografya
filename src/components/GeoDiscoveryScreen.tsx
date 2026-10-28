@@ -132,8 +132,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
    ?NATURE_POINTS.filter(x=>x.level===l).length
    :mode==='islands'
      ?ISLAND_COUNTRIES.filter(x=>x.level===l&&shapeById.has(x.id)).length
-     :BORDER_FOCUS.slice(l===1?0:l===2?14:29,l===1?14:l===2?29:undefined)
-       .filter(id=>shapeById.has(id)&&COUNTRY_DATA[id]&&adj.get(id)?.size).length;
+     :buildBorders(l,language).length;
  const hasUnlocked=(l:Level)=>l===1||getGeoStars(mode,stageName((l-1) as Level))>0;
  const start=(newLevel:Level)=>{
   // Eligibility is checked in the handler as well as the buttons, so
@@ -271,7 +270,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
        {picked!==null&&<div className={'mt-4 rounded-xl border p-4 '+(correct?'border-emerald-400/40 bg-emerald-500/15':'border-rose-400/40 bg-rose-400/15')}>
          <p className="font-black">{correct?(t('✓ Doğru cevap!')):(t('✕ Bu kez olmadı'))}</p>
          <p className="mt-1 text-sm text-slate-200">{mode==='nature'?round.options.find(o=>o.id===round.answer)?.label:mode==='islands'?round.options.find(o=>o.id===round.answer)?.label:round.region+' · '+round.options.find(o=>o.id===round.answer)?.label}</p>
-         <a href={source} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs font-bold text-cyan-200 underline">{t('Harita verisinin kaynağı')} ↗</a>
+         <a href={source} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs font-bold text-cyan-200 underline">{mode==='nature'?t('Bilgi kaynağı'):t('Harita verisinin kaynağı')} ↗</a>
          <button type="button" onClick={()=>{setInfoOpen(true);setInfoRead(true)}} aria-haspopup="dialog" className="mt-3 inline-flex min-h-10 items-center gap-2 rounded-full border border-cyan-200/50 bg-cyan-300/10 px-4 text-sm font-black text-cyan-100"><span className="text-lg" aria-hidden="true">ⓘ</span>{t('Doğru cevap hakkında bilgi')}</button>
          <p className="mt-2 text-[11px] text-slate-300">{t('Birazdan otomatik devam edecek.')}</p>
        </div>}
@@ -300,7 +299,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
        {mode==='nature'&&<p className="mt-3 text-xs text-slate-300">{t('Bölge: ')}{round.region}</p>}
        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs">
          {learningNote?.sourceUrl && <a href={learningNote.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-bold text-amber-200 underline underline-offset-2">{t('Bilgi kaynağını incele')}</a>}
-         <a href={source} target="_blank" rel="noopener noreferrer" className="font-semibold text-cyan-200 underline underline-offset-2">{t('Harita verisi · Natural Earth')}</a>
+         <a href={source} target="_blank" rel="noopener noreferrer" className="font-semibold text-cyan-200 underline underline-offset-2">{mode==='nature'?t('Bilgi kaynağı'):t('Harita verisi · Natural Earth')}</a>
        </div>
      </section>
    </div>}
