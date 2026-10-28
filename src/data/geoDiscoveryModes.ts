@@ -1,6 +1,6 @@
 // Reviewed first-run coordinates for the interactive Natural Earth basemap.
 // Point coordinates are approximate play markers, not survey-grade measurements.
-export type NaturePoint={id:string;name:string;clue:string;clueEn:string;lat:number;lon:number;level:1|2|3;region:string};
+export type NaturePoint={id:string;name:string;clue:string;clueEn:string;lat:number;lon:number;level:1|2|3;region:string;sourceUrl?:string};
 export const NATURE_POINTS:NaturePoint[]=[
   {
     "id": "nile",
@@ -181,6 +181,138 @@ export const NATURE_POINTS:NaturePoint[]=[
     "level": 3,
     "region": "Hollanda, Kuzey Denizi",
     "clueEn": "Locate the river delta reaching the North Sea in the Netherlands."
+  },
+  {
+    "id": "iguazu",
+    "name": "İguazú Şelaleleri",
+    "clue": "Arjantin ile Brezilya sınırında, yarım daire biçimli çok sayıda çağlayanın oluşturduğu büyük şelale sistemi.",
+    "clueEn": "Locate the huge chain of cascades along the Argentina–Brazil border, surrounded by subtropical forest.",
+    "lat": -25.6953,
+    "lon": -54.4367,
+    "level": 1,
+    "region": "Arjantin / Brezilya",
+    "sourceUrl": "https://whc.unesco.org/en/list/303/"
+  },
+  {
+    "id": "ngorongoro",
+    "name": "Ngorongoro Krateri",
+    "clue": "Doğu Afrika'da geniş bir volkanik kaldera içinde savan hayvanlarının yaşadığı koruma alanı.",
+    "clueEn": "Find the vast volcanic caldera and wildlife conservation landscape in East Africa.",
+    "lat": -3.198,
+    "lon": 35.489,
+    "level": 1,
+    "region": "Tanzanya",
+    "sourceUrl": "https://whc.unesco.org/en/list/39/"
+  },
+  {
+    "id": "halong",
+    "name": "Ha Long Körfezi",
+    "clue": "Güneydoğu Asya kıyısında denizden yükselen yüzlerce dik kireç taşı adacığıyla ünlü körfez.",
+    "clueEn": "Locate the Southeast Asian bay dotted with steep limestone islands rising from the sea.",
+    "lat": 20.91,
+    "lon": 107.18,
+    "level": 1,
+    "region": "Vietnam",
+    "sourceUrl": "https://whc.unesco.org/en/list/672/"
+  },
+  {
+    "id": "atitlan",
+    "name": "Atitlán Gölü",
+    "clue": "Orta Amerika'nın yüksek kesimlerinde, üç volkanın yakınında bulunan büyük kaldera gölü.",
+    "clueEn": "Find the Central American highland lake in a volcanic caldera near three prominent volcanoes.",
+    "lat": 14.7,
+    "lon": -91.2,
+    "level": 1,
+    "region": "Guatemala",
+    "sourceUrl": "https://www.britannica.com/place/Lake-Atitlan"
+  },
+  {
+    "id": "uyuni",
+    "name": "Uyuni Tuz Düzlüğü",
+    "clue": "And Dağları'nın yüksek platosunda, yağışlı mevsimde ayna gibi görünen devasa beyaz tuz düzlüğü.",
+    "clueEn": "Locate the vast white salt flat on the Andean plateau that can become mirror-like after rain.",
+    "lat": -20.1338,
+    "lon": -67.4891,
+    "level": 2,
+    "region": "Bolivya",
+    "sourceUrl": "https://science.nasa.gov/earth/earth-observatory/salar-de-uyuni-bolivia-6096/"
+  },
+  {
+    "id": "roraima",
+    "name": "Roraima Dağı",
+    "clue": "Güney Amerika'nın kuzeyinde, dik yamaçlı ve düz tepeli tepui dağlarının en tanınan örneklerinden biri.",
+    "clueEn": "Find the iconic flat-topped tepui mountain with steep cliffs in northern South America.",
+    "lat": 5.143,
+    "lon": -60.763,
+    "level": 2,
+    "region": "Venezuela / Brezilya / Guyana",
+    "sourceUrl": "https://whc.unesco.org/en/list/701/"
+  },
+  {
+    "id": "okavango",
+    "name": "Okavango Deltası",
+    "clue": "Güney Afrika'nın iç kesimlerinde denize ulaşmadan çöl kumlarına yayılan büyük mevsimsel sulak alan.",
+    "clueEn": "Locate the great seasonal inland wetland whose waters spread into desert sands rather than reaching the sea.",
+    "lat": -19.3,
+    "lon": 22.9,
+    "level": 2,
+    "region": "Botsvana",
+    "sourceUrl": "https://whc.unesco.org/en/list/1432/"
+  },
+  {
+    "id": "wulingyuan",
+    "name": "Wulingyuan Kayalıkları",
+    "clue": "Doğu Asya'da sisler arasından yükselen binlerce ince kuvars kumtaşı sütunuyla tanınan dağlık alan.",
+    "clueEn": "Find the East Asian landscape of thousands of narrow sandstone pillars rising through mist.",
+    "lat": 29.3333,
+    "lon": 110.5,
+    "level": 2,
+    "region": "Çin, Hunan",
+    "sourceUrl": "https://whc.unesco.org/en/list/640/"
+  },
+  {
+    "id": "turkana",
+    "name": "Turkana Gölü",
+    "clue": "Doğu Afrika Rift Vadisi'nde kurak arazilerle çevrili, tuzlu ve çok uzun bir çöl gölü.",
+    "clueEn": "Locate the long saline desert lake in the East African Rift, surrounded by arid terrain.",
+    "lat": 3.6,
+    "lon": 36.1,
+    "level": 3,
+    "region": "Kenya / Etiyopya",
+    "sourceUrl": "https://whc.unesco.org/en/list/801/"
+  },
+  {
+    "id": "socotra",
+    "name": "Sokotra Takımadaları",
+    "clue": "Aden Körfezi yakınındaki adalarda, şemsiye biçimli sıra dışı ağaçların ve çok sayıda endemik canlının yaşadığı bölge.",
+    "clueEn": "Find the islands near the Gulf of Aden known for umbrella-shaped trees and extraordinary endemic wildlife.",
+    "lat": 12.47,
+    "lon": 53.83,
+    "level": 3,
+    "region": "Yemen / Hint Okyanusu",
+    "sourceUrl": "https://whc.unesco.org/en/list/1263/"
+  },
+  {
+    "id": "tsingy",
+    "name": "Tsingy de Bemaraha",
+    "clue": "Hint Okyanusu'ndaki büyük bir adanın batısında, bıçak gibi sivri kireç taşı kulelerinden oluşan karst alanı.",
+    "clueEn": "Find the sharp limestone pinnacles and karst labyrinth in the west of a large Indian Ocean island.",
+    "lat": -18.74,
+    "lon": 44.72,
+    "level": 3,
+    "region": "Madagaskar",
+    "sourceUrl": "https://whc.unesco.org/en/list/494/"
+  },
+  {
+    "id": "namib",
+    "name": "Namib Kum Denizi",
+    "clue": "Güneybatı Afrika'nın Atlas Okyanusu kıyısında, sisle beslenen ve kızıl kum tepeleriyle tanınan çöl.",
+    "clueEn": "Locate the Atlantic coastal desert in southwestern Africa, where fog sustains life among towering red dunes.",
+    "lat": -24.75,
+    "lon": 15.3,
+    "level": 3,
+    "region": "Namibya",
+    "sourceUrl": "https://whc.unesco.org/en/list/1430/"
   }
 ];
 export const NATURE_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
