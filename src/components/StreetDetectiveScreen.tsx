@@ -7,7 +7,9 @@ import {
 import { Capacitor } from '@capacitor/core';
 import type { StreetRound } from '@/components/StreetPanorama';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
-import { StreetWorldMap } from '@/components/StreetWorldMap';
+import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
+import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
+import { droneHintChoices, droneHintCopy, droneHintText } from '@/lib/droneHints';
 import { watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { getLocalStreetBest, rememberLocalStreetBest, submitStreetScore } from '@/lib/streetLeaderboard';
 import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
@@ -15,13 +17,14 @@ import { backend } from '@/lib/leaderboard';
 import { useLanguage } from '@/lib/i18n';
 import { localizedCountryName } from '@/lib/countryLanguage';
 import { streetLandmarkLabel, streetRegionLabel } from '@/lib/streetHintLocale';
-import { STREET_ROUNDS, type Coordinates } from '@/lib/streetLocations';
+import { STREET_ROUNDS, haversineKm, locationPoints, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
 import { awardGeoStars, getGeoStars, type GeoAward } from '@/lib/geoRewards';
 import { GeoStarRow } from '@/components/GeoStarRow';
 
 type Phase = 'view'|'guess'|'result'|'finish'|'ranking';
-type Clue = {level:number;kind:'region'|'landmark'|'choices';value?:string;options?:string[]};
+type Clue = {level:number;kind:'region'|'landmark'|'choices'|'drone';value?:string;options?:string[]};
+type MixedRound = StreetRound & {source:'street'|'drone'; aerial?:DronePanorama};
 type Reveal = {
   correct:boolean;points:number;actual:Coordinates;km:number;
   distancePoints:number;countryBonus:number;hintPenalty:number;maxPoints:number;
@@ -40,7 +43,7 @@ export function StreetDetectiveScreen({
 }) {
   const {language,t}=useLanguage();
   const [phase,setPhase]=useState<Phase>(initialView==='ranking'?'ranking':'view');
-  const [rounds,setRounds]=useState<StreetRound[]>([]);
+  const [rounds,setRounds]=useState<MixedRound[]>([]);
   const [idx,setIdx]=useState(0);
   const [guess,setGuess]=useState<Coordinates|null>(null);
   const [hintCount,setHintCount]=useState(0);
@@ -79,12 +82,40 @@ export function StreetDetectiveScreen({
     setReady(false);setShowRank(false);setSaveNote('');setPhase('view');
     setSaveState('idle');setLastFinalScore(0);setSaveError('');setStageAward(null);
     try{
-      const response=await fetch(atlasApi('/api/street/session'),{cache:'no-store'});
-      const data=await response.json() as {rounds?:StreetRound[];error?:string};
-      if(!response.ok||!Array.isArray(data.rounds)||data.rounds.length!==STREET_ROUNDS)
-        throw new Error(data.error||'Doğrulanmış konum fotoğrafları hazırlanıyor.');
-      warmStreetPhoto(data.rounds[0]);
-      setRounds(data.rounds);
+
+      const [streetResponse,aerialResponse]=await Promise.all([
+        fetch(atlasApi('/api/street/session'),{cache:'no-store'}),
+        fetch(atlasApi('/api/drone/session?v=2'),{cache:'no-store'}),
+      ]);
+      const street=await streetResponse.json() as {rounds?:StreetRound[];error?:string};
+      const aerial=await aerialResponse.json() as {
+        rows?:DronePanorama[];media?:Array<{id:string;media:StreetRound['media']}>;error?:string;
+      };
+      if(!streetResponse.ok||!street.rounds||street.rounds.length!==STREET_ROUNDS)
+        throw new Error(street.error||'Sokak görüntüleri hazırlanıyor.');
+      if(!aerialResponse.ok||!Array.isArray(aerial.media)||aerial.media.length<2)
+        throw new Error(aerial.error||'Hava görüntüleri hazırlanıyor.');
+      const mediaById=new Map(aerial.media.map(row=>[row.id,row.media]));
+      const vetted=(aerial.rows?.length?aerial.rows:dronePanoramas)
+        .filter(row=>mediaById.has(row.id)).sort((a,b)=>a.id.localeCompare(b.id));
+      if(vetted.length<2)throw new Error('Doğrulanmış hava görüntüleri bulunamadı.');
+      // All players see the same 3+2 photo set within the UTC league week.
+      // Consecutive weeks rotate through the entire verified photo inventory.
+      const now=new Date();
+      const monday=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),
+        now.getUTCDate()-((now.getUTCDay()+6)%7));
+      const week=Math.floor(monday/604800000);
+      const ground=[0,1,2].map(n=>({
+        ...street.rounds![(week+n)%street.rounds!.length],source:'street' as const,
+      }));
+      const sky=[0,1].map(n=>{
+        const row=vetted[(week+n)%vetted.length];
+        return {id:'aerial:'+row.id,ticket:'',source:'drone' as const,aerial:row,
+          media:mediaById.get(row.id)!,credit:{artist:row.artist,license:row.license,source:row.source}};
+      });
+      const mixed:MixedRound[]=[ground[0],sky[0],ground[1],sky[1],ground[2]];
+      warmStreetPhoto(mixed[0]);
+      setRounds(mixed);
     }catch(e){setError(e instanceof Error?e.message:'Fotoğraf arşivi yüklenemedi.');}
     finally{setLoading(false);}
   },[]);
@@ -107,13 +138,30 @@ export function StreetDetectiveScreen({
     if(busy||hintBusy||!ready||!current||!guess||phase!=='guess')return;
     setBusy(true);setError('');
     try{
-      const response=await fetch(atlasApi('/api/street/guess'),{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({ticket:current.ticket,guess,hintsUsed:hintCount}),
-      });
-      const data=await response.json() as Reveal & {error?:string};
-      if(!response.ok||typeof data.correct!=='boolean'||!Number.isInteger(data.points))
-        throw new Error(data.error||'Konum tahmini hesaplanamadı.');
+
+      let data:Reveal;
+      if(current.source==='drone'&&current.aerial){
+        const aerial=current.aerial;
+        const actual={lat:aerial.lat,lng:aerial.lng};
+        const km=haversineKm(guess,actual);
+        const correct=guessedCorrectCountry(guess,aerial.country)===true;
+        const distancePoints=Math.max(locationPoints(km),correct?3100:0);
+        const points=Math.min(distancePoints,MAX_ROUND_POINTS[hintCount]);
+        data={actual,km,correct,points,distancePoints,countryBonus:0,
+          hintPenalty:Math.max(0,distancePoints-points),maxPoints:MAX_ROUND_POINTS[hintCount],
+          country:aerial.country,city:aerial.city,
+          title:language==='tr'?'Havadan görünüm':'Aerial view',fact:aerial.fact,
+          credit:current.credit};
+      }else{
+        const response=await fetch(atlasApi('/api/street/guess'),{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({ticket:current.ticket,guess,hintsUsed:hintCount}),
+        });
+        const result=await response.json() as Reveal & {error?:string};
+        if(!response.ok||typeof result.correct!=='boolean'||!Number.isInteger(result.points))
+          throw new Error(result.error||'Konum tahmini hesaplanamadı.');
+        data=result;
+      }
       trackPlayEvent({mode:'street',event_type:'street_guess',question_id:current.id,
         duration_ms:openedAt.current?performance.now()-openedAt.current:undefined});
       setReveal(data);
@@ -123,7 +171,7 @@ export function StreetDetectiveScreen({
     finally{setBusy(false);}
   };
   const unlockHint=async()=>{
-    if(!current||hintBusy||busy||!ready||(phase!=='view'&&phase!=='guess')||hintCount>=4)return;
+    if(!current||hintBusy||busy||!ready||(phase!=='view'&&phase!=='guess')||hintCount>=(current.source==='drone'?3:4))return;
     const level=hintCount+1;
     setHintBusy(true);setHintError('');
     try{
@@ -137,14 +185,30 @@ export function StreetDetectiveScreen({
         }
         setEarnedHintLevel(level);
       }
-      const response=await fetch(atlasApi('/api/street/hint'),{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({ticket:current.ticket,level}),
-      });
-      const data=await response.json() as Partial<Clue> & {error?:string};
-      if(!response.ok||data.level!==level||!data.kind||
-         (data.kind==='choices'?(!Array.isArray(data.options)||data.options.length!==4):!data.value))
-        throw new Error(data.error||'İpucu şu anda yüklenemedi.');
+
+      let data:Clue;
+      if(current.source==='drone'&&current.aerial){
+        const aerial=current.aerial;
+        if(level===3){
+          const options=aerial.choices?.length===4?[...aerial.choices]:[...droneHintChoices(aerial.id)];
+          if(options.length!==4)throw new Error('İpucu şu anda yüklenemedi.');
+          data={level,kind:'choices',options};
+        }else{
+          const value=droneHintText(aerial.id,level,language);
+          if(!value)throw new Error('İpucu şu anda yüklenemedi.');
+          data={level,kind:'drone',value};
+        }
+      }else{
+        const response=await fetch(atlasApi('/api/street/hint'),{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({ticket:current.ticket,level}),
+        });
+        const result=await response.json() as Partial<Clue> & {error?:string};
+        if(!response.ok||result.level!==level||!result.kind||
+          (result.kind==='choices'?(!Array.isArray(result.options)||result.options.length!==4):!result.value))
+          throw new Error(result.error||'İpucu şu anda yüklenemedi.');
+        data={level,kind:result.kind,value:result.value,options:result.options};
+      }
       setClues(old=>[...old,{level,kind:data.kind as Clue['kind'],value:data.value,options:data.options}]);
       setHintCount(level);
       setEarnedHintLevel(null);
@@ -211,11 +275,14 @@ export function StreetDetectiveScreen({
   const clueText=(clue:Clue)=>{
     if(clue.kind==='region')return streetRegionLabel(clue.value??'',language);
     if(clue.kind==='landmark')return streetLandmarkLabel(clue.value??'',language);
+    if(clue.kind==='drone')return clue.value??'';
     return '';
   };
   const hintNames=[
     t('Kıta ipucu'),t('Bölge ipucu'),t('Kültür ipucu'),t('4 ülke seçeneği'),
   ];
+  const availableHints=current?.source==='drone'?3:4;
+  const displayedHintNames=current?.source==='drone'?[...droneHintCopy[language].labels]:hintNames;
   const hintsPanel=()=>{
     if(phase!=='view'&&phase!=='guess')return null;
     return <section className="street-card space-y-3 p-3">
@@ -229,7 +296,7 @@ export function StreetDetectiveScreen({
       </div>
       {clues.length>0&&<div className="space-y-2">
         {clues.map(clue=><div key={clue.level} className="rounded-xl border border-amber-200/20 bg-amber-200/10 px-3 py-2 text-xs text-amber-50">
-          <span className="mr-2 font-extrabold">{hintNames[clue.level-1]}:</span>
+          <span className="mr-2 font-extrabold">{displayedHintNames[clue.level-1]}:</span>
           {clue.kind==='choices'&&clue.options?(
             <div className="mt-2 grid grid-cols-2 gap-2" aria-label={t('Dördüncü ipucunun ülke seçenekleri')}>
               {clue.options.map(country=><div key={country} className="rounded-xl border border-amber-200/20 bg-[#1a3d57] px-2 py-2 text-center font-bold">
@@ -239,7 +306,7 @@ export function StreetDetectiveScreen({
           ):<strong>{clueText(clue)}</strong>}
         </div>)}
       </div>}
-      {hintCount<4?(
+      {hintCount<availableHints?(
         <button type="button" disabled={!ready||hintBusy||busy}
           onClick={()=>{void unlockHint();}}
           className="street-secondary w-full disabled:opacity-50">
@@ -247,11 +314,11 @@ export function StreetDetectiveScreen({
           {hintBusy?t('İpucu hazırlanıyor...'):earnedHintLevel===hintCount+1?t('İpucunu tekrar yükle'):
             native?t('Reklam izle ve ipucunu aç'):t('İpucunu aç')}
           <span className="ml-1 text-amber-200">
-            {hintNames[hintCount]} · -{(MAX_ROUND_POINTS[hintCount]-MAX_ROUND_POINTS[hintCount+1]).toLocaleString(language)}
+            {displayedHintNames[hintCount]} · -{(MAX_ROUND_POINTS[hintCount]-MAX_ROUND_POINTS[hintCount+1]).toLocaleString(language)}
           </span>
         </button>
-      ):<p className="text-xs font-semibold text-blue-100/70">{t('Dört ipucunun tamamı açıldı.')}</p>}
-      {!native&&hintCount<4&&<p className="text-[11px] text-blue-100/65">
+      ):<p className="text-xs font-semibold text-blue-100/70">{language==='tr'?'Tüm ipuçları açıldı.':'All hints revealed.'}</p>}
+      {!native&&hintCount<availableHints&&<p className="text-[11px] text-blue-100/65">
         {t('Web önizlemesinde reklam gösterilmez; mobil uygulamada ödüllü reklam gerekir.')}
       </p>}
       {hintError&&<p role="alert" className="text-xs font-semibold text-orange-200">{hintError}</p>}
@@ -329,7 +396,7 @@ export function StreetDetectiveScreen({
           <div className="space-y-3">
             <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
               <span className="flex items-center gap-2 text-sm font-black">
-                <Globe2 className="h-4 w-4 text-emerald-200"/> {t('Tur')} {idx+1}/{STREET_ROUNDS}
+                <Globe2 className="h-4 w-4 text-emerald-200"/> {t('Tur')} {idx+1}/{STREET_ROUNDS} <span className="rounded-full bg-cyan-300/10 px-2 py-0.5 text-[10px] text-cyan-100">{current.source==='drone'?'🚁':'📷'} {current.source==='drone'?(language==='tr'?'Havadan':'Aerial'):(language==='tr'?'Sokak':'Street')}</span>
               </span>
               <span className="text-sm font-black tabular-nums text-[#ffda96]">
                 {score.toLocaleString(language)} {t('puan')}
@@ -352,7 +419,7 @@ export function StreetDetectiveScreen({
                       }}/>
                   </div>
                   <p className="px-2 py-2 text-[11px] text-blue-100/75">
-                    {t('Fotoğrafı dört yönden incele; tam konuma yaklaşmaya çalış.')}
+                    {current.source==='drone'?(language==='tr'?'Hava görüntüsündeki araziyi ve yapıları incele.':'Explore the landscape and buildings from above.'):t('Fotoğrafı dört yönden incele; tam konuma yaklaşmaya çalış.')}
                   </p>
                 </div>
                 {hintsPanel()}
@@ -434,7 +501,7 @@ export function StreetDetectiveScreen({
           </div>
         )}
         <p className="mt-5 text-center text-[11px] text-blue-200/65">
-          {t('Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu')}
+          {language==='tr'?'Sokak ve havadan gerçek görüntüler · 5 karma konum tahmini':'Street and aerial photos · 5 mixed location challenges'}
           {phase==='finish'?' · '+t('Cihaz rekorun:')+' '+getLocalStreetBest().toLocaleString(language):''}
         </p>
       </main>
