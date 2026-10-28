@@ -42,7 +42,7 @@ function buildNature(level:Level):Round[]{
  return shuffle(candidate).map(item=>{
   const distract=shuffle(NATURE_POINTS.filter(p=>p.id!==item.id)).slice(0,3);
   return {id:item.id,prompt:item.clue,promptEn:item.clueEn,options:shuffle([item,...distract]).map(x=>({id:x.id,label:x.name,lat:x.lat,lon:x.lon})),
-   answer:item.id,region:item.region,source:NATURE_SOURCE,level};
+   answer:item.id,region:item.region,source:item.sourceUrl||NATURE_SOURCE,level};
  });
 }
 function buildIsland(level:Level,tr:boolean):Round[]{
