@@ -63,8 +63,7 @@ const LEVEL_LABELS: Record<GeoRewardLevel,{tr:string;en:string}> = {
 };
 
 export function GlobrivaAwardsScreen() {
-  const { language, t } = useLanguage();
-  const tr=language==='tr';
+  const { t } = useLanguage();
   const { overview, badges } = useRewardSnapshot();
   const earned = badges.filter(x=>x.unlocked).length;
   return <main className="globriva-awards-screen fixed inset-0 z-20 overflow-x-hidden overflow-y-auto overscroll-contain bg-[#061629] text-white">
@@ -91,8 +90,8 @@ export function GlobrivaAwardsScreen() {
         <div className="mt-3 grid grid-cols-2 gap-3">
           {badges.map(badge=><article key={badge.id} className={'min-h-[147px] rounded-[20px] border p-3 text-center '+(badge.unlocked?'border-amber-300/45 bg-gradient-to-b from-[#354b60] to-[#15283d]':'border-white/10 bg-[#14253a]/65')}>
             <span className={'mx-auto grid h-12 w-12 place-items-center rounded-[16px] border text-2xl '+(badge.unlocked?'border-amber-300/40 bg-amber-300/15':'border-white/10 bg-black/15 grayscale opacity-40')} aria-hidden="true">{badge.icon}</span>
-            <h3 className={'mt-2 text-sm font-black leading-4 '+(badge.unlocked?'text-amber-100':'text-slate-300')}>{tr?badge.tr:badge.en}</h3>
-            <p className="mt-1.5 text-[10px] leading-4 text-slate-300">{tr?badge.detailTr:badge.detailEn}</p>
+            <h3 className={'mt-2 text-sm font-black leading-4 '+(badge.unlocked?'text-amber-100':'text-slate-300')}>{t(badge.tr)}</h3>
+            <p className="mt-1.5 text-[10px] leading-4 text-slate-300">{t(badge.detailTr)}</p>
             {!badge.unlocked && <span className="mt-1.5 block text-[9px] font-bold text-slate-400">{t('Henüz kilitli')}</span>}
           </article>)}
         </div>
@@ -105,7 +104,7 @@ export function GlobrivaAwardsScreen() {
           {GEO_REWARD_SECTIONS.map(section=><article key={section.id} className="overflow-hidden rounded-[21px] border border-white/10 bg-[#102942]">
             <div className="flex items-center gap-3 border-b border-white/10 bg-white/[.035] px-4 py-3">
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/15 bg-[#1b4b69] text-xl" aria-hidden="true">{section.icon}</span>
-              <div className="min-w-0 flex-1"><h3 className="truncate text-sm font-black">{tr?section.tr:section.en}</h3><small className="text-[10px] font-semibold text-slate-300">{section.id==='daily'?(t('Her gün bir tur')):section.id==='street'||section.id==='drone'?(t('5 konumlu tur')):section.id==='heritage'?(t('Kolay · Orta')):['nature','islands','borders'].includes(section.id)?(t('Kolay · Orta · Zor')):(t('Her 10 soruda yeni rota'))}</small></div>
+              <div className="min-w-0 flex-1"><h3 className="truncate text-sm font-black">{t(section.tr)}</h3><small className="text-[10px] font-semibold text-slate-300">{section.id==='daily'?(t('Her gün bir tur')):section.id==='street'||section.id==='drone'?(t('5 konumlu tur')):section.id==='heritage'?(t('Kolay · Orta')):['nature','islands','borders'].includes(section.id)?(t('Kolay · Orta · Zor')):(t('Her 10 soruda yeni rota'))}</small></div>
             </div>
             <div className="space-y-1 px-3 py-2">
               {section.levels.map(level=>{
@@ -133,8 +132,7 @@ export function GlobrivaProfileScreen({
   onNotifications?:()=>void;
   onAdPrivacy?:()=>void;
 }) {
-  const { language, t }=useLanguage();
-  const tr=language==='tr';
+  const { t }=useLanguage();
   const [name,setName]=useState(playerName);
   const [saving,setSaving]=useState(false);
   const [message,setMessage]=useState('');
