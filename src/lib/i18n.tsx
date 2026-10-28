@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { languageNames, translations, type Language } from './i18nStrings';
+import { screenTranslation } from './screenTranslations';
 
 export type { Language } from './i18nStrings';
 export { languageNames } from './i18nStrings';
@@ -43,7 +44,7 @@ export function LanguageProvider({children}:{children:ReactNode}){
   },[language]);
   const value=useMemo<I18nContext>(()=>{
     const t=(text:string)=>language==='tr' ? text
-      : (translations[language]?.[text] ?? translations.en[text] ?? text);
+      : (screenTranslation(language,text) ?? translations[language]?.[text] ?? translations.en[text] ?? text);
     return {language,setLanguage,t};
   },[language]);
   return <context.Provider value={value}>{children}</context.Provider>;
