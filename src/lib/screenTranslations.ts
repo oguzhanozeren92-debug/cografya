@@ -210,7 +210,11 @@ const keys=[
   "Dönem",
   "Kültür",
   "Yapılış amacı",
-  "Kapatınca oyun otomatik devam eder."
+  "Kapatınca oyun otomatik devam eder.",
+  "Ülke ve konum hakkında bilgi",
+  "Oyun otomatik devam edecek.",
+  "Keşif notu",
+  "Fotoğraf kaynağı ve lisansı"
 ] as const;
 const values: Record<Exclude<Language,'tr'>,readonly string[]> = {
   "en": [
@@ -421,7 +425,11 @@ const values: Record<Exclude<Language,'tr'>,readonly string[]> = {
     "Period",
     "Culture",
     "Original purpose",
-    "The game continues automatically when you close this."
+    "The game continues automatically when you close this.",
+    "About this country and location",
+    "The game will continue automatically.",
+    "Discovery note",
+    "Photo source and license"
   ],
   "es": [
     "ELIGE TU JUEGO",
@@ -631,7 +639,11 @@ const values: Record<Exclude<Language,'tr'>,readonly string[]> = {
     "Período",
     "Cultura",
     "Propósito original",
-    "Al cerrar, el juego continúa automáticamente."
+    "Al cerrar, el juego continúa automáticamente.",
+    "Sobre el país y la ubicación",
+    "El juego continuará automáticamente.",
+    "Nota de exploración",
+    "Fuente y licencia de la foto"
   ],
   "de": [
     "WÄHLE DEIN SPIEL",
@@ -841,7 +853,11 @@ const values: Record<Exclude<Language,'tr'>,readonly string[]> = {
     "Epoche",
     "Kultur",
     "Ursprünglicher Zweck",
-    "Nach dem Schließen geht das Spiel automatisch weiter."
+    "Nach dem Schließen geht das Spiel automatisch weiter.",
+    "Über Land und Standort",
+    "Das Spiel geht automatisch weiter.",
+    "Entdeckungsnotiz",
+    "Fotoquelle und Lizenz"
   ],
   "fr": [
     "CHOISIS TON JEU",
@@ -1051,7 +1067,11 @@ const values: Record<Exclude<Language,'tr'>,readonly string[]> = {
     "Époque",
     "Culture",
     "Usage d'origine",
-    "En fermant, le jeu reprend automatiquement."
+    "En fermant, le jeu reprend automatiquement.",
+    "À propos du pays et du lieu",
+    "Le jeu reprendra automatiquement.",
+    "Note d'exploration",
+    "Source et licence de la photo"
   ],
   "pt": [
     "ESCOLHA SEU JOGO",
@@ -1261,7 +1281,11 @@ const values: Record<Exclude<Language,'tr'>,readonly string[]> = {
     "Período",
     "Cultura",
     "Finalidade original",
-    "O jogo continua automaticamente ao fechar."
+    "O jogo continua automaticamente ao fechar.",
+    "Sobre o país e a localização",
+    "O jogo continuará automaticamente.",
+    "Nota de exploração",
+    "Fonte e licença da foto"
   ],
   "ru": [
     "ВЫБЕРИ ИГРУ",
@@ -1471,7 +1495,11 @@ const values: Record<Exclude<Language,'tr'>,readonly string[]> = {
     "Эпоха",
     "Культура",
     "Назначение",
-    "После закрытия игра продолжится автоматически."
+    "После закрытия игра продолжится автоматически.",
+    "О стране и местоположении",
+    "Игра продолжится автоматически.",
+    "Заметка исследователя",
+    "Источник фото и лицензия"
   ],
   "zh": [
     "选择游戏",
@@ -1681,7 +1709,11 @@ const values: Record<Exclude<Language,'tr'>,readonly string[]> = {
     "时代",
     "文化",
     "建造目的",
-    "关闭后游戏会自动继续。"
+    "关闭后游戏会自动继续。",
+    "关于国家和地点",
+    "游戏将自动继续。",
+    "探索笔记",
+    "照片来源与许可"
   ],
   "ja": [
     "ゲームを選ぶ",
@@ -1891,7 +1923,11 @@ const values: Record<Exclude<Language,'tr'>,readonly string[]> = {
     "時代",
     "文化",
     "建造目的",
-    "閉じるとゲームが自動で再開します。"
+    "閉じるとゲームが自動で再開します。",
+    "この国と場所について",
+    "ゲームは自動的に続きます。",
+    "探索ノート",
+    "写真の出典とライセンス"
   ]
 };
 const index=new Map<string,number>(keys.map((key,i)=>[key,i]));
