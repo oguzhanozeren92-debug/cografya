@@ -52,7 +52,7 @@ test('30 unique natural rounds, 10 per level, with safe coordinates and real fac
     'okavango','wulingyuan','turkana','socotra','tsingy','namib']){
     const p=geo.NATURE_POINTS.find(x=>x.id===id);
     assert.ok(p,'missing '+id);
-    assert.match(p.sourceUrl,/^https:\/\/(?:whc\.unesco\.org|science\.nasa\.gov|www\.britannica\.com)\//);
+    assert.match(p.sourceUrl,/^https:\/\/(?:whc\.unesco\.org|calval\.cr\.usgs\.gov|www\.visitcentroamerica\.com)\//);
   }
 });
 
