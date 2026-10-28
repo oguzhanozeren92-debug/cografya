@@ -64,6 +64,7 @@ const LEVEL_LABELS: Record<GeoRewardLevel,{tr:string;en:string}> = {
 
 export function GlobrivaAwardsScreen() {
   const { language, t } = useLanguage();
+  const tr=language==='tr';
   const { overview, badges } = useRewardSnapshot();
   const earned = badges.filter(x=>x.unlocked).length;
   return <main className="globriva-awards-screen fixed inset-0 z-20 overflow-x-hidden overflow-y-auto overscroll-contain bg-[#061629] text-white">
@@ -133,6 +134,7 @@ export function GlobrivaProfileScreen({
   onAdPrivacy?:()=>void;
 }) {
   const { language, t }=useLanguage();
+  const tr=language==='tr';
   const [name,setName]=useState(playerName);
   const [saving,setSaving]=useState(false);
   const [message,setMessage]=useState('');
