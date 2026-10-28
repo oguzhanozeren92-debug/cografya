@@ -44,8 +44,8 @@ export function LocationLeaguePanel({
   const fairWeeklyActive = new Date().toISOString().slice(0, 10) >= '2026-10-26';
   const leagueRule = period === 'weekly' && fairWeeklyActive
     ? (language === 'tr'
-      ? 'Haftalık lig: Herkes aynı 5 fotoğrafı oynar. Sadece ilk tamamlanan 5\'li turun puanı sayılır; tekrarlar kişisel rekor içindir.'
-      : 'Weekly league: Everyone plays the same 5 photos. Only the first completed five-photo run counts; replays improve your personal best.')
+      ? 'Haftalık lig: Herkes aynı 3 sokak ve 2 hava görüntüsünü oynar. İlk tamamlanan 5 turluk skor sayılır; tekrarlar kişisel rekor içindir.'
+      : 'Weekly league: Everyone plays the same 3 street and 2 aerial photos. Only the first completed five-photo run counts; replays improve your personal best.')
     : t('Her oyuncunun en yüksek 5 turluk skoru listelenir.');
   return <section className="street-card space-y-4 p-4 sm:p-5">
     <div className="flex items-start gap-3">
