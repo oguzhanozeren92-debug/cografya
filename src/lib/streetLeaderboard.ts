@@ -7,8 +7,14 @@ export interface StreetRank {
 }
 const LOCAL_KEY='atlas-street-country-best-v1';
 export function getLocalStreetBest():number{
-  const n=Number(localStorage.getItem(LOCAL_KEY)||0);
-  return Number.isFinite(n)?n:0;
+  // Preserve the best locally earned score from either former five-round game.
+  // The separate online historical leaderboards are left intact.
+  try{
+    return Math.max(0,...[LOCAL_KEY,'atlas-arena-drone-demo-best-v1'].map(key=>{
+      const value=Number(localStorage.getItem(key)||0);
+      return Number.isFinite(value)?value:0;
+    }));
+  }catch{return 0;}
 }
 export function rememberLocalStreetBest(score:number):number{
   const best=Math.max(getLocalStreetBest(),score);
