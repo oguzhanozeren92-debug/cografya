@@ -61,6 +61,16 @@ test('81 country clue cards use real country IDs, correct tiers and never name t
   const cards=Object.values(clues.COUNTRY_CLUES);
   assert.equal(cards.length,81);
   assert.equal(new Set(cards.map(x=>x.countryId)).size,cards.length);
+  // Never disclose a country's name before the player answers, including
+  // cases where the capital has exactly the same name as the country.
+  for(const card of cards){
+    const country=countries.COUNTRY_DATA[card.countryId];
+    assert.ok(country,card.countryId+' missing country');
+    for(const clue of card.clues){
+      assert.ok(!normalize(clue).includes(normalize(country.nameTr)),
+        card.countryId+' answer revealed in '+clue);
+    }
+  }
   for(const id of ['152','170','192','218','050','450','834','418','242','620','191','710','188','524','352','598','417','894']){
     const c=clues.COUNTRY_CLUES[id],country=countries.COUNTRY_DATA[id];
     assert.ok(c&&country,id+' missing country or clue');
