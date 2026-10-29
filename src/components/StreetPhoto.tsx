@@ -40,6 +40,7 @@ export function StreetPhoto({
   const gallery=round.media.mode==='gallery';
   const totalPhotos=gallery?round.media.images.length:FACES.length;
   const [retry,setRetry]=useState(0);
+  const [useRemoteFallback,setUseRemoteFallback]=useState(false);
   const [state,setState]=useState<'loading'|'ready'|'error'>('loading');
   const [failure,setFailure]=useState('');
   const [fullscreen,setFullscreen]=useState(false);
@@ -58,6 +59,7 @@ export function StreetPhoto({
   useEffect(()=>{
     readyFired.current=false;
     setFace(0);setState('loading');setFailure('');setFullscreen(false);setZoom(1);
+    setUseRemoteFallback(false);
   },[round.id,round.media]);
   useEffect(()=>{
     if(state!=='loading')return;
@@ -65,7 +67,7 @@ export function StreetPhoto({
       setState('error');
       const msg=t('Fotoğraf açılamadı. Tekrar dene veya bu turu geç.');
       setFailure(msg);handlers.current.onError(msg);
-    },7500);
+    },12000);
     return()=>clearTimeout(timeout);
   },[round.id,face,retry,state]);
 
@@ -77,6 +79,12 @@ export function StreetPhoto({
     }
   };
   const handleError=()=>{
+    // The published same-origin four-angle JPEG can fail due to a stale CDN
+    // edge. Before blocking a playable round, try its approved R2 fallback.
+    if(round.media.mode==='multires'&&round.media.staticBase&&!useRemoteFallback){
+      setUseRemoteFallback(true);setState('loading');
+      return;
+    }
     if(face!==0&&readyFired.current){
       setFace(0); // A secondary angle is optional; return to already-cached front photo.
       setState('loading');
@@ -91,13 +99,16 @@ export function StreetPhoto({
     setZoom(1);
     setState('loading');
   };
-  const src=photoUrl(round.media,FACES[face] || 'f',face);
+  const media=round.media;
+  const src=useRemoteFallback&&media.mode==='multires'
+    ?photoUrl({...media,staticBase:undefined},FACES[face] || 'f',face)
+    :photoUrl(media,FACES[face] || 'f',face);
   return (
     <div className={fullscreen
       ? 'fixed inset-0 z-[120] h-[100dvh] w-screen overflow-hidden bg-[#071426]'
       : 'relative h-full w-full overflow-hidden rounded-[20px] bg-[#112b45]'}>
       {state!=='error'&&(
-        <img key={round.id+'-'+face+'-'+retry} src={src} alt={t("Konumdan bir fotoğraf; çevreyi inceleyip haritada tahmin et.")}
+        <img key={round.id+'-'+face+'-'+retry+'-'+(useRemoteFallback?'remote':'local')} src={src} alt={t("Konumdan bir fotoğraf; çevreyi inceleyip haritada tahmin et.")}
           decoding="async" loading="eager" fetchPriority="high" draggable={false}
           className={fullscreen?'h-full w-full object-contain select-none transition-transform duration-150':'h-full w-full object-cover select-none'}
           style={fullscreen?{transform:'scale('+zoom+')'}:undefined}
