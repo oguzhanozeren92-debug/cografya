@@ -470,7 +470,7 @@ const cards: CountryClueCard[] = [
     "clues": [
       "Afar Çöküntüsü'nün yakınında bulunur.",
       "Babülmendep Boğazı yakınında önemli konumdadır.",
-      "Başkentinin adı Cibuti'dir."
+      "Başkent ile ülke aynı adı taşır; Kızıldeniz'e açılan önemli bir limanı vardır."
     ],
     "fact": "Afrika Boynuzu'nda Kızıldeniz'in girişindedir."
   },
@@ -618,7 +618,7 @@ const cards: CountryClueCard[] = [
     "countryId": "716",
     "difficulty": 3,
     "clues": [
-      "Büyük Zimbabve adı verilen taş yapılar burada bulunur.",
+      "Orta Çağ'dan kalma büyük taş duvarlı bir yerleşim kalıntısıyla tanınır.",
       "Victoria Şelalesi'nin bir kıyısı ülke sınırlarındadır.",
       "Başkentinin adı Harare'dir."
     ],
