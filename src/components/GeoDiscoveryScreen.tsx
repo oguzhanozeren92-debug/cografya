@@ -39,7 +39,8 @@ const shuffle=<T,>(data:readonly T[])=>{
 const nameOf=(id:string,lang:Language)=>localizedCountryById(id,lang)||COUNTRY_DATA[id]?.nameTr||id;
 function buildNature(level:Level):Round[]{
  const candidate=NATURE_POINTS.filter(x=>x.level===level);
- return shuffle(candidate).map(item=>{
+ // Keep the played round at ten questions; the larger reviewed bank rotates on replay.
+  return shuffle(candidate).slice(0,10).map(item=>{
   const distract=shuffle(NATURE_POINTS.filter(p=>p.id!==item.id)).slice(0,3);
   return {id:item.id,prompt:item.clue,promptEn:item.clueEn,options:shuffle([item,...distract]).map(x=>({id:x.id,label:x.name,lat:x.lat,lon:x.lon})),
    answer:item.id,region:item.region,source:item.sourceUrl||NATURE_SOURCE,level};
@@ -129,7 +130,7 @@ export function GeoDiscoveryScreen({mode,onClose,onGameComplete}:{
  const correct=picked!==null&&picked===round?.answer;
  const key=mode+':'+level;
  const stageCount=(l:Level)=>mode==='nature'
-   ?NATURE_POINTS.filter(x=>x.level===l).length
+   ?Math.min(10,NATURE_POINTS.filter(x=>x.level===l).length)
    :mode==='islands'
      ?ISLAND_COUNTRIES.filter(x=>x.level===l&&shapeById.has(x.id)).length
      :buildBorders(l,language).length;
