@@ -733,6 +733,96 @@ const cards: CountryClueCard[] = [
     "Başkentinin adı Suva'dır."
   ],
   "fact": "Ada grubunun bir bölümü volkanik kökenlidir ve çevresindeki resifler zengin deniz yaşamı barındırır."
+},
+{
+  "countryId": "620",
+  "difficulty": 1,
+  "clues": [
+    "Avrupa'nın batısında Atlas Okyanusu kıyısına uzanır.",
+    "Azorlar ve Madeira adlı Atlantik takımadalarıyla ilişkilidir.",
+    "Başkentinde Tejo Nehri'nin geniş bir haliç oluşturduğu görülür."
+  ],
+  "fact": "Madeira ve Azorlar, ana karadan uzakta bulunan ve volkanik kökenli adaları içeren Atlantik takımadalarıdır."
+},
+{
+  "countryId": "191",
+  "difficulty": 1,
+  "clues": [
+    "Adriyatik Denizi boyunca çok sayıda adaya sahip uzun bir kıyısı vardır.",
+    "Dalmaçya kıyılarındaki tarihî taş kentleriyle tanınır.",
+    "Başkentinin adı Zagreb'dir."
+  ],
+  "fact": "Adriyatik kıyısındaki adalar ve koylar, bölgenin deniz ulaşımı ile turizminde önemli rol oynar."
+},
+{
+  "countryId": "710",
+  "difficulty": 1,
+  "clues": [
+    "Afrika kıtasının en güneyindeki ülkelerden biridir.",
+    "Cape Yarımadası'ndaki Masa Dağı önemli doğal simgelerindendir.",
+    "Yürütme merkezi Pretoria, yasama merkezi Cape Town'dadır."
+  ],
+  "fact": "Ülkenin üç ayrı başkent işlevi bulunur: Pretoria yürütme, Cape Town yasama, Bloemfontein ise yargı merkezi olarak bilinir."
+},
+{
+  "countryId": "188",
+  "difficulty": 2,
+  "clues": [
+    "Orta Amerika'da hem Pasifik'e hem Karayip Denizi'ne kıyısı vardır.",
+    "Bulut ormanları ve volkanik millî parklarıyla tanınır.",
+    "Başkentinin adı San José'dir."
+  ],
+  "fact": "Bulut ormanlarında nemli hava yüksek rakımlı bitki örtüsünü besler; ülke çok çeşitli kuş ve amfibi türlerine ev sahipliği yapar."
+},
+{
+  "countryId": "524",
+  "difficulty": 2,
+  "clues": [
+    "Güney Asya'da Himalayalar'ın yüksek zirveleri arasında yer alır.",
+    "Dünyanın en yüksek dağına komşu olan, denize kıyısı bulunmayan bir ülkedir.",
+    "Başkentinin adı Katmandu'dur."
+  ],
+  "fact": "Yükseklik farkları nedeniyle tropikal alçak vadilerden alp kuşağına kadar çok farklı iklim ve yaşam alanları bulunur."
+},
+{
+  "countryId": "352",
+  "difficulty": 2,
+  "clues": [
+    "Kuzey Atlas Okyanusu'nda yer alan bir ada devletidir.",
+    "Buzullar, lav alanları ve sıcak su kaynakları bir arada bulunur.",
+    "Başkentinin adı Reykjavik'tir."
+  ],
+  "fact": "Orta Atlantik Sırtı'nın su üstüne çıktığı bölgelerden biridir; levha hareketleri volkanik ve jeotermal etkinliklerle ilişkilidir."
+},
+{
+  "countryId": "598",
+  "difficulty": 3,
+  "clues": [
+    "Okyanusya'da dünyanın en büyük adalarından birinin doğu bölümünü kaplar.",
+    "Yüksek dağ sıraları ve tropikal yağmur ormanlarıyla kaplıdır.",
+    "Başkentinin adı Port Moresby'dir."
+  ],
+  "fact": "Yeni Gine adasının doğu kesimindeki çok farklı yükselti ve vadiler, olağanüstü dil ve canlı çeşitliliğiyle ilişkilidir."
+},
+{
+  "countryId": "417",
+  "difficulty": 3,
+  "clues": [
+    "Orta Asya'da denize kıyısı bulunmayan dağlık bir ülkedir.",
+    "Tanrı Dağları ve yüksek rakımlı Issık Gölü önemli doğal özelliklerindendir.",
+    "Başkentinin adı Bişkek'tir."
+  ],
+  "fact": "Issık Göl, çevresi yüksek dağlarla kuşatılmış büyük bir dağ gölüdür; adı yerel dillerde sıcak göl anlamına gelir."
+},
+{
+  "countryId": "894",
+  "difficulty": 3,
+  "clues": [
+    "Afrika'nın güneyinde denize kıyısı olmayan bir ülkedir.",
+    "Zambezi Nehri boyunca büyük bir şelaleyi komşusuyla paylaşır.",
+    "Başkentinin adı Lusaka'dır."
+  ],
+  "fact": "Zambezi üzerindeki Victoria Şelaleleri, komşu Zimbabve ile sınır yakınında yer alır; nehir Kariba Gölü'nü de besler."
 }
 ];
 
