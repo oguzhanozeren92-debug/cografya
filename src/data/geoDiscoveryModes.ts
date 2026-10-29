@@ -313,6 +313,105 @@ export const NATURE_POINTS:NaturePoint[]=[
     "level": 3,
     "region": "Namibya",
     "sourceUrl": "https://whc.unesco.org/en/list/1430/"
+  },
+  {
+    "id": "plitvice",
+    "name": "Plitvice Gölleri",
+    "clue": "Hırvatistan'ın iç kesimlerinde, kireç taşı eşiklerinin oluşturduğu basamaklı göller ve şelaleler dizisini haritada bul.",
+    "clueEn": "Find the stepped chain of lakes and waterfalls formed by limestone barriers in inland Croatia.",
+    "lat": 44.87,
+    "lon": 15.61,
+    "level": 1,
+    "region": "Hırvatistan",
+    "sourceUrl": "https://whc.unesco.org/en/list/98/"
+  },
+  {
+    "id": "komodo",
+    "name": "Komodo Millî Parkı",
+    "clue": "Endonezya'nın Küçük Sunda Adaları arasında, büyük kertenkeleleri ve kuru savan yamaçlarıyla tanınan volkanik ada parkını bul.",
+    "clueEn": "Locate the volcanic island park in Indonesia's Lesser Sunda Islands, known for giant lizards and dry savannah hills.",
+    "lat": -8.55,
+    "lon": 119.49,
+    "level": 1,
+    "region": "Endonezya",
+    "sourceUrl": "https://whc.unesco.org/en/list/609/"
+  },
+  {
+    "id": "jeju",
+    "name": "Jeju Volkanik Adası",
+    "clue": "Kore Yarımadası'nın güneyinde, lav tüpleri ve krater gölleriyle bilinen volkanik adayı haritada bul.",
+    "clueEn": "Find the volcanic island south of the Korean Peninsula, famous for lava tubes and crater lakes.",
+    "lat": 33.36,
+    "lon": 126.53,
+    "level": 1,
+    "region": "Güney Kore",
+    "sourceUrl": "https://whc.unesco.org/en/list/1264/"
+  },
+  {
+    "id": "siankaan",
+    "name": "Sian Ka'an Biyosfer Rezervi",
+    "clue": "Meksika'nın Yucatán Yarımadası'nın doğu kıyısında mangrov, sulak alan ve mercan resiflerinin buluştuğu koruma alanını bul.",
+    "clueEn": "Locate the protected coastal area of mangroves, wetlands and coral reefs on the eastern Yucatán Peninsula.",
+    "lat": 19.77,
+    "lon": -87.61,
+    "level": 2,
+    "region": "Meksika",
+    "sourceUrl": "https://whc.unesco.org/en/list/410/"
+  },
+  {
+    "id": "kluane",
+    "name": "Kluane Millî Parkı",
+    "clue": "Kanada'nın Yukon bölgesinde Alaska sınırına yakın, dev buzulları ve yüksek dağlarıyla ünlü millî parkı haritada bul.",
+    "clueEn": "Find the national park of enormous glaciers and high mountains near the Alaska border in Canada's Yukon.",
+    "lat": 60.73,
+    "lon": -139.5,
+    "level": 2,
+    "region": "Kanada / Yukon",
+    "sourceUrl": "https://whc.unesco.org/en/list/72/"
+  },
+  {
+    "id": "ohrid",
+    "name": "Ohri Gölü",
+    "clue": "Balkanlar'da Kuzey Makedonya ile Arnavutluk arasında uzanan, çok sayıda endemik tatlı su türünü barındıran gölü bul.",
+    "clueEn": "Locate the Balkan lake shared by North Macedonia and Albania, known for its many endemic freshwater species.",
+    "lat": 41.05,
+    "lon": 20.73,
+    "level": 2,
+    "region": "Kuzey Makedonya / Arnavutluk",
+    "sourceUrl": "https://whc.unesco.org/en/list/99/"
+  },
+  {
+    "id": "surtsey",
+    "name": "Surtsey Adası",
+    "clue": "İzlanda'nın güney kıyılarının açığında 1960'lı yıllardaki denizaltı volkan patlamalarıyla oluşan genç adayı bul.",
+    "clueEn": "Find the young island off Iceland's south coast, formed by submarine volcanic eruptions during the 1960s.",
+    "lat": 63.3,
+    "lon": -20.6,
+    "level": 3,
+    "region": "İzlanda",
+    "sourceUrl": "https://whc.unesco.org/en/list/1267/"
+  },
+  {
+    "id": "tassili",
+    "name": "Tassili n'Ajjer Platosu",
+    "clue": "Cezayir'in Sahra kesiminde, aşınmış kum taşı sütunları ve tarih öncesi kaya resimleriyle tanınan platoyu bul.",
+    "clueEn": "Locate the Saharan plateau in Algeria, renowned for eroded sandstone pillars and prehistoric rock paintings.",
+    "lat": 25.5,
+    "lon": 9,
+    "level": 3,
+    "region": "Cezayir / Sahra",
+    "sourceUrl": "https://whc.unesco.org/en/list/179/"
+  },
+  {
+    "id": "lena-pillars",
+    "name": "Lena Sütunları",
+    "clue": "Rusya'nın Yakutistan bölgesinde, büyük bir Sibirya nehrinin kıyısında yükselen yaklaşık yüz metrelik kaya sütunlarını bul.",
+    "clueEn": "Find the towering rock pillars lining a major Siberian river in Russia's Sakha Republic.",
+    "lat": 61.14,
+    "lon": 127.49,
+    "level": 3,
+    "region": "Rusya / Yakutistan",
+    "sourceUrl": "https://whc.unesco.org/en/list/1299/"
   }
 ];
 export const NATURE_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
