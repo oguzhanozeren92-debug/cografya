@@ -40,7 +40,7 @@ for(const p of HISTORY_DETAIL_PHOTOS){
 
 test('39 unique natural locations, 13 per level, with safe coordinates and real fact links',()=>{
   assert.equal(geo.NATURE_POINTS.length,39);
-  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,30);
+  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,39);
   for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,13);
   for(const p of geo.NATURE_POINTS){
     assert.ok(Number.isFinite(p.lat)&&Math.abs(p.lat)<=90,p.id+' lat');
