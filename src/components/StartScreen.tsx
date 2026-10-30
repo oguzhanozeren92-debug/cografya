@@ -10,7 +10,6 @@ import { DAILY_TOTAL, getDailyDate, loadDailyProgress } from '@/lib/dailyChallen
 import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
 import { AtlasHomeBackdrop } from '@/components/AtlasHomeBackdrop';
-import { GeoDiscoveryArt } from '@/components/GeoDiscoveryArt';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 import { isIosPushSupported } from '@/lib/iosPush';
 import type { GameMode, LeaderboardEntry } from '@/types';
@@ -403,12 +402,11 @@ export function StartScreen({
         }
         @media(prefers-reduced-motion:reduce) {.globriva-hero-track{transition:none;will-change:auto;}}
 
-        /* Globriva premium geography covers — real scenic photo with an in-app
-           SVG fallback, so slow/offline image requests never leave a blank tile. */
+        /* Exact original scenic cover photography from Oct 27, fetched through
+           Globriva's own image endpoint. No old SVG illustration fallback. */
         .globriva-feature-slide .feature-art {
           transform: none; opacity: 1; overflow: hidden;
         }
-        .globriva-feature-slide .feature-art svg { z-index: 0; }
         .globriva-feature-slide .feature-photo {
           display: block; position: absolute; inset: 0; z-index: 1;
           width: 100%; height: 100%; object-fit: cover;
@@ -745,9 +743,8 @@ export function StartScreen({
 
             <div className="globriva-hero-slide globriva-feature-slide globriva-feature-nature">
               <div className="feature-art" aria-hidden="true">
-                <GeoDiscoveryArt mode="nature" />
                 <img className="feature-photo feature-photo-nature"
-                  src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1150&q=85"
+                  src="https://atlas-arena-tau.vercel.app/api/hero-photo?mode=nature"
                   alt="" loading="eager" decoding="async"
                   onError={event => { event.currentTarget.style.display = 'none'; }} />
               </div>
@@ -765,9 +762,8 @@ export function StartScreen({
             </div>
             <div className="globriva-hero-slide globriva-feature-slide globriva-feature-islands">
               <div className="feature-art" aria-hidden="true">
-                <GeoDiscoveryArt mode="islands" />
                 <img className="feature-photo feature-photo-islands"
-                  src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1150&q=85"
+                  src="https://atlas-arena-tau.vercel.app/api/hero-photo?mode=islands"
                   alt="" loading="eager" decoding="async"
                   onError={event => { event.currentTarget.style.display = 'none'; }} />
               </div>
@@ -785,9 +781,8 @@ export function StartScreen({
             </div>
             <div className="globriva-hero-slide globriva-feature-slide globriva-feature-borders">
               <div className="feature-art" aria-hidden="true">
-                <GeoDiscoveryArt mode="borders" />
                 <img className="feature-photo feature-photo-borders"
-                  src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1150&q=85"
+                  src="https://atlas-arena-tau.vercel.app/api/hero-photo?mode=borders"
                   alt="" loading="eager" decoding="async"
                   onError={event => { event.currentTarget.style.display = 'none'; }} />
               </div>
