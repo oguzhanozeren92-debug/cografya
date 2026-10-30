@@ -8,19 +8,19 @@ import { localizedClueFeature } from './clueLandmarks';
 // landmark/cultural clue and one progressively revealing capital clue.
 // These are authored factual adaptations, not a request-time machine translation.
 // Turkish retains its original hand-curated three clues and learning fact.
-type Region='eu'|'eastAsia'|'southAsia'|'southeastAsia'|'centralAsia'|
+type Region='eu'|'eastAsia'|'southAsia'|'westAsia'|'southeastAsia'|'centralAsia'|
   'northAfrica'|'westAfrica'|'centralAfrica'|'eastAfrica'|'southAfrica'|
   'northAmerica'|'southAmerica'|'oceania'|'caribbean'|'caucasus'|'europeAsia';
 const regions:Record<Language,Record<Region,string>>={
-  tr:{eu:'Avrupa',eastAsia:'Doğu Asya',southAsia:'Güney Asya',southeastAsia:'Güneydoğu Asya',centralAsia:'Orta Asya',northAfrica:'Kuzey Afrika',westAfrica:'Batı Afrika',centralAfrica:'Orta Afrika',eastAfrica:'Doğu Afrika',southAfrica:'Güney Afrika',northAmerica:'Kuzey Amerika',southAmerica:'Güney Amerika',oceania:'Okyanusya',caribbean:'Karayipler',caucasus:'Kafkasya',europeAsia:'Avrupa ve Asya'},
-  en:{eu:'Europe',eastAsia:'East Asia',southAsia:'South Asia',southeastAsia:'Southeast Asia',centralAsia:'Central Asia',northAfrica:'North Africa',westAfrica:'West Africa',centralAfrica:'Central Africa',eastAfrica:'East Africa',southAfrica:'Southern Africa',northAmerica:'North America',southAmerica:'South America',oceania:'Oceania',caribbean:'the Caribbean',caucasus:'the Caucasus',europeAsia:'Europe and Asia'},
-  es:{eu:'Europa',eastAsia:'Asia Oriental',southAsia:'Asia Meridional',southeastAsia:'Sudeste Asiático',centralAsia:'Asia Central',northAfrica:'África del Norte',westAfrica:'África Occidental',centralAfrica:'África Central',eastAfrica:'África Oriental',southAfrica:'África Austral',northAmerica:'América del Norte',southAmerica:'América del Sur',oceania:'Oceanía',caribbean:'el Caribe',caucasus:'el Cáucaso',europeAsia:'Europa y Asia'},
-  de:{eu:'Europa',eastAsia:'Ostasien',southAsia:'Südasien',southeastAsia:'Südostasien',centralAsia:'Zentralasien',northAfrica:'Nordafrika',westAfrica:'Westafrika',centralAfrica:'Zentralafrika',eastAfrica:'Ostafrika',southAfrica:'das südliche Afrika',northAmerica:'Nordamerika',southAmerica:'Südamerika',oceania:'Ozeanien',caribbean:'der Karibik',caucasus:'dem Kaukasus',europeAsia:'Europa und Asien'},
-  fr:{eu:"l'Europe",eastAsia:"l'Asie de l'Est",southAsia:"l'Asie du Sud",southeastAsia:"l'Asie du Sud-Est",centralAsia:"l'Asie centrale",northAfrica:"l'Afrique du Nord",westAfrica:"l'Afrique de l'Ouest",centralAfrica:"l'Afrique centrale",eastAfrica:"l'Afrique de l'Est",southAfrica:"l'Afrique australe",northAmerica:"l'Amérique du Nord",southAmerica:"l'Amérique du Sud",oceania:"l'Océanie",caribbean:"les Caraïbes",caucasus:"le Caucase",europeAsia:"l'Europe et l'Asie"},
-  pt:{eu:'Europa',eastAsia:'Ásia Oriental',southAsia:'Ásia Meridional',southeastAsia:'Sudeste Asiático',centralAsia:'Ásia Central',northAfrica:'Norte da África',westAfrica:'África Ocidental',centralAfrica:'África Central',eastAfrica:'África Oriental',southAfrica:'África Austral',northAmerica:'América do Norte',southAmerica:'América do Sul',oceania:'Oceania',caribbean:'Caribe',caucasus:'Cáucaso',europeAsia:'Europa e Ásia'},
-  ru:{eu:'Европе',eastAsia:'Восточной Азии',southAsia:'Южной Азии',southeastAsia:'Юго-Восточной Азии',centralAsia:'Центральной Азии',northAfrica:'Северной Африке',westAfrica:'Западной Африке',centralAfrica:'Центральной Африке',eastAfrica:'Восточной Африке',southAfrica:'Южной Африке',northAmerica:'Северной Америке',southAmerica:'Южной Америке',oceania:'Океании',caribbean:'Карибском бассейне',caucasus:'Кавказе',europeAsia:'Европе и Азии'},
-  zh:{eu:'欧洲',eastAsia:'东亚',southAsia:'南亚',southeastAsia:'东南亚',centralAsia:'中亚',northAfrica:'北非',westAfrica:'西非',centralAfrica:'中非',eastAfrica:'东非',southAfrica:'非洲南部',northAmerica:'北美洲',southAmerica:'南美洲',oceania:'大洋洲',caribbean:'加勒比地区',caucasus:'高加索地区',europeAsia:'欧洲和亚洲'},
-  ja:{eu:'ヨーロッパ',eastAsia:'東アジア',southAsia:'南アジア',southeastAsia:'東南アジア',centralAsia:'中央アジア',northAfrica:'北アフリカ',westAfrica:'西アフリカ',centralAfrica:'中央アフリカ',eastAfrica:'東アフリカ',southAfrica:'南部アフリカ',northAmerica:'北アメリカ',southAmerica:'南アメリカ',oceania:'オセアニア',caribbean:'カリブ海地域',caucasus:'コーカサス地域',europeAsia:'ヨーロッパとアジア'}
+  tr:{eu:'Avrupa',eastAsia:'Doğu Asya',southAsia:'Güney Asya',westAsia:"Batı Asya",southeastAsia:'Güneydoğu Asya',centralAsia:'Orta Asya',northAfrica:'Kuzey Afrika',westAfrica:'Batı Afrika',centralAfrica:'Orta Afrika',eastAfrica:'Doğu Afrika',southAfrica:'Güney Afrika',northAmerica:'Kuzey Amerika',southAmerica:'Güney Amerika',oceania:'Okyanusya',caribbean:'Karayipler',caucasus:'Kafkasya',europeAsia:'Avrupa ve Asya'},
+  en:{eu:'Europe',eastAsia:'East Asia',southAsia:'South Asia',westAsia:"West Asia",southeastAsia:'Southeast Asia',centralAsia:'Central Asia',northAfrica:'North Africa',westAfrica:'West Africa',centralAfrica:'Central Africa',eastAfrica:'East Africa',southAfrica:'Southern Africa',northAmerica:'North America',southAmerica:'South America',oceania:'Oceania',caribbean:'the Caribbean',caucasus:'the Caucasus',europeAsia:'Europe and Asia'},
+  es:{eu:'Europa',eastAsia:'Asia Oriental',southAsia:'Asia Meridional',westAsia:"Asia Occidental",southeastAsia:'Sudeste Asiático',centralAsia:'Asia Central',northAfrica:'África del Norte',westAfrica:'África Occidental',centralAfrica:'África Central',eastAfrica:'África Oriental',southAfrica:'África Austral',northAmerica:'América del Norte',southAmerica:'América del Sur',oceania:'Oceanía',caribbean:'el Caribe',caucasus:'el Cáucaso',europeAsia:'Europa y Asia'},
+  de:{eu:'Europa',eastAsia:'Ostasien',southAsia:'Südasien',westAsia:"Westasien",southeastAsia:'Südostasien',centralAsia:'Zentralasien',northAfrica:'Nordafrika',westAfrica:'Westafrika',centralAfrica:'Zentralafrika',eastAfrica:'Ostafrika',southAfrica:'das südliche Afrika',northAmerica:'Nordamerika',southAmerica:'Südamerika',oceania:'Ozeanien',caribbean:'der Karibik',caucasus:'dem Kaukasus',europeAsia:'Europa und Asien'},
+  fr:{eu:"l'Europe",eastAsia:"l'Asie de l'Est",southAsia:"l'Asie du Sud",westAsia:"l'Asie de l'Ouest",southeastAsia:"l'Asie du Sud-Est",centralAsia:"l'Asie centrale",northAfrica:"l'Afrique du Nord",westAfrica:"l'Afrique de l'Ouest",centralAfrica:"l'Afrique centrale",eastAfrica:"l'Afrique de l'Est",southAfrica:"l'Afrique australe",northAmerica:"l'Amérique du Nord",southAmerica:"l'Amérique du Sud",oceania:"l'Océanie",caribbean:"les Caraïbes",caucasus:"le Caucase",europeAsia:"l'Europe et l'Asie"},
+  pt:{eu:'Europa',eastAsia:'Ásia Oriental',southAsia:'Ásia Meridional',westAsia:"Ásia Ocidental",southeastAsia:'Sudeste Asiático',centralAsia:'Ásia Central',northAfrica:'Norte da África',westAfrica:'África Ocidental',centralAfrica:'África Central',eastAfrica:'África Oriental',southAfrica:'África Austral',northAmerica:'América do Norte',southAmerica:'América do Sul',oceania:'Oceania',caribbean:'Caribe',caucasus:'Cáucaso',europeAsia:'Europa e Ásia'},
+  ru:{eu:'Европе',eastAsia:'Восточной Азии',southAsia:'Южной Азии',westAsia:"Западной Азии",southeastAsia:'Юго-Восточной Азии',centralAsia:'Центральной Азии',northAfrica:'Северной Африке',westAfrica:'Западной Африке',centralAfrica:'Центральной Африке',eastAfrica:'Восточной Африке',southAfrica:'Южной Африке',northAmerica:'Северной Америке',southAmerica:'Южной Америке',oceania:'Океании',caribbean:'Карибском бассейне',caucasus:'Кавказе',europeAsia:'Европе и Азии'},
+  zh:{eu:'欧洲',eastAsia:'东亚',southAsia:'南亚',westAsia:"西亚",southeastAsia:'东南亚',centralAsia:'中亚',northAfrica:'北非',westAfrica:'西非',centralAfrica:'中非',eastAfrica:'东非',southAfrica:'非洲南部',northAmerica:'北美洲',southAmerica:'南美洲',oceania:'大洋洲',caribbean:'加勒比地区',caucasus:'高加索地区',europeAsia:'欧洲和亚洲'},
+  ja:{eu:'ヨーロッパ',eastAsia:'東アジア',southAsia:'南アジア',westAsia:"西アジア",southeastAsia:'東南アジア',centralAsia:'中央アジア',northAfrica:'北アフリカ',westAfrica:'西アフリカ',centralAfrica:'中央アフリカ',eastAfrica:'東アフリカ',southAfrica:'南部アフリカ',northAmerica:'北アメリカ',southAmerica:'南アメリカ',oceania:'オセアニア',caribbean:'カリブ海地域',caucasus:'コーカサス地域',europeAsia:'ヨーロッパとアジア'}
 };
 type Signal={region:Region;feature:string};
 // Identifiers match the original 63 curated clue-card IDs.
@@ -56,7 +56,28 @@ const signals:Record<string,Signal>={
   '508':{region:'eastAfrica',feature:'the Indian Ocean coast'},'516':{region:'southAfrica',feature:'the Namib Desert'},
   '548':{region:'oceania',feature:'volcanic islands'},'562':{region:'westAfrica',feature:'the Niger River'},
   '646':{region:'eastAfrica',feature:'a thousand hills'},'716':{region:'southAfrica',feature:'Great Zimbabwe'},
-  '768':{region:'westAfrica',feature:'the Gulf of Guinea'},'780':{region:'caribbean',feature:'Trinidad and Tobago'}
+  '768':{region:'westAfrica',feature:'the Gulf of Guinea'},'780':{region:'caribbean',feature:'Trinidad and Tobago'},
+  '152':{region:'southAmerica',feature:"the Atacama Desert"},
+  '170':{region:'southAmerica',feature:"Andean coffee regions"},
+  '192':{region:'caribbean',feature:"the Sierra Maestra"},
+  '218':{region:'southAmerica',feature:"the Galápagos Islands"},
+  '050':{region:'southAsia',feature:"the Sundarbans"},
+  '450':{region:'eastAfrica',feature:"lemurs and baobabs"},
+  '834':{region:'eastAfrica',feature:"Mount Kilimanjaro"},
+  '418':{region:'southeastAsia',feature:"the Mekong River"},
+  '242':{region:'oceania',feature:"Viti Levu and Vanua Levu"},
+  '620':{region:'eu',feature:"the Azores and Madeira"},
+  '191':{region:'eu',feature:"the Dalmatian coast"},
+  '710':{region:'southAfrica',feature:"Table Mountain"},
+  '188':{region:'northAmerica',feature:"cloud forests"},
+  '524':{region:'southAsia',feature:"the Himalayas"},
+  '352':{region:'eu',feature:"geothermal springs"},
+  '598':{region:'oceania',feature:"tropical highlands"},
+  '417':{region:'centralAsia',feature:"Lake Issyk-Kul"},
+  '894':{region:'southAfrica',feature:"Victoria Falls"},
+  '040':{region:'eu',feature:"Vienna's historic centre"},
+  '400':{region:'westAsia',feature:"Petra"},
+  '024':{region:'southAfrica',feature:"Mbanza Kongo"}
 };
 const templates:Record<Exclude<Language,'tr'>,{
   region:(name:string)=>string;landmark:(feature:string)=>string;capital:(capital:string)=>string;
