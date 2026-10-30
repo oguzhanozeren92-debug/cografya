@@ -51,7 +51,7 @@ export async function deleteMyPlayerData(){
    }
  }
  try{
-   const prefixes=['geo-','globriva-','atlas-arena-','street-','drone-','vs-','discovery-'];
+   const prefixes=['geo-','globriva-','atlas-','street-','drone-','vs-','discovery-'];
    for(let i=localStorage.length-1;i>=0;i--){
      const key=localStorage.key(i);
      if(key&&prefixes.some(p=>key.startsWith(p)))localStorage.removeItem(key);
