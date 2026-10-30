@@ -11,6 +11,7 @@ export interface CountryClueCard {
   difficulty: Difficulty;
   clues: readonly [string, string, string];
   fact: string;
+  sourceUrl?: string;
 }
 
 const cards: CountryClueCard[] = [
@@ -823,7 +824,40 @@ const cards: CountryClueCard[] = [
     "Başkentinin adı Lusaka'dır."
   ],
   "fact": "Zambezi üzerindeki Victoria Şelaleleri, komşu Zimbabve ile sınır yakınında yer alır; nehir Kariba Gölü'nü de besler."
-}
+},
+  {
+    "countryId": "040",
+    "difficulty": 1,
+    "clues": [
+      "Orta Avrupa'da Alpler'in doğu kesiminde uzanan, denize kıyısı olmayan bir ülkedir.",
+      "Tuna Nehri kıyısında gelişen tarihî başkenti, klasik müzikle yakından ilişkilidir.",
+      "Başkentinde Schönbrunn Sarayı ve Ringstrasse adlı tarihî bulvar bulunur."
+    ],
+    "fact": "Viyana'nın tarihî merkezi, Orta Çağ'dan Barok döneme ve 19. yüzyıla uzanan mimari katmanlar içerir.",
+    "sourceUrl": "https://whc.unesco.org/en/list/1033/"
+  },
+  {
+    "countryId": "400",
+    "difficulty": 2,
+    "clues": [
+      "Batı Asya'da Akabe Körfezi'ne kısa bir kıyısı bulunan ülkedir.",
+      "Kızıl kumtaşı kayalara oyulmuş antik bir kervan kentiyle tanınır.",
+      "Ölü Deniz'in doğu kıyısında yer alır; başkenti Amman'dır."
+    ],
+    "fact": "Petra, Nebatilerin kayalara oyduğu anıtları ve çöl ortamında suyu toplayıp dağıtan mühendislik yapılarıyla tanınır.",
+    "sourceUrl": "https://whc.unesco.org/en/list/326/"
+  },
+  {
+    "countryId": "024",
+    "difficulty": 3,
+    "clues": [
+      "Afrika'nın güneybatısında Atlas Okyanusu'na açılan geniş kıyıları vardır.",
+      "Eski Kongo Krallığı'nın tarihî başkentinin kalıntıları bu ülkenin kuzeyindedir.",
+      "Kwanza Nehri iç kesimlerden batıya akarak okyanusa ulaşır."
+    ],
+    "fact": "Mbanza Kongo, 14.–19. yüzyıllar arasında Kongo Krallığı'nın siyasal ve ruhani merkeziydi.",
+    "sourceUrl": "https://whc.unesco.org/en/list/1511/"
+  }
 ];
 
 export const COUNTRY_CLUES: Readonly<Record<string, CountryClueCard>> =
