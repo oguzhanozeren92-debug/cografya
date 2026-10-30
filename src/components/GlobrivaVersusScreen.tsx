@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNameChange, onClose }: Props) {
-  const {t}=useLanguage();
+  const {t,language}=useLanguage();
   const [name, setName] = useState(playerName);
   const [inviteInput, setInviteInput] = useState(() => normalizeVsCode(initialInviteCode || inviteCodeFromUrl()));
   const [roomCode, setRoomCode] = useState('');
@@ -183,7 +183,7 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
   const question = room?.questions[currentIndex];
   const previousAnswer = room?.myAnswers[currentIndex - 1];
   const otherNameRaw = room?.isHost ? room.guestName : room?.hostName;
-  const otherName = room?.otherPlayerId&&blocked.has(room.otherPlayerId)?(t('Engellenen oyuncu')):otherNameRaw;
+  const otherName = room?.otherPlayerId&&blocked.has(room.otherPlayerId)?(language==='tr'?'Engellenen oyuncu':'Blocked player'):otherNameRaw;
   const myName = room?.isHost ? room.hostName : room?.guestName;
   const winning = room && room.myScore > room.otherScore;
   const draw = room && room.myScore === room.otherScore;
