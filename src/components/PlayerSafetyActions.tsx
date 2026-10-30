@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {createPortal} from 'react-dom';
 import {Ban,Flag,MoreHorizontal,X} from 'lucide-react';
 import {useLanguage} from '@/lib/i18n';
 import {blockPlayer,reportPlayer,type ReportContext,type ReportReason} from '@/lib/playerSafety';
@@ -36,7 +37,7 @@ export function PlayerSafetyActions({playerId,playerName,context,onBlocked}:{
    className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-slate-200 hover:bg-white/15">
    <MoreHorizontal size={18}/>
   </button>
-  {open&&<div role="presentation" onClick={()=>setOpen(false)}
+  {open&&createPortal(<div role="presentation" onClick={()=>setOpen(false)}
     className="fixed inset-0 z-[240] flex items-center justify-center bg-[#030917]/90 p-4 text-white">
    <section role="dialog" aria-modal="true" aria-label={m[0]} onClick={e=>e.stopPropagation()}
     className="w-full max-w-sm rounded-3xl border border-cyan-200/25 bg-[#102840] p-5 shadow-2xl">
@@ -56,6 +57,6 @@ export function PlayerSafetyActions({playerId,playerName,context,onBlocked}:{
     {status&&<p role="status" className="mt-3 text-xs text-emerald-200">{status}</p>}
     {error&&<p role="alert" className="mt-3 text-xs text-rose-200">{error}: <a href="mailto:tarlapusula@gmail.com" className="underline">support</a></p>}
    </section>
-  </div>}
+  </div>,document.body)}
  </>;
 }
