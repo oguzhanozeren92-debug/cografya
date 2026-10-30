@@ -38,10 +38,10 @@ for(const p of HISTORY_DETAIL_PHOTOS){
   list.push(p);photosByCase.set(p.caseId,list);
 }
 
-test('39 unique natural locations, 13 per level, with safe coordinates and real fact links',()=>{
-  assert.equal(geo.NATURE_POINTS.length,39);
-  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,39);
-  for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,13);
+test('42 unique natural locations, 14 per level, with safe coordinates and real fact links',()=>{
+  assert.equal(geo.NATURE_POINTS.length,42);
+  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,42);
+  for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,14);
   for(const p of geo.NATURE_POINTS){
     assert.ok(Number.isFinite(p.lat)&&Math.abs(p.lat)<=90,p.id+' lat');
     assert.ok(Number.isFinite(p.lon)&&Math.abs(p.lon)<=180,p.id+' lon');
@@ -50,16 +50,16 @@ test('39 unique natural locations, 13 per level, with safe coordinates and real 
   }
   for(const id of ['iguazu','ngorongoro','halong','atitlan','uyuni','roraima',
     'okavango','wulingyuan','turkana','socotra','tsingy','namib',
-    'plitvice','komodo','jeju','siankaan','kluane','ohrid','surtsey','tassili','lena-pillars']){
+    'plitvice','komodo','jeju','siankaan','kluane','ohrid','surtsey','tassili','lena-pillars','tongariro','nakuru','manu']){
     const p=geo.NATURE_POINTS.find(x=>x.id===id);
     assert.ok(p,'missing '+id);
     assert.match(p.sourceUrl,/^https:\/\/(?:whc\.unesco\.org|calval\.cr\.usgs\.gov|www\.visitcentroamerica\.com)\//);
   }
 });
 
-test('81 country clue cards use real country IDs, correct tiers and never name the answer',()=>{
+test('84 country clue cards use real country IDs, correct tiers and never name the answer',()=>{
   const cards=Object.values(clues.COUNTRY_CLUES);
-  assert.equal(cards.length,81);
+  assert.equal(cards.length,84);
   assert.equal(new Set(cards.map(x=>x.countryId)).size,cards.length);
   // Never disclose a country's name before the player answers, including
   // cases where the capital has exactly the same name as the country.
@@ -71,7 +71,7 @@ test('81 country clue cards use real country IDs, correct tiers and never name t
         card.countryId+' answer revealed in '+clue);
     }
   }
-  for(const id of ['152','170','192','218','050','450','834','418','242','620','191','710','188','524','352','598','417','894']){
+  for(const id of ['152','170','192','218','050','450','834','418','242','620','191','710','188','524','352','598','417','894','040','400','024']){
     const c=clues.COUNTRY_CLUES[id],country=countries.COUNTRY_DATA[id];
     assert.ok(c&&country,id+' missing country or clue');
     assert.equal(c.difficulty,country.difficulty,id+' wrong tier');
