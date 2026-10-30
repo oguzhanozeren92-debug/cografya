@@ -10,7 +10,6 @@ import { DAILY_TOTAL, getDailyDate, loadDailyProgress } from '@/lib/dailyChallen
 import { getDiscoveredCountries } from '@/lib/discovery';
 import { VALID_COUNTRY_IDS } from '@/data/countries';
 import { AtlasHomeBackdrop } from '@/components/AtlasHomeBackdrop';
-import { GeoDiscoveryArt } from '@/components/GeoDiscoveryArt';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
 import { isIosPushSupported } from '@/lib/iosPush';
 import type { GameMode, LeaderboardEntry } from '@/types';
@@ -409,15 +408,21 @@ export function StartScreen({
           transform: none; opacity: 1; overflow: hidden;
         }
         .globriva-feature-slide .feature-art svg { z-index: 0; }
+         .globriva-feature-slide .feature-art { background: linear-gradient(135deg,#0a5260,#194569 59%,#071d35); }
+         .globriva-feature-borders .feature-art::after {
+           content: ''; position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.25;
+           background:repeating-linear-gradient(12deg,transparent 0 46px,rgba(211,236,255,.30) 47px 48px,transparent 49px 96px),
+           repeating-linear-gradient(103deg,transparent 0 68px,rgba(209,237,255,.27) 69px 70px,transparent 71px 138px);
+         }
         .globriva-feature-slide .feature-photo {
           display: block; position: absolute; inset: 0; z-index: 1;
           width: 100%; height: 100%; object-fit: cover;
           filter: saturate(1.25) contrast(1.12) brightness(.95);
         }
-        .globriva-feature-slide .feature-photo-nature { object-position: 57% 47%; }
-        .globriva-feature-slide .feature-photo-islands { object-position: 53% 58%; }
+        .globriva-feature-slide .feature-photo-nature { object-position: 62% 50%; }
+        .globriva-feature-slide .feature-photo-islands { object-position: 58% 54%; }
         .globriva-feature-slide .feature-photo-borders {
-          object-position: 58% 52%;
+          object-position: 60% 50%;
           filter: saturate(.90) contrast(1.10) brightness(.91);
         }
         .globriva-feature-slide::after {
@@ -745,9 +750,8 @@ export function StartScreen({
 
             <div className="globriva-hero-slide globriva-feature-slide globriva-feature-nature">
               <div className="feature-art" aria-hidden="true">
-                <GeoDiscoveryArt mode="nature" />
                 <img className="feature-photo feature-photo-nature"
-                  src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1150&q=85"
+                   src="/drone-gallery/photos/album-010/3.jpg"
                   alt="" loading="eager" decoding="async"
                   onError={event => { event.currentTarget.style.display = 'none'; }} />
               </div>
@@ -765,9 +769,8 @@ export function StartScreen({
             </div>
             <div className="globriva-hero-slide globriva-feature-slide globriva-feature-islands">
               <div className="feature-art" aria-hidden="true">
-                <GeoDiscoveryArt mode="islands" />
                 <img className="feature-photo feature-photo-islands"
-                  src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1150&q=85"
+                   src="/drone-photos/air-001/f.jpg"
                   alt="" loading="eager" decoding="async"
                   onError={event => { event.currentTarget.style.display = 'none'; }} />
               </div>
@@ -785,9 +788,8 @@ export function StartScreen({
             </div>
             <div className="globriva-hero-slide globriva-feature-slide globriva-feature-borders">
               <div className="feature-art" aria-hidden="true">
-                <GeoDiscoveryArt mode="borders" />
                 <img className="feature-photo feature-photo-borders"
-                  src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1150&q=85"
+                   src="/drone-photos/air-003/f.jpg"
                   alt="" loading="eager" decoding="async"
                   onError={event => { event.currentTarget.style.display = 'none'; }} />
               </div>
