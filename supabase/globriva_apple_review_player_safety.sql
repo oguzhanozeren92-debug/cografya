@@ -4,8 +4,8 @@ returns boolean language sql immutable set search_path = '' as $$
   select p_name is not null
     and char_length(btrim(p_name)) between 2 and 20
     and p_name !~ '[[:cntrl:]]'
-    and lower(p_name) !~ '(https?://|www\\.|@)'
-    and lower(p_name) !~ '\\m(fuck|shit|bitch|cunt|nigger|nigga|nazi|porn|porno|sikik|orospu|amk|pic|p!c)\\M'
+    and lower(p_name) !~ '(https?://|www[.]|@)'
+    and lower(p_name) !~ '(^|[^[:alnum:]])(fuck|shit|bitch|cunt|nigger|nigga|nazi|porn|porno|sikik|orospu|amk|pic)([^[:alnum:]]|$)'
 $$;
 
 create or replace function public.geo_nickname_guard()
