@@ -412,6 +412,39 @@ export const NATURE_POINTS:NaturePoint[]=[
     "level": 3,
     "region": "Rusya / Yakutistan",
     "sourceUrl": "https://whc.unesco.org/en/list/1299/"
+  },
+  {
+    "id": "tongariro",
+    "name": "Tongariro Millî Parkı",
+    "clue": "Yeni Zelanda'nın Kuzey Adası'nda, etkin volkanların ve Māori halkı için kültürel önem taşıyan dağların bulunduğu parkı bul.",
+    "clueEn": "Find the North Island park in New Zealand with active volcanoes and mountains sacred to Māori communities.",
+    "lat": -39.2,
+    "lon": 175.58,
+    "level": 1,
+    "region": "Yeni Zelanda / Kuzey Adası",
+    "sourceUrl": "https://whc.unesco.org/en/list/421/"
+  },
+  {
+    "id": "nakuru",
+    "name": "Nakuru Gölü",
+    "clue": "Kenya'nın Büyük Rift Vadisi'nde, flamingoların beslendiği sığ ve alkali göllerden birini haritada bul.",
+    "clueEn": "Locate one of the shallow alkaline lakes in Kenya's Great Rift Valley that support feeding flamingos.",
+    "lat": -0.36,
+    "lon": 36.08,
+    "level": 2,
+    "region": "Kenya / Rift Vadisi",
+    "sourceUrl": "https://whc.unesco.org/en/list/1060/"
+  },
+  {
+    "id": "manu",
+    "name": "Manú Millî Parkı",
+    "clue": "Peru'da And Dağları'nın doğu yamaçlarından Amazon yağmur ormanlarına uzanan, büyük yükselti farklarıyla tanınan koruma alanını bul.",
+    "clueEn": "Find the Peruvian protected area spanning eastern Andean slopes and Amazonian rainforest across a dramatic elevation gradient.",
+    "lat": -12.25,
+    "lon": -71.55,
+    "level": 3,
+    "region": "Peru / Andlar-Amazon geçişi",
+    "sourceUrl": "https://whc.unesco.org/en/list/402/"
   }
 ];
 export const NATURE_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
