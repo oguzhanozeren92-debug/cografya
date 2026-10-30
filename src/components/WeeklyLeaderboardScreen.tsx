@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import type { GameMode, WeeklyLeaderboardEntry } from '@/types';
 import { useLanguage } from '@/lib/i18n';
+import { PlayerSafetyActions } from '@/components/PlayerSafetyActions';
+import { readBlockedPlayers, syncBlockedPlayers } from '@/lib/playerSafety';
 import {
   fetchMyWeeklyStanding, fetchWeeklyLeaderboard, getTimeToReset,
   getWeekLabel, type MyWeeklyStanding,
@@ -26,7 +28,7 @@ function shortName(name: string): string {
   return (parts.length > 1 ? parts[0][0] + parts[1][0] : name.slice(0, 2)).toLocaleUpperCase('tr-TR');
 }
 
-function PodiumPlayer({ entry, place }: { entry: WeeklyLeaderboardEntry | undefined; place: 1 | 2 | 3 }) {
+function PodiumPlayer({ entry, place, onBlocked, isMe }: { entry: WeeklyLeaderboardEntry | undefined; place: 1 | 2 | 3; onBlocked:()=>void; isMe:boolean }) {
   const {t}=useLanguage();
   const reduceMotion = useReducedMotion();
   const first = place === 1;
@@ -43,6 +45,7 @@ function PodiumPlayer({ entry, place }: { entry: WeeklyLeaderboardEntry | undefi
       <div className="mt-4 min-h-[43px] px-1 text-center">
         <div className="truncate text-[13px] font-extrabold text-white sm:text-sm">{entry?.player_name ?? t('Yerini al')}</div>
         <div className="mt-0.5 text-xs font-bold text-amber-100/75">{entry ? number.format(entry.score) : '—'} <span className="font-medium">{t('puan')}</span></div>
+        {entry&&!isMe&&<div className="mt-1 flex justify-center"><PlayerSafetyActions playerId={entry.player_id} playerName={entry.player_name} context="weekly" onBlocked={onBlocked}/></div>}
       </div>
       <div className={'podium-stand podium-stand-' + shade}>
         <span className="podium-stand-number">{place}</span>
@@ -61,6 +64,9 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [refresh, setRefresh] = useState(0);
+  const [blocked, setBlocked] = useState(readBlockedPlayers);
+  useEffect(()=>{let active=true;void syncBlockedPlayers().then(ids=>{if(active)setBlocked(ids)}).catch(()=>{});return()=>{active=false}},[]);
+  const updateBlocked=()=>setBlocked(readBlockedPlayers());
 
   useEffect(() => {
     let active = true;
@@ -82,8 +88,9 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
     return () => { active = false; };
   }, [mode, weekOffset, refresh]);
 
-  const topThree = rows.slice(0, 3);
-  const remaining = rows.slice(3);
+  const visibleRows=rows.filter(entry=>!blocked.has(entry.player_id));
+  const topThree = visibleRows.slice(0, 3);
+  const remaining = visibleRows.slice(3);
   const dateLabel = getWeekLabel(weekOffset,language);
 
   return (
@@ -121,7 +128,7 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
             <div className="mt-6 flex flex-wrap gap-2">
               <span className="weekly-hero-pill"><CalendarDays className="h-3.5 w-3.5" /> {dateLabel}</span>
               {weekOffset === 0 && <span className="weekly-hero-pill"><Timer className="h-3.5 w-3.5 text-amber-300" /> {getTimeToReset()} {t('kaldı')}</span>}
-              <span className="weekly-hero-pill"><Users className="h-3.5 w-3.5" /> {rows.length > 99 ? '100+' : rows.length} {t('oyuncu listede')}</span>
+              <span className="weekly-hero-pill"><Users className="h-3.5 w-3.5" /> {visibleRows.length > 99 ? '100+' : visibleRows.length} {t('oyuncu listede')}</span>
             </div>
           </div>
         </section>
@@ -145,9 +152,9 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
             <div className="flex min-h-[225px] flex-col items-center justify-center gap-3 text-center"><Shield className="h-11 w-11 text-amber-300" /><p className="max-w-[275px] text-sm leading-relaxed text-slate-300">{error}</p><button onClick={() => setRefresh(v => v + 1)} className="rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold">Yeniden Dene</button></div>
           ) : (
             <div className="relative mt-11 grid grid-cols-3 items-end gap-1 sm:gap-3">
-              <PodiumPlayer place={2} entry={topThree[1]} />
-              <PodiumPlayer place={1} entry={topThree[0]} />
-              <PodiumPlayer place={3} entry={topThree[2]} />
+              <PodiumPlayer place={2} entry={topThree[1]} onBlocked={updateBlocked} isMe={mine?.entry.player_id===topThree[1]?.player_id}/>
+              <PodiumPlayer place={1} entry={topThree[0]} onBlocked={updateBlocked} isMe={mine?.entry.player_id===topThree[0]?.player_id}/>
+              <PodiumPlayer place={3} entry={topThree[2]} onBlocked={updateBlocked} isMe={mine?.entry.player_id===topThree[2]?.player_id}/>
             </div>
           )}
         </section>
@@ -167,8 +174,8 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
 
         <section className="mt-6 rounded-[24px] border border-white/10 bg-[#111a35]/80 p-4 sm:p-5">
           <div className="mb-4 flex items-center justify-between"><div className="flex items-center gap-2"><Award className="h-5 w-5 text-amber-300" /><h2 className="text-base font-extrabold">{t('Tüm Sıralama')}</h2></div><span className="text-[10px] font-bold tracking-wider text-slate-400">{t('İLK 100')}</span></div>
-          {!loading && !error && rows.length === 0 && <div className="weekly-empty">{mode === 'flags' ? <Flag className="h-12 w-12 text-amber-300/70" /> : mode === 'clues' ? <Lightbulb className="h-12 w-12 text-violet-300/70" /> : <Globe2 className="h-12 w-12 text-cyan-300/70" />}<p className="mt-3 font-bold text-white">{t('İlk kaşif sen ol!')}</p><p className="mt-1 text-sm text-slate-400">{t('Bu hafta henüz kimse puan kazanmadı.')}</p></div>}
-          {!loading && !error && rows.length > 0 && remaining.length === 0 && <p className="rounded-xl bg-white/5 p-4 text-center text-xs text-slate-400">{t('İlk üç oyuncu yukarıdaki podyumda. Yeni rakipler bu listede belirecek.')}</p>}
+          {!loading && !error && visibleRows.length === 0 && <div className="weekly-empty">{mode === 'flags' ? <Flag className="h-12 w-12 text-amber-300/70" /> : mode === 'clues' ? <Lightbulb className="h-12 w-12 text-violet-300/70" /> : <Globe2 className="h-12 w-12 text-cyan-300/70" />}<p className="mt-3 font-bold text-white">{t('İlk kaşif sen ol!')}</p><p className="mt-1 text-sm text-slate-400">{t('Bu hafta henüz kimse puan kazanmadı.')}</p></div>}
+          {!loading && !error && visibleRows.length > 0 && remaining.length === 0 && <p className="rounded-xl bg-white/5 p-4 text-center text-xs text-slate-400">{t('İlk üç oyuncu yukarıdaki podyumda. Yeni rakipler bu listede belirecek.')}</p>}
           {!loading && !error && remaining.length > 0 && <div className="space-y-2">
             {remaining.map((entry, index) => (
               <div key={entry.id} className={'weekly-ranking-row' + (mine?.entry.player_id === entry.player_id ? ' weekly-ranking-self' : '')}>
@@ -176,7 +183,7 @@ export function WeeklyLeaderboardScreen({ playerName, onClose, onPlay, initialMo
                 <div className="weekly-mini-avatar">{shortName(entry.player_name)}</div>
                 <div className="min-w-0 flex-1"><div className="truncate text-sm font-bold text-white">{entry.player_name}</div><div className="text-[10px] text-slate-400">{entry.correct_answers} {t('doğru')} • {entry.games_played} {t('oyun')}</div></div>
                 <span className="shrink-0 text-sm font-black text-amber-100">{number.format(entry.score)}</span>
-                <ChevronRight className="h-4 w-4 shrink-0 text-white/20" />
+                {mine?.entry.player_id!==entry.player_id?<PlayerSafetyActions playerId={entry.player_id} playerName={entry.player_name} context="weekly" onBlocked={updateBlocked}/>:<ChevronRight className="h-4 w-4 shrink-0 text-white/20" />}
               </div>
             ))}
           </div>}
