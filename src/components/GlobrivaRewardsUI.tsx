@@ -119,16 +119,6 @@ export function GlobrivaAwardsScreen() {
           </article>)}
         </div>
       </section>
-      <section className="mt-4 rounded-2xl border border-rose-300/20 bg-[#102b43] p-4">
-        <h2 className="text-sm font-black text-rose-100">{language==='tr'?'Hesap ve veri yönetimi':'Account and data'}</h2>
-        <p className="mt-2 text-xs leading-5 text-slate-300">{language==='tr'?'Bu işlem anonim oyuncu hesabını, çevrim içi puanlarını, sıralama kayıtlarını ve cihazdaki oyun ilerlemeni kalıcı olarak siler.':'This permanently deletes your anonymous player account, online scores and leaderboard entries, and locally saved game progress.'}</p>
-        {!deleteOpen?<button type="button" onClick={()=>setDeleteOpen(true)} className="mt-3 w-full rounded-xl border border-rose-300/40 px-4 py-3 text-sm font-bold text-rose-200">{deleteLabel}</button>
-        :<div className="mt-3 space-y-2"><p className="text-xs text-rose-200">{language==='tr'?'Kalıcı silmeyi onaylıyor musun?':'Confirm permanent deletion?'}</p>
-          <button type="button" disabled={deleting} onClick={()=>{setDeleteOpen(false);setDeleteError('')}} className="w-full rounded-xl bg-white/10 p-3 text-sm font-semibold">{language==='tr'?'Vazgeç':'Cancel'}</button>
-          <button type="button" disabled={deleting} onClick={async()=>{setDeleting(true);setDeleteError('');try{await deleteMyPlayerData();window.location.reload()}catch{setDeleteError(language==='tr'?'Hesap silinemedi. İnternet bağlantını kontrol et veya destek ile iletişime geç.':'Could not delete the account. Check your connection or contact support.');setDeleting(false)}}} className="w-full rounded-xl bg-rose-400 p-3 text-sm font-bold text-[#141c2b] disabled:opacity-60">{deleting?'...':deleteLabel}</button>
-        </div>}
-        {deleteError&&<p role="alert" className="mt-2 text-xs text-rose-200">{deleteError}</p>}
-      </section>
     </div>
   </main>;
 }
@@ -189,6 +179,16 @@ export function GlobrivaProfileScreen({
       <section className="mt-4 grid grid-cols-2 gap-3">
         <a href="/privacy.html" className="flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-4 text-center text-xs font-bold"><ShieldCheck size={16}/>{t('Gizlilik')}</a>
         <a href="/support.html" className="flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-4 text-center text-xs font-bold"><Globe2 size={16}/>{t('Destek')}</a>
+      </section>
+      <section className="mt-4 rounded-2xl border border-rose-300/20 bg-[#102b43] p-4">
+        <h2 className="text-sm font-black text-rose-100">{language==='tr'?'Hesap ve veri yönetimi':'Account and data'}</h2>
+        <p className="mt-2 text-xs leading-5 text-slate-300">{language==='tr'?'Bu işlem anonim oyuncu hesabını, çevrim içi puanlarını, sıralama kayıtlarını ve cihazdaki oyun ilerlemeni kalıcı olarak siler.':'This permanently deletes your anonymous player account, online scores and leaderboard entries, and locally saved game progress.'}</p>
+        {!deleteOpen?<button type="button" onClick={()=>setDeleteOpen(true)} className="mt-3 w-full rounded-xl border border-rose-300/40 px-4 py-3 text-sm font-bold text-rose-200">{deleteLabel}</button>
+        :<div className="mt-3 space-y-2"><p className="text-xs text-rose-200">{language==='tr'?'Kalıcı silmeyi onaylıyor musun?':'Confirm permanent deletion?'}</p>
+          <button type="button" disabled={deleting} onClick={()=>{setDeleteOpen(false);setDeleteError('')}} className="w-full rounded-xl bg-white/10 p-3 text-sm font-semibold">{language==='tr'?'Vazgeç':'Cancel'}</button>
+          <button type="button" disabled={deleting} onClick={async()=>{setDeleting(true);setDeleteError('');try{await deleteMyPlayerData();window.location.reload()}catch{setDeleteError(language==='tr'?'Hesap silinemedi. İnternet bağlantını kontrol et veya destek ile iletişime geç.':'Could not delete the account. Check your connection or contact support.');setDeleting(false)}}} className="w-full rounded-xl bg-rose-400 p-3 text-sm font-bold text-[#141c2b] disabled:opacity-60">{deleting?'...':deleteLabel}</button>
+        </div>}
+        {deleteError&&<p role="alert" className="mt-2 text-xs text-rose-200">{deleteError}</p>}
       </section>
     </div>
   </main>;
