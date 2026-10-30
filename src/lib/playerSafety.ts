@@ -29,8 +29,8 @@ export async function blockPlayer(id:string){
  const ids=readBlockedPlayers();ids.add(id);save(ids);
  if(!backend)return;
  try{const me=await getPlayerId();if(me===id)return;
- const {error}=await backend.from('geo_player_blocks').upsert({blocker_id:me,blocked_id:id});
- if(error)console.warn('Block sync:',error.message);}catch{/*local block stays in place*/}
+ const {error}=await backend.from('geo_player_blocks').insert({blocker_id:me,blocked_id:id});
+ if(error&&error.code!=='23505')console.warn('Block sync:',error.message);}catch{/*local block stays in place*/}
 }
 export async function reportPlayer(id:string,name:string,context:ReportContext,reason:ReportReason){
  if(!backend)throw new Error('Reporting unavailable');
