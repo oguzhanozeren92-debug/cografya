@@ -11,6 +11,8 @@ import {
 import { COUNTRY_DATA } from '@/data/countries';
 import { useLanguage } from '@/lib/i18n';
 import { Capacitor } from '@capacitor/core';
+import { PlayerSafetyActions } from '@/components/PlayerSafetyActions';
+import { nicknameError, readBlockedPlayers, syncBlockedPlayers } from '@/lib/playerSafety';
 
 interface Props {
   playerName: string;
@@ -33,6 +35,8 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
   const [answerInfoOpen, setAnswerInfoOpen] = useState(false);
   const [answerInfoRead, setAnswerInfoRead] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [blocked,setBlocked]=useState(readBlockedPlayers);
+  useEffect(()=>{let mounted=true;void syncBlockedPlayers().then(ids=>{if(mounted)setBlocked(ids)}).catch(()=>{});return()=>{mounted=false}},[]);
   const autoJoined = useRef(false);
 
   const refresh = useCallback(async (code: string) => {
@@ -64,9 +68,10 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
 
   const enterRoom = useCallback(async (asHost: boolean, supplied?: string) => {
     if (busy) return;
+    const invalid=nicknameError(name);
     const clean = name.trim().slice(0, 20);
-    if (clean.length < 2) {
-      setError('Önce en az 2 karakterli bir takma ad yaz.');
+    if (invalid) {
+      setError(invalid);
       return;
     }
     const code = normalizeVsCode(supplied || inviteInput);
@@ -177,7 +182,8 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
   const currentIndex = room?.myAnswers.length || 0;
   const question = room?.questions[currentIndex];
   const previousAnswer = room?.myAnswers[currentIndex - 1];
-  const otherName = room?.isHost ? room.guestName : room?.hostName;
+  const otherNameRaw = room?.isHost ? room.guestName : room?.hostName;
+  const otherName = room?.otherPlayerId&&blocked.has(room.otherPlayerId)?(t('Engellenen oyuncu')):otherNameRaw;
   const myName = room?.isHost ? room.hostName : room?.guestName;
   const winning = room && room.myScore > room.otherScore;
   const draw = room && room.myScore === room.otherScore;
@@ -243,7 +249,9 @@ export function GlobrivaVersusScreen({ playerName, initialInviteCode = '', onNam
               <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-center">
                 <div className="rounded-2xl bg-cyan-300/10 p-3"><div className="truncate text-xs font-bold text-cyan-200">{myName}</div><div className="mt-1 text-3xl font-black">{room.myScore}</div><small className="text-[11px] text-cyan-100/70">{room.myAnswers.length}/10</small></div>
                 <span className="text-xl font-black text-rose-300">VS</span>
-                <div className="rounded-2xl bg-rose-300/10 p-3"><div className="truncate text-xs font-bold text-rose-200">{otherName || t('Rakip bekleniyor')}</div><div className="mt-1 text-3xl font-black">{room.otherScore}</div><small className="text-[11px] text-rose-100/70">{room.otherCount}/10</small></div>
+                <div className="rounded-2xl bg-rose-300/10 p-3"><div className="truncate text-xs font-bold text-rose-200">{otherName || t('Rakip bekleniyor')}</div><div className="mt-1 text-3xl font-black">{room.otherScore}</div><small className="text-[11px] text-rose-100/70">{room.otherCount}/10</small>
+                  {room.otherPlayerId&&otherNameRaw&&!blocked.has(room.otherPlayerId)&&<div className="mt-2 flex justify-center"><PlayerSafetyActions playerId={room.otherPlayerId} playerName={otherNameRaw} context="versus" onBlocked={()=>setBlocked(readBlockedPlayers())}/></div>}
+                </div>
               </div>
             </div>
 
