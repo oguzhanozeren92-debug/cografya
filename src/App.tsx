@@ -29,6 +29,7 @@ import { celebrateGame, isSoundEnabled, playGameSound, saveSoundEnabled } from '
 import { useEffect, useRef, useState } from 'react';
 import type { GameMode } from '@/types';
 import { backend, getSavedName, changePlayerName, getPlayerId, setSavedName } from '@/lib/leaderboard';
+import { nicknameError } from '@/lib/playerSafety';
 
 function App() {
   const game = useGame();
@@ -151,6 +152,8 @@ function App() {
   };
   const openWeekly = (mode: GameMode) => { setWeeklyMode(mode); setWeeklyOpen(true); };
   const updateName = async (name: string) => {
+    const invalid=nicknameError(name,language);
+    if(invalid)throw new Error(invalid);
     const clean = name.trim().slice(0, 20);
     // A nickname should be enough to play on this device even before Supabase is connected.
     setSavedName(clean);
