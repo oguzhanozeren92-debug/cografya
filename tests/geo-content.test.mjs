@@ -143,3 +143,13 @@ test('border and island targets are backed by the actual Natural Earth geometry'
   assert.ok(focus.length>=30,'insufficient border geometry');
   assert.equal(new Set(geo.BORDER_FOCUS).size,geo.BORDER_FOCUS.length);
 });
+
+// Missing signals used to show Turkish text to players in other languages.
+test('every country clue card has a localization signal',()=>{
+  const source=readFileSync(resolve(root,'src/lib/clueLanguage.ts'),'utf8');
+  const ids=[...source.matchAll(/'(\d{3})':\{region:/g)].map(m=>m[1]);
+  const cards=Object.values(clues.COUNTRY_CLUES);
+  assert.equal(new Set(ids).size,ids.length,'duplicate localization ID');
+  assert.equal(ids.length,cards.length,'country localization coverage');
+  for(const card of cards)assert.ok(ids.includes(card.countryId),'missing locale '+card.countryId);
+});
