@@ -6,6 +6,8 @@ import { backend } from '@/lib/leaderboard';
 import { getGeoStars } from '@/lib/geoRewards';
 import { GeoStarRow } from '@/components/GeoStarRow';
 import { useLanguage } from '@/lib/i18n';
+import { PlayerSafetyActions } from '@/components/PlayerSafetyActions';
+import { readBlockedPlayers, syncBlockedPlayers } from '@/lib/playerSafety';
 import { motion, useReducedMotion } from 'motion/react';
 import { celebrateGame, playGameSound } from '@/lib/gameFx';
 import { FxErrorBoundary } from '@/components/FxErrorBoundary';
@@ -46,6 +48,9 @@ export function GameOverScreen({
   }, [correctAnswers]);
   const [saveState, setSaveState] = useState<'saving' | 'saved' | 'error' | 'offline'>(backend ? 'saving' : 'offline');
   const [saveError, setSaveError] = useState('');
+  const [blocked,setBlocked]=useState(readBlockedPlayers);
+  useEffect(()=>{let mounted=true;void syncBlockedPlayers().then(ids=>{if(mounted)setBlocked(ids)}).catch(()=>{});return()=>{mounted=false}},[]);
+  const visibleLeaderboard=leaderboard.filter(row=>!blocked.has(row.player_id));
   const save = async () => {
     if (!backend) { setSaveState('offline'); return; }
     setSaveState('saving');
@@ -102,14 +107,14 @@ export function GameOverScreen({
           {saveState === 'error' && <div className="mt-2"><p className="text-rose-400">{saveError}</p><button onClick={() => void save()} className="mt-2 rounded-lg bg-blue-600 px-3 py-2 text-white">{t('Tekrar Dene')}</button></div>}
         </div>
 
-        {mode === 'mixed' && leaderboard.length > 0 && (
+        {mode === 'mixed' && visibleLeaderboard.length > 0 && (
           <div className="mb-5">
             <div className="mb-2 flex items-center gap-2 text-amber-400">
               <Trophy className="h-4 w-4" />
               <span className="text-xs font-semibold tracking-wider uppercase">{t('Dünya Sıralaması')}</span>
             </div>
             <div className="max-h-40 space-y-1.5 overflow-y-auto pr-1">
-              {leaderboard.slice(0, 10).map((entry, i) => (
+              {visibleLeaderboard.slice(0, 10).map((entry, i) => (
                 <div
                   key={entry.id}
                   className={`flex items-center justify-between rounded-lg px-3 py-1.5 text-sm ${
@@ -127,6 +132,7 @@ export function GameOverScreen({
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-slate-500">{entry.correct_answers}/{entry.total_questions}</span>
                     <span className="font-semibold text-white">{entry.score}</span>
+                    <PlayerSafetyActions playerId={entry.player_id} playerName={entry.player_name} context="global" onBlocked={()=>setBlocked(readBlockedPlayers())}/>
                   </div>
                 </div>
               ))}
