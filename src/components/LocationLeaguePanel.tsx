@@ -4,6 +4,8 @@ import { backend } from '@/lib/leaderboard';
 import { fetchStreetLeaders, type StreetRank } from '@/lib/streetLeaderboard';
 import { fetchDroneLeaders } from '@/lib/droneLeaderboard';
 import { useLanguage } from '@/lib/i18n';
+import { PlayerSafetyActions } from '@/components/PlayerSafetyActions';
+import { readBlockedPlayers, syncBlockedPlayers } from '@/lib/playerSafety';
 
 type LocationMode='street'|'drone';
 export function LocationLeaguePanel({
@@ -18,6 +20,9 @@ export function LocationLeaguePanel({
   const [loading,setLoading]=useState(true);
   const [error,setError]=useState('');
   const [reload,setReload]=useState(0);
+  const [blocked,setBlocked]=useState(readBlockedPlayers);
+  useEffect(()=>{let active=true;void syncBlockedPlayers().then(ids=>{if(active)setBlocked(ids)}).catch(()=>{});return()=>{active=false}},[]);
+  const visibleRows=rows.filter(row=>!blocked.has(row.player_id));
   useEffect(()=>{
     let active=true;
     setLoading(true);setError('');
@@ -72,12 +77,13 @@ export function LocationLeaguePanel({
     </div>}
     {loading?<p className="py-8 text-center text-sm text-blue-200">{t('Sıralama yükleniyor...')}</p>:
       error?<p role="alert" className="rounded-xl border border-amber-400/30 bg-amber-400/5 p-4 text-sm text-amber-100">{error}</p>:
-      rows.length===0?<div className="py-8 text-center text-sm text-blue-100/80"><Users className="mx-auto mb-2 h-8 w-8 text-amber-300"/>{t('Bu ligde ilk puanı sen kaydedebilirsin!')}</div>:
+      visibleRows.length===0?<div className="py-8 text-center text-sm text-blue-100/80"><Users className="mx-auto mb-2 h-8 w-8 text-amber-300"/>{t('Bu ligde ilk puanı sen kaydedebilirsin!')}</div>:
       <div className="max-h-[52dvh] space-y-2 overflow-y-auto">
-        {rows.map((player,index)=><div key={player.player_id} className={'flex items-center gap-3 rounded-xl border p-3 '+(me===player.player_id?'border-cyan-300/40 bg-cyan-300/10':'border-white/10 bg-white/5')}>
+        {visibleRows.map((player,index)=><div key={player.player_id} className={'flex items-center gap-3 rounded-xl border p-3 '+(me===player.player_id?'border-cyan-300/40 bg-cyan-300/10':'border-white/10 bg-white/5')}>
           <span className={'w-8 shrink-0 text-center font-black '+(index===0?'text-amber-300':'text-slate-300')}>{index+1}.</span>
           <span className="min-w-0 flex-1 truncate text-sm font-semibold">{player.player_name}</span>
           <span className="shrink-0 text-sm font-black text-amber-100">{player.score.toLocaleString(language)}</span>
+          {player.player_id!==me&&<PlayerSafetyActions playerId={player.player_id} playerName={player.player_name} context={mode} onBlocked={()=>setBlocked(readBlockedPlayers())}/>}
         </div>)}
       </div>}
     <p className="text-center text-[11px] text-blue-200/65">{t("Her pazartesi 00.00 UTC'de haftalık lig yenilenir. Para ödüllü resmî yarışmalar için anti-hile denetimi ayrıca gereklidir.")}</p>
