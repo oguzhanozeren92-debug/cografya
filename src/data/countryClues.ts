@@ -857,6 +857,39 @@ const cards: CountryClueCard[] = [
     ],
     "fact": "Mbanza Kongo, 14.–19. yüzyıllar arasında Kongo Krallığı'nın siyasal ve ruhani merkeziydi.",
     "sourceUrl": "https://whc.unesco.org/en/list/1511/"
+  },
+  {
+    "countryId": "144",
+    "difficulty": 2,
+    "clues": [
+      "Hint Okyanusu'nda, Hindistan'ın güneyine yakın büyük bir adada yer alır.",
+      "Tropikal ormanların üzerinde yükselen kayalık bir tepede 5. yüzyıldan kalma saray kalıntıları bulunur.",
+      "Çay yetiştirilen dağlık bölgeleri ve Kandy kentindeki tarihî tapınağıyla tanınır."
+    ],
+    "fact": "Sigiriya'daki kayalık saray yerleşimi 5. yüzyılda Kral Kassapa döneminde gelişti ve UNESCO Dünya Mirası listesindedir.",
+    "sourceUrl": "https://whc.unesco.org/en/list/202/"
+  },
+  {
+    "countryId": "686",
+    "difficulty": 2,
+    "clues": [
+      "Batı Afrika'da Atlas Okyanusu kıyısında, Sahel kuşağından kıyı ovalarına uzanan bir ülkedir.",
+      "Başkentinin yakınındaki küçük bir ada, Atlantik köle ticaretinin acı tarihini hatırlatan önemli bir miras alanıdır.",
+      "Dakar'ın bulunduğu Cap-Vert Yarımadası, Afrika ana karasının en batıdaki uçlarından biridir."
+    ],
+    "fact": "Dakar açıklarındaki Gorée Adası, Atlantik köle ticareti tarihinin hatırlanması açısından önemli bir UNESCO Dünya Mirası alanıdır.",
+    "sourceUrl": "https://whc.unesco.org/en/list/26/"
+  },
+  {
+    "countryId": "204",
+    "difficulty": 3,
+    "clues": [
+      "Batı Afrika'da Gine Körfezi'ne kıyısı olan ve güneyinde lagünler bulunan bir ülkedir.",
+      "Abomey'deki tarihî kraliyet sarayları, 17.–19. yüzyıllarda hüküm süren güçlü bir krallığın izlerini taşır.",
+      "Resmî başkenti Porto-Novo'dur; hükümetin birçok kurumu ise Kotonu kentindedir."
+    ],
+    "fact": "Abomey Kraliyet Sarayları, Dahomey Krallığı'nın tarihî yönetim merkezinin izlerini taşır ve UNESCO Dünya Mirası listesindedir.",
+    "sourceUrl": "https://whc.unesco.org/en/list/323/"
   }
 ];
 
