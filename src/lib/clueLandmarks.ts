@@ -176,6 +176,46 @@ const supplemental=Object.fromEntries(Object.entries(supplementalNative).map(([l
   [language,Object.fromEntries(supplementalIds.map((id,i)=>[id,labels[i]]))]
 )) as Partial<Record<Language,Record<string,string>>>;
 
+
+// Localised feature names for the 31 October 2026 source-backed clues.
+const latestNative:Partial<Record<Language,Record<string,string>>> = {
+  "es": {
+    "144": "la fortaleza rocosa de Sigiriya",
+    "204": "los palacios reales de Abomey",
+    "686": "la isla de Gorée"
+  },
+  "de": {
+    "144": "die Felsenfestung Sigiriya",
+    "204": "die Königspaläste von Abomey",
+    "686": "die Insel Gorée"
+  },
+  "fr": {
+    "144": "la forteresse rocheuse de Sigiriya",
+    "204": "les palais royaux d'Abomey",
+    "686": "l'île de Gorée"
+  },
+  "pt": {
+    "144": "a fortaleza rochosa de Sigiriya",
+    "204": "os palácios reais de Abomey",
+    "686": "a ilha de Gorée"
+  },
+  "ru": {
+    "144": "скальную крепость Сигирия",
+    "204": "королевские дворцы Абомея",
+    "686": "остров Горе"
+  },
+  "zh": {
+    "144": "锡吉里耶岩石堡垒",
+    "204": "阿波美王宫",
+    "686": "戈雷岛"
+  },
+  "ja": {
+    "144": "シーギリヤの岩上要塞",
+    "204": "アボメイの王宮群",
+    "686": "ゴレ島"
+  }
+};
+
 export function localizedClueFeature(id:string,language:Language,english:string):string{
-  return supplemental[language]?.[id]??lookups[language]?.[id]??english;
+  return latestNative[language]?.[id]??supplemental[language]?.[id]??lookups[language]?.[id]??english;
 }
