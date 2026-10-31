@@ -445,6 +445,39 @@ export const NATURE_POINTS:NaturePoint[]=[
     "level": 3,
     "region": "Peru / Andlar-Amazon geçişi",
     "sourceUrl": "https://whc.unesco.org/en/list/402/"
+  },
+  {
+    "id": "uluru",
+    "name": "Uluru-Kata Tjuta Millî Parkı",
+    "clue": "Avustralya'nın iç kesimlerindeki kızıl çöl düzlüğünde dev bir kumtaşı kütlesi ve kaya kubbelerinin bulunduğu millî parkı haritada bul.",
+    "clueEn": "Find the central Australian national park with a giant sandstone monolith and rock domes rising above a red desert plain.",
+    "lat": -25.3444,
+    "lon": 131.0369,
+    "level": 1,
+    "region": "Avustralya / Kuzey Toprakları",
+    "sourceUrl": "https://whc.unesco.org/en/list/447/"
+  },
+  {
+    "id": "banc-arguin",
+    "name": "Banc d'Arguin Millî Parkı",
+    "clue": "Moritanya'nın Atlas Okyanusu kıyısında kumulların, sığ deniz alanlarının ve göçmen kuşların buluştuğu koruma alanını bul.",
+    "clueEn": "Locate the Mauritanian Atlantic coastal park where dunes, shallow seas and islands shelter large numbers of migratory birds.",
+    "lat": 20.2347,
+    "lon": -16.1089,
+    "level": 2,
+    "region": "Moritanya / Atlas Okyanusu",
+    "sourceUrl": "https://whc.unesco.org/en/list/506/"
+  },
+  {
+    "id": "sangay",
+    "name": "Sangay Millî Parkı",
+    "clue": "Ekvador Andları'nda buzullardan yağmur ormanlarına uzanan, etkin volkanları ve dağ tapirlerini barındıran koruma alanını bul.",
+    "clueEn": "Find the Ecuadorian Andean park spanning glaciers and rainforest, with active volcanoes and mountain tapirs.",
+    "lat": -1.8333,
+    "lon": -78.3333,
+    "level": 3,
+    "region": "Ekvador / And Dağları",
+    "sourceUrl": "https://whc.unesco.org/en/list/260/"
   }
 ];
 export const NATURE_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
