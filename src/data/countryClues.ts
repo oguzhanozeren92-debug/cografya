@@ -891,6 +891,40 @@ const cards: CountryClueCard[] = [
     "fact": "Abomey Kraliyet Sarayları, Dahomey Krallığı'nın tarihî yönetim merkezinin izlerini taşır ve UNESCO Dünya Mirası listesindedir.",
     "sourceUrl": "https://whc.unesco.org/en/list/323/"
   }
+,
+  {
+    "countryId": "203",
+    "difficulty": 1,
+    "clues": [
+      "Orta Avrupa'da, tarihî kent merkezleri ve nehir vadileriyle tanınan bir ülkedir.",
+      "Vltava Nehri üzerindeki taş köprü ve Orta Çağ'dan kalma kale yerleşimi başkentinin simgelerindendir.",
+      "Başkentinin adı Prag'dır."
+    ],
+    "fact": "Prag'ın tarihî merkezi, Gotik ve Barok dönemlere ait yapılarıyla UNESCO Dünya Mirası listesindedir.",
+    "sourceUrl": "https://whc.unesco.org/en/list/616/"
+  },
+  {
+    "countryId": "512",
+    "difficulty": 2,
+    "clues": [
+      "Arap Yarımadası'nın güneydoğusunda, hem Arap Denizi'ne hem de bir körfeze kıyısı olan ülkedir.",
+      "Güneyindeki Dhofar bölgesi, eski çağlarda tütsü reçinesi ticaretiyle önemli bir merkezdi.",
+      "Başkentinin adı Maskat'tır."
+    ],
+    "fact": "Dhofar'daki günlük ağaçları, kervan vahası ve eski limanlar, tarihî günlük ticaretinin izlerini taşır.",
+    "sourceUrl": "https://whc.unesco.org/en/list/1010/"
+  },
+  {
+    "countryId": "762",
+    "difficulty": 3,
+    "clues": [
+      "Orta Asya'nın güneydoğusunda, büyük bölümü yüksek dağlarla kaplı, denize kıyısı olmayan bir ülkedir.",
+      "Pamir Dağları'ndaki yüksek platolar, buzullar ve derin vadiler coğrafyasını belirler.",
+      "Başkentinin adı Duşanbe'dir."
+    ],
+    "fact": "Pamir Dağları'ndaki millî park, kutup bölgeleri dışındaki en uzun vadi buzullarından birini barındırır.",
+    "sourceUrl": "https://whc.unesco.org/en/list/1252/"
+  }
 ];
 
 export const COUNTRY_CLUES: Readonly<Record<string, CountryClueCard>> =
