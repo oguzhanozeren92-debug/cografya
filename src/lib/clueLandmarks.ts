@@ -180,36 +180,57 @@ const supplemental=Object.fromEntries(Object.entries(supplementalNative).map(([l
 // Localised feature names for the 31 October 2026 source-backed clues.
 const latestNative:Partial<Record<Language,Record<string,string>>> = {
   "es": {
+    "203": "el puente de Carlos de Praga",
+    "512": "el comercio histórico del incienso",
+    "762": "las montañas del Pamir",
     "144": "la fortaleza rocosa de Sigiriya",
     "204": "los palacios reales de Abomey",
     "686": "la isla de Gorée"
   },
   "de": {
+    "203": "die Karlsbrücke in Prag",
+    "512": "den historischen Weihrauchhandel",
+    "762": "das Pamirgebirge",
     "144": "die Felsenfestung Sigiriya",
     "204": "die Königspaläste von Abomey",
     "686": "die Insel Gorée"
   },
   "fr": {
+    "203": "le pont Charles de Prague",
+    "512": "le commerce historique de l'encens",
+    "762": "les montagnes du Pamir",
     "144": "la forteresse rocheuse de Sigiriya",
     "204": "les palais royaux d'Abomey",
     "686": "l'île de Gorée"
   },
   "pt": {
+    "203": "a Ponte Carlos em Praga",
+    "512": "o comércio histórico do incenso",
+    "762": "as montanhas do Pamir",
     "144": "a fortaleza rochosa de Sigiriya",
     "204": "os palácios reais de Abomey",
     "686": "a ilha de Gorée"
   },
   "ru": {
+    "203": "Карловым мостом в Праге",
+    "512": "исторической торговлей ладаном",
+    "762": "Памирскими горами",
     "144": "скальную крепость Сигирия",
     "204": "королевские дворцы Абомея",
     "686": "остров Горе"
   },
   "zh": {
+    "203": "布拉格查理大桥",
+    "512": "古代乳香贸易",
+    "762": "帕米尔高原",
     "144": "锡吉里耶岩石堡垒",
     "204": "阿波美王宫",
     "686": "戈雷岛"
   },
   "ja": {
+    "203": "プラハのカレル橋",
+    "512": "歴史的な乳香交易",
+    "762": "パミール高原",
     "144": "シーギリヤの岩上要塞",
     "204": "アボメイの王宮群",
     "686": "ゴレ島"
