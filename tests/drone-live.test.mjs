@@ -110,7 +110,10 @@ test('thirteen four-image albums create a live 52-image library',async()=>{
   assert.equal(res.body.rows.length,13);
   assert.equal(res.body.media[0].media.mode,'gallery');
   assert.equal(res.body.media[0].media.images.length,4);
-  assert.ok(res.body.media[0].media.images[0].url.endsWith('/1.jpg'));
+  // The gallery rotates its starting angle; all four real source filenames
+  // must remain present, but the first one is intentionally randomized.
+  const galleryUrls=res.body.media[0].media.images.map(image=>image.url);
+  assert.deepEqual(galleryUrls.map(url=>url.match(/\/(\d)\.jpg$/)?.[1]).sort(),['1','2','3','4']);
   assert.ok(res.body.media[0].media.images[0].credit.source.includes('commons.wikimedia.org'));
 });
 
