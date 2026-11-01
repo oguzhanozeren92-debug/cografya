@@ -38,7 +38,7 @@ export function StreetPhoto({
   const {t}=useLanguage();
   const [face,setFace]=useState(0);
   const gallery=round.media.mode==='gallery';
-  const totalPhotos=gallery?round.media.images.length:FACES.length;
+  const totalPhotos=round.media.mode==='gallery'?round.media.images.length:FACES.length;
   const [retry,setRetry]=useState(0);
   const [useRemoteFallback,setUseRemoteFallback]=useState(false);
   const [state,setState]=useState<'loading'|'ready'|'error'>('loading');
