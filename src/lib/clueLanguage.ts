@@ -80,7 +80,10 @@ const signals:Record<string,Signal>={
   '024':{region:'southAfrica',feature:"Mbanza Kongo"},
   '144':{region:'southAsia',feature:'the rock fortress of Sigiriya'},
   '686':{region:'westAfrica',feature:'Gorée Island'},
-  '204':{region:'westAfrica',feature:'the Royal Palaces of Abomey'}
+  '204':{region:'westAfrica',feature:'the Royal Palaces of Abomey'},
+  '203':{region:'eu',feature:'Prague’s Charles Bridge'},
+  '512':{region:'westAsia',feature:'the historic frankincense trade'},
+  '762':{region:'centralAsia',feature:'the Pamir Mountains'}
 };
 const templates:Record<Exclude<Language,'tr'>,{
   region:(name:string)=>string;landmark:(feature:string)=>string;capital:(capital:string)=>string;
