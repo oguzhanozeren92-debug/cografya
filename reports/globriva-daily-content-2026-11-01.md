@@ -61,7 +61,7 @@ Vercel Sandbox içinde GitHub'dan alınan güncel kaynaklar ve gerçek 148 Sokak
 - Değiştirilen 5 TypeScript dosyası TypeScript 5.5.4 ile transpile edildi, sözdizimi tanısı **0**.
 - Drone galeri testindeki 'ilk resim her zaman 1.jpg' varsayımı hatalıydı; uygulama ilk açıyı kasıtlı olarak rastgele seçiyor. Test artık 1–4 dosyalarının tamamının varlığını kontrol ediyor.
 - GitHub Actions 1 Kasım çalışmasında TypeScript'in 8 hatası belirlendi: `LeaderboardEntry.player_id` (2), `VsRoom.otherPlayerId` (5), `StreetPhoto` union narrowing (1). İsteğe bağlı kullanıcı kimlikleri güvenle kontrol edildi, `StreetPhoto` doğrudan discriminant ile daraltıldı. Son GitHub Actions `Atlas Arena Admin Panel CI` çalışması **başarılı**: yerelleştirme, Sokak testleri, `npm run typecheck` ve `npm run build` geçti (run 41290697682). Drone galeri CI da başarıyla tamamlandı (run 41290568989).
-- **Tam uygulama `npm run typecheck` ve `npm run build` GitHub Actions'ta başarıyla çalıştı.** Sandbox'ta ayrıca 32 Node testi geçti. Son Vercel üretim dağıtımının yeni GitHub HEAD'i içerdiği henüz doğrulanmadı; son görülen READY dağıtım `6a137b919ff1` commit'ine aitti.
+- **Tam uygulama `npm run typecheck` ve `npm run build` GitHub Actions'ta başarıyla çalıştı.** Sandbox'ta ayrıca 32 Node testi geçti. Son Vercel üretim dağıtımı yeni GitHub HEAD'i içermiyor: son görülen READY dağıtım `6a137b919ff1` commit'ine ait. Yeni üretim dağıtımı açıkça denendi ancak Vercel **HTTP 402 / `api-deployments-free-per-day`** kotasına takıldı (ücretsiz planda 100'den fazla günlük API deployment, yaklaşık 1 gün bekleme bildirimi). GitHub kaynak ve CI başarıyla güncellendi; son içeriklerin Vercel'de görünmesi için kota yenilendikten sonra yeni dağıtım gerekli.
 
 ## Kaydedilen başlıca commitler
 
