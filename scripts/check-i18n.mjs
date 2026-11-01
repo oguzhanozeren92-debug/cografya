@@ -25,20 +25,43 @@ for(const screen of screens){
 if(missingEn.size)throw new Error('English fallback missing:\n'+[...missingEn].join('\n'));
 const clueSrc=read('src/data/countryClues.ts');
 const ids=[...clueSrc.matchAll(/"countryId":\s*"(\d{3})"/g)].map(m=>m[1]);
-if(ids.length!==63||new Set(ids).size!==63)throw new Error('Expected 63 unique original clue cards.');
+if(ids.length<63||new Set(ids).size!==ids.length)
+  throw new Error('Country clue IDs are missing or duplicated.');
 const clues=read('src/lib/clueLanguage.ts');
 const coverage=[...clues.matchAll(/'(\d{3})':\{region:/g)].map(m=>m[1]);
-if(coverage.length!==63||coverage.some(id=>!ids.includes(id)))throw new Error('Not all 63 clue cards are localized.');
+if(coverage.length!==ids.length||new Set(coverage).size!==coverage.length||
+  coverage.some(id=>!ids.includes(id)))
+  throw new Error('Not all '+ids.length+' clue cards are localized.');
 const landmarkSrc=read('src/lib/clueLandmarks.ts');
-const idsMatch=landmarkSrc.match(/const ids=(\[[^\]]+\]);/);
-const landmarkIds=JSON.parse(idsMatch?.[1]??'[]');
-if(landmarkIds.length!==63||ids.some((id)=>!landmarkIds.includes(id)))throw new Error('Clue landmark IDs do not match the source.');
-const start=landmarkSrc.indexOf('=',landmarkSrc.indexOf('const native:Partial'));
-const end=landmarkSrc.indexOf(';\nconst lookups=',start);
-const landmarks=JSON.parse(landmarkSrc.slice(start+1,end));
+const readArray=name=>{
+  const match=landmarkSrc.match(new RegExp('const '+name+'=(\\[[^\\]]+\\]);'));
+  if(!match)throw new Error('Missing landmark IDs: '+name);
+  return JSON.parse(match[1]);
+};
+const readNative=name=>{
+  const match=landmarkSrc.match(new RegExp('const '+name+':[^=]+=\\s*(\\{[\\s\\S]*?\\});'));
+  if(!match)throw new Error('Missing landmark translations: '+name);
+  return JSON.parse(match[1]);
+};
+const baseIds=readArray('ids');
+const supplementIds=readArray('supplementalIds');
+const baseNative=readNative('native');
+const supplementNative=readNative('supplementalNative');
+const latestNative=readNative('latestNative');
+const landmarkCoverage=new Set([...baseIds,...supplementIds,...Object.keys(latestNative.es||{})]);
+if(landmarkCoverage.size!==ids.length||ids.some(id=>!landmarkCoverage.has(id)))
+  throw new Error('Landmark translation coverage differs from '+ids.length+' playable clues.');
 for(const lang of ['es','de','fr','pt','ru','zh','ja']){
-  const parts=landmarks[lang]?.split('\n')??[];
-  if(parts.length!==63||parts.some(x=>!x.trim()))throw new Error(lang+': missing landmark translations.');
+  const base=baseNative[lang]?.split('\n')||[];
+  const supplemental=supplementNative[lang]||[];
+  const latest=latestNative[lang]||{};
+  if(base.length!==baseIds.length||base.some(x=>!x.trim())||
+     supplemental.length!==supplementIds.length||supplemental.some(x=>!x.trim())||
+     Object.keys(latest).length!==Object.keys(latestNative.es||{}).length||
+     Object.values(latest).some(x=>typeof x!=='string'||!x.trim())||
+     [...landmarkCoverage].some(id=>!baseIds.includes(id)&&
+       !supplementIds.includes(id)&&!latest[id]))
+    throw new Error(lang+': incomplete landmark translations.');
 }
 const streetSource=read('server/street/approved.mjs');
 const streetMatch=streetSource.match(/export const approvedPanoramas\s*=\s*(\[[\s\S]*?\]);/);
@@ -56,5 +79,5 @@ for(const lang of languages){
   if(lang!=='en'&&count<Object.keys(catalog.en).length)untranslated.push(lang+': '+count+'/'+Object.keys(catalog.en).length+' direct interface translations (English fallback otherwise)');
 }
 console.log('Atlas languages validated:',languages.join(', '),'plus tr');
-console.log('63/63 mystery countries; 7/7 native landmark label sets; 0 UI strings fall back to Turkish where t() is used');
+console.log(ids.length+'/'+ids.length+' mystery countries; 7/7 native landmark label sets; 0 UI strings fall back to Turkish where t() is used');
 if(untranslated.length)console.log('Translation coverage: '+untranslated.join(' | '));
