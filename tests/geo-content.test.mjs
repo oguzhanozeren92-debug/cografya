@@ -38,10 +38,10 @@ for(const p of HISTORY_DETAIL_PHOTOS){
   list.push(p);photosByCase.set(p.caseId,list);
 }
 
-test('45 unique natural locations, 15 per level, with safe coordinates and real fact links',()=>{
-  assert.equal(geo.NATURE_POINTS.length,45);
-  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,42);
-  for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,15);
+test('51 unique natural locations, 17 per level, with safe coordinates and real fact links',()=>{
+  assert.equal(geo.NATURE_POINTS.length,51);
+  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,51);
+  for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,17);
   for(const p of geo.NATURE_POINTS){
     assert.ok(Number.isFinite(p.lat)&&Math.abs(p.lat)<=90,p.id+' lat');
     assert.ok(Number.isFinite(p.lon)&&Math.abs(p.lon)<=180,p.id+' lon');
@@ -50,10 +50,29 @@ test('45 unique natural locations, 15 per level, with safe coordinates and real 
   }
   for(const id of ['iguazu','ngorongoro','halong','atitlan','uyuni','roraima',
     'okavango','wulingyuan','turkana','socotra','tsingy','namib',
-    'plitvice','komodo','jeju','siankaan','kluane','ohrid','surtsey','tassili','lena-pillars','tongariro','nakuru','manu','uluru','banc-arguin','sangay']){
+    'plitvice','komodo','jeju','siankaan','kluane','ohrid','surtsey','tassili','lena-pillars','tongariro','nakuru','manu','uluru','banc-arguin','sangay','ningaloo','blue-hole',
+    'mount-kenya','madeira-laurisilva','central-suriname','lorentz']){
     const p=geo.NATURE_POINTS.find(x=>x.id===id);
     assert.ok(p,'missing '+id);
     assert.match(p.sourceUrl,/^https:\/\/(?:whc\.unesco\.org|calval\.cr\.usgs\.gov|www\.visitcentroamerica\.com)\//);
+  }
+});
+
+
+test('new 1 November nature additions have unique names, bilingual learning and no answer leaks',()=>{
+  const newIds=['ningaloo','blue-hole','mount-kenya','madeira-laurisilva','central-suriname','lorentz'];
+  const names=new Set();
+  const notes=readFileSync(resolve(root,'src/data/geoDiscoveryFacts.ts'),'utf8');
+  for(const id of newIds){
+    const row=geo.NATURE_POINTS.find(x=>x.id===id);
+    assert.ok(row,'missing '+id);
+    assert.ok(!names.has(normalize(row.name)),'duplicate name '+row.name);
+    names.add(normalize(row.name));
+    assert.ok(!normalize(row.clue).includes(normalize(row.name)),id+' answer leaked');
+    assert.ok(row.clueEn.length>=50 && row.clue.length>=60,id+' short clue');
+    assert.ok(row.lat>=-90&&row.lat<=90&&row.lon>=-180&&row.lon<=180);
+    assert.match(row.sourceUrl,/^https:\/\/whc\.unesco\.org\/en\/list\/\d+\/$/);
+    assert.ok(notes.includes('"'+id+'":'),id+' missing learning note');
   }
 });
 
