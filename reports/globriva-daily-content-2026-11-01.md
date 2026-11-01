@@ -60,8 +60,8 @@ Vercel Sandbox içinde GitHub'dan alınan güncel kaynaklar ve gerçek 148 Sokak
 - **Toplam 32/32 test geçti** (dört test dosyası ayrı çalıştırıldı).
 - Değiştirilen 5 TypeScript dosyası TypeScript 5.5.4 ile transpile edildi, sözdizimi tanısı **0**.
 - Drone galeri testindeki 'ilk resim her zaman 1.jpg' varsayımı hatalıydı; uygulama ilk açıyı kasıtlı olarak rastgele seçiyor. Test artık 1–4 dosyalarının tamamının varlığını kontrol ediyor.
-- GitHub Actions 1 Kasım çalışmasında TypeScript'in 8 hatası belirlendi: `LeaderboardEntry.player_id` (2), `VsRoom.otherPlayerId` (5), `StreetPhoto` union narrowing (1). İsteğe bağlı kullanıcı kimlikleri güvenle kontrol edildi, `StreetPhoto` doğrudan discriminant ile daraltıldı. Son GitHub CI doğrulaması ayrı takip edilmeli.
-- **Tam uygulama `npm run typecheck` / `npm run build` yerel sandbox'ta çalıştırılmadı**; CI ve Vercel derleme sonuçları ayrıca doğrulanmalı.
+- GitHub Actions 1 Kasım çalışmasında TypeScript'in 8 hatası belirlendi: `LeaderboardEntry.player_id` (2), `VsRoom.otherPlayerId` (5), `StreetPhoto` union narrowing (1). İsteğe bağlı kullanıcı kimlikleri güvenle kontrol edildi, `StreetPhoto` doğrudan discriminant ile daraltıldı. Son GitHub Actions `Atlas Arena Admin Panel CI` çalışması **başarılı**: yerelleştirme, Sokak testleri, `npm run typecheck` ve `npm run build` geçti (run 41290697682). Drone galeri CI da başarıyla tamamlandı (run 41290568989).
+- **Tam uygulama `npm run typecheck` ve `npm run build` GitHub Actions'ta başarıyla çalıştı.** Sandbox'ta ayrıca 32 Node testi geçti. Son Vercel üretim dağıtımının yeni GitHub HEAD'i içerdiği henüz doğrulanmadı; son görülen READY dağıtım `6a137b919ff1` commit'ine aitti.
 
 ## Kaydedilen başlıca commitler
 
@@ -73,5 +73,7 @@ Vercel Sandbox içinde GitHub'dan alınan güncel kaynaklar ve gerçek 148 Sokak
 - `e4ad7bd9657e5e9a3707124842c077881f94b5fc` — 7 görsel adayının lisans/konum kayıtları.
 - `e7b171eca5683611e24a8e02b7cea140ef0540c0` — Drone testi rastgele açı düzeltmesi.
 - `6459dc3e549f` — TypeScript union narrowing düzeltmesi (diğer tip düzeltmeleri önceki commitlerde).
+- `1d6e3a4d57d7559be7d3bc3fd77543f5fb59ea1d` — eksik İngilizce arayüz karşılıkları.
+- `4536111557a76c5cc042e115a93925050d019f8e` — 90 ülke ipucunun çok dilli kalite kontrolü.
 
-**Net:** 696 → **705** sabit soru; **219 → 219** canlı HTTP doğrulanmış yerel görsel; 7 yeni görsel araştırma adayı, 0 yeni oynanabilir/yayımlanan; 32/32 Node testi geçti. Tam CI/production durumu en son commit için ayrıca kontrol edilmelidir.
+**Net:** 696 → **705** sabit soru; **219 → 219** canlı HTTP doğrulanmış yerel görsel; 7 yeni görsel araştırma adayı, 0 yeni oynanabilir/yayımlanan; 32/32 Node testi ve GitHub Actions yerelleştirme + TypeScript + build kontrolleri geçti. Yeni HEAD için Vercel production dağıtımı henüz doğrulanmadı.
