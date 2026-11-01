@@ -23,6 +23,8 @@ export interface RoundResult {
 
 export interface LeaderboardEntry {
   id: string;
+  /** May be absent from older offline leaderboard entries. */
+  player_id?: string;
   player_name: string;
   score: number;
   correct_answers: number;
