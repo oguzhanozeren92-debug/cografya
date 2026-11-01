@@ -29,6 +29,7 @@ export const approvedPhotoIds = [
   "pb0c4e95ffa596e7a2fa56535",
   "pb3490dc48a61d6d63ee70f50",
   "pb7be9959b560b4fc45009da6",
+  "pbcf9733e6171b5db268db210",
   "pd1fdf2673802ce80dccffee2",
   "pd54467cbac66b55dd5a2686c",
   "pda3c93f8ee9a53c660c1ff3e",

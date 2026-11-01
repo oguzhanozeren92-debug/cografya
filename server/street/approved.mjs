@@ -697,6 +697,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:2023-Mai-20_15h10min_Wien_U6_Station_Thaliastrasse_Bahnsteig_Einfahrtsbereich_U6.jpg"
   },
   {
+    "id": "pbcf9733e6171b5db268db210",
+    "sourceId": "ca-niagara-falls-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/pbcf9733e6171b5db268db210",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 3,
+      "cubeResolution": 1832
+    },
+    "country": "Kanada",
+    "city": "Niagara Falls",
+    "title": "Niagara Şelaleleri",
+    "fact": "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.",
+    "lat": 43.079599,
+    "lng": -79.078247,
+    "artist": "G. Edward Johnson",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:360_photo_between_Horseshoe_and_American_Falls_Niagara_Falls_Canada_2025-09-06_19-12-46_1.jpg"
+  },
+  {
     "id": "pd1fdf2673802ce80dccffee2",
     "sourceId": "lv-riga-aldaris-park-001",
     "approved": true,
