@@ -26,6 +26,8 @@ export interface VsRoom {
   myScore: number;
   otherScore: number;
   otherCount: number;
+  /** Present when the server exposes a reportable opponent identity. */
+  otherPlayerId?: string | null;
 }
 
 const assertBackend = () => {
