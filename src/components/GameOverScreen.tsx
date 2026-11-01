@@ -50,7 +50,7 @@ export function GameOverScreen({
   const [saveError, setSaveError] = useState('');
   const [blocked,setBlocked]=useState(readBlockedPlayers);
   useEffect(()=>{let mounted=true;void syncBlockedPlayers().then(ids=>{if(mounted)setBlocked(ids)}).catch(()=>{});return()=>{mounted=false}},[]);
-  const visibleLeaderboard=leaderboard.filter(row=>!blocked.has(row.player_id));
+  const visibleLeaderboard=leaderboard.filter(row=>!row.player_id||!blocked.has(row.player_id));
   const save = async () => {
     if (!backend) { setSaveState('offline'); return; }
     setSaveState('saving');
@@ -132,7 +132,7 @@ export function GameOverScreen({
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-slate-500">{entry.correct_answers}/{entry.total_questions}</span>
                     <span className="font-semibold text-white">{entry.score}</span>
-                    <PlayerSafetyActions playerId={entry.player_id} playerName={entry.player_name} context="global" onBlocked={()=>setBlocked(readBlockedPlayers())}/>
+                    {entry.player_id&&<PlayerSafetyActions playerId={entry.player_id} playerName={entry.player_name} context="global" onBlocked={()=>setBlocked(readBlockedPlayers())}/>}
                   </div>
                 </div>
               ))}
