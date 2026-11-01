@@ -479,6 +479,73 @@ export const NATURE_POINTS:NaturePoint[]=[
     "region": "Ekvador / And Dağları",
     "sourceUrl": "https://whc.unesco.org/en/list/260/"
   }
+,
+  {
+    "id": "ningaloo",
+    "name": "Ningaloo Kıyısı",
+    "clue": "Avustralya'nın batı kıyısında, kıyıya yakın mercan resifleri ve mevsimsel balina köpekbalığı buluşmalarıyla tanınan koruma alanını haritada bul.",
+    "clueEn": "Locate the Western Australian coastal reserve known for near-shore coral reefs and seasonal gatherings of whale sharks.",
+    "lat": -22.551,
+    "lon": 113.81,
+    "level": 1,
+    "region": "Avustralya / Batı kıyısı",
+    "sourceUrl": "https://whc.unesco.org/en/list/1369/"
+  },
+  {
+    "id": "blue-hole",
+    "name": "Büyük Mavi Çukur",
+    "clue": "Orta Amerika'nın Karayip kıyısı açıklarında, bir mercan atolünün içinde yer alan dev, dairesel deniz çukurunu haritada bul.",
+    "clueEn": "Find the huge circular marine sinkhole within a coral atoll off the Caribbean coast of Central America.",
+    "lat": 17.315,
+    "lon": -87.534,
+    "level": 1,
+    "region": "Belize / Lighthouse Reef",
+    "sourceUrl": "https://whc.unesco.org/en/list/764/"
+  },
+  {
+    "id": "mount-kenya",
+    "name": "Kenya Dağı",
+    "clue": "Doğu Afrika'da ekvatorun yakınında, eski bir yanardağın buzullar tarafından oyulmuş yüksek zirvelerini haritada bul.",
+    "clueEn": "Find the high peaks of an ancient volcano near the equator in East Africa, shaped by past glaciation.",
+    "lat": -0.152,
+    "lon": 37.308,
+    "level": 2,
+    "region": "Kenya / Orta dağlık bölge",
+    "sourceUrl": "https://whc.unesco.org/en/list/800/"
+  },
+  {
+    "id": "madeira-laurisilva",
+    "name": "Madeira Defne Ormanları",
+    "clue": "Atlas Okyanusu'ndaki Portekiz adasında, sisli vadileri örten eski ve herdem yeşil defne ormanlarını haritada bul.",
+    "clueEn": "Locate the ancient evergreen laurel forests covering misty valleys on a Portuguese island in the Atlantic.",
+    "lat": 32.767,
+    "lon": -17,
+    "level": 2,
+    "region": "Portekiz / Madeira",
+    "sourceUrl": "https://whc.unesco.org/en/list/934/"
+  },
+  {
+    "id": "central-suriname",
+    "name": "Orta Surinam Doğa Koruma Alanı",
+    "clue": "Güney Amerika'nın kuzeyindeki Guyana Kalkanı üzerinde, büyük kesintisiz tropikal ormanları ve granit kaya tepelerini koruyan alanı bul.",
+    "clueEn": "Find the vast protected tropical forest with granite inselbergs on the Guiana Shield in northern South America.",
+    "lat": 4,
+    "lon": -56.5,
+    "level": 3,
+    "region": "Surinam / Sipaliwini",
+    "sourceUrl": "https://whc.unesco.org/en/list/1017/"
+  },
+  {
+    "id": "lorentz",
+    "name": "Lorentz Millî Parkı",
+    "clue": "Yeni Gine'nin batısında, yüksek dağlardan tropikal kıyı sulak alanlarına uzanan devasa koruma alanını haritada bul.",
+    "clueEn": "Locate the huge protected area in western New Guinea stretching from high mountains to tropical coastal wetlands.",
+    "lat": -4.75,
+    "lon": 137.8333,
+    "level": 3,
+    "region": "Endonezya / Papua",
+    "sourceUrl": "https://whc.unesco.org/en/list/955/"
+  }
 ];
 export const NATURE_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
 export const ISLAND_COUNTRIES=[
