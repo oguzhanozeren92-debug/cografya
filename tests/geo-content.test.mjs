@@ -76,9 +76,9 @@ test('new 1 November nature additions have unique names, bilingual learning and 
   }
 });
 
-test('87 country clue cards use real country IDs, correct tiers and never name the answer',()=>{
+test('90 country clue cards use real country IDs, correct tiers and never name the answer',()=>{
   const cards=Object.values(clues.COUNTRY_CLUES);
-  assert.equal(cards.length,87);
+  assert.equal(cards.length,90);
   assert.equal(new Set(cards.map(x=>x.countryId)).size,cards.length);
   // Never disclose a country's name before the player answers, including
   // cases where the capital has exactly the same name as the country.
@@ -90,7 +90,7 @@ test('87 country clue cards use real country IDs, correct tiers and never name t
         card.countryId+' answer revealed in '+clue);
     }
   }
-  for(const id of ['152','170','192','218','050','450','834','418','242','620','191','710','188','524','352','598','417','894','040','400','024','144','686','204']){
+  for(const id of ['152','170','192','218','050','450','834','418','242','620','191','710','188','524','352','598','417','894','040','400','024','144','686','204','203','512','762']){
     const c=clues.COUNTRY_CLUES[id],country=countries.COUNTRY_DATA[id];
     assert.ok(c&&country,id+' missing country or clue');
     assert.equal(c.difficulty,country.difficulty,id+' wrong tier');
@@ -148,6 +148,26 @@ test('new world-region content keeps correct source, tiers, facts and translatio
   for(const id of ['uluru','banc-arguin','sangay']){
     const p=geo.NATURE_POINTS.find(v=>v.id===id);
     assert.ok(p&&p.sourceUrl&&notes.includes('"'+id+'":'),id+' learning note missing');
+  }
+});
+
+
+test('1 November new country clues have matching difficulty and localized landmarks',()=>{
+  const levels=[['203',1],['512',2],['762',3]];
+  const locale=readFileSync(resolve(root,'src/lib/clueLanguage.ts'),'utf8');
+  const landmarks=readFileSync(resolve(root,'src/lib/clueLandmarks.ts'),'utf8');
+  const normalizeAnswer=s=>normalize(s);
+  for(const [id,level] of levels){
+    const card=clues.COUNTRY_CLUES[id],meta=countries.COUNTRY_DATA[id];
+    assert.ok(card&&meta,id+' not playable');
+    assert.equal(card.difficulty,level);
+    assert.equal(meta.difficulty,level);
+    assert.equal(card.clues.length,3);
+    assert.match(card.sourceUrl,/^https:\/\/whc\.unesco\.org\/en\/list\/\d+\/$/);
+    assert.ok(card.fact.length>=55);
+    assert.ok(locale.includes("'"+id+"':{region:"),id+' localization signal missing');
+    for(const hint of card.clues)assert.ok(!normalizeAnswer(hint).includes(normalizeAnswer(meta.nameTr)),id+' answer leak');
+    assert.ok((landmarks.match(new RegExp('"'+id+'":','g'))||[]).length>=7,id+' native feature translations missing');
   }
 });
 
