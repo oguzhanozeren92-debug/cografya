@@ -60,12 +60,13 @@ export function warmStreetPreview(round?:StreetRound):void {
 const MAX_WAIT_MS=18000;
 
 export function StreetPanorama({
-  round,onReady,onError,onSkip,
+  round,onReady,onError,onSkip,skipLabel,
 }:{
   round:StreetRound;
   onReady:()=>void;
   onError:(message:string)=>void;
   onSkip?:()=>void;
+  skipLabel?:string;
 }) {
   const container=useRef<HTMLDivElement>(null);
   const callbacks=useRef({onReady,onError,onSkip});
@@ -159,7 +160,7 @@ export function StreetPanorama({
             <RefreshCcw className="h-4 w-4"/> Tekrar dene
           </button>
           {onSkip&&<button type="button" className="street-secondary w-full max-w-[260px]" onClick={()=>callbacks.current.onSkip?.()}>
-            <SkipForward className="h-4 w-4"/> Bu turu geç (0 puan)
+            <SkipForward className="h-4 w-4"/> {skipLabel??'Bu turu geç (0 puan)'}
           </button>}
         </div>
       )}
