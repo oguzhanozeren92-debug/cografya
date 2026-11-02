@@ -1,10 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {
+import { readFileSync } from 'node:fs';
+import ts from 'typescript';
+
+// Transpile type-only imports for Node 20 CI, where native .ts loading is not supported.
+const loadTs=async relative=>{
+  const source=readFileSync(new URL(relative,import.meta.url),'utf8');
+  const output=ts.transpileModule(source,{compilerOptions:{
+    target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext,
+  }}).outputText;
+  return import('data:text/javascript;base64,'+Buffer.from(output).toString('base64'));
+};
+const {
   DRONE_HINT_TOTAL,droneHintCopy,droneHintText,droneHintChoices,
   dronePhotoFocus,droneHintPoints,
-} from '../../src/lib/droneHints.ts';
-import { dronePanoramas } from '../../src/data/dronePanoramas.ts';
+}=await loadTs('../../src/lib/droneHints.ts');
+const { dronePanoramas }=await loadTs('../../src/data/dronePanoramas.ts');
 
 const languages=['tr','en','es','de','fr','pt','ru','zh','ja'];
 test('third hint offers four plausible countries and never reveals one answer',()=>{
