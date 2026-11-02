@@ -5,8 +5,6 @@ import {
   Trophy, UserRound, Volume2, VolumeX, Swords,
 } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
-import { heritage360Copy } from '@/lib/heritage360Locale';
-import { atlasApi } from '@/lib/atlasApi';
 import { motion, useReducedMotion } from 'motion/react';
 import { DAILY_TOTAL, getDailyDate, loadDailyProgress } from '@/lib/dailyChallenge';
 import { getDiscoveredCountries } from '@/lib/discovery';
@@ -33,7 +31,6 @@ interface StartScreenProps {
   onStreet: () => void;
   onStreetLeaderboard: () => void;
   onHistory: () => void;
-  onHeritage360: () => void;
   onGeoDiscovery: (mode: 'nature'|'islands'|'borders') => void;
   onVersus: () => void;
 }
@@ -42,7 +39,7 @@ const ArenaParticles = lazy(() => import('@/components/ArenaParticles'));
 
 export function StartScreen({
   onStart, soundEnabled, onToggleSound, onAdPrivacy, onViewWeekly,
-  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onHistory, onHeritage360, onGeoDiscovery, onVersus,
+  onDaily, onExplore, leaderboard, playerName, onNameChange, leaderboardError, onNotifications, onStreet, onStreetLeaderboard, onHistory, onGeoDiscovery, onVersus,
 }: StartScreenProps) {
   const reduceMotion = useReducedMotion();
   const { language, setLanguage, t } = useLanguage();
@@ -53,7 +50,6 @@ export function StartScreen({
   const [queuedMode, setQueuedMode] = useState<GameMode | null>(null);
   const [queuedStreet, setQueuedStreet] = useState(false);
   const [queuedHistory, setQueuedHistory] = useState(false);
-  const [queuedHeritage360, setQueuedHeritage360] = useState(false);
   const [queuedGeoMode,setQueuedGeoMode] = useState<'nature'|'islands'|'borders'|null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const [heroIndex, setHeroIndex] = useState(0);
@@ -128,11 +124,6 @@ export function StartScreen({
     onHistory();
   };
 
-  const startHeritage360 = () => {
-    if (!canPlay) { setQueuedHeritage360(true); setEditing(true); nameInputRef.current?.focus(); return; }
-    onHeritage360();
-  };
-
   const startGeoDiscovery = (mode: 'nature'|'islands'|'borders') => {
     if (!canPlay) {
       setQueuedGeoMode(mode);
@@ -161,10 +152,6 @@ export function StartScreen({
       if (queuedHistory) {
         setQueuedHistory(false);
         onHistory();
-      }
-      if (queuedHeritage360) {
-        setQueuedHeritage360(false);
-        onHeritage360();
       }
       if (queuedGeoMode) {
         onGeoDiscovery(queuedGeoMode);
@@ -1009,25 +996,6 @@ export function StartScreen({
           </button>
         </motion.section>
 
-
-        <motion.section {...entrance(4)} className="mt-3">
-          <button type="button" onClick={startHeritage360}
-            aria-label={heritage360Copy[language].title}
-            className="relative isolate flex min-h-[145px] w-full items-end overflow-hidden rounded-[24px] border border-[#f7d8a1]/65 bg-[#142c44] p-4 text-left text-white shadow-[0_14px_30px_rgba(2,10,30,.34)] transition-transform active:scale-[.985]">
-            <img alt="" aria-hidden="true" loading="lazy" draggable={false}
-              src={atlasApi('/api/heritage/panorama?id=colosseum&preview=1')}
-              className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-center opacity-80"
-              onError={event=>{event.currentTarget.style.visibility='hidden'}}/>
-            <span className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#06172a]/95 via-[#0b253a]/80 to-[#0f2e46]/30"/>
-            <span className="mr-3 grid h-14 w-14 shrink-0 place-items-center rounded-[17px] border border-amber-200/60 bg-[#10283c]/85 text-amber-100"><Globe2 className="h-8 w-8"/></span>
-            <span className="min-w-0 flex-1">
-              <small className="block text-[10px] font-black tracking-wider text-amber-200">{heritage360Copy[language].tag}</small>
-              <strong className="mt-1 block text-[clamp(18px,4.6vw,23px)] font-black leading-tight">{heritage360Copy[language].title}</strong>
-              <span className="mt-1 block text-xs font-semibold leading-4 text-blue-100">{heritage360Copy[language].short}</span>
-            </span>
-            <ChevronRight className="ml-1 h-6 w-6 shrink-0 text-amber-100"/>
-          </button>
-        </motion.section>
 
         <motion.section {...entrance(4)} className="mt-5">
           <h2 className="aa-section-heading">{t('Her gün yeni bir macera')}</h2>
