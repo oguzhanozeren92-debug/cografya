@@ -512,22 +512,23 @@ export function StreetDetectiveScreen({
                   +{reveal.points.toLocaleString(language)} {t('puan')}
                 </p>
                 <div className="space-y-1 rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-left text-xs text-blue-100">
-                  <p className="flex justify-between gap-2"><span>{t('Gerçek konuma uzaklığın')}</span><strong>{new Intl.NumberFormat(language,{maximumFractionDigits:1}).format(reveal.km)} km</strong></p>
-                  <p className="flex justify-between gap-2"><span>{t('Mesafe puanı')}</span><strong>+{reveal.distancePoints.toLocaleString(language)}</strong></p>
-                  <p className="flex justify-between gap-2"><span>{t('Doğru ülke bonusu')}</span><strong className="text-emerald-200">+{reveal.countryBonus.toLocaleString(language)}</strong></p>
-                  <p className="flex justify-between gap-2"><span>{t('İpucu puan kesintisi')}</span><strong className="text-orange-200">−{reveal.hintPenalty.toLocaleString(language)}</strong></p>
+                  {reveal.km===null?<p>{language==='tr'?'360° tarihî mekân sorusu: sadece ülke doğruluğu puanlanır.':'Historic 360° question: only the country is scored.'}</p>:<p className="flex justify-between gap-2"><span>{t('Gerçek konuma uzaklığın')}</span><strong>{new Intl.NumberFormat(language,{maximumFractionDigits:1}).format(reveal.km)} km</strong></p>}
+                  {reveal.km!==null&&<p className="flex justify-between gap-2"><span>{t('Mesafe puanı')}</span><strong>+{reveal.distancePoints.toLocaleString(language)}</strong></p>}
+                  <p className="flex justify-between gap-2"><span>{reveal.km===null?(language==='tr'?'Doğru ülke puanı':'Country points'):t('Doğru ülke bonusu')}</span><strong className="text-emerald-200">+{reveal.countryBonus.toLocaleString(language)}</strong></p>
+                  {reveal.km!==null&&<p className="flex justify-between gap-2"><span>{t('İpucu puan kesintisi')}</span><strong className="text-orange-200">−{reveal.hintPenalty.toLocaleString(language)}</strong></p>}
                 </div>
                 <p className="text-sm text-blue-100/80">{t('Doğru ülke:')}</p>
                 <p className="text-2xl font-black text-emerald-200">
                   {localizedCountryName(reveal.country,language)}
                 </p>
-                <p className="text-xs text-blue-100/75">{reveal.city} · {t(reveal.title)}</p>
+                <p className="text-xs text-blue-100/75">{reveal.city?reveal.city+' · ':''}{t(reveal.title)}</p>
                 <StreetWorldMap guess={guess} actual={reveal.actual} onGuess={()=>{}} locked/>
                 <button type="button" onClick={()=>{setFactOpen(true);setFactRead(true)}} aria-haspopup="dialog" className="mx-auto inline-flex min-h-10 items-center gap-2 rounded-full border border-cyan-200/50 bg-white/10 px-4 text-sm font-black text-cyan-100"><span className="text-lg" aria-hidden="true">ⓘ</span>{t('Ülke ve konum hakkında bilgi')}</button>
                 <p className="text-[11px] leading-5 text-blue-100/65">
                   {t('Görüntü:')} {reveal.credit.artist} · {reveal.credit.license} ·{' '}
                   <a href={reveal.credit.source} target="_blank" rel="noopener noreferrer"
                     className="underline underline-offset-2">{t('Kaynak / lisans')}</a>
+                  {current.source==='heritage'&&current.heritage&&<a href={current.heritage.licenseUrl} target="_blank" rel="noopener noreferrer" className="ml-2 underline underline-offset-2">{current.heritage.license}</a>}
                 </p>
                 <p className="text-xs text-blue-100/65">{t('Oyun otomatik devam edecek.')}</p>
               </section>
@@ -539,14 +540,14 @@ export function StreetDetectiveScreen({
             <section role="dialog" aria-modal="true" aria-labelledby="streetFactTitle" onClick={e=>e.stopPropagation()} className="w-full max-w-md rounded-[23px] border border-amber-200/35 bg-gradient-to-b from-[#22445b] to-[#0b2037] p-5 shadow-2xl">
               <div className="mb-3 flex items-center justify-between text-xs font-black uppercase tracking-wider text-amber-200"><span>✦ Globriva · {t('Keşif notu')}</span><button autoFocus type="button" aria-label={t('Kapat')} onClick={()=>setFactOpen(false)} className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-xl">×</button></div>
               <h3 id="streetFactTitle" className="text-xl font-black">{localizedCountryName(reveal.country,language)}</h3>
-              <p className="mt-1 text-sm font-semibold text-cyan-200">{reveal.city} · {t(reveal.title)}</p>
+              <p className="mt-1 text-sm font-semibold text-cyan-200">{reveal.city?reveal.city+' · ':''}{t(reveal.title)}</p>
               <p className="mt-4 text-sm leading-6 text-blue-50">{t(reveal.fact)}</p>
               <a href={reveal.credit.source} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-xs font-bold text-amber-200 underline">{t('Fotoğraf kaynağı ve lisansı')}</a>
             </section>
           </div>
         )}
         <p className="mt-5 text-center text-[11px] text-blue-200/65">
-          {language==='tr'?'Sokak ve havadan gerçek görüntüler · 5 karma konum tahmini':'Street and aerial photos · 5 mixed location challenges'}
+          {language==='tr'?'Sokak, drone ve 360° tarihî mekânlar · 5 karma konum sorusu':'Street, aerial and 360° historical places · 5 mixed location questions'}
           {phase==='finish'?' · '+t('Cihaz rekorun:')+' '+getLocalStreetBest().toLocaleString(language):''}
         </p>
       </main>
