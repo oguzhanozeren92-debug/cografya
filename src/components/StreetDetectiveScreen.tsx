@@ -462,8 +462,9 @@ export function StreetDetectiveScreen({
             {phase==='view'&&(
               <>
                 <div className="street-card overflow-hidden p-2">
-                  <div className="h-[min(38dvh,305px)] min-h-[205px]">
+                  <div className={current.source==='heritage'?'h-[min(52dvh,450px)] min-h-[275px]':'h-[min(38dvh,305px)] min-h-[205px]'}>
                     {current.source==='heritage'?<StreetPanorama key={current.id} round={current} onSkip={skipBroken}
+                      skipLabel={language==='tr'?'Başka 360° mekân dene (puan kaybı yok)':'Try another 360° place (no score penalty)'}
                       onReady={()=>{setReady(true);setError('')}}
                       onError={message=>setError(message)}/>:<StreetPhoto key={current.id} round={current} onSkip={skipBroken}
                       onReady={()=>{
