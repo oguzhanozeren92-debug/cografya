@@ -18,7 +18,7 @@ test('curated historical photos have authors, individual licenses and source pag
     assert.ok(!seen.has(place.id),'duplicate image '+place.id);
     seen.add(place.id);
     assert.ok(place.name&&place.country&&place.fact&&place.credit);
-    assert.match(place.license,/^CC(?:0 1\.0| BY(?:-SA)? [234]\.0)$/);
+    assert.match(place.license,/^CC(?:0 1\.0| BY(?:-SA)? [234]\.0(?: DE)?)$/);
     assert.match(place.licenseUrl,/^https:\/\/creativecommons\.org\//);
     assert.match(place.sourceUrl,/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
   }
