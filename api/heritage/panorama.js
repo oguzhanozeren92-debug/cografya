@@ -1,8 +1,10 @@
 // Globriva: read-only, allowlisted panorama proxy. Sources and licenses live
 // in the shared EraAtlas-derived Wikimedia Commons catalogue.
 import catalog from '../../src/data/heritage360.json' with { type: 'json' };
+import reviewed from '../../src/data/heritage360-source-reviewed.json' with { type: 'json' };
 
-const entries=new Map(catalog.places.map(p=>[p.id,p]));
+const verified=new Set(reviewed.sourceReviewedIds);
+const entries=new Map(catalog.places.filter(p=>verified.has(p.id)).map(p=>[p.id,p]));
 const MAX_SIZE=3_900_000;
 const userAgent='Globriva/1.0 (licensed historical panoramas; photo attribution on result screen)';
 async function request(url,ms){
