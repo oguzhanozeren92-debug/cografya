@@ -72,11 +72,15 @@ export function StreetDetectiveScreen({
   const current=rounds[idx];
   const openedAt=useRef(0);
   const completionNotified=useRef(false);
+  const failedHeritageIds=useRef(new Set<string>());
+  const streetFallback=useRef<MixedRound|null>(null);
   const score=completed.reduce((total,row)=>total+row.points,0);
   const native=Capacitor.isNativePlatform();
 
   const newGame=useCallback(async()=>{
     completionNotified.current=false;
+    failedHeritageIds.current.clear();
+    streetFallback.current=null;
     trackPlayEvent({mode:'street',event_type:'mode_start'});
     setLoading(true);setError('');setRounds([]);setIdx(0);setCompleted([]);
     setGuess(null);setReveal(null);setFactOpen(false);setFactRead(false);setClues([]);setHintCount(0);
@@ -121,6 +125,9 @@ export function StreetDetectiveScreen({
       const archive=grouped.length?grouped:eligible;
       const place=archive[Math.floor(week/groups.length)%archive.length];
       if(!place)throw new Error('360° tarihi mekân arşivi hazır değil.');
+      streetFallback.current={
+        ...street.rounds![(week+2)%street.rounds!.length],source:'street',
+      };
       const heritage:MixedRound={
         id:'heritage:'+place.id,ticket:'',source:'heritage',heritage:place,
         media:{mode:'equirectangular',image:atlasApi('/api/heritage/panorama?id='+encodeURIComponent(place.id))},
@@ -288,13 +295,18 @@ export function StreetDetectiveScreen({
     if(!current||(phase!=='view'&&phase!=='guess'))return;
     if(current.source==='heritage'){
       const currentId=current.heritage?.id;
-      const candidates=heritage360Catalogue.places.filter(p=>p.id!==currentId&&p.file&&p.credit&&p.license&&p.sourceUrl);
+      if(currentId)failedHeritageIds.current.add(currentId);
+      const candidates=heritage360Catalogue.places.filter(p=>!failedHeritageIds.current.has(p.id)&&p.file&&p.credit&&p.license&&p.sourceUrl);
       const pick=candidates[Math.floor(Math.random()*candidates.length)];
       if(pick){
         const replacement:MixedRound={id:'heritage:'+pick.id,ticket:'',source:'heritage',heritage:pick,
           media:{mode:'equirectangular',image:atlasApi('/api/heritage/panorama?id='+encodeURIComponent(pick.id))},
           credit:{artist:pick.credit,license:pick.license,source:pick.sourceUrl}};
         setRounds(rows=>rows.map((r,i)=>i===idx?replacement:r));
+        setReady(false);setError('');setGuess(null);setPhase('view');return;
+      }
+      if(streetFallback.current){
+        setRounds(rows=>rows.map((r,i)=>i===idx?streetFallback.current!:r));
         setReady(false);setError('');setGuess(null);setPhase('view');return;
       }
     }
