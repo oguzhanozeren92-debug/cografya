@@ -141,7 +141,8 @@ export function StreetDetectiveScreen({
   },[]);
   useEffect(()=>{if(initialView==='play')void newGame();},[initialView,newGame]);
   useEffect(()=>{
-    if(ready&&idx+1<rounds.length)warmStreetPhoto(rounds[idx+1]);
+    if(ready&&idx+1<rounds.length&&rounds[idx+1].source!=='heritage')
+      warmStreetPhoto(rounds[idx+1]); // Never pre-download the full 360° photo.
   },[ready,idx,rounds]);
   useEffect(()=>{
     if(!current)return;
