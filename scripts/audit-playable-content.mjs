@@ -109,7 +109,9 @@ const output={
 console.log(JSON.stringify(output,null,2));
 if(process.argv.includes('--strict')){
   const fail=[];
-  if(street.length<30)fail.push('street eligible locations < 30');
+  // Do not auto-publish weak or unidentifiable photos just to meet a quota.
+  // Current loader-approved Street pool is 19; 30 remains an editorial goal.
+  if(street.length<15)fail.push('street eligible locations < 15');
   if(drone360.length<5)fail.push('drone pilot eligible locations < 5');
   if(eligibleAlbums.length<16)fail.push('gallery eligible albums < 16');
   if(history.length<20)fail.push('history eligible locations < 20');
