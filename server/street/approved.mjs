@@ -361,6 +361,30 @@ export const approvedPanoramas = [
     "source": "https://commons.wikimedia.org/wiki/File:Lamaria_church_inside_360.jpg"
   },
   {
+    "id": "p5e667efb53836b9f21b27a57",
+    "sourceId": "uz-tashkent-museum-outside-002",
+    "approved": true,
+    "mode": "multires",
+    "path": "panoramas/p5e667efb53836b9f21b27a57",
+    "multires": {
+      "path": "/%l/%s%y_%x",
+      "fallbackPath": "/fallback/%s",
+      "extension": "jpg",
+      "tileResolution": 512,
+      "maxLevel": 4,
+      "cubeResolution": 2072
+    },
+    "country": "Özbekistan",
+    "city": "Taşkent",
+    "title": "Tarih Müzesi çevresi",
+    "fact": "Taşkent'teki Özbekistan Tarih Müzesi'nin dış meydanı.",
+    "lat": 41.312167,
+    "lng": 69.269611,
+    "artist": "Aleksey Chalabyan a.k.a Xelgen",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:360_panorama_near_State_Museum_of_History_of_Uzbekistan.jpg"
+  },
+  {
     "id": "p63f6d7bc28c4e62b6e6774a9",
     "sourceId": "mx-belize-border-002",
     "approved": true,
