@@ -7,6 +7,7 @@ import {
 import { Capacitor } from '@capacitor/core';
 import { StreetPanorama, type StreetRound } from '@/components/StreetPanorama';
 import heritage360Catalogue from '@/data/heritage360.json';
+import heritage360Reviewed from '@/data/heritage360-source-reviewed.json';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
@@ -37,6 +38,7 @@ type Completed = {
   id:string;country:string;city:string;points:number;correct:boolean;skipped?:boolean;
 };
 const MAX_ROUND_POINTS=[5000,4200,3400,2500,1500] as const;
+const sourceReviewed=new Set<string>(heritage360Reviewed.sourceReviewedIds);
 
 export function StreetDetectiveScreen({
   onClose,onGameComplete,playerName,initialView='play',
@@ -120,7 +122,7 @@ export function StreetDetectiveScreen({
           media:mediaById.get(row.id)!,credit:{artist:row.artist,license:row.license,source:row.source}};
       });
       const groups=['antik','anit','kale','saray','cami','muze','kilise'];
-      const eligible=heritage360Catalogue.places.filter(p=>p.id&&p.file&&p.credit&&p.license&&p.licenseUrl&&p.sourceUrl);
+      const eligible=heritage360Catalogue.places.filter(p=>sourceReviewed.has(p.id)&&p.file&&p.credit&&p.license&&p.licenseUrl&&p.sourceUrl);
       const grouped=eligible.filter(p=>(p.group||p.type)===groups[week%groups.length]);
       const archive=grouped.length?grouped:eligible;
       const place=archive[Math.floor(week/groups.length)%archive.length];
@@ -297,7 +299,7 @@ export function StreetDetectiveScreen({
     if(current.source==='heritage'){
       const currentId=current.heritage?.id;
       if(currentId)failedHeritageIds.current.add(currentId);
-      const candidates=heritage360Catalogue.places.filter(p=>!failedHeritageIds.current.has(p.id)&&p.file&&p.credit&&p.license&&p.sourceUrl);
+      const candidates=heritage360Catalogue.places.filter(p=>sourceReviewed.has(p.id)&&!failedHeritageIds.current.has(p.id)&&p.file&&p.credit&&p.license&&p.sourceUrl);
       const pick=candidates[Math.floor(Math.random()*candidates.length)];
       if(pick){
         const replacement:MixedRound={id:'heritage:'+pick.id,ticket:'',source:'heritage',heritage:pick,
