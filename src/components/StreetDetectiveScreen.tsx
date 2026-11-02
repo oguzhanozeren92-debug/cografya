@@ -5,7 +5,8 @@ import {
   MapPin, Medal, PlayCircle, RefreshCcw, Trophy, X, XCircle,
 } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
-import type { StreetRound } from '@/components/StreetPanorama';
+import { StreetPanorama, type StreetRound } from '@/components/StreetPanorama';
+import heritage360Catalogue from '@/data/heritage360.json';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
@@ -24,9 +25,10 @@ import { GeoStarRow } from '@/components/GeoStarRow';
 
 type Phase = 'view'|'guess'|'result'|'finish'|'ranking';
 type Clue = {level:number;kind:'region'|'landmark'|'choices'|'drone';value?:string;options?:string[]};
-type MixedRound = StreetRound & {source:'street'|'drone'; aerial?:DronePanorama};
+type HeritagePlace = (typeof heritage360Catalogue.places)[number];
+type MixedRound = StreetRound & {source:'street'|'drone'|'heritage'; aerial?:DronePanorama; heritage?:HeritagePlace};
 type Reveal = {
-  correct:boolean;points:number;actual:Coordinates;km:number;
+  correct:boolean;points:number;actual:Coordinates|null;km:number|null;
   distancePoints:number;countryBonus:number;hintPenalty:number;maxPoints:number;
   country:string;city:string;title:string;fact:string;
   credit:{artist:string;license:string;source:string};
@@ -99,13 +101,13 @@ export function StreetDetectiveScreen({
       const vetted=(aerial.rows?.length?aerial.rows:dronePanoramas)
         .filter(row=>mediaById.has(row.id)).sort((a,b)=>a.id.localeCompare(b.id));
       if(vetted.length<2)throw new Error('Doğrulanmış hava görüntüleri bulunamadı.');
-      // All players see the same 3+2 photo set within the UTC league week.
-      // Consecutive weeks rotate through the entire verified photo inventory.
+      // Weekly source rotation: 2 street + 2 aerial + 1 historical 360° question.
+      // This remains the existing five-question location game.
       const now=new Date();
       const monday=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),
         now.getUTCDate()-((now.getUTCDay()+6)%7));
       const week=Math.floor(monday/604800000);
-      const ground=[0,1,2].map(n=>({
+      const ground=[0,1].map(n=>({
         ...street.rounds![(week+n)%street.rounds!.length],source:'street' as const,
       }));
       const sky=[0,1].map(n=>{
@@ -113,7 +115,18 @@ export function StreetDetectiveScreen({
         return {id:'aerial:'+row.id,ticket:'',source:'drone' as const,aerial:row,
           media:mediaById.get(row.id)!,credit:{artist:row.artist,license:row.license,source:row.source}};
       });
-      const mixed:MixedRound[]=[ground[0],sky[0],ground[1],sky[1],ground[2]];
+      const groups=['antik','anit','kale','saray','cami','muze','kilise'];
+      const eligible=heritage360Catalogue.places.filter(p=>p.id&&p.file&&p.credit&&p.license&&p.licenseUrl&&p.sourceUrl);
+      const grouped=eligible.filter(p=>(p.group||p.type)===groups[week%groups.length]);
+      const archive=grouped.length?grouped:eligible;
+      const place=archive[Math.floor(week/groups.length)%archive.length];
+      if(!place)throw new Error('360° tarihi mekân arşivi hazır değil.');
+      const heritage:MixedRound={
+        id:'heritage:'+place.id,ticket:'',source:'heritage',heritage:place,
+        media:{mode:'equirectangular',image:atlasApi('/api/heritage/panorama?id='+encodeURIComponent(place.id))},
+        credit:{artist:place.credit,license:place.license,source:place.sourceUrl},
+      };
+      const mixed:MixedRound[]=[ground[0],sky[0],heritage,ground[1],sky[1]];
       warmStreetPhoto(mixed[0]);
       setRounds(mixed);
     }catch(e){setError(e instanceof Error?e.message:'Fotoğraf arşivi yüklenemedi.');}
@@ -140,7 +153,17 @@ export function StreetDetectiveScreen({
     try{
 
       let data:Reveal;
-      if(current.source==='drone'&&current.aerial){
+      if(current.source==='heritage'&&current.heritage){
+        const place=current.heritage;
+        const found=guessedCorrectCountry(guess,place.country);
+        if(found===null)throw new Error('Bu ülkenin harita sınırı doğrulanamadı.');
+        const points=found?5000:0;
+        data={actual:null,km:null,correct:found,points,distancePoints:0,
+          countryBonus:points,hintPenalty:0,maxPoints:5000,
+          country:place.country,city:'',title:place.name,
+          fact:language==='tr'?place.fact:'Explore the architecture and history of this landmark.',
+          credit:current.credit};
+      }else if(current.source==='drone'&&current.aerial){
         const aerial=current.aerial;
         const actual={lat:aerial.lat,lng:aerial.lng};
         const km=haversineKm(guess,actual);
@@ -292,7 +315,7 @@ export function StreetDetectiveScreen({
   const availableHints=current?.source==='drone'?3:4;
   const displayedHintNames=current?.source==='drone'?[...droneHintCopy[language].labels]:hintNames;
   const hintsPanel=()=>{
-    if(phase!=='view'&&phase!=='guess')return null;
+    if(current?.source==='heritage'||(phase!=='view'&&phase!=='guess'))return null;
     return <section className="street-card space-y-3 p-3">
       <div className="flex items-center justify-between gap-2">
         <h2 className="flex items-center gap-2 text-sm font-black">
