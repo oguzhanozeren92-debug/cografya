@@ -51,3 +51,11 @@
 - https://whc.unesco.org/en/list/652/ (Puerto Princesa)
 - https://whc.unesco.org/en/list/407/ (Dja)
 - https://whc.unesco.org/en/list/1335/ (China Danxia)
+
+## Son doğrulama — 2 Kasım 2026
+- GitHub Actions `41421040068`, commit `3f5f373634dd7f629cc4f89aaad8ff61ab24a913`: **başarılı**.
+- 8 Sokak Dedektifi testi + 15 coğrafya, medeniyet ve Drone testi = **23/23 geçti**.
+- 24/24 oyun yükleyicisine bağlı Sokak/Drone bilgi metni tüm dillerde karşılık buldu.
+- `node scripts/audit-playable-content.mjs --strict` başarılı; gerçek Street havuzu **19**, Medeniyet **20**, 11 ortak, toplam **28 benzersiz panorama**.
+- Tam proje TypeScript kontrolü ve üretim derlemesi GitHub Actions üzerinde **başarılı**.
+- Vercel üretim dağıtımı ayrı: günlük ücretsiz dağıtım kotası 402 nedeniyle yeni GitHub commit'i canlıya henüz alınamadı.
