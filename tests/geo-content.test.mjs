@@ -38,10 +38,10 @@ for(const p of HISTORY_DETAIL_PHOTOS){
   list.push(p);photosByCase.set(p.caseId,list);
 }
 
-test('51 unique natural locations, 17 per level, with safe coordinates and real fact links',()=>{
-  assert.equal(geo.NATURE_POINTS.length,51);
-  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,51);
-  for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,17);
+test('57 unique natural locations, 19 per level, with safe coordinates and real fact links',()=>{
+  assert.equal(geo.NATURE_POINTS.length,57);
+  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,57);
+  for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,19);
   for(const p of geo.NATURE_POINTS){
     assert.ok(Number.isFinite(p.lat)&&Math.abs(p.lat)<=90,p.id+' lat');
     assert.ok(Number.isFinite(p.lon)&&Math.abs(p.lon)<=180,p.id+' lon');
@@ -76,9 +76,9 @@ test('new 1 November nature additions have unique names, bilingual learning and 
   }
 });
 
-test('90 country clue cards use real country IDs, correct tiers and never name the answer',()=>{
+test('93 country clue cards use real country IDs, correct tiers and never name the answer',()=>{
   const cards=Object.values(clues.COUNTRY_CLUES);
-  assert.equal(cards.length,90);
+  assert.equal(cards.length,93);
   assert.equal(new Set(cards.map(x=>x.countryId)).size,cards.length);
   // Never disclose a country's name before the player answers, including
   // cases where the capital has exactly the same name as the country.
@@ -214,4 +214,33 @@ test('every country clue card has a localization signal',()=>{
   assert.equal(new Set(ids).size,ids.length,'duplicate localization ID');
   assert.equal(ids.length,cards.length,'country localization coverage');
   for(const card of cards)assert.ok(ids.includes(card.countryId),'missing locale '+card.countryId);
+});
+
+test('2 November UNESCO-backed discovery additions have balanced tiers, notes, translations and safe hints',()=>{
+  const added=['garajonay','aldabra','uvs-nuur','puerto-princesa-river','dja-reserve','danxiashan'];
+  const facts=readFileSync(resolve(root,'src/data/geoDiscoveryFacts.ts'),'utf8');
+  for(const id of added){
+    const row=geo.NATURE_POINTS.find(x=>x.id===id);
+    assert.ok(row,'missing '+id);
+    assert.ok(row.clue.length>70&&row.clueEn.length>70,'short bilingual clue '+id);
+    assert.ok(!normalize(row.clue).includes(normalize(row.name)),'nature answer leak '+id);
+    assert.match(row.sourceUrl,/^https:\/\/whc\.unesco\.org\/en\/list\/\d+\/$/);
+    assert.ok(facts.includes('"'+id+'":'),'missing learning note '+id);
+  }
+  for(const level of [1,2,3])assert.equal(added.filter(id=>geo.NATURE_POINTS.find(x=>x.id===id).level===level).length,2);
+  const locale=readFileSync(resolve(root,'src/lib/clueLanguage.ts'),'utf8');
+  const landmarks=readFileSync(resolve(root,'src/lib/clueLandmarks.ts'),'utf8');
+  for(const [id,level] of [['100',1],['496',2],['626',3]]){
+    const card=clues.COUNTRY_CLUES[id],meta=countries.COUNTRY_DATA[id];
+    assert.ok(card&&meta,'missing country '+id);
+    assert.equal(card.difficulty,level);
+    assert.equal(card.difficulty,meta.difficulty);
+    assert.equal(card.clues.length,3);
+    assert.ok(card.fact.length>70);
+    assert.ok(locale.includes("'"+id+"':{region:"),'missing localization '+id);
+    assert.ok((landmarks.match(new RegExp('"'+id+'":','g'))||[]).length>=7,'missing native features '+id);
+    for(const hint of card.clues)assert.ok(!normalize(hint).includes(normalize(meta.nameTr)),id+' answer leaked');
+  }
+  assert.ok(geo.ISLAND_COUNTRIES.some(x=>x.id==='780'),'missing Caribbean island challenge');
+  for(const id of ['100','496','626'])assert.ok(geo.BORDER_FOCUS.includes(id),'missing border focus '+id);
 });

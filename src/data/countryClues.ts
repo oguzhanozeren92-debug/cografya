@@ -924,6 +924,39 @@ const cards: CountryClueCard[] = [
     ],
     "fact": "Pamir Dağları'ndaki millî park, kutup bölgeleri dışındaki en uzun vadi buzullarından birini barındırır.",
     "sourceUrl": "https://whc.unesco.org/en/list/1252/"
+  },
+  {
+    "countryId": "100",
+    "difficulty": 1,
+    "clues": [
+      "Balkan Yarımadası'nın doğusunda Karadeniz'e kıyısı olan bir Avrupa ülkesidir.",
+      "Tuna kıyısındaki sazlık göl, Dalmaçya pelikanları ve göçmen kuşlar için önemli bir sığınaktır.",
+      "Başkentinin adı Sofya'dır."
+    ],
+    "fact": "Srebarna Doğa Koruma Alanı, Tuna yakınındaki sulak alanları ve Dalmaçya pelikanlarının üreme kolonisini korur.",
+    "sourceUrl": "https://whc.unesco.org/en/list/219/"
+  },
+  {
+    "countryId": "496",
+    "difficulty": 2,
+    "clues": [
+      "Orta Asya'nın kuzeyinde, büyük bozkırlara sahip denize kıyısı olmayan bir ülkedir.",
+      "Kuzeybatısındaki tuzlu göl havzası, Rusya'nın Tuva bölgesiyle paylaşılan bir Dünya Mirası alanıdır.",
+      "Başkentinin adı Ulan Batur'dur."
+    ],
+    "fact": "Uvs Nuur Havzası, bozkır, çöl, orman ve tundra ekosistemlerinin aynı bölgede görüldüğü sınır aşan bir koruma alanıdır.",
+    "sourceUrl": "https://whc.unesco.org/en/list/769/"
+  },
+  {
+    "countryId": "626",
+    "difficulty": 3,
+    "clues": [
+      "Güneydoğu Asya'da bir adanın doğu bölümünde yer alan ve 2002'de bağımsızlığına kavuşan bir devlettir.",
+      "Doğu ucundaki Nino Konis Santana koruma alanında tropikal ormanlar, deniz çayırları ve mercan resifleri yan yanadır.",
+      "Başkentinin adı Dili'dir."
+    ],
+    "fact": "Nino Konis Santana, Haziran 2026'da ülkenin ilk UNESCO biyosfer rezervi olarak ilan edildi; koruma alanı kara ve deniz yaşamını birlikte kapsar.",
+    "sourceUrl": "https://www.unesco.org/en/articles/nino-konis-santana-designated-timor-lestes-first-unesco-biosphere-reserve"
   }
 ];
 

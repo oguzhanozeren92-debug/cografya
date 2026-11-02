@@ -545,6 +545,72 @@ export const NATURE_POINTS:NaturePoint[]=[
     "level": 3,
     "region": "Endonezya / Papua",
     "sourceUrl": "https://whc.unesco.org/en/list/955/"
+  },
+  {
+    "id": "garajonay",
+    "name": "Garajonay Millî Parkı",
+    "clue": "Kanarya Adaları'ndaki La Gomera adasının merkezinde, sisle beslenen eski defne ormanlarının korunduğu millî parkı haritada bul.",
+    "clueEn": "Locate the national park protecting ancient mist-fed laurel forests in the centre of La Gomera in the Canary Islands.",
+    "lat": 28.1263,
+    "lon": -17.2372,
+    "level": 1,
+    "region": "İspanya / Kanarya Adaları",
+    "sourceUrl": "https://whc.unesco.org/en/list/380/"
+  },
+  {
+    "id": "aldabra",
+    "name": "Aldabra Atolü",
+    "clue": "Hint Okyanusu'nda Seyşeller'e bağlı, dört mercan adasının çevrelediği sığ lagünü ve dev kara kaplumbağalarıyla tanınan atolu bul.",
+    "clueEn": "Find the remote Seychelles atoll of four coral islands enclosing a lagoon, famous for its giant tortoises.",
+    "lat": -9.4167,
+    "lon": 46.4167,
+    "level": 1,
+    "region": "Seyşeller / Hint Okyanusu",
+    "sourceUrl": "https://whc.unesco.org/en/list/185/"
+  },
+  {
+    "id": "uvs-nuur",
+    "name": "Uvs Nuur Havzası",
+    "clue": "Moğolistan ile Rusya'nın Tuva bölgesi arasında uzanan, çok tuzlu sığ gölün çevresindeki bozkır ve dağ ekosistemlerini haritada bul.",
+    "clueEn": "Locate the shallow saline lake basin shared by Mongolia and Russia's Tuva region, with steppes and mountain habitats.",
+    "lat": 50.27,
+    "lon": 92.72,
+    "level": 2,
+    "region": "Moğolistan / Rusya sınırı",
+    "sourceUrl": "https://whc.unesco.org/en/list/769/"
+  },
+  {
+    "id": "puerto-princesa-river",
+    "name": "Puerto Princesa Yeraltı Nehri",
+    "clue": "Filipinler'in Palawan adasında, kireçtaşı mağarasından akıp doğrudan denize ulaşan ve gelgitten etkilenen yeraltı nehrini haritada bul.",
+    "clueEn": "Find the underground river on Palawan in the Philippines that flows through limestone caves directly to the sea and feels the tides.",
+    "lat": 10.1667,
+    "lon": 118.9167,
+    "level": 2,
+    "region": "Filipinler / Palawan",
+    "sourceUrl": "https://whc.unesco.org/en/list/652/"
+  },
+  {
+    "id": "dja-reserve",
+    "name": "Dja Fauna Koruma Alanı",
+    "clue": "Kamerun'un güneydoğusunda, neredeyse tamamen aynı nehrin çevrelediği ve gorillerle orman fillerine yaşam alanı sunan yağmur ormanı rezervini bul.",
+    "clueEn": "Find the rainforest reserve in southeastern Cameroon almost enclosed by a river, home to gorillas and forest elephants.",
+    "lat": 3.2,
+    "lon": 12.75,
+    "level": 3,
+    "region": "Kamerun / Kongo Havzası",
+    "sourceUrl": "https://whc.unesco.org/en/list/407/"
+  },
+  {
+    "id": "danxiashan",
+    "name": "Danxiashan Kırmızı Kayalıkları",
+    "clue": "Çin'in Guangdong bölgesinde, kırmızı tortul kayalardan oluşan dik sütunlar, dar vadiler ve sarp yamaçlarıyla tanınan Dünya Mirası arazisini bul.",
+    "clueEn": "Locate the World Heritage red sedimentary cliffs, steep pillars and ravines in China's Guangdong region.",
+    "lat": 25.025,
+    "lon": 113.738,
+    "level": 3,
+    "region": "Çin / Guangdong",
+    "sourceUrl": "https://whc.unesco.org/en/list/1335/"
   }
 ];
 export const NATURE_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
@@ -569,7 +635,8 @@ export const ISLAND_COUNTRIES=[
 {id:"598",name:"Papua Yeni Gine",en:"Papua New Guinea",level:3},
 {id:"548",name:"Vanuatu",en:"Vanuatu",level:3},
 {id:"090",name:"Solomon Adaları",en:"Solomon Islands",level:3},
-{id:"626",name:"Doğu Timor",en:"Timor-Leste",level:3}
+{id:"626",name:"Doğu Timor",en:"Timor-Leste",level:3},
+{id:"780",name:"Trinidad ve Tobago",en:"Trinidad and Tobago",level:3}
 ] as const;
 export const BORDER_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
 // The playable border questions are derived, never hand-guessed, from the
@@ -578,5 +645,5 @@ export const BORDER_FOCUS=[
 "250","276","724","380","620","124","840","484","076","032",
 "152","604","170","356","156","586","050","524","764","704",
 "116","418","710","516","072","716","508","818","434","729",
-"231","404","800","834","643","398","804","616","112","012"
+"231","404","800","834","643","398","804","616","112","012","100","496","626"
 ] as const;

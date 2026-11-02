@@ -83,7 +83,10 @@ const signals:Record<string,Signal>={
   '204':{region:'westAfrica',feature:'the Royal Palaces of Abomey'},
   '203':{region:'eu',feature:'Prague’s Charles Bridge'},
   '512':{region:'westAsia',feature:'the historic frankincense trade'},
-  '762':{region:'centralAsia',feature:'the Pamir Mountains'}
+  '762':{region:'centralAsia',feature:'the Pamir Mountains'},
+  '100':{region:'eu',feature:'Srebarna wetland and Dalmatian pelicans'},
+  '496':{region:'centralAsia',feature:'the Uvs Nuur Basin'},
+  '626':{region:'southeastAsia',feature:'Nino Konis Santana National Park'}
 };
 const templates:Record<Exclude<Language,'tr'>,{
   region:(name:string)=>string;landmark:(feature:string)=>string;capital:(capital:string)=>string;
