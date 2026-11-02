@@ -24,6 +24,8 @@ jobs:
           cache: 'npm'
       - name: Install pinned dependencies
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Verify integrated 360-degree location questions and licenses
+        run: node --test tests/heritage360-integration.test.mjs
       - name: Check TypeScript
         run: npm run typecheck
       - name: Build web app
