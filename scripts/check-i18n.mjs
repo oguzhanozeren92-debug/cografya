@@ -1,3 +1,4 @@
+import { STREET_PLAYABLE_IDS } from '../server/street/country-mode.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 
@@ -65,7 +66,10 @@ for(const lang of ['es','de','fr','pt','ru','zh','ja']){
 }
 const streetSource=read('server/street/approved.mjs');
 const streetMatch=streetSource.match(/export const approvedPanoramas\s*=\s*(\[[\s\S]*?\]);/);
-const streetFacts=JSON.parse(streetMatch?.[1]??'[]').map(row=>row.fact);
+// Only validate the 37 panorama locations actually selected by the Street loader.
+// An additional approved archive photo may exist without being a playable round.
+const streetFacts=JSON.parse(streetMatch?.[1]??'[]')
+  .filter(row=>STREET_PLAYABLE_IDS.has(row.id)).map(row=>row.fact);
 const droneFacts=[...read('src/data/dronePanoramas.ts').matchAll(/\bfact:\s*'([^'\n]+)'/g)].map(m=>m[1]);
 if(streetFacts.length!==37||droneFacts.length!==5)throw new Error('Expected 42 geolocated source facts.');
 for(const fact of [...streetFacts,...droneFacts]){
