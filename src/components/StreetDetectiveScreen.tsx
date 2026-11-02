@@ -286,6 +286,18 @@ export function StreetDetectiveScreen({
   },[phase,idx,reveal,factOpen,factRead,completed.length]);
   const skipBroken=()=>{
     if(!current||(phase!=='view'&&phase!=='guess'))return;
+    if(current.source==='heritage'){
+      const currentId=current.heritage?.id;
+      const candidates=heritage360Catalogue.places.filter(p=>p.id!==currentId&&p.file&&p.credit&&p.license&&p.sourceUrl);
+      const pick=candidates[Math.floor(Math.random()*candidates.length)];
+      if(pick){
+        const replacement:MixedRound={id:'heritage:'+pick.id,ticket:'',source:'heritage',heritage:pick,
+          media:{mode:'equirectangular',image:atlasApi('/api/heritage/panorama?id='+encodeURIComponent(pick.id))},
+          credit:{artist:pick.credit,license:pick.license,source:pick.sourceUrl}};
+        setRounds(rows=>rows.map((r,i)=>i===idx?replacement:r));
+        setReady(false);setError('');setGuess(null);setPhase('view');return;
+      }
+    }
     trackPlayEvent({mode:'street',event_type:'panorama_skipped',question_id:current.id});
     const next:Completed[]=[...completed,{id:current.id,skipped:true,
       city:'',country:'',correct:false,points:0}];
@@ -427,7 +439,7 @@ export function StreetDetectiveScreen({
           <div className="space-y-3">
             <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
               <span className="flex items-center gap-2 text-sm font-black">
-                <Globe2 className="h-4 w-4 text-emerald-200"/> {t('Tur')} {idx+1}/{STREET_ROUNDS} <span className="rounded-full bg-cyan-300/10 px-2 py-0.5 text-[10px] text-cyan-100">{current.source==='drone'?'🚁':'📷'} {current.source==='drone'?(language==='tr'?'Havadan':'Aerial'):(language==='tr'?'Sokak':'Street')}</span>
+                <Globe2 className="h-4 w-4 text-emerald-200"/> {t('Tur')} {idx+1}/{STREET_ROUNDS} <span className="rounded-full bg-cyan-300/10 px-2 py-0.5 text-[10px] text-cyan-100">{current.source==='heritage'?'🏛️':current.source==='drone'?'🚁':'📷'} {current.source==='heritage'?(language==='tr'?'360° Tarihi Mekân':'360° Historic Site'):current.source==='drone'?(language==='tr'?'Havadan':'Aerial'):(language==='tr'?'Sokak':'Street')}</span>
               </span>
               <span className="text-sm font-black tabular-nums text-[#ffda96]">
                 {score.toLocaleString(language)} {t('puan')}
@@ -438,7 +450,9 @@ export function StreetDetectiveScreen({
               <>
                 <div className="street-card overflow-hidden p-2">
                   <div className="h-[min(38dvh,305px)] min-h-[205px]">
-                    <StreetPhoto key={current.id} round={current} onSkip={skipBroken}
+                    {current.source==='heritage'?<StreetPanorama key={current.id} round={current} onSkip={skipBroken}
+                      onReady={()=>{setReady(true);setError('')}}
+                      onError={message=>setError(message)}/>:<StreetPhoto key={current.id} round={current} onSkip={skipBroken}
                       onReady={()=>{
                         trackPlayEvent({mode:'street',event_type:'panorama_ready',question_id:current.id,
                           duration_ms:openedAt.current?performance.now()-openedAt.current:undefined});
@@ -447,10 +461,10 @@ export function StreetDetectiveScreen({
                       onError={message=>{
                         trackPlayEvent({mode:'street',event_type:'panorama_error',question_id:current.id,detail:message});
                         setError(message);
-                      }}/>
+                      }}/>}
                   </div>
                   <p className="px-2 py-2 text-[11px] text-blue-100/75">
-                    {current.source==='drone'?(language==='tr'?'Hava görüntüsündeki araziyi ve yapıları incele.':'Explore the landscape and buildings from above.'):t('Fotoğrafı dört yönden incele; tam konuma yaklaşmaya çalış.')}
+                    {current.source==='heritage'?(language==='tr'?'360° görüntüyü parmağınla döndür, hangi ülkede olduğunu bul.':'Rotate the 360° view and find the country.'):current.source==='drone'?(language==='tr'?'Hava görüntüsündeki araziyi ve yapıları incele.':'Explore the landscape and buildings from above.'):t('Fotoğrafı dört yönden incele; tam konuma yaklaşmaya çalış.')}
                   </p>
                 </div>
                 {hintsPanel()}
@@ -468,7 +482,7 @@ export function StreetDetectiveScreen({
                 <section className="street-card space-y-3 p-3">
                   <h2 className="text-base font-black">{t('Sence fotoğraf hangi ülkeden?')}</h2>
                   <p className="text-xs leading-5 text-blue-100/75">
-                    {t('Fotoğrafın gerçek konumuna yaklaşmaya çalış. Ülkeyi doğru bulursan ekstra puan kazanırsın.')}
+                    {current.source==='heritage'?(language==='tr'?'Bu tarihî mekân hangi ülkede? Haritada ülkenin herhangi bir yerine dokun.':'Which country is this historic landmark in? Tap anywhere inside the country.'):t('Fotoğrafın gerçek konumuna yaklaşmaya çalış. Ülkeyi doğru bulursan ekstra puan kazanırsın.')}
                   </p>
                   <StreetWorldMap guess={guess} actual={null} onGuess={setGuess}/>
                   <button type="button" disabled={!ready||!guess||hintBusy||busy}
