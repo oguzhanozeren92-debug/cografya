@@ -34,6 +34,7 @@ const COUNTRY_NUMERIC_IDS: Record<string,number> = {
   'Meksika':484, 'Japonya':392, 'Arjantin':32, 'Slovenya':705,
   'Ermenistan':51, 'Kanada':124, 'Letonya':428, 'Estonya':233,
   'Avustralya':36, 'Birleşik Krallık':826,
+  'İtalya':380, 'İrlanda':372, 'Kazakistan':398, 'Endonezya':360, 'Peru':604,
 };
 /** Feedback only: score is always computed from distance on the server. */
 export function guessedCorrectCountry(guess:Coordinates|null,country:string):boolean|null {
