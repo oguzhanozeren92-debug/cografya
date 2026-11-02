@@ -1,6 +1,6 @@
 import { getDiscoveredCountries } from '@/lib/discovery';
 
-export type GeoRewardMode = 'mixed' | 'flags' | 'clues' | 'nature' | 'islands' | 'borders' | 'street' | 'drone' | 'heritage' | 'heritage360' | 'daily';
+export type GeoRewardMode = 'mixed' | 'flags' | 'clues' | 'nature' | 'islands' | 'borders' | 'street' | 'drone' | 'heritage' | 'daily';
 export type GeoRewardLevel = 'easy' | 'medium' | 'hard' | 'tour' | 'daily';
 
 export const GEO_REWARDS_CHANGED = 'globriva-rewards-changed';
@@ -21,7 +21,6 @@ export const GEO_REWARD_SECTIONS: ReadonlyArray<{
   { id: 'borders', tr: 'Sınır Dedektifi', en: 'Border Detective', icon: '🧭', levels: ['easy','medium','hard'] },
   { id: 'street', tr: 'Sokak Dedektifi', en: 'Street Detective', icon: '📍', levels: ['tour'] },
   { id: 'heritage', tr: 'Medeniyet Dedektifi', en: 'Civilization Detective', icon: '🏛️', levels: ['easy','medium'] },
-  { id: 'heritage360', tr: '360° Konum Avı', en: '360° Location Hunt', icon: '🗺️', levels: ['tour'] },
   { id: 'daily', tr: 'Günlük Dünya Görevi', en: 'Daily World Quest', icon: '☀️', levels: ['daily'] },
 ];
 
