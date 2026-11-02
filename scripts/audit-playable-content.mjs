@@ -13,7 +13,7 @@ import ts from 'typescript';
 import { neighbors } from 'topojson-client';
 import { approvedPanoramas } from '../server/street/approved.mjs';
 import { approvedPhotoIds } from '../server/street/photo-ready.mjs';
-import { STREET_PLAYABLE_IDS, COUNTRY_HINTS } from '../server/street/country-mode.mjs';
+import { STREET_PLAYABLE_IDS, STREET_PLAYABLE_SOURCE_IDS, COUNTRY_HINTS } from '../server/street/country-mode.mjs';
 import { approvedDroneMedia } from '../server/drone/approved.mjs';
 import { readyDronePhotoIds } from '../server/drone/photo-ready.mjs';
 import { HISTORY_CASES } from '../server/history/curated.mjs';
@@ -59,7 +59,7 @@ const playableBorders=(level)=>{
 const streetReady=new Set(approvedPhotoIds);
 const street=approvedPanoramas.filter(row=>row.approved===true &&
   row.mode==='multires' && streetReady.has(row.id) &&
-  STREET_PLAYABLE_IDS.has(row.id)&&COUNTRY_HINTS[row.country] &&
+  (STREET_PLAYABLE_IDS.has(row.id)||STREET_PLAYABLE_SOURCE_IDS.has(row.sourceId))&&COUNTRY_HINTS[row.country] &&
   ['f','r','b','l'].every(face=>existsSync(resolve(root,'public/street-photos',row.id,face+'.jpg'))));
 const droneReady=new Set(readyDronePhotoIds);
 const drone360=approvedDroneMedia.filter(row=>droneReady.has(row.id) &&

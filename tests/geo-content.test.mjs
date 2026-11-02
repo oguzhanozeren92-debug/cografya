@@ -12,6 +12,7 @@ import { HISTORY_EXPANDED_CASES } from '../server/history/curated-expanded.mjs';
 import { HISTORY_DETAIL_PHOTOS } from '../server/history/detail-photos.mjs';
 import { approvedPanoramas } from '../server/street/approved.mjs';
 import { approvedPhotoIds } from '../server/street/photo-ready.mjs';
+import { STREET_PLAYABLE_IDS, STREET_PLAYABLE_SOURCE_IDS, COUNTRY_HINTS } from '../server/street/country-mode.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const require=createRequire(import.meta.url);
@@ -183,9 +184,9 @@ test('supplementary history images have unique source files and mandatory author
   }
 });
 
-test('approved street panorama fallback faces exist for all 37 entries',()=>{
+test('all 38 approved Street archive panoramas have fallback faces',()=>{
   const approved=approvedPanoramas.filter(x=>x.approved&&currentIds.has(x.id));
-  assert.equal(approved.length,37);
+  assert.equal(approved.length,38);
   for(const p of approved)for(const face of ['f','r','b','l']){
     assert.ok(existsSync(resolve(root,'public/street-photos',p.id,face+'.jpg')),
       p.id+'/'+face+' missing');
@@ -243,4 +244,17 @@ test('2 November UNESCO-backed discovery additions have balanced tiers, notes, t
   }
   assert.ok(geo.ISLAND_COUNTRIES.some(x=>x.id==='780'),'missing Caribbean island challenge');
   for(const id of ['100','496','626'])assert.ok(geo.BORDER_FOCUS.includes(id),'missing border focus '+id);
+});
+
+test('Street loader selects 19 playable panoramas and shares 11 with the 20 history cases',()=>{
+  const historyIds=new Set(allHistory.map(x=>x.panoramaId));
+  const ready=new Set(approvedPhotoIds);
+  const street=approvedPanoramas.filter(x=>x.approved===true&&ready.has(x.id)&&
+    (STREET_PLAYABLE_IDS.has(x.id)||STREET_PLAYABLE_SOURCE_IDS.has(x.sourceId))&&
+    COUNTRY_HINTS[x.country]);
+  assert.equal(street.length,19,'Street playable round count');
+  assert.equal(new Set(street.map(x=>x.id)).size,19,'Street duplicate');
+  assert.equal(historyIds.size,20,'history location count');
+  assert.equal(street.filter(x=>historyIds.has(x.id)).length,11,'shared locations');
+  assert.equal(new Set([...street.map(x=>x.id),...historyIds]).size,28,'unique playable panorama locations');
 });

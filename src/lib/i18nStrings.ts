@@ -467,7 +467,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Doğru ülke bonusu": "Correct-country bonus",
     "İpucu puan kesintisi": "Hint deduction",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Street Detective: pinpoint the spot, earn country bonuses · 4 optional hints",
-    "Gizlilik Politikası": "Privacy Policy"
+    "Gizlilik Politikası": "Privacy Policy",
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Viewing area on the Canadian side of Niagara Falls."
   },
   "es": {
     "YENİ · 1’E 1 MEYDAN OKUMA": "NUEVO · DUELO 1 CONTRA 1",
@@ -887,7 +888,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Doğru ülke bonusu": "Bono por país correcto",
     "İpucu puan kesintisi": "Penalización por pistas",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Detective callejero: marca el lugar y gana bonos de país · 4 pistas opcionales",
-    "Gizlilik Politikası": "Política de privacidad"
+    "Gizlilik Politikası": "Política de privacidad",
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Mirador del lado canadiense de las cataratas del Niágara."
   },
   "de": {
     "YENİ · 1’E 1 MEYDAN OKUMA": "NEU · 1-GEGEN-1",
@@ -1307,7 +1309,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Doğru ülke bonusu": "Bonus für richtiges Land",
     "İpucu puan kesintisi": "Punktabzug für Hinweise",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Straßen-Detektiv: Ort finden, Länderbonus erhalten · 4 optionale Hinweise",
-    "Gizlilik Politikası": "Datenschutzerklärung"
+    "Gizlilik Politikası": "Datenschutzerklärung",
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Aussichtsbereich auf der kanadischen Seite der Niagarafälle."
   },
   "fr": {
     "YENİ · 1’E 1 MEYDAN OKUMA": "NOUVEAU · DUEL 1 CONTRE 1",
@@ -1727,7 +1730,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Doğru ülke bonusu": "Bonus du bon pays",
     "İpucu puan kesintisi": "Pénalité des indices",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Détective des rues : situe le lieu, gagne un bonus de pays · 4 indices en option",
-    "Gizlilik Politikası": "Politique de confidentialité"
+    "Gizlilik Politikası": "Politique de confidentialité",
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Point de vue du côté canadien des chutes du Niagara."
   },
   "pt": {
     "YENİ · 1’E 1 MEYDAN OKUMA": "NOVO · DUELO 1 CONTRA 1",
@@ -2147,7 +2151,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Doğru ülke bonusu": "Bônus por país correto",
     "İpucu puan kesintisi": "Desconto das dicas",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Detetive de rua: encontre o local e ganhe bônus por país · 4 dicas opcionais",
-    "Gizlilik Politikası": "Política de privacidade"
+    "Gizlilik Politikası": "Política de privacidade",
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Área de observação no lado canadense das Cataratas do Niágara."
   },
   "ru": {
     "YENİ · 1’E 1 MEYDAN OKUMA": "НОВОЕ · ДУЭЛЬ 1 НА 1",
@@ -2567,7 +2572,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Doğru ülke bonusu": "Бонус за верную страну",
     "İpucu puan kesintisi": "Штраф за подсказки",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Уличный детектив: найди место и получи бонус за страну · 4 подсказки",
-    "Gizlilik Politikası": "Политика конфиденциальности"
+    "Gizlilik Politikası": "Политика конфиденциальности",
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Смотровая площадка на канадской стороне Ниагарского водопада."
   },
   "zh": {
     "YENİ · 1’E 1 MEYDAN OKUMA": "新玩法 · 一对一挑战",
@@ -2987,7 +2993,8 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Doğru ülke bonusu": "国家答对奖励",
     "İpucu puan kesintisi": "提示扣分",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "街景侦探：精准定位，赢得国家奖励 · 4条可选提示",
-    "Gizlilik Politikası": "隐私政策"
+    "Gizlilik Politikası": "隐私政策",
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "尼亚加拉瀑布加拿大一侧的观景区。"
   },
   "ja": {
     "YENİ · 1’E 1 MEYDAN OKUMA": "新登場 · 1対1チャレンジ",
@@ -3407,6 +3414,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Doğru ülke bonusu": "国の正解ボーナス",
     "İpucu puan kesintisi": "ヒントによる減点",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "ストリート探偵：場所を探して国ボーナスを獲得 · 任意のヒント4つ",
-    "Gizlilik Politikası": "プライバシーポリシー"
+    "Gizlilik Politikası": "プライバシーポリシー",
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "ナイアガラの滝のカナダ側にある展望エリア。"
   }
 };

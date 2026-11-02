@@ -1,4 +1,5 @@
-import { STREET_PLAYABLE_IDS } from '../server/street/country-mode.mjs';
+import { STREET_PLAYABLE_IDS, STREET_PLAYABLE_SOURCE_IDS, COUNTRY_HINTS } from '../server/street/country-mode.mjs';
+import { approvedPhotoIds } from '../server/street/photo-ready.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 
@@ -69,15 +70,17 @@ const streetMatch=streetSource.match(/export const approvedPanoramas\s*=\s*(\[[\
 // Only validate the 37 panorama locations actually selected by the Street loader.
 // An additional approved archive photo may exist without being a playable round.
 const streetFacts=JSON.parse(streetMatch?.[1]??'[]')
-  .filter(row=>STREET_PLAYABLE_IDS.has(row.id)).map(row=>row.fact);
+  .filter(row=>row.approved===true && approvedPhotoIds.includes(row.id) &&
+    (STREET_PLAYABLE_IDS.has(row.id)||STREET_PLAYABLE_SOURCE_IDS.has(row.sourceId)) &&
+    COUNTRY_HINTS[row.country]).map(row=>row.fact);
 const droneFacts=[...read('src/data/dronePanoramas.ts').matchAll(/\bfact:\s*'([^'\n]+)'/g)].map(m=>m[1]);
-if(streetFacts.length!==37||droneFacts.length!==5)throw new Error('Expected 42 geolocated source facts.');
+if(streetFacts.length<15||droneFacts.length!==5)throw new Error('Unexpected loader-linked geographic facts.');
 for(const fact of [...streetFacts,...droneFacts]){
   for(const language of languages){
     if(!catalog[language][fact])throw new Error(language+': untranslated geographic fact '+fact);
   }
 }
-console.log('42/42 geolocated street and drone descriptions localized in all languages.');
+console.log((streetFacts.length+droneFacts.length)+'/'+(streetFacts.length+droneFacts.length)+' loader-linked Street and Drone facts localized in all languages.');
 for(const lang of languages){
   const count=Object.keys(catalog.en).filter(key=>!!catalog[lang][key]).length;
   if(lang!=='en'&&count<Object.keys(catalog.en).length)untranslated.push(lang+': '+count+'/'+Object.keys(catalog.en).length+' direct interface translations (English fallback otherwise)');

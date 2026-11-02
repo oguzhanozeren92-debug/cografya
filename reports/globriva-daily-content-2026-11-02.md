@@ -12,11 +12,12 @@
 | **Sabit soru tanımı toplamı** | **705** | **714** | Dinamik ada/sınır hariç |
 | Ada Avcısı aday / haritada oynanabilir | 21 / 20 | 22 / 21 | Trinidad ve Tobago eklendi |
 | Sınır Dedektifi odak / geometride oynanabilir | 40 / 40 | 43 / 43 | Bulgaristan, Moğolistan, Doğu Timor |
-| Sokak Dedektifi | 37 | 37 | 148 yedek JPG |
+| Sokak Dedektifi (oyun yükleyicisi) | 19 | 19 | 76 yedek JPG |
 | Drone 360° | 5 | 5 | 20 yedek JPG |
 | Drone galeri | 16 albüm / 51 JPG-WebP | 16 albüm / 51 JPG-WebP | 4 albüm / 12 fotoğraf onaysız |
-| **Doğrulanmış oynanabilir yerel görsel** | **219** | **219** | 148+20+51 |
-| Depodaki ve canlı sunucudaki tüm statik dosyalar | 223 | 223 | 4 Sokak fotoğrafı henüz oyun seçimine uygun değil |
+| Medeniyet panoramaları | 20 | 20 | Sokak moduyla 11 ortak panorama |
+| **Benzersiz oynanabilir yerel görsel** | **183** | **183** | 28 benzersiz panorama ×4 + 20 Drone + 51 galeri |
+| Depodaki ve canlı sunucudaki tüm statik dosyalar | 223 | 223 | 10 panorama / 40 JPG henüz oyun yükleyicilerinin seçimine bağlı değil |
 
 ## Yeni sorular ve öğretici açıklamalar
 - Ülke ipucu: Bulgaristan (kolay), Moğolistan (orta), Doğu Timor (zor); kaynaklı üçer ipucu ve cevap sonrası kısa bilgi.
@@ -33,9 +34,12 @@
 
 ## Bağlantı ve test durumu
 - 2 Kasım 2026: Vercel canlı alan adındaki 223 statik görselin tamamına HEAD isteği gönderildi; **223/223 HTTP 200**. Bu, görüntülerin tüm telefonlarda açıldığına dair garanti değildir.
+- Önceki raporlardaki 219 oynanabilir görsel sayısı fazla sayımdı: 38 onaylı Sokak panorama klasörünün tamamı Sokak oyununa bağlı değil. Gerçek seçim 19 Sokak + 20 Medeniyet panoraması (11 ortak) = 28 benzersiz panorama; 28×4 + 20 Drone + 51 galeri = **183 benzersiz oynanabilir statik dosya**. Geri kalan 40 JPG arşivde erişilebilir, fakat oyun seçimine bağlı değil.
 - Sandbox ortamında mevcut `tests/geo-content.test.mjs` ve `tests/drone/hints.test.mjs` dosyaları çalıştırıldı: **13/13 geçti**. Yerel 37 Sokak panorama klasörünün varlığını kontrol eden tek test, sandbox'ta resim dosyaları kopyalanmadığı için özellikle hariç tutuldu; 223 canlı URL ayrı kontrol edildi.
 - Düzenlenen 5 TypeScript dosyasında transpile syntax diagnostics: **0 hata**.
-- Tam proje `npm run typecheck` ve `npm run build` çalıştırılamadı: özel GitHub deposunun tamamı sandbox'a klonlanamıyor. CI/Vercel dağıtım sonucu ayrıca izlenmeli.
+- Tam proje `npm run typecheck` ve `npm run build` sandbox'ta çalıştırılamadı: özel GitHub deposunun tamamı sandbox'a klonlanamıyor. GitHub Actions üzerinden tam kontroller başlatıldı; ilk çalışmada çeviri denetiminin eski 37 fotoğraf varsayımı hatası görüldü ve loader eşleşmesi düzeltilerek yeni CI tetiklendi.
+- Niagara seyir alanı için eksik 8 dil çevirisi eklendi; çeviri ve envanter denetimleri artık doğrudan oyun yükleyicisini esas alıyor.
+- Vercel üretim dağıtımı 2 Kasım'da 402 `api-deployments-free-per-day` (günlük 100 dağıtım sınırı) nedeniyle engellendi; GitHub'daki yeni içerik henüz canlı sürümde doğrulanmadı.
 - Yeni fotoğrafı yayımlamak için fiziksel mobil denetim, görsel kalite incelemesi ve onaylı CDN albümü gerekiyor; lisans/geotag tek başına yeterli değil.
 
 ## Kaynaklar
