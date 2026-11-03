@@ -65,6 +65,14 @@ test('replays rotate approved scenes without changing existing five-question for
     (available.length-1-(attempt%available.length)+available.length)%available.length));
   assert.equal(positions.size,available.length,'all reviewed panoramas should appear before repeating');
 });
+test('360° panoramas can be enlarged and safely closed on mobile',()=>{
+  const viewer=read('src/components/StreetPanorama.tsx');
+  assert.match(viewer,/h-\[100dvh\]/);
+  assert.match(viewer,/activeViewer\.current\?\.resize\?\.\(\)/);
+  assert.match(viewer,/env\(safe-area-inset-top\)/);
+  assert.match(viewer,/document\.body\.style\.overflow='hidden'/);
+  assert.match(viewer,/onKey=\(event:KeyboardEvent\)/);
+});
 test('players can inspect the result and historic fact without forced auto-skip',()=>{
   assert.doesNotMatch(game,/setTimeout\(\(\)=>advance\(\)/);
   assert.doesNotMatch(game,/factRead\?/);
