@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { languageNames, translations, type Language } from './i18nStrings';
 import { screenTranslation } from './screenTranslations';
+import { syncIosPushLanguage } from './iosPush';
 
 export type { Language } from './i18nStrings';
 export { languageNames } from './i18nStrings';
@@ -41,6 +42,7 @@ export function LanguageProvider({children}:{children:ReactNode}){
     document.documentElement.lang=language==='zh'?'zh-CN':language==='pt'?'pt-BR':language;
     document.documentElement.dir='ltr';
     document.title='Globriva';
+    void syncIosPushLanguage().catch(error=>console.warn('Push locale:',error));
   },[language]);
   const value=useMemo<I18nContext>(()=>{
     const t=(text:string)=>language==='tr' ? text
