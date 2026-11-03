@@ -1,0 +1,81 @@
+{
+  "app": "Globriva",
+  "preparedOn": "2026-11-03",
+  "status": "DRAFT ONLY — not submitted",
+  "existingLanguages": [
+    "Turkish",
+    "English (U.S.)"
+  ],
+  "localizations": [
+    {
+      "locale": "de-DE",
+      "storeLanguage": "German",
+      "language": "Deutsch",
+      "appName": "Globriva",
+      "subtitle": "Die Welt spielend entdecken",
+      "promotionalText": "Erkunde Länder, Flaggen und faszinierende Orte! Entdecke die Welt mit Kartenrätseln, echten Fotos und täglichen Geografie-Aufgaben.",
+      "description": "Wie gut kennst du die Welt? Globriva macht Geografie zu einer spannenden Entdeckungsreise. Erkunde Länder und Landschaften, erkenne Orte auf Fotos und finde deine Antworten auf der Weltkarte.\n\nJede Runde bringt eine neue Perspektive:\n• Länder und Flaggen erkennen und dein geografisches Wissen testen.\n• Auf Karten nach Ländern und besonderen Orten suchen.\n• Echte Straßenansichten und Luftaufnahmen untersuchen und Orte erraten.\n• Historische Schauplätze entdecken und Fragen zu Kulturen beantworten.\n• Tägliche Herausforderungen meistern, Sterne sammeln und Fortschritte verfolgen.\n• In verschiedenen Schwierigkeitsstufen immer wieder etwas Neues lernen.\n\nOb du nur eine kurze Runde spielen oder dein Weltwissen vertiefen möchtest: Globriva verbindet Rätsel, Karten und Entdeckungen zu einem abwechslungsreichen Geografiespiel.\n\nSchau genauer hin. Denk nach. Entdecke die Welt mit Globriva!",
+      "keywords": "geografie,erdkunde,länder,flaggen,weltkarte,quiz,landkarten,geowissen,orte"
+    },
+    {
+      "locale": "fr-FR",
+      "storeLanguage": "French",
+      "language": "Français",
+      "appName": "Globriva",
+      "subtitle": "Explorez le monde en jouant",
+      "promotionalText": "Partez à la découverte des pays, des drapeaux et des lieux étonnants grâce à des quiz géographiques, des cartes et de vraies photos.",
+      "description": "Et si la géographie devenait une aventure ? Avec Globriva, explorez les pays, observez les paysages et découvrez des lieux du monde entier à travers des défis visuels et des quiz sur carte.\n\nChaque partie vous propose une autre façon de voyager :\n• Reconnaissez les pays et les drapeaux.\n• Retrouvez des lieux sur la carte du monde.\n• Examinez de vraies photos de rues et des vues aériennes pour deviner où vous êtes.\n• Découvrez des sites historiques et répondez à des questions sur les civilisations.\n• Relevez les défis quotidiens, gagnez des étoiles et suivez votre progression.\n• Progressez avec des questions de différents niveaux.\n\nUne courte pause ou une longue séance de découverte : Globriva rend l'apprentissage de la géographie ludique et accessible.\n\nOuvrez l'œil, observez les indices et partez explorer le monde !",
+      "keywords": "géographie,pays,drapeaux,carte du monde,quiz,cultures,capitales,devinettes"
+    },
+    {
+      "locale": "es-ES",
+      "storeLanguage": "Spanish (Spain)",
+      "language": "Español (España)",
+      "appName": "Globriva",
+      "subtitle": "Explora el mundo jugando",
+      "promotionalText": "Descubre países, banderas y lugares sorprendentes con preguntas de geografía, mapas interactivos y fotografías reales. ¡Pon a prueba tu curiosidad!",
+      "description": "¿Cuánto sabes del mundo? Globriva convierte la geografía en una aventura llena de descubrimientos. Explora países, observa paisajes y busca ubicaciones en el mapa mientras aprendes jugando.\n\nCada partida te propone un reto diferente:\n• Reconoce países y banderas.\n• Encuentra lugares en el mapa del mundo.\n• Observa fotografías reales de calles y vistas aéreas para adivinar dónde estás.\n• Descubre lugares históricos y responde preguntas sobre culturas y civilizaciones.\n• Completa desafíos diarios, consigue estrellas y sigue tu progreso.\n• Disfruta de preguntas de distintos niveles de dificultad.\n\nTanto si quieres jugar unos minutos como si te apetece recorrer el mundo desde casa, Globriva une mapas, imágenes y preguntas para que cada partida sea un nuevo descubrimiento.\n\n¡Mira con atención, sigue las pistas y explora el mundo!",
+      "keywords": "geografía,países,banderas,mapamundi,quiz,cultura,capitales,adivinar"
+    },
+    {
+      "locale": "pt-BR",
+      "storeLanguage": "Portuguese (Brazil)",
+      "language": "Português (Brasil)",
+      "appName": "Globriva",
+      "subtitle": "Descubra o mundo jogando",
+      "promotionalText": "Explore países, bandeiras e lugares incríveis com desafios de geografia, mapas interativos e fotos reais. Uma nova descoberta a cada rodada!",
+      "description": "Quanto você conhece do mundo? Globriva transforma a geografia em uma aventura de descobertas. Explore países, observe paisagens e encontre lugares no mapa enquanto aprende de um jeito divertido.\n\nCada rodada traz um novo desafio:\n• Reconheça países e bandeiras.\n• Encontre lugares no mapa-múndi.\n• Analise fotos reais de ruas e imagens aéreas para descobrir onde você está.\n• Conheça lugares históricos e responda a perguntas sobre culturas e civilizações.\n• Participe de desafios diários, ganhe estrelas e acompanhe seu progresso.\n• Avance por perguntas com diferentes níveis de dificuldade.\n\nSeja para jogar por alguns minutos ou para viajar pelo planeta sem sair de casa, Globriva combina mapas, imagens e perguntas para deixar a geografia mais interessante.\n\nObserve os detalhes, siga as pistas e descubra o mundo com Globriva!",
+      "keywords": "geografia,países,bandeiras,mapa-múndi,quiz,cultura,capitais,desafio"
+    },
+    {
+      "locale": "ru-RU",
+      "storeLanguage": "Russian",
+      "language": "Русский",
+      "appName": "Globriva",
+      "subtitle": "Открой мир через географию",
+      "promotionalText": "Исследуй страны, флаги и удивительные места! Угадывай локации по реальным фото, находи их на карте и выполняй ежедневные задания.",
+      "description": "Насколько хорошо ты знаешь нашу планету? Globriva превращает географию в увлекательное путешествие. Узнавай страны, изучай пейзажи и ищи места на карте, отвечая на интересные вопросы.\n\nВ игре тебя ждут:\n• Викторины о странах и флагах.\n• Задания с поиском мест на карте мира.\n• Реальные фотографии улиц и виды с высоты — попробуй определить, где они сделаны.\n• Исторические места и вопросы о культурах и цивилизациях.\n• Ежедневные задания, звёзды и отслеживание прогресса.\n• Разные уровни сложности для новых открытий.\n\nМожно сыграть всего несколько минут или отправиться в более долгое виртуальное путешествие. Globriva объединяет карты, фотографии и географические загадки.\n\nСмотри внимательнее, ищи подсказки и открывай мир!",
+      "keywords": "география,страны,флаги,карта,викторина,столицы"
+    },
+    {
+      "locale": "ja-JP",
+      "storeLanguage": "Japanese",
+      "language": "日本語",
+      "appName": "Globriva",
+      "subtitle": "世界を旅する地理クイズ",
+      "promotionalText": "国や国旗、世界の名所を楽しく発見！実際の街並み写真や地図をヒントに場所を推理し、毎日の地理チャレンジに挑戦しよう。",
+      "description": "世界のことを、どれくらい知っていますか？\nGlobrivaは、地図と写真を通して世界を探検できる地理クイズゲームです。国や風景について学びながら、旅をするような気分で問題に挑戦できます。\n\n楽しめるチャレンジ：\n・国名や国旗を当てる地理クイズ\n・世界地図から国や場所を見つける問題\n・実際の街並み写真や空からの写真を観察して、撮影場所を推理する問題\n・歴史的な場所と文化について学べるクイズ\n・毎日のチャレンジとスターの獲得\n・難易度に合わせたさまざまな問題\n\n少しの空き時間でも、じっくり遊びたいときでも。Globrivaなら、地図を見ながら新しい発見を楽しめます。\n\n写真をよく見て、ヒントを見つけて、世界をもっと知ろう！",
+      "keywords": "地理クイズ,世界地図,国旗当て,国名当て,首都クイズ,地理学習"
+    },
+    {
+      "locale": "zh-Hans",
+      "storeLanguage": "Chinese (Simplified)",
+      "language": "简体中文",
+      "appName": "Globriva",
+      "subtitle": "探索世界的地理问答",
+      "promotionalText": "探索国家、国旗与世界名胜！观察真实街景和航拍照片，在地图上猜地点，完成每日地理挑战。",
+      "description": "你对这个世界了解多少？\nGlobriva 将地理知识变成一场有趣的探索之旅。认识不同国家，观察各地风景，在地图上寻找地点，边玩边发现世界的精彩。\n\n游戏包含多种地理挑战：\n• 识别国家和国旗，考验你的地理知识。\n• 在世界地图上寻找国家和地点。\n• 观察真实街景和航拍照片，推测拍摄地点。\n• 探索历史遗迹，回答有关文化与文明的问题。\n• 完成每日挑战，收集星星并查看自己的进步。\n• 挑战不同难度的题目，不断学习新知识。\n\n无论只有几分钟，还是想来一次更深入的世界探索，Globriva 都能让地图、照片和问答带来新的发现。\n\n仔细观察每一处线索，开启你的世界探索之旅！",
+      "keywords": "地理知识,世界地图,国家国旗,首都问答,地图挑战"
+    }
+  ]
+}
