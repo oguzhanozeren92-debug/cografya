@@ -65,6 +65,19 @@ test('replays rotate approved scenes without changing existing five-question for
     (available.length-1-(attempt%available.length)+available.length)%available.length));
   assert.equal(positions.size,available.length,'all reviewed panoramas should appear before repeating');
 });
+test('players can inspect the result and historic fact without forced auto-skip',()=>{
+  assert.doesNotMatch(game,/setTimeout\(\(\)=>advance\(\)/);
+  assert.doesNotMatch(game,/factRead\?/);
+  assert.match(game,/onClick=\{advance\}/);
+  assert.match(game,/Sonraki konuma geç/);
+  assert.match(game,/setReady\(false\);setError\(''\);setPhase\('view'\)/);
+  const dict=read('src/lib/i18nStrings.ts');
+  for(const language of ['en','es','de','fr','pt','ru','zh','ja']){
+    const pos=dict.indexOf('  "'+language+'": {');
+    const value=pos<0?'':dict.slice(pos,dict.indexOf('\n  }',pos));
+    assert.match(value,/"Sonraki konuma geç":/,'missing '+language+' translation');
+  }
+});
 test('photo API is allowlisted, bounds response size and never accepts arbitrary URLs',()=>{
   assert.match(proxy,/new Map\(catalog\.places\.filter\(p=>verified\.has\(p\.id\)\)\.map/);
   assert.match(proxy,/MAX_SIZE=3_900_000/);
