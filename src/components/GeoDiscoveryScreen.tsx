@@ -44,10 +44,10 @@ const NATURE_OPTION_PEERS=[
   ['victoria','baikal','titicaca','malawi','atitlan','turkana','plitvice','ohrid','nakuru','uvs-nuur'],
   ['everest','fuji','kilimanjaro','aconcagua','roraima','mount-kenya'],
   ['ngorongoro','wulingyuan','tsingy','tassili','lena-pillars','danxiashan','uluru'],
-  ['halong','socotra','jeju','surtsey','komodo','ningaloo','blue-hole','reef','aldabra'],
-  ['sahara','namib','uyuni','tassili','uluru'],
+  ['halong','socotra','jeju','surtsey','komodo','ningaloo','blue-hole','reef','aldabra','galapagos-islands'],
+  ['sahara','namib','uyuni','tassili','uluru','air-tenere'],
   ['siankaan','kluane','manu','central-suriname','lorentz','garajonay','dja-reserve',
-   'madeira-laurisilva','tongariro','sangay','banc-arguin'],
+   'madeira-laurisilva','tongariro','sangay','banc-arguin','yellowstone','sundarbans-bangladesh','durmitor','te-wahipounamu'],
   ['iguazu','plitvice','blue-hole','reef','halong'],
 ] as const;
 const naturePeerIds=(id:string)=>{
