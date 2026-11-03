@@ -12,9 +12,9 @@ const categories=[...screen.slice(start,end).matchAll(/\[([^\[\]]+)\]/g)]
  .map(group=>[...group[1].matchAll(/'([^']+)'/g)].map(m=>m[1]))
  .filter(group=>group.length>=4);
 
-test('57 reviewed natural wonders have comparable geographic answer choices',()=>{
+test('63 reviewed natural wonders have comparable geographic answer choices',()=>{
   assert.ok(start>=0&&end>start,'missing explicit peer families');
-  assert.equal(points.length,57,'natural wonder inventory unexpectedly changed');
+  assert.equal(points.length,63,'natural wonder inventory unexpectedly changed');
   const known=new Set(points);
   for(const group of categories){
     assert.ok(group.length>=4,'four choices need three same-kind alternatives');
