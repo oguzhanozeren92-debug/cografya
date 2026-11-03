@@ -507,7 +507,7 @@ export function StreetDetectiveScreen({
                     {busy?t('Hesaplanıyor...'):t('Konumu onayla')}
                     <ArrowRight className="h-4 w-4"/>
                   </button>
-                  <button type="button" className="street-secondary w-full" onClick={()=>setPhase('view')}>
+                  <button type="button" className="street-secondary w-full" onClick={()=>{setReady(false);setError('');setPhase('view')}}>
                     <Camera className="h-4 w-4"/> {t('Fotoğrafa tekrar bak')}
                   </button>
                 </section>
