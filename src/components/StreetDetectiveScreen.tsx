@@ -107,28 +107,34 @@ export function StreetDetectiveScreen({
       const vetted=(aerial.rows?.length?aerial.rows:dronePanoramas)
         .filter(row=>mediaById.has(row.id)).sort((a,b)=>a.id.localeCompare(b.id));
       if(vetted.length<2)throw new Error('Doğrulanmış hava görüntüleri bulunamadı.');
-      // Weekly source rotation: 2 street + 2 aerial + 1 historical 360° question.
-      // This remains the existing five-question location game.
+      // 2 street + 2 aerial + 1 heritage question per tour.
+      // Each new tour advances through verified media instead of replaying the
+      // identical five scenes for the entire week.
       const now=new Date();
       const monday=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),
         now.getUTCDate()-((now.getUTCDay()+6)%7));
       const week=Math.floor(monday/604800000);
+      let attempt=0;
+      try {
+        const stored=Number(localStorage.getItem('globriva-street-tour-rotation-v1')||'0');
+        if(Number.isSafeInteger(stored)&&stored>=0)attempt=stored%1000000;
+      } catch { /* storage is optional */ }
+      const rotation=week+attempt;
       const ground=[0,1].map(n=>({
-        ...street.rounds![(week+n)%street.rounds!.length],source:'street' as const,
+        ...street.rounds![(rotation+n)%street.rounds!.length],source:'street' as const,
       }));
       const sky=[0,1].map(n=>{
-        const row=vetted[(week+n)%vetted.length];
+        const row=vetted[(rotation+n)%vetted.length];
         return {id:'aerial:'+row.id,ticket:'',source:'drone' as const,aerial:row,
           media:mediaById.get(row.id)!,credit:{artist:row.artist,license:row.license,source:row.source}};
       });
-      const groups=['antik','anit','kale','saray','cami','muze','kilise'];
       const eligible=heritage360Catalogue.places.filter(p=>sourceReviewed.has(p.id)&&p.file&&p.credit&&p.license&&p.licenseUrl&&p.sourceUrl);
-      const grouped=eligible.filter(p=>(p.group||p.type)===groups[week%groups.length]);
-      const archive=grouped.length?grouped:eligible;
-      const place=archive[Math.floor(week/groups.length)%archive.length];
+      // Reversed deterministic cycle: every reviewed panorama is used once
+      // before one reappears, without putting new modes on the home screen.
+      const place=eligible[(eligible.length-1-(rotation%eligible.length)+eligible.length)%eligible.length];
       if(!place)throw new Error('360° tarihi mekân arşivi hazır değil.');
       streetFallback.current={
-        ...street.rounds![(week+2)%street.rounds!.length],source:'street',
+        ...street.rounds![(rotation+2)%street.rounds!.length],source:'street',
       };
       const heritage:MixedRound={
         id:'heritage:'+place.id,ticket:'',source:'heritage',heritage:place,
@@ -138,6 +144,8 @@ export function StreetDetectiveScreen({
       const mixed:MixedRound[]=[ground[0],sky[0],heritage,ground[1],sky[1]];
       warmStreetPhoto(mixed[0]);
       setRounds(mixed);
+      try { localStorage.setItem('globriva-street-tour-rotation-v1',String(attempt+1)); }
+      catch { /* storage is optional */ }
     }catch(e){setError(e instanceof Error?e.message:'Fotoğraf arşivi yüklenemedi.');}
     finally{setLoading(false);}
   },[]);
