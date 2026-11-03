@@ -38,7 +38,7 @@ Deno.serve(async request => {
     const date = now.toISOString().slice(0, 10);
     const weekday = now.getUTCDay();
     if (kind === 'daily' && weekday === 1) return json({ skipped: 'Monday is reserved for weekly notice' });
-    if (kind === 'weekly' && weekday !== 1 && weekday !== 4) return json({ skipped: 'Weekly notice runs Monday and Thursday' });
+    if (kind === 'weekly' && weekday !== 1) return json({ skipped: 'Weekly notice is limited to Monday' });
 
     const sb = createClient(serverEnv('SUPABASE_URL'), serverEnv('SUPABASE_SERVICE_ROLE_KEY'), {
       auth: { persistSession: false },
