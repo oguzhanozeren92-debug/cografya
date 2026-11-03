@@ -53,7 +53,7 @@ test('all curated countries are supported by the map country-guess checker',()=>
   }
 });
 test('photo API is allowlisted, bounds response size and never accepts arbitrary URLs',()=>{
-  assert.match(proxy,/new Map\(catalog\.places\.map/);
+  assert.match(proxy,/new Map\(catalog\.places\.filter\(p=>verified\.has\(p\.id\)\)\.map/);
   assert.match(proxy,/MAX_SIZE=3_900_000/);
   assert.match(proxy,/image_too_large/);
   assert.doesNotMatch(proxy,/req\.query\.url/);
