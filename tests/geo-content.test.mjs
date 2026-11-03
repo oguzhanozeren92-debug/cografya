@@ -39,10 +39,10 @@ for(const p of HISTORY_DETAIL_PHOTOS){
   list.push(p);photosByCase.set(p.caseId,list);
 }
 
-test('57 unique natural locations, 19 per level, with safe coordinates and real fact links',()=>{
-  assert.equal(geo.NATURE_POINTS.length,57);
+test('63 unique natural locations, 21 per level, with safe coordinates and real fact links',()=>{
+  assert.equal(geo.NATURE_POINTS.length,63);
   assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,57);
-  for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,19);
+  for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,21);
   for(const p of geo.NATURE_POINTS){
     assert.ok(Number.isFinite(p.lat)&&Math.abs(p.lat)<=90,p.id+' lat');
     assert.ok(Number.isFinite(p.lon)&&Math.abs(p.lon)<=180,p.id+' lon');
@@ -77,9 +77,9 @@ test('new 1 November nature additions have unique names, bilingual learning and 
   }
 });
 
-test('93 country clue cards use real country IDs, correct tiers and never name the answer',()=>{
+test('96 country clue cards use real country IDs, correct tiers and never name the answer',()=>{
   const cards=Object.values(clues.COUNTRY_CLUES);
-  assert.equal(cards.length,93);
+  assert.equal(cards.length,96);
   assert.equal(new Set(cards.map(x=>x.countryId)).size,cards.length);
   // Never disclose a country's name before the player answers, including
   // cases where the capital has exactly the same name as the country.
@@ -257,4 +257,33 @@ test('Street loader selects 19 playable panoramas and shares 11 with the 20 hist
   assert.equal(historyIds.size,20,'history location count');
   assert.equal(street.filter(x=>historyIds.has(x.id)).length,11,'shared locations');
   assert.equal(new Set([...street.map(x=>x.id),...historyIds]).size,28,'unique playable panorama locations');
+});
+
+test('3 November UNESCO-backed additions have correct tiers, safe hints, notes and native labels',()=>{
+  const newNature=['yellowstone','galapagos-islands','sundarbans-bangladesh','durmitor','air-tenere','te-wahipounamu'];
+  const facts=readFileSync(resolve(root,'src/data/geoDiscoveryFacts.ts'),'utf8');
+  const screen=readFileSync(resolve(root,'src/components/GeoDiscoveryScreen.tsx'),'utf8');
+  for(const id of newNature){
+    const row=geo.NATURE_POINTS.find(x=>x.id===id);
+    assert.ok(row,id+' absent');
+    assert.match(row.sourceUrl,/^https:\/\/whc\.unesco\.org\/en\/list\/\d+\/$/);
+    assert.ok(row.clue.length>70&&row.clueEn.length>70,id+' short clue');
+    assert.ok(!normalize(row.clue).includes(normalize(row.name)),id+' answer leak');
+    assert.ok(facts.includes('"'+id+'":'),id+' missing learning note');
+    assert.ok(screen.includes("'"+id+"'"),id+' missing comparable option family');
+  }
+  for(const tier of [1,2,3])assert.equal(newNature.filter(id=>geo.NATURE_POINTS.find(x=>x.id===id).level===tier).length,2);
+  const locale=readFileSync(resolve(root,'src/lib/clueLanguage.ts'),'utf8');
+  const landmarks=readFileSync(resolve(root,'src/lib/clueLandmarks.ts'),'utf8');
+  for(const [id,tier] of [['056',1],['860',2],['232',3]]){
+    const card=clues.COUNTRY_CLUES[id],meta=countries.COUNTRY_DATA[id];
+    assert.ok(card&&meta,id+' absent');
+    assert.equal(card.difficulty,tier);
+    assert.equal(meta.difficulty,tier);
+    assert.match(card.sourceUrl,/^https:\/\/whc\.unesco\.org\/en\/list\/\d+\/$/);
+    assert.ok(card.fact.length>70);
+    assert.ok(locale.includes("'"+id+"':{region:"),id+' locale missing');
+    assert.ok((landmarks.match(new RegExp('"'+id+'":','g'))||[]).length>=7,id+' native labels missing');
+    for(const clue of card.clues)assert.ok(!normalize(clue).includes(normalize(meta.nameTr)),id+' answer leaked');
+  }
 });
