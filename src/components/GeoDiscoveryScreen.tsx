@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { geoEqualEarth, geoMercator, geoPath } from 'd3-geo';
+import { geoArea, geoCentroid, geoDistance, geoEqualEarth, geoMercator, geoPath } from 'd3-geo';
 import { feature, neighbors } from 'topojson-client';
 import worldData from 'world-atlas/countries-110m.json';
 import { ArrowLeft, ArrowRight, CheckCircle2, Compass, LockKeyhole, Mountain, MapPin, Play, Sparkles, Trophy, RotateCcw } from 'lucide-react';
@@ -37,11 +37,52 @@ const shuffle=<T,>(data:readonly T[])=>{
  return x;
 };
 const nameOf=(id:string,lang:Language)=>localizedCountryById(id,lang)||COUNTRY_DATA[id]?.nameTr||id;
+// Wrong answers must resemble the target. A lake vs a mountain is not a useful challenge.
+// These sets only group existing verified points; they do not create new locations.
+const NATURE_OPTION_PEERS=[
+  ['nile','amazon','mississippi','danube','ganges','congo','yangtze','rhine','okavango','puerto-princesa-river'],
+  ['victoria','baikal','titicaca','malawi','atitlan','turkana','plitvice','ohrid','nakuru','uvs-nuur'],
+  ['everest','fuji','kilimanjaro','aconcagua','roraima','mount-kenya'],
+  ['ngorongoro','wulingyuan','tsingy','tassili','lena-pillars','danxiashan','uluru'],
+  ['halong','socotra','jeju','surtsey','komodo','ningaloo','blue-hole','reef','aldabra'],
+  ['sahara','namib','uyuni','tassili','uluru'],
+  ['siankaan','kluane','manu','central-suriname','lorentz','garajonay','dja-reserve',
+   'madeira-laurisilva','tongariro','sangay','banc-arguin'],
+  ['iguazu','plitvice','blue-hole','reef','halong'],
+] as const;
+const naturePeerIds=(id:string)=>{
+ const group=NATURE_OPTION_PEERS.find(g=>g.includes(id as never));
+ return group?new Set<string>(group):new Set<string>([id]);
+};
+const outlineArea=(id:string)=>{
+ const shape=shapeById.get(id);
+ return shape?Math.max(0.000001,geoArea(shape as never)):0;
+};
+const closeOutlineAlternatives=<T extends {id:string}>(item:T,bank:readonly T[]):T[]=>{
+ const base=outlineArea(item.id);
+ const similar=bank.filter(x=>x.id!==item.id&&outlineArea(x.id)>0);
+ return shuffle(similar).sort((a,b)=>
+   Math.abs(Math.log(outlineArea(a.id)/base))-Math.abs(Math.log(outlineArea(b.id)/base))).slice(0,3);
+};
+const nearNonNeighbours=(target:string,non:readonly string[]):string[]=>{
+ const shape=shapeById.get(target);
+ if(!shape)return shuffle(non).slice(0,3);
+ const home=geoCentroid(shape as never);
+ return shuffle(non).sort((a,b)=>{
+   const x=shapeById.get(a),y=shapeById.get(b);
+   const da=x?geoDistance(home,geoCentroid(x as never)):Infinity;
+   const db=y?geoDistance(home,geoCentroid(y as never)):Infinity;
+   return da-db;
+ }).slice(0,3);
+};
+
 function buildNature(level:Level):Round[]{
  const candidate=NATURE_POINTS.filter(x=>x.level===level);
  // Keep the played round at ten questions; the larger reviewed bank rotates on replay.
   return shuffle(candidate).slice(0,10).map(item=>{
-  const distract=shuffle(NATURE_POINTS.filter(p=>p.id!==item.id)).slice(0,3);
+  const peers=naturePeerIds(item.id);
+  const distract=shuffle(NATURE_POINTS.filter(p=>p.id!==item.id&&peers.has(p.id))).slice(0,3);
+  if(distract.length!==3)throw new Error('Natural-feature peer catalogue incomplete: '+item.id);
   return {id:item.id,prompt:item.clue,promptEn:item.clueEn,options:shuffle([item,...distract]).map(x=>({id:x.id,label:x.name,lat:x.lat,lon:x.lon})),
    answer:item.id,region:item.region,source:item.sourceUrl||NATURE_SOURCE,level};
  });
@@ -50,7 +91,8 @@ function buildIsland(level:Level,tr:boolean):Round[]{
  const bank=ISLAND_COUNTRIES.filter(x=>shapeById.has(x.id));
  const active=bank.filter(x=>x.level===level);
  return shuffle(active).map(item=>{
-  const other=shuffle(bank.filter(x=>x.id!==item.id)).slice(0,3);
+  const sameTier=bank.filter(x=>x.level===item.level);
+  const other=closeOutlineAlternatives(item,sameTier);
   return {id:item.id,prompt:'Bu ülke veya takımadayı harita siluetinden tanıyabilir misin?',promptEn:'Can you recognize this island country or archipelago from its outline?',
    options:shuffle([item,...other]).map(c=>({id:c.id,label:tr?c.name:c.en})),
    answer:item.id,region:'Gerçek kara silueti · Natural Earth verisi',source:NATURE_SOURCE,featureId:item.id,level};
@@ -62,11 +104,13 @@ function buildBorders(level:Level,language:Language):Round[]{
  const pool=focus.filter(x=>shapeById.has(x)&&COUNTRY_DATA[x]);
  return shuffle(chunks).flatMap((target):Round[]=>{
   const links=[...(adj.get(target)||[])].filter(id=>COUNTRY_DATA[id]&&shapeById.has(id));
-  const non=pool.filter(id=>id!==target&&!adj.get(target)?.has(id));
+  const non=Object.keys(COUNTRY_DATA).filter(id=>id!==target&&
+    shapeById.has(id)&&!adj.get(target)?.has(id));
   if(!links.length||non.length<3)return [];
   const wrongChoice=level===2&&links.length>=3;
-  const answer=wrongChoice?shuffle(non)[0]:shuffle(links)[0];
-  const others=wrongChoice?shuffle(links).slice(0,3):shuffle(non).slice(0,3);
+  const nearby=nearNonNeighbours(target,non);
+  const answer=wrongChoice?nearby[0]:shuffle(links)[0];
+  const others=wrongChoice?shuffle(links).slice(0,3):nearby;
   if(others.length!==3)return [];
   return [{id:target,prompt:wrongChoice
     ?'Haritadaki ülkeyle hangisi kara sınırı paylaşmaz?'
