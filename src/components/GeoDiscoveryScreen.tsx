@@ -101,7 +101,6 @@ function buildIsland(level:Level,tr:boolean):Round[]{
 function buildBorders(level:Level,language:Language):Round[]{
  const focus=BORDER_FOCUS.filter(id=>shapeById.has(id)&&COUNTRY_DATA[id]&&adj.get(id)?.size);
  const chunks=level===1?focus.slice(0,14):level===2?focus.slice(14,29):focus.slice(29);
- const pool=focus.filter(x=>shapeById.has(x)&&COUNTRY_DATA[x]);
  return shuffle(chunks).flatMap((target):Round[]=>{
   const links=[...(adj.get(target)||[])].filter(id=>COUNTRY_DATA[id]&&shapeById.has(id));
   const non=Object.keys(COUNTRY_DATA).filter(id=>id!==target&&
