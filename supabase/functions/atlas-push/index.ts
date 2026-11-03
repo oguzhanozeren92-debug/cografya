@@ -20,10 +20,6 @@ const serverEnv = (name: string) => {
 const json = (value: unknown, status = 200) => new Response(JSON.stringify(value), {
   status, headers: { 'Content-Type': 'application/json' },
 });
-const messages: Record<PushKind, { title: string; body: string; target: PushKind }> = {
-  daily: { title: '🌍 Bugünün 10 sorusu hazır!', body: 'Dünyada kısa bir tur atmaya var mısın?', target: 'daily' },
-  weekly: { title: '🏆 Yeni hafta, yeni yarış!', body: 'Atlas Arena haftalık sıralaması yeniden başladı.', target: 'weekly' },
-};
 Deno.serve(async request => {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
   const authorization = request.headers.get('authorization') || '';
@@ -67,6 +63,18 @@ Deno.serve(async request => {
           .select('player_id').eq('player_id', device.player_id).eq('day_key', date).limit(1);
         if (completeError) throw completeError;
         if (completed?.length) { skipped++; continue; }
+      } else {
+        // Interim guard: the current weekly leaderboard aggregates normal-game
+        // scores. Suppress the reminder once 30 scored questions have accumulated
+        // this week. A separate 30-question tournament requires its own finish flag.
+        const utcMonday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - (weekday + 6) % 7));
+        const weekStart = utcMonday.toISOString().slice(0, 10);
+        const { data: standing, error: weeklyError } = await sb.from('geo_weekly_leaderboard')
+          .select('total_questions')
+          .eq('player_id', device.player_id).eq('week_start', weekStart).limit(30);
+        if (weeklyError) throw weeklyError;
+        const answered = (standing ?? []).reduce((sum, row) => sum + Math.max(0, Number(row.total_questions || 0)), 0);
+        if (answered >= 30) { skipped++; continue; }
       }
 
       // Strict one-send-per-player-per-kind-per-day dedupe, including cron retries.
