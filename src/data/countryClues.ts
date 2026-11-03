@@ -957,6 +957,39 @@ const cards: CountryClueCard[] = [
     ],
     "fact": "Nino Konis Santana, Haziran 2026'da ülkenin ilk UNESCO biyosfer rezervi olarak ilan edildi; koruma alanı kara ve deniz yaşamını birlikte kapsar.",
     "sourceUrl": "https://www.unesco.org/en/articles/nino-konis-santana-designated-timor-lestes-first-unesco-biosphere-reserve"
+  },
+  {
+    "countryId": "056",
+    "difficulty": 1,
+    "clues": [
+      "Kuzeybatı Avrupa'da Kuzey Denizi'ne kıyısı bulunan küçük bir ülkedir.",
+      "Orta Çağ'dan kalma kanalları ve tuğla Gotik yapılarıyla ünlü Brugge kenti burada bulunur.",
+      "Başkentinin adı Brüksel'dir."
+    ],
+    "fact": "Brugge'nin tarihî merkezi, Orta Çağ'daki ticaret yolları ve Flaman resim geleneğiyle bağlantılı önemli bir Dünya Mirası alanıdır.",
+    "sourceUrl": "https://whc.unesco.org/en/list/996/"
+  },
+  {
+    "countryId": "860",
+    "difficulty": 2,
+    "clues": [
+      "Orta Asya'da denize kıyısı bulunmayan, eski İpek Yolu güzergâhlarıyla tanınan bir ülkedir.",
+      "Zerefşan Vadisi'ndeki tarihî kentte Registan Meydanı ve görkemli medreseler bulunur.",
+      "Başkentinin adı Taşkent'tir."
+    ],
+    "fact": "Semerkant, Timurlular döneminde büyük bir kültür ve bilim merkezi olarak gelişti; Registan çevresindeki yapılar bu mirasın parçalarıdır.",
+    "sourceUrl": "https://whc.unesco.org/en/list/603/"
+  },
+  {
+    "countryId": "232",
+    "difficulty": 3,
+    "clues": [
+      "Afrika Boynuzu'nun kuzeyinde Kızıldeniz'e uzun kıyısı olan bir ülkedir.",
+      "Yüksek bir plato üzerinde kurulu başkenti, 20. yüzyılın modernist şehir planlamasıyla tanınır.",
+      "Başkentinin adı Asmara'dır."
+    ],
+    "fact": "Asmara'nın 1893-1941 arasında gelişen modernist kent dokusu, Avrupa mimarlık akımlarının Afrika'daki yerel koşullarla karşılaşmasını gösterir.",
+    "sourceUrl": "https://whc.unesco.org/en/list/1550/"
   }
 ];
 
