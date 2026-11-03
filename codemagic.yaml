@@ -94,6 +94,7 @@ workflows:
         # Workflow-level values supersede stale identifiers in env groups.
         ADMOB_APP_ID_IOS: "ca-app-pub-9321324588059191~9909211737"
         VITE_ADMOB_REWARDED_IOS_ID: "ca-app-pub-9321324588059191/3232122740"
+        VITE_ADMOB_INTERSTITIAL_IOS_ID: "ca-app-pub-9321324588059191/8316541429"
         VITE_ADMOB_USE_TEST_ADS: "false"
     scripts:
       - name: Load public multiplayer settings from Globriva Vercel
