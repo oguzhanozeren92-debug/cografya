@@ -68,6 +68,7 @@ jobs:
         run: node --test tests/street/country-mode.test.mjs
       - name: Verify loader-linked geography and media inventory
         run: |
+          node --test tests/geo-option-quality.test.mjs
           node --test tests/geo-content.test.mjs tests/drone/hints.test.mjs
           node scripts/audit-playable-content.mjs --strict
       - name: Type check
