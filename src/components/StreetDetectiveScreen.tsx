@@ -59,7 +59,6 @@ export function StreetDetectiveScreen({
   const [hintError,setHintError]=useState('');
   const [reveal,setReveal]=useState<Reveal|null>(null);
   const [factOpen,setFactOpen]=useState(false);
-  const [factRead,setFactRead]=useState(false);
   const [completed,setCompleted]=useState<Completed[]>([]);
   const [ready,setReady]=useState(false);
   const [busy,setBusy]=useState(false);
@@ -85,7 +84,7 @@ export function StreetDetectiveScreen({
     streetFallback.current=null;
     trackPlayEvent({mode:'street',event_type:'mode_start'});
     setLoading(true);setError('');setRounds([]);setIdx(0);setCompleted([]);
-    setGuess(null);setReveal(null);setFactOpen(false);setFactRead(false);setClues([]);setHintCount(0);
+    setGuess(null);setReveal(null);setFactOpen(false);setClues([]);setHintCount(0);
     setEarnedHintLevel(null);setHintBusy(false);setHintError('');
     setReady(false);setShowRank(false);setSaveNote('');setPhase('view');
     setSaveState('idle');setLastFinalScore(0);setSaveError('');setStageAward(null);
@@ -289,19 +288,12 @@ export function StreetDetectiveScreen({
   const resetForNext=()=>{
     setIdx(i=>i+1);setGuess(null);setClues([]);setHintCount(0);
     setEarnedHintLevel(null);setHintBusy(false);setHintError('');
-    setReveal(null);setFactOpen(false);setFactRead(false);setReady(false);setError('');setPhase('view');
+    setReveal(null);setFactOpen(false);setReady(false);setError('');setPhase('view');
   };
   const advance=()=>{
     if(completed.length>=STREET_ROUNDS)finishGame(completed);
     else resetForNext();
   };
-  // Do not force reading: advance after four seconds, or after the fact card
-  // is dismissed. Leaving/restarting invalidates the pending timeout.
-  useEffect(()=>{
-    if(phase!=='result'||!reveal||factOpen)return;
-    const timer=window.setTimeout(()=>advance(),factRead?1700:4400);
-    return ()=>window.clearTimeout(timer);
-  },[phase,idx,reveal,factOpen,factRead,completed.length]);
   const skipBroken=()=>{
     if(!current||(phase!=='view'&&phase!=='guess'))return;
     if(current.source==='heritage'){
@@ -547,14 +539,17 @@ export function StreetDetectiveScreen({
                 </p>
                 <p className="text-xs text-blue-100/75">{reveal.city?reveal.city+' · ':''}{t(reveal.title)}</p>
                 <StreetWorldMap guess={guess} actual={reveal.actual} onGuess={()=>{}} locked/>
-                <button type="button" onClick={()=>{setFactOpen(true);setFactRead(true)}} aria-haspopup="dialog" className="mx-auto inline-flex min-h-10 items-center gap-2 rounded-full border border-cyan-200/50 bg-white/10 px-4 text-sm font-black text-cyan-100"><span className="text-lg" aria-hidden="true">ⓘ</span>{t('Ülke ve konum hakkında bilgi')}</button>
+                <button type="button" onClick={()=>{setFactOpen(true);}} aria-haspopup="dialog" className="mx-auto inline-flex min-h-10 items-center gap-2 rounded-full border border-cyan-200/50 bg-white/10 px-4 text-sm font-black text-cyan-100"><span className="text-lg" aria-hidden="true">ⓘ</span>{t('Ülke ve konum hakkında bilgi')}</button>
                 <p className="text-[11px] leading-5 text-blue-100/65">
                   {t('Görüntü:')} {reveal.credit.artist} · {reveal.credit.license} ·{' '}
                   <a href={reveal.credit.source} target="_blank" rel="noopener noreferrer"
                     className="underline underline-offset-2">{t('Kaynak / lisans')}</a>
                   {current.source==='heritage'&&current.heritage&&<a href={current.heritage.licenseUrl} target="_blank" rel="noopener noreferrer" className="ml-2 underline underline-offset-2">{current.heritage.license}</a>}
                 </p>
-                <p className="text-xs text-blue-100/65">{t('Oyun otomatik devam edecek.')}</p>
+                <button type="button" onClick={advance} className="street-primary mt-3 min-h-12 w-full"
+                  aria-label={t('Sonraki konuma geç')}>
+                  {t('Sonraki konuma geç')} <ArrowRight className="h-4 w-4"/>
+                </button>
               </section>
             )}
           </div>
