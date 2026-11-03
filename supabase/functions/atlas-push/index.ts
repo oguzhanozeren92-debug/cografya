@@ -9,6 +9,7 @@ type Device = {
   player_id: string;
   device_token: string;
   apns_environment: 'production' | 'sandbox';
+  language: string;
 };
 const serverEnv = (name: string) => {
   const result = Deno.env.get(name);
@@ -36,7 +37,7 @@ Deno.serve(async request => {
     const date = now.toISOString().slice(0, 10);
     const weekday = now.getUTCDay();
     if (kind === 'daily' && weekday === 1) return json({ skipped: 'Monday is reserved for weekly notice' });
-    if (kind === 'weekly' && weekday !== 1) return json({ skipped: 'Weekly notice runs only Monday' });
+    if (kind === 'weekly' && weekday !== 1 && weekday !== 4) return json({ skipped: 'Weekly notice runs Monday and Thursday' });
 
     const sb = createClient(serverEnv('SUPABASE_URL'), serverEnv('SUPABASE_SERVICE_ROLE_KEY'), {
       auth: { persistSession: false },
@@ -51,7 +52,7 @@ Deno.serve(async request => {
     let examined = 0, sent = 0, skipped = 0, failures = 0;
     // Starter limit: 200 devices per run. Upgrade to a queue/cursor worker as users grow.
     const { data, error } = await sb.from('geo_push_devices')
-      .select('player_id,device_token,apns_environment')
+      .select('player_id,device_token,apns_environment,language')
       .eq('enabled', true).eq(kind, true)
       .order('player_id', { ascending: true })
       .limit(200);
