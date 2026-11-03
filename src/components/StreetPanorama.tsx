@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { RefreshCcw, SkipForward, AlertCircle } from 'lucide-react';
+import { RefreshCcw, SkipForward, AlertCircle, Maximize2, Minimize2 } from 'lucide-react';
 import 'pannellum/build/pannellum.css';
 
 export type PanoramaMedia =
@@ -21,6 +21,7 @@ interface Viewer {
   destroy():void;
   on(event:string,fn:()=>void):void;
   isLoaded?():boolean;
+  resize?():void;
 }
 declare global { interface Window {
   pannellum?:{viewer:(element:HTMLElement,config:Record<string,unknown>)=>Viewer};
@@ -69,11 +70,25 @@ export function StreetPanorama({
   skipLabel?:string;
 }) {
   const container=useRef<HTMLDivElement>(null);
+  const activeViewer=useRef<Viewer|null>(null);
+  const [fullscreen,setFullscreen]=useState(false);
   const callbacks=useRef({onReady,onError,onSkip});
   callbacks.current={onReady,onError,onSkip};
   const [retry,setRetry]=useState(0);
   const [state,setState]=useState<'loading'|'ready'|'error'>('loading');
   const [failure,setFailure]=useState('');
+  useEffect(()=>{
+    if(!fullscreen)return;
+    const previous=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    const onKey=(event:KeyboardEvent)=>{if(event.key==='Escape')setFullscreen(false)};
+    window.addEventListener('keydown',onKey);
+    return()=>{document.body.style.overflow=previous;window.removeEventListener('keydown',onKey)};
+  },[fullscreen]);
+  useEffect(()=>{
+    const frame=requestAnimationFrame(()=>{try{activeViewer.current?.resize?.()}catch{/* viewer optional */}});
+    return()=>cancelAnimationFrame(frame);
+  },[fullscreen]);
   useEffect(()=>{
     let active=true,done=false;
     let viewer:Viewer|null=null;
@@ -95,7 +110,7 @@ export function StreetPanorama({
       setState('error');setFailure(message);callbacks.current.onError(message);
       // Hide Pannellum's internal English error box behind our own accessible UI.
       // Deferring destruction avoids mutating Pannellum during its error callback.
-      queueMicrotask(()=>{try{viewer?.destroy();viewer=null;}catch{/* ignore */}});
+      queueMicrotask(()=>{try{viewer?.destroy();viewer=null;activeViewer.current=null;}catch{/* ignore */}});
     };
     timeoutTimer=setTimeout(()=>fail('360° görüntü 18 saniyede yüklenmedi. Yeniden dene.'),MAX_WAIT_MS);
     void (async()=>{
@@ -116,6 +131,7 @@ export function StreetPanorama({
       if(media.mode==='equirectangular')options.panorama=media.image;
       else options.multiRes={...media.config,basePath:media.base};
       viewer=window.pannellum.viewer(container.current,options);
+      activeViewer.current=viewer;
       viewer.on('load',succeed);
       viewer.on('error',()=>fail(media.mode==='multires'
         ? '360° görüntü parçaları indirilemedi. Tekrar dene veya bu turu geç.'
@@ -134,11 +150,14 @@ export function StreetPanorama({
       if(timeoutTimer)clearTimeout(timeoutTimer);
       if(checkTimer)clearInterval(checkTimer);
       try{viewer?.destroy();}catch{/* Viewer was already unmounted */}
+      activeViewer.current=null;
     };
   },[round.id,round.media,retry]);
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[20px] bg-[#0c2946]">
+    <div className={fullscreen
+      ? 'fixed inset-0 z-[180] h-[100dvh] w-screen overflow-hidden bg-[#0c2946]'
+      : 'relative h-full w-full overflow-hidden rounded-[20px] bg-[#0c2946]'}>
       <div ref={container} className="h-full w-full" aria-label="360 derece panorama; parmağınla dönerek etrafına bak"/>
       {state==='loading'&&(
         <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-end overflow-hidden bg-[#102c49] pb-6 text-center text-sm font-bold text-blue-100" role="status">
@@ -152,6 +171,12 @@ export function StreetPanorama({
           </span>
         </div>
       )}
+      {state==='ready'&&<button type="button"
+        onClick={()=>setFullscreen(x=>!x)}
+        className={'absolute right-3 z-30 grid min-h-11 min-w-11 place-items-center rounded-xl border border-amber-200/50 bg-[#091c34]/90 text-amber-100 '+(fullscreen?'top-[max(18px,env(safe-area-inset-top))]':'top-3')}
+        aria-label={fullscreen?'Panoramayı küçült':'Panoramayı tam ekrana büyüt'}>
+        {fullscreen?<Minimize2 className="h-5 w-5"/>:<Maximize2 className="h-5 w-5"/>}
+      </button>}
       {state==='error'&&(
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-[#0c2946]/95 p-5 text-center">
           <AlertCircle className="h-8 w-8 text-[#ffba94]"/>
