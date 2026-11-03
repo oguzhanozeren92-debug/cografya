@@ -171,12 +171,12 @@ export function StreetPanorama({
           </span>
         </div>
       )}
-      {state==='ready'&&<button type="button"
+      <button type="button"
         onClick={()=>setFullscreen(x=>!x)}
         className={'absolute right-3 z-30 grid min-h-11 min-w-11 place-items-center rounded-xl border border-amber-200/50 bg-[#091c34]/90 text-amber-100 '+(fullscreen?'top-[max(18px,env(safe-area-inset-top))]':'top-3')}
         aria-label={fullscreen?'Panoramayı küçült':'Panoramayı tam ekrana büyüt'}>
         {fullscreen?<Minimize2 className="h-5 w-5"/>:<Maximize2 className="h-5 w-5"/>}
-      </button>}
+      </button>
       {state==='error'&&(
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-[#0c2946]/95 p-5 text-center">
           <AlertCircle className="h-8 w-8 text-[#ffba94]"/>
