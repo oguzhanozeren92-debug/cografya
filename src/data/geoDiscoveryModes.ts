@@ -611,6 +611,72 @@ export const NATURE_POINTS:NaturePoint[]=[
     "level": 3,
     "region": "Çin / Guangdong",
     "sourceUrl": "https://whc.unesco.org/en/list/1335/"
+  },
+  {
+    "id": "yellowstone",
+    "name": "Yellowstone Millî Parkı",
+    "clue": "ABD'nin kuzeybatısındaki Kayalık Dağlar'da, gayzerler, sıcak su kaynakları ve bizon sürüleriyle tanınan büyük koruma alanını bul.",
+    "clueEn": "Locate the protected Rocky Mountain landscape in the northwestern United States known for geysers, hot springs and wild bison.",
+    "lat": 44.46,
+    "lon": -110.83,
+    "level": 1,
+    "region": "ABD / Kayalık Dağlar",
+    "sourceUrl": "https://whc.unesco.org/en/list/28/"
+  },
+  {
+    "id": "galapagos-islands",
+    "name": "Galápagos Adaları",
+    "clue": "Ekvador ana karasının batısındaki Pasifik Okyanusu'nda, dev kaplumbağalar ve farklı adalarda evrimleşmiş ispinozlarla tanınan takımadayı bul.",
+    "clueEn": "Find the Pacific archipelago west of mainland Ecuador known for giant tortoises and finches that evolved on different islands.",
+    "lat": -0.75,
+    "lon": -90.5,
+    "level": 1,
+    "region": "Ekvador / Pasifik",
+    "sourceUrl": "https://whc.unesco.org/en/list/1/"
+  },
+  {
+    "id": "sundarbans-bangladesh",
+    "name": "Sundarbans Mangrov Ormanları",
+    "clue": "Bengal Körfezi'nin kuzeyinde, büyük nehir deltasındaki gelgit kanalları ve tuzlu suya dayanıklı ağaçlarla örülü ormanları bul.",
+    "clueEn": "Locate the tidal mangrove forests of a great river delta on the northern Bay of Bengal, threaded with creeks and mudflats.",
+    "lat": 21.95,
+    "lon": 89.5,
+    "level": 2,
+    "region": "Bangladeş / Bengal Körfezi",
+    "sourceUrl": "https://whc.unesco.org/en/list/798/"
+  },
+  {
+    "id": "durmitor",
+    "name": "Durmitor Millî Parkı",
+    "clue": "Karadağ'ın kuzeyinde, buzulların şekillendirdiği dağlar, göller ve Tara Nehri'nin derin kanyonuyla tanınan koruma alanını bul.",
+    "clueEn": "Find the northern Montenegrin mountain park shaped by glaciers, alpine lakes and the deep canyon of the Tara River.",
+    "lat": 43.13,
+    "lon": 19.02,
+    "level": 2,
+    "region": "Karadağ / Dinar Alpleri",
+    "sourceUrl": "https://whc.unesco.org/en/list/100/"
+  },
+  {
+    "id": "air-tenere",
+    "name": "Aïr ve Ténéré Doğa Koruma Alanları",
+    "clue": "Nijer'in Sahra kesiminde, volkanik dağ kütleleriyle hareketli kum tepelerinin buluştuğu geniş koruma alanını bul.",
+    "clueEn": "Locate the vast Saharan reserve in Niger where volcanic mountain massifs meet shifting dunes and arid plains.",
+    "lat": 19,
+    "lon": 9,
+    "level": 3,
+    "region": "Nijer / Sahra",
+    "sourceUrl": "https://whc.unesco.org/en/list/573/"
+  },
+  {
+    "id": "te-wahipounamu",
+    "name": "Te Wāhipounamu Güneybatı Yeni Zelanda",
+    "clue": "Yeni Zelanda'nın Güney Adası'nın güneybatısında, buzulların oyduğu fiyortlar, şelaleler ve eski ormanlarla tanınan Dünya Mirası alanını bul.",
+    "clueEn": "Find the World Heritage landscape in southwestern South Island, New Zealand, shaped by glaciers into fjords, waterfalls and ancient forests.",
+    "lat": -44.5,
+    "lon": 168.2,
+    "level": 3,
+    "region": "Yeni Zelanda / Güney Adası",
+    "sourceUrl": "https://whc.unesco.org/en/list/551/"
   }
 ];
 export const NATURE_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
