@@ -52,6 +52,19 @@ test('all curated countries are supported by the map country-guess checker',()=>
     assert.ok(map.includes("'"+country+"':"),'unmapped country '+country);
   }
 });
+test('replays rotate approved scenes without changing existing five-question format',()=>{
+  assert.match(game,/globriva-street-tour-rotation-v1/);
+  assert.match(game,/const rotation=week\+attempt/);
+  assert.match(game,/\(rotation\+n\)%street\.rounds!/);
+  assert.match(game,/\(rotation\+n\)%vetted\.length/);
+  assert.match(game,/const place=eligible\[/);
+  const allow=new Set(reviewed.sourceReviewedIds);
+  const available=catalogue.places.filter(p=>allow.has(p.id));
+  assert.ok(available.length>=10);
+  const positions=new Set(Array.from({length:available.length},(_,attempt)=>
+    (available.length-1-(attempt%available.length)+available.length)%available.length));
+  assert.equal(positions.size,available.length,'all reviewed panoramas should appear before repeating');
+});
 test('photo API is allowlisted, bounds response size and never accepts arbitrary URLs',()=>{
   assert.match(proxy,/new Map\(catalog\.places\.filter\(p=>verified\.has\(p\.id\)\)\.map/);
   assert.match(proxy,/MAX_SIZE=3_900_000/);
