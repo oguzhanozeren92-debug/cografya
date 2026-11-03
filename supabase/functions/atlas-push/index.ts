@@ -3,6 +3,7 @@
 // guarded by a strong ATLAS_PUSH_CRON_SECRET (server-only credential).
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { SignJWT, importPKCS8 } from 'npm:jose@5.9.6';
+import { notice } from './messages.ts';
 
 type PushKind = 'daily' | 'weekly';
 type Device = {
@@ -90,10 +91,10 @@ Deno.serve(async request => {
           },
           body: JSON.stringify({
             aps: {
-              alert: { title: messages[kind].title, body: messages[kind].body },
+              alert: { title: notice(kind, device.language).title, body: notice(kind, device.language).body },
               sound: 'default',
             },
-            target: messages[kind].target,
+            target: kind,
           }),
         });
         if (res.ok) { sent++; continue; }
