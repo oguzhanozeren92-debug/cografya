@@ -6,6 +6,7 @@ export const languageNames: Record<Language,string> = {
 };
 export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> = {
   "en": {
+    "Sonraki konuma geç": "Next location",
     "OYUN MODUNU SEÇ": "CHOOSE A GAME MODE",
     "4 AYRI OYUN": "4 DIFFERENT GAMES",
     "Kaydırılabilir yeni oyunlar": "Swipe to explore new games",
@@ -471,6 +472,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Viewing area on the Canadian side of Niagara Falls."
   },
   "es": {
+    "Sonraki konuma geç": "Siguiente lugar",
     "YENİ · 1’E 1 MEYDAN OKUMA": "NUEVO · DUELO 1 CONTRA 1",
     "Arkadaşınla VS At!": "¡Desafía a un amigo!",
     "Davet et, aynı 10 soruda karşılaş, kazananı gör.": "Invita a un amigo y competid con las mismas 10 preguntas.",
@@ -892,6 +894,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Mirador del lado canadiense de las cataratas del Niágara."
   },
   "de": {
+    "Sonraki konuma geç": "Nächster Ort",
     "YENİ · 1’E 1 MEYDAN OKUMA": "NEU · 1-GEGEN-1",
     "Arkadaşınla VS At!": "Fordere Freunde heraus!",
     "Davet et, aynı 10 soruda karşılaş, kazananı gör.": "Lade jemanden ein und beantwortet dieselben 10 Fragen.",
@@ -1313,6 +1316,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Aussichtsbereich auf der kanadischen Seite der Niagarafälle."
   },
   "fr": {
+    "Sonraki konuma geç": "Lieu suivant",
     "YENİ · 1’E 1 MEYDAN OKUMA": "NOUVEAU · DUEL 1 CONTRE 1",
     "Arkadaşınla VS At!": "Défie un ami !",
     "Davet et, aynı 10 soruda karşılaş, kazananı gör.": "Invite un ami et répondez aux mêmes 10 questions.",
@@ -1734,6 +1738,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Point de vue du côté canadien des chutes du Niagara."
   },
   "pt": {
+    "Sonraki konuma geç": "Próximo lugar",
     "YENİ · 1’E 1 MEYDAN OKUMA": "NOVO · DUELO 1 CONTRA 1",
     "Arkadaşınla VS At!": "Desafie um amigo!",
     "Davet et, aynı 10 soruda karşılaş, kazananı gör.": "Convide um amigo e respondam às mesmas 10 perguntas.",
@@ -2155,6 +2160,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Área de observação no lado canadense das Cataratas do Niágara."
   },
   "ru": {
+    "Sonraki konuma geç": "Следующее место",
     "YENİ · 1’E 1 MEYDAN OKUMA": "НОВОЕ · ДУЭЛЬ 1 НА 1",
     "Arkadaşınla VS At!": "Вызови друга!",
     "Davet et, aynı 10 soruda karşılaş, kazananı gör.": "Пригласи друга и ответьте на 10 одинаковых вопросов.",
@@ -2576,6 +2582,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Смотровая площадка на канадской стороне Ниагарского водопада."
   },
   "zh": {
+    "Sonraki konuma geç": "下一个地点",
     "YENİ · 1’E 1 MEYDAN OKUMA": "新玩法 · 一对一挑战",
     "Arkadaşınla VS At!": "挑战好友！",
     "Davet et, aynı 10 soruda karşılaş, kazananı gör.": "邀请好友回答相同的10道题，看看谁获胜。",
@@ -2997,6 +3004,7 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "尼亚加拉瀑布加拿大一侧的观景区。"
   },
   "ja": {
+    "Sonraki konuma geç": "次の場所",
     "YENİ · 1’E 1 MEYDAN OKUMA": "新登場 · 1対1チャレンジ",
     "Arkadaşınla VS At!": "友達に挑戦！",
     "Davet et, aynı 10 soruda karşılaş, kazananı gör.": "友達と同じ10問に答えて勝負しよう。",
