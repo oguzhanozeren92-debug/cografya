@@ -71,10 +71,36 @@ export async function enableIosPush(): Promise<PushPreferences> {
   if (!backend) throw new Error('Supabase bağlantısı hazır değil.');
   const permission = await PushNotifications.requestPermissions();
   if (permission.receive !== 'granted') throw new Error('iPhone bildirim izni verilmedi. Ayarlar bölümünden açabilirsin.');
-  const next = { ...loadPushPreferences(), enabled: true, invites: false };
-  saveLocal(next);
-  await PushNotifications.register();
-  return next;
+  const previous = loadPushPreferences();
+  const next = { ...previous, enabled: true, invites: false };
+  // A native permission is NOT proof the server has a usable device token.
+  // Do not report success until the APNs token is actually stored in Supabase.
+  const handles: PluginListenerHandle[] = [];
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  try {
+    const saved = new Promise<void>((resolve, reject) => {
+      const fail = (error: unknown) => reject(error instanceof Error ? error : new Error(String(error)));
+      void (async () => {
+        handles.push(await PushNotifications.addListener('registration', event => {
+          void registerToken(event.value).then(resolve, fail);
+        }));
+        handles.push(await PushNotifications.addListener('registrationError', event => {
+          fail(new Error(String(event.error || 'APNs cihaz kaydı başarısız.')));
+        }));
+        saveLocal(next);
+        timeout = setTimeout(() => fail(new Error('iPhone cihaz kaydı zaman aşımına uğradı.')), 15000);
+        await PushNotifications.register();
+      })().catch(fail);
+    });
+    await saved;
+    return next;
+  } catch (error) {
+    saveLocal(previous);
+    throw error;
+  } finally {
+    if (timeout) clearTimeout(timeout);
+    await Promise.allSettled(handles.map(handle => handle.remove()));
+  }
 }
 export async function disableIosPush(): Promise<PushPreferences> {
   const next = { ...loadPushPreferences(), enabled: false };
