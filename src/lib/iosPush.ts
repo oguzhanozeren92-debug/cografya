@@ -5,6 +5,12 @@ import { backend, getPlayerId } from '@/lib/leaderboard';
 const KEY = 'atlas-push-settings-v1';
 const DEVICE = 'atlas-push-device-v1';
 const APNS_ENV = import.meta.env.VITE_ATLAS_APNS_ENV === 'sandbox' ? 'sandbox' : 'production';
+const LANGUAGE_KEY = 'atlas-arena-language-v1';
+const ALLOWED = new Set(['tr','en','es','de','fr','pt','ru','zh','ja']);
+function selectedLanguage(): string {
+  const selected = (localStorage.getItem(LANGUAGE_KEY) || navigator.language || 'tr').split(/[-_]/)[0].toLowerCase();
+  return ALLOWED.has(selected) ? selected : 'en';
+}
 
 export interface PushPreferences {
   enabled: boolean;
@@ -35,7 +41,7 @@ async function registerToken(token: string) {
   const p = loadPushPreferences();
   const { error } = await backend.from('geo_push_devices').upsert({
     player_id: playerId, device_id: deviceId(),
-    device_token: token, apns_environment: APNS_ENV,
+    device_token: token, apns_environment: APNS_ENV, language: selectedLanguage(),
     enabled: p.enabled, daily: p.daily, weekly: p.weekly, invites: false,
     updated_at: new Date().toISOString(),
   }, { onConflict: 'player_id,device_id' });
@@ -46,10 +52,20 @@ async function syncPreferences(p: PushPreferences) {
   const playerId = await getPlayerId();
   const { error } = await backend.from('geo_push_devices').update({
     enabled: p.enabled, daily: p.daily, weekly: p.weekly, invites: false,
-    updated_at: new Date().toISOString(),
+    language: selectedLanguage(), updated_at: new Date().toISOString(),
   }).eq('player_id', playerId).eq('device_id', deviceId());
   if (error) throw new Error('Bildirim tercihleri sunucuya kaydedilemedi.');
 }
+/** Resync notification locale when a player changes the in-app language. */
+export async function syncIosPushLanguage(): Promise<void> {
+  if (!backend || !isIosPushSupported() || !loadPushPreferences().enabled) return;
+  const playerId = await getPlayerId();
+  const { error } = await backend.from('geo_push_devices')
+    .update({ language: selectedLanguage(), updated_at: new Date().toISOString() })
+    .eq('player_id', playerId).eq('device_id', deviceId());
+  if (error) console.warn('Globriva push language sync:', error.message);
+}
+
 export async function enableIosPush(): Promise<PushPreferences> {
   if (!isIosPushSupported()) throw new Error('Yalnızca iOS uygulamasında kullanılabilir.');
   if (!backend) throw new Error('Supabase bağlantısı hazır değil.');
