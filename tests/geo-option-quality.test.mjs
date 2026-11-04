@@ -43,3 +43,20 @@ test('border distractors are actual nearby countries, not unrelated countries ar
   assert.match(screen,/nearNonNeighbours\(target,non\)/);
   assert.match(screen,/!adj\.get\(target\)\?\.has\(id\)/);
 });
+
+
+test('4 November additions have UNESCO sources, learning notes and comparable options',()=>{
+  const facts=fs.readFileSync('src/data/geoDiscoveryFacts.ts','utf8');
+  const additions=['okavango-delta','wadi-rum','namib-sand-sea'];
+  for(const id of additions){
+    assert.ok(points.includes(id),'missing new location '+id);
+    assert.ok(facts.includes("'"+id+"':"),'missing learning note '+id);
+    const group=categories.find(group=>group.includes(id));
+    assert.ok(group&&group.length>=4,'missing comparable options '+id);
+  }
+  for(const level of [1,2,3]){
+    const source=data.slice(data.indexOf('export const NATURE_POINTS'),data.indexOf('export const NATURE_SOURCE'));
+    const matches=[...source.matchAll(/"id":\\s*"(okavango-delta|wadi-rum|namib-sand-sea)"[\\s\\S]*?"level":\\s*([123])/g)];
+    assert.equal(matches.filter(m=>Number(m[2])===level).length,1,'new tier imbalance '+level);
+  }
+});
