@@ -677,7 +677,7 @@ export const NATURE_POINTS:NaturePoint[]=[
     "level": 3,
     "region": "Yeni Zelanda / Güney Adası",
     "sourceUrl": "https://whc.unesco.org/en/list/551/"
-  }
+  },
   {
     "id": "okavango-delta",
     "name": "Okavango Deltası",
