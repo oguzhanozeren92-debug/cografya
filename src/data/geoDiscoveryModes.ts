@@ -678,6 +678,39 @@ export const NATURE_POINTS:NaturePoint[]=[
     "region": "Yeni Zelanda / Güney Adası",
     "sourceUrl": "https://whc.unesco.org/en/list/551/"
   }
+  {
+    "id": "okavango-delta",
+    "name": "Okavango Deltası",
+    "clue": "Botsvana'nın kuzeyinde, nehir sularının okyanusa ulaşmak yerine Kalahari içindeki sulak alanlara yayıldığı iç deltayı bul.",
+    "clueEn": "Find the inland delta in northern Botswana where river waters spread into wetlands within the Kalahari instead of reaching the sea.",
+    "lat": -19.3,
+    "lon": 22.9,
+    "level": 1,
+    "region": "Botsvana / Kalahari",
+    "sourceUrl": "https://whc.unesco.org/en/list/1432/"
+  },
+  {
+    "id": "wadi-rum",
+    "name": "Vadi Rum",
+    "clue": "Ürdün'ün güneyinde, kumtaşı ve granit dağların kızıl çöl vadileriyle birleştiği koruma alanını bul.",
+    "clueEn": "Find the protected desert landscape in southern Jordan with sandstone and granite mountains rising above red-sand valleys.",
+    "lat": 29.58,
+    "lon": 35.42,
+    "level": 2,
+    "region": "Ürdün / Akabe",
+    "sourceUrl": "https://whc.unesco.org/en/list/1377/"
+  },
+  {
+    "id": "namib-sand-sea",
+    "name": "Namib Kum Denizi",
+    "clue": "Namibya'nın Atlas Okyanusu kıyısında, sisin nem sağladığı dev kumul sisteminin bulunduğu Dünya Mirası alanını bul.",
+    "clueEn": "Find the World Heritage dune landscape along Namibia's Atlantic coast where coastal fog provides vital moisture.",
+    "lat": -24.7,
+    "lon": 15.4,
+    "level": 3,
+    "region": "Namibya / Atlas Okyanusu",
+    "sourceUrl": "https://whc.unesco.org/en/list/1430/"
+  },
 ];
 export const NATURE_SOURCE="https://www.naturalearthdata.com/about/terms-of-use/";
 export const ISLAND_COUNTRIES=[
