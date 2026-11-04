@@ -43,6 +43,8 @@ workflows:
           npx --yes @capacitor/assets generate --ios
           node scripts/configure-admob-native.mjs
           node scripts/configure-push-ios.mjs
+          # Restore and check the three resources referenced by App.xcodeproj.
+          node scripts/ensure-ios-resources.mjs
       - name: Build unsigned iOS simulator app
         script: |
           # Capacitor 8 uses Swift Package Manager by default.
@@ -139,6 +141,8 @@ workflows:
           npx --yes @capacitor/assets generate --ios
           node scripts/configure-admob-native.mjs
           node scripts/configure-push-ios.mjs
+          # Restore and check the three resources referenced by App.xcodeproj.
+          node scripts/ensure-ios-resources.mjs
           CAPACITOR_PLATFORM=ios npm run native:release:check
       - name: Apply distribution signing and unique build number
         script: |
