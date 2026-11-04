@@ -21,7 +21,7 @@ import { DailyChallengeScreen } from '@/components/DailyChallengeScreen';
 import { ExploreMapScreen } from '@/components/ExploreMapScreen';
 import { ReviveScreen } from '@/components/ReviveScreen';
 import { NotificationSettings } from '@/components/NotificationSettings';
-import { initIosPush, isIosPushSupported, type PushTarget } from '@/lib/iosPush';
+import { initIosPush, isIosPushSupported, loadPushPreferences, type PushTarget } from '@/lib/iosPush';
 import { isRewardedHeartAvailable, initializeRewardedAds, openAdPrivacyOptions, watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { onGameFinished, preloadGameBreakAd } from '@/lib/adPlacements';
 import { syncDiscoveries } from '@/lib/discovery';
@@ -189,6 +189,18 @@ function App() {
   }, [rewardToast]);
   const navVisible = showStart && !weeklyOpen && !dailyOpen && !exploreOpen && !streetOpen &&
     !historyOpen && !geoDiscoveryOpen && !notificationsOpen && !versusOpen;
+  // Explain notification benefits once on the native home screen. Permission is
+  // requested only after the user taps "Bildirimleri aç" in the settings sheet.
+  useEffect(() => {
+    if (!navVisible || homeTab !== 'home' || !isIosPushSupported() || loadPushPreferences().enabled) return;
+    const offered = 'globriva-local-notice-offered-v1';
+    if (localStorage.getItem(offered) === '1') return;
+    const id = window.setTimeout(() => {
+      localStorage.setItem(offered, '1');
+      setNotificationsOpen(true);
+    }, 2500);
+    return () => window.clearTimeout(id);
+  }, [navVisible, homeTab]);
   useEffect(() => {
     if (game.phase !== 'gameover' || game.gameRunId === 0 ||
         lastCountedGameRun.current === game.gameRunId) return;
