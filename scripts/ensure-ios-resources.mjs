@@ -11,12 +11,26 @@
  */
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
 
 const project = 'ios/App/App.xcodeproj';
 const root = 'ios/App/App';
 const webDir = 'dist';
+const publicDir = join(root, 'public');
+const hasWebIndex = () => existsSync(join(webDir, 'index.html'));
+const hasNativeIndex = () => existsSync(join(publicDir, 'index.html'));
 if (!existsSync(project)) throw new Error('Missing ios/App/App.xcodeproj: first run npx cap add ios');
-if (!existsSync(join(webDir, 'index.html'))) throw new Error('Missing dist/index.html: first run npm run build');
+console.log('[iOS resources] cwd:', process.cwd(), 'dist:', existsSync(webDir), 'native public:', existsSync(publicDir));
+// Capacitor's generated project can contain valid assets even when the temporary
+// web build folder is no longer available. Do not fail on a missing dist in that case.
+if (!hasWebIndex() && !hasNativeIndex()) {
+  console.warn('[iOS resources] No web index found after Capacitor sync; rebuilding Vite assets once.');
+  const build = spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['run', 'build'], { stdio: 'inherit' });
+  if (build.status !== 0) throw new Error('Unable to rebuild missing web assets; npm run build returned ' + build.status);
+}
+if (!hasWebIndex() && !hasNativeIndex()) {
+  throw new Error('Both dist/index.html and ios/App/App/public/index.html are missing after rebuild. Check Vite output and Capacitor webDir.');
+}
 
 const source = readFileSync('capacitor.config.ts', 'utf8');
 function readString(key) {
@@ -31,8 +45,8 @@ if (appId !== 'com.oguzhanozeren.cografya') {
 }
 mkdirSync(root, { recursive: true });
 
-const publicDir = join(root, 'public');
-if (!existsSync(join(publicDir, 'index.html'))) {
+if (!hasNativeIndex()) {
+  if (!hasWebIndex()) throw new Error('Cannot recover native public assets without dist/index.html');
   mkdirSync(publicDir, { recursive: true });
   cpSync(webDir, publicDir, { recursive: true, force: true });
   console.log('[iOS resources] Recovered web assets from dist into App/public');
