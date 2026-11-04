@@ -469,7 +469,13 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "İpucu puan kesintisi": "Hint deduction",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Street Detective: pinpoint the spot, earn country bonuses · 4 optional hints",
     "Gizlilik Politikası": "Privacy Policy",
-    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Viewing area on the Canadian side of Niagara Falls."
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Viewing area on the Canadian side of Niagara Falls.",
+    "Her gün saat 19.00’da coğrafya sorularını hatırlatır. Bitirmiş olsan da planlı bildirim gelebilir.": "Reminds you to practise geography every day at 19:00. A scheduled reminder may still arrive after you finish.",
+    "Pazartesi saat 10.00’da yeni dünya sıralamasını hatırlatır.": "Reminds you about the new world leaderboard on Mondays at 10:00.",
+    "iPhone hatırlatmaları ayarlandı. Uygulama kapalıyken de çalışır; Odak modu bildirimleri sessize alabilir.": "iPhone reminders are scheduled. They work even when the app is closed; Focus mode may silence them.",
+    "5 saniye sonrasına test bildirimi ayarlandı. Telefonu kilitleyip dene.": "A test notification is scheduled in 5 seconds. Lock your phone to try it.",
+    "Bildirim iznini iPhone Ayarlarından açmalısın.": "You need to enable notifications in iPhone Settings.",
+    "Test bildirimi gönder": "Send test notification"
   },
   "es": {
     "Sonraki konuma geç": "Siguiente lugar",
@@ -891,7 +897,13 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "İpucu puan kesintisi": "Penalización por pistas",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Detective callejero: marca el lugar y gana bonos de país · 4 pistas opcionales",
     "Gizlilik Politikası": "Política de privacidad",
-    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Mirador del lado canadiense de las cataratas del Niágara."
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Mirador del lado canadiense de las cataratas del Niágara.",
+    "Her gün saat 19.00’da coğrafya sorularını hatırlatır. Bitirmiş olsan da planlı bildirim gelebilir.": "Te recuerda practicar geografía cada día a las 19:00. Puede llegar un aviso programado aunque ya hayas terminado.",
+    "Pazartesi saat 10.00’da yeni dünya sıralamasını hatırlatır.": "Te recuerda la nueva clasificación mundial los lunes a las 10:00.",
+    "iPhone hatırlatmaları ayarlandı. Uygulama kapalıyken de çalışır; Odak modu bildirimleri sessize alabilir.": "Los recordatorios del iPhone están programados. Funcionan con la app cerrada; el modo Concentración puede silenciarlos.",
+    "5 saniye sonrasına test bildirimi ayarlandı. Telefonu kilitleyip dene.": "Se ha programado una notificación de prueba para dentro de 5 segundos. Bloquea el teléfono para comprobarlo.",
+    "Bildirim iznini iPhone Ayarlarından açmalısın.": "Debes activar las notificaciones en Ajustes del iPhone.",
+    "Test bildirimi gönder": "Enviar notificación de prueba"
   },
   "de": {
     "Sonraki konuma geç": "Nächster Ort",
@@ -1313,7 +1325,13 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "İpucu puan kesintisi": "Punktabzug für Hinweise",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Straßen-Detektiv: Ort finden, Länderbonus erhalten · 4 optionale Hinweise",
     "Gizlilik Politikası": "Datenschutzerklärung",
-    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Aussichtsbereich auf der kanadischen Seite der Niagarafälle."
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Aussichtsbereich auf der kanadischen Seite der Niagarafälle.",
+    "Her gün saat 19.00’da coğrafya sorularını hatırlatır. Bitirmiş olsan da planlı bildirim gelebilir.": "Erinnert dich täglich um 19:00 Uhr an Geografiefragen. Auch nach Abschluss kann eine geplante Erinnerung eintreffen.",
+    "Pazartesi saat 10.00’da yeni dünya sıralamasını hatırlatır.": "Erinnert dich montags um 10:00 Uhr an die neue Weltrangliste.",
+    "iPhone hatırlatmaları ayarlandı. Uygulama kapalıyken de çalışır; Odak modu bildirimleri sessize alabilir.": "iPhone-Erinnerungen sind geplant. Sie funktionieren auch bei geschlossener App; der Fokusmodus kann sie stummschalten.",
+    "5 saniye sonrasına test bildirimi ayarlandı. Telefonu kilitleyip dene.": "Eine Testmitteilung ist für in 5 Sekunden geplant. Sperre dein iPhone, um sie zu testen.",
+    "Bildirim iznini iPhone Ayarlarından açmalısın.": "Du musst Mitteilungen in den iPhone-Einstellungen aktivieren.",
+    "Test bildirimi gönder": "Testmitteilung senden"
   },
   "fr": {
     "Sonraki konuma geç": "Lieu suivant",
@@ -1735,7 +1753,13 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "İpucu puan kesintisi": "Pénalité des indices",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Détective des rues : situe le lieu, gagne un bonus de pays · 4 indices en option",
     "Gizlilik Politikası": "Politique de confidentialité",
-    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Point de vue du côté canadien des chutes du Niagara."
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Point de vue du côté canadien des chutes du Niagara.",
+    "Her gün saat 19.00’da coğrafya sorularını hatırlatır. Bitirmiş olsan da planlı bildirim gelebilir.": "Rappelle les questions de géographie chaque jour à 19 h. Un rappel programmé peut arriver même après avoir terminé.",
+    "Pazartesi saat 10.00’da yeni dünya sıralamasını hatırlatır.": "Rappelle le nouveau classement mondial le lundi à 10 h.",
+    "iPhone hatırlatmaları ayarlandı. Uygulama kapalıyken de çalışır; Odak modu bildirimleri sessize alabilir.": "Les rappels iPhone sont programmés. Ils fonctionnent lorsque l’application est fermée ; le mode Concentration peut les masquer.",
+    "5 saniye sonrasına test bildirimi ayarlandı. Telefonu kilitleyip dene.": "Une notification de test est prévue dans 5 secondes. Verrouille ton téléphone pour l’essayer.",
+    "Bildirim iznini iPhone Ayarlarından açmalısın.": "Tu dois activer les notifications dans les réglages de l’iPhone.",
+    "Test bildirimi gönder": "Envoyer une notification de test"
   },
   "pt": {
     "Sonraki konuma geç": "Próximo lugar",
@@ -2157,7 +2181,13 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "İpucu puan kesintisi": "Desconto das dicas",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Detetive de rua: encontre o local e ganhe bônus por país · 4 dicas opcionais",
     "Gizlilik Politikası": "Política de privacidade",
-    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Área de observação no lado canadense das Cataratas do Niágara."
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Área de observação no lado canadense das Cataratas do Niágara.",
+    "Her gün saat 19.00’da coğrafya sorularını hatırlatır. Bitirmiş olsan da planlı bildirim gelebilir.": "Lembra-te de praticar geografia todos os dias às 19:00. Um aviso agendado pode chegar mesmo depois de concluíres.",
+    "Pazartesi saat 10.00’da yeni dünya sıralamasını hatırlatır.": "Lembra-te da nova classificação mundial às segundas-feiras, às 10:00.",
+    "iPhone hatırlatmaları ayarlandı. Uygulama kapalıyken de çalışır; Odak modu bildirimleri sessize alabilir.": "Os lembretes do iPhone estão agendados. Funcionam com a aplicação fechada; o modo Concentração pode silenciá-los.",
+    "5 saniye sonrasına test bildirimi ayarlandı. Telefonu kilitleyip dene.": "Uma notificação de teste foi agendada para daqui a 5 segundos. Bloqueia o telemóvel para testar.",
+    "Bildirim iznini iPhone Ayarlarından açmalısın.": "Tens de ativar as notificações nas Definições do iPhone.",
+    "Test bildirimi gönder": "Enviar notificação de teste"
   },
   "ru": {
     "Sonraki konuma geç": "Следующее место",
@@ -2579,7 +2609,13 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "İpucu puan kesintisi": "Штраф за подсказки",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "Уличный детектив: найди место и получи бонус за страну · 4 подсказки",
     "Gizlilik Politikası": "Политика конфиденциальности",
-    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Смотровая площадка на канадской стороне Ниагарского водопада."
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "Смотровая площадка на канадской стороне Ниагарского водопада.",
+    "Her gün saat 19.00’da coğrafya sorularını hatırlatır. Bitirmiş olsan da planlı bildirim gelebilir.": "Напоминает о географических вопросах каждый день в 19:00. Запланированное уведомление может прийти даже после выполнения задания.",
+    "Pazartesi saat 10.00’da yeni dünya sıralamasını hatırlatır.": "Напоминает о новом мировом рейтинге по понедельникам в 10:00.",
+    "iPhone hatırlatmaları ayarlandı. Uygulama kapalıyken de çalışır; Odak modu bildirimleri sessize alabilir.": "Напоминания iPhone запланированы. Они работают даже при закрытом приложении; режим фокусирования может заглушить их.",
+    "5 saniye sonrasına test bildirimi ayarlandı. Telefonu kilitleyip dene.": "Тестовое уведомление запланировано через 5 секунд. Заблокируйте телефон для проверки.",
+    "Bildirim iznini iPhone Ayarlarından açmalısın.": "Необходимо включить уведомления в настройках iPhone.",
+    "Test bildirimi gönder": "Отправить тестовое уведомление"
   },
   "zh": {
     "Sonraki konuma geç": "下一个地点",
@@ -3001,7 +3037,13 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "İpucu puan kesintisi": "提示扣分",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "街景侦探：精准定位，赢得国家奖励 · 4条可选提示",
     "Gizlilik Politikası": "隐私政策",
-    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "尼亚加拉瀑布加拿大一侧的观景区。"
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "尼亚加拉瀑布加拿大一侧的观景区。",
+    "Her gün saat 19.00’da coğrafya sorularını hatırlatır. Bitirmiş olsan da planlı bildirim gelebilir.": "每天 19:00 提醒你练习地理题。即使你已经完成，预定的提醒仍可能送达。",
+    "Pazartesi saat 10.00’da yeni dünya sıralamasını hatırlatır.": "每周一 10:00 提醒你查看新的世界排行榜。",
+    "iPhone hatırlatmaları ayarlandı. Uygulama kapalıyken de çalışır; Odak modu bildirimleri sessize alabilir.": "iPhone 提醒已安排。关闭应用后仍可收到；专注模式可能将其静音。",
+    "5 saniye sonrasına test bildirimi ayarlandı. Telefonu kilitleyip dene.": "测试通知将在 5 秒后发送。锁定手机以进行测试。",
+    "Bildirim iznini iPhone Ayarlarından açmalısın.": "请在 iPhone 设置中开启通知权限。",
+    "Test bildirimi gönder": "发送测试通知"
   },
   "ja": {
     "Sonraki konuma geç": "次の場所",
@@ -3423,6 +3465,12 @@ export const translations: Record<Exclude<Language,'tr'>,Record<string,string>> 
     "İpucu puan kesintisi": "ヒントによる減点",
     "Sokak Dedektifi: konuma yaklaş, ülke bonusunu kazan · dört isteğe bağlı ipucu": "ストリート探偵：場所を探して国ボーナスを獲得 · 任意のヒント4つ",
     "Gizlilik Politikası": "プライバシーポリシー",
-    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "ナイアガラの滝のカナダ側にある展望エリア。"
+    "Niagara Şelaleleri'nin Kanada tarafındaki seyir alanı.": "ナイアガラの滝のカナダ側にある展望エリア。",
+    "Her gün saat 19.00’da coğrafya sorularını hatırlatır. Bitirmiş olsan da planlı bildirim gelebilir.": "毎日19:00に地理クイズをお知らせします。完了後も予約済みの通知が届く場合があります。",
+    "Pazartesi saat 10.00’da yeni dünya sıralamasını hatırlatır.": "毎週月曜日10:00に新しい世界ランキングをお知らせします。",
+    "iPhone hatırlatmaları ayarlandı. Uygulama kapalıyken de çalışır; Odak modu bildirimleri sessize alabilir.": "iPhoneのリマインダーを設定しました。アプリを閉じても通知されますが、集中モードでは通知が鳴らない場合があります。",
+    "5 saniye sonrasına test bildirimi ayarlandı. Telefonu kilitleyip dene.": "5秒後にテスト通知を送信します。スマートフォンをロックして確認してください。",
+    "Bildirim iznini iPhone Ayarlarından açmalısın.": "iPhoneの設定で通知を許可してください。",
+    "Test bildirimi gönder": "テスト通知を送信"
   }
 };
