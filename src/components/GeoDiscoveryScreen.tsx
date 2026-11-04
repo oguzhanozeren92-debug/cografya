@@ -40,12 +40,12 @@ const nameOf=(id:string,lang:Language)=>localizedCountryById(id,lang)||COUNTRY_D
 // Wrong answers must resemble the target. A lake vs a mountain is not a useful challenge.
 // These sets only group existing verified points; they do not create new locations.
 const NATURE_OPTION_PEERS=[
-  ['nile','amazon','mississippi','danube','ganges','congo','yangtze','rhine','okavango','puerto-princesa-river'],
+  ['nile','amazon','mississippi','danube','ganges','congo','yangtze','rhine','okavango','okavango-delta','puerto-princesa-river'],
   ['victoria','baikal','titicaca','malawi','atitlan','turkana','plitvice','ohrid','nakuru','uvs-nuur'],
   ['everest','fuji','kilimanjaro','aconcagua','roraima','mount-kenya'],
   ['ngorongoro','wulingyuan','tsingy','tassili','lena-pillars','danxiashan','uluru'],
   ['halong','socotra','jeju','surtsey','komodo','ningaloo','blue-hole','reef','aldabra','galapagos-islands'],
-  ['sahara','namib','uyuni','tassili','uluru','air-tenere'],
+  ['sahara','namib','namib-sand-sea','uyuni','tassili','uluru','air-tenere','wadi-rum'],
   ['siankaan','kluane','manu','central-suriname','lorentz','garajonay','dja-reserve',
    'madeira-laurisilva','tongariro','sangay','banc-arguin','yellowstone','sundarbans-bangladesh','durmitor','te-wahipounamu'],
   ['iguazu','plitvice','blue-hole','reef','halong'],
