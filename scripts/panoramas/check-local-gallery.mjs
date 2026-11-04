@@ -91,4 +91,10 @@ const output={
 };
 console.log(JSON.stringify(output,null,2));
 if(process.argv.includes('--release')&&!releaseCandidate)process.exitCode=1;
-if(process.argv.includes('--strict')&&invalidApproved>0)process.exitCode=1;
+if(process.argv.includes('--strict')&&invalidApproved>0){
+ console.error('[Globriva gallery] Build blocked: '+invalidApproved+' issues in APPROVED gallery items.');
+ for(const item of issues.filter(issue=>issue.approved).slice(0,15)){
+  console.error(' - '+item.album+' / '+item.kind+': '+item.detail);
+ }
+ process.exitCode=1;
+}
