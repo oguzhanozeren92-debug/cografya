@@ -15,11 +15,19 @@ workflows:
         script: npm ci --no-audit --no-fund
       - name: Verify translations, TypeScript, web build and Street game
         script: |
+          set -euo pipefail
           node scripts/check-i18n.mjs
           node --test tests/street/country-mode.test.mjs
           node --experimental-strip-types --test tests/drone/hints.test.mjs
           npm run typecheck
           npm run build
+          if [ ! -f dist/index.html ]; then
+            echo "ERROR: npm run build did not produce dist/index.html. Showing build outputs:"
+            pwd
+            find . -maxdepth 3 -name index.html -not -path './node_modules/*' | head -n 30
+            exit 1
+          fi
+          echo "PASS: Vite dist/index.html exists; ready for Capacitor iOS."
           node scripts/panoramas/export-appstore-review.mjs
           node scripts/panoramas/verify-commons-licenses.mjs
           # Device/TestFlight QA can proceed while the photo review is unfinished.
@@ -27,6 +35,7 @@ workflows:
           npm run gallery:audit
       - name: Check Apple SDK and required review assets
         script: |
+          set -euo pipefail
           xcodebuild -version
           XCODE_MAJOR="$(xcodebuild -version | awk '/^Xcode /{print $2}' | cut -d. -f1)"
           test -n "$XCODE_MAJOR" && test "$XCODE_MAJOR" -ge 26 || {
@@ -36,8 +45,12 @@ workflows:
           node scripts/app-store-preflight.mjs
       - name: Generate native iOS project and bundle icon
         script: |
+          set -euo pipefail
           npx cap add ios --packagemanager SPM
           npx cap sync ios
+          echo "Native resource state after cap sync:"
+          test -d ios/App/App.xcodeproj || { echo "Capacitor did not create ios/App/App.xcodeproj"; exit 1; }
+          ls -ld dist ios/App/App/public ios/App/App/config.xml ios/App/App/capacitor.config.json 2>&1 || true
           mkdir -p assets
           cp resources/icon.png assets/icon-only.png
           npx --yes @capacitor/assets generate --ios
@@ -47,6 +60,7 @@ workflows:
           node scripts/ensure-ios-resources.mjs
       - name: Build unsigned iOS simulator app
         script: |
+          set -euo pipefail
           # Capacitor 8 uses Swift Package Manager by default.
           # Its project is an .xcodeproj, not an .xcworkspace.
           test -d ios/App/App.xcodeproj || {
@@ -101,12 +115,14 @@ workflows:
     scripts:
       - name: Load public multiplayer settings from Globriva Vercel
         script: |
+          set -euo pipefail
           # Codemagic is independent of Vercel. Fetch only the public anon key
           # and project URL, validate both, then create gitignored .env.production.local.
           # No copy/paste or Codemagic VS secret/group variables needed.
           node scripts/sync-public-vs-config.mjs
       - name: Install and verify game
         script: |
+          set -euo pipefail
           # Explicitly load validated public settings into the build process,
           # even if a stale partial variable exists in the Codemagic group.
           set -a
@@ -118,6 +134,13 @@ workflows:
           node --experimental-strip-types --test tests/drone/hints.test.mjs
           npm run typecheck
           npm run build
+          if [ ! -f dist/index.html ]; then
+            echo "ERROR: npm run build did not produce dist/index.html. Showing build outputs:"
+            pwd
+            find . -maxdepth 3 -name index.html -not -path './node_modules/*' | head -n 30
+            exit 1
+          fi
+          echo "PASS: Vite dist/index.html exists; ready for Capacitor iOS."
           node scripts/panoramas/export-appstore-review.mjs
           node scripts/panoramas/verify-commons-licenses.mjs
           # Device/TestFlight QA can proceed while the photo review is unfinished.
@@ -125,6 +148,7 @@ workflows:
           npm run gallery:audit
       - name: Check Apple SDK and required review assets
         script: |
+          set -euo pipefail
           xcodebuild -version
           XCODE_MAJOR="$(xcodebuild -version | awk '/^Xcode /{print $2}' | cut -d. -f1)"
           test -n "$XCODE_MAJOR" && test "$XCODE_MAJOR" -ge 26 || {
@@ -134,8 +158,12 @@ workflows:
           node scripts/app-store-preflight.mjs
       - name: Generate Capacitor iOS project and approved application icon
         script: |
+          set -euo pipefail
           npx cap add ios --packagemanager SPM
           npx cap sync ios
+          echo "Native resource state after cap sync:"
+          test -d ios/App/App.xcodeproj || { echo "Capacitor did not create ios/App/App.xcodeproj"; exit 1; }
+          ls -ld dist ios/App/App/public ios/App/App/config.xml ios/App/App/capacitor.config.json 2>&1 || true
           mkdir -p assets
           cp resources/icon.png assets/icon-only.png
           npx --yes @capacitor/assets generate --ios
@@ -146,6 +174,7 @@ workflows:
           CAPACITOR_PLATFORM=ios npm run native:release:check
       - name: Apply distribution signing and unique build number
         script: |
+          set -euo pipefail
           test -d ios/App/App.xcodeproj || {
             echo "Missing native iOS Xcode project"
             exit 1
@@ -155,6 +184,7 @@ workflows:
           xcrun agvtool new-version -all "$BUILD_NUMBER"
       - name: Create signed TestFlight IPA
         script: |
+          set -euo pipefail
           xcode-project build-ipa \
             --project "$CM_BUILD_DIR/ios/App/App.xcodeproj" \
             --scheme "App"
@@ -190,11 +220,13 @@ workflows:
     scripts:
       - name: Generate complete photo and licensing evidence
         script: |
+          set -euo pipefail
           npm ci --no-audit --no-fund
           npm run gallery:photo-review
           npm run gallery:commons-audit
       - name: Enforce independently verified gallery before App Review
         script: |
+          set -euo pipefail
           npm run gallery:release-check
           node scripts/app-store-preflight.mjs
           echo "Static editorial and app preflight passed; device and App Store metadata checks are still required."
