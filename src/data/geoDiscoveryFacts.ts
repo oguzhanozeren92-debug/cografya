@@ -13,6 +13,9 @@ type Note = { tr: string; en: string; sourceUrl?: string };
 export type DiscoveryNote = { text: string; sourceUrl?: string };
 
 const NATURE_NOTES: Readonly<Record<string,Note>> = {
+  'okavango-delta': {"tr":"Okavango'nun mevsimsel taşkınları Kalahari'de geniş sulak alanlar oluşturur; suyun büyük bölümü buharlaşır veya toprağa sızar.","en":"Seasonal floods spread across the Kalahari, where much of the Okavango's water evaporates or infiltrates the ground.","sourceUrl":"https://whc.unesco.org/en/list/1432/"},
+  'wadi-rum': {"tr":"Vadi Rum'da doğal kaya oluşumlarının yanında binlerce yıllık kaya yazıtları ve arkeolojik izler de korunur.","en":"Wadi Rum preserves ancient rock inscriptions and archaeological remains alongside its distinctive desert landforms.","sourceUrl":"https://whc.unesco.org/en/list/1377/"},
+  'namib-sand-sea': {"tr":"Namib kıyılarındaki sis, çok kurak bir bölgede yaşayan bazı bitki ve hayvanlar için önemli bir nem kaynağıdır.","en":"Coastal fog supplies vital moisture to some plants and animals in the extremely arid Namib landscape.","sourceUrl":"https://whc.unesco.org/en/list/1430/"},
   nile: {
     tr: 'Nil Deltası, nehrin binlerce yıldır taşıdığı verimli alüvyonlarla oluşmuştur. Bu topraklar, Akdeniz kıyısındaki yoğun tarım ve yerleşimi destekler.',
     en: 'The Nile Delta formed from fertile sediment carried by the river over thousands of years. These soils support farming and dense settlements along the Mediterranean coast.',
