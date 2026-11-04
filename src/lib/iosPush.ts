@@ -1,137 +1,142 @@
 import { Capacitor, type PluginListenerHandle } from '@capacitor/core';
-import { PushNotifications } from '@capacitor/push-notifications';
-import { backend, getPlayerId } from '@/lib/leaderboard';
+import { App as NativeApp } from '@capacitor/app';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
+// FoodVive-style on-device reminders: no APNs credential, server cron or
+// Supabase device registration is required to deliver these reminders.
 const KEY = 'atlas-push-settings-v1';
-const DEVICE = 'atlas-push-device-v1';
-const APNS_ENV = import.meta.env.VITE_ATLAS_APNS_ENV === 'sandbox' ? 'sandbox' : 'production';
 const LANGUAGE_KEY = 'atlas-arena-language-v1';
-const ALLOWED = new Set(['tr','en','es','de','fr','pt','ru','zh','ja']);
-function selectedLanguage(): string {
-  const selected = (localStorage.getItem(LANGUAGE_KEY) || navigator.language || 'tr').split(/[-_]/)[0].toLowerCase();
-  return ALLOWED.has(selected) ? selected : 'en';
+const LOCAL_IDS = Array.from({ length: 9 }, (_, i) => 746100 + i);
+const COPY: Record<string, { daily: [string,string]; weekly: [string,string]; test: [string,string] }> = {
+  tr: { daily: ['🌍 Globriva · Günlük keşif', 'Bugünün 10 coğrafya sorusunu keşfetmek ister misin?'],
+        weekly: ['🏆 Globriva · Yeni hafta', 'Dünya sıralaması yenilendi. Haftalık mücadele başladı!'],
+        test: ['🔔 Globriva bildirim testi', 'Harika! iPhone bildirim sistemin çalışıyor.'] },
+  en: { daily: ['🌍 Globriva · Daily discovery', 'Ready for today’s 10 geography questions?'],
+        weekly: ['🏆 Globriva · New week', 'The world leaderboard has reset. A new challenge awaits!'],
+        test: ['🔔 Globriva notification test', 'Great! Your iPhone notifications are working.'] },
+  es: { daily: ['🌍 Globriva · Reto diario', '¿Listo para las 10 preguntas de hoy?'],
+        weekly: ['🏆 Globriva · Nueva semana', '¡Comienza una nueva clasificación mundial!'],
+        test: ['🔔 Prueba de Globriva', 'Las notificaciones de tu iPhone funcionan.'] },
+  de: { daily: ['🌍 Globriva · Tägliche Fragen', 'Bereit für die 10 Geografiefragen von heute?'],
+        weekly: ['🏆 Globriva · Neue Woche', 'Die Weltrangliste beginnt von vorn!'],
+        test: ['🔔 Globriva Test', 'Deine iPhone-Mitteilungen funktionieren.'] },
+  fr: { daily: ['🌍 Globriva · Défi du jour', 'Prêt pour les 10 questions de géographie du jour ?'],
+        weekly: ['🏆 Globriva · Nouvelle semaine', 'Le classement mondial recommence !'],
+        test: ['🔔 Test Globriva', 'Les notifications de votre iPhone fonctionnent.'] },
+  pt: { daily: ['🌍 Globriva · Desafio diário', 'Preparado para 10 perguntas de geografia?'],
+        weekly: ['🏆 Globriva · Nova semana', 'O ranking mundial recomeçou!'],
+        test: ['🔔 Teste Globriva', 'As notificações do iPhone estão funcionando.'] },
+  ru: { daily: ['🌍 Globriva · Вопросы дня', 'Готовы к 10 вопросам по географии?'],
+        weekly: ['🏆 Globriva · Новая неделя', 'Мировой рейтинг обновлён!'],
+        test: ['🔔 Проверка Globriva', 'Уведомления iPhone работают.'] },
+  zh: { daily: ['🌍 Globriva · 每日挑战', '准备好回答今天的10道地理题了吗？'],
+        weekly: ['🏆 Globriva · 新的一周', '世界排行榜已重置！'],
+        test: ['🔔 Globriva 测试', 'iPhone 通知正常工作。'] },
+  ja: { daily: ['🌍 Globriva · 毎日の挑戦', '今日の地理10問に挑戦しませんか？'],
+        weekly: ['🏆 Globriva · 新しい週', '世界ランキングが更新されました！'],
+        test: ['🔔 Globriva テスト', 'iPhoneの通知は正常に動作しています。'] }
+};
+function copy() {
+  const tag = (localStorage.getItem(LANGUAGE_KEY) || navigator.language || 'tr').split(/[-_]/)[0].toLowerCase();
+  return COPY[tag] || COPY.en;
 }
-
-export interface PushPreferences {
-  enabled: boolean;
-  daily: boolean;
-  weekly: boolean;
-  invites: boolean;
-}
+export interface PushPreferences { enabled: boolean; daily: boolean; weekly: boolean; invites: boolean }
 export type PushTarget = 'daily' | 'weekly';
-
-export const isIosPushSupported = () => Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios';
+export const isIosPushSupported = () => Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios' && Capacitor.isPluginAvailable('LocalNotifications');
 export function loadPushPreferences(): PushPreferences {
   try {
-    const s = JSON.parse(localStorage.getItem(KEY) || 'null') as Partial<PushPreferences> | null;
-    return { enabled: s?.enabled === true, daily: s?.daily !== false, weekly: s?.weekly !== false, invites: false };
-  } catch {
-    return { enabled: false, daily: true, weekly: true, invites: false };
-  }
+    const p = JSON.parse(localStorage.getItem(KEY) || 'null') as Partial<PushPreferences> | null;
+    return { enabled: p?.enabled === true, daily: p?.daily !== false, weekly: p?.weekly !== false, invites: false };
+  } catch { return { enabled: false, daily: true, weekly: true, invites: false }; }
 }
-function saveLocal(p: PushPreferences) { localStorage.setItem(KEY, JSON.stringify(p)); }
-function deviceId() {
-  let id = localStorage.getItem(DEVICE);
-  if (!id) { id = crypto.randomUUID(); localStorage.setItem(DEVICE, id); }
-  return id;
+function save(p: PushPreferences) { localStorage.setItem(KEY, JSON.stringify(p)); }
+async function clearOurReminders() {
+  const pending = await LocalNotifications.getPending();
+  const ours = pending.notifications.filter(n => LOCAL_IDS.includes(n.id)).map(n => ({ id: n.id }));
+  if (ours.length) await LocalNotifications.cancel({ notifications: ours });
 }
-async function registerToken(token: string) {
-  if (!backend || !loadPushPreferences().enabled) return;
-  const playerId = await getPlayerId();
-  const p = loadPushPreferences();
-  const { error } = await backend.from('geo_push_devices').upsert({
-    player_id: playerId, device_id: deviceId(),
-    device_token: token, apns_environment: APNS_ENV, language: selectedLanguage(),
-    enabled: p.enabled, daily: p.daily, weekly: p.weekly, invites: false,
-    updated_at: new Date().toISOString(),
-  }, { onConflict: 'player_id,device_id' });
-  if (error) throw new Error('Cihaz kaydı yapılamadı. Atlas Arena Supabase bildirim tablosunu kontrol edin.');
-}
-async function syncPreferences(p: PushPreferences) {
-  if (!backend) throw new Error('Supabase bağlantısı hazır değil.');
-  const playerId = await getPlayerId();
-  const { error } = await backend.from('geo_push_devices').update({
-    enabled: p.enabled, daily: p.daily, weekly: p.weekly, invites: false,
-    language: selectedLanguage(), updated_at: new Date().toISOString(),
-  }).eq('player_id', playerId).eq('device_id', deviceId());
-  if (error) throw new Error('Bildirim tercihleri sunucuya kaydedilemedi.');
-}
-/** Resync notification locale when a player changes the in-app language. */
-export async function syncIosPushLanguage(): Promise<void> {
-  if (!backend || !isIosPushSupported() || !loadPushPreferences().enabled) return;
-  const playerId = await getPlayerId();
-  const { error } = await backend.from('geo_push_devices')
-    .update({ language: selectedLanguage(), updated_at: new Date().toISOString() })
-    .eq('player_id', playerId).eq('device_id', deviceId());
-  if (error) console.warn('Globriva push language sync:', error.message);
-}
-
-export async function enableIosPush(): Promise<PushPreferences> {
-  if (!isIosPushSupported()) throw new Error('Yalnızca iOS uygulamasında kullanılabilir.');
-  if (!backend) throw new Error('Supabase bağlantısı hazır değil.');
-  const permission = await PushNotifications.requestPermissions();
-  if (permission.receive !== 'granted') throw new Error('iPhone bildirim izni verilmedi. Ayarlar bölümünden açabilirsin.');
-  const previous = loadPushPreferences();
-  const next = { ...previous, enabled: true, invites: false };
-  // A native permission is NOT proof the server has a usable device token.
-  // Do not report success until the APNs token is actually stored in Supabase.
-  const handles: PluginListenerHandle[] = [];
-  let timeout: ReturnType<typeof setTimeout> | null = null;
-  try {
-    const saved = new Promise<void>((resolve, reject) => {
-      const fail = (error: unknown) => reject(error instanceof Error ? error : new Error(String(error)));
-      void (async () => {
-        handles.push(await PushNotifications.addListener('registration', event => {
-          void registerToken(event.value).then(resolve, fail);
-        }));
-        handles.push(await PushNotifications.addListener('registrationError', event => {
-          fail(new Error(String(event.error || 'APNs cihaz kaydı başarısız.')));
-        }));
-        saveLocal(next);
-        timeout = setTimeout(() => fail(new Error('iPhone cihaz kaydı zaman aşımına uğradı.')), 15000);
-        await PushNotifications.register();
-      })().catch(fail);
+async function plan(p: PushPreferences) {
+  await clearOurReminders();
+  if (!p.enabled || (await LocalNotifications.checkPermissions()).display !== 'granted') return 0;
+  const message = copy();
+  const notices: Array<{
+    id: number; title: string; body: string; schedule: { on: { hour: number; minute: number } } | { at: Date };
+    extra: { target: PushTarget }; foreground: boolean;
+  }> = [];
+  if (p.daily) {
+    notices.push({
+      id: LOCAL_IDS[0], title: message.daily[0], body: message.daily[1],
+      schedule: { on: { hour: 19, minute: 0 } }, extra: { target: 'daily' }, foreground: false
     });
-    await saved;
-    return next;
-  } catch (error) {
-    saveLocal(previous);
-    throw error;
-  } finally {
-    if (timeout) clearTimeout(timeout);
-    await Promise.allSettled(handles.map(handle => handle.remove()));
   }
+  if (p.weekly) {
+    // Week starts on Monday. Keep eight coming Mondays, refreshed on next app open.
+    const now = new Date();
+    const first = new Date(now);
+    first.setHours(10, 0, 0, 0);
+    first.setDate(first.getDate() + ((8 - first.getDay()) % 7));
+    if (first.getTime() <= now.getTime() + 60000) first.setDate(first.getDate() + 7);
+    for (let i = 0; i < 8; i++) {
+      const at = new Date(first);
+      at.setDate(first.getDate() + 7 * i);
+      notices.push({
+        id: LOCAL_IDS[i + 1], title: message.weekly[0], body: message.weekly[1],
+        schedule: { at }, extra: { target: 'weekly' }, foreground: false
+      });
+    }
+  }
+  if (notices.length) await LocalNotifications.schedule({ notifications: notices });
+  return notices.length;
+}
+export async function enableIosPush(): Promise<PushPreferences> {
+  if (!isIosPushSupported()) throw new Error('Bu iPhone sürümünde yerel bildirim eklentisi bulunmuyor. Yeni build gerekiyor.');
+  const permission = await LocalNotifications.requestPermissions();
+  if (permission.display !== 'granted') throw new Error('Bildirim izni verilmedi. iPhone Ayarlar → Globriva → Bildirimler bölümünden açabilirsin.');
+  const next = { ...loadPushPreferences(), enabled: true, invites: false };
+  await plan(next);
+  save(next);
+  return next;
 }
 export async function disableIosPush(): Promise<PushPreferences> {
   const next = { ...loadPushPreferences(), enabled: false };
-  await syncPreferences(next); // Do not claim opt-out when server is unreachable.
-  saveLocal(next);
+  if (isIosPushSupported()) await clearOurReminders();
+  save(next);
   return next;
 }
 export async function setIosPushCategories(categories: Pick<PushPreferences,'daily'|'weekly'>): Promise<PushPreferences> {
   const next = { ...loadPushPreferences(), ...categories, invites: false };
-  if (next.enabled) await syncPreferences(next);
-  saveLocal(next);
+  if (isIosPushSupported() && next.enabled) await plan(next);
+  save(next);
   return next;
+}
+export async function sendIosTestNotification(): Promise<boolean> {
+  if (!isIosPushSupported()) return false;
+  if ((await LocalNotifications.checkPermissions()).display !== 'granted') return false;
+  const message = copy().test;
+  await LocalNotifications.schedule({ notifications: [{
+    id: 746199, title: message[0], body: message[1],
+    schedule: { at: new Date(Date.now() + 5000) },
+    extra: { target: 'daily' }, foreground: false
+  }] });
+  return true;
+}
+export async function syncIosPushLanguage(): Promise<void> {
+  if (isIosPushSupported() && loadPushPreferences().enabled) await plan(loadPushPreferences());
 }
 export async function initIosPush(onOpen: (target: PushTarget) => void): Promise<() => void> {
   if (!isIosPushSupported()) return () => {};
   const listeners: PluginListenerHandle[] = [];
   try {
-    listeners.push(await PushNotifications.addListener('registration', token => {
-      void registerToken(token.value).catch(error => console.warn('Atlas token registration:', error));
-    }));
-    listeners.push(await PushNotifications.addListener('registrationError', error => {
-      console.warn('APNs registration error:', error);
-    }));
-    listeners.push(await PushNotifications.addListener('pushNotificationActionPerformed', action => {
-      const target = action.notification.data?.target;
+    listeners.push(await LocalNotifications.addListener('localNotificationActionPerformed', action => {
+      const target: unknown = action.notification.extra?.target;
       if (target === 'daily' || target === 'weekly') onOpen(target);
     }));
-    if (loadPushPreferences().enabled) {
-      const permission = await PushNotifications.checkPermissions();
-      if (permission.receive === 'granted') await PushNotifications.register();
-    }
+    listeners.push(await NativeApp.addListener('appStateChange', ({ isActive }) => {
+      if (isActive && loadPushPreferences().enabled) {
+        void plan(loadPushPreferences()).catch(e => console.warn('Globriva local reminders:', e));
+      }
+    }));
+    if (loadPushPreferences().enabled) await plan(loadPushPreferences());
   } catch (error) {
     for (const listener of listeners) await listener.remove();
     throw error;
