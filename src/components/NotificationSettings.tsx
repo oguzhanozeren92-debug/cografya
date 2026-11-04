@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { Bell, BellOff, CalendarDays, CheckCircle2, LoaderCircle, Trophy, Users, X } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 import {
-  enableIosPush, disableIosPush, loadPushPreferences, setIosPushCategories,
+  enableIosPush, disableIosPush, loadPushPreferences, setIosPushCategories, sendIosTestNotification,
   type PushPreferences,
 } from '@/lib/iosPush';
 
@@ -11,6 +11,7 @@ export function NotificationSettings({ onClose }: { onClose: () => void }) {
   const [prefs, setPrefs] = useState<PushPreferences>(loadPushPreferences);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [testMessage, setTestMessage] = useState('');
 
   async function run(action: () => Promise<PushPreferences>) {
     if (busy) return;
@@ -45,8 +46,8 @@ export function NotificationSettings({ onClose }: { onClose: () => void }) {
         <h2 id="atlas-notification-title" className="mt-4 text-[22px] font-black">{t('Macera haberleri gelsin mi? 🌍')}</h2>
         <p className="mt-2 text-sm leading-6 text-blue-100/80">{t('Sadece seçtiğin konularda haber verelim. İstediğin zaman kapatabilirsin.')}</p>
         <div className="mt-4 divide-y divide-white/10 rounded-2xl border border-white/10 bg-[#0d1b33]/65 px-3">
-          {row('daily', <CalendarDays className="h-5 w-5"/>, t('Günlük 10 soru'), t('Bitirmediğin günlerde kısa bir hatırlatma.'))}
-          {row('weekly', <Trophy className="h-5 w-5"/>, t('Haftalık sıralama'), t('Yeni hafta başladığında hatırlatalım.'))}
+          {row('daily', <CalendarDays className="h-5 w-5"/>, t('Günlük 10 soru'), t('Her gün saat 19.00’da coğrafya sorularını hatırlatır. Bitirmiş olsan da planlı bildirim gelebilir.'))}
+          {row('weekly', <Trophy className="h-5 w-5"/>, t('Haftalık sıralama'), t('Pazartesi saat 10.00’da yeni dünya sıralamasını hatırlatır.'))}
           <div className="flex items-center gap-3 py-3 opacity-55">
             <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#203959] text-[#a9dbff]"><Users className="h-5 w-5"/></span>
             <span className="flex-1"><strong className="block text-sm">{t('Arkadaş davetleri')}</strong><small className="block text-xs text-blue-100/75">{t('Davet sistemi tamamlanınca açılacak.')}</small></span>
@@ -56,7 +57,14 @@ export function NotificationSettings({ onClose }: { onClose: () => void }) {
         {error && <p className="mt-4 rounded-xl border border-rose-400/40 bg-rose-950/30 p-3 text-xs text-rose-100" role="alert">{error}</p>}
         {prefs.enabled ? (
           <div className="mt-5">
-            <p className="mb-3 flex items-center gap-2 text-xs text-[#9aedd6]"><CheckCircle2 className="h-4 w-4"/> {t('İzin açık. Bildirimlerin gelmesi için sunucuda APNs kurulumu da gereklidir.')}</p>
+            <p className="mb-3 flex items-center gap-2 text-xs text-[#9aedd6]"><CheckCircle2 className="h-4 w-4"/> {t('iPhone hatırlatmaları ayarlandı. Uygulama kapalıyken de çalışır; Odak modu bildirimleri sessize alabilir.')}</p>
+            <button type="button" disabled={busy} onClick={() => { void sendIosTestNotification().then(ok => {
+              setTestMessage(ok ? t('5 saniye sonrasına test bildirimi ayarlandı. Telefonu kilitleyip dene.') : t('Bildirim iznini iPhone Ayarlarından açmalısın.'));
+            }).catch(err => setTestMessage(String(err))); }}
+              className="mb-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-[#73c8d7]/55 bg-[#193c52] font-bold">
+              <Bell className="h-4 w-4"/> {t('Test bildirimi gönder')}
+            </button>
+            {testMessage && <p role="status" className="mb-3 text-xs text-[#9aedd6]">{testMessage}</p>}
             <button type="button" disabled={busy} onClick={() => { void run(disableIosPush); }}
               className="flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/10 font-bold disabled:opacity-50">
               {busy ? <LoaderCircle className="h-4 w-4 animate-spin"/> : <BellOff className="h-4 w-4"/>} {t('Bildirimleri kapat')}
