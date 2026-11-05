@@ -279,6 +279,45 @@ const latestNative:Partial<Record<Language,Record<string,string>>> = {
   }
 };
 
+// FUNES-inspired landmarks, localized for all supported non-Turkish languages.
+const funesNative:Partial<Record<Language,Record<string,string>>> = {
+  "es": {
+    "442": "el castillo de Schengen",
+    "688": "la fortaleza de Belgrado",
+    "070": "el Puente Viejo de Mostar"
+  },
+  "de": {
+    "442": "das Schloss Schengen",
+    "688": "die Festung Belgrad",
+    "070": "die Alte Brücke von Mostar"
+  },
+  "fr": {
+    "442": "le château de Schengen",
+    "688": "la forteresse de Belgrade",
+    "070": "le Vieux Pont de Mostar"
+  },
+  "pt": {
+    "442": "o Castelo de Schengen",
+    "688": "a fortaleza de Belgrado",
+    "070": "a Ponte Velha de Mostar"
+  },
+  "ru": {
+    "442": "замком Шенген",
+    "688": "Белградской крепостью",
+    "070": "Старым мостом в Мостаре"
+  },
+  "zh": {
+    "442": "申根城堡",
+    "688": "贝尔格莱德要塞",
+    "070": "莫斯塔尔古桥"
+  },
+  "ja": {
+    "442": "シェンゲン城",
+    "688": "ベオグラード要塞",
+    "070": "モスタルの古い橋"
+  }
+};
+
 export function localizedClueFeature(id:string,language:Language,english:string):string{
-  return latestNative[language]?.[id]??supplemental[language]?.[id]??lookups[language]?.[id]??english;
+  return funesNative[language]?.[id]??latestNative[language]?.[id]??supplemental[language]?.[id]??lookups[language]?.[id]??english;
 }
