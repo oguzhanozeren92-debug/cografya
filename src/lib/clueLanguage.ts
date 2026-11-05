@@ -89,7 +89,10 @@ const signals:Record<string,Signal>={
   '626':{region:'southeastAsia',feature:'Nino Konis Santana National Park'},
   '056':{region:'eu',feature:'the medieval canals of Bruges'},
   '860':{region:'centralAsia',feature:'Registan Square in Samarkand'},
-  '232':{region:'eastAfrica',feature:'Asmara’s modernist architecture'}
+  '232':{region:'eastAfrica',feature:'Asmara’s modernist architecture'},
+  '070':{region:'eu',feature:'the Old Bridge of Mostar'},
+  '688':{region:'eu',feature:'Belgrade Fortress at the Sava-Danube confluence'},
+  '442':{region:'eu',feature:'Schengen Castle by the Moselle'}
 };
 const templates:Record<Exclude<Language,'tr'>,{
   region:(name:string)=>string;landmark:(feature:string)=>string;capital:(capital:string)=>string;
