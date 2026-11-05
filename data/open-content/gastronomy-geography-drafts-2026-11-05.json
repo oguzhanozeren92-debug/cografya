@@ -1,0 +1,511 @@
+{
+  "schemaVersion": 1,
+  "project": "globriva",
+  "date": "2026-11-05",
+  "note": "TasteAtlas ilhamı; metinler özgün ve UNESCO kaynaklarıyla doğrulandı. Fotoğraflar için Wikimedia Commons/Openverse lisans+görsel eşleşme kontrolü şart. Bu taslaklar canlı oyun yükleyicisine bağlı değildir; yayımlanamaz.",
+  "releasePolicy": {
+    "playableOnlyAfter": [
+      "correct-source-review",
+      "photo-subject-match",
+      "license-and-credit-check",
+      "mobile-image-performance-audit",
+      "multilingual-proofread",
+      "duplicate-check"
+    ],
+    "automaticPublishing": false
+  },
+  "questions": [
+    {
+      "id": "GLO-FOOD-20261105-01",
+      "category": "gastronomy-geography",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Fotoğraftaki kimchi, UNESCO'da kayıtlı kimjang geleneğiyle özellikle hangi ülkeyle ilişkilidir?",
+        "en": "Kimchi shown in the photo is especially associated with which country's UNESCO-listed kimjang tradition?"
+      },
+      "choices": {
+        "tr": [
+          "Güney Kore",
+          "Japonya",
+          "Moğolistan",
+          "Tayland"
+        ],
+        "en": [
+          "South Korea",
+          "Japan",
+          "Mongolia",
+          "Thailand"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kimjang, Güney Kore'de kimchinin topluca hazırlanıp paylaşılması geleneğidir.",
+        "en": "Kimjang is the communal making and sharing of kimchi in South Korea."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/kimjang-making-and-sharing-kimchi-in-the-republic-of-korea-00881",
+      "image": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Korean_traditional_food,_kimchi.jpg",
+        "credit": "Charles Haynes / Nate Beaty",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "searchTerms": "kimchi napa cabbage",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-02",
+      "category": "gastronomy-geography",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Fotoğraftaki geleneksel Napoli pizzası hangi ülkenin Campania bölgesiyle ilişkilidir?",
+        "en": "The traditional Neapolitan pizza shown is associated with Campania in which country?"
+      },
+      "choices": {
+        "tr": [
+          "İtalya",
+          "İspanya",
+          "Yunanistan",
+          "Fransa"
+        ],
+        "en": [
+          "Italy",
+          "Spain",
+          "Greece",
+          "France"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO'nun tescillediği Napoli pizzacılığı sanatı İtalya'nın Napoli kentinde gelişmiştir.",
+        "en": "UNESCO's listed Neapolitan pizzaiuolo craft is rooted in Naples, Italy."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/art-of-neapolitan-pizzaiuolo-00722",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "neapolitan pizza margherita",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-03",
+      "category": "gastronomy-geography",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Fotoğraftaki baget ekmeğinin geleneksel üretim kültürü UNESCO listesinde hangi ülke adına kayıtlıdır?",
+        "en": "The baguette's artisanal bread-making culture is inscribed on UNESCO's list for which country?"
+      },
+      "choices": {
+        "tr": [
+          "Fransa",
+          "Belçika",
+          "İtalya",
+          "Almanya"
+        ],
+        "en": [
+          "France",
+          "Belgium",
+          "Italy",
+          "Germany"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Fransız baget ekmeğinin zanaatkârlık bilgisi ve kültürü UNESCO listesine 2022'de kaydedildi.",
+        "en": "The artisanal know-how and culture of baguette bread was inscribed by UNESCO in 2022."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/artisanal-know-how-and-culture-of-baguette-bread-01883",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "French baguette bread",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-04",
+      "category": "gastronomy-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Balık, pirinç ve sebzelerle hazırlanan ceebu jën, hangi Batı Afrika ülkesinin mutfak geleneğidir?",
+        "en": "Ceebu jën, made with fish, rice and vegetables, belongs to the culinary tradition of which West African country?"
+      },
+      "choices": {
+        "tr": [
+          "Gana",
+          "Senegal",
+          "Nijerya",
+          "Benin"
+        ],
+        "en": [
+          "Ghana",
+          "Senegal",
+          "Nigeria",
+          "Benin"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "UNESCO, ceebu jën'i Senegal'in mutfak sanatı olarak tanımlar; gelenek Saint-Louis balıkçı topluluklarıyla ilişkilidir.",
+        "en": "UNESCO describes ceebu jën as a Senegalese culinary art linked to Saint-Louis fishing communities."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/ceebu-jen-a-culinary-art-of-senegal-01748",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "ceebu jen thieboudienne senegalese rice fish",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-05",
+      "category": "gastronomy-geography",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Cezvede köpüklü hazırlanıp küçük fincanlarda sunulan bu kahvenin UNESCO listesinde kayıtlı geleneği hangi ülkeyle ilişkilidir?",
+        "en": "The UNESCO-listed tradition of coffee brewed in a cezve and served in small cups is associated with which country?"
+      },
+      "choices": {
+        "tr": [
+          "Türkiye",
+          "İtalya",
+          "Brezilya",
+          "Etiyopya"
+        ],
+        "en": [
+          "Türkiye",
+          "Italy",
+          "Brazil",
+          "Ethiopia"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Türk kahvesi kültürü ve geleneği UNESCO'nun somut olmayan kültürel miras listesine 2013'te kaydedildi.",
+        "en": "Turkish coffee culture and tradition was inscribed by UNESCO in 2013."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/washoku-traditional-dietary-cultures-of-the-japanese-00645",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "turkish coffee cezve cup",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-06",
+      "category": "gastronomy-geography",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Mısırdan yapılan tortilla, UNESCO'nun tanımladığı hangi ülkenin geleneksel mutfak kültüründe önemli bir yere sahiptir?",
+        "en": "Corn tortillas are a key part of the UNESCO-recognized traditional cuisine of which country?"
+      },
+      "choices": {
+        "tr": [
+          "Meksika",
+          "Peru",
+          "Portekiz",
+          "Fas"
+        ],
+        "en": [
+          "Mexico",
+          "Peru",
+          "Portugal",
+          "Morocco"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Meksika'nın geleneksel mutfağı, mısır, fasulye ve acı biber gibi temel ürünlere dayanır.",
+        "en": "Mexico's traditional cuisine has staples including maize, beans and chili peppers."
+      },
+      "factSource": "https://ich.unesco.org/en/rl/traditional-mexican-cuisine-ancestral-ongoing-community-culture-the-milpa-system-00400",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "Mexican corn tortillas",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-07",
+      "category": "gastronomy-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Kuskus yapma ve paylaşma geleneği UNESCO'da hangi coğrafyadaki ülkeler adına ortak kayıtlıdır?",
+        "en": "Couscous-making and sharing is jointly inscribed by UNESCO for countries in which region?"
+      },
+      "choices": {
+        "tr": [
+          "Kuzey Afrika",
+          "Baltık bölgesi",
+          "Güneydoğu Asya",
+          "Karayipler"
+        ],
+        "en": [
+          "North Africa",
+          "The Baltic region",
+          "Southeast Asia",
+          "The Caribbean"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO kaydında Cezayir, Moritanya, Fas ve Tunus birlikte yer alır; kuskusu tek bir ülkeye mal etmiyoruz.",
+        "en": "Algeria, Mauritania, Morocco and Tunisia share the UNESCO inscription; the tradition is not attributed to a single country."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/knowledge-know-how-and-practices-pertaining-to-the-production-and-consumption-of-couscous-01602",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "north african couscous dish",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-08",
+      "category": "gastronomy-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Buğday ve etin birlikte uzun süre pişirilmesiyle yapılan törensel keşkek geleneği UNESCO listesinde hangi ülke adına kayıtlıdır?",
+        "en": "The ceremonial keşkek tradition, made by slowly cooking wheat and meat, is inscribed for which country?"
+      },
+      "choices": {
+        "tr": [
+          "Türkiye",
+          "Mısır",
+          "Macaristan",
+          "İsveç"
+        ],
+        "en": [
+          "Türkiye",
+          "Egypt",
+          "Hungary",
+          "Sweden"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO'nun Türkiye adına kayıtlı törensel keşkek geleneği düğün ve bayramlarda topluca hazırlanır.",
+        "en": "UNESCO's listed ceremonial keşkek tradition in Türkiye involves communal preparation for celebrations."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/ceremonial-keskek-tradition-00388",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "ceremonial keskek wheat meat dish",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-09",
+      "category": "gastronomy-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Mevsimlik malzemelere ve doğaya saygıya vurgu yapan 'washoku' yemek kültürü hangi ülkeyle ilişkilidir?",
+        "en": "Which country's food culture is 'washoku', emphasizing seasonal ingredients and respect for nature?"
+      },
+      "choices": {
+        "tr": [
+          "Japonya",
+          "Vietnam",
+          "Filipinler",
+          "Hindistan"
+        ],
+        "en": [
+          "Japan",
+          "Vietnam",
+          "Philippines",
+          "India"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO washoku'yu Japonya'nın geleneksel beslenme kültürü olarak tanımlar; özellikle yılbaşı geleneklerine dikkat çeker.",
+        "en": "UNESCO identifies washoku with Japan's dietary culture, especially New Year traditions."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/washoku-traditional-dietary-cultures-of-the-japanese-notably-for-the-celebration-of-the-new-year-00869",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "traditional Japanese washoku meal",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-10",
+      "category": "gastronomy-geography",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Lavaş, katırma, yufka ve benzeri ince ekmekleri yapma-paylaşma geleneğinin ortak UNESCO kaydında aşağıdaki ülkelerden hangisi vardır?",
+        "en": "Which of these countries is included in the joint UNESCO inscription for making and sharing lavash and related flatbreads?"
+      },
+      "choices": {
+        "tr": [
+          "İspanya",
+          "Türkiye",
+          "Kanada",
+          "Arjantin"
+        ],
+        "en": [
+          "Spain",
+          "Türkiye",
+          "Canada",
+          "Argentina"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "UNESCO kaydı Azerbaycan, İran, Kazakistan, Kırgızistan ve Türkiye'nin paylaştığı geleneği kapsar.",
+        "en": "The UNESCO inscription covers a shared tradition in Azerbaijan, Iran, Kazakhstan, Kyrgyzstan and Türkiye."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/lavash-01181",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "traditional lavash yufka flatbread",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-11",
+      "category": "gastronomy-geography",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Kimjang geleneğinde aileler, kış boyunca tüketilecek kimchiyi genellikle hangi mevsimde topluca hazırlar?",
+        "en": "During which season do communities traditionally prepare large amounts of kimchi for winter during kimjang?"
+      },
+      "choices": {
+        "tr": [
+          "İlkbahar",
+          "Yaz",
+          "Sonbahar sonu",
+          "Kış ortası"
+        ],
+        "en": [
+          "Spring",
+          "Summer",
+          "Late autumn",
+          "Midwinter"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "UNESCO'ya göre kimjang için toplu kimchi hazırlığı çoğunlukla sonbaharın sonunda yapılır.",
+        "en": "According to UNESCO, communal kimchi preparation in kimjang typically happens in late autumn."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/kimjang-making-and-sharing-kimchi-in-the-republic-of-korea-00881",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "kimjang kimchi preparation",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-FOOD-20261105-12",
+      "category": "gastronomy-geography",
+      "difficulty": "hard",
+      "question": {
+        "tr": "UNESCO'nun aktardığına göre ceebu jën hangi Senegal kentinin balıkçı topluluklarında ortaya çıkmıştır?",
+        "en": "According to UNESCO, ceebu jën originated among fishing communities in which Senegalese city?"
+      },
+      "choices": {
+        "tr": [
+          "Saint-Louis",
+          "Dakar",
+          "Thiès",
+          "Kaolack"
+        ],
+        "en": [
+          "Saint-Louis",
+          "Dakar",
+          "Thiès",
+          "Kaolack"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO, ceebu jën'in Senegal'deki Saint-Louis Adası balıkçı topluluklarında ortaya çıktığını belirtir.",
+        "en": "UNESCO states that ceebu jën originated in fishing communities on the Island of Saint-Louis, Senegal."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/ceebu-jen-a-culinary-art-of-senegal-01748",
+      "image": {
+        "sourcePage": null,
+        "credit": null,
+        "license": null,
+        "licenseUrl": null,
+        "searchTerms": "ceebu jen cooking Senegal",
+        "visualReview": false,
+        "licenseReview": false,
+        "assetUrl": null
+      },
+      "status": "review_required_not_playable",
+      "playable": false
+    }
+  ]
+}
