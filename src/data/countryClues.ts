@@ -990,6 +990,39 @@ const cards: CountryClueCard[] = [
     ],
     "fact": "Asmara'nın 1893-1941 arasında gelişen modernist kent dokusu, Avrupa mimarlık akımlarının Afrika'daki yerel koşullarla karşılaşmasını gösterir.",
     "sourceUrl": "https://whc.unesco.org/en/list/1550/"
+  },
+  {
+    "countryId": "070",
+    "difficulty": 2,
+    "clues": [
+      "Balkan Yarımadası'nda dağlık arazileriyle tanınan bir ülkedir.",
+      "Mostar'da Neretva Nehri üzerinde tarihî bir Osmanlı köprüsü bulunur.",
+      "Başkentinin adı Saraybosna'dır."
+    ],
+    "fact": "Mostar Köprüsü, Neretva üzerinde 16. yüzyılda inşa edilmiş bir Osmanlı köprüsüdür.",
+    "sourceUrl": "https://whc.unesco.org/en/list/946/"
+  },
+  {
+    "countryId": "688",
+    "difficulty": 1,
+    "clues": [
+      "Güneydoğu Avrupa'da denize kıyısı olmayan bir Balkan ülkesidir.",
+      "Belgrad Kalesi, Sava ve Tuna nehirlerinin birleştiği noktada yükselir.",
+      "Başkentinin adı Belgrad'dır."
+    ],
+    "fact": "Belgrad Kalesi, Sava ile Tuna nehirlerinin birleştiği kesimde bulunan tarihî savunma yapısıdır.",
+    "sourceUrl": "https://funes.world/highlights"
+  },
+  {
+    "countryId": "442",
+    "difficulty": 2,
+    "clues": [
+      "Batı Avrupa'da Belçika, Almanya ve Fransa arasında kalan küçük bir ülkedir.",
+      "Schengen köyü ve aynı adı taşıyan kale, Moselle Nehri kıyısındadır.",
+      "Başkentinin adı Lüksemburg'dur."
+    ],
+    "fact": "Schengen köyü, Avrupa'da sınır geçişleriyle ilgili Schengen Anlaşması'na adını vermiştir.",
+    "sourceUrl": "https://funes.world/highlights"
   }
 ];
 
