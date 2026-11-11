@@ -1328,6 +1328,736 @@
       "reviewedLocation": false,
       "reviewedQuality": false,
       "editorialStatus": "commons_author_and_cc_license_checked_pending_visual_and_place_review"
+    },
+    {
+      "id": "album-023",
+      "country": "Fas",
+      "city": "Marakeş",
+      "lat": 31.6258,
+      "lng": -7.9891,
+      "regionCode": "015",
+      "difficulty": "medium",
+      "fact": "Marakeş'in kalbindeki Cemaa'l Fna meydanı, UNESCO somut olmayan kültürel miras listesindedir; yanında 12. yüzyıldan Kutubiye Camii yükselir.",
+      "hint": {
+        "tr": "Kuzey Afrika’da, kırmızımsı surlarıyla bilinen tarihî bir kervan şehri.",
+        "en": "A historic North African caravan city known for its reddish walls."
+      },
+      "photoFocus": {
+        "tr": "Kalabalık meydana, yemek tezgâhlarına ve kare kesitli uzun minareye bak.",
+        "en": "Look for the busy square, food stalls and the tall square minaret."
+      },
+      "choices": [
+        "Fas",
+        "Cezayir",
+        "Tunus",
+        "Mısır"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Jamaa El Fna square Morocco 2018 1.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Jamaa_El_Fna_square_Morocco_2018_1.jpg",
+          "artist": "Steven Lek",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Jamaa El Fna (Marrakesch, Marokko) 05.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Jamaa_El_Fna_(Marrakesch%2C_Marokko)_05.jpg",
+          "artist": "Werner100359",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Koutoubia mosque of Marrakech.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Koutoubia_mosque_of_Marrakech.jpg",
+          "artist": "Shimi Yosr",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "2048x1536; 2017 çekimi, 2023 depremi öncesi",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-024",
+      "country": "Arjantin",
+      "city": "Buenos Aires",
+      "lat": -34.6037,
+      "lng": -58.3816,
+      "regionCode": "005",
+      "difficulty": "medium",
+      "fact": "Buenos Aires'in La Boca semtindeki Caminito sokağı, rengârenk teneke evleri ve tango geleneğiyle tanınır.",
+      "hint": {
+        "tr": "Güney Amerika’da geniş bir halici olan, tangoyla anılan başkent.",
+        "en": "A South American capital on a wide estuary, famous for tango."
+      },
+      "photoFocus": {
+        "tr": "Rengârenk boyalı evlere, liman bölgesine ve modern kıyı yapılarına bak.",
+        "en": "Look for brightly painted houses, the old port area and the modern waterfront."
+      },
+      "choices": [
+        "Arjantin",
+        "Uruguay",
+        "Şili",
+        "Bolivya"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Calle Caminito in La Boca, Buenos Aires-3.JPG",
+          "source": "https://commons.wikimedia.org/wiki/File:Calle_Caminito_in_La_Boca%2C_Buenos_Aires-3.JPG",
+          "artist": "Lars Curfs (Grashoofd)",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "editorNote": "Lisans şablon adından okundu (LarsCurfsCCSA3.0); sayfada doğrula",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Puerto Madero desde Torre YPF 04.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Puerto_Madero_desde_Torre_YPF_04.jpg",
+          "artist": "Roberto Fiadone",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:2011.10.17.162313 Puente de la Mujer Puerto Madero Buenos Aires.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:2011.10.17.162313_Puente_de_la_Mujer_Puerto_Madero_Buenos_Aires.jpg",
+          "artist": "Hermann Luyken",
+          "license": "CC0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "editorNote": "Calatrava köprüsü; Arjantin panorama özgürlüğü Commons sayfasında not edilmiş",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-025",
+      "country": "Vietnam",
+      "city": "Hanoi",
+      "lat": 21.0287,
+      "lng": 105.8523,
+      "regionCode": "035",
+      "difficulty": "medium",
+      "fact": "Hanoi'nin merkezindeki Hoan Kiem Gölü ve ortasındaki Kaplumbağa Kulesi, şehrin efsanelerle anılan simgesidir.",
+      "hint": {
+        "tr": "Güneydoğu Asya’da, Kızıl Nehir kıyısındaki bin yıllık başkent.",
+        "en": "A thousand-year-old Southeast Asian capital on the Red River."
+      },
+      "photoFocus": {
+        "tr": "Şehir içindeki göle ve küçük adacıktaki eski kuleye bak.",
+        "en": "Look for the city-centre lake and the small tower on its islet."
+      },
+      "choices": [
+        "Vietnam",
+        "Laos",
+        "Kamboçya",
+        "Tayland"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Hồ Hoàn Kiếm.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:H%E1%BB%93_Ho%C3%A0n_Ki%E1%BA%BFm.jpg",
+          "artist": "Bùi Thụy Đào Nguyên",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Hanoi - Turtle Tower (Tháp Rùa), Hoàn Kiếm Lake.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Hanoi_-_Turtle_Tower_(Th%C3%A1p_R%C3%B9a)%2C_Ho%C3%A0n_Ki%E1%BA%BFm_Lake.jpg",
+          "artist": "P. Hughes",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Turtle Tower, Hoan Kiem Lake, Hanoi 4G4A7301.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Turtle_Tower%2C_Hoan_Kiem_Lake%2C_Hanoi_4G4A7301.jpg",
+          "artist": "Khoitran1957",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-026",
+      "country": "Güney Kore",
+      "city": "Seul",
+      "lat": 37.5796,
+      "lng": 126.977,
+      "regionCode": "030",
+      "difficulty": "medium",
+      "fact": "Seul'deki Gyeongbokgung, Joseon hanedanının 14. yüzyılda kurulan ana sarayıdır.",
+      "hint": {
+        "tr": "Doğu Asya’da, Han Nehri’nin iki yakasına yayılmış dev başkent.",
+        "en": "A huge East Asian capital spread along both banks of the Han River."
+      },
+      "photoFocus": {
+        "tr": "Kıvrık çatılı saray yapılarına ve gece ışıklı nehir kıyısına bak.",
+        "en": "Look for curved-roof palace halls and the lit-up riverside at night."
+      },
+      "choices": [
+        "Güney Kore",
+        "Japonya",
+        "Kuzey Kore",
+        "Vietnam"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Front view of the Eastern side of the Imperial Throne Hall Geunjeongjeon at Gyeongbokgung Palace in Seoul.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Front_view_of_the_Eastern_side_of_the_Imperial_Throne_Hall_Geunjeongjeon_at_Gyeongbokgung_Palace_in_Seoul.jpg",
+          "artist": "Basile Morin",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Hyangwonjeong Pavilion and Chwihyanggyo Bridge at Gyeongbokgung Palace with blue sky in Seoul.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Hyangwonjeong_Pavilion_and_Chwihyanggyo_Bridge_at_Gyeongbokgung_Palace_with_blue_sky_in_Seoul.jpg",
+          "artist": "Basile Morin",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Seoul night skyline 2018.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Seoul_night_skyline_2018.jpg",
+          "artist": "Takipoint123",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Yükleyici Google Magic Editor ile parlama silmiş; Kore’de modern binalarda panorama özgürlüğü ticari kullanıma kapalı, silüet olarak değerlendir",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-027",
+      "country": "Ürdün",
+      "city": "Petra",
+      "lat": 30.3285,
+      "lng": 35.4444,
+      "regionCode": "145",
+      "difficulty": "medium",
+      "fact": "Petra, Nebatîlerin pembe kumtaşı kayalara oyduğu antik bir şehirdir ve UNESCO Dünya Mirası listesindedir.",
+      "hint": {
+        "tr": "Orta Doğu’da, dar bir kanyonun sonunda kayaya oyulmuş antik kent.",
+        "en": "An ancient Middle Eastern city carved into rock at the end of a narrow canyon."
+      },
+      "photoFocus": {
+        "tr": "Kayaya oyulmuş sütunlu cephelere ve pembe kumtaşına bak.",
+        "en": "Look for columned façades carved into pink sandstone."
+      },
+      "choices": [
+        "Ürdün",
+        "Suudi Arabistan",
+        "Suriye",
+        "Lübnan"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Al-Khazneh (The Treasury) 2, Petra, Jordan.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Al-Khazneh_(The_Treasury)_2%2C_Petra%2C_Jordan.jpg",
+          "artist": "Vyacheslav Argenberg",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Ad Deir (The Monastery), El Deir, Petra, Jordan.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Ad_Deir_(The_Monastery)%2C_El_Deir%2C_Petra%2C_Jordan.jpg",
+          "artist": "Vyacheslav Argenberg",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Petra, Jordan -The Treasury.JPG",
+          "source": "https://commons.wikimedia.org/wiki/File:Petra%2C_Jordan_-The_Treasury.JPG",
+          "artist": "Davidchocron",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı; Hazine ikinci kez görünüyor, yedek: El_Monasterio,_Petra,_Jordania,_2011-09-30,_DD_01.JPG (Diego Delso, CC BY-SA 4.0)",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-028",
+      "country": "İzlanda",
+      "city": "Reykjavík",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "regionCode": "154",
+      "difficulty": "hard",
+      "fact": "Reykjavík'teki Hallgrímskirkja kilisesinin cephesi, İzlanda'daki bazalt lav sütunlarından esinlenmiştir.",
+      "hint": {
+        "tr": "Kuzey Atlantik’te, dünyanın en kuzeydeki başkentlerinden biri.",
+        "en": "One of the world’s northernmost capitals, in the North Atlantic."
+      },
+      "photoFocus": {
+        "tr": "Basamaklı beton kule kiliseye ve renkli çatılı alçak evlere bak.",
+        "en": "Look for the stepped concrete church tower and low houses with colourful roofs."
+      },
+      "choices": [
+        "İzlanda",
+        "Norveç",
+        "Danimarka",
+        "Finlandiya"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Hallgrímskirkja, church of Hallgrímur.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Hallgr%C3%ADmskirkja%2C_church_of_Hallgr%C3%ADmur.jpg",
+          "artist": "Yosleisyvaldes",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Mimar Guðjón Samúelsson 1950’de öldü; bina telifi sona ermiş olmalı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:View from Hallgrímskirkja towards Reykjavík Airport.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:View_from_Hallgr%C3%ADmskirkja_towards_Reykjav%C3%ADk_Airport.jpg",
+          "artist": "Olga Ernst",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:View of Reykjavik from ferry to Viðey island.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:View_of_Reykjavik_from_ferry_to_Vi%C3%B0ey_island.jpg",
+          "artist": "Slawojar",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "DİKKAT: Harpa (2011) görünüyor; İzlanda panorama özgürlüğü kısıtlı. Harpa baskınsa çıkar",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-029",
+      "country": "Küba",
+      "city": "Havana",
+      "lat": 23.1136,
+      "lng": -82.3666,
+      "regionCode": "029",
+      "difficulty": "medium",
+      "fact": "Havana'nın Malecón sahil yolu yaklaşık 8 km boyunca okyanus kıyısını izler; Capitolio binası 1929'da tamamlandı.",
+      "hint": {
+        "tr": "Karayipler’de, renkli eski arabaları ve uzun sahil duvarıyla bilinen başkent.",
+        "en": "A Caribbean capital known for vintage cars and a long seafront wall."
+      },
+      "photoFocus": {
+        "tr": "Kubbeli anıtsal binaya ve okyanus boyunca uzanan sahil yoluna bak.",
+        "en": "Look for the domed landmark and the long oceanfront promenade."
+      },
+      "choices": [
+        "Küba",
+        "Dominik Cumhuriyeti",
+        "Jamaika",
+        "Meksika"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Parliament building of Cuba Havanna El Capitolio.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Parliament_building_of_Cuba_Havanna_El_Capitolio.jpg",
+          "artist": "Marc-Lautenbacher",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Malecón de la Habana, Cuba by Yenisleidy Llorente.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Malec%C3%B3n_de_la_Habana%2C_Cuba_by_Yenisleidy_Llorente.jpg",
+          "artist": "Yoeztudioz",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Hotel Nacional y Malecon de La Habana.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Hotel_Nacional_y_Malecon_de_La_Habana.jpg",
+          "artist": "Hmaglione10",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "1400x1050, alt sınıra yakın",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-030",
+      "country": "Tayland",
+      "city": "Bangkok",
+      "lat": 13.7437,
+      "lng": 100.4888,
+      "regionCode": "035",
+      "difficulty": "medium",
+      "fact": "Bangkok'taki Wat Arun (Şafak Tapınağı), Chao Phraya Nehri kıyısında porselen süslemeli kulesiyle bilinir.",
+      "hint": {
+        "tr": "Güneydoğu Asya’da, büyük bir nehrin iki yakasındaki kalabalık başkent.",
+        "en": "A busy Southeast Asian capital on both banks of a great river."
+      },
+      "photoFocus": {
+        "tr": "Nehir kıyısındaki porselen süslemeli sivri tapınak kulesine bak.",
+        "en": "Look for the riverside temple spire decorated with porcelain."
+      },
+      "choices": [
+        "Tayland",
+        "Kamboçya",
+        "Myanmar",
+        "Laos"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Wat Arun Ratchawararam and the Royal Barge Procession.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Wat_Arun_Ratchawararam_and_the_Royal_Barge_Procession.jpg",
+          "artist": "Tee-12838",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Wat Arun 2022.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Wat_Arun_2022.jpg",
+          "artist": "Elod1234",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Wat arun at night in Bangkok, Thailand.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Wat_arun_at_night_in_Bangkok%2C_Thailand.jpg",
+          "artist": "Preecha.MJ",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı; üç fotoğraf da Wat Arun, bir tanesini Büyük Saray ile değiştirmek iyi olur",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-031",
+      "country": "Peru",
+      "city": "Cusco",
+      "lat": -13.5165,
+      "lng": -71.9785,
+      "regionCode": "005",
+      "difficulty": "medium",
+      "fact": "Cusco, İnka İmparatorluğu'nun başkentiydi; Plaza de Armas çevresindeki sömürge dönemi kiliseleri İnka temelleri üzerine kuruldu.",
+      "hint": {
+        "tr": "And Dağları’nda, yaklaşık 3.400 metre yükseklikteki eski imparatorluk başkenti.",
+        "en": "A former imperial capital in the Andes, about 3,400 m above sea level."
+      },
+      "photoFocus": {
+        "tr": "Dağlarla çevrili meydana ve barok taş kilise cephelerine bak.",
+        "en": "Look for the mountain-ringed plaza and baroque stone church façades."
+      },
+      "choices": [
+        "Peru",
+        "Bolivya",
+        "Ekvador",
+        "Şili"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Catedral, Plaza de Armas, Cusco, Perú, 2015-07-31, DD 73.JPG",
+          "source": "https://commons.wikimedia.org/wiki/File:Catedral%2C_Plaza_de_Armas%2C_Cusco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_73.JPG",
+          "artist": "Diego Delso",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Plaza de Cusco Allison Bellido.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Plaza_de_Cusco_Allison_Bellido.jpg",
+          "artist": "Allison Bellido",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Iglesia de la Compañía de Jesús, Plaza de Armas, Cusco, Perú, 2015-07-31, DD 58.JPG",
+          "source": "https://commons.wikimedia.org/wiki/File:Iglesia_de_la_Compa%C3%B1%C3%ADa_de_Jes%C3%BAs%2C_Plaza_de_Armas%2C_Cusco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_58.JPG",
+          "artist": "Diego Delso",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-032",
+      "country": "İsveç",
+      "city": "Stockholm",
+      "lat": 59.3251,
+      "lng": 18.0711,
+      "regionCode": "154",
+      "difficulty": "medium",
+      "fact": "Stockholm 14 ada üzerine kuruludur; tarihî merkezi Gamla Stan 13. yüzyıla uzanır.",
+      "hint": {
+        "tr": "Kuzey Avrupa’da, göl ile Baltık Denizi arasındaki adalara kurulmuş başkent.",
+        "en": "A Northern European capital built on islands between a lake and the Baltic Sea."
+      },
+      "photoFocus": {
+        "tr": "Su kıyısındaki renkli eski binalara ve dar taş sokaklara bak.",
+        "en": "Look for colourful old buildings on the water and narrow cobbled lanes."
+      },
+      "choices": [
+        "İsveç",
+        "Norveç",
+        "Danimarka",
+        "Finlandiya"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Stockhom Gamla Stan Panorama.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Stockhom_Gamla_Stan_Panorama.jpg",
+          "artist": "Nordenfan",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı; dosya adında yazım hatası Commons’taki gibi",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Stortorget in Gamla Stan, Stockholm, Sweden, 2022 December.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Stortorget_in_Gamla_Stan%2C_Stockholm%2C_Sweden%2C_2022_December.jpg",
+          "artist": "Simo Räsänen (Ximonic)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Riddarfjärden Röda Båten Tyska kyrkan Gamla Stan Stockholm 2019 08 12.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Riddarfj%C3%A4rden_R%C3%B6da_B%C3%A5ten_Tyska_kyrkan_Gamla_Stan_Stockholm_2019_08_12.jpg",
+          "artist": "Manfred Werner (Tsui)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-033",
+      "country": "Singapur",
+      "city": "Singapur",
+      "lat": 1.2834,
+      "lng": 103.8607,
+      "regionCode": "035",
+      "difficulty": "medium",
+      "fact": "Singapur'un Marina Bay bölgesi, büyük ölçüde denizden kazanılmış topraklar üzerine kurulmuştur.",
+      "hint": {
+        "tr": "Malay Yarımadası’nın ucunda, ekvatora çok yakın bir ada şehir-devleti.",
+        "en": "An island city-state at the tip of the Malay Peninsula, close to the equator."
+      },
+      "photoFocus": {
+        "tr": "Körfez çevresindeki gökdelenlere ve gece ışıklarına bak.",
+        "en": "Look for the skyscrapers around the bay and the night lights."
+      },
+      "choices": [
+        "Singapur",
+        "Malezya",
+        "Endonezya",
+        "Filipinler"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Singapore skyline at sunset viewed from Gardens by the Bay East - 20120426.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Singapore_skyline_at_sunset_viewed_from_Gardens_by_the_Bay_East_-_20120426.jpg",
+          "artist": "Chensiyuan",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Singapore (SG), Marina Bay, Night View -- 2019 -- 4697.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Singapore_(SG)%2C_Marina_Bay%2C_Night_View_--_2019_--_4697.jpg",
+          "artist": "Dietmar Rabich",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Marina Bay Singapore-3499.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Marina_Bay_Singapore-3499.jpg",
+          "artist": "Bijay Chaurasia",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Yazar istenen atıf: \"Bijay Chaurasia Photography, Wikimedia Commons, CC BY-SA 4.0\"; boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+    },
+    {
+      "id": "album-034",
+      "country": "Yeni Zelanda",
+      "city": "Auckland",
+      "lat": -36.8485,
+      "lng": 174.7633,
+      "regionCode": "053",
+      "difficulty": "hard",
+      "fact": "Auckland iki liman arasında, sönmüş volkan tepeleri üzerine kuruludur; Sky Tower 328 metre yüksekliğindedir.",
+      "hint": {
+        "tr": "Güney Pasifik’te, “yelkenler şehri” diye anılan liman kenti.",
+        "en": "A South Pacific harbour city nicknamed the “City of Sails”."
+      },
+      "photoFocus": {
+        "tr": "Limana, yelkenlilere ve iğne gibi yükselen ince kuleye bak.",
+        "en": "Look for the harbour, sailboats and the needle-like tower."
+      },
+      "choices": [
+        "Yeni Zelanda",
+        "Avustralya",
+        "Fiji",
+        "Şili"
+      ],
+      "images": [
+        {
+          "sourceTitle": "File:Auckland CBD skyline from Waitemata Harbour entrance.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Auckland_CBD_skyline_from_Waitemata_Harbour_entrance.jpg",
+          "artist": "Pseudopanax",
+          "license": "Public domain",
+          "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "editorNote": "PD-self (yazar kamu malına bırakmış); yayın betiği PD kabul ediyor mu kontrol et",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Auckland Skyline at night.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Auckland_Skyline_at_night.jpg",
+          "artist": "Duncnbiscuit",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "Boyut doğrulanmadı",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        },
+        {
+          "sourceTitle": "File:Auckland skyline from harbour.png",
+          "source": "https://commons.wikimedia.org/wiki/File:Auckland_skyline_from_harbour.png",
+          "artist": "WBPchur",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "editorNote": "PNG; yayın betiği JPEG bekliyorsa yedek gerekir",
+          "reviewedVisual": false,
+          "reviewedLicense": false,
+          "reviewedPlace": false
+        }
+      ],
+      "reviewedLocation": false,
+      "reviewedQuality": false,
+      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
     }
   ]
 }
