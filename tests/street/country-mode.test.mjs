@@ -11,10 +11,12 @@ process.env.STREET_R2_PUBLIC_BASE_URL='https://example.invalid';
 const { chooseRounds,validateTicket }=await import('../../server/street/core.mjs');
 const { default:guessHandler }=await import('../../api/street/guess.js');
 const { default:hintHandler }=await import('../../api/street/hint.js');
-const invoke=(handler,body,method='POST')=>{
+// Handlers are async (they may register ticket use in Supabase); await them.
+// No Supabase env is set here, so ticket claims are skipped and rounds are unranked.
+const invoke=async(handler,body,method='POST')=>{
   let status=0,response=null;
   const res={setHeader(){},status(value){status=value;return this;},json(value){response=value;return this;}};
-  handler({method,body},res);
+  await handler({method,headers:{},body},res);
   return {status,body:response};
 };
 test('eligible gallery has licensed photos with four increasingly specific clues',()=>{
@@ -74,11 +76,11 @@ test('four paid hints cap points increasingly, even for an exact guess',()=>{
   }
   assert.throws(()=>scoreStreetGuess(0,true,5),RangeError);
 });
-test('hint endpoint returns three textual clues then four plausible countries',()=>{
+test('hint endpoint returns three textual clues then four plausible countries',async()=>{
   const round=chooseRounds()[0];
   const actual=validateTicket(round.ticket).country;
   for(let level=1;level<=4;level++){
-    const response=invoke(hintHandler,{ticket:round.ticket,level});
+    const response=await invoke(hintHandler,{ticket:round.ticket,level});
     assert.equal(response.status,200);
     if(level<4){assert.ok(response.body.value);assert.notEqual(response.body.kind,'choices');}
     else{
@@ -88,28 +90,28 @@ test('hint endpoint returns three textual clues then four plausible countries',(
     }
   }
 });
-test('nearby points earn more than distant; API uses actual point and bonus',()=>{
+test('nearby points earn more than distant; API uses actual point and bonus',async()=>{
   const round=chooseRounds()[0];
   const actual=validateTicket(round.ticket);
-  const near=invoke(guessHandler,{ticket:round.ticket,guess:{lat:actual.lat,lng:actual.lng},hintsUsed:0});
-  const far=invoke(guessHandler,{ticket:round.ticket,guess:{lat:-60,lng:0},hintsUsed:0});
+  const near=await invoke(guessHandler,{ticket:round.ticket,guess:{lat:actual.lat,lng:actual.lng},hintsUsed:0});
+  const far=await invoke(guessHandler,{ticket:round.ticket,guess:{lat:-60,lng:0},hintsUsed:0});
   assert.equal(near.status,200);
   assert.equal(near.body.km,0);
   assert.equal(near.body.distancePoints,4000);
   assert.ok(near.body.points>far.body.points);
   assert.equal(typeof near.body.correctCountry,'boolean');
-  const penalized=invoke(guessHandler,{ticket:round.ticket,guess:{lat:actual.lat,lng:actual.lng},hintsUsed:4});
+  const penalized=await invoke(guessHandler,{ticket:round.ticket,guess:{lat:actual.lat,lng:actual.lng},hintsUsed:4});
   assert.equal(penalized.status,200);
   assert.ok(penalized.body.points<near.body.points);
   assert.equal(near.body.country,actual.country);
 });
-test('invalid coordinates, forged tickets and invalid hint counts are rejected',()=>{
+test('invalid coordinates, forged tickets and invalid hint counts are rejected',async()=>{
   const ticket=chooseRounds()[0].ticket;
   for(const guess of [{lat:100,lng:1},{lat:0,lng:200},{lat:'0',lng:0},null]){
-    assert.equal(invoke(guessHandler,{ticket,guess}).status,400);
+    assert.equal((await invoke(guessHandler,{ticket,guess})).status,400);
   }
-  assert.equal(invoke(guessHandler,{ticket,guess:{lat:0,lng:0},hintsUsed:5}).status,400);
-  assert.equal(invoke(guessHandler,{ticket:ticket+'bad',guess:{lat:0,lng:0}}).status,400);
-  assert.equal(invoke(hintHandler,{ticket,level:5}).status,400);
+  assert.equal((await invoke(guessHandler,{ticket,guess:{lat:0,lng:0},hintsUsed:5})).status,400);
+  assert.equal((await invoke(guessHandler,{ticket:ticket+'bad',guess:{lat:0,lng:0}})).status,400);
+  assert.equal((await invoke(hintHandler,{ticket,level:5})).status,400);
   assert.equal(countryChoices('Atlantis').length,0);
 });

@@ -6,6 +6,7 @@ import { submitWeeklyScore } from '@/lib/weeklyLeaderboard';
 import { discoverCountry } from '@/lib/discovery';
 import { CLUE_COUNTRIES_BY_DIFFICULTY } from '@/data/countryClues';
 import { analyticsQuestionId, trackPlayEvent } from '@/lib/atlasTelemetry';
+import { GC_ACHIEVEMENTS, GC_LEADERBOARDS, submitGameCenterScore, unlockGameCenterAchievement } from '@/lib/gameCenter';
 
 export const MAX_LIVES = 3;
 export const MAX_REWARDED_HEARTS_PER_RUN = 1;
@@ -247,7 +248,11 @@ export function useGame() {
   const saveScore = useCallback(async (name: string) => {
     const correct = roundResults.filter(result => result.isCorrect).length;
     // The legacy lifetime table is only for the established mixed game.
-    if (mode === 'mixed') await saveGlobalScore(name, score, correct, roundResults.length);
+    if (mode === 'mixed') {
+      void submitGameCenterScore(GC_LEADERBOARDS.worldQuiz, score);
+      if (score >= 3000) void unlockGameCenterAchievement(GC_ACHIEVEMENTS.quizExplorer);
+      await saveGlobalScore(name, score, correct, roundResults.length);
+    }
     await submitWeeklyScore(name, score, correct, roundResults.length, mode);
     await refreshLeaderboard();
   }, [mode, score, roundResults, refreshLeaderboard]);

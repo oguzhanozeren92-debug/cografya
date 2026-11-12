@@ -1,3 +1,4 @@
+import { gameCenterAvailable, showGameCenterLeaderboards } from '@/lib/gameCenter';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import {
   ArrowRight, Bell, Camera, CalendarCheck, ChevronRight, Compass, Flag, Gamepad2, Globe2, Landmark,
@@ -949,6 +950,15 @@ export function StartScreen({
               </span>
               <ArrowRight className="h-4 w-4 shrink-0" />
             </button>
+            {gameCenterAvailable() && (
+              <button type="button" onClick={() => { void showGameCenterLeaderboards(); }}
+                className="relative flex min-h-12 w-full items-center justify-between gap-3 rounded-[16px] border border-emerald-200/25 bg-[#071b37]/90 px-3 py-2 text-xs font-bold text-emerald-100">
+                <span className="flex min-w-0 items-center gap-2">
+                  <Trophy className="h-4 w-4 shrink-0 text-emerald-300" />{t('Game Center sıralamaları')}
+                </span>
+                <ArrowRight className="h-4 w-4 shrink-0" />
+              </button>
+            )}
           </section>
         </motion.section>
 

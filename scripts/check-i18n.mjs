@@ -50,19 +50,23 @@ const supplementIds=readArray('supplementalIds');
 const baseNative=readNative('native');
 const supplementNative=readNative('supplementalNative');
 const latestNative=readNative('latestNative');
-const landmarkCoverage=new Set([...baseIds,...supplementIds,...Object.keys(latestNative.es||{})]);
+const funesNative=readNative('funesNative');
+const landmarkCoverage=new Set([...baseIds,...supplementIds,...Object.keys(latestNative.es||{}),...Object.keys(funesNative.es||{})]);
 if(landmarkCoverage.size!==ids.length||ids.some(id=>!landmarkCoverage.has(id)))
   throw new Error('Landmark translation coverage differs from '+ids.length+' playable clues.');
 for(const lang of ['es','de','fr','pt','ru','zh','ja']){
   const base=baseNative[lang]?.split('\n')||[];
   const supplemental=supplementNative[lang]||[];
   const latest=latestNative[lang]||{};
+  const funes=funesNative[lang]||{};
   if(base.length!==baseIds.length||base.some(x=>!x.trim())||
      supplemental.length!==supplementIds.length||supplemental.some(x=>!x.trim())||
      Object.keys(latest).length!==Object.keys(latestNative.es||{}).length||
      Object.values(latest).some(x=>typeof x!=='string'||!x.trim())||
+     Object.keys(funes).length!==Object.keys(funesNative.es||{}).length||
+     Object.values(funes).some(x=>typeof x!=='string'||!x.trim())||
      [...landmarkCoverage].some(id=>!baseIds.includes(id)&&
-       !supplementIds.includes(id)&&!latest[id]))
+       !supplementIds.includes(id)&&!latest[id]&&!funes[id]))
     throw new Error(lang+': incomplete landmark translations.');
 }
 const streetSource=read('server/street/approved.mjs');
