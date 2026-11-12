@@ -1,0 +1,16 @@
+{
+  "name": "globriva-game-center",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal in-repo Capacitor plugin for Apple Game Center (sign-in, leaderboards, achievements).",
+  "license": "UNLICENSED",
+  "files": ["Package.swift", "ios/Sources"],
+  "peerDependencies": {
+    "@capacitor/core": ">=8.0.0"
+  },
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    }
+  }
+}

@@ -24,6 +24,7 @@ import { initIosPush, isIosPushSupported, loadPushPreferences, type PushTarget }
 import { isRewardedHeartAvailable, initializeRewardedAds, openAdPrivacyOptions, watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { onGameFinished, preloadGameBreakAd } from '@/lib/adPlacements';
 import { syncDiscoveries } from '@/lib/discovery';
+import { signInToGameCenter } from '@/lib/gameCenter';
 import { celebrateGame, isSoundEnabled, playGameSound, saveSoundEnabled } from '@/lib/gameFx';
 import { useEffect, useRef, useState } from 'react';
 import type { GameMode } from '@/types';
@@ -117,6 +118,8 @@ function App() {
   useEffect(() => { void syncDiscoveries(); }, []);
   // Warm only a configured native interstitial. Never delay game navigation for ads.
   useEffect(() => { void preloadGameBreakAd(); }, []);
+  // Apple recommends signing in to Game Center at launch; no-op outside the iOS app.
+  useEffect(() => { void signInToGameCenter(); }, []);
   const [weeklyMode, setWeeklyMode] = useState<GameMode>('mixed');
   useEffect(() => {
     if (!isIosPushSupported()) return;

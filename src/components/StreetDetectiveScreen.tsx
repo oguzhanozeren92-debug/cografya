@@ -11,6 +11,7 @@ import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldM
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
 import { droneHintChoices, droneHintCopy, droneHintText } from '@/lib/droneHints';
 import { watchRewardedHeartAd } from '@/lib/rewardedAds';
+import { GC_ACHIEVEMENTS, GC_LEADERBOARDS, submitGameCenterScore, unlockGameCenterAchievement } from '@/lib/gameCenter';
 import { getLocalStreetBest, rememberLocalStreetBest, submitStreetScore, type StreetScoreCertificate } from '@/lib/streetLeaderboard';
 import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
 import { backend } from '@/lib/leaderboard';
@@ -315,6 +316,10 @@ export function StreetDetectiveScreen({
     setPhase('finish');
     if(!completionNotified.current){
       completionNotified.current=true;
+      void submitGameCenterScore(GC_LEADERBOARDS.streetTour,points);
+      void unlockGameCenterAchievement(GC_ACHIEVEMENTS.firstStreetTour);
+      if(rows.some(row=>row.points>=4900))void unlockGameCenterAchievement(GC_ACHIEVEMENTS.sharpEye);
+      if(points>=20000)void unlockGameCenterAchievement(GC_ACHIEVEMENTS.masterDetective);
       void saveOnline(points);
       onGameComplete?.();
     }
