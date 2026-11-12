@@ -51,15 +51,28 @@ def tokens(v):
     return {t for t in re.split(r'[^a-z0-9]+', v) if len(t) >= 3}
 
 
+WM = re.compile(r'^https://[a-z0-9.-]+\.wikimedia\.org/')
+
+
+def media_url(u):
+    u = (u or '').strip()
+    if u.startswith('//'):
+        u = 'https:' + u
+    elif u.startswith('http://'):
+        u = 'https://' + u[7:]
+    return u
+
+
 def load(url, size=40_000_000):
-    if not url.startswith(('https://commons.wikimedia.org/', 'https://upload.wikimedia.org/')):
-        raise ValueError('Unexpected origin')
+    url = media_url(url)
+    if not WM.match(url):
+        raise ValueError('Unexpected origin ' + url[:120])
     last = None
     for trial in range(4):
         try:
             req = urllib.request.Request(url, headers={'User-Agent': AGENT})
             with urllib.request.urlopen(req, timeout=60) as res:
-                if not res.url.startswith(('https://commons.wikimedia.org/', 'https://upload.wikimedia.org/')):
+                if not WM.match(res.url):
                     raise ValueError('Untrusted redirect')
                 buf = res.read(size + 1)
                 if len(buf) > size:
@@ -69,7 +82,13 @@ def load(url, size=40_000_000):
             last = e
             if isinstance(e, urllib.error.HTTPError) and e.code not in (429, 500, 502, 503, 504):
                 break
-            time.sleep(3 * (trial + 1))
+            wait = 5 * (trial + 1)
+            if isinstance(e, urllib.error.HTTPError) and e.code == 429:
+                try:
+                    wait = max(wait, min(120, int(e.headers.get('Retry-After') or 0)))
+                except ValueError:
+                    wait = max(wait, 30)
+            time.sleep(wait)
     raise RuntimeError('Download failed: ' + str(last))
 
 
@@ -91,16 +110,24 @@ def verify(p):
     if info.get('width', 0) < 1100 and info.get('height', 0) < 1100:
         raise ValueError(f"Too small {info.get('width')}x{info.get('height')}")
     meta = info.get('extmetadata', {})
-    license = clean(meta.get('LicenseShortName', {}).get('value'))
+    raw = clean(meta.get('LicenseShortName', {}).get('value'))
+    # Ported licences such as "CC BY-SA 3.0 nl" keep their own deed URL.
+    m = re.fullmatch(r'(CC BY(?:-SA)? [234]\.[05])(?: ([a-z]{2}))?', raw)
+    license = m.group(1) if m else raw
     if license not in ALLOWED:
-        raise ValueError('License not accepted: ' + license)
+        raise ValueError('License not accepted: ' + raw)
+    deed = ALLOWED[license]
+    if m and m.group(2):
+        deed = deed + m.group(2) + '/'
+        license = raw
     author = clean(meta.get('Artist', {}).get('value'))
     if not (tokens(p['artist']) & tokens(author)):
         raise ValueError(f"Photographer mismatch: catalogue '{p['artist']}' vs Commons '{author}'")
-    url = info.get('thumburl') or info.get('url')
-    if not url or not url.startswith('https://upload.wikimedia.org/'):
-        raise ValueError('Invalid media URL')
-    return url, license, f"{info.get('width')}x{info.get('height')}"
+    url = media_url(info.get('thumburl') or info.get('url'))
+    if not WM.match(url):
+        raise ValueError('Invalid media URL: ' + repr(url[:160]) + ' keys=' + ','.join(sorted(info)))
+    time.sleep(1.5)  # stay well under Wikimedia rate limits
+    return url, license, deed, f"{info.get('width')}x{info.get('height')}"
 
 
 def album_files(a):
@@ -111,7 +138,7 @@ def album_files(a):
         raise ValueError('Album or photo not owner-approved')
     out, checks, records = [], [], []
     for i, p in enumerate(a['images'], 1):
-        url, license, size = verify(p)
+        url, license, deed, size = verify(p)
         with Image.open(io.BytesIO(load(url))) as pic:
             im = ImageOps.exif_transpose(pic).convert('RGB')
             im.thumbnail((1600, 1200), Image.Resampling.LANCZOS)
@@ -121,7 +148,7 @@ def album_files(a):
             raise ValueError('WebP conversion failed')
         out.append(data)
         records.append({'format': 'webp', 'artist': p['artist'], 'license': license,
-                        'licenseUrl': ALLOWED[license], 'source': p['source'],
+                        'licenseUrl': deed, 'source': p['source'],
                         'derivativeNote': 'Original Commons photo resized and converted to WebP for the game.',
                         'reviewedVisual': True, 'reviewedLicense': True, 'reviewedPlace': True})
         checks.append({'page': p['source'], 'license': license, 'original': size, 'bytes': len(data)})
