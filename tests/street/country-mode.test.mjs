@@ -8,6 +8,9 @@ import {
 import { isPointInCountry } from '../../server/street/country-map.mjs';
 process.env.STREET_SESSION_SECRET='unit-test-secret-minimum-32-characters-long';
 process.env.STREET_R2_PUBLIC_BASE_URL='https://example.invalid';
+// Codemagic loads the real public Supabase settings before tests. Keep these
+// unit tests offline: no single-use ticket claims against the live database.
+for(const key of ['SUPABASE_URL','SUPABASE_ANON_KEY','VITE_SUPABASE_URL','VITE_SUPABASE_ANON_KEY'])delete process.env[key];
 const { chooseRounds,validateTicket }=await import('../../server/street/core.mjs');
 const { default:guessHandler }=await import('../../api/street/guess.js');
 const { default:hintHandler }=await import('../../api/street/hint.js');
