@@ -8,8 +8,6 @@ on:
       - '.github/workflows/photo-archive-quality.yml'
       - 'scripts/panoramas/daily-discover.mjs'
       - 'data/globriva-world-coverage-plan.json'
-      - 'data/eraatlas-outdoor-review-2026-10-25.json'
-      - 'scripts/panoramas/check-eraatlas-outdoors.mjs'
   schedule:
     # Daily 08:00 Istanbul, ahead of the 09:00 ChatGPT user report
     - cron: '0 5 * * *'
@@ -38,16 +36,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Reject indoor, repeated or premature EraAtlas candidate publication
-        run: node scripts/panoramas/check-eraatlas-outdoors.mjs
       - name: Rotate worldwide photo searches and store only new geotagged candidates
         run: node scripts/panoramas/daily-discover.mjs
       - name: Audit existing Commons licenses and playable archive
         continue-on-error: true
         run: node scripts/panoramas/audit-archive.mjs --live --out=reports/photo-archive-audit.json
-      - name: Research open-license historical monuments and architectural detail photos
-        continue-on-error: true
-        run: node scripts/panoramas/discover-history.mjs --out=reports/history-photo-candidates.json
       - name: Identify reviewed Street photos awaiting release
         id: street_probe
         run: |
@@ -94,7 +87,6 @@ jobs:
           const d=read('panoramas/daily-discovery/latest.json');
           const drone=read('panoramas/daily-discovery/drone-publish-status.json');
           const street=read('panoramas/daily-discovery/street-publish-status.json');
-          const heritage=read('reports/history-photo-candidates.json');
           const lines=[
             '# Globriva Daily Archive',
             'Date: '+(d.date??'not run'),
@@ -103,7 +95,6 @@ jobs:
             '- New panoramic candidates: '+(d.new360Candidates??0),
             '- New Drone gallery photo candidates: '+(d.newGalleryCandidates??0),
             '- In editorial queue: '+(d.pendingReview??'unknown'),
-            '- Historical landmark candidates found (pending editorial review): '+(heritage.candidateCount??0),
             '- Drone gallery albums actually published today: '+(drone.publishedTodayAlbums??0),
             '- Drone gallery photos actually uploaded today: '+(drone.publishedTodayPhotos??0),
             '- Street panorama sets uploaded today: '+(street.publishedTodayPanoramas??0),
@@ -138,6 +129,5 @@ jobs:
             panoramas/daily-discovery/drone-publish-status.json
             panoramas/daily-discovery/street-publish-status.json
             reports/photo-archive-audit.json
-            reports/history-photo-candidates.json
           if-no-files-found: warn
           retention-days: 30

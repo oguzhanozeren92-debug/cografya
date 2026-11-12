@@ -20,7 +20,6 @@ export const GEO_REWARD_SECTIONS: ReadonlyArray<{
   { id: 'islands', tr: 'Ada Avcısı', en: 'Island Hunter', icon: '🏝️', levels: ['easy','medium','hard'] },
   { id: 'borders', tr: 'Sınır Dedektifi', en: 'Border Detective', icon: '🧭', levels: ['easy','medium','hard'] },
   { id: 'street', tr: 'Sokak Dedektifi', en: 'Street Detective', icon: '📍', levels: ['tour'] },
-  { id: 'heritage', tr: 'Medeniyet Dedektifi', en: 'Civilization Detective', icon: '🏛️', levels: ['easy','medium'] },
   { id: 'daily', tr: 'Günlük Dünya Görevi', en: 'Daily World Quest', icon: '☀️', levels: ['daily'] },
 ];
 
@@ -51,7 +50,7 @@ function write(rewards: SavedRewards): void {
   if (typeof window !== 'undefined') window.dispatchEvent(new Event(GEO_REWARDS_CHANGED));
 }
 
-/** Matches EraAtlas: completed stages only, at 70/80/90% for one/two/three stars. */
+/** Completed stages only, at 70/80/90% for one/two/three stars. */
 export function geoStarGrade(right: number, total: number, completed: boolean): number {
   if (!completed || !Number.isSafeInteger(right) || !Number.isSafeInteger(total) ||
       total < 5 || right < 0 || right > total) return 0;
@@ -131,7 +130,6 @@ export function getGeoBadges(): GeoBadge[] {
     b('all-map', 'Üç Kıtanın İzi', 'Three Paths', 'Üç yeni coğrafya oyununda yıldız kazan', 'Earn stars in all three new geography games', '🗺️', modes.every(has)),
     b('street', 'Sokak İzleri', 'Street Trails', 'Sokak Dedektifi turunda yıldız kazan', 'Earn a star in a Street Detective tour', '🚶', has('street')),
     b('drone', 'Gökyüzü Gözcüsü', 'Sky Scout', 'Önceki hava turlarından kazanılan rozet', 'Badge earned from earlier aerial tours', '🛩️', normalized(read().stars['drone:tour'])>0),
-    b('heritage', 'Medeniyet İzleri', 'Civilization Traces', 'Medeniyet Dedektifi’nde yıldız kazan', 'Earn a star in Civilization Detective', '🏛️', has('heritage')),
     b('daily', 'Güneşin Peşinde', 'Chasing the Sun', 'İlk günlük görevi bitir', 'Finish your first daily quest', '☀️', s.dailyDays >= 1),
     b('daily7', 'Yedi Günlük Yolcu', 'Seven-Day Traveler', 'Yedi ayrı günlük görevi bitir', 'Finish seven different daily quests', '🎒', s.dailyDays >= 7),
   ];

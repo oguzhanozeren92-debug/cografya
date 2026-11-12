@@ -51,7 +51,6 @@ function globrivaLocalGameApi(): Plugin {
         getHandler('api/street/session.js'),
         getHandler('api/street/guess.js'),
         getHandler('api/street/hint.js'),
-        getHandler('api/heritage/panorama.js'),
       ]);
 
       const droneMedia = Promise.all([
@@ -78,7 +77,6 @@ function globrivaLocalGameApi(): Plugin {
           '/api/street/session',
           '/api/street/guess',
           '/api/street/hint',
-          '/api/heritage/panorama',
         ];
         if (!supported.includes(pathname)) return next();
 
@@ -124,15 +122,13 @@ function globrivaLocalGameApi(): Plugin {
             });
           }
 
-          const [session, guess, hint, heritage] = await handlers;
+          const [session, guess, hint] = await handlers;
 
           const handler = pathname === '/api/street/session'
             ? session
             : pathname === '/api/street/guess'
               ? guess
-              : pathname === '/api/heritage/panorama'
-                ? heritage
-                : hint;
+              : hint;
 
           const request = req as ApiRequest;
           request.query = Object.fromEntries(requestUrl.searchParams);

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Open Content Collector v1. Shared, cautious research pipeline for Globriva / EraAtlas.
+ * Open Content Collector v1. Cautious research pipeline for Globriva.
  * Source-backed image bytes, provenance, deduplication and editable question drafts.
  * NEVER adds draft material to a playable question bank or grants editorial approval.
  * Only Node 22 built-ins; safe to run unattended in GitHub Actions.
@@ -11,9 +11,9 @@ import crypto from "node:crypto";
 import assert from "node:assert/strict";
 
 const APP = process.env.CONTENT_APP;
-if (!["globriva", "eraatlas"].includes(APP)) throw new Error("Set CONTENT_APP=globriva or eraatlas");
+if (APP !== "globriva") throw new Error("Set CONTENT_APP=globriva");
 const DIR = "data/open-content";
-const MEDIA = APP === "globriva" ? "public/open-content/photos" : "media/open-content";
+const MEDIA = "public/open-content/photos";
 const DAY = process.env.CONTENT_DATE || new Date().toISOString().slice(0, 10);
 if (!/^\d{4}-\d{2}-\d{2}$/.test(DAY)) throw new Error("Bad CONTENT_DATE");
 const dayNo = Math.floor(Date.parse(DAY + "T00:00:00Z") / 86400000);
@@ -29,7 +29,7 @@ const stamp = new Date().toISOString();
 async function jsonAt(url) {
   for (let a=0; a<3; a++) {
     try {
-      const r = await fetch(url, {headers:{"User-Agent":"Globriva-EraAtlas-OpenContent/1.0 (https://github.com/oguzhanozeren92-debug; curated educational app)","Accept":"application/json"},signal:AbortSignal.timeout(22000)});
+      const r = await fetch(url, {headers:{"User-Agent":"Globriva-OpenContent/1.0 (https://github.com/oguzhanozeren92-debug; curated educational app)","Accept":"application/json"},signal:AbortSignal.timeout(22000)});
       if (r.status === 429 || r.status === 503) { await pause(2500*(a+1)); continue; }
       if (!r.ok) throw new Error("HTTP " + r.status);
       return await r.json();
@@ -57,7 +57,7 @@ async function verifiedJpeg(url) {
   const u = new URL(url);
   const allowed = APP==="globriva" ? ["upload.wikimedia.org","thumb.wikimedia.org"] : ["images.metmuseum.org","www.artic.edu"];
   if(u.protocol!=="https:" || !allowed.includes(u.hostname))throw new Error("Untrusted image host");
-  const r=await fetch(url,{signal:AbortSignal.timeout(25000),headers:{"User-Agent":"Globriva-EraAtlas-OpenContent/1.0"}});
+  const r=await fetch(url,{signal:AbortSignal.timeout(25000),headers:{"User-Agent":"Globriva-OpenContent/1.0"}});
   if(!r.ok)throw new Error("Image HTTP " + r.status);
   const mime=r.headers.get("content-type") || "";
   if(!/image\/jpeg|image\/jpg|application\/octet-stream/i.test(mime))throw new Error("Not JPEG: " + mime);
@@ -176,69 +176,6 @@ const CULTURES=new Map([
  ["korean","Kore"],["india","Hint"],["indian","Hint"],["byzantine","Bizans"]
 ]);
 function cultureOf(s) {return CULTURES.get(norm(s))||null;}
-async function eraatlas() {
- const prior=read("data/arkeolog-vitrin.json",{items:[]});
- const old=read("data/gorsel-adaylari-2026-10-26.json",{candidates:[]});
- const existing=new Set([...(prior.items||[]).map(x=>"EA-MET-"+x.objectId),
-   ...(old.candidates||[]).map(x=>String(x.id||"").replace(/^MET-/,"EA-MET-"))]);
- const terms=["ancient African sculpture","Egyptian statue","Roman bronze","Greek terracotta",
-   "Peruvian pottery","Japanese sculpture","Chinese ceramic","Korean ceramics","Maya sculpture","Indian sculpture"];
- const term=terms[dayNo%terms.length];
- const params=new URLSearchParams({q:term,hasImages:"true",limit:"45",offset:String((dayNo%4)*40)});
- try{
-  const search=await jsonAt("https://collectionapi.metmuseum.org/public/collection/v1.1/search?"+params);
-  for(const objectID of (search.objectIDs||[]).slice(0,22)){
-   if(fresh.length>=4)break;
-   const id="EA-MET-"+objectID;
-   if(existing.has(id)||seen.has(id))continue;
-   await pause(330);
-   try{
-    const o=await jsonAt("https://collectionapi.metmuseum.org/public/collection/v1/objects/"+objectID);
-    if(o.isPublicDomain!==true||!o.primaryImageSmall)continue;
-    if(new URL(o.primaryImageSmall).hostname!=="images.metmuseum.org")continue;
-    const culture=cultureOf(o.culture);
-    if(!culture||!o.objectDate||!o.title)continue;
-    const answer=options(culture,[...new Set(CULTURES.values())],id);
-    if(!answer)continue;
-    const url="https://www.metmuseum.org/art/collection/search/"+objectID;
-    const candidate={id,provider:"The Metropolitan Museum of Art",objectID,sourcePage:url,
-     title:o.title,objectDate:o.objectDate,cultureSource:o.culture,cultureTr:culture,
-     medium:o.medium||"",license:"Public Domain / Met Open Access",credit:"The Metropolitan Museum of Art",
-     reviewReason:"Metadata and JPEG checked; cultural interpretation, 4 choices and visual answer leakage require review"};
-    const quiz={id:"EQ-"+objectID,category:"artifacts",difficulty:"medium",
-     question:{tr:"Müze kaydına göre fotoğraftaki eser hangi kültürle ilişkilidir?"},
-     choices:{tr:answer.choices},correctIndex:answer.correctIndex,
-     explanation:{tr:"The Met koleksiyon kaydında kültür: "+o.culture+"; tarihleme: "+o.objectDate+"."},
-     factSource:url,qaStatus:"official_museum_field_fact_checked_question_draft"};
-    await archive(candidate,o.primaryImageSmall,quiz);
-   }catch(e){warnings.push({source:id,error:String(e).slice(0,150)});}
-  }
- }catch(e){warnings.push({provider:"met",error:String(e).slice(0,160)});}
- // AIC official IIIF images: public-domain metadata; no speculative question is generated.
- const keywords=["egyptian statue","west african mask","greek vase","japanese pottery","korean sculpture","mesoamerican art"];
- const keyword=keywords[dayNo%keywords.length];
- const paramsA={q:keyword,query:{term:{is_public_domain:true}},limit:16,
-   fields:"id,title,image_id,is_public_domain,date_display,place_of_origin,artwork_type_title"};
- try{
-  await pause(1300);
-  const s=await jsonAt("https://api.artic.edu/api/v1/artworks/search?params="+encodeURIComponent(JSON.stringify(paramsA)));
-  const iiif=s.config?.iiif_url||"https://www.artic.edu/iiif/2";
-  if(new URL(iiif).hostname!=="www.artic.edu")throw new Error("Unexpected IIIF host");
-  for(const a of s.data||[]){
-   if(fresh.length>=6)break;
-   if(a.is_public_domain!==true||!a.image_id||!a.id)continue;
-   const id="EA-AIC-"+a.id;
-   if(seen.has(id))continue;
-   try{
-    await archive({id,provider:"Art Institute of Chicago",sourcePage:"https://www.artic.edu/artworks/"+a.id,
-     objectID:a.id,title:a.title,date:a.date_display,placeOfOrigin:a.place_of_origin,
-     license:"Public Domain / AIC Open Access",credit:"Art Institute of Chicago",
-     reviewReason:"Confirmed public-domain metadata and decoded image; needs museum fact and question review"},
-     iiif+"/"+encodeURIComponent(a.image_id)+"/full/843,/0/default.jpg",null);
-   }catch(e){warnings.push({source:id,error:String(e).slice(0,160)});}
-  }
- }catch(e){warnings.push({provider:"aic",error:String(e).slice(0,160)});}
-}
 function tests(){
  assert(licenseOk("CC BY-SA 4.0"));
  assert(!licenseOk("CC BY-NC 4.0"));
@@ -250,7 +187,7 @@ function tests(){
 }
 if(process.argv.includes("--self-test"))tests();
 else {
- if(APP==="globriva")await globriva();else await eraatlas();
+ await globriva();
  const candidates=[...output.candidates,...fresh].slice(-450);
  const qs=[...drafts.questions,...newQuestions].slice(-450);
  save(DIR+"/candidates.json",{schemaVersion:1,project:APP,updatedAt:stamp,

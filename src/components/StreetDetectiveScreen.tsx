@@ -6,8 +6,6 @@ import {
 } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
 import { StreetPanorama, type StreetRound } from '@/components/StreetPanorama';
-import heritage360Catalogue from '@/data/heritage360.json';
-import heritage360Reviewed from '@/data/heritage360-source-reviewed.json';
 import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
@@ -26,7 +24,8 @@ import { GeoStarRow } from '@/components/GeoStarRow';
 
 type Phase = 'view'|'guess'|'result'|'finish'|'ranking';
 type Clue = {level:number;kind:'region'|'landmark'|'choices'|'drone';value?:string;options?:string[]};
-type HeritagePlace = (typeof heritage360Catalogue.places)[number];
+// Legacy round type kept so older tour state still renders; no heritage rounds are created.
+type HeritagePlace = {id:string;name:string;country:string;fact:string;license:string;licenseUrl:string};
 type MixedRound = StreetRound & {source:'street'|'drone'|'heritage'; aerial?:DronePanorama; heritage?:HeritagePlace};
 type Reveal = {
   correct:boolean;points:number;actual:Coordinates|null;km:number|null;
@@ -38,7 +37,6 @@ type Completed = {
   id:string;country:string;city:string;points:number;correct:boolean;skipped?:boolean;
 };
 const MAX_ROUND_POINTS=[5000,4200,3400,2500,1500] as const;
-const sourceReviewed=new Set<string>(heritage360Reviewed.sourceReviewedIds);
 
 export function StreetDetectiveScreen({
   onClose,onGameComplete,playerName,initialView='play',
@@ -73,15 +71,11 @@ export function StreetDetectiveScreen({
   const current=rounds[idx];
   const openedAt=useRef(0);
   const completionNotified=useRef(false);
-  const failedHeritageIds=useRef(new Set<string>());
-  const streetFallback=useRef<MixedRound|null>(null);
   const score=completed.reduce((total,row)=>total+row.points,0);
   const native=Capacitor.isNativePlatform();
 
   const newGame=useCallback(async()=>{
     completionNotified.current=false;
-    failedHeritageIds.current.clear();
-    streetFallback.current=null;
     trackPlayEvent({mode:'street',event_type:'mode_start'});
     setLoading(true);setError('');setRounds([]);setIdx(0);setCompleted([]);
     setGuess(null);setReveal(null);setFactOpen(false);setClues([]);setHintCount(0);
@@ -106,7 +100,7 @@ export function StreetDetectiveScreen({
       const vetted=(aerial.rows?.length?aerial.rows:dronePanoramas)
         .filter(row=>mediaById.has(row.id)).sort((a,b)=>a.id.localeCompare(b.id));
       if(vetted.length<2)throw new Error('Doğrulanmış hava görüntüleri bulunamadı.');
-      // 2 street + 2 aerial + 1 heritage question per tour.
+      // 3 street + 2 aerial questions per tour.
       // Each new tour advances through verified media instead of replaying the
       // identical five scenes for the entire week.
       const now=new Date();
@@ -127,20 +121,10 @@ export function StreetDetectiveScreen({
         return {id:'aerial:'+row.id,ticket:'',source:'drone' as const,aerial:row,
           media:mediaById.get(row.id)!,credit:{artist:row.artist,license:row.license,source:row.source}};
       });
-      const eligible=heritage360Catalogue.places.filter(p=>sourceReviewed.has(p.id)&&p.file&&p.credit&&p.license&&p.licenseUrl&&p.sourceUrl);
-      // Reversed deterministic cycle: every reviewed panorama is used once
-      // before one reappears, without putting new modes on the home screen.
-      const place=eligible[(eligible.length-1-(rotation%eligible.length)+eligible.length)%eligible.length];
-      if(!place)throw new Error('360° tarihi mekân arşivi hazır değil.');
-      streetFallback.current={
+      const thirdStreet:MixedRound={
         ...street.rounds![(rotation+2)%street.rounds!.length],source:'street',
       };
-      const heritage:MixedRound={
-        id:'heritage:'+place.id,ticket:'',source:'heritage',heritage:place,
-        media:{mode:'equirectangular',image:atlasApi('/api/heritage/panorama?id='+encodeURIComponent(place.id))},
-        credit:{artist:place.credit,license:place.license,source:place.sourceUrl},
-      };
-      const mixed:MixedRound[]=[ground[0],sky[0],heritage,ground[1],sky[1]];
+      const mixed:MixedRound[]=[ground[0],sky[0],thirdStreet,ground[1],sky[1]];
       warmStreetPhoto(mixed[0]);
       setRounds(mixed);
       try { localStorage.setItem('globriva-street-tour-rotation-v1',String(attempt+1)); }
@@ -296,23 +280,6 @@ export function StreetDetectiveScreen({
   };
   const skipBroken=()=>{
     if(!current||(phase!=='view'&&phase!=='guess'))return;
-    if(current.source==='heritage'){
-      const currentId=current.heritage?.id;
-      if(currentId)failedHeritageIds.current.add(currentId);
-      const candidates=heritage360Catalogue.places.filter(p=>sourceReviewed.has(p.id)&&!failedHeritageIds.current.has(p.id)&&p.file&&p.credit&&p.license&&p.sourceUrl);
-      const pick=candidates[Math.floor(Math.random()*candidates.length)];
-      if(pick){
-        const replacement:MixedRound={id:'heritage:'+pick.id,ticket:'',source:'heritage',heritage:pick,
-          media:{mode:'equirectangular',image:atlasApi('/api/heritage/panorama?id='+encodeURIComponent(pick.id))},
-          credit:{artist:pick.credit,license:pick.license,source:pick.sourceUrl}};
-        setRounds(rows=>rows.map((r,i)=>i===idx?replacement:r));
-        setReady(false);setError('');setGuess(null);setPhase('view');return;
-      }
-      if(streetFallback.current){
-        setRounds(rows=>rows.map((r,i)=>i===idx?streetFallback.current!:r));
-        setReady(false);setError('');setGuess(null);setPhase('view');return;
-      }
-    }
     trackPlayEvent({mode:'street',event_type:'panorama_skipped',question_id:current.id});
     const next:Completed[]=[...completed,{id:current.id,skipped:true,
       city:'',country:'',correct:false,points:0}];

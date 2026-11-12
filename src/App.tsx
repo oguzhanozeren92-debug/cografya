@@ -11,7 +11,6 @@ import { inviteCodeFromUrl, inviteCodeFromAnyUrl } from '@/lib/versus';
 import { App as NativeApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import { StreetDetectiveScreen } from '@/components/StreetDetectiveScreen';
-import { HistoryDetectiveScreen } from '@/components/HistoryDetectiveScreen';
 import { GeoDiscoveryScreen, type GeoDiscoveryMode } from '@/components/GeoDiscoveryScreen';
 import { HUD } from '@/components/HUD';
 import { QuestionPanel } from '@/components/QuestionPanel';
@@ -44,7 +43,6 @@ function App() {
   const [dailyOpen, setDailyOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
   const [streetOpen, setStreetOpen] = useState<'play'|'ranking'|null>(null);
-  const [historyOpen, setHistoryOpen] = useState(false);
   const [geoDiscoveryOpen, setGeoDiscoveryOpen] = useState<GeoDiscoveryMode|null>(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [adBusy, setAdBusy] = useState(false);
@@ -67,7 +65,6 @@ function App() {
       setWeeklyOpen(false);
       setDailyOpen(false);
       setExploreOpen(false);
-      setHistoryOpen(false);
       setGeoDiscoveryOpen(null);
       setStreetOpen(null);
     };
@@ -188,7 +185,7 @@ function App() {
     return () => window.clearTimeout(timeout);
   }, [rewardToast]);
   const navVisible = showStart && !weeklyOpen && !dailyOpen && !exploreOpen && !streetOpen &&
-    !historyOpen && !geoDiscoveryOpen && !notificationsOpen && !versusOpen;
+    !geoDiscoveryOpen && !notificationsOpen && !versusOpen;
   // Explain notification benefits once on the native home screen. Permission is
   // requested only after the user taps "Bildirimleri aç" in the settings sheet.
   useEffect(() => {
@@ -302,7 +299,7 @@ function App() {
       )}
 
       {showStart && homeTab === 'home' && (
-        <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} onNotifications={() => setNotificationsOpen(true)} onStreet={() => setStreetOpen('play')} onStreetLeaderboard={() => setStreetOpen('ranking')} onHistory={() => setHistoryOpen(true)} onGeoDiscovery={mode => setGeoDiscoveryOpen(mode)} onVersus={() => setVersusOpen(true)} />
+        <StartScreen soundEnabled={soundEnabled} onToggleSound={toggleSound} onAdPrivacy={() => { void showAdPrivacy(); }} onStart={startGame} onViewWeekly={openWeekly} onDaily={() => setDailyOpen(true)} onExplore={() => setExploreOpen(true)} leaderboard={game.leaderboard} playerName={playerName} onNameChange={updateName} leaderboardError={game.leaderboardError} onNotifications={() => setNotificationsOpen(true)} onStreet={() => setStreetOpen('play')} onStreetLeaderboard={() => setStreetOpen('ranking')} onGeoDiscovery={mode => setGeoDiscoveryOpen(mode)} onVersus={() => setVersusOpen(true)} />
       )}
 
       {showStart && homeTab === 'awards' && <GlobrivaAwardsScreen />}
@@ -325,10 +322,6 @@ function App() {
           onClose={() => setStreetOpen(null)} />
       )}
 
-      {showStart && historyOpen && (
-        <HistoryDetectiveScreen onClose={() => setHistoryOpen(false)}
-          onGameComplete={onGameFinished} />
-      )}
 
       {showStart && geoDiscoveryOpen && (
         <GeoDiscoveryScreen key={geoDiscoveryOpen} mode={geoDiscoveryOpen}
