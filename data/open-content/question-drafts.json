@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "createdAt": "2026-10-27",
-  "note": "10 new image-assisted geography drafts prepared from existing license-screened gallery photos. Must verify depiction and rights before gameplay.",
+  "updatedAt": "2026-11-12T06:44:00.060Z",
+  "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
       "id": "GLO-OPEN-20261027-01",
@@ -322,6 +322,136 @@
       },
       "status": "review_required_not_playable",
       "qaStatus": "gallery_metadata_only_location_not_final",
+      "playable": false
+    },
+    {
+      "id": "GQ-1026077c271c8b38",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Kolombiya",
+          "Çin",
+          "Şili",
+          "Tayland"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Cartagena çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Botero_sculpture_at_Santo_Domingo_square_(4625652969).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-1026077c271c8b38",
+      "assetPath": "public/open-content/photos/gb-com-1026077c271c8b38.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-f93d4143eb4705be",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Fas",
+          "Güney Kore",
+          "Peru",
+          "Kolombiya"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Cartagena çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Church_(Iglesia)_Santo_Domingo_(4626259278).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-f93d4143eb4705be",
+      "assetPath": "public/open-content/photos/gb-com-f93d4143eb4705be.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-6d8dc83c373fc7da",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Kolombiya",
+          "Ürdün",
+          "Çin",
+          "Kenya"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Hong Kong çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:HK_MK_旺角_Mongkok_朗豪坊_Langham_Place_office_Re-Health_awards_signs_November_2020_SS2.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-6d8dc83c373fc7da",
+      "assetPath": "public/open-content/photos/gb-com-6d8dc83c373fc7da.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-6125b5c8e1778efc",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Güney Kore",
+          "Yeni Zelanda",
+          "Çin",
+          "Kenya"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Hong Kong çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:HK_MK_旺角_Mongkok_朗豪坊_Langham_Place_office_Re-Health_November_2020_SS2_01.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-6125b5c8e1778efc",
+      "assetPath": "public/open-content/photos/gb-com-6125b5c8e1778efc.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-39908dc075d76616",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Güney Afrika",
+          "Japonya",
+          "Çin",
+          "Güney Kore"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Hong Kong çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:HK_MK_旺角_Mongkok_朗豪坊_Langham_Place_office_Re-Health_November_2020_SS2_02.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-39908dc075d76616",
+      "assetPath": "public/open-content/photos/gb-com-39908dc075d76616.jpg",
+      "status": "review_required_not_playable",
       "playable": false
     }
   ]
