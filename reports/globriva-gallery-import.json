@@ -1,0 +1,294 @@
+{
+  "checkedAt": "2026-11-12T05:50:35.608393+00:00",
+  "ready": [
+    {
+      "album": "album-023",
+      "city": "Marakeş",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Jamaa_El_Fna_square_Morocco_2018_1.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "4928x3264",
+          "bytes": 187508
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Marrakesh%2C_Djemaa_el_Fna_in_the_evening2_(js).jpg",
+          "license": "CC BY-SA 3.0",
+          "original": "5619x3652",
+          "bytes": 288170
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Koutoubia_mosque_of_Marrakech.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "2048x1536",
+          "bytes": 200096
+        }
+      ]
+    },
+    {
+      "album": "album-024",
+      "city": "Buenos Aires",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Calle_Caminito_in_La_Boca%2C_Buenos_Aires-3.JPG",
+          "license": "CC BY-SA 3.0 nl",
+          "original": "5184x3456",
+          "bytes": 471370
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Obelisco_de_Buenos_Aires%2C_Diagonal_Norte%2C_Avenida_Corrientes.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "3263x2441",
+          "bytes": 386922
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:2011.10.17.162313_Puente_de_la_Mujer_Puerto_Madero_Buenos_Aires.jpg",
+          "license": "CC0",
+          "original": "1920x1280",
+          "bytes": 157172
+        }
+      ]
+    },
+    {
+      "album": "album-025",
+      "city": "Hanoi",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:H%E1%BB%93_Ho%C3%A0n_Ki%E1%BA%BFm.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "5333x3555",
+          "bytes": 395210
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Hanoi_-_Turtle_Tower_(Th%C3%A1p_R%C3%B9a)%2C_Ho%C3%A0n_Ki%E1%BA%BFm_Lake.jpg",
+          "license": "CC BY 4.0",
+          "original": "3974x2672",
+          "bytes": 447008
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Turtle_Tower%2C_Hoan_Kiem_Lake%2C_Hanoi_4G4A7301.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "2800x1200",
+          "bytes": 419448
+        }
+      ]
+    },
+    {
+      "album": "album-026",
+      "city": "Seul",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Front_view_of_the_Eastern_side_of_the_Imperial_Throne_Hall_Geunjeongjeon_at_Gyeongbokgung_Palace_in_Seoul.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "6212x3979",
+          "bytes": 390806
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Hyangwonjeong_Pavilion_and_Chwihyanggyo_Bridge_at_Gyeongbokgung_Palace_with_blue_sky_in_Seoul.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "6253x3717",
+          "bytes": 479640
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Bukchon-ro_11-gil_street_with_hanok_houses_and_blue_sky_in_Bukchon_Hanok_Village_Seoul.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "6288x4297",
+          "bytes": 547024
+        }
+      ]
+    },
+    {
+      "album": "album-027",
+      "city": "Petra",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Al-Khazneh_(The_Treasury)_2%2C_Petra%2C_Jordan.jpg",
+          "license": "CC BY 4.0",
+          "original": "3072x2048",
+          "bytes": 366476
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Ad_Deir_(The_Monastery)%2C_El_Deir%2C_Petra%2C_Jordan.jpg",
+          "license": "CC BY 4.0",
+          "original": "3072x2048",
+          "bytes": 559728
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Petra%2C_Jordan_-The_Treasury.JPG",
+          "license": "CC BY-SA 4.0",
+          "original": "5184x3456",
+          "bytes": 546796
+        }
+      ]
+    },
+    {
+      "album": "album-028",
+      "city": "Reykjavík",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Hallgr%C3%ADmskirkja%2C_church_of_Hallgr%C3%ADmur.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "7797x5501",
+          "bytes": 293972
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:View_from_Hallgr%C3%ADmskirkja_towards_Reykjav%C3%ADk_Airport.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "4904x2922",
+          "bytes": 403054
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Rainbow_Street_Reykjavik_Iceland.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "1984x1535",
+          "bytes": 387156
+        }
+      ]
+    },
+    {
+      "album": "album-029",
+      "city": "Havana",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Parliament_building_of_Cuba_Havanna_El_Capitolio.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "3504x2336",
+          "bytes": 278602
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:MaleconHavane.JPG",
+          "license": "CC BY-SA 3.0",
+          "original": "3627x2428",
+          "bytes": 518100
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Plaza_Vieja_in_Havana.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "5259x2961",
+          "bytes": 463426
+        }
+      ]
+    },
+    {
+      "album": "album-030",
+      "city": "Bangkok",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Wat_Arun_Ratchawararam_and_the_Royal_Barge_Procession.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "5703x3802",
+          "bytes": 295350
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Wat_Arun_2022.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "4608x3456",
+          "bytes": 507962
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Wat_arun_at_night_in_Bangkok%2C_Thailand.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "4347x2717",
+          "bytes": 94932
+        }
+      ]
+    },
+    {
+      "album": "album-031",
+      "city": "Cusco",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Catedral%2C_Plaza_de_Armas%2C_Cusco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_73.JPG",
+          "license": "CC BY-SA 4.0",
+          "original": "7093x4729",
+          "bytes": 322080
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Plaza_de_Cusco_Allison_Bellido.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "2736x1824",
+          "bytes": 519644
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Iglesia_de_la_Compa%C3%B1%C3%ADa_de_Jes%C3%BAs%2C_Plaza_de_Armas%2C_Cusco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_58.JPG",
+          "license": "CC BY-SA 4.0",
+          "original": "7614x4012",
+          "bytes": 274872
+        }
+      ]
+    },
+    {
+      "album": "album-032",
+      "city": "Stockholm",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Tr%C3%A5ngsund%2C_Gamla_stan%2C_Stockholm%2C_2017.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "1944x2592",
+          "bytes": 129896
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Stortorget_in_Gamla_Stan%2C_Stockholm%2C_Sweden%2C_2022_December.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "4200x2196",
+          "bytes": 449186
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Riddarfj%C3%A4rden_R%C3%B6da_B%C3%A5ten_Tyska_kyrkan_Gamla_Stan_Stockholm_2019_08_12.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "5700x3800",
+          "bytes": 215658
+        }
+      ]
+    },
+    {
+      "album": "album-033",
+      "city": "Singapur",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Merlion_Statue_at_Merlion_Park%2C_Singapore_(Ank_Kumar_)_02.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "6000x4000",
+          "bytes": 639682
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Singapore_(SG)%2C_Marina_Bay%2C_Night_View_--_2019_--_4697.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "6141x3838",
+          "bytes": 318822
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Marina_Bay_Singapore-3499.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "6131x4087",
+          "bytes": 352816
+        }
+      ]
+    },
+    {
+      "album": "album-034",
+      "city": "Auckland",
+      "photos": [
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Auckland_Harbour_Bridge_-_August_2024.jpg",
+          "license": "CC0",
+          "original": "6000x4000",
+          "bytes": 328318
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Auckland_Skyline_at_night.jpg",
+          "license": "CC BY-SA 4.0",
+          "original": "4032x2268",
+          "bytes": 155868
+        },
+        {
+          "page": "https://commons.wikimedia.org/wiki/File:Sky_Tower_from_the_base%2C_Auckland%2C_New_Zealand.jpg",
+          "license": "CC0",
+          "original": "3472x4640",
+          "bytes": 160122
+        }
+      ]
+    }
+  ],
+  "failed": []
+}
