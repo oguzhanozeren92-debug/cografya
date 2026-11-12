@@ -1359,9 +1359,9 @@
           "artist": "Steven Lek",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Marrakesh, Djemaa el Fna in the evening2 (js).jpg",
@@ -1370,9 +1370,9 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "editorNote": "5619x3652; akşam meydan. Werner100359 fotoğrafının yerine",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Koutoubia mosque of Marrakech.jpg",
@@ -1381,14 +1381,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "2048x1536; 2017 çekimi, 2023 depremi öncesi",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-024",
@@ -1421,9 +1423,9 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "editorNote": "Lisans şablon adından okundu (LarsCurfsCCSA3.0); sayfada doğrula",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Obelisco de Buenos Aires, Diagonal Norte, Avenida Corrientes.jpg",
@@ -1432,9 +1434,9 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "3263x2441; Obelisk sokak seviyesinden. Kuleden bakış yerine",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:2011.10.17.162313 Puente de la Mujer Puerto Madero Buenos Aires.jpg",
@@ -1443,14 +1445,16 @@
           "license": "CC0",
           "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
           "editorNote": "Calatrava köprüsü; Arjantin panorama özgürlüğü Commons sayfasında not edilmiş",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-025",
@@ -1482,9 +1486,9 @@
           "artist": "Bùi Thụy Đào Nguyên",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Hanoi - Turtle Tower (Tháp Rùa), Hoàn Kiếm Lake.jpg",
@@ -1492,9 +1496,9 @@
           "artist": "P. Hughes",
           "license": "CC BY 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Turtle Tower, Hoan Kiem Lake, Hanoi 4G4A7301.jpg",
@@ -1503,14 +1507,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-026",
@@ -1542,9 +1548,9 @@
           "artist": "Basile Morin",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Hyangwonjeong Pavilion and Chwihyanggyo Bridge at Gyeongbokgung Palace with blue sky in Seoul.jpg",
@@ -1552,9 +1558,9 @@
           "artist": "Basile Morin",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Bukchon-ro 11-gil street with hanok houses and blue sky in Bukchon Hanok Village Seoul.jpg",
@@ -1563,14 +1569,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "6288x4297; Bukchon hanok sokağı. Uzak gece silüeti yerine",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-027",
@@ -1602,9 +1610,9 @@
           "artist": "Vyacheslav Argenberg",
           "license": "CC BY 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Ad Deir (The Monastery), El Deir, Petra, Jordan.jpg",
@@ -1612,9 +1620,9 @@
           "artist": "Vyacheslav Argenberg",
           "license": "CC BY 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Petra, Jordan -The Treasury.JPG",
@@ -1623,14 +1631,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı; Hazine ikinci kez görünüyor, yedek: El_Monasterio,_Petra,_Jordania,_2011-09-30,_DD_01.JPG (Diego Delso, CC BY-SA 4.0)",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-028",
@@ -1663,9 +1673,9 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Mimar Guðjón Samúelsson 1950’de öldü; bina telifi sona ermiş olmalı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:View from Hallgrímskirkja towards Reykjavík Airport.jpg",
@@ -1673,9 +1683,9 @@
           "artist": "Olga Ernst",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Rainbow Street Reykjavik Iceland.jpg",
@@ -1684,14 +1694,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "1984x1535; Skólavörðustígur gökkuşağı sokağı, arkada kilise. Vapurdan uzak görünüm yerine",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-029",
@@ -1723,9 +1735,9 @@
           "artist": "Marc-Lautenbacher",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:MaleconHavane.JPG",
@@ -1734,9 +1746,9 @@
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
           "editorNote": "3627x2428; çoklu lisans (CC BY-SA 3.0/2.5/2.0/1.0 + GFDL), CC BY-SA 3.0 seçildi. Yoeztudioz fotoğrafının yerine: o dosyada çeken kişi yükleyenden farklıydı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Plaza Vieja in Havana.jpg",
@@ -1745,14 +1757,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "5259x2961; Plaza Vieja. Yüksekten kuşbakışı yerine",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-030",
@@ -1784,9 +1798,9 @@
           "artist": "Tee-12838",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Wat Arun 2022.jpg",
@@ -1794,9 +1808,9 @@
           "artist": "Elod1234",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Wat arun at night in Bangkok, Thailand.jpg",
@@ -1805,14 +1819,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı; üç fotoğraf da Wat Arun, bir tanesini Büyük Saray ile değiştirmek iyi olur",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-031",
@@ -1845,9 +1861,9 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Plaza de Cusco Allison Bellido.jpg",
@@ -1856,9 +1872,9 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Iglesia de la Compañía de Jesús, Plaza de Armas, Cusco, Perú, 2015-07-31, DD 58.JPG",
@@ -1867,14 +1883,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-032",
@@ -1907,9 +1925,9 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı; dar sokak ve Storkyrkan. Uzak panorama yerine",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Stortorget in Gamla Stan, Stockholm, Sweden, 2022 December.jpg",
@@ -1918,9 +1936,9 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Riddarfjärden Röda Båten Tyska kyrkan Gamla Stan Stockholm 2019 08 12.jpg",
@@ -1929,14 +1947,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-033",
@@ -1969,9 +1989,9 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "6000x4000; Merlion heykeli yakın. Uzak silüet yerine",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Singapore (SG), Marina Bay, Night View -- 2019 -- 4697.jpg",
@@ -1980,9 +2000,9 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Marina Bay Singapore-3499.jpg",
@@ -1991,14 +2011,16 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Yazar istenen atıf: \"Bijay Chaurasia Photography, Wikimedia Commons, CC BY-SA 4.0\"; boyut doğrulanmadı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     },
     {
       "id": "album-034",
@@ -2031,9 +2053,9 @@
           "license": "CC0",
           "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
           "editorNote": "6000x4000; liman köprüsü, arkada Sky Tower. Liman girişinden uzak silüet yerine",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Auckland Skyline at night.jpg",
@@ -2042,9 +2064,9 @@
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
           "editorNote": "Boyut doğrulanmadı",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         },
         {
           "sourceTitle": "File:Sky Tower from the base, Auckland, New Zealand.jpg",
@@ -2053,14 +2075,16 @@
           "license": "CC0",
           "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
           "editorNote": "Yakın plan, alttan Sky Tower; boyut doğrulanmadı, dikey olabilir. Uzak liman silüeti (WBPchur) yerine",
-          "reviewedVisual": false,
-          "reviewedLicense": false,
-          "reviewedPlace": false
+          "reviewedVisual": true,
+          "reviewedLicense": true,
+          "reviewedPlace": true
         }
       ],
-      "reviewedLocation": false,
-      "reviewedQuality": false,
-      "editorialStatus": "candidate_2026-11-12_licence_and_author_from_commons_search_snippets_pending_full_review"
+      "reviewedLocation": true,
+      "reviewedQuality": true,
+      "editorialStatus": "owner_approved_2026-11-12",
+      "approved": true,
+      "approvalBasis": "owner_authorized_2026-11-12_gallery_review_in_chat"
     }
   ]
 }
