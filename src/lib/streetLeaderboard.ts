@@ -36,13 +36,17 @@ export async function fetchStreetLeaders(period:'all'|'weekly'):Promise<StreetRa
   if(error)throw new Error('Sokak Dedektifi dünya sıralaması henüz kurulmamış.');
   return (data??[]) as StreetRank[];
 }
-export async function submitStreetScore(playerName:string,score:number):Promise<void>{
+export interface StreetScoreCertificate { tour:string; score:number; exp:number; sig:string }
+/** Score must come from /api/street/finish: the server signs it and Supabase
+ * verifies the signature, so a modified app cannot submit its own number. */
+export async function submitStreetScore(playerName:string,cert:StreetScoreCertificate):Promise<void>{
   if(!backend)throw new Error('Dünya sıralaması için Supabase bağlantısı gerekiyor.');
   if(!playerName.trim())throw new Error('Dünya sıralaması için takma ad gerekiyor.');
-  if(!Number.isInteger(score)||score<0||score>25000)throw new Error('Geçersiz tur skoru.');
+  if(!cert||!Number.isInteger(cert.score)||cert.score<0||cert.score>25000)throw new Error('Geçersiz tur skoru.');
   await getPlayerId();
-  const {error}=await backend.rpc('geo_submit_street_country_score',{
-    p_player_name:playerName.trim().slice(0,20),p_score:score,p_rounds:5,
+  const {error}=await backend.rpc('geo_submit_street_country_score_v2',{
+    p_player_name:playerName.trim().slice(0,20),p_tour:cert.tour,p_score:cert.score,
+    p_exp:cert.exp,p_sig:cert.sig,
   });
   if(error)throw new Error('Dünya sıralaması henüz kurulmamış veya sunucuya ulaşılamıyor.');
 }
