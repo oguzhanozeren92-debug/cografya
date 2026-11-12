@@ -2045,12 +2045,12 @@
           "reviewedPlace": false
         },
         {
-          "sourceTitle": "File:Auckland skyline from harbour.png",
-          "source": "https://commons.wikimedia.org/wiki/File:Auckland_skyline_from_harbour.png",
-          "artist": "WBPchur",
-          "license": "CC BY-SA 4.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-          "editorNote": "PNG; yayın betiği JPEG bekliyorsa yedek gerekir",
+          "sourceTitle": "File:Sky Tower from the base, Auckland, New Zealand.jpg",
+          "source": "https://commons.wikimedia.org/wiki/File:Sky_Tower_from_the_base%2C_Auckland%2C_New_Zealand.jpg",
+          "artist": "Jonathan Harker",
+          "license": "CC0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "editorNote": "Yakın plan, alttan Sky Tower; boyut doğrulanmadı, dikey olabilir. Uzak liman silüeti (WBPchur) yerine",
           "reviewedVisual": false,
           "reviewedLicense": false,
           "reviewedPlace": false
