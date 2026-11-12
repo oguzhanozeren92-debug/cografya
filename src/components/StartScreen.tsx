@@ -674,6 +674,60 @@ export function StartScreen({
           </div>
         </header>
 
+        {/* Globriva's signature mode leads the home screen: real street and aerial
+            photos, server-scored and ranked. */}
+        <motion.div {...entrance(0)} className="relative min-w-0 mb-5">
+          {/* A single playable Street Detective — photography and aerial scenes share one game.
+              The artwork is language-neutral; all descriptions stay in live localized text. */}
+          <section className="relative space-y-2" aria-label={t('Sokak Dedektifi')}>
+            <button type="button" onClick={startStreet}
+              aria-label={t('Sokak Dedektifi oyununa başla')}
+              className="group relative isolate block aspect-[943/416] w-full overflow-hidden rounded-[25px] bg-[#06182e] p-0 text-left text-white shadow-[0_16px_34px_rgba(2,10,30,.38)] transition-transform duration-200 active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-100">
+              {/* Exact artwork from the approved mockup. In Turkish, the baked
+                  typography is part of the image and must not be overlaid. */}
+              <img src="/game-cards/street-detective-exact.svg" alt="" aria-hidden="true"
+                draggable={false} loading="eager" width={943} height={416}
+                className="pointer-events-none absolute inset-0 h-full w-full object-cover" />
+              {language !== 'tr' && (
+                <>
+                  {/* Completely cover the Turkish typography for other locales,
+                      while preserving the original street, sky, drone and CTA. */}
+                  <span aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#06172f_0%,#06172f_55%,#06172ffb_64%,#06172f82_74%,transparent_85%)]" />
+                  <span className="absolute inset-0 z-10 flex min-w-0 flex-col items-start justify-end gap-[5px] pb-[7%] pl-[4%] pr-[30%]">
+                    <span className="mb-auto mt-[16%] inline-flex max-w-full items-center gap-1.5 rounded-full border border-amber-200/75 bg-[#06182e]/90 px-2 py-1 text-[clamp(9px,2.5vw,12px)] font-bold leading-tight text-amber-100 shadow-sm">
+                      <Camera className="h-3.5 w-3.5 shrink-0"/>
+                      <span>{t('TEK OYUN · SOKAK + HAVADAN')}</span>
+                    </span>
+                    <strong className="block max-w-full text-[clamp(19px,5.1vw,29px)] font-black leading-[1.12] tracking-tight text-white">
+                      {t('Sokak Dedektifi')}
+                    </strong>
+                    <span className="block max-w-full text-[clamp(10px,2.7vw,13px)] font-semibold leading-[1.3] text-blue-100">
+                      {t('5 turda sokak ve drone görüntülerinden konum tahmin et.')}
+                    </span>
+                  </span>
+                </>
+              )}
+            </button>
+            <button type="button" onClick={onStreetLeaderboard}
+              className="relative flex min-h-12 w-full items-center justify-between gap-3 rounded-[16px] border border-cyan-200/25 bg-[#071b37]/90 px-3 py-2 text-xs font-bold text-cyan-100">
+              <span className="flex min-w-0 items-center gap-2">
+                <Trophy className="h-4 w-4 shrink-0 text-amber-300" />{t('Sokak Dedektifi dünya sıralaması')}
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0" />
+            </button>
+            {gameCenterAvailable() && (
+              <button type="button" onClick={() => { void showGameCenterLeaderboards(); }}
+                className="relative flex min-h-12 w-full items-center justify-between gap-3 rounded-[16px] border border-emerald-200/25 bg-[#071b37]/90 px-3 py-2 text-xs font-bold text-emerald-100">
+                <span className="flex min-w-0 items-center gap-2">
+                  <Trophy className="h-4 w-4 shrink-0 text-emerald-300" />{t('Game Center sıralamaları')}
+                </span>
+                <ArrowRight className="h-4 w-4 shrink-0" />
+              </button>
+            )}
+          </section>
+        </motion.div>
+
         <motion.section {...entrance(0)} className="relative min-w-0">
           <div className="globriva-game-selector-head">
             <span className="globriva-game-selector-heading">
@@ -911,55 +965,6 @@ export function StartScreen({
             <ChevronRight className="relative h-6 w-6 shrink-0" />
           </button>
 
-          {/* A single playable Street Detective — photography and aerial scenes share one game.
-              The artwork is language-neutral; all descriptions stay in live localized text. */}
-          <section className="relative mt-3 space-y-2" aria-label={t('Sokak Dedektifi')}>
-            <button type="button" onClick={startStreet}
-              aria-label={t('Sokak Dedektifi oyununa başla')}
-              className="group relative isolate block aspect-[943/416] w-full overflow-hidden rounded-[25px] bg-[#06182e] p-0 text-left text-white shadow-[0_16px_34px_rgba(2,10,30,.38)] transition-transform duration-200 active:scale-[.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-100">
-              {/* Exact artwork from the approved mockup. In Turkish, the baked
-                  typography is part of the image and must not be overlaid. */}
-              <img src="/game-cards/street-detective-exact.svg" alt="" aria-hidden="true"
-                draggable={false} loading="eager" width={943} height={416}
-                className="pointer-events-none absolute inset-0 h-full w-full object-cover" />
-              {language !== 'tr' && (
-                <>
-                  {/* Completely cover the Turkish typography for other locales,
-                      while preserving the original street, sky, drone and CTA. */}
-                  <span aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#06172f_0%,#06172f_55%,#06172ffb_64%,#06172f82_74%,transparent_85%)]" />
-                  <span className="absolute inset-0 z-10 flex min-w-0 flex-col items-start justify-end gap-[5px] pb-[7%] pl-[4%] pr-[30%]">
-                    <span className="mb-auto mt-[16%] inline-flex max-w-full items-center gap-1.5 rounded-full border border-amber-200/75 bg-[#06182e]/90 px-2 py-1 text-[clamp(9px,2.5vw,12px)] font-bold leading-tight text-amber-100 shadow-sm">
-                      <Camera className="h-3.5 w-3.5 shrink-0"/>
-                      <span>{t('TEK OYUN · SOKAK + HAVADAN')}</span>
-                    </span>
-                    <strong className="block max-w-full text-[clamp(19px,5.1vw,29px)] font-black leading-[1.12] tracking-tight text-white">
-                      {t('Sokak Dedektifi')}
-                    </strong>
-                    <span className="block max-w-full text-[clamp(10px,2.7vw,13px)] font-semibold leading-[1.3] text-blue-100">
-                      {t('5 turda sokak ve drone görüntülerinden konum tahmin et.')}
-                    </span>
-                  </span>
-                </>
-              )}
-            </button>
-            <button type="button" onClick={onStreetLeaderboard}
-              className="relative flex min-h-12 w-full items-center justify-between gap-3 rounded-[16px] border border-cyan-200/25 bg-[#071b37]/90 px-3 py-2 text-xs font-bold text-cyan-100">
-              <span className="flex min-w-0 items-center gap-2">
-                <Trophy className="h-4 w-4 shrink-0 text-amber-300" />{t('Sokak Dedektifi dünya sıralaması')}
-              </span>
-              <ArrowRight className="h-4 w-4 shrink-0" />
-            </button>
-            {gameCenterAvailable() && (
-              <button type="button" onClick={() => { void showGameCenterLeaderboards(); }}
-                className="relative flex min-h-12 w-full items-center justify-between gap-3 rounded-[16px] border border-emerald-200/25 bg-[#071b37]/90 px-3 py-2 text-xs font-bold text-emerald-100">
-                <span className="flex min-w-0 items-center gap-2">
-                  <Trophy className="h-4 w-4 shrink-0 text-emerald-300" />{t('Game Center sıralamaları')}
-                </span>
-                <ArrowRight className="h-4 w-4 shrink-0" />
-              </button>
-            )}
-          </section>
         </motion.section>
 
 
