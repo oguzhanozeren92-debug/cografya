@@ -588,7 +588,7 @@ export function StreetDetectiveScreen({
           </div>
         )}
         <p className="mt-5 text-center text-[11px] text-blue-200/65">
-          {language==='tr'?'Sokak, drone ve 360° tarihî mekânlar · 5 karma konum sorusu':'Street, aerial and 360° historical places · 5 mixed location questions'}
+          {language==='tr'?'Sokak ve drone görüntüleri · 5 karma konum sorusu':'Street and aerial photos · 5 mixed location questions'}
           {phase==='finish'?' · '+t('Cihaz rekorun:')+' '+getLocalStreetBest().toLocaleString(language):''}
         </p>
       </main>
