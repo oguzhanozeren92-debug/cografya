@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-12T06:44:00.060Z",
+  "updatedAt": "2026-11-12T12:44:09.742Z",
   "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
@@ -451,6 +451,110 @@
       "qaStatus": "GPS_preliminary_location_and_visual_review_required",
       "imageCandidateId": "GB-COM-39908dc075d76616",
       "assetPath": "public/open-content/photos/gb-com-39908dc075d76616.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-a8e7e83edb7a8486",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Şili",
+          "Çin",
+          "Tayland",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Hong Kong çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Hong_Kong_protests_2014-10-17_21.55.09_(17241205472).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-a8e7e83edb7a8486",
+      "assetPath": "public/open-content/photos/gb-com-a8e7e83edb7a8486.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-cd0a163dea7072fc",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Bolivya",
+          "Peru",
+          "Tanzanya",
+          "Çin"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Hong Kong çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Hong_Kong_protests_2014-10-20_02.54.24_(17242397301).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-cd0a163dea7072fc",
+      "assetPath": "public/open-content/photos/gb-com-cd0a163dea7072fc.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-8381e19b83d524df",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Peru",
+          "Yeni Zelanda",
+          "Nepal",
+          "Japonya"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Katmandu çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Chabahil_Ganesh_Temple_Chandra_Binayak_Ganesh_Temple_Chabahil_Kathmandu_Nepal_Rajesh_Dhungana_(6).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-8381e19b83d524df",
+      "assetPath": "public/open-content/photos/gb-com-8381e19b83d524df.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-0475858ed928c876",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Nepal",
+          "Güney Afrika",
+          "Fas",
+          "Japonya"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Katmandu çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Shiva_Temple_Sankaracharya_Math_Pashupati_Kathmandu_Nepal_Rajesh_Dhungana.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-0475858ed928c876",
+      "assetPath": "public/open-content/photos/gb-com-0475858ed928c876.jpg",
       "status": "review_required_not_playable",
       "playable": false
     }
