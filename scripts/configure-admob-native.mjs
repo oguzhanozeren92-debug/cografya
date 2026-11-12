@@ -61,9 +61,17 @@ if (iosId) {
       if (last < 0) throw new Error('Info.plist root dict missing');
       xml = xml.slice(0,last) + '\t' + pair + '\n' + xml.slice(last);
     }
-    if (!xml.includes('<key>NSUserTrackingUsageDescription</key>')) {
+    const attText = 'Globriva shows ads to stay free. If you allow it, your device identifier is used to show ads more relevant to you. You can still play every game if you decline.';
+    if (xml.includes('<key>NSUserTrackingUsageDescription</key>')) {
+      xml = xml.replace(/<key>NSUserTrackingUsageDescription<\/key>\s*<string>[^<]*<\/string>/, `<key>NSUserTrackingUsageDescription</key>\n\t<string>${attText}</string>`);
+    } else {
       const last = xml.lastIndexOf('</dict>');
-      xml = xml.slice(0,last) + '\t<key>NSUserTrackingUsageDescription</key>\n\t<string>İzin verirseniz reklamları ilgi alanlarınıza göre sunmak için cihaz tanımlayıcısı kullanılabilir.</string>\n' + xml.slice(last);
+      xml = xml.slice(0,last) + `\t<key>NSUserTrackingUsageDescription</key>\n\t<string>${attText}</string>\n` + xml.slice(last);
+    }
+    // SKAdNetwork: Google's own ad network identifier (AdMob iOS quick start).
+    if (!xml.includes('<key>SKAdNetworkItems</key>')) {
+      const last = xml.lastIndexOf('</dict>');
+      xml = xml.slice(0,last) + '\t<key>SKAdNetworkItems</key>\n\t<array>\n\t\t<dict>\n\t\t\t<key>SKAdNetworkIdentifier</key>\n\t\t\t<string>cstr6suwn9.skadnetwork</string>\n\t\t</dict>\n\t</array>\n' + xml.slice(last);
     }
     return xml;
   })) { updated++; console.log('iOS AdMob App ID configured.'); }

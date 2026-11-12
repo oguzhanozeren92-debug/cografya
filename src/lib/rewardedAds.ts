@@ -51,6 +51,16 @@ export async function initializeNativeAdSdk(): Promise<boolean> {
       consent = await AdMob.showConsentForm();
     }
     if (!consent.canRequestAds) return false;
+    // iOS App Tracking Transparency: ask once, after the privacy (UMP) form.
+    // Ads still load when the player declines (non-personalized).
+    if (Capacitor.getPlatform() === 'ios') {
+      try {
+        const { status } = await AdMob.trackingAuthorizationStatus();
+        if (status === 'notDetermined') await AdMob.requestTrackingAuthorization();
+      } catch (error) {
+        console.warn('[Globriva] ATT izni sorulamadı', error);
+      }
+    }
     await AdMob.initialize();
     initialized = true;
     return true;
