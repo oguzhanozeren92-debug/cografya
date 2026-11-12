@@ -55,7 +55,7 @@ export function PlayerSafetyActions({playerId,playerName,context,onBlocked}:{
     <button type="button" disabled={busy} onClick={()=>{void block();}}
       className="mt-2 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-rose-300/35 bg-rose-300/10 px-4 text-sm font-bold text-rose-100"><Ban size={17}/>{m[2]}</button>
     {status&&<p role="status" className="mt-3 text-xs text-emerald-200">{status}</p>}
-    {error&&<p role="alert" className="mt-3 text-xs text-rose-200">{error}: <a href="mailto:tarlapusula@gmail.com" className="underline">support</a></p>}
+    {error&&<p role="alert" className="mt-3 text-xs text-rose-200">{error}: <a href="mailto:oguzhanozeren92@gmail.com" className="underline">support</a></p>}
    </section>
   </div>,document.body)}
  </>;

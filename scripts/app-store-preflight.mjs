@@ -20,7 +20,7 @@ start=read('src/components/StartScreen.tsx'),config=read('capacitor.config.ts'),
 pipeline=read('codemagic.yaml');
 check(/Globriva/.test(privacy)&&/Privacy Policy/.test(privacy)&&/Gizlilik Politikası/.test(privacy),'Privacy policy must be bilingual and brand-correct');
 check(!/pre-release notice|this page is a draft|doğrulanmış doğrudan destek e-posta|yayın öncesi bilgilendirme/i.test(privacy),'Privacy page contains review-time placeholders');
-check(/mailto:tarlapusula@gmail\.com/i.test(privacy)&&/mailto:tarlapusula@gmail\.com/i.test(support),'Privacy and support contact missing');
+check(/mailto:oguzhanozeren92@gmail\.com/i.test(privacy)&&/mailto:oguzhanozeren92@gmail\.com/i.test(support),'Privacy and support contact missing');
 check(/veri silme talebi/i.test(privacy)&&/data deletion request/i.test(privacy),'Privacy policy must explain deletion requests');
 check(/\/privacy\.html/.test(start)&&/\/support\.html/.test(start),'App home must link privacy and support');
 check(/appId:\s*'com\.oguzhanozeren\.cografya'/.test(config),'App bundle ID changed: verify App Store Connect registration');
