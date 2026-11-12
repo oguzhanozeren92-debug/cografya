@@ -37,7 +37,7 @@ for(const row of albums){
  let present=0,invalid=0;
  if(photos.length<3||photos.length>4){err(row.id,'photo_count','Each album must have 3 or 4 photos',isApproved);invalid++}
  const goodText=(value,max)=>typeof value==='string'&&value.trim().length>0&&value.length<=max;
- if(!/^album-0(?:0[1-9]|1[0-9]|20)$/.test(row.id||'') ||
+ if(!/^album-(?!000)\d{3}$/.test(row.id||'') ||
   !goodText(row.city,140)||!goodText(row.country,100)||!goodText(row.fact,700)||
   !Number.isFinite(row.lat)||Math.abs(row.lat)>90||!Number.isFinite(row.lng)||Math.abs(row.lng)>180||
   !/^\d{3}$/.test(row.regionCode||'')||!['easy','medium','hard'].includes(row.difficulty)){

@@ -1,0 +1,78 @@
+name: Globriva - import approved Commons albums into the GitHub/Vercel gallery
+
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: "Comma-separated owner-approved album IDs from panoramas/drone-gallery-candidates.json (max 15)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: globriva-gallery-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      REQUESTED_IDS: ${{ inputs.ids }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'Pillow>=10,<12'
+      - name: Verify on Commons, download and convert
+        id: import
+        shell: bash
+        run: |
+          set +e
+          python -u scripts/panoramas/import-commons-albums.py --ids "$REQUESTED_IDS"
+          echo "result=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Gallery integrity check
+        run: node scripts/panoramas/check-local-gallery.mjs --strict > /tmp/globriva-gallery-qa.json
+      - name: Commit imported photos and catalog
+        if: steps.import.outputs.result == '0'
+        shell: bash
+        run: |
+          git config user.name 'globriva-archive-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/drone-gallery/catalog-v2.json public/drone-gallery/photos reports/globriva-gallery-import.json
+          if ! git diff --staged --quiet; then
+            git commit -m "media(gallery): import approved albums $REQUESTED_IDS"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path('reports/globriva-gallery-import.json')
+          r=json.loads(p.read_text()) if p.exists() else {'ready':[],'failed':[{'album':'-','error':'no report'}]}
+          lines=['# Globriva gallery import',f"- Imported albums: {len(r['ready'])}",f"- Blocked: {len(r['failed'])}"]
+          lines+= [f"- OK {x['album']} {x['city']}" for x in r['ready']]
+          lines+= [f"- BLOCKED {x['album']}: {x['error']}" for x in r['failed']]
+          open(os.environ['GITHUB_STEP_SUMMARY'],'a').write('\n'.join(lines)+'\n'); print('\n'.join(lines))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: globriva-gallery-import-report
+          path: |
+            reports/globriva-gallery-import.json
+            /tmp/globriva-gallery-qa.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Fail when nothing could be imported
+        if: steps.import.outputs.result != '0'
+        run: exit 1

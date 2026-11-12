@@ -2,7 +2,7 @@ import { allowAtlasNativeCors } from '../../server/street/core.mjs';
 
 // Read-only Vercel gallery inspector: checks the exact per-photo format in catalog-v2.json.
 // This does NOT approve photographs; licensing, actual subject and locality still require editorial review.
-const albumPattern=/^album-0(?:0[1-9]|1[0-9]|20)$/;
+const albumPattern=/^album-(?!000)\d{3}$/;
 const ORIGIN='https://atlas-arena-tau.vercel.app';
 const isImage=(mime,format)=>format==='webp'?/^image\/webp(?:;|$)/i.test(mime):/^image\/jpeg(?:;|$)/i.test(mime);
 const isFormat=s=>s==='webp'||s==='jpg';
