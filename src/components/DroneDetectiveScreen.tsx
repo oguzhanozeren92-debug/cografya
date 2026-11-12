@@ -6,7 +6,7 @@ import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
 import { Capacitor } from '@capacitor/core';
-import { watchRewardedHeartAd } from '@/lib/rewardedAds';
+import { watchRewardedAdForHint } from '@/lib/rewardedAds';
 import { haversineKm, locationPoints, type Coordinates } from '@/lib/streetLocations';
 import { trackPlayEvent } from '@/lib/atlasTelemetry';
 import { awardGeoStars, getGeoStars, type GeoAward } from '@/lib/geoRewards';
@@ -240,8 +240,8 @@ export function DroneDetectiveScreen({ onClose, onGameComplete, playerName }: { 
       // First hint is free. Further hints require a verified AdMob reward
       // in the native app. Dismissal, failure or lack of consent never unlocks.
       if(nextLevel>1 && native){
-        const earned=await watchRewardedHeartAd();
-        if(!earned)throw new Error(hintCopy.adFailed);
+        // No ad available (e.g. no fill) unlocks the hint for free.
+        if(await watchRewardedAdForHint()==='dismissed')throw new Error(hintCopy.adFailed);
       }
       if(roundTokenRef.current!==token)return;
       setHintCount(nextLevel);
