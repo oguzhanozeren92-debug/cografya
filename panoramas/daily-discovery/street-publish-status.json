@@ -1,8 +1,12 @@
 {
-  "date": "2026-11-02",
-  "editoriallyApprovedOutdoorPending": 4,
-  "publishedTodayPanoramas": 1,
-  "activatedTodayPanoramas": 1,
+  "date": "2026-11-12",
+  "editoriallyApprovedOutdoorPending": 3,
+  "publishedTodayPanoramas": 0,
+  "activatedTodayPanoramas": 0,
   "readyTotalPanoramas": 39,
-  "errors": []
+  "errors": [
+    "is-gullfoss-waterfall-002: Command '['/usr/bin/python3', '/home/runner/work/cografya/cografya/scripts/panoramas/publish.py', '--ids', 'is-gullfoss-waterfall-002']' returned non-zero exit status 1.",
+    "dk-copenhagen-tower-002: Command '['/usr/bin/python3', '/home/runner/work/cografya/cografya/scripts/panoramas/publish.py', '--ids', 'dk-copenhagen-tower-002']' returned non-zero exit status 1.",
+    "am-yerevan-gallery-night-002: Command '['/usr/bin/python3', '/home/runner/work/cografya/cografya/scripts/panoramas/publish.py', '--ids', 'am-yerevan-gallery-night-002']' returned non-zero exit status 1."
+  ]
 }
