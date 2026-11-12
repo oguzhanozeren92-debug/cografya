@@ -1,6 +1,7 @@
 import { createRequire } from 'node:module';
 import { geoContains } from 'd3-geo';
 import { feature } from 'topojson-client';
+import { COUNTRY_IDS_BY_NAME } from '../geo/country-ids.mjs';
 
 const require=createRequire(import.meta.url);
 const atlas=require('world-atlas/countries-110m.json');
@@ -16,7 +17,7 @@ const polygons=new Map(countryFeatures.map(p=>[Number(p.id),p]));
 export function isPointInCountry(point,country){
   if(!point||!Number.isFinite(point.lat)||!Number.isFinite(point.lng)
     ||Math.abs(point.lat)>90||Math.abs(point.lng)>180)return false;
-  const id=COUNTRY_NUMERIC_IDS[country];
+  const id=COUNTRY_NUMERIC_IDS[country]??COUNTRY_IDS_BY_NAME[country];
   const polygon=polygons.get(id);
   if(!polygon)return false;
   return geoContains(polygon,[point.lng,point.lat]);
