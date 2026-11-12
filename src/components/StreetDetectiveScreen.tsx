@@ -10,7 +10,7 @@ import { StreetPhoto, warmStreetPhoto } from '@/components/StreetPhoto';
 import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldMap';
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
 import { droneHintChoices, droneHintCopy, droneHintText } from '@/lib/droneHints';
-import { watchRewardedHeartAd } from '@/lib/rewardedAds';
+import { watchRewardedAdForHint } from '@/lib/rewardedAds';
 import { GC_ACHIEVEMENTS, GC_LEADERBOARDS, submitGameCenterScore, unlockGameCenterAchievement } from '@/lib/gameCenter';
 import { getLocalStreetBest, rememberLocalStreetBest, submitStreetScore, type StreetScoreCertificate } from '@/lib/streetLeaderboard';
 import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
@@ -231,8 +231,9 @@ export function StreetDetectiveScreen({
       if(earnedHintLevel!==level&&native){
         // This existing native AdMob helper returns true ONLY if its SDK
         // gives the reward. Closing, failed loading or lack of consent is not enough.
-        const rewarded=await watchRewardedHeartAd();
-        if(!rewarded){
+        // No ad available (e.g. no fill) unlocks the hint for free.
+        const adResult=await watchRewardedAdForHint();
+        if(adResult==='dismissed'){
           setHintError(t('Reklam tamamlanmadı. İpucu açılmadı.'));
           return;
         }

@@ -46,11 +46,18 @@ export async function initializeNativeAdSdk(): Promise<boolean> {
   if (initialized) return true;
   if (initializing) return initializing;
   initializing = (async () => {
-    let consent = await AdMob.requestConsentInfo();
-    if (consent.isConsentFormAvailable && consent.status === AdmobConsentStatus.REQUIRED) {
-      consent = await AdMob.showConsentForm();
+    // A consent lookup error (network, AdMob privacy setup) must not disable
+    // ads where no consent is required; only an explicit "cannot request"
+    // decision from the SDK stops ad requests.
+    try {
+      let consent = await AdMob.requestConsentInfo();
+      if (consent.isConsentFormAvailable && consent.status === AdmobConsentStatus.REQUIRED) {
+        consent = await AdMob.showConsentForm();
+      }
+      if (!consent.canRequestAds) return false;
+    } catch (error) {
+      console.warn('[Globriva] Reklam izin bilgisi alınamadı', error);
     }
-    if (!consent.canRequestAds) return false;
     // iOS App Tracking Transparency: ask once, after the privacy (UMP) form.
     // Ads still load when the player declines (non-personalized).
     if (Capacitor.getPlatform() === 'ios') {
@@ -97,5 +104,30 @@ export async function watchRewardedHeartAd(): Promise<boolean> {
   } catch (error) {
     console.warn('[Coğrafya] Ödüllü reklam tamamlanmadı', error);
     return false;
+  }
+}
+export type HintAdResult = 'rewarded' | 'dismissed' | 'unavailable';
+
+/**
+ * Rewarded ad for an optional hint. When no ad can be loaded (no fill, SDK
+ * not ready, offline) the caller unlocks the hint anyway, so the button never
+ * looks broken. Only a player who closes a loaded ad early gets no hint.
+ */
+export async function watchRewardedAdForHint(): Promise<HintAdResult> {
+  const config = getNativeRewardedUnit();
+  if (!config) return 'unavailable';
+  try {
+    if (!(await initializeRewardedAds())) return 'unavailable';
+    await AdMob.prepareRewardVideoAd({ adId: config.adId, isTesting: config.isTesting });
+  } catch (error) {
+    console.warn('[Globriva] Ödüllü reklam yüklenemedi', error);
+    return 'unavailable';
+  }
+  try {
+    const reward = await AdMob.showRewardVideoAd({ adId: config.adId });
+    return typeof reward?.amount === 'number' && reward.amount > 0 ? 'rewarded' : 'dismissed';
+  } catch (error) {
+    console.warn('[Globriva] Ödüllü reklam tamamlanmadı', error);
+    return 'dismissed';
   }
 }
