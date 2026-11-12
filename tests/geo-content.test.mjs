@@ -6,10 +6,6 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import ts from 'typescript';
 import { neighbors } from 'topojson-client';
-import { HISTORY_CASES } from '../server/history/curated.mjs';
-import { HISTORY_MEDIUM_CASES } from '../server/history/curated-medium.mjs';
-import { HISTORY_EXPANDED_CASES } from '../server/history/curated-expanded.mjs';
-import { HISTORY_DETAIL_PHOTOS } from '../server/history/detail-photos.mjs';
 import { approvedPanoramas } from '../server/street/approved.mjs';
 import { approvedPhotoIds } from '../server/street/photo-ready.mjs';
 import { STREET_PLAYABLE_IDS, STREET_PLAYABLE_SOURCE_IDS, COUNTRY_HINTS } from '../server/street/country-mode.mjs';
@@ -31,13 +27,7 @@ const [geo,clues,countries]=await Promise.all([
 const normalize=s=>String(s||'').toLocaleLowerCase('tr-TR')
   .normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
   .replace(/[^\p{L}\p{N}]+/gu,' ').trim();
-const allHistory=[...HISTORY_CASES,...HISTORY_MEDIUM_CASES,...HISTORY_EXPANDED_CASES];
 const currentIds=new Set(approvedPhotoIds);
-const photosByCase=new Map();
-for(const p of HISTORY_DETAIL_PHOTOS){
-  const list=photosByCase.get(p.caseId)||[];
-  list.push(p);photosByCase.set(p.caseId,list);
-}
 
 test('63 unique natural locations, 21 per level, with safe coordinates and real fact links',()=>{
   assert.equal(geo.NATURE_POINTS.length,63);
@@ -104,32 +94,6 @@ test('96 country clue cards use real country IDs, correct tiers and never name t
   }
 });
 
-test('heritage: 20 unique playable cases, 60 questions and no answers in pre-quiz clues/captions',()=>{
-  assert.equal(allHistory.length,20);
-  assert.equal(new Set(allHistory.map(x=>x.id)).size,20);
-  const approved=new Set(approvedPanoramas.filter(x=>x.approved).map(x=>x.id));
-  for(const c of allHistory){
-    assert.ok(currentIds.has(c.panoramaId)&&approved.has(c.panoramaId),c.id+' unapproved 360');
-    assert.equal(c.questions.length,3,c.id+' quiz count');
-    assert.match(c.sourceUrl,/^https:\/\//);
-    const before=[c.clue,...(photosByCase.get(c.id)||[]).map(p=>p.caption)];
-    for(const q of c.questions){
-      assert.equal(q.options.length,4);
-      assert.ok(q.correct>=0&&q.correct<4);
-      assert.ok(q.explanation.tr.length>=20&&q.explanation.en.length>=20);
-      for(const lang of ['tr','en']){
-        const answer=normalize(q.options[q.correct][lang]);
-        if(answer.length<4)continue;
-        for(const p of before){
-          assert.ok(!normalize(p[lang]).includes(answer),
-            c.id+' '+lang+' answer '+answer+' leaked in clue/gallery');
-        }
-      }
-    }
-  }
-});
-
-
 test('new world-region content keeps correct source, tiers, facts and translations',()=>{
   for(const [id,tier] of [['144',2],['686',2],['204',3]]){
     const c=clues.COUNTRY_CLUES[id];
@@ -169,18 +133,6 @@ test('1 November new country clues have matching difficulty and localized landma
     assert.ok(locale.includes("'"+id+"':{region:"),id+' localization signal missing');
     for(const hint of card.clues)assert.ok(!normalizeAnswer(hint).includes(normalizeAnswer(meta.nameTr)),id+' answer leak');
     assert.ok((landmarks.match(new RegExp('"'+id+'":','g'))||[]).length>=7,id+' native feature translations missing');
-  }
-});
-
-test('supplementary history images have unique source files and mandatory author/license',()=>{
-  const seen=new Set();
-  for(const p of HISTORY_DETAIL_PHOTOS){
-    assert.ok(allHistory.some(x=>x.id===p.caseId),p.caseId+' orphan photo');
-    assert.ok(p.artist?.trim()&&p.license?.trim());
-    assert.match(p.source,/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
-    assert.ok(p.caption.tr&&p.caption.en);
-    assert.ok(!seen.has(p.source),'reused Commons photo '+p.source);
-    seen.add(p.source);
   }
 });
 
@@ -246,17 +198,13 @@ test('2 November UNESCO-backed discovery additions have balanced tiers, notes, t
   for(const id of ['100','496','626'])assert.ok(geo.BORDER_FOCUS.includes(id),'missing border focus '+id);
 });
 
-test('Street loader selects 19 playable panoramas and shares 11 with the 20 history cases',()=>{
-  const historyIds=new Set(allHistory.map(x=>x.panoramaId));
+test('Street loader selects 19 playable panoramas',()=>{
   const ready=new Set(approvedPhotoIds);
   const street=approvedPanoramas.filter(x=>x.approved===true&&ready.has(x.id)&&
     (STREET_PLAYABLE_IDS.has(x.id)||STREET_PLAYABLE_SOURCE_IDS.has(x.sourceId))&&
     COUNTRY_HINTS[x.country]);
   assert.equal(street.length,19,'Street playable round count');
   assert.equal(new Set(street.map(x=>x.id)).size,19,'Street duplicate');
-  assert.equal(historyIds.size,20,'history location count');
-  assert.equal(street.filter(x=>historyIds.has(x.id)).length,11,'shared locations');
-  assert.equal(new Set([...street.map(x=>x.id),...historyIds]).size,28,'unique playable panorama locations');
 });
 
 test('3 November UNESCO-backed additions have correct tiers, safe hints, notes and native labels',()=>{

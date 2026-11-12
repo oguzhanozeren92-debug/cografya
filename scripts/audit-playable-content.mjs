@@ -16,10 +16,6 @@ import { approvedPhotoIds } from '../server/street/photo-ready.mjs';
 import { STREET_PLAYABLE_IDS, STREET_PLAYABLE_SOURCE_IDS, COUNTRY_HINTS } from '../server/street/country-mode.mjs';
 import { approvedDroneMedia } from '../server/drone/approved.mjs';
 import { readyDronePhotoIds } from '../server/drone/photo-ready.mjs';
-import { HISTORY_CASES } from '../server/history/curated.mjs';
-import { HISTORY_MEDIUM_CASES } from '../server/history/curated-medium.mjs';
-import { HISTORY_EXPANDED_CASES } from '../server/history/curated-expanded.mjs';
-import { HISTORY_DETAIL_PHOTOS } from '../server/history/detail-photos.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const require=createRequire(import.meta.url);
@@ -70,14 +66,6 @@ const eligibleAlbums=gallery.collections.filter(album=>album.approved===true&&
     photo.artist&&photo.license&&photo.source?.startsWith('https://commons.wikimedia.org/wiki/File:') &&
     existsSync(resolve(root,'public/drone-gallery/photos',album.id,
       (i+1)+'.'+(photo.format==='webp'?'webp':'jpg')))));
-const allHistory=[...HISTORY_CASES,...HISTORY_MEDIUM_CASES,...HISTORY_EXPANDED_CASES];
-const history=allHistory.filter(row=>streetReady.has(row.panoramaId) &&
-  row.questions?.length===3 && row.questions.every(q=>
-    q.options?.length===4 && Number.isInteger(q.correct) &&
-    q.correct>=0&&q.correct<=3));
-const countHistoryByDifficulty=Object.fromEntries(['easy','medium'].map(d=>[
-  d,history.filter(x=>(x.difficulty||'easy')===d).length,
-]));
 const islandPlayable=geo.ISLAND_COUNTRIES.filter(x=>shapesById.has(x.id));
 const flagsReady=allCountries.filter(([id])=>flags.COUNTRY_FLAG_CODES[id]);
 const output={
@@ -101,9 +89,6 @@ const output={
     droneGalleryPhotoFiles:eligibleAlbums.reduce((n,x)=>n+x.images.length,0),
     droneGalleryCountries:new Set(eligibleAlbums.map(x=>x.country)).size,
     pendingGalleryAlbums:gallery.collections.length-eligibleAlbums.length,
-    historyLocations:history.length,historyQuestions:history.reduce((n,x)=>n+x.questions.length,0),
-    historyByDifficulty:countHistoryByDifficulty,
-    historySupplementaryPhotoRecords:HISTORY_DETAIL_PHOTOS.length,
   },
 };
 console.log(JSON.stringify(output,null,2));
@@ -114,7 +99,6 @@ if(process.argv.includes('--strict')){
   if(street.length<15)fail.push('street eligible locations < 15');
   if(drone360.length<5)fail.push('drone pilot eligible locations < 5');
   if(eligibleAlbums.length<16)fail.push('gallery eligible albums < 16');
-  if(history.length<20)fail.push('history eligible locations < 20');
   if(geo.NATURE_POINTS.length<30)fail.push('nature points < 30');
   if(Object.values(output.map.borderPlayable).some(n=>n<5))fail.push('border tier with < 5 rounds');
   if(fail.length){console.error('CONTENT AUDIT FAILED:',fail.join('; '));process.exitCode=1;}

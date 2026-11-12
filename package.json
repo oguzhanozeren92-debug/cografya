@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/panoramas/check-local-gallery.mjs --strict > /dev/null && node scripts/panoramas/check-eraatlas-outdoors.mjs > /dev/null && node scripts/check-vercel-vs-env.mjs && vite build",
+    "build": "node scripts/panoramas/check-local-gallery.mjs --strict > /dev/null && node scripts/check-vercel-vs-env.mjs && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
@@ -16,7 +16,6 @@
     "native:release:check": "node scripts/validate-admob-release.mjs",
     "native:ios:sync": "npm run build && npx cap sync ios && npm run native:configure",
     "gallery:audit": "node scripts/panoramas/check-local-gallery.mjs",
-    "outdoor:audit": "node scripts/panoramas/check-eraatlas-outdoors.mjs",
     "gallery:release-check": "node scripts/panoramas/check-local-gallery.mjs --release",
     "gallery:discover": "node scripts/panoramas/discover-commons.mjs",
     "gallery:photo-review": "node scripts/panoramas/export-appstore-review.mjs",

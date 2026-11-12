@@ -35,7 +35,7 @@ jobs:
         run: node scripts/open-content.mjs --self-test
       - name: Pull licensed media and build non-playable question drafts
         env:
-          CONTENT_APP: __APP__
+          CONTENT_APP: globriva
         run: node scripts/open-content.mjs
       - name: Commit only collected assets and draft metadata
         run: |

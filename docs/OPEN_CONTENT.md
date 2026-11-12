@@ -1,4 +1,4 @@
-# Open Content: Globriva + EraAtlas
+# Open Content: Globriva
 
 This repository contains a new **candidate-only** open-media collector. It does not
 modify the playable bank, change navigation, or automatically release any question.
@@ -19,8 +19,6 @@ modify the playable bank, change navigation, or automatically release any questi
 ## Local execution
 
 ```bash
-# In cografya use: CONTENT_APP=globriva
-# In eraatlas use: CONTENT_APP=eraatlas
 CONTENT_APP=globriva node scripts/open-content.mjs --self-test
 CONTENT_APP=globriva node scripts/open-content.mjs
 ```
