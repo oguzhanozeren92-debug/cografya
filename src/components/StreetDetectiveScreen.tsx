@@ -11,7 +11,7 @@ import { StreetWorldMap, guessedCorrectCountry } from '@/components/StreetWorldM
 import { dronePanoramas, type DronePanorama } from '@/data/dronePanoramas';
 import { droneHintChoices, droneHintCopy, droneHintText } from '@/lib/droneHints';
 import { watchRewardedHeartAd } from '@/lib/rewardedAds';
-import { getLocalStreetBest, rememberLocalStreetBest, submitStreetScore } from '@/lib/streetLeaderboard';
+import { getLocalStreetBest, rememberLocalStreetBest, submitStreetScore, type StreetScoreCertificate } from '@/lib/streetLeaderboard';
 import { LocationLeaguePanel } from '@/components/LocationLeaguePanel';
 import { backend } from '@/lib/leaderboard';
 import { useLanguage } from '@/lib/i18n';
@@ -32,9 +32,11 @@ type Reveal = {
   distancePoints:number;countryBonus:number;hintPenalty:number;maxPoints:number;
   country:string;city:string;title:string;fact:string;
   credit:{artist:string;license:string;source:string};
+  /** Signed by the server; only receipts count toward the online ranking. */
+  receipt?:string;
 };
 type Completed = {
-  id:string;country:string;city:string;points:number;correct:boolean;skipped?:boolean;
+  id:string;country:string;city:string;points:number;correct:boolean;skipped?:boolean;receipt?:string;
 };
 const MAX_ROUND_POINTS=[5000,4200,3400,2500,1500] as const;
 
@@ -71,11 +73,13 @@ export function StreetDetectiveScreen({
   const current=rounds[idx];
   const openedAt=useRef(0);
   const completionNotified=useRef(false);
+  const tourToken=useRef('');
   const score=completed.reduce((total,row)=>total+row.points,0);
   const native=Capacitor.isNativePlatform();
 
   const newGame=useCallback(async()=>{
     completionNotified.current=false;
+    tourToken.current='';
     trackPlayEvent({mode:'street',event_type:'mode_start'});
     setLoading(true);setError('');setRounds([]);setIdx(0);setCompleted([]);
     setGuess(null);setReveal(null);setFactOpen(false);setClues([]);setHintCount(0);
@@ -88,7 +92,7 @@ export function StreetDetectiveScreen({
         fetch(atlasApi('/api/street/session'),{cache:'no-store'}),
         fetch(atlasApi('/api/drone/session?v=2'),{cache:'no-store'}),
       ]);
-      const street=await streetResponse.json() as {rounds?:StreetRound[];error?:string};
+      const street=await streetResponse.json() as {rounds?:StreetRound[];tourToken?:string;error?:string};
       const aerial=await aerialResponse.json() as {
         rows?:DronePanorama[];media?:Array<{id:string;media:StreetRound['media']}>;error?:string;
       };
@@ -121,6 +125,19 @@ export function StreetDetectiveScreen({
         return {id:'aerial:'+row.id,ticket:'',source:'drone' as const,aerial:row,
           media:mediaById.get(row.id)!,credit:{artist:row.artist,license:row.license,source:row.source}};
       });
+      // Aerial rounds are scored on the server too: ask for tickets bound to this tour.
+      tourToken.current=street.tourToken??'';
+      if(tourToken.current){
+        try{
+          const ticketResponse=await fetch(atlasApi('/api/street/aerial-ticket'),{
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({tourToken:tourToken.current,ids:sky.map(row=>row.aerial.id)}),
+          });
+          const issued=await ticketResponse.json() as {tickets?:Record<string,string>};
+          if(ticketResponse.ok&&issued.tickets)
+            for(const row of sky)row.ticket=issued.tickets[row.aerial.id]??'';
+        }catch{/* falls back to on-device scoring; the tour is then not ranked */}
+      }
       const thirdStreet:MixedRound={
         ...street.rounds![(rotation+2)%street.rounds!.length],source:'street',
       };
@@ -164,6 +181,17 @@ export function StreetDetectiveScreen({
           country:place.country,city:'',title:place.name,
           fact:language==='tr'?place.fact:'Explore the architecture and history of this landmark.',
           credit:current.credit};
+      }else if(current.source==='drone'&&current.aerial&&current.ticket){
+        const aerial=current.aerial;
+        const response=await fetch(atlasApi('/api/street/guess'),{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({ticket:current.ticket,guess,hintsUsed:hintCount}),
+        });
+        const result=await response.json() as Reveal & {error?:string};
+        if(!response.ok||typeof result.correct!=='boolean'||!Number.isInteger(result.points))
+          throw new Error(result.error||'Konum tahmini hesaplanamadı.');
+        data={...result,country:aerial.country,city:aerial.city,
+          title:language==='tr'?'Havadan görünüm':'Aerial view',fact:aerial.fact,credit:current.credit};
       }else if(current.source==='drone'&&current.aerial){
         const aerial=current.aerial;
         const actual={lat:aerial.lat,lng:aerial.lng};
@@ -213,6 +241,15 @@ export function StreetDetectiveScreen({
       let data:Clue;
       if(current.source==='drone'&&current.aerial){
         const aerial=current.aerial;
+        // Register the hint on the server so its penalty is applied there.
+        if(current.ticket){
+          try{
+            await fetch(atlasApi('/api/street/hint'),{
+              method:'POST',headers:{'Content-Type':'application/json'},
+              body:JSON.stringify({ticket:current.ticket,level}),
+            });
+          }catch{/* the guess still sends hintsUsed */}
+        }
         if(level===3){
           const options=aerial.choices?.length===4?[...aerial.choices]:[...droneHintChoices(aerial.id)];
           if(options.length!==4)throw new Error('İpucu şu anda yüklenemedi.');
@@ -253,10 +290,23 @@ export function StreetDetectiveScreen({
   const saveOnline=async(finalScore:number)=>{
     if(!backend){setSaveState('offline');return;}
     setSaveState('saving');setSaveError('');
-    try{await submitStreetScore(playerName,finalScore);setSaveState('saved');}
+    try{
+      const receipts=rowsForSave.current.filter(row=>!row.skipped&&row.receipt).map(row=>row.receipt!);
+      if(!tourToken.current||!receipts.length)throw new Error('Bu tur sıralamaya kaydedilemiyor.');
+      const response=await fetch(atlasApi('/api/street/finish'),{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({tourToken:tourToken.current,receipts}),
+      });
+      const cert=await response.json() as StreetScoreCertificate & {error?:string};
+      if(!response.ok||!cert.sig)throw new Error(cert.error||'Skor doğrulanamadı.');
+      if(cert.score!==finalScore)console.warn('Street score differs from server total',finalScore,cert.score);
+      await submitStreetScore(playerName,cert);setSaveState('saved');
+    }
     catch(e){setSaveError(e instanceof Error?e.message:'Skor kaydedilemedi.');setSaveState('error');}
   };
+  const rowsForSave=useRef<Completed[]>([]);
   const finishGame=(rows:Completed[])=>{
+    rowsForSave.current=rows;
     const points=rows.reduce((total,row)=>total+row.points,0);
     setStageAward(awardGeoStars('street','tour',points,STREET_ROUNDS*5000,rows.length===STREET_ROUNDS));
     const best=rememberLocalStreetBest(points);

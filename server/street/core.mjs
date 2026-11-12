@@ -33,25 +33,40 @@ export function send(res, status, data) {
   res.status(status).json(data);
 }
 function mac(value) { return createHmac('sha256', SECRET).update(value).digest('base64url'); }
-export function ticketFor(id) {
-  const expiry = Date.now() + 45 * 60 * 1000;
-  const payload = Buffer.from(JSON.stringify({ id, expiry, nonce: randomUUID() })).toString('base64url');
+// Generic signed token: base64url(JSON) + '.' + HMAC. Every token carries a
+// kind so a ticket can never be replayed as a receipt or a tour token.
+export function signToken(kind, data, ttlMs = 45 * 60 * 1000) {
+  const body = { ...data, k: kind, expiry: Date.now() + ttlMs };
+  const payload = Buffer.from(JSON.stringify(body)).toString('base64url');
   return payload + '.' + mac(payload);
 }
-export function validateTicket(ticket) {
-  if (typeof ticket !== 'string' || ticket.length > 1000) return null;
-  const [payload, signature, excess] = ticket.split('.');
+export function readToken(token, kind) {
+  if (typeof token !== 'string' || token.length > 2000) return null;
+  const [payload, signature, excess] = token.split('.');
   if (!payload || !signature || excess || signature.length !== 43) return null;
   const expected = Buffer.from(mac(payload));
   const supplied = Buffer.from(signature);
   if (supplied.length !== expected.length || !timingSafeEqual(supplied, expected)) return null;
   try {
     const decoded = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
-    if (typeof decoded.id !== 'string' || !Number.isFinite(decoded.expiry) || decoded.expiry < Date.now()) return null;
-    return approvedPanoramas.find(x => x.id === decoded.id) ?? null;
+    if (!Number.isFinite(decoded.expiry) || decoded.expiry < Date.now()) return null;
+    if ((decoded.k ?? 't') !== kind) return null;
+    return decoded;
   } catch { return null; }
 }
-export function publicRound(row) {
+// Round ticket. `tour` binds the ticket to one played tour, `nonce` makes it single-use.
+export function ticketFor(id, tour = null) {
+  return signToken('t', { id, tour, nonce: randomUUID() });
+}
+export function parseTicket(ticket) {
+  const t = readToken(ticket, 't');
+  return t && typeof t.id === 'string' && typeof t.nonce === 'string' ? t : null;
+}
+export function validateTicket(ticket) {
+  const t = parseTicket(ticket);
+  return t ? approvedPanoramas.find(x => x.id === t.id) ?? null : null;
+}
+export function publicRound(row, tour = null) {
   const publicBase = process.env.STREET_R2_PUBLIC_BASE_URL.replace(/\/$/, '');
   // Never expose GPS, city, country, street name or identifying EXIF.
   const media = row.mode === 'multires'
@@ -59,12 +74,12 @@ export function publicRound(row) {
       staticBase: '/street-photos/' + row.id, config: row.multires }
     : { mode: 'equirectangular', image: publicBase + '/' + row.path.replace(/^\/+/, '') };
   return {
-    id: row.id, media, ticket: ticketFor(row.id),
+    id: row.id, media, ticket: ticketFor(row.id, tour),
     credit: { artist: row.artist, license: row.license, source: row.source },
     // Neither answer options nor clue data are shipped before a rewarded hint.
   };
 }
-export function chooseRounds() {
+export function chooseRounds(tour = null) {
   const ready = new Set(approvedPhotoIds);
   // Only show curated and successfully synced photos, never random interiors or
   // nondescript forest paths. Reserve the fifth round for a modest challenge.
@@ -112,7 +127,7 @@ export function chooseRounds() {
   addDistinct(easy,4);
   addDistinct(medium,ROUNDS);
   if(chosen.length<ROUNDS)addDistinct(easy,ROUNDS);
-  return chosen.length === ROUNDS ? chosen.map(publicRound) : null;
+  return chosen.length === ROUNDS ? chosen.map(row => publicRound(row, tour)) : null;
 }
 export function distanceKm(a, b) {
   const rad = Math.PI / 180, dLat = (b.lat - a.lat) * rad, dLon = (b.lng - a.lng) * rad;
