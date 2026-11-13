@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-12",
+  "date": "2026-11-13",
   "eligibleReviewedAlbums": 12,
   "waitingEditorialReview": 22,
   "publishedTodayAlbums": 0,
@@ -13,7 +13,7 @@
     "album-025: HTTP Error 429: Too many requests (f061ab2)",
     "album-026: HTTP Error 429: Too many requests (f061ab2)",
     "album-027: HTTP Error 429: Too many requests (f061ab2)",
-    "album-028: Original image too large for publisher",
+    "album-028: HTTP Error 429: Too many requests (f061ab2)",
     "album-029: HTTP Error 429: Too many requests (f061ab2)",
     "album-030: HTTP Error 429: Too many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)",
     "album-031: HTTP Error 429: Too many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)",
