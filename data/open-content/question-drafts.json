@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-12T12:44:09.742Z",
+  "updatedAt": "2026-11-13T12:14:29.725Z",
   "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
@@ -555,6 +555,136 @@
       "qaStatus": "GPS_preliminary_location_and_visual_review_required",
       "imageCandidateId": "GB-COM-0475858ed928c876",
       "assetPath": "public/open-content/photos/gb-com-0475858ed928c876.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-0ebe1221cfab6003",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Ürdün",
+          "Bolivya",
+          "Japonya",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Cape Town çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Cape_Town_in_July_2018_-_112.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-0ebe1221cfab6003",
+      "assetPath": "public/open-content/photos/gb-com-0ebe1221cfab6003.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-fb5439ca0e83a1fd",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Güney Afrika",
+          "Nepal",
+          "Vietnam",
+          "Tayland"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Cape Town çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:City_Hall,_Darling_Street,_Cape_Town_WLM_2013_v2.JPG",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-fb5439ca0e83a1fd",
+      "assetPath": "public/open-content/photos/gb-com-fb5439ca0e83a1fd.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-12ec4f6de31715fd",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Vietnam",
+          "Kenya",
+          "Peru",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Cape Town çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Ethiopian_Airlines_737_at_CT_airport.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-12ec4f6de31715fd",
+      "assetPath": "public/open-content/photos/gb-com-12ec4f6de31715fd.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-ea012b3332731015",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Ürdün",
+          "Singapur",
+          "Nepal",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Cape Town çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Mutton_tibs_and_injera.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-ea012b3332731015",
+      "assetPath": "public/open-content/photos/gb-com-ea012b3332731015.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-cc95e93222e39aa6",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Bolivya",
+          "Güney Afrika",
+          "Şili",
+          "Senegal"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Santiago çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Agelasticus_thilius,_Santiago,_Chile_01.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-cc95e93222e39aa6",
+      "assetPath": "public/open-content/photos/gb-com-cc95e93222e39aa6.jpg",
       "status": "review_required_not_playable",
       "playable": false
     }
