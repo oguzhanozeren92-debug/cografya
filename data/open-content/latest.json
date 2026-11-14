@@ -1,16 +1,16 @@
 {
   "project": "globriva",
-  "date": "2026-11-13",
+  "date": "2026-11-14",
   "newArchivedImages": 5,
   "newQuestionDrafts": 5,
-  "totalCandidates": 14,
-  "totalDrafts": 24,
+  "totalCandidates": 19,
+  "totalDrafts": 29,
   "newIds": [
-    "GB-COM-0ebe1221cfab6003",
-    "GB-COM-fb5439ca0e83a1fd",
-    "GB-COM-12ec4f6de31715fd",
-    "GB-COM-ea012b3332731015",
-    "GB-COM-cc95e93222e39aa6"
+    "GB-COM-79a6d2f8261d7823",
+    "GB-COM-e67bb7e08d5a2d9e",
+    "GB-COM-0f271a6f82192e6e",
+    "GB-COM-a268b8946446d3b7",
+    "GB-COM-ce94f1e018ef0119"
   ],
   "warnings": [],
   "publishedNow": 0,

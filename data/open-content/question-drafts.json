@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-13T12:14:29.725Z",
+  "updatedAt": "2026-11-14T11:29:05.241Z",
   "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
@@ -685,6 +685,136 @@
       "qaStatus": "GPS_preliminary_location_and_visual_review_required",
       "imageCandidateId": "GB-COM-cc95e93222e39aa6",
       "assetPath": "public/open-content/photos/gb-com-cc95e93222e39aa6.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-79a6d2f8261d7823",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Bolivya",
+          "Nepal",
+          "Güney Kore",
+          "Kolombiya"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı La Paz çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Faceless_(8291399916).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-79a6d2f8261d7823",
+      "assetPath": "public/open-content/photos/gb-com-79a6d2f8261d7823.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-e67bb7e08d5a2d9e",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Singapur",
+          "Bolivya",
+          "Şili",
+          "Güney Kore"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı La Paz çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:In_the_Cold_of_La_Paz_(8269131168).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-e67bb7e08d5a2d9e",
+      "assetPath": "public/open-content/photos/gb-com-e67bb7e08d5a2d9e.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-0f271a6f82192e6e",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Kenya",
+          "Tanzanya",
+          "Bolivya",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı La Paz çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:La_Paz_City_Chaos_(8469318881).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-0f271a6f82192e6e",
+      "assetPath": "public/open-content/photos/gb-com-0f271a6f82192e6e.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-a268b8946446d3b7",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Japonya",
+          "Bolivya",
+          "Şili",
+          "Yeni Zelanda"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı La Paz çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:La_Paz_Hills_(8502362923).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-a268b8946446d3b7",
+      "assetPath": "public/open-content/photos/gb-com-a268b8946446d3b7.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-ce94f1e018ef0119",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Bolivya",
+          "Arjantin",
+          "Tayland",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı La Paz çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Vegetación_del_Cementerio_General_de_La_Paz.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-ce94f1e018ef0119",
+      "assetPath": "public/open-content/photos/gb-com-ce94f1e018ef0119.jpg",
       "status": "review_required_not_playable",
       "playable": false
     }
