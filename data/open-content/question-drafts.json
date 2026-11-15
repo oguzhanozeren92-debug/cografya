@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-14T11:29:05.241Z",
+  "updatedAt": "2026-11-15T11:57:37.436Z",
   "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
@@ -815,6 +815,136 @@
       "qaStatus": "GPS_preliminary_location_and_visual_review_required",
       "imageCandidateId": "GB-COM-ce94f1e018ef0119",
       "assetPath": "public/open-content/photos/gb-com-ce94f1e018ef0119.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-8005a5a831c45f0c",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Japonya",
+          "Çin",
+          "Tanzanya",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Zanzibar (Stone Town) çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Impressions_of_Zanzibar_(30).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-8005a5a831c45f0c",
+      "assetPath": "public/open-content/photos/gb-com-8005a5a831c45f0c.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-50cc6dca8a00bac6",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Kenya",
+          "Singapur",
+          "Tanzanya",
+          "Yeni Zelanda"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Zanzibar (Stone Town) çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Impressions_of_Zanzibar_(7).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-50cc6dca8a00bac6",
+      "assetPath": "public/open-content/photos/gb-com-50cc6dca8a00bac6.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-a23654d044f79b2f",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Kolombiya",
+          "Kenya",
+          "Fas",
+          "Tanzanya"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Zanzibar (Stone Town) çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Impressions_of_Zanzibar_(8).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-a23654d044f79b2f",
+      "assetPath": "public/open-content/photos/gb-com-a23654d044f79b2f.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-902c2ed3ef015c1f",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Tanzanya",
+          "Nepal",
+          "Kolombiya",
+          "Kenya"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Zanzibar (Stone Town) çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Kids_in_Stone_Town,_Zanzibar,_Tanzania_-_panoramio_(1).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-902c2ed3ef015c1f",
+      "assetPath": "public/open-content/photos/gb-com-902c2ed3ef015c1f.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-31e965e424b32035",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Kolombiya",
+          "Arjantin",
+          "Tanzanya",
+          "Çin"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Zanzibar (Stone Town) çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Kids_in_Stone_Town,_Zanzibar,_Tanzania_-_panoramio.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-31e965e424b32035",
+      "assetPath": "public/open-content/photos/gb-com-31e965e424b32035.jpg",
       "status": "review_required_not_playable",
       "playable": false
     }
