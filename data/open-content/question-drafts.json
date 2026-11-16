@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-15T11:57:37.436Z",
+  "updatedAt": "2026-11-16T12:46:30.880Z",
   "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
@@ -945,6 +945,84 @@
       "qaStatus": "GPS_preliminary_location_and_visual_review_required",
       "imageCandidateId": "GB-COM-31e965e424b32035",
       "assetPath": "public/open-content/photos/gb-com-31e965e424b32035.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-078c80c4c8726c44",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Bolivya",
+          "Peru",
+          "Japonya",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Cusco çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Cusco_-_katedrála_-_La_Compaňia_de_Jesus_-_panoramio.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-078c80c4c8726c44",
+      "assetPath": "public/open-content/photos/gb-com-078c80c4c8726c44.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-43abbe5d7ec6df67",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Kolombiya",
+          "Güney Afrika",
+          "Kenya",
+          "Vietnam"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Hanoi çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Hanoi_TV_bus_parked_outside_of_Ho_Hoan_Kiem.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-43abbe5d7ec6df67",
+      "assetPath": "public/open-content/photos/gb-com-43abbe5d7ec6df67.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-514c3764b7958a7d",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Şili",
+          "Yeni Zelanda",
+          "Vietnam",
+          "Çin"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Hanoi çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:View_of_the_tower_in_the_middle_of_Ho_Hoan_Kiem_in_2014.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-514c3764b7958a7d",
+      "assetPath": "public/open-content/photos/gb-com-514c3764b7958a7d.jpg",
       "status": "review_required_not_playable",
       "playable": false
     }
