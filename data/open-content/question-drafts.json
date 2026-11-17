@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-16T12:46:30.880Z",
+  "updatedAt": "2026-11-17T13:28:23.378Z",
   "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
@@ -1023,6 +1023,110 @@
       "qaStatus": "GPS_preliminary_location_and_visual_review_required",
       "imageCandidateId": "GB-COM-514c3764b7958a7d",
       "assetPath": "public/open-content/photos/gb-com-514c3764b7958a7d.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-c92a116e64670521",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Güney Kore",
+          "Kolombiya",
+          "Çin",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Seul çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Q12601204_Seoul_Library_A01.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-c92a116e64670521",
+      "assetPath": "public/open-content/photos/gb-com-c92a116e64670521.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-e27cbca27fae3833",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Singapur",
+          "Nepal",
+          "Senegal",
+          "Peru"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Singapur çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Earth_Hour,_Boat_Quay,_Singapore_(3394722020).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-e27cbca27fae3833",
+      "assetPath": "public/open-content/photos/gb-com-e27cbca27fae3833.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-2951f5cb1a5f5976",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Bolivya",
+          "Japonya",
+          "Singapur",
+          "Ürdün"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Singapur çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Former_Attorney-General's_Chambers,_Singapore_-_20100803-04.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-2951f5cb1a5f5976",
+      "assetPath": "public/open-content/photos/gb-com-2951f5cb1a5f5976.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-143aafb6607f950c",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Japonya",
+          "Nepal",
+          "Tayland",
+          "Singapur"
+        ]
+      },
+      "correctIndex": 3,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Singapur çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Parliament_House_sign,_Singapore_-_20100803.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-143aafb6607f950c",
+      "assetPath": "public/open-content/photos/gb-com-143aafb6607f950c.jpg",
       "status": "review_required_not_playable",
       "playable": false
     }
