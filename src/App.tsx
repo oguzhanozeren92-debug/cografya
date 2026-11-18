@@ -21,7 +21,7 @@ import { ExploreMapScreen } from '@/components/ExploreMapScreen';
 import { ReviveScreen } from '@/components/ReviveScreen';
 import { NotificationSettings } from '@/components/NotificationSettings';
 import { initIosPush, isIosPushSupported, loadPushPreferences, type PushTarget } from '@/lib/iosPush';
-import { isRewardedHeartAvailable, initializeRewardedAds, openAdPrivacyOptions, watchRewardedHeartAd } from '@/lib/rewardedAds';
+import { isRewardedHeartAvailable, initializeRewardedAds, isIosTrackingPermissionResolved, openAdPrivacyOptions, watchRewardedHeartAd } from '@/lib/rewardedAds';
 import { onGameFinished, preloadGameBreakAd } from '@/lib/adPlacements';
 import { syncDiscoveries } from '@/lib/discovery';
 import { signInToGameCenter } from '@/lib/gameCenter';
@@ -87,7 +87,11 @@ function App() {
     // another native modal on iPad and suppress the ATT system alert.
     void initializeRewardedAds()
       .then(ready => { if (mounted) setRewardedAvailable(ready); })
-      .finally(() => { void signInToGameCenter(); });
+      .finally(() => {
+        void isIosTrackingPermissionResolved().then(resolved => {
+          if (resolved) void signInToGameCenter();
+        });
+      });
     return () => { mounted = false; };
   }, []);
 
@@ -102,6 +106,10 @@ function App() {
       if (!isActive) return;
       void initializeRewardedAds().then(ready => {
         if (mounted) setRewardedAvailable(ready);
+      }).finally(() => {
+        void isIosTrackingPermissionResolved().then(resolved => {
+          if (mounted && resolved) void signInToGameCenter();
+        });
       });
     }).then(handle => {
       if (mounted) removeListener = () => handle.remove();
