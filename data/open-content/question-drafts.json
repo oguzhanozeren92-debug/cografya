@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-17T13:28:23.378Z",
+  "updatedAt": "2026-11-18T13:04:06.462Z",
   "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
@@ -1127,6 +1127,32 @@
       "qaStatus": "GPS_preliminary_location_and_visual_review_required",
       "imageCandidateId": "GB-COM-143aafb6607f950c",
       "assetPath": "public/open-content/photos/gb-com-143aafb6607f950c.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-de46c98ae85de90b",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Tanzanya",
+          "Japonya",
+          "Güney Afrika",
+          "Tayland"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Kyoto çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Nakagyo_Ward,_Kyoto,_Kyoto_Prefecture,_Japan_-_panoramio_(22).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-de46c98ae85de90b",
+      "assetPath": "public/open-content/photos/gb-com-de46c98ae85de90b.jpg",
       "status": "review_required_not_playable",
       "playable": false
     }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-17T13:28:23.378Z",
+  "updatedAt": "2026-11-18T13:04:06.462Z",
   "note": "Archived images are not published or playable until visual + factual editorial QA",
   "candidates": [
     {
@@ -927,6 +927,36 @@
       "imageWidth": 1280,
       "imageHeight": 857,
       "archiveVerifiedAt": "2026-11-17T13:28:23.378Z",
+      "rightsStatus": "source_metadata_checked",
+      "visualReview": false,
+      "locationReview": false,
+      "questionReview": false,
+      "published": false,
+      "playable": false
+    },
+    {
+      "id": "GB-COM-de46c98ae85de90b",
+      "provider": "Wikimedia Commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Nakagyo_Ward,_Kyoto,_Kyoto_Prefecture,_Japan_-_panoramio_(22).jpg",
+      "commonsTitle": "File:Nakagyo Ward, Kyoto, Kyoto Prefecture, Japan - panoramio (22).jpg",
+      "cameraGps": {
+        "lat": 35.010833,
+        "lng": 135.768611
+      },
+      "targetCity": "Kyoto",
+      "targetCountry": "Japonya",
+      "region": "East Asia",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "credit": "kajikawa",
+      "description": "Nakagyo Ward, Kyoto, Kyoto Prefecture, Japan",
+      "sourceSha1": "8a69c0541254644e00cccdf301785b6ba01e3de1",
+      "reviewReason": "GPS belongs to camera, not necessarily the depicted landmark; city and scene require editorial validation",
+      "assetPath": "public/open-content/photos/gb-com-de46c98ae85de90b.jpg",
+      "sha256": "e09d12d3977ead6fa2a599038da35bb4c79d5ca6e4c884951d161cf37c8c1073",
+      "imageWidth": 1280,
+      "imageHeight": 960,
+      "archiveVerifiedAt": "2026-11-18T13:04:06.462Z",
       "rightsStatus": "source_metadata_checked",
       "visualReview": false,
       "locationReview": false,
