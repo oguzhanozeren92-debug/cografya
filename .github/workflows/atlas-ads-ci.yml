@@ -6,6 +6,10 @@ on:
       - 'src/lib/adPlacements.ts'
       - 'src/lib/rewardedAds.ts'
       - 'src/App.tsx'
+      - 'src/main.tsx'
+      - 'tests/appstore-privacy-flow.test.mjs'
+      - 'scripts/configure-admob-native.mjs'
+      - 'codemagic.yaml'
       - 'src/components/StreetDetectiveScreen.tsx'
       - 'src/components/DroneDetectiveScreen.tsx'
       - 'src/components/DailyChallengeScreen.tsx'
@@ -25,6 +29,7 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: node --test tests/appstore-privacy-flow.test.mjs
       - run: npm run typecheck
       - run: npm run build
       - run: node --check scripts/validate-admob-release.mjs
