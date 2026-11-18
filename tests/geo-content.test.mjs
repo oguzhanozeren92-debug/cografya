@@ -29,10 +29,12 @@ const normalize=s=>String(s||'').toLocaleLowerCase('tr-TR')
   .replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 const currentIds=new Set(approvedPhotoIds);
 
-test('63 unique natural locations, 21 per level, with safe coordinates and real fact links',()=>{
-  assert.equal(geo.NATURE_POINTS.length,63);
-  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,57);
-  for(const level of [1,2,3])assert.equal(geo.NATURE_POINTS.filter(x=>x.level===level).length,21);
+test('natural locations are unique, balanced across levels and have safe coordinates',()=>{
+  assert.ok(geo.NATURE_POINTS.length>=63,'natural locations unexpectedly removed');
+  assert.equal(new Set(geo.NATURE_POINTS.map(x=>x.id)).size,geo.NATURE_POINTS.length,'duplicate nature ID');
+  const tierCounts=[1,2,3].map(level=>geo.NATURE_POINTS.filter(x=>x.level===level).length);
+  assert.ok(Math.min(...tierCounts)>=21,'a nature tier has too few locations');
+  assert.ok(Math.max(...tierCounts)-Math.min(...tierCounts)<=1,'nature tiers are unbalanced');
   for(const p of geo.NATURE_POINTS){
     assert.ok(Number.isFinite(p.lat)&&Math.abs(p.lat)<=90,p.id+' lat');
     assert.ok(Number.isFinite(p.lon)&&Math.abs(p.lon)<=180,p.id+' lon');
@@ -67,9 +69,9 @@ test('new 1 November nature additions have unique names, bilingual learning and 
   }
 });
 
-test('96 country clue cards use real country IDs, correct tiers and never name the answer',()=>{
+test('country clue cards use real country IDs, correct tiers and never name the answer',()=>{
   const cards=Object.values(clues.COUNTRY_CLUES);
-  assert.equal(cards.length,96);
+  assert.ok(cards.length>=96,'country clue inventory unexpectedly shrank');
   assert.equal(new Set(cards.map(x=>x.countryId)).size,cards.length);
   // Never disclose a country's name before the player answers, including
   // cases where the capital has exactly the same name as the country.
@@ -136,9 +138,10 @@ test('1 November new country clues have matching difficulty and localized landma
   }
 });
 
-test('all 38 approved Street archive panoramas have fallback faces',()=>{
+test('all approved Street archive panoramas have fallback faces',()=>{
   const approved=approvedPanoramas.filter(x=>x.approved&&currentIds.has(x.id));
-  assert.equal(approved.length,38);
+  assert.ok(approved.length>=38,'approved Street archive unexpectedly shrank');
+  assert.equal(new Set(approved.map(x=>x.id)).size,approved.length,'duplicate Street photo ID');
   for(const p of approved)for(const face of ['f','r','b','l']){
     assert.ok(existsSync(resolve(root,'public/street-photos',p.id,face+'.jpg')),
       p.id+'/'+face+' missing');
