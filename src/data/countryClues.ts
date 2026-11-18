@@ -1019,7 +1019,7 @@ const cards: CountryClueCard[] = [
     "clues": [
       "Batı Avrupa'da Belçika, Almanya ve Fransa arasında kalan küçük bir ülkedir.",
       "Schengen köyü ve aynı adı taşıyan kale, Moselle Nehri kıyısındadır.",
-      "Başkentinin adı Lüksemburg'dur."
+      "Avrupa Birliği Adalet Divanı'nın merkezi bu ülkenin başkentindedir."
     ],
     "fact": "Schengen köyü, Avrupa'da sınır geçişleriyle ilgili Schengen Anlaşması'na adını vermiştir.",
     "sourceUrl": "https://funes.world/highlights"
