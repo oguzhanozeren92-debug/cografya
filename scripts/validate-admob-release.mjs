@@ -21,6 +21,9 @@ for (const platform of platforms) {
   if (!appId || !/^ca-app-pub-\d{16}~\d{10}$/.test(appId) || appId.includes('3940256099942544')) {
     throw new Error(`Missing real ${platform} AdMob App ID.`);
   }
+  if (platform === 'ios' && !/<key>NSUserTrackingUsageDescription<\/key>\s*<string>[^<]+<\/string>/.test(contents)) {
+    throw new Error('iOS AppTrackingTransparency usage description missing from Info.plist.');
+  }
   const envKey = platform === 'android' ? 'VITE_ADMOB_REWARDED_ANDROID_ID' : 'VITE_ADMOB_REWARDED_IOS_ID';
   const unit = readSetting(envKey);
   if (!unit || !/^ca-app-pub-\d{16}\/\d{10}$/.test(unit) || unit.includes('3940256099942544')) {
