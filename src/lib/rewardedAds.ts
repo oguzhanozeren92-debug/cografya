@@ -5,6 +5,7 @@
  * and its OWN rewarded ad unit IDs in the Vite build environment.
  */
 import { Capacitor } from '@capacitor/core';
+import { App as NativeApp } from '@capacitor/app';
 import { AdMob, AdmobConsentStatus } from '@capacitor-community/admob';
 
 const TEST_IOS = 'ca-app-pub-3940256099942544/1712485313';
@@ -38,41 +39,69 @@ export function canConfigureNativeAds(): boolean {
 }
 
 /**
- * UMP privacy consent is refreshed at launch. Google Mobile Ads is initialized
- * only after the SDK confirms that ads may be requested (v8.2 consent flow).
+ * iOS needs an active scene before it can present the system ATT alert.
+ * A notDetermined status after requesting means the dialog was suppressed;
+ * do not initialize the ads SDK until iOS actually resolves the decision.
+ * Both "denied" and "restricted" are valid decisions; gameplay is unaffected.
+ */
+async function resolveIosTrackingBeforeAds(): Promise<boolean> {
+  if (Capacitor.getPlatform() !== 'ios') return true;
+  try {
+    const current = await AdMob.trackingAuthorizationStatus();
+    if (current.status !== 'notDetermined') return true;
+
+    // Allow Capacitor's first frame / iPad scene activation to finish.
+    // Calling ATT while the app is inactive silently suppresses the alert.
+    await new Promise<void>(resolve => setTimeout(resolve, 450));
+    if (!(await NativeApp.getState()).isActive) {
+      console.warn('[Globriva] ATT ertelendi: uygulama ön planda değil');
+      return false;
+    }
+
+    await AdMob.requestTrackingAuthorization();
+    const next = await AdMob.trackingAuthorizationStatus();
+    if (next.status === 'notDetermined') {
+      console.warn('[Globriva] ATT henüz sonuçlanmadı; reklam başlatılmadı');
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.warn('[Globriva] ATT durumu doğrulanamadı; reklam başlatılmadı', error);
+    return false;
+  }
+}
+
+/**
+ * ATT is resolved BEFORE UMP, Mobile Ads initialization, or any ad request.
+ * This is independent of whether UMP requires a consent form in the user's
+ * country. If iOS suppresses the system alert, the SDK stays uninitialized;
+ * the foreground listener in App.tsx retries the flow on resume.
  */
 export async function initializeNativeAdSdk(): Promise<boolean> {
   if (!Capacitor.isNativePlatform() || !['ios','android'].includes(Capacitor.getPlatform())) return false;
   if (initialized) return true;
   if (initializing) return initializing;
   initializing = (async () => {
-    // A consent lookup error (network, AdMob privacy setup) must not disable
-    // ads where no consent is required; only an explicit "cannot request"
-    // decision from the SDK stops ad requests.
+    if (!(await resolveIosTrackingBeforeAds())) return false;
+
     try {
       let consent = await AdMob.requestConsentInfo();
       if (consent.isConsentFormAvailable && consent.status === AdmobConsentStatus.REQUIRED) {
         consent = await AdMob.showConsentForm();
       }
+      // Only UMP can authorize requesting ads. Never bypass a denied/unknown
+      // consent decision when its network request or privacy form fails.
       if (!consent.canRequestAds) return false;
     } catch (error) {
-      console.warn('[Globriva] Reklam izin bilgisi alınamadı', error);
+      console.warn('[Globriva] Reklam gizlilik onayı tamamlanamadı; reklam başlatılmadı', error);
+      return false;
     }
-    // iOS App Tracking Transparency: ask once, after the privacy (UMP) form.
-    // Ads still load when the player declines (non-personalized).
-    if (Capacitor.getPlatform() === 'ios') {
-      try {
-        const { status } = await AdMob.trackingAuthorizationStatus();
-        if (status === 'notDetermined') await AdMob.requestTrackingAuthorization();
-      } catch (error) {
-        console.warn('[Globriva] ATT izni sorulamadı', error);
-      }
-    }
+
     await AdMob.initialize();
     initialized = true;
     return true;
   })().catch((error: unknown) => {
-    console.warn('[Coğrafya] Ödüllü reklam başlatılamadı', error);
+    console.warn('[Globriva] Reklam SDK başlatılamadı', error);
     return false;
   }).finally(() => { initializing = null; });
   return initializing;
