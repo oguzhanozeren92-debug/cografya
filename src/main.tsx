@@ -8,7 +8,11 @@ import './mobile.css';
 // Private admin route is code-split; it is never mounted while playing.
 const AdminDashboard = lazy(() => import('./components/AdminDashboard.tsx')
   .then(module => ({default:module.AdminDashboard})));
-const adminRoute = window.location.hash === '#admin';
+import { Capacitor } from '@capacitor/core';
+
+// The developer-only analytics dashboard is web-only. Never expose an
+// undisclosed admin interface inside the iOS/Android App Store binaries.
+const adminRoute = !Capacitor.isNativePlatform() && window.location.hash === '#admin';
 
 class AppStartupBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false };
