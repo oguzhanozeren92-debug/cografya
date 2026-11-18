@@ -56,7 +56,7 @@ test('4 November additions have UNESCO sources, learning notes and comparable op
   }
   for(const level of [1,2,3]){
     const source=data.slice(data.indexOf('export const NATURE_POINTS'),data.indexOf('export const NATURE_SOURCE'));
-    const matches=[...source.matchAll(/"id":\\s*"(okavango-delta|wadi-rum|namib-sand-sea)"[\\s\\S]*?"level":\\s*([123])/g)];
+    const matches=[...source.matchAll(/"id":\s*"(okavango-delta|wadi-rum|namib-sand-sea)"[\s\S]*?"level":\s*([123])/g)];
     assert.equal(matches.filter(m=>Number(m[2])===level).length,1,'new tier imbalance '+level);
   }
 });
