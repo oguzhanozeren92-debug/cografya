@@ -39,6 +39,20 @@ export function canConfigureNativeAds(): boolean {
 }
 
 /**
+ * Game Center must not present a competing system sheet while ATT is pending.
+ * SDK initialization may fail for unrelated UMP/network reasons after ATT
+ * has already been answered, so check authorization independently.
+ */
+export async function isIosTrackingPermissionResolved(): Promise<boolean> {
+  if (!Capacitor.isNativePlatform() || Capacitor.getPlatform() !== 'ios') return true;
+  try {
+    return (await AdMob.trackingAuthorizationStatus()).status !== 'notDetermined';
+  } catch {
+    return false;
+  }
+}
+
+/**
  * iOS needs an active scene before it can present the system ATT alert.
  * A notDetermined status after requesting means the dialog was suppressed;
  * do not initialize the ads SDK until iOS actually resolves the decision.
