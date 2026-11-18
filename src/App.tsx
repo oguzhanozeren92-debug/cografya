@@ -83,8 +83,31 @@ function App() {
 
   useEffect(() => {
     let mounted = true;
-    void initializeRewardedAds().then(ready => { if (mounted) setRewardedAvailable(ready); });
+    // Resolve the ATT / UMP privacy flow before Game Center can present
+    // another native modal on iPad and suppress the ATT system alert.
+    void initializeRewardedAds()
+      .then(ready => { if (mounted) setRewardedAvailable(ready); })
+      .finally(() => { void signInToGameCenter(); });
     return () => { mounted = false; };
+  }, []);
+
+  // iPadOS can ignore ATT while the scene is still becoming active.
+  // Retry consent on the next foreground transition; do not require users to
+  // close/reopen Globriva, and never request ads before consent completes.
+  useEffect(() => {
+    if (Capacitor.getPlatform() !== 'ios') return;
+    let mounted = true;
+    let removeListener: (() => Promise<void>) | undefined;
+    void NativeApp.addListener('appStateChange', ({ isActive }) => {
+      if (!isActive) return;
+      void initializeRewardedAds().then(ready => {
+        if (mounted) setRewardedAvailable(ready);
+      });
+    }).then(handle => {
+      if (mounted) removeListener = () => handle.remove();
+      else void handle.remove();
+    }).catch(error => console.warn('[Globriva] ATT foreground listener:', error));
+    return () => { mounted = false; void removeListener?.(); };
   }, []);
   const showAdPrivacy = async () => {
     try {
@@ -118,8 +141,7 @@ function App() {
   useEffect(() => { void syncDiscoveries(); }, []);
   // Warm only a configured native interstitial. Never delay game navigation for ads.
   useEffect(() => { void preloadGameBreakAd(); }, []);
-  // Apple recommends signing in to Game Center at launch; no-op outside the iOS app.
-  useEffect(() => { void signInToGameCenter(); }, []);
+  // Game Center now starts after privacy authorization above.
   const [weeklyMode, setWeeklyMode] = useState<GameMode>('mixed');
   useEffect(() => {
     if (!isIosPushSupported()) return;
