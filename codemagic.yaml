@@ -17,6 +17,7 @@ workflows:
         script: |
           set -euo pipefail
           node scripts/check-i18n.mjs
+          node --test tests/appstore-privacy-flow.test.mjs
           node --test tests/street/country-mode.test.mjs
           node --experimental-strip-types --test tests/drone/hints.test.mjs
           npm run typecheck
@@ -131,6 +132,7 @@ workflows:
           set +a
           npm ci --no-audit --no-fund
           node scripts/check-i18n.mjs
+          node --test tests/appstore-privacy-flow.test.mjs
           node --test tests/street/country-mode.test.mjs
           node --experimental-strip-types --test tests/drone/hints.test.mjs
           npm run typecheck
