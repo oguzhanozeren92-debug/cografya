@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-18T13:04:06.462Z",
+  "updatedAt": "2026-11-19T13:10:28.292Z",
   "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
@@ -1153,6 +1153,110 @@
       "qaStatus": "GPS_preliminary_location_and_visual_review_required",
       "imageCandidateId": "GB-COM-de46c98ae85de90b",
       "assetPath": "public/open-content/photos/gb-com-de46c98ae85de90b.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-ae04fae9644963a6",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Çin",
+          "Senegal",
+          "Japonya",
+          "Nepal"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Pekin çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Beijing_Cbd_China_(246466607).jpeg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-ae04fae9644963a6",
+      "assetPath": "public/open-content/photos/gb-com-ae04fae9644963a6.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-6de6e3e691159b8b",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Vietnam",
+          "Çin",
+          "Ürdün",
+          "Kolombiya"
+        ]
+      },
+      "correctIndex": 1,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Pekin çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:北京市_(196582415).jpeg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-6de6e3e691159b8b",
+      "assetPath": "public/open-content/photos/gb-com-6de6e3e691159b8b.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-95c5c813bba44507",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Yeni Zelanda",
+          "Güney Afrika",
+          "Nepal",
+          "Fas"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Katmandu çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Drubgon_Jangchup_choeling_Gumba_Shree_Gha_Naghal_Tole_Thahity_Kathmandu_Nepal_Rajesh_Dhungana.jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-95c5c813bba44507",
+      "assetPath": "public/open-content/photos/gb-com-95c5c813bba44507.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-1b23293e58d22bf9",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Şili",
+          "Fas",
+          "Nepal",
+          "Peru"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Katmandu çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Kuleshwor_Mahadev_Temple_Kuleshwor_Kathmandu_Nepal_Rajesh_Dhungana_(6).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-1b23293e58d22bf9",
+      "assetPath": "public/open-content/photos/gb-com-1b23293e58d22bf9.jpg",
       "status": "review_required_not_playable",
       "playable": false
     }

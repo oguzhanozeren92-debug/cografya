@@ -1,12 +1,15 @@
 {
   "project": "globriva",
-  "date": "2026-11-18",
-  "newArchivedImages": 1,
-  "newQuestionDrafts": 1,
-  "totalCandidates": 32,
-  "totalDrafts": 42,
+  "date": "2026-11-19",
+  "newArchivedImages": 4,
+  "newQuestionDrafts": 4,
+  "totalCandidates": 36,
+  "totalDrafts": 46,
   "newIds": [
-    "GB-COM-de46c98ae85de90b"
+    "GB-COM-ae04fae9644963a6",
+    "GB-COM-6de6e3e691159b8b",
+    "GB-COM-95c5c813bba44507",
+    "GB-COM-1b23293e58d22bf9"
   ],
   "warnings": [],
   "publishedNow": 0,
