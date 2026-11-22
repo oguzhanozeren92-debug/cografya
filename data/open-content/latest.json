@@ -1,11 +1,13 @@
 {
   "project": "globriva",
-  "date": "2026-11-21",
-  "newArchivedImages": 0,
-  "newQuestionDrafts": 0,
-  "totalCandidates": 36,
-  "totalDrafts": 46,
-  "newIds": [],
+  "date": "2026-11-22",
+  "newArchivedImages": 1,
+  "newQuestionDrafts": 1,
+  "totalCandidates": 37,
+  "totalDrafts": 47,
+  "newIds": [
+    "GB-COM-c6cce19dd1498607"
+  ],
   "warnings": [],
   "publishedNow": 0,
   "playableNow": 0

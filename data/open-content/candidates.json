@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-21T12:40:58.527Z",
+  "updatedAt": "2026-11-22T12:36:32.099Z",
   "note": "Archived images are not published or playable until visual + factual editorial QA",
   "candidates": [
     {
@@ -1077,6 +1077,36 @@
       "imageWidth": 1280,
       "imageHeight": 894,
       "archiveVerifiedAt": "2026-11-19T13:10:28.292Z",
+      "rightsStatus": "source_metadata_checked",
+      "visualReview": false,
+      "locationReview": false,
+      "questionReview": false,
+      "published": false,
+      "playable": false
+    },
+    {
+      "id": "GB-COM-c6cce19dd1498607",
+      "provider": "Wikimedia Commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Basantapur_Durbar_Hanumandhoka_Durbar_Basantapur_Kathmandu_Nepal_Rajesh_Dhungana_(2).jpg",
+      "commonsTitle": "File:Basantapur Durbar Hanumandhoka Durbar Basantapur Kathmandu Nepal Rajesh Dhungana (2).jpg",
+      "cameraGps": {
+        "lat": 27.7172,
+        "lng": 85.324
+      },
+      "targetCity": "Katmandu",
+      "targetCountry": "Nepal",
+      "region": "South Asia",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "credit": "Rajesh Dhungana",
+      "description": "Basantapur is located near Durbar Square in Hanumandhoka, a historical area of Kathmandu. The Gaddi Baitak, a nine-storey palace and other buildings in the premises of this Basantapur i.e. Hanumandhoka were in an ugly condition due to the 2",
+      "sourceSha1": "9d22e34de4451dfed550837ae10bf4f9267e5620",
+      "reviewReason": "GPS belongs to camera, not necessarily the depicted landmark; city and scene require editorial validation",
+      "assetPath": "public/open-content/photos/gb-com-c6cce19dd1498607.jpg",
+      "sha256": "afc1e5e0786df74b37db56a87b5e74aacbd72789999851359a0c0e642baa5214",
+      "imageWidth": 1280,
+      "imageHeight": 739,
+      "archiveVerifiedAt": "2026-11-22T12:36:32.099Z",
       "rightsStatus": "source_metadata_checked",
       "visualReview": false,
       "locationReview": false,

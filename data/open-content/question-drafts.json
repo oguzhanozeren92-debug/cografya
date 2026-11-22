@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "globriva",
-  "updatedAt": "2026-11-21T12:40:58.527Z",
+  "updatedAt": "2026-11-22T12:36:32.099Z",
   "note": "Draft-only: cannot be loaded as a player question bank",
   "questions": [
     {
@@ -1257,6 +1257,32 @@
       "qaStatus": "GPS_preliminary_location_and_visual_review_required",
       "imageCandidateId": "GB-COM-1b23293e58d22bf9",
       "assetPath": "public/open-content/photos/gb-com-1b23293e58d22bf9.jpg",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GQ-c6cce19dd1498607",
+      "category": "visual-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Bu fotoğrafın çekildiği şehrin bulunduğu ülke hangisidir?"
+      },
+      "choices": {
+        "tr": [
+          "Yeni Zelanda",
+          "Singapur",
+          "Nepal",
+          "Güney Afrika"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Kaynak görüntünün konum kaydı Katmandu çevresini gösteriyor; yer ve fotoğraf editör tarafından doğrulanmalıdır."
+      },
+      "factSource": "https://commons.wikimedia.org/wiki/File:Basantapur_Durbar_Hanumandhoka_Durbar_Basantapur_Kathmandu_Nepal_Rajesh_Dhungana_(2).jpg",
+      "qaStatus": "GPS_preliminary_location_and_visual_review_required",
+      "imageCandidateId": "GB-COM-c6cce19dd1498607",
+      "assetPath": "public/open-content/photos/gb-com-c6cce19dd1498607.jpg",
       "status": "review_required_not_playable",
       "playable": false
     }
