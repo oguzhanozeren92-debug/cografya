@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "project": "Globriva",
+  "createdAt": "2026-11-24",
+  "purpose": "Review-only candidate pack. This file is not imported by the player question loader.",
+  "sourcePolicy": "Facts paraphrased from primary UNESCO World Heritage / Intangible Cultural Heritage and Convention on Biological Diversity sources. No source image is bundled.",
+  "status": "review_required_not_playable",
+  "playable": false,
+  "candidates": [
+    {
+      "id": "GLO-20261124-CITY-01",
+      "category": "city",
+      "subcategory": "medieval-rock-cut-architecture",
+      "difficulty": "easy",
+      "question": {
+        "tr": "UNESCO Dünya Mirası'ndaki kayaya oyulmuş 11 Orta Çağ kilisesi hangi Etiyopya kentindedir?",
+        "en": "In which Ethiopian town are the 11 medieval rock-hewn churches on UNESCO's World Heritage List located?"
+      },
+      "choices": {
+        "tr": [
+          "Lalibela",
+          "Gondar",
+          "Aksum",
+          "Harar"
+        ],
+        "en": [
+          "Lalibela",
+          "Gondar",
+          "Aksum",
+          "Harar"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Lalibela'daki 11 monolitik kilise, 12. ve 13. yüzyıllarda doğrudan kaya kütlesinden oyulmuştur. Alan bugün de önemli bir hac ve ibadet merkezidir.",
+        "en": "The 11 monolithic churches at Lalibela were carved directly from rock in the 12th and 13th centuries. The site remains an important place of pilgrimage and worship."
+      },
+      "factSource": "https://whc.unesco.org/en/list/18",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No matching prompt in the 47 existing visual-geography drafts; no photo-location question reused.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261124-CULT-01",
+      "category": "culture",
+      "subcategory": "shadow-puppet-theatre",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Wayang kulit gösterisinde, düz deri kuklaların gölgeleri izleyiciye nasıl yansıtılır?",
+        "en": "In wayang kulit, how are the shadows of the flat leather puppets projected for the audience?"
+      },
+      "choices": {
+        "tr": [
+          "Arkadan aydınlatılan bir perdeye",
+          "Su dolu bir yüzeye",
+          "Aynalı bir kubbeye",
+          "Renkli cam pencerelere"
+        ],
+        "en": [
+          "Onto a screen lit from behind",
+          "Onto a water surface",
+          "Onto a mirrored dome",
+          "Through stained-glass windows"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Wayang kulit, deriden yapılan düz kuklaların arkadan aydınlatılan perdeye gölge düşürmesiyle oynanır. Dalang kuklaları yönetir; gamelan müziği anlatıya eşlik eder.",
+        "en": "Wayang kulit uses flat leather puppets whose shadows are projected onto a screen lit from behind. A dalang manipulates the puppets, accompanied by gamelan music."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/wayang-kulit-00063",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No matching culture or visual question found in the existing 47 review drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261124-CULT-02",
+      "category": "culture",
+      "subcategory": "polyphonic-vocal-tradition",
+      "difficulty": "hard",
+      "question": {
+        "tr": "UNESCO'ya göre Doğu Gürcistan'daki Kakheti bölgesinde yaygın olan çok sesli şarkı biçimi hangisidir?",
+        "en": "According to UNESCO, which form of polyphonic singing is prevalent in Kakheti in eastern Georgia?"
+      },
+      "choices": {
+        "tr": [
+          "Bas eşliğinde çok sesli diyalog",
+          "Yalnızca tek sesli ezgi",
+          "Üç kısmen doğaçlama sesin karşıtlığı",
+          "Sözsüz vurmalı ritim"
+        ],
+        "en": [
+          "Polyphonic dialogue over a bass background",
+          "A single-voice melody only",
+          "Contrasted singing with three partly improvised parts",
+          "Wordless percussion rhythm"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO, Kakheti'de bas eşliğinde çok sesli diyaloğu; Svaneti'de karmaşık çok sesliliği; batı Gürcistan'da ise üç kısmen doğaçlama sesin karşıtlığını ayırt eder.",
+        "en": "UNESCO distinguishes bass-supported polyphonic dialogue in Kakheti, complex polyphony in Svaneti, and contrasted singing with three partly improvised parts in western Georgia."
+      },
+      "factSource": "https://ich.unesco.org/en/RL/georgian-polyphonic-singing-00008?RL=00008",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No matching music or culture prompt found in the existing 47 review drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261124-CIV-01",
+      "category": "civilization",
+      "subcategory": "southern-african-archaeology",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Great Zimbabwe taş kalıntıları, 11.-15. yüzyıllar arasında hangi halkın uygarlığına tanıklık eder?",
+        "en": "The stone ruins of Great Zimbabwe bear witness to the civilization of which people between the 11th and 15th centuries?"
+      },
+      "choices": {
+        "tr": [
+          "Shona",
+          "Zulu",
+          "Akan",
+          "Svahili"
+        ],
+        "en": [
+          "Shona",
+          "Zulu",
+          "Akan",
+          "Swahili"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO, alanın yaklaşık 1100-1450 arasında inşa edildiğini ve Shona halkının önemli bir ticaret merkezi olduğunu belirtir.",
+        "en": "UNESCO dates the site to approximately 1100–1450 and identifies it as an important trading centre of the Shona people."
+      },
+      "factSource": "https://whc.unesco.org/en/list/364",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No matching archaeological-site prompt found in the existing 47 review drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261124-ISLAND-01",
+      "category": "island",
+      "subcategory": "rapa-nui-material-culture",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Rapa Nui'deki moai heykellerinin çoğu hangi kayaçtan yontulmuştur?",
+        "en": "What type of rock was used to carve most of the moai statues on Rapa Nui?"
+      },
+      "choices": {
+        "tr": [
+          "Sarı-kahverengi volkanik tüf",
+          "Granit",
+          "Mermer",
+          "Bazalt"
+        ],
+        "en": [
+          "Yellow-brown volcanic tuff",
+          "Granite",
+          "Marble",
+          "Basalt"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO, moai heykellerinin çoğunun sarı-kahverengi lav tüfünden yontulduğunu belirtir. Sert bazalt ise heykelleri oymakta kullanılan toki aletlerinin malzemesidir.",
+        "en": "UNESCO notes that most moai were carved from yellow-brown lava tuff. Hard basalt was used for the toki tools that carved the statues."
+      },
+      "factSource": "https://whc.unesco.org/en/list/715/",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No matching moai-material question found in the existing 47 review drafts or current nature-location prompts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261124-NATURE-01",
+      "category": "nature",
+      "subcategory": "endemic-freshwater-fish",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Malavi Gölü'nün kayalık kıyılarında yaşayan ve yerel olarak 'mbuna' denilen balıklar hangi gruptandır?",
+        "en": "The rock-dwelling fish of Lake Malawi locally known as 'mbuna' belong to which group?"
+      },
+      "choices": {
+        "tr": [
+          "Çiklitler",
+          "Somonlar",
+          "Mersin balıkları",
+          "Uskumrular"
+        ],
+        "en": [
+          "Cichlids",
+          "Salmonids",
+          "Sturgeons",
+          "Mackerels"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO'ya göre mbuna, Malavi Gölü'nün kayalık kıyılarında yaşayan çiklit balıklarıdır. 350'den fazla mbuna türünün neredeyse tamamı bu göle özgüdür.",
+        "en": "UNESCO identifies mbuna as cichlids living along Lake Malawi's rocky shores. Nearly all of more than 350 mbuna species are endemic to the lake."
+      },
+      "factSource": "https://whc.unesco.org/en/list/289",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "The current nature mode asks players to locate Lake Malawi; this is a distinct species/ecology question, not a repeated location prompt.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261124-BORDER-01",
+      "category": "border",
+      "subcategory": "maritime-geography",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Mozambik Kanalı'nın doğu sınırını hangi kıyı oluşturur?",
+        "en": "Which coast forms the eastern boundary of the Mozambique Channel?"
+      },
+      "choices": {
+        "tr": [
+          "Madagaskar'ın batı kıyısı",
+          "Mozambik'in doğu kıyısı",
+          "Komor Adaları'nın batı kıyısı",
+          "Tanzanya'nın doğu kıyısı"
+        ],
+        "en": [
+          "The west coast of Madagascar",
+          "The east coast of Mozambique",
+          "The west coast of the Comoros",
+          "The east coast of Tanzania"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Biyolojik Çeşitlilik Sözleşmesi'nin deniz alanı tanımında kanalın doğu sınırı Madagaskar'ın batı kıyısı, batı sınırı ise Afrika'nın güneydoğu kıyısı olarak verilir.",
+        "en": "The Convention on Biological Diversity's marine-area description places the west coast of Madagascar on the channel's eastern side and the southeastern African coast on its western side."
+      },
+      "factSource": "https://www.cbd.int/marine/ebsa/booklet-03-sio-en.pdf",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No matching maritime-boundary prompt found in the existing 47 review drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    }
+  ]
+}
