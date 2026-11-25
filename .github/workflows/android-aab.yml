@@ -1,0 +1,133 @@
+# Globriva — Android AAB for Google Play (closed testing).
+# Runs only by hand (Actions → "Globriva — Android AAB" → Run workflow)
+# or when this file changes on the android-aab branch. Never on pull requests,
+# so secrets are never exposed to forks of this public repository.
+#
+# Required GitHub secrets (Settings → Secrets and variables → Actions → Secrets):
+#   ANDROID_KEYSTORE_BASE64   base64 of the upload keystore (.jks)
+#   ANDROID_KEYSTORE_PASSWORD keystore + key password
+#   ANDROID_KEY_ALIAS         key alias (upload)
+# Optional GitHub variables (… → Variables), public AdMob IDs for Android:
+#   ADMOB_APP_ID_ANDROID, VITE_ADMOB_REWARDED_ANDROID_ID, VITE_ADMOB_INTERSTITIAL_ANDROID_ID
+# Without ADMOB_APP_ID_ANDROID, Google's sample App ID is used and no ads are shown.
+name: Globriva — Android AAB
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: 'Version name shown in Play (e.g. 1.0.0)'
+        required: true
+        default: '1.0.0'
+  push:
+    branches: [android-aab]
+    paths:
+      - '.github/workflows/android-aab.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-aab
+  cancel-in-progress: true
+
+jobs:
+  aab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VITE_ATLAS_API_ORIGIN: https://atlas-arena-tau.vercel.app
+      VITE_ADMOB_USE_TEST_ADS: 'false'
+      ADMOB_APP_ID_ANDROID: ${{ vars.ADMOB_APP_ID_ANDROID }}
+      VITE_ADMOB_REWARDED_ANDROID_ID: ${{ vars.VITE_ADMOB_REWARDED_ANDROID_ID }}
+      VITE_ADMOB_INTERSTITIAL_ANDROID_ID: ${{ vars.VITE_ADMOB_INTERSTITIAL_ANDROID_ID }}
+      VERSION_NAME: ${{ github.event.inputs.version_name || '1.0.0' }}
+      # Play requires a strictly increasing integer for every upload.
+      VERSION_CODE: ${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Load public Supabase client settings
+        run: node scripts/sync-public-vs-config.mjs
+
+      - name: Install and build web app
+        run: |
+          set -euo pipefail
+          set -a; . ./.env.production.local; set +a
+          npm ci --no-audit --no-fund
+          node scripts/check-i18n.mjs
+          npm run typecheck
+          npm run build
+          test -f dist/index.html
+
+      - name: Generate Android project, icons and AdMob ID
+        run: |
+          set -euo pipefail
+          npx cap add android
+          npx cap sync android
+          mkdir -p assets
+          cp resources/icon.png assets/icon-only.png
+          npx --yes @capacitor/assets generate --android \
+            --iconBackgroundColor '#060818' --splashBackgroundColor '#060818'
+          if [ -z "${ADMOB_APP_ID_ANDROID}" ]; then
+            echo "::warning::ADMOB_APP_ID_ANDROID not set: using Google's sample App ID; no ads will show in this build."
+            export ADMOB_USE_GOOGLE_TEST_APP_IDS=true
+          fi
+          node scripts/configure-admob-native.mjs
+
+      - name: Set version
+        run: |
+          set -euo pipefail
+          f=android/app/build.gradle
+          sed -i -E "s/versionCode [0-9]+/versionCode ${VERSION_CODE}/" "$f"
+          sed -i -E "s/versionName \"[^\"]*\"/versionName \"${VERSION_NAME}\"/" "$f"
+          grep -nE "applicationId|versionCode|versionName|targetSdk" "$f" android/variables.gradle || true
+
+      - name: Build release AAB
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon bundleRelease
+
+      - name: Sign AAB with upload key
+        env:
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KS_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KS_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          set -euo pipefail
+          src=android/app/build/outputs/bundle/release/app-release.aab
+          out="globriva-${VERSION_NAME}-${VERSION_CODE}.aab"
+          if [ -z "${KS_B64}" ] || [ -z "${KS_PASS}" ]; then
+            echo "::error::ANDROID_KEYSTORE_BASE64 / ANDROID_KEYSTORE_PASSWORD secrets missing. AAB built but NOT signed; Play will reject it."
+            cp "$src" "unsigned-${out}"
+            exit 1
+          fi
+          echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+          jarsigner -sigalg SHA256withRSA -digestalg SHA-256 \
+            -keystore "$RUNNER_TEMP/upload.jks" -storepass "$KS_PASS" -keypass "$KS_PASS" \
+            -signedjar "$out" "$src" "${KS_ALIAS:-upload}"
+          jarsigner -verify "$out" | tail -n 1
+          rm -f "$RUNNER_TEMP/upload.jks"
+          echo "AAB_FILE=$out" >> "$GITHUB_ENV"
+
+      - name: Upload AAB
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: globriva-android-aab
+          path: |
+            globriva-*.aab
+            unsigned-*.aab
+          if-no-files-found: warn
+          retention-days: 14
