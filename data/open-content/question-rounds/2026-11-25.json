@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 1,
+  "project": "Globriva",
+  "createdAt": "2026-11-25",
+  "purpose": "Review-only geography question and media candidates; not imported by player loaders.",
+  "sourcePolicy": "Question facts are paraphrased from primary UNESCO, NASA, government or institutional sources. Candidate photographs remain review-only until source, license, location, direct URL and device display checks are completed.",
+  "status": "review_required_not_playable",
+  "playable": false,
+  "duplicateCheck": {
+    "checkedAgainst": "data/open-content/question-drafts.json (47 visual-geography drafts) and 2026-11-24 question round (7 candidates)",
+    "exactQuestionDuplicates": 0,
+    "repeatedDailyLocations": 0,
+    "note": "The 47 draft records are mostly generic visual-geography prompts; these candidates use distinct fact-based prompts and locations."
+  },
+  "candidates": [
+    {
+      "id": "GLO-20261125-FLAG-01",
+      "category": "flag",
+      "subcategory": "national-flag-shape",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Dünya ülkelerinin ulusal bayrakları arasında dikdörtgen olmayan tek bayrak hangi ülkeye aittir?",
+        "en": "Which country has the only national flag that is not rectangular?"
+      },
+      "choices": {
+        "tr": [
+          "Nepal",
+          "Bhutan",
+          "Laos",
+          "Bangladeş"
+        ],
+        "en": [
+          "Nepal",
+          "Bhutan",
+          "Laos",
+          "Bangladesh"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Nepal bayrağı, üst üste yerleştirilmiş iki üçgen biçimli pennondan oluşur. Tasarımı ülkenin anayasal bayrak tarifinde yer alır.",
+        "en": "Nepal's flag consists of two stacked triangular pennons; its design is specified in the country's constitution."
+      },
+      "factSource": "https://constitution.topnepali.com/en/schedule-1",
+      "qaStatus": "source_checked_pending_loader_integration",
+      "duplicateCheck": "No matching prompt in the previous daily pack or 47 visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261125-BORDER-01",
+      "category": "border",
+      "subcategory": "albania-northern-neighbour",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Arnavutluk'un kuzeyindeki kara komşusu hangisidir?",
+        "en": "Which country is Albania's land neighbour to the north?"
+      },
+      "choices": {
+        "tr": [
+          "Karadağ",
+          "Yunanistan",
+          "Kosova",
+          "Kuzey Makedonya"
+        ],
+        "en": [
+          "Montenegro",
+          "Greece",
+          "Kosovo",
+          "North Macedonia"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Arnavutluk; kuzeyde Karadağ, kuzeydoğuda Kosova, doğuda Kuzey Makedonya ve güneyde Yunanistan ile kara sınırına sahiptir.",
+        "en": "Albania borders Montenegro to the north, Kosovo to the northeast, North Macedonia to the east and Greece to the south."
+      },
+      "factSource": "https://ambasadat.gov.al/nato/en/pozita-gjeografike/",
+      "qaStatus": "official_source_checked_pending_loader_integration",
+      "duplicateCheck": "Albania is not among the existing BORDER_FOCUS target IDs.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261125-CULT-01",
+      "category": "culture",
+      "subcategory": "traditional-water-management",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Umman'daki aflaj sulama sistemlerinde su, tarım alanlarına çoğunlukla hangi güçle taşınır?",
+        "en": "In Oman's aflaj irrigation systems, what force mainly carries water to agricultural plots?"
+      },
+      "choices": {
+        "tr": [
+          "Yerçekimi",
+          "Buhar basıncı",
+          "Elektrikli pompa",
+          "Tuzdan arındırma"
+        ],
+        "en": [
+          "Gravity",
+          "Steam pressure",
+          "Electric pump",
+          "Desalination"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Aflaj, yeraltı kaynakları veya kaynaklardan gelen suyu yerçekimiyle kanallar üzerinden tarım ve yerleşim alanlarına ulaştırır.",
+        "en": "Aflaj channels use gravity to convey water from underground sources or springs to farms and settlements."
+      },
+      "factSource": "https://whc.unesco.org/en/list/1207/",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No aflaj prompt in the previous daily pack or existing 47 visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261125-ISLAND-01",
+      "category": "island",
+      "subcategory": "nauru-phosphate-landscape",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Nauru'nun iç platosunda fosfat madenciliği sonrasında belirginleşen sivri kireçtaşı oluşumları hangi süreçle ilişkilidir?",
+        "en": "The jagged limestone pinnacles on Nauru's inland plateau are associated with which process?"
+      },
+      "choices": {
+        "tr": [
+          "Fosfat madenciliği",
+          "Buzul aşındırması",
+          "Volkanik kül birikimi",
+          "Nehir deltası oluşumu"
+        ],
+        "en": [
+          "Phosphate mining",
+          "Glacial erosion",
+          "Volcanic ash deposition",
+          "River-delta formation"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Nauru'nun Topside platosunda uzun süreli fosfat çıkarımı, örtü tabakasını kaldırarak kireçtaşı pinnakılları ve düzensiz bir yüzey ortaya çıkarmıştır.",
+        "en": "Long-term phosphate extraction on Nauru's Topside removed overburden and exposed a rugged limestone-pinnacle landscape."
+      },
+      "factSource": "https://policy.asiapacificenergy.org/ru/node/606",
+      "secondarySource": "https://www.usgs.gov/centers/national-minerals-information-center/nauru",
+      "qaStatus": "institutional_sources_checked_pending_loader_integration",
+      "duplicateCheck": "Nauru is not one of the current 22 island-silhouette targets.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261125-CITY-01",
+      "category": "city",
+      "subcategory": "andean-altitude",
+      "difficulty": "medium",
+      "question": {
+        "tr": "UNESCO, Quito'nun yaklaşık hangi rakımda bulunduğunu belirtir?",
+        "en": "At approximately what elevation does UNESCO place Quito?"
+      },
+      "choices": {
+        "tr": [
+          "850 metre",
+          "1.850 metre",
+          "2.850 metre",
+          "3.850 metre"
+        ],
+        "en": [
+          "850 metres",
+          "1,850 metres",
+          "2,850 metres",
+          "3,850 metres"
+        ]
+      },
+      "correctIndex": 2,
+      "explanation": {
+        "tr": "Quito, And Dağları'nda yaklaşık 2.850 metre rakımda yer alır; tarihî merkezinde İspanyol ve yerel sanat gelenekleri birleşir.",
+        "en": "Quito lies at about 2,850 metres in the Andes, and its historic centre reflects Spanish and Indigenous artistic traditions."
+      },
+      "factSource": "https://whc.unesco.org/en/list/2/",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No matching Quito-altitude prompt in the previous daily pack or 47 visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261125-CIV-01",
+      "category": "civilization",
+      "subcategory": "caral-supe",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Amerika kıtasındaki en eski uygarlık merkezlerinden biri olarak UNESCO tarafından tanımlanan arkeolojik alan hangisidir?",
+        "en": "Which archaeological site is described by UNESCO as the oldest centre of civilization in the Americas?"
+      },
+      "choices": {
+        "tr": [
+          "Caral-Supe",
+          "Chichén Itzá",
+          "Machu Picchu",
+          "Tikal"
+        ],
+        "en": [
+          "Caral-Supe",
+          "Chichén Itzá",
+          "Machu Picchu",
+          "Tikal"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Caral-Supe, Peru'nun Supe Vadisi'nde yaklaşık 5.000 yıllık bir yerleşimdir; büyük platform yapıları ve dairesel meydanlarıyla öne çıkar.",
+        "en": "Caral-Supe in Peru's Supe Valley is about 5,000 years old and is notable for monumental platform structures and sunken circular courts."
+      },
+      "factSource": "https://whc.unesco.org/en/list/1269/",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No Caral-Supe prompt in the previous daily pack or 47 visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261125-NATURE-01",
+      "category": "nature",
+      "subcategory": "danakil-tectonic-setting",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Danakil Çöküntüsü, hangi üç tektonik levhanın birleşme bölgesindeki Afar sistemiyle ilişkilidir?",
+        "en": "The Danakil Depression is associated with the Afar system at the junction of which three tectonic plates?"
+      },
+      "choices": {
+        "tr": [
+          "Nubya, Arap ve Somali",
+          "Avrasya, Hint ve Pasifik",
+          "Kuzey Amerika, Karayip ve Cocos",
+          "Antarktika, Avustralya ve Scotia"
+        ],
+        "en": [
+          "Nubian, Arabian and Somali",
+          "Eurasian, Indian and Pacific",
+          "North American, Caribbean and Cocos",
+          "Antarctic, Australian and Scotia"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Afar bölgesi, Nubya, Arap ve Somali levhalarının birbirinden uzaklaşma ve rift süreçlerinin kesiştiği bir tektonik alan olarak incelenir.",
+        "en": "The Afar region is studied as a tectonic junction where rifting and divergence involve the Nubian, Arabian and Somali plates."
+      },
+      "factSource": "https://onlinelibrary.wiley.com/doi/full/10.1111/sed.13237",
+      "secondarySource": "https://science.nasa.gov/earth/earth-observatory/curiosities-of-the-danakil-depression-84239/",
+      "qaStatus": "scientific_sources_checked_pending_loader_integration",
+      "duplicateCheck": "Danakil is not one of the 66 current nature-location IDs.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261125-STREET-01",
+      "category": "street",
+      "subcategory": "medina-urban-pattern",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Fes medinasının tarihî sokak dokusu hangi özellik ile tanınır?",
+        "en": "What characteristic defines the historic street pattern of the Medina of Fez?"
+      },
+      "choices": {
+        "tr": [
+          "Dar ve dolambaçlı sokaklar",
+          "Geniş düz bulvarlar",
+          "Dairesel otoyollar",
+          "Tek tip kare bloklar"
+        ],
+        "en": [
+          "Narrow, winding alleys",
+          "Wide straight boulevards",
+          "Circular highways",
+          "Uniform square blocks"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Fes medinası, yoğun tarihî dokusu ve dar, dolambaçlı sokaklarıyla tanınır; UNESCO alanı geniş ve iyi korunmuş bir tarihî kent örneği olarak tanımlar.",
+        "en": "The Medina of Fez is known for its dense historic fabric and narrow, winding alleys; UNESCO describes it as an extensive, well-preserved historic city."
+      },
+      "factSource": "https://whc.unesco.org/en/list/170/",
+      "secondarySource": "https://whc.unesco.org/en/documents/6445",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "No matching Fez street-pattern prompt in the previous daily pack or 47 visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    }
+  ],
+  "photoCandidates": [
+    {
+      "id": "IMG-20261125-FEZ-01",
+      "country": "Fas",
+      "city": "Fes",
+      "subject": "Old Medina panorama-style city view",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Old_Medina_of_Fez.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Old_Medina_of_Fez.jpg",
+      "creator": "MlyHassan",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution": "MlyHassan — Old Medina of Fez.jpg — CC BY-SA 4.0; link the license and note modifications.",
+      "resolution": "4000x2252",
+      "cameraCoordinates": {
+        "lat": 34.068238,
+        "lon": -4.983781
+      },
+      "locationCheck": "camera coordinates present on Commons; city subject verified",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "wide, high-resolution image",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261125-QUITO-01",
+      "country": "Ekvador",
+      "city": "Quito",
+      "subject": "Historic Center of Quito",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Historic_Center_of_Quito,_Ecuador.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/0/07/Historic_Center_of_Quito%2C_Ecuador.jpg",
+      "creator": "David Adam Kess",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution": "David Adam Kess — Historic Center of Quito, Ecuador.jpg — CC BY-SA 4.0; link the license and note modifications.",
+      "resolution": "1944x2592",
+      "cameraCoordinates": null,
+      "locationCheck": "city subject confirmed on Commons; precise camera coordinates not shown",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "high-resolution portrait-format historic-centre image",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261125-OMAN-01",
+      "country": "Umman",
+      "city": "Birkat Al-Mawz",
+      "subject": "Falaj Al-Khatmeen irrigation channel",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Oman,_Birkat_Al-Mawz,_Falaj_Al_Khatmeen.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Oman%2C_Birkat_Al-Mawz%2C_Falaj_Al_Khatmeen.jpg",
+      "creator": "Dr. Thomas Liptak",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution": "Dr. Thomas Liptak — Oman, Birkat Al-Mawz, Falaj Al Khatmeen.jpg — CC BY-SA 4.0; link the license and note modifications.",
+      "resolution": "5184x3456",
+      "cameraCoordinates": {
+        "lat": 22.923147,
+        "lon": 57.667698
+      },
+      "locationCheck": "camera coordinates and place metadata present on Commons",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "real irrigation channel; visible informational sign in frame",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261125-CARAL-01",
+      "country": "Peru",
+      "city": "Caral-Supe",
+      "subject": "Mayor Pyramid and circular enclosure",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Mayor_Pyramid_and_circular_enclosure._Caral,_Peru.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mayor_Pyramid_and_circular_enclosure._Caral%2C_Peru.jpg",
+      "creator": "Jon Gudorf Photography",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "attribution": "Jon Gudorf Photography — Mayor Pyramid and circular enclosure. Caral, Peru.jpg — CC BY-SA 2.0; link the license and note modifications.",
+      "resolution": "5097x2792",
+      "cameraCoordinates": {
+        "lat": -10.893122,
+        "lon": -77.520722
+      },
+      "locationCheck": "camera coordinates and Caral subject metadata present on Commons",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "large, high-resolution archaeological landscape image",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261125-NAURU-01",
+      "country": "Nauru",
+      "city": "Nauru (site-specific location unresolved)",
+      "subject": "Historical open-cut phosphate mining",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Open_cut_phosphate_mine_bins,_Nauru_(9623496899).jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/6/66/Open_cut_phosphate_mine_bins%2C_Nauru_%289623496899%29.jpg",
+      "creator": "Special Collections, University of Newcastle",
+      "license": "Public Domain Mark (not a formal license)",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "attribution": "Credit the University of Newcastle Special Collections / Williamson Collection as a courtesy.",
+      "resolution": "2688x3257",
+      "cameraCoordinates": null,
+      "locationCheck": "Nauru mining subject confirmed; exact mine location and image age/context require review",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not tested",
+      "commercialReuse": "Public Domain Mark; jurisdictional legal status requires review",
+      "visualQualityNote": "historical sepia mining scene, not a modern aerial; keep as archival candidate only",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261125-ALBANIA-01",
+      "country": "Arnavutluk",
+      "city": "Qafa e Prosllopit / Valbona Valley",
+      "subject": "Accursed Mountains landscape near Albanian-Montenegrin border",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:The_Accursed_Mountains_03.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/9/99/The_Accursed_Mountains_03.jpg",
+      "creator": "Leonitaagashi",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution": "Leonitaagashi — The Accursed Mountains 03.jpg — CC BY-SA 4.0; link the license and note modifications.",
+      "resolution": "5538x3798",
+      "cameraCoordinates": {
+        "lat": 42.481664,
+        "lon": 19.885669
+      },
+      "locationCheck": "camera coordinates and nearby-border landscape description present on Commons",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "high-resolution mountain image; not a border marker or panorama",
+      "status": "review_required_not_playable",
+      "playable": false
+    }
+  ]
+}
