@@ -1,12 +1,17 @@
 {
   "project": "globriva",
-  "date": "2026-11-24",
+  "date": "2026-11-25",
   "newArchivedImages": 0,
   "newQuestionDrafts": 0,
   "totalCandidates": 37,
   "totalDrafts": 47,
   "newIds": [],
-  "warnings": [],
+  "warnings": [
+    {
+      "source": "GB-COM-5eeaf1674fb66c29",
+      "error": "Error: Invalid or too small JPEG"
+    }
+  ],
   "publishedNow": 0,
   "playableNow": 0
 }
