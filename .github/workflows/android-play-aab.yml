@@ -1,0 +1,153 @@
+name: Globriva — Android Play AAB
+
+# Builds the Capacitor Android project on GitHub Actions (no Codemagic minutes)
+# and produces a Play-ready .aab. The android/ folder is generated in CI
+# (like iOS), so nothing native is committed to the repo.
+on:
+  workflow_dispatch:
+    inputs:
+      version_code:
+        description: 'Google Play versionCode (must increase on every upload)'
+        required: true
+        default: '1'
+        type: string
+      version_name:
+        description: 'User-visible versionName'
+        required: true
+        default: '1.0.0'
+        type: string
+      use_test_ads:
+        description: 'Use Google sample AdMob IDs (closed-test builds only)'
+        required: true
+        default: true
+        type: boolean
+  # Dry-run compile on the setup branch (unsigned, test ads). Removed after merge.
+  push:
+    branches: [android-play-aab]
+
+concurrency:
+  group: globriva-android-aab
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  aab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      VITE_ATLAS_API_ORIGIN: 'https://atlas-arena-tau.vercel.app'
+      TP_VERSION_CODE: ${{ inputs.version_code || '1' }}
+      TP_VERSION_NAME: ${{ inputs.version_name || '1.0.0' }}
+      TP_TEST_ADS: ${{ github.event_name == 'push' && 'true' || inputs.use_test_ads }}
+      ADMOB_APP_ID_ANDROID: ${{ vars.ADMOB_APP_ID_ANDROID }}
+      VITE_ADMOB_REWARDED_ANDROID_ID: ${{ vars.VITE_ADMOB_REWARDED_ANDROID_ID }}
+      VITE_ADMOB_INTERSTITIAL_ANDROID_ID: ${{ vars.VITE_ADMOB_INTERSTITIAL_ANDROID_ID }}
+      ANDROID_UPLOAD_KEYSTORE_B64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_B64 }}
+      ANDROID_UPLOAD_STORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_STORE_PASSWORD }}
+      ANDROID_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
+      ANDROID_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Validate inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$TP_VERSION_CODE" =~ ^[1-9][0-9]*$ ]] || { echo "::error::versionCode must be a positive integer"; exit 1; }
+          [ "$TP_VERSION_CODE" -le 2100000000 ] || { echo "::error::versionCode too large"; exit 1; }
+          if [ "$TP_TEST_ADS" != "true" ]; then
+            for n in ADMOB_APP_ID_ANDROID VITE_ADMOB_REWARDED_ANDROID_ID; do
+              [ -n "${!n:-}" ] || { echo "::error::Repository variable $n is required when use_test_ads=false"; exit 1; }
+            done
+          fi
+          if [ -z "${ANDROID_UPLOAD_KEYSTORE_B64:-}" ]; then
+            echo "::warning::ANDROID_UPLOAD_KEYSTORE_B64 not set - the AAB will be UNSIGNED (compile check only, Play will reject it)."
+          fi
+
+      - name: Load public multiplayer settings from Globriva Vercel
+        run: node scripts/sync-public-vs-config.mjs
+
+      - name: Install and verify game
+        shell: bash
+        run: |
+          set -euo pipefail
+          set -a
+          . ./.env.production.local
+          set +a
+          npm ci --no-audit --no-fund
+          node scripts/check-i18n.mjs
+          npm run typecheck
+          npm run build
+          test -f dist/index.html
+
+      - name: Generate Capacitor Android project and launcher icon
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx cap add android
+          npx cap sync android
+          mkdir -p assets
+          cp resources/icon.png assets/icon-only.png
+          npx --yes @capacitor/assets generate --android
+          if [ "$TP_TEST_ADS" = "true" ]; then
+            export ADMOB_USE_GOOGLE_TEST_APP_IDS=true
+            export VITE_ADMOB_USE_TEST_ADS=true
+          fi
+          node scripts/configure-admob-native.mjs
+          if [ "$TP_TEST_ADS" != "true" ]; then
+            CAPACITOR_PLATFORM=android node scripts/validate-admob-release.mjs
+          fi
+
+      - name: Set versionCode / versionName
+        shell: bash
+        run: |
+          set -euo pipefail
+          f=android/app/build.gradle
+          sed -i -E "s/versionCode [0-9]+/versionCode ${TP_VERSION_CODE}/" "$f"
+          sed -i -E "s/versionName \"[^\"]*\"/versionName \"${TP_VERSION_NAME}\"/" "$f"
+          grep -nE "versionCode|versionName|applicationId" "$f"
+          grep -q "versionCode ${TP_VERSION_CODE}" "$f"
+
+      - name: Build release AAB
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd android
+          chmod +x gradlew
+          ./gradlew bundleRelease --no-daemon
+          ls -la app/build/outputs/bundle/release/
+
+      - name: Sign AAB with upload key
+        if: env.ANDROID_UPLOAD_KEYSTORE_B64 != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          ks="$RUNNER_TEMP/upload.jks"
+          trap 'rm -f "$ks"' EXIT
+          printf '%s' "$ANDROID_UPLOAD_KEYSTORE_B64" | base64 --decode > "$ks"
+          aab=android/app/build/outputs/bundle/release/app-release.aab
+          jarsigner -sigalg SHA256withRSA -digestalg SHA-256 \
+            -keystore "$ks" -storepass "$ANDROID_UPLOAD_STORE_PASSWORD" \
+            -keypass "$ANDROID_UPLOAD_KEY_PASSWORD" "$aab" "$ANDROID_UPLOAD_KEY_ALIAS"
+          jarsigner -verify -strict "$aab"
+          keytool -printcert -jarfile "$aab" | head -8
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: Globriva-Android-v${{ env.TP_VERSION_NAME }}-${{ env.TP_VERSION_CODE }}${{ env.ANDROID_UPLOAD_KEYSTORE_B64 == '' && '-UNSIGNED' || '' }}
+          path: android/app/build/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+          retention-days: 30
