@@ -1,0 +1,532 @@
+{
+  "schemaVersion": 1,
+  "project": "Globriva",
+  "createdAt": "2026-11-26",
+  "purpose": "Review-only geography questions and image-source candidates. Nothing in this pack is imported by player loaders or published.",
+  "sourcePolicy": "Facts are linked to institutional, UNESCO, government, conservation or geographic sources. Images are separate Commons candidates; source pages, licence terms, attribution, metadata coordinates and direct-original browser access were checked where noted. Native mobile display and CDN/R2 publication are not tested.",
+  "status": "review_required_not_playable",
+  "playable": false,
+  "duplicateCheck": {
+    "checkedAgainst": "47 records in data/open-content/question-drafts.json plus the 2026-11-24 and 2026-11-25 question-rounds",
+    "exactQuestionDuplicates": 0,
+    "repeatedDailyLocations": 0,
+    "note": "Candidate prompts and locations were cross-checked against the retrieved draft and daily packs; all new IDs, prompts and selected locations are distinct from those records."
+  },
+  "candidates": [
+    {
+      "id": "GLO-20261126-NATURE-01",
+      "category": "nature",
+      "subcategory": "volcanic-basalt-columns",
+      "difficulty": "hard",
+      "question": {
+        "tr": "UNESCO Giant's Causeway'de görülen bazalt sütunlarını hangi jeolojik süreç oluşturdu?",
+        "en": "Which geological process formed the basalt columns at the Giant's Causeway?"
+      },
+      "choices": {
+        "tr": [
+          "Volkanik faaliyet",
+          "Buzul çökelimi",
+          "Mercan büyümesi",
+          "Nehir taşkını"
+        ],
+        "en": [
+          "Volcanic activity",
+          "Glacial deposition",
+          "Coral growth",
+          "River flooding"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO, sütunların yaklaşık 50–60 milyon yıl önceki volkanik etkinlikle oluştuğunu belirtir.",
+        "en": "UNESCO describes the columns as the result of volcanic activity about 50–60 million years ago."
+      },
+      "factSource": "https://whc.unesco.org/en/list/369/",
+      "imageCandidateId": "IMG-20261126-CAUSEWAY-01",
+      "qaStatus": "source_checked_pending_loader_integration",
+      "duplicateCheck": "Giant's Causeway and this prompt are absent from the 24–25 November packs and the retrieved 47 draft records.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261126-NATURE-02",
+      "category": "nature",
+      "subcategory": "tectonic-lake-origin",
+      "difficulty": "medium",
+      "question": {
+        "tr": "UNESCO'nun tanımına göre Ohrid Gölü hangi oluşum türüne sahip bir göldür?",
+        "en": "According to UNESCO, what type of lake is Lake Ohrid?"
+      },
+      "choices": {
+        "tr": [
+          "Tektonik kökenli",
+          "Buzul çanağı",
+          "Volkanik krater",
+          "Nehir set gölü"
+        ],
+        "en": [
+          "Tectonic in origin",
+          "Glacial basin",
+          "Volcanic crater",
+          "River-dammed lake"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Ohrid, milyonlarca yıldır var olan derin ve eski bir tektonik göldür; uzun izolasyonu endemik canlı çeşitliliğine katkı sağlar.",
+        "en": "Ohrid is a deep, ancient tectonic lake; its long isolation contributes to its endemic biodiversity."
+      },
+      "factSource": "https://whc.unesco.org/en/list/99/",
+      "secondarySource": "https://www.unesco.org/en/mab/ohrid-prespa-0",
+      "imageCandidateId": "IMG-20261126-OHRID-01",
+      "qaStatus": "primary_source_checked_pending_loader_integration",
+      "duplicateCheck": "Ohrid lake-origin prompt is not in the previous daily packs or retrieved visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261126-CULT-01",
+      "category": "culture",
+      "subcategory": "annual-mud-plastering",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Djenné Büyük Camii'nin yıllık sıva yenileme geleneğinin temel amacı nedir?",
+        "en": "What is the main purpose of the annual replastering tradition at the Great Mosque of Djenné?"
+      },
+      "choices": {
+        "tr": [
+          "Yağmur mevsimi öncesinde koruyucu çamur yüzeyini yenilemek",
+          "Minarelerin yüksekliğini artırmak",
+          "Yeni bir avlu inşa etmek",
+          "Cami çevresini asfaltlamak"
+        ],
+        "en": [
+          "Renew the protective mud surface before the rainy season",
+          "Increase the minaret height",
+          "Build a new courtyard",
+          "Pave the surrounding area"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Topluluk, yağmur mevsimi öncesinde laterit-çamur yüzeyini yenileyerek yapıyı korur; gelenek aynı zamanda ortak kültürel çalışma biçimidir.",
+        "en": "The community renews the earthen surface before the rains to protect the building; the tradition is also a collective cultural practice."
+      },
+      "factSource": "https://whc.unesco.org/en/activities/1294",
+      "secondarySource": "https://whc.unesco.org/en/news/574/",
+      "imageCandidateId": "IMG-20261126-DJENNE-01",
+      "qaStatus": "institutional_source_checked_pending_loader_integration",
+      "duplicateCheck": "Djenné's annual replastering prompt and location are absent from the previous packs and retrieved visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261126-CITY-01",
+      "category": "city",
+      "subcategory": "georgian-place-name",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Tbilisi adındaki Gürcüce 'tbili' sözcüğü hangi anlamı taşır?",
+        "en": "What does the Georgian word 'tbili' in Tbilisi mean?"
+      },
+      "choices": {
+        "tr": [
+          "Sıcak",
+          "Köprü",
+          "Dağ",
+          "Nehir"
+        ],
+        "en": [
+          "Warm",
+          "Bridge",
+          "Mountain",
+          "River"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Tbilisi adı 'sıcak' anlamıyla ilişkilidir; kentteki doğal kükürtlü sıcak su kaynakları bu adlandırmanın temelidir.",
+        "en": "Tbilisi's name is associated with 'warm'; natural sulphur hot springs are central to the name's origin."
+      },
+      "factSource": "https://www.gff.ge/en/node/24097",
+      "secondarySource": "https://tbilisitourism.com/history",
+      "imageCandidateId": "IMG-20261126-TBILISI-01",
+      "qaStatus": "source_checked_pending_loader_integration",
+      "duplicateCheck": "Tbilisi's name-origin prompt and location are absent from the previous packs and retrieved visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261126-ISLAND-01",
+      "category": "island",
+      "subcategory": "madagascar-endemic-primate",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Indri lemuru doğal olarak hangi adada bulunur?",
+        "en": "On which island does the indri lemur naturally occur?"
+      },
+      "choices": {
+        "tr": [
+          "Madagaskar",
+          "Sri Lanka",
+          "Borneo",
+          "Sumatra"
+        ],
+        "en": [
+          "Madagascar",
+          "Sri Lanka",
+          "Borneo",
+          "Sumatra"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Indri, Madagaskar'ın doğu yağmur ormanlarında yaşayan ve doğal olarak yalnızca bu adada bulunan bir lemur türüdür.",
+        "en": "The indri lives in Madagascar's eastern rainforests and is naturally found only on the island."
+      },
+      "factSource": "https://primate.wisc.edu/primate-info-net/pin-factsheets/pin-factsheet-indri/",
+      "secondarySource": "https://www.worldlandtrust.org/madagascar/",
+      "imageCandidateId": "IMG-20261126-INDRI-01",
+      "qaStatus": "institutional_source_checked_pending_loader_integration",
+      "duplicateCheck": "Madagascar/indri is not in the previous daily packs or retrieved visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261126-CIV-01",
+      "category": "civilization",
+      "subcategory": "angkor-water-management",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Angkor'daki Jayatataka Baray hangi tür tarihî su yapısıdır?",
+        "en": "What kind of historic water structure is the Jayatataka Baray at Angkor?"
+      },
+      "choices": {
+        "tr": [
+          "İnsan yapımı rezervuar",
+          "Roma su kemeri",
+          "Yeraltı tuz madeni",
+          "Volkanik krater gölü"
+        ],
+        "en": [
+          "Man-made reservoir",
+          "Roman aqueduct",
+          "Underground salt mine",
+          "Volcanic crater lake"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Baray, Angkor'un su yönetimi ağındaki yapay rezervuarlardan biridir; yağış ve kanallar üzerinden yönlendirilen suyu depolama işlevi görür.",
+        "en": "The baray is an artificial reservoir within Angkor's water-management network, storing water directed through the local hydrological system."
+      },
+      "factSource": "https://whc.unesco.org/fr/listesindicatives/6456",
+      "secondarySource": "https://commons.wikimedia.org/wiki/File:Jayatataka_Baray.jpg",
+      "imageCandidateId": "IMG-20261126-ANGKOR-01",
+      "qaStatus": "institutional_and_source_metadata_checked_pending_loader_integration",
+      "duplicateCheck": "Angkor/Jayatataka Baray is not among the previous daily packs or retrieved visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261126-FLAG-01",
+      "category": "flag",
+      "subcategory": "national-dragon-symbol",
+      "difficulty": "easy",
+      "question": {
+        "tr": "Bhutan bayrağındaki beyaz ejderha hangi adla bilinir?",
+        "en": "What is the white dragon on Bhutan's flag called?"
+      },
+      "choices": {
+        "tr": [
+          "Druk",
+          "Takin",
+          "Garuda",
+          "Naga"
+        ],
+        "en": [
+          "Druk",
+          "Takin",
+          "Garuda",
+          "Naga"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Druk, Bhutan'ın 'Gök Gürültüsü Ejderhası' olarak bilinen ulusal sembolüdür; ülkenin Dzongkha adı Druk Yul, 'Ejderha Ülkesi' anlamına gelir.",
+        "en": "Druk is Bhutan's Thunder Dragon symbol; the Dzongkha name Druk Yul means Land of the Dragon."
+      },
+      "factSource": "https://www.thefactbook.org/bhutan",
+      "secondarySource": "https://www.bhutan.com/culture/national-symbols",
+      "imageCandidateId": null,
+      "qaStatus": "source_checked_pending_loader_integration",
+      "duplicateCheck": "Bhutan flag-symbol prompt is not in the previous daily packs or retrieved visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261126-BORDER-01",
+      "category": "border",
+      "subcategory": "strait-continental-separation",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Cebelitarık Boğazı hangi iki su kütlesini birbirine bağlar?",
+        "en": "Which two bodies of water does the Strait of Gibraltar connect?"
+      },
+      "choices": {
+        "tr": [
+          "Atlantik Okyanusu ile Akdeniz",
+          "Karadeniz ile Ege",
+          "Baltık Denizi ile Kuzey Denizi",
+          "Kızıldeniz ile Hint Okyanusu"
+        ],
+        "en": [
+          "Atlantic Ocean and Mediterranean Sea",
+          "Black Sea and Aegean Sea",
+          "Baltic Sea and North Sea",
+          "Red Sea and Indian Ocean"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Boğaz, Atlantik Okyanusu ile Akdeniz arasında geçit oluşturur ve İber Yarımadası ile Kuzey Afrika arasındadır.",
+        "en": "The strait links the Atlantic Ocean and Mediterranean Sea and lies between the Iberian Peninsula and North Africa."
+      },
+      "factSource": "https://www.esa.int/media/strait-of-gibraltar-en-377600",
+      "secondarySource": "https://commons.wikimedia.org/wiki/File:Straits_of_gibraltar_nasa.png",
+      "imageCandidateId": "IMG-20261126-GIBRALTAR-01",
+      "qaStatus": "source_checked_pending_loader_integration",
+      "duplicateCheck": "Gibraltar prompt and location are not among the previous daily packs or retrieved visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    },
+    {
+      "id": "GLO-20261126-STREET-01",
+      "category": "street",
+      "subcategory": "historic-main-street",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Dubrovnik Eski Şehir'in ana caddesi hangi adla bilinir?",
+        "en": "What is the name of the main street in Dubrovnik's Old Town?"
+      },
+      "choices": {
+        "tr": [
+          "Stradun (Placa)",
+          "Riva",
+          "Knez Mihailova",
+          "Via del Corso"
+        ],
+        "en": [
+          "Stradun (Placa)",
+          "Riva",
+          "Knez Mihailova",
+          "Via del Corso"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Stradun veya Placa, Dubrovnik'in surlarla çevrili tarihî merkezinin ana caddesidir.",
+        "en": "Stradun, also known as Placa, is the main street of Dubrovnik's walled historic centre."
+      },
+      "factSource": "https://visitkastela.croatia.hr/en-gb/unesco/dubrovnik-old-town",
+      "secondarySource": "https://commons.wikimedia.org/wiki/File:P1000975.JPG",
+      "imageCandidateId": "IMG-20261126-DUBROVNIK-01",
+      "qaStatus": "source_checked_pending_loader_integration",
+      "duplicateCheck": "Dubrovnik/Stradun prompt and location are not in the previous daily packs or retrieved visual drafts.",
+      "status": "review_required_not_playable",
+      "playable": false,
+      "image": null
+    }
+  ],
+  "photoCandidates": [
+    {
+      "id": "IMG-20261126-CAUSEWAY-01",
+      "country": "United Kingdom (Northern Ireland)",
+      "city": "Giant's Causeway",
+      "subject": "Basalt columns at the Giant's Causeway",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Giant%27s_Causeway_Basalt_Columns.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Giant%27s_Causeway_Basalt_Columns.jpg",
+      "creator": "DeveshT",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution": "DeveshT — Giant's Causeway Basalt Columns.jpg — CC0 1.0; courtesy credit recommended.",
+      "resolution": "3200x2400",
+      "cameraCoordinates": {
+        "lat": 55.2402,
+        "lon": -6.511529
+      },
+      "locationCheck": "Commons camera coordinates and subject metadata present",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not-tested",
+      "commercialReuse": "allowed; CC0 dedication",
+      "visualQualityNote": "clear high-resolution basalt-column detail",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261126-DJENNE-01",
+      "country": "Mali",
+      "city": "Djenné",
+      "subject": "Great Mosque of Djenné and surrounding market",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Moschee_von_Djenn%C3%A9.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/Moschee_von_Djenn%C3%A9.jpg",
+      "creator": "qiv",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "attribution": "qiv — Moschee von Djenné.jpg — CC BY-SA 2.0; link the licence, note modifications and apply compatible ShareAlike terms.",
+      "resolution": "3321x2213",
+      "cameraCoordinates": {
+        "lat": 13.906741,
+        "lon": -4.554605
+      },
+      "objectCoordinates": {
+        "lat": 13.90513,
+        "lon": -4.55521
+      },
+      "locationCheck": "subject coordinates present; camera and stored subject coordinates differ by about 164 m and require reconciliation",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not-tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "large landscape image showing the mosque",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261126-TBILISI-01",
+      "country": "Georgia",
+      "city": "Tbilisi",
+      "subject": "Sulphur baths district",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Tbilisi_Sulphur_Baths.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Tbilisi_Sulphur_Baths.jpg",
+      "creator": "Ephraim Stillberg",
+      "license": "Public domain dedication",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/File:Tbilisi_Sulphur_Baths.jpg",
+      "attribution": "Ephraim Stillberg — Tbilisi Sulphur Baths.jpg — public-domain dedication; courtesy credit recommended.",
+      "resolution": "3264x2448",
+      "cameraCoordinates": null,
+      "locationCheck": "district subject metadata present; exact camera coordinates not supplied",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not-tested",
+      "commercialReuse": "allowed under uploader public-domain dedication; local-law caveat",
+      "visualQualityNote": "high-resolution image of the domed bath district",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261126-INDRI-01",
+      "country": "Madagascar",
+      "city": "Eastern rainforest (precise point not supplied)",
+      "subject": "Indri lemur portrait",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Indri_Lemur,_Madagascar.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/0/00/Indri_Lemur%2C_Madagascar.jpg",
+      "creator": "Rod Waddington",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "attribution": "Rod Waddington — Indri Lemur, Madagascar.jpg — CC BY-SA 2.0; link the licence, note modifications and apply compatible ShareAlike terms.",
+      "resolution": "4066x4066",
+      "cameraCoordinates": null,
+      "locationCheck": "Madagascar subject confirmed; exact capture coordinates absent",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not-tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "high-resolution animal portrait; precise location not suitable for location-based gameplay",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261126-ANGKOR-01",
+      "country": "Cambodia",
+      "city": "Angkor Archaeological Park",
+      "subject": "Jayatataka Baray artificial reservoir",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Jayatataka_Baray.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Jayatataka_Baray.jpg",
+      "creator": "Siemreapnet",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution": "Siemreapnet — Jayatataka Baray.jpg — CC BY-SA 4.0; link the licence, note modifications and apply compatible ShareAlike terms.",
+      "resolution": "5312x2988",
+      "cameraCoordinates": {
+        "lat": 13.461944,
+        "lon": 103.878611
+      },
+      "locationCheck": "Commons camera coordinates and baray subject metadata present",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not-tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "wide high-resolution reservoir landscape",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261126-OHRID-01",
+      "country": "North Macedonia",
+      "city": "Lake Ohrid",
+      "subject": "Lake and shoreline view",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Ohrid_lake,_North_Macedonia.jpg",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/8/82/Ohrid_lake%2C_North_Macedonia.jpg",
+      "creator": "MiroJP",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution": "MiroJP — Ohrid lake, North Macedonia.jpg — CC BY-SA 4.0; link the licence, note modifications and apply compatible ShareAlike terms.",
+      "resolution": "6000x4000",
+      "cameraCoordinates": null,
+      "locationCheck": "Lake Ohrid view confirmed; precise camera coordinates not shown on source page",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not-tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "large landscape image",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261126-DUBROVNIK-01",
+      "country": "Croatia",
+      "city": "Dubrovnik Old Town",
+      "subject": "Stradun street view",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:P1000975.JPG",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/b/be/Rue_Stradun%2C_Dubrovnik_.jpg",
+      "creator": "GD",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "GD — Rue Stradun, Dubrovnik .jpg — CC BY-SA 3.0; link the licence, note modifications and apply compatible ShareAlike terms.",
+      "resolution": "2816x2112",
+      "cameraCoordinates": null,
+      "locationCheck": "Stradun subject confirmed; exact capture coordinates not supplied",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not-tested",
+      "commercialReuse": "allowed subject to attribution and ShareAlike terms",
+      "visualQualityNote": "high-resolution street view of the main street",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "IMG-20261126-GIBRALTAR-01",
+      "country": "Spain / Morocco",
+      "city": "Strait of Gibraltar",
+      "subject": "Satellite view of the Strait",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Straits_of_gibraltar_nasa.png",
+      "originalFileUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Straits_of_gibraltar_nasa.png",
+      "creator": "NASA World Wind",
+      "license": "Public domain (PD WorldWind)",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/File:Straits_of_gibraltar_nasa.png",
+      "attribution": "NASA World Wind — Straits of gibraltar nasa.png — public-domain layer; courtesy source credit recommended.",
+      "resolution": "992x653",
+      "cameraCoordinates": null,
+      "locationCheck": "Strait depicted and source description verified; image is a satellite screenshot rather than a street panorama",
+      "directOriginalAccess": "browser-open-success",
+      "mobileDisplay": "not-tested",
+      "commercialReuse": "allowed as public-domain NASA WorldWind layer; verify source-layer provenance if republishing",
+      "visualQualityNote": "small satellite image; suitable only after mobile crop/quality review",
+      "status": "review_required_not_playable",
+      "playable": false
+    }
+  ]
+}
