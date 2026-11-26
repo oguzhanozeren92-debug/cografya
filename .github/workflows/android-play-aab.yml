@@ -126,7 +126,13 @@ jobs:
           set -euo pipefail
           cd android
           chmod +x gradlew
-          ./gradlew bundleRelease --no-daemon
+          # Maven Central sometimes answers 429 to shared GitHub runner IPs; retry with backoff.
+          for attempt in 1 2 3 4; do
+            if ./gradlew bundleRelease --no-daemon; then ok=1; break; fi
+            echo "::warning::Gradle attempt $attempt failed; retrying after backoff"
+            sleep $((attempt * 60))
+          done
+          [ "${ok:-0}" = "1" ] || { echo "::error::Gradle build failed after retries"; exit 1; }
           ls -la app/build/outputs/bundle/release/
 
       - name: Sign AAB with upload key
