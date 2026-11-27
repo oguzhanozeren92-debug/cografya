@@ -1,0 +1,443 @@
+{
+  "schemaVersion": 1,
+  "project": "Globriva",
+  "createdAt": "2026-11-27",
+  "purpose": "Review-only geography questions and Commons image-source candidates; not imported by gameplay loaders or published.",
+  "status": "review_required_not_playable",
+  "playable": false,
+  "duplicateCheck": {
+    "checkedAgainst": [
+      "2026-11-24 question round",
+      "2026-11-25 question round",
+      "2026-11-26 question round"
+    ],
+    "exactQuestionDuplicates": 0,
+    "repeatedDailyLocations": 0,
+    "note": "Manually cross-checked topic and location themes against the three recent daily packs. The complete question-drafts catalog was not retrieved this run, so this is not a full historical duplicate audit."
+  },
+  "candidates": [
+    {
+      "id": "GLO-20261127-FLAG-01",
+      "category": "flag",
+      "subcategory": "flag-symbolism-unity",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Güney Afrika bayrağındaki merkezden uzanan V biçimi resmî açıklamada hangi fikri temsil edebilecek şekilde yorumlanır?",
+        "en": "What does South Africa's flag's central V-shape officially interpret as symbolically?"
+      },
+      "choices": {
+        "tr": [
+          "Toplumun farklı unsurlarının birleşmesi ve birlik yönünde ilerlemesi",
+          "Ülkenin iki ana nehri",
+          "Beş farklı iklim kuşağı",
+          "Altı bağımsız eyalet"
+        ],
+        "en": [
+          "Convergence of diverse elements and moving forward in unity",
+          "The country's two main rivers",
+          "Five climate zones",
+          "Six independent provinces"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Güney Afrika hükümeti V biçimini toplumun çeşitli unsurlarının birleşmesi ve birlik içinde ilerlemesi şeklinde yorumlar; renklerin herkes için tek ve evrensel anlamı olduğunu belirtmez.",
+        "en": "The South African government interprets the V as convergence of diverse elements and moving forward in unity; it does not assign one universal meaning to every colour."
+      },
+      "factSource": "https://www.gov.za/xh/about-sa/national-flag",
+      "secondarySource": "https://presidency.gov.za/south-african-flag",
+      "imageCandidateId": null,
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-20261127-CULT-01",
+      "category": "culture",
+      "subcategory": "ifugao-terrace-water-management",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Ifugao pirinç teraslarının geleneksel sulama sistemi suyu ağırlıklı olarak nereden toplar?",
+        "en": "Where does the traditional Ifugao rice-terrace irrigation system primarily collect water from?"
+      },
+      "choices": {
+        "tr": [
+          "Dağların üst kesimlerindeki orman ve kaynaklardan",
+          "Deniz kıyısındaki tuzlu lagünlerden",
+          "Yeraltı petrol kuyularından",
+          "Yalnızca şehir şebekesinden"
+        ],
+        "en": [
+          "Forests and sources in the upper mountain slopes",
+          "Salty coastal lagoons",
+          "Underground oil wells",
+          "Only urban water networks"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO, terasların dağ zirvelerindeki ormanlardan su toplayan karmaşık sulama düzeni ve toplulukların ortak bakım anlayışıyla yaşatıldığını anlatır.",
+        "en": "UNESCO describes the terraces as sustained by intricate irrigation harvesting water from mountain-top forests and by cooperative community maintenance."
+      },
+      "factSource": "https://whc.unesco.org/en/list/722/",
+      "imageCandidateId": "IMG-20261127-IFUGAO-01",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-20261127-CIV-01",
+      "category": "civilization",
+      "subcategory": "bagan-period",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Myanmar'daki Bagan kutsal mimari peyzajı, Bagan uygarlığının hangi dönemdeki zirvesine tanıklık eder?",
+        "en": "Which period of the Bagan civilization's peak is witnessed by Bagan's sacred architectural landscape?"
+      },
+      "choices": {
+        "tr": [
+          "11.–13. yüzyıllar",
+          "MÖ 5.–3. yüzyıllar",
+          "15.–17. yüzyıllar",
+          "20. yüzyıl"
+        ],
+        "en": [
+          "11th–13th centuries CE",
+          "5th–3rd centuries BCE",
+          "15th–17th centuries CE",
+          "20th century"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO Bagan'daki tapınak, stupa, manastır ve kutsal alanların 11.–13. yüzyıllarda bölgesel imparatorluğun başkent olduğu dönemi yansıttığını belirtir.",
+        "en": "UNESCO describes Bagan's temples, stupas, monasteries and pilgrimage sites as testimony to the civilization's peak in the 11th–13th centuries."
+      },
+      "factSource": "https://whc.unesco.org/en/list/1588/",
+      "imageCandidateId": "IMG-20261127-BAGAN-01",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-20261127-CULT-02",
+      "category": "culture",
+      "subcategory": "pre-saharan-ksar-earthen-architecture",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Aït Benhaddou'daki geleneksel ksar yapılarının temel yapı malzemesi ve koruyucu düzeni hangisidir?",
+        "en": "Which material and protective arrangement characterize the traditional ksar at Aït Benhaddou?"
+      },
+      "choices": {
+        "tr": [
+          "Toprak/kerpiç yapılar ve savunma duvarları",
+          "Çelik gökdelenler ve cam cepheler",
+          "Buz blokları ve ahşap çitler",
+          "Mermer kolonlar ve su kanalları"
+        ],
+        "en": [
+          "Earthen/adobe buildings and defensive walls",
+          "Steel skyscrapers and glass façades",
+          "Ice blocks and wooden fences",
+          "Marble columns and water channels"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Aït Benhaddou, köşe kuleleriyle güçlendirilmiş yüksek savunma duvarlarının içindeki sık kümelenmiş toprak yapılarıyla güney Fas'ın geleneksel ksar mimarisini örnekler.",
+        "en": "Aït Benhaddou exemplifies southern Moroccan ksar architecture: compact earthen buildings within high defensive walls reinforced by corner towers."
+      },
+      "factSource": "https://whc.unesco.org/en/list/444",
+      "imageCandidateId": "IMG-20261127-AITBEN-01",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-20261127-NATURE-01",
+      "category": "nature",
+      "subcategory": "kaziranga-floodplain-process",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Kaziranga'nın Brahmaputra taşkın ovasındaki yıllık su değişimleri hangi ekolojik süreci sürdürür?",
+        "en": "What ecological process do annual water fluctuations in Kaziranga's Brahmaputra floodplain sustain?"
+      },
+      "choices": {
+        "tr": [
+          "Alüvyal otlaklar, sığ havuzlar ve habitatların dinamik oluşumu",
+          "Kalıcı buz örtüsünün oluşması",
+          "Mercan resiflerinin büyümesi",
+          "Çöl kumullarının sabitlenmesi"
+        ],
+        "en": [
+          "Dynamic formation of alluvial grasslands, shallow pools and habitats",
+          "Formation of permanent ice cover",
+          "Growth of coral reefs",
+          "Stabilization of desert dunes"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Brahmaputra'nın taşkın, erozyon, sediment birikimi ve yeni su alanları oluşturması Kaziranga'nın alüvyal otlak ve orman habitatlarını şekillendirir.",
+        "en": "Flooding, erosion, sedimentation and new water bodies created by the Brahmaputra shape Kaziranga's alluvial grassland and woodland habitats."
+      },
+      "factSource": "https://whc.unesco.org/en/list/337/",
+      "imageCandidateId": "IMG-20261127-KAZIRANGA-01",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-20261127-CITY-01",
+      "category": "city",
+      "subcategory": "valparaiso-hillside-funiculars",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Valparaíso'nun tarihî yamaç mahalleleriyle liman düzlüğünü birbirine bağlayan erken sanayi dönemi ulaşım altyapısı hangisidir?",
+        "en": "Which early-industrial transport infrastructure connects Valparaíso's hillside neighbourhoods and port plain?"
+      },
+      "choices": {
+        "tr": [
+          "Ascensores (füniküler asansörler)",
+          "Yeraltı metro tünelleri",
+          "Hava tramvayları",
+          "Kanatlı yaya köprüleri"
+        ],
+        "en": [
+          "Ascensores (funicular lifts)",
+          "Underground metro tunnels",
+          "Aerial trams",
+          "Winged pedestrian bridges"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO, Valparaíso'nun dik yamaçlarında korunmuş erken sanayi altyapısı olarak eğimli funiküler asansörleri vurgular.",
+        "en": "UNESCO highlights the preserved hillside funicular elevators as distinctive early-industrial infrastructure in Valparaíso."
+      },
+      "factSource": "https://whc.unesco.org/en/list/959/",
+      "imageCandidateId": "IMG-20261127-VALPO-01",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-20261127-CIV-02",
+      "category": "civilization",
+      "subcategory": "timbuktu-sankore-learning",
+      "difficulty": "hard",
+      "question": {
+        "tr": "Timbuktu'nun 15.–16. yüzyıllardaki entelektüel merkez niteliğiyle ilişkilendirilen eğitim kurumu hangisidir?",
+        "en": "Which educational institution is associated with Timbuktu's intellectual prominence in the 15th–16th centuries?"
+      },
+      "choices": {
+        "tr": [
+          "Sankore",
+          "Al-Azhar yalnızca Kahire'de",
+          "Nalanda yalnızca Bihar'da",
+          "Oxford"
+        ],
+        "en": [
+          "Sankore",
+          "Al-Azhar only in Cairo",
+          "Nalanda only in Bihar",
+          "Oxford"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO Timbuktu'yu Sankore ve diğer medreseleriyle 15.–16. yüzyıllarda İslam kültürünün Afrika'da yayılmasına katkı veren önemli bir merkez olarak tanımlar.",
+        "en": "UNESCO describes Timbuktu, including Sankore and other madrasas, as an important centre for the propagation of Islamic culture in Africa in the 15th–16th centuries."
+      },
+      "factSource": "https://whc.unesco.org/en/list/119/",
+      "imageCandidateId": "IMG-20261127-TIMBUKTU-01",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-20261127-ISLAND-01",
+      "category": "island",
+      "subcategory": "spitsbergen-seed-vault",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Svalbard Küresel Tohum Deposu, Norveç'in hangi adasında bulunan dağın içine yerleştirilmiştir?",
+        "en": "On which Norwegian island is the Svalbard Global Seed Vault built into a mountain?"
+      },
+      "choices": {
+        "tr": [
+          "Spitsbergen",
+          "Jan Mayen",
+          "Senja",
+          "Hinnøya"
+        ],
+        "en": [
+          "Spitsbergen",
+          "Jan Mayen",
+          "Senja",
+          "Hinnøya"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "Depo, Svalbard takımadasının Spitsbergen adasında, permafrostlu bir dağın içine inşa edilmiştir.",
+        "en": "The vault is built into a permafrost mountain on Spitsbergen, in the Svalbard archipelago."
+      },
+      "factSource": "https://www.seedvault.no/about/the-facility/",
+      "secondarySource": "https://www.fao.org/plant-treaty/news/news-detail/svalbard-global-seed-vault-crosses-major-milestone---1.4-million-seed-samples-secured/",
+      "imageCandidateId": "IMG-20261127-SVALBARD-01",
+      "status": "review_required_not_playable",
+      "playable": false
+    },
+    {
+      "id": "GLO-20261127-BORDER-01",
+      "category": "border",
+      "subcategory": "iguazu-international-border",
+      "difficulty": "medium",
+      "question": {
+        "tr": "Iguazú/Iguaçu Şelaleleri'nin basaltik kademeleri hangi iki ülkenin sınırında uzanır?",
+        "en": "Across which two countries does the basaltic front of Iguazú/Iguaçu Falls extend?"
+      },
+      "choices": {
+        "tr": [
+          "Arjantin ve Brezilya",
+          "Şili ve Peru",
+          "Bolivya ve Paraguay",
+          "Uruguay ve Paraguay"
+        ],
+        "en": [
+          "Argentina and Brazil",
+          "Chile and Peru",
+          "Bolivia and Paraguay",
+          "Uruguay and Paraguay"
+        ]
+      },
+      "correctIndex": 0,
+      "explanation": {
+        "tr": "UNESCO şelale cephesinin Arjantin ve Brezilya sınırını izlediğini belirtir; iki ülkedeki komşu milli parklar sistemi korur.",
+        "en": "UNESCO describes the waterfall front as spanning the Argentina–Brazil border, protected by adjoining national parks in both countries."
+      },
+      "factSource": "https://whc.unesco.org/en/list/303/",
+      "secondarySource": "https://whc.unesco.org/en/list/355/",
+      "imageCandidateId": null,
+      "status": "review_required_not_playable",
+      "playable": false
+    }
+  ],
+  "imageCandidates": [
+    {
+      "id": "IMG-20261127-IFUGAO-01",
+      "subject": "Batad/Ifugao rice terraces",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Banaue_Rice_Terraces_-_Ifugao.jpg",
+      "author": "Pogidawako1234",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "dimensions": "4160x3120",
+      "sourcePageVerified": true,
+      "locationTextVerified": true,
+      "cameraCoordinates": null,
+      "directFileUrlVerified": false,
+      "mobileDisplayTested": false,
+      "status": "review_required_not_playable",
+      "commercialUse": "Allowed subject to attribution and ShareAlike; note any changes."
+    },
+    {
+      "id": "IMG-20261127-BAGAN-01",
+      "subject": "Bagan temple landscape",
+      "filePage": "https://commons.wikimedia.org/wiki/File:View_of_Bagan_temples.jpg",
+      "author": "Christophe95",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "dimensions": "5184x3888",
+      "sourcePageVerified": true,
+      "locationTextVerified": true,
+      "cameraCoordinates": {
+        "lat": 21.145173,
+        "lng": 94.882231
+      },
+      "directFileUrlVerified": false,
+      "mobileDisplayTested": false,
+      "status": "review_required_not_playable",
+      "commercialUse": "Allowed subject to attribution and ShareAlike; note any changes."
+    },
+    {
+      "id": "IMG-20261127-AITBEN-01",
+      "subject": "Aït Benhaddou fortified earthen village",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Ksar_ait_benhaddou.jpg",
+      "author": "Kassimi m'bark",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "dimensions": "8000x4499",
+      "sourcePageVerified": true,
+      "locationTextVerified": true,
+      "cameraCoordinates": null,
+      "directFileUrlVerified": false,
+      "mobileDisplayTested": false,
+      "status": "review_required_not_playable",
+      "commercialUse": "Allowed subject to attribution and ShareAlike; note any changes."
+    },
+    {
+      "id": "IMG-20261127-KAZIRANGA-01",
+      "subject": "One horned Rhinoceros in Kaziranga National Park",
+      "filePage": "https://commons.wikimedia.org/wiki/File:One_horned_Rhinoceros_in_Kaziranga_National_Park.jpg",
+      "author": "Horshadeep Saikia",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "dimensions": "5456x3064",
+      "sourcePageVerified": true,
+      "locationTextVerified": true,
+      "cameraCoordinates": null,
+      "directFileUrlVerified": false,
+      "mobileDisplayTested": false,
+      "status": "review_required_not_playable",
+      "commercialUse": "Allowed subject to attribution and ShareAlike; note any changes."
+    },
+    {
+      "id": "IMG-20261127-VALPO-01",
+      "subject": "Ascensor Artillería, Valparaíso",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Ascensor_Artiller%C3%ADa.jpg",
+      "author": "Javier Rubilar",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "dimensions": "3215x2448",
+      "sourcePageVerified": true,
+      "locationTextVerified": true,
+      "cameraCoordinates": {
+        "lat": -33.032611,
+        "lng": -71.630333
+      },
+      "directFileUrlVerified": false,
+      "mobileDisplayTested": false,
+      "status": "review_required_not_playable",
+      "commercialUse": "Allowed subject to attribution and ShareAlike; note any changes."
+    },
+    {
+      "id": "IMG-20261127-TIMBUKTU-01",
+      "subject": "Sankore Mosque in Timbuktu",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Sankore_Mosque_in_Timbuktu.jpg",
+      "author": "upyernoz",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "dimensions": "2831x1836",
+      "sourcePageVerified": true,
+      "locationTextVerified": true,
+      "cameraCoordinates": {
+        "lat": 16.77622,
+        "lng": -3.00592
+      },
+      "directFileUrlVerified": false,
+      "mobileDisplayTested": false,
+      "status": "review_required_not_playable",
+      "commercialUse": "Allowed subject to attribution; no ShareAlike requirement under CC BY 2.0."
+    },
+    {
+      "id": "IMG-20261127-SVALBARD-01",
+      "subject": "Entrance to Svalbard Global Seed Vault",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Svalbard_seed_vault.jpg",
+      "author": "Einar Jørgen Haraldseid",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "dimensions": "3702x2484",
+      "sourcePageVerified": true,
+      "locationTextVerified": true,
+      "cameraCoordinates": null,
+      "directFileUrlVerified": false,
+      "mobileDisplayTested": false,
+      "status": "review_required_not_playable",
+      "commercialUse": "Allowed subject to attribution and ShareAlike; note any changes."
+    }
+  ]
+}
